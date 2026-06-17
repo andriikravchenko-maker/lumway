@@ -3,6 +3,7 @@
    to elements in sections throughout the theme
 */
 
+
 /* Debug: Check if CSS variables are available */
 :root {
   --accent-debug: var(--font-accent-family, "ACCENT_FONT_NOT_SET");

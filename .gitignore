@@ -1,3 +1,14 @@
 .DS_Store
 .idea
 .claude
+
+# Shopify CLI
+.shopify/
+
+# Node / dependencies
+node_modules/
+
+# Local developer config (store + personal theme ID)
+.env
+.env.*
+!.env.example
