@@ -101,6 +101,26 @@
     {% endunless %}
   }
 
+  {% if block.settings.enable_heartbeat %}
+  @keyframes heartbeat-{{ block.id }} {
+    0%   { transform: scale(1); }
+    14%  { transform: scale(1.06); }
+    28%  { transform: scale(1); }
+    42%  { transform: scale(1.06); }
+    70%  { transform: scale(1); }
+  }
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
+    animation: heartbeat-{{ block.id }} 1.5s ease-in-out infinite;
+    transform-origin: center;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
+      animation: none;
+    }
+  }
+  {% endif %}
+
   {% if request.page_type == 'page' %}
   .listicle-sticky-atc-{{ block.id }}:hover,
   .listicle-sticky-atc-{{ block.id }}:focus,
@@ -195,6 +215,13 @@
       "id": "button_text_color",
       "label": "Button Text Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_heartbeat",
+      "label": "Heartbeat animation",
+      "default": true,
+      "info": "Pulsing heartbeat effect on the button to draw attention."
     },
     {
       "type": "range",

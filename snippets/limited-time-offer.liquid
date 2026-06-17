@@ -29,6 +29,33 @@
     assign compare_price_display = compare_prefix | append: compare_price | append: compare_suffix
   endif
 
+  assign lto_show_save_badge = offer_settings.show_save_badge
+  if lto_show_save_badge == nil
+    assign lto_show_save_badge = true
+  endif
+
+  if lto_show_save_badge
+    if offer_settings.save_badge_text != blank
+      assign save_badge_display = offer_settings.save_badge_text
+    elsif compare_price != blank and current_price != blank
+      assign cp_num = compare_price | remove: '$' | remove: ',' | strip | times: 1.0
+      assign pr_num = current_price | remove: '$' | remove: ',' | strip | times: 1.0
+      assign save_amount = cp_num | minus: pr_num
+      if save_amount > 0
+        assign save_cents_total = save_amount | times: 100 | round
+        assign save_whole = save_cents_total | divided_by: 100
+        assign save_cents = save_cents_total | modulo: 100
+        assign save_value = save_whole | append: '.'
+        if save_cents < 10
+          assign save_value = save_value | append: '0'
+        endif
+        assign save_value = save_value | append: save_cents
+        assign save_badge_prefix = offer_settings.save_badge_prefix | default: 'Save $'
+        assign save_badge_display = save_badge_prefix | append: save_value
+      endif
+    endif
+  endif
+
   assign lto_section_bg = offer_settings.section_bg_color | default: '#ffffff'
   assign lto_card_bg = offer_settings.card_bg_color | default: '#ffffff'
   assign lto_media_bg = offer_settings.media_bg_color | default: '#fcf5cf'
@@ -52,6 +79,8 @@
   assign lto_btn_hover = offer_settings.button_hover_bg_color | default: '#1a1c1e'
   assign lto_badge_bg = offer_settings.badge_bg_color | default: '#ffffff'
   assign lto_badge_color = offer_settings.badge_text_color | default: '#2d5a27'
+  assign lto_save_bg = offer_settings.save_badge_bg_color | default: '#d22f2f'
+  assign lto_save_color = offer_settings.save_badge_text_color | default: '#ffffff'
   assign lto_check = offer_settings.check_color | default: '#52c663'
   assign lto_max_width = offer_settings.max_width | default: 960
   assign lto_content_pad_x = offer_settings.content_padding_x | default: 24
@@ -94,7 +123,7 @@
   data-section-id="{{ offer_id }}"
 >
   <div class="lto__wrap">
-    <div class="lto__card">
+    <div class="lto__card"{% if offer_settings.anchor_id != blank %} id="{{ offer_settings.anchor_id }}"{% endif %}>
       {% if offer_settings.chip_text != blank %}
         <div class="lto__chip">{{ offer_settings.chip_text }}</div>
       {% endif %}
@@ -197,7 +226,12 @@
           {% endif %}
 
           {% if compare_price_display != blank %}
-            <p class="lto__compare">{{ compare_price_display }}</p>
+            <p class="lto__compare">
+              {{ compare_price_display }}
+              {% if lto_show_save_badge and save_badge_display != blank %}
+                <span class="lto__save-badge">{{ save_badge_display }}</span>
+              {% endif %}
+            </p>
           {% endif %}
 
           {% if offer_settings.description != blank %}
@@ -296,6 +330,8 @@
     --lto-btn-hover: {{ lto_btn_hover }};
     --lto-badge-bg: {{ lto_badge_bg }};
     --lto-badge-color: {{ lto_badge_color }};
+    --lto-save-bg: {{ lto_save_bg }};
+    --lto-save-color: {{ lto_save_color }};
     --lto-check: {{ lto_check }};
     --lto-max-width: {{ lto_max_width }}px;
     --lto-content-pad-x: {{ lto_content_pad_x }}px;
@@ -335,6 +371,7 @@
     border-radius: var(--lto-border-radius);
     overflow: visible;
     padding: {{ lto_card_padding }}px;
+    scroll-margin-top: 90px;
   }
 
   .lto--{{ offer_id }} .lto__chip {
@@ -547,6 +584,26 @@
     font-weight: 700;
     line-height: 1.2;
     color: var(--lto-text);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .lto--{{ offer_id }} .lto__save-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--lto-save-bg);
+    color: var(--lto-save-color);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    padding: 5px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .lto--{{ offer_id }} .lto__description {

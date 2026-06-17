@@ -15,6 +15,12 @@
   "name": "Limited Time Offer",
   "settings": [
     {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Set an ID (e.g. gut-reset-offer) so CTA buttons can scroll to this offer."
+    },
+    {
       "type": "header",
       "content": "Top chip"
     },
@@ -90,6 +96,41 @@
       "id": "compare_price",
       "label": "Compare price",
       "default": "$45.99"
+    },
+    {
+      "type": "header",
+      "content": "Save badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_save_badge",
+      "label": "Show save badge",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "save_badge_prefix",
+      "label": "Save badge prefix",
+      "default": "Save $",
+      "info": "Used when the amount is calculated automatically from price and compare price."
+    },
+    {
+      "type": "text",
+      "id": "save_badge_text",
+      "label": "Save badge text (manual override)",
+      "info": "Leave empty to auto-calculate the savings (compare price − price)."
+    },
+    {
+      "type": "color",
+      "id": "save_badge_bg_color",
+      "label": "Save badge background",
+      "default": "#d22f2f"
+    },
+    {
+      "type": "color",
+      "id": "save_badge_text_color",
+      "label": "Save badge text color",
+      "default": "#ffffff"
     },
     {
       "type": "textarea",
