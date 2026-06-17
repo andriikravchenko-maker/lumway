@@ -1,0 +1,435 @@
+{% comment %} Section: gut-harmony-cta — centered closing block: title + seal-check feature list + CTA {% endcomment %}
+
+{%- unless settings.enable_oswald_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+{%- unless settings.enable_league_spartan_font -%}
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign title_color = settings.global_section_heading_color | default: settings.global_section_text_color
+    assign text_color = settings.global_section_text_color
+    assign icon_color = settings.global_section_text_color
+    assign button_bg = settings.global_button_bg_color | default: settings.global_section_accent_1_color
+    assign button_text_color = settings.global_button_text_color | default: '#ffffff'
+    assign button_hover_bg = settings.global_button_hover_bg_color | default: settings.global_section_accent_1_color
+  else
+    assign background_color = section.settings.background_color
+    assign title_color = section.settings.title_color
+    assign text_color = section.settings.text_color
+    assign icon_color = section.settings.icon_color
+    assign button_bg = section.settings.button_bg
+    assign button_text_color = section.settings.button_text_color
+    assign button_hover_bg = section.settings.button_hover_bg
+  endif
+-%}
+
+{%- capture check_icon -%}
+<svg class="gut-harmony-cta__icon-svg" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M20 3C21.3957 3 22.4761 4.00202 23.5879 5.07031H23.5889C23.8937 5.362 24.219 5.6747 24.54 5.94238C24.8563 6.20611 25.201 6.45425 25.5498 6.59863V6.59961C25.8795 6.73672 26.2829 6.79678 26.6738 6.8291C27.0719 6.862 27.507 6.86881 27.9131 6.875C29.4831 6.89913 30.9872 6.94422 32.0215 7.97852C33.0558 9.01281 33.1009 10.5169 33.125 12.0869C33.1312 12.493 33.138 12.9281 33.1709 13.3262C33.2032 13.7168 33.2635 14.1197 33.4004 14.4492C33.5447 14.7992 33.7937 15.1436 34.0576 15.46C34.3253 15.7808 34.6382 16.1065 34.9297 16.4111V16.4121C35.9984 17.5259 37 18.6043 37 20C37 21.3957 35.998 22.4761 34.9297 23.5879V23.5889C34.638 23.8937 34.3253 24.219 34.0576 24.54C33.7938 24.8565 33.5448 25.2009 33.4004 25.5498C33.2633 25.8795 33.2032 26.2829 33.1709 26.6738C33.138 27.0719 33.1312 27.507 33.125 27.9131C33.1009 29.4831 33.0558 30.9872 32.0215 32.0215C30.9872 33.0558 29.4831 33.1009 27.9131 33.125C27.507 33.1312 27.0719 33.138 26.6738 33.1709C26.2829 33.2032 25.8795 33.2633 25.5498 33.4004C25.2001 33.5448 24.8561 33.7939 24.54 34.0576C24.2192 34.3253 23.8935 34.6382 23.5889 34.9297H23.5879C22.4741 35.9984 21.3957 37 20 37C18.6043 37 17.5239 35.998 16.4121 34.9297H16.4111C16.1063 34.638 15.781 34.3253 15.46 34.0576C15.1433 33.7936 14.7985 33.5447 14.4492 33.4004H14.4502C14.1205 33.2633 13.7171 33.2032 13.3262 33.1709C12.9281 33.138 12.493 33.1312 12.0869 33.125C10.5169 33.1009 9.01281 33.0558 7.97852 32.0215C6.94422 30.9872 6.89913 29.4831 6.875 27.9131C6.86881 27.507 6.862 27.0719 6.8291 26.6738C6.79678 26.2829 6.73575 25.8795 6.59863 25.5498C6.45424 25.2002 6.20598 24.856 5.94238 24.54C5.67467 24.2192 5.36182 23.8935 5.07031 23.5889V23.5879L4.6748 23.1719C3.76698 22.2 3 21.2215 3 20C3 18.6043 4.00202 17.5239 5.07031 16.4121V16.4111C5.362 16.1063 5.6747 15.781 5.94238 15.46C6.20632 15.1434 6.4543 14.7983 6.59863 14.4492L6.59961 14.4502C6.73672 14.1205 6.79678 13.7171 6.8291 13.3262C6.86193 12.9289 6.86882 12.4952 6.875 12.0898C6.90728 10.5147 6.9442 9.01284 7.97852 7.97852C9.01281 6.94422 10.5169 6.89913 12.0869 6.875C12.493 6.86881 12.9287 6.862 13.3271 6.8291C13.7181 6.79682 14.1223 6.73625 14.4512 6.59863L14.4502 6.59766C14.7997 6.45324 15.1441 6.20589 15.46 5.94238C15.7808 5.67467 16.1065 5.36182 16.4111 5.07031H16.4121C17.5259 4.00162 18.6043 3 20 3ZM26.25 14.499C26.0201 14.499 25.7925 14.5448 25.5801 14.6328C25.3677 14.7208 25.1743 14.8492 25.0117 15.0117L17.5 22.5244L14.9883 20.0117L14.8604 19.8965C14.7276 19.7876 14.5792 19.6988 14.4199 19.6328C14.2075 19.5448 13.9799 19.499 13.75 19.499C13.2857 19.499 12.84 19.6834 12.5117 20.0117C12.3492 20.1743 12.2208 20.3677 12.1328 20.5801C12.0448 20.7925 11.999 21.0201 11.999 21.25C11.999 21.4799 12.0448 21.7075 12.1328 21.9199C12.2208 22.1323 12.3492 22.3257 12.5117 22.4883L16.2617 26.2383V26.2373C16.4242 26.4 16.6176 26.5291 16.8301 26.6172C17.0425 26.7052 17.27 26.751 17.5 26.751C17.73 26.751 17.9575 26.7052 18.1699 26.6172C18.3823 26.5292 18.5748 26.3999 18.7373 26.2373L18.7383 26.2383L27.4883 17.4883C27.6508 17.3257 27.7792 17.1323 27.8672 16.9199C27.9552 16.7075 28.001 16.4799 28.001 16.25L27.9922 16.0781C27.9753 15.9072 27.9332 15.7394 27.8672 15.5801C27.7792 15.3677 27.6508 15.1743 27.4883 15.0117C27.3257 14.8492 27.1323 14.7208 26.9199 14.6328C26.7075 14.5448 26.4799 14.499 26.25 14.499Z" fill="currentColor"/></svg>
+{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --ghc-font-heading: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghc-font-body: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghc-bg: {{ background_color }};
+    --ghc-title-color: {{ title_color }};
+    --ghc-text-color: {{ text_color }};
+    --ghc-icon-color: {{ icon_color }};
+    --ghc-button-bg: {{ button_bg }};
+    --ghc-button-text: {{ button_text_color }};
+    --ghc-button-hover-bg: {{ button_hover_bg }};
+    --ghc-title-size: {{ section.settings.title_size }}px;
+    --ghc-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --ghc-text-size: {{ section.settings.text_size }}px;
+    --ghc-button-size: {{ section.settings.button_font_size }}px;
+    --ghc-button-radius: {{ section.settings.button_radius }}px;
+    --ghc-content-gap: {{ section.settings.content_gap }}px;
+    --ghc-feature-gap: {{ section.settings.feature_gap }}px;
+    --ghc-pad-top: {{ section.settings.padding_top }}px;
+    --ghc-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --ghc-pad-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ghc-pad-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--ghc-bg);
+    padding-top: var(--ghc-pad-top-mobile);
+    padding-bottom: var(--ghc-pad-bottom-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ghc-content-gap);
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  /* theme forces [class*="title"] color !important; keep the design color. h2 keeps Oswald (not a span). */
+  .section-{{ section.id }} .gut-harmony-cta__title {
+    margin: 0;
+    font-family: var(--ghc-font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--ghc-title-color) !important;
+    font-size: clamp(var(--ghc-title-size-mobile), 3.6vw, var(--ghc-title-size));
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ghc-feature-gap);
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__feature {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    color: var(--ghc-icon-color);
+    line-height: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__icon-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* theme forces span { font-family: body !important }; keep League Spartan Medium per the design */
+  .section-{{ section.id }} .gut-harmony-cta__feature-text {
+    font-family: var(--ghc-font-body) !important;
+    font-weight: 500 !important;
+    font-size: var(--ghc-text-size);
+    line-height: 1.4;
+    color: var(--ghc-text-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    /* padding + font shrink on small screens; text wraps instead of spilling past the pill */
+    padding: 12px clamp(24px, 6vw, 64px);
+    font-family: var(--ghc-font-body) !important;
+    font-weight: 500;
+    font-size: clamp(16px, 4.6vw, var(--ghc-button-size));
+    line-height: 1.4;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: var(--ghc-button-text);
+    background-color: var(--ghc-button-bg);
+    border: 0;
+    border-radius: var(--ghc-button-radius);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__button:hover {
+    background-color: var(--ghc-button-hover-bg);
+    transform: translateY(-2px);
+  }
+
+  .section-{{ section.id }} .gut-harmony-cta__button:focus-visible {
+    outline: 3px solid var(--ghc-button-bg);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .gut-harmony-cta__button {
+      transition: none;
+    }
+    .section-{{ section.id }} .gut-harmony-cta__button:hover {
+      transform: none;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      padding-top: var(--ghc-pad-top);
+      padding-bottom: var(--ghc-pad-bottom);
+    }
+  }
+{% endstyle %}
+
+<section class="gut-harmony-cta section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="gut-harmony-cta__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="gut-harmony-cta__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="gut-harmony-cta__features">
+        {%- for block in section.blocks -%}
+          <li class="gut-harmony-cta__feature" {{ block.shopify_attributes }}>
+            <span class="gut-harmony-cta__icon">{{ check_icon }}</span>
+            <span class="gut-harmony-cta__feature-text">{{ block.settings.text }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <a class="gut-harmony-cta__button" href="{{ section.settings.button_url | default: '#' }}">
+        {{- section.settings.button_text -}}
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gut Harmony CTA",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between title, list and button",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "feature_gap",
+      "label": "Gap between feature items",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#f2f9f2"
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Take Control Of Your Digestion Again"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 16,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Feature text"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Feature text size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Feature text color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Check icon color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "START YOUR DAILY GUT ROUTINE →"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button color",
+      "default": "#23a02a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Button color (hover)",
+      "default": "#1d8a23"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Feature text",
+          "default": "Feature text"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Gut Harmony CTA",
+      "category": "Custom Content",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "90-Day Smooth Digestion Guarantee" } },
+        { "type": "feature", "settings": { "text": "Made in the USA" } },
+        { "type": "feature", "settings": { "text": "Apple Cider Vinegar + Probiotic + Ginger Formula" } },
+        { "type": "feature", "settings": { "text": "Trusted By Women 50+" } },
+        { "type": "feature", "settings": { "text": "1+1=3 Bundle" } },
+        { "type": "feature", "settings": { "text": "Designed To Support Digestion & Post-Meal Comfort*" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

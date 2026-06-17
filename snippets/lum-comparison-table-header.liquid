@@ -1,0 +1,61 @@
+{% comment %}
+  Snippet: LCT table header row
+  Params: table_settings
+{% endcomment %}
+
+{%- liquid
+  assign lct_hide_feature_header = table_settings.hide_feature_header
+  if lct_hide_feature_header == nil
+    assign lct_hide_feature_header = true
+  endif
+  assign lct_brand_title = table_settings.brand_title | default: 'Gut Harmony ACV'
+  assign lct_competitor_title = table_settings.competitor_title | default: 'Typical Gut Gummies'
+-%}
+
+<div class="lct__row lct__row--header">
+  <div class="lct__cell lct__cell--label lct__cell--header{% if lct_hide_feature_header %} lct__cell--empty{% endif %}">
+    {% unless lct_hide_feature_header %}
+      <span class="lct__header-label">{{ table_settings.feature_header | default: 'Features' }}</span>
+    {% endunless %}
+  </div>
+
+  <div class="lct__cell lct__cell--brand lct__cell--header lct__cell--brand-first">
+    <div class="lct__header-stack">
+      {% if table_settings.brand_image != blank %}
+        {{
+          table_settings.brand_image
+          | image_url: width: 200
+          | image_tag:
+            loading: 'lazy',
+            decoding: 'async',
+            class: 'lct__header-image',
+            alt: lct_brand_title,
+            widths: '72, 144, 200'
+        }}
+      {% else %}
+        <div class="lct__header-image lct__header-image--placeholder" aria-hidden="true"></div>
+      {% endif %}
+      <span class="lct__header-title">{{ lct_brand_title }}</span>
+    </div>
+  </div>
+
+  <div class="lct__cell lct__cell--competitor lct__cell--header">
+    <div class="lct__header-stack">
+      {% if table_settings.competitor_image != blank %}
+        {{
+          table_settings.competitor_image
+          | image_url: width: 200
+          | image_tag:
+            loading: 'lazy',
+            decoding: 'async',
+            class: 'lct__header-image',
+            alt: lct_competitor_title,
+            widths: '72, 144, 200'
+        }}
+      {% else %}
+        <div class="lct__header-image lct__header-image--placeholder" aria-hidden="true"></div>
+      {% endif %}
+      <span class="lct__header-title">{{ lct_competitor_title }}</span>
+    </div>
+  </div>
+</div>

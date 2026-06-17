@@ -1,0 +1,642 @@
+{% comment %}
+  Block: Limited Time Sale (Parent Block)
+  Uses nested theme blocks for maximum customizability
+{% endcomment %}
+
+<section class="lts-wrapper lts-wrapper-{{ block.id }}" {{ block.shopify_attributes }}>
+  <div class="lts-card lts-card-{{ block.id }}">
+    {% if block.settings.chip_text != blank %}
+      <div class="lts-chip lts-chip-{{ block.id }}">{{ block.settings.chip_text }}</div>
+    {% endif %}
+
+    <div class="lts-grid lts-grid-{{ block.id }}">
+      <!-- Left: Image Column -->
+      <div class="lts-media-col lts-media-col-{{ block.id }}">
+        {% if block.settings.fallback_image != blank %}
+          <div class="lts-image-fallback-{{ block.id }}">
+            {{ block.settings.fallback_image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+          </div>
+        {% else %}
+          <div class="lts-image-placeholder-{{ block.id }}">Add image in settings</div>
+        {% endif %}
+      </div>
+
+      <!-- Right: Content Column -->
+      <div class="lts-content-col lts-content-col-{{ block.id }}">
+        {% content_for 'blocks' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lts-wrapper-{{ block.id }} {
+    background: {{ block.settings.section_bg_color }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_x }}px {{ block.settings.padding_bottom }}px;
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+  }
+
+  .lts-card-{{ block.id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    background: {{ block.settings.card_bg_color }};
+    position: relative;
+    padding-top: {% if block.settings.chip_text != blank %}{{ block.settings.chip_offset }}px{% else %}0{% endif %};
+
+    {% if block.settings.border_style != 'none' %}
+      border: {{ block.settings.border_width }}px {{ block.settings.border_style }} {{ block.settings.border_color }};
+    {% endif %}
+
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: visible;
+  }
+
+  .lts-chip-{{ block.id }} {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    background: {{ block.settings.chip_bg_color }};
+    color: {{ block.settings.chip_text_color }};
+    font-weight: {{ block.settings.chip_font_weight }} !important;
+    font-size: {{ block.settings.chip_font_size }}px;
+    padding: {{ block.settings.chip_padding_y }}px {{ block.settings.chip_padding_x }}px;
+    letter-spacing: {{ block.settings.chip_letter_spacing }}px;
+    border-radius: {{ block.settings.chip_border_radius }}px;
+    white-space: nowrap;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .lts-grid-{{ block.id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: {{ block.settings.border_radius }}px;
+  }
+
+  .lts-media-col-{{ block.id }} {
+    background: {{ block.settings.media_bg_color }};
+    min-height: {{ block.settings.media_min_height }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lts-image-fallback-{{ block.id }} {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .lts-image-fallback-{{ block.id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: {{ block.settings.fallback_object_fit }};
+    object-position: {{ block.settings.fallback_object_position }};
+    display: block;
+  }
+
+  .lts-image-placeholder-{{ block.id }} {
+    width: 100%;
+    height: 100%;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    color: #999;
+    font-size: 14px;
+  }
+
+  .lts-content-col-{{ block.id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: {{ block.settings.content_padding_top }}px {{ block.settings.content_padding_x }}px {{ block.settings.content_padding_bottom }}px;
+    text-align: {{ block.settings.content_align }};
+  }
+
+  .lts-content-col-{{ block.id }} > * {
+    width: 100%;
+  }
+
+  @media (max-width: {{ block.settings.mobile_breakpoint }}px) {
+    .lts-chip-{{ block.id }} {
+      font-size: {{ block.settings.chip_font_size_mobile }}px;
+      padding: {{ block.settings.chip_padding_y_mobile }}px {{ block.settings.chip_padding_x_mobile }}px;
+      max-width: calc(100% - 24px);
+      white-space: normal;
+    }
+
+    .lts-grid-{{ block.id }} {
+      grid-template-columns: 1fr;
+    }
+
+    .lts-media-col-{{ block.id }} {
+      {% if block.settings.mobile_image_position == 'bottom' %}
+        order: 2;
+      {% else %}
+        order: 1;
+      {% endif %}
+      min-height: {{ block.settings.media_min_height_mobile }}px;
+    }
+
+    .lts-content-col-{{ block.id }} {
+      {% if block.settings.mobile_image_position == 'bottom' %}
+        order: 1;
+      {% else %}
+        order: 2;
+      {% endif %}
+      padding: {{ block.settings.content_padding_top_mobile }}px {{ block.settings.content_padding_x_mobile }}px {{ block.settings.content_padding_bottom_mobile }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Limited Time Sale",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Chip"
+    },
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Chip Text",
+      "default": "FREE $40 PREMIUM SERUM WITH YOUR ORDER"
+    },
+    {
+      "type": "color",
+      "id": "chip_bg_color",
+      "label": "Chip Background",
+      "default": "#25282A"
+    },
+    {
+      "type": "color",
+      "id": "chip_text_color",
+      "label": "Chip Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "chip_font_size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Chip Font Size",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "chip_font_size_mobile",
+      "min": 8,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "label": "Chip Font Size (Mobile)",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "chip_font_weight",
+      "label": "Chip Font Weight",
+      "options": [
+        { "value": "600", "label": "Semi-Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "chip_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "unit": "px",
+      "label": "Chip Letter Spacing",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "chip_padding_y",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "label": "Chip Padding Vertical",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "chip_padding_x",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "label": "Chip Padding Horizontal",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "chip_padding_y_mobile",
+      "min": 4,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Chip Padding Vertical (Mobile)",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "chip_padding_x_mobile",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Chip Padding Horizontal (Mobile)",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "chip_border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Chip Border Radius",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "chip_offset",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Chip Top Offset",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Max Width",
+      "default": 960
+    },
+    {
+      "type": "select",
+      "id": "vertical_align",
+      "label": "Vertical Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" },
+        { "value": "stretch", "label": "Stretch" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_align",
+      "label": "Content Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "media_bg_color",
+      "label": "Media Column Background",
+      "default": "#D9ECFC"
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border Style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "dotted"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "label": "Border Width",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#1e1e1e"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Border Radius",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Media Column"
+    },
+    {
+      "type": "range",
+      "id": "media_min_height",
+      "min": 200,
+      "max": 600,
+      "step": 20,
+      "unit": "px",
+      "label": "Min Height (Desktop)",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "media_min_height_mobile",
+      "min": 160,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "label": "Min Height (Mobile)",
+      "default": 260
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "min": 240,
+      "max": 480,
+      "step": 20,
+      "unit": "px",
+      "label": "Image Max Width",
+      "default": 380
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Image Border Radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "media_padding",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Media Column Padding",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "fallback_object_fit",
+      "label": "Image Object Fit",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" },
+        { "value": "fill", "label": "Fill" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "fallback_object_position",
+      "label": "Image Object Position",
+      "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "top center", "label": "Top" },
+        { "value": "bottom center", "label": "Bottom" },
+        { "value": "center left", "label": "Left" },
+        { "value": "center right", "label": "Right" }
+      ],
+      "default": "center center"
+    },
+    {
+      "type": "header",
+      "content": "Content Padding - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Content Padding - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_top_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "content_padding_bottom_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x_mobile",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Horizontal",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Section Padding Horizontal",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_breakpoint",
+      "min": 600,
+      "max": 1100,
+      "step": 50,
+      "unit": "px",
+      "label": "Mobile Breakpoint",
+      "default": 900
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Mobile Image Position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "top"
+    }
+  ],
+  "blocks": [
+    { "type": "lts-chip" },
+    { "type": "lts-headline" },
+    { "type": "lts-description" },
+    { "type": "lts-button" },
+    { "type": "lts-countdown" },
+    { "type": "lts-meta-box" },
+    { "type": "lts-guarantee" }
+  ],
+  "presets": [
+    {
+      "name": "Limited Time Sale",
+      "blocks": [
+        { "type": "lts-headline" },
+        { "type": "lts-description" },
+        { "type": "lts-button" },
+        { "type": "lts-countdown" },
+        { "type": "lts-meta-box" },
+        { "type": "lts-guarantee" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

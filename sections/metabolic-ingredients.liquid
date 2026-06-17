@@ -1,0 +1,575 @@
+{% comment %} Section: metabolic-ingredients — heading + body + product image + 2x2 ingredient cards + CTA {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+    assign accent = settings.global_section_accent_1_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+    assign accent = section.settings.accent_color
+  endif
+-%}
+
+{%- capture check_icon -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12ZM18.045 7.455C17.9379 7.34823 17.8103 7.26416 17.6699 7.20782C17.5295 7.15149 17.3792 7.12404 17.228 7.12712C17.0768 7.1302 16.9277 7.16375 16.7897 7.22575C16.6518 7.28776 16.5277 7.37695 16.425 7.488L11.2155 14.1255L8.076 10.9845C7.86274 10.7858 7.58067 10.6776 7.28922 10.6827C6.99776 10.6879 6.71969 10.8059 6.51357 11.0121C6.30745 11.2182 6.18938 11.4963 6.18424 11.7877C6.1791 12.0792 6.28728 12.3612 6.486 12.5745L10.455 16.545C10.5619 16.6517 10.6892 16.7358 10.8294 16.7923C10.9695 16.8487 11.1196 16.8764 11.2706 16.8736C11.4217 16.8708 11.5706 16.8376 11.7085 16.776C11.8465 16.7144 11.9706 16.6256 12.0735 16.515L18.0615 9.03C18.2656 8.81775 18.3784 8.53391 18.3756 8.23944C18.3728 7.94496 18.2546 7.66333 18.0465 7.455H18.045Z"/></svg>{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mp-fh: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mp-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mp-bg: {{ section_bg }};
+    --mp-ink: {{ ink }};
+    --mp-accent: {{ accent }};
+    --mp-button-bg: {{ section.settings.button_background }};
+    --mp-button-text: {{ section.settings.button_text_color }};
+    --mp-heading-size: {{ section.settings.heading_size }}px;
+    --mp-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --mp-body-size: {{ section.settings.body_size }}px;
+    --mp-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+    --mp-image-max: {{ section.settings.image_max_width }}px;
+    --mp-image-radius: {{ section.settings.image_radius }}px;
+    --mp-icon: {{ section.settings.icon_size }}px;
+    --mp-gap-sm: {{ section.settings.gap_small }}px;
+    --mp-gap-lg: {{ section.settings.gap_large }}px;
+    --mp-pad-top: {{ section.settings.padding_top }}px;
+    --mp-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mp-bg);
+    padding-top: var(--mp-pad-top);
+    padding-bottom: var(--mp-pad-bottom);
+  }
+
+  .section-{{ section.id }} .mp__inner {
+    max-width: 1640px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .section-{{ section.id }} .mp__inner > * { margin-top: var(--mp-gap-sm); width: 100%; }
+  .section-{{ section.id }} .mp__inner > *:first-child { margin-top: 0; }
+
+  /* Heading — theme forces h2 font; lock to Oswald */
+  .section-{{ section.id }} .mp__heading {
+    margin: 0;
+    text-align: center;
+    font-family: var(--mp-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.2;
+    color: var(--mp-ink) !important;
+    font-size: clamp(var(--mp-heading-size-mobile), 3.4vw, var(--mp-heading-size));
+  }
+  .section-{{ section.id }} .mp__accent { font-family: inherit !important; font-weight: 700 !important; color: var(--mp-accent) !important; }
+
+  /* Body */
+  .section-{{ section.id }} .mp__body { max-width: 1440px; margin-inline: auto; text-align: center; }
+  .section-{{ section.id }} .mp__body-main p {
+    margin: 0;
+    font-family: var(--mp-fb) !important;
+    font-weight: 400 !important;
+    line-height: 1.35;
+    color: var(--mp-ink) !important;
+    font-size: clamp(var(--mp-body-size-mobile), 1.6vw, var(--mp-body-size));
+  }
+  .section-{{ section.id }} .mp__body-note {
+    margin: 24px 0 0;
+    font-family: var(--mp-fb) !important;
+    font-weight: 400 !important;
+    line-height: 1.35;
+    color: var(--mp-ink) !important;
+    font-size: clamp(var(--mp-body-size-mobile), 1.6vw, var(--mp-body-size));
+  }
+
+  /* Product image */
+  .section-{{ section.id }} .mp__media { max-width: var(--mp-image-max); margin-inline: auto; }
+  .section-{{ section.id }} .mp__image { display: block; width: 100%; height: auto; border-radius: var(--mp-image-radius); }
+  .section-{{ section.id }} .mp__image--placeholder { aspect-ratio: 1330 / 749; background-color: #eef0f1; fill: #b9c3c9; object-fit: cover; }
+
+  /* Ingredients grid */
+  .section-{{ section.id }} .mp__ingredients {
+    max-width: 1600px;
+    margin-inline: auto;
+    margin-top: var(--mp-gap-lg);
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 48px;
+    row-gap: 24px;
+  }
+  .section-{{ section.id }} .mp__ing {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+  }
+  .section-{{ section.id }} .mp__ing-icon {
+    flex-shrink: 0;
+    width: clamp(88px, 18vw, var(--mp-icon));
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f3ede9;
+  }
+  .section-{{ section.id }} .mp__ing-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .section-{{ section.id }} .mp__ing-img--placeholder { fill: #b9c3c9; }
+  .section-{{ section.id }} .mp__ing-info { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .section-{{ section.id }} .mp__ing-name {
+    margin: 0;
+    font-family: var(--mp-fb) !important;
+    font-weight: 700 !important;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.18px;
+    color: var(--mp-ink) !important;
+  }
+  .section-{{ section.id }} .mp__ing-benefits { display: flex; flex-direction: column; gap: 8px; }
+  .section-{{ section.id }} .mp__ing-benefit {
+    margin: 0;
+    font-family: var(--mp-fb) !important;
+    font-weight: 500 !important;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: 0.18px;
+    color: var(--mp-ink) !important;
+  }
+  .section-{{ section.id }} .mp__ing-desc {
+    margin: 0;
+    font-family: var(--mp-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mp-ink) !important;
+  }
+
+  /* CTA */
+  .section-{{ section.id }} .mp__cta {
+    margin-top: var(--mp-gap-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center; width: 100%;
+    gap: 10px;
+  }
+  .section-{{ section.id }} .mp__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 553px;
+    max-width: 100%;
+    padding: 16px clamp(18px, 5vw, 32px);
+    font-family: var(--mp-fb) !important;
+    font-weight: 700 !important;
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--mp-button-text) !important;
+    background-color: var(--mp-button-bg);
+    border: 0;
+    border-radius: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .section-{{ section.id }} .mp__button:hover { opacity: 0.92; transform: translateY(-1px); }
+  .section-{{ section.id }} .mp__button:focus-visible { outline: 3px solid var(--mp-accent); outline-offset: 3px; }
+  .section-{{ section.id }} .mp__guarantee {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mp-fb) !important;
+    font-weight: 400 !important;
+    font-size: clamp(13px, 1.6vw, 16px);
+    color: var(--mp-ink) !important;
+  }
+  .section-{{ section.id }} .mp__guarantee-icon { flex-shrink: 0; width: 16px; height: 16px; line-height: 0; color: var(--mp-ink); }
+  .section-{{ section.id }} .mp__guarantee-icon svg { display: block; width: 100%; height: 100%; }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} .mp__ingredients { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .mp__button { transition: none; }
+  }
+{% endstyle %}
+
+<section class="mp section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="mp__inner">
+
+    {%- if section.settings.heading_before != blank or section.settings.heading_accent1 != blank or section.settings.heading_mid != blank or section.settings.heading_accent2 != blank -%}
+      <h2 class="mp__heading">
+        {{- section.settings.heading_before -}}
+        {%- if section.settings.heading_accent1 != blank %} <span class="mp__accent">{{ section.settings.heading_accent1 }}</span>{% endif -%}
+        {%- if section.settings.heading_mid != blank %} {{ section.settings.heading_mid }}{% endif -%}
+        {%- if section.settings.heading_accent2 != blank %} <span class="mp__accent">{{ section.settings.heading_accent2 }}</span>{% endif -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.settings.body_main != blank or section.settings.body_note != blank -%}
+      <div class="mp__body">
+        {%- if section.settings.body_main != blank -%}
+          <div class="mp__body-main">{{ section.settings.body_main }}</div>
+        {%- endif -%}
+        {%- if section.settings.body_note != blank -%}
+          <p class="mp__body-note">{{ section.settings.body_note }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mp__media">
+      {%- if section.settings.image != blank -%}
+        {%- assign img_alt = section.settings.image.alt | default: 'Metabolic Flow product' -%}
+        {{
+          section.settings.image
+          | image_url: width: 1330
+          | image_tag:
+            loading: 'lazy',
+            widths: '600,900,1100,1330',
+            sizes: '(min-width: 1370px) 1330px, 100vw',
+            alt: img_alt,
+            class: 'mp__image'
+        }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'mp__image mp__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="mp__ingredients">
+        {%- for block in section.blocks -%}
+          <div class="mp__ing" {{ block.shopify_attributes }}>
+            <div class="mp__ing-icon">
+              {%- if block.settings.icon != blank -%}
+                {%- assign icon_alt = block.settings.name | default: 'Ingredient' -%}
+                {{
+                  block.settings.icon
+                  | image_url: width: 264
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '132,200,264',
+                    sizes: '132px',
+                    alt: icon_alt,
+                    class: 'mp__ing-img'
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'mp__ing-img mp__ing-img--placeholder' }}
+              {%- endif -%}
+            </div>
+            <div class="mp__ing-info">
+              {%- if block.settings.name != blank -%}
+                <p class="mp__ing-name">{{ block.settings.name }}</p>
+              {%- endif -%}
+              {%- if block.settings.benefit != blank or block.settings.description != blank -%}
+                <div class="mp__ing-benefits">
+                  {%- if block.settings.benefit != blank -%}
+                    <p class="mp__ing-benefit">{{ block.settings.benefit }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <p class="mp__ing-desc">{{ block.settings.description }}</p>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <div class="mp__cta">
+        <a class="mp__button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_text }}</a>
+        {%- if section.settings.guarantee_text != blank -%}
+          <span class="mp__guarantee"><span class="mp__guarantee-icon">{{ check_icon }}</span>{{ section.settings.guarantee_text }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Ingredients",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading (before)",
+      "default": "All It Takes Is"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent1",
+      "label": "Accent 1 (colored)",
+      "default": "Just 2 Capsules"
+    },
+    {
+      "type": "text",
+      "id": "heading_mid",
+      "label": "Heading (middle)",
+      "default": "A Day To Feel More"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent2",
+      "label": "Accent 2 (colored)",
+      "default": "Confident In Your Clothes Again"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Body"
+    },
+    {
+      "type": "richtext",
+      "id": "body_main",
+      "label": "Body paragraph",
+      "default": "<p>Metabolic Flow contains a blend of carefully selected ingredients designed to support healthy metabolism, balanced energy, and fewer cravings.</p><p>Every ingredient was chosen with one goal in mind: helping women feel more in control of their bodies again.</p>"
+    },
+    {
+      "type": "text",
+      "id": "body_note",
+      "label": "Body note (separated line)",
+      "default": "Without restrictive diets or unrealistic routines."
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "body_size_mobile",
+      "label": "Body size (mobile)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image",
+      "info": "Bottle on background (~1330 x 749)."
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "label": "Image max width",
+      "min": 800,
+      "max": 1400,
+      "step": 10,
+      "unit": "px",
+      "default": 1330
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Ingredients"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size (desktop)",
+      "min": 88,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 132
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CLAIM 20% OFF NOW 👉"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "60-Day Money-Back Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#5584c0"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "gap_small",
+      "label": "Gap (heading / body / image)",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap_large",
+      "label": "Gap (before ingredients / CTA)",
+      "min": 24,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image",
+          "info": "Square photo, shown in a circle (~132 x 132)."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Berberine"
+        },
+        {
+          "type": "text",
+          "id": "benefit",
+          "label": "Benefit (bold line)",
+          "default": "Activates AMPK — often called the body's metabolic master switch."
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Metabolic Ingredients",
+      "blocks": [
+        { "type": "ingredient", "settings": { "name": "Berberine", "benefit": "Activates AMPK — often called the body's metabolic master switch.", "description": "A botanical used in traditional wellness practices, Berberine works by supporting the body's natural metabolic processes and healthy energy production. With over 50 clinical studies behind this botanical ingredient, Berberine has become one of the most researched ingredients in the metabolic wellness space." } },
+        { "type": "ingredient", "settings": { "name": "Chromium", "benefit": "Provides 69% of your Daily Value of Chromium.", "description": "Chromium is an essential mineral involved in carbohydrate, protein, and fat metabolism. It helps support healthy insulin sensitivity and healthy blood sugar levels already within the normal range." } },
+        { "type": "ingredient", "settings": { "name": "Cinnamon Bark Extract", "benefit": "A concentrated 4:1 botanical extract used for centuries.", "description": "Cinnamon contains naturally occurring compounds that help support healthy metabolic function and complement Berberine and Chromium as part of a complete metabolism-support formula." } },
+        { "type": "ingredient", "settings": { "name": "Chicory Root Fiber", "benefit": "Added to support both metabolism and digestive wellness.", "description": "This prebiotic fiber helps nourish beneficial gut bacteria while supporting overall digestive comfort, creating a more balanced daily wellness routine." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

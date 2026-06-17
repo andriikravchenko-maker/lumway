@@ -1,0 +1,25 @@
+{%- liquid
+  if nav_link
+    assign _href = nav_link.url | default: ''
+    assign _type = nav_link.type | default: ''
+  else
+    assign _href = raw_url | default: ''
+    assign _type = ''
+  endif
+  assign _replace = false
+  if _type == 'frontpage'
+    assign _replace = true
+  elsif _href == routes.root_url or _href == '/'
+    assign _replace = true
+  endif
+  if _replace
+    assign _ph = all_products['gut-harmony-gummies']
+    if _ph
+      echo _ph.url
+    else
+      echo '/products/gut-harmony-gummies'
+    endif
+  else
+    echo _href
+  endif
+-%}

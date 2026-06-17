@@ -1,0 +1,569 @@
+{% comment %} Section: gut-harmony-feature — numbered feature: title + composite graphic (left) + body & testimonial (right) {% endcomment %}
+
+{%- unless settings.enable_oswald_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+{%- unless settings.enable_league_spartan_font -%}
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@1,500;1,700&display=swap" rel="stylesheet">
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign title_color = settings.global_section_heading_color | default: settings.global_section_text_color
+    assign text_color = settings.global_section_text_color
+    assign testimonial_color = settings.global_section_text_color
+  else
+    assign background_color = section.settings.background_color
+    assign title_color = section.settings.title_color
+    assign text_color = section.settings.text_color
+    assign testimonial_color = section.settings.testimonial_color
+  endif
+
+  assign image_alt = section.settings.image.alt | default: section.settings.title
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --ghf-font-heading: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghf-font-body: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghf-font-quote: 'Urbanist', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghf-bg: {{ background_color }};
+    --ghf-title-color: {{ title_color }};
+    --ghf-text-color: {{ text_color }};
+    --ghf-testimonial-color: {{ testimonial_color }};
+    --ghf-title-size: {{ section.settings.title_size }}px;
+    --ghf-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --ghf-text-size: {{ section.settings.text_size }}px;
+    --ghf-testimonial-size: {{ section.settings.testimonial_size }}px;
+    --ghf-testimonial-gap: {{ section.settings.testimonial_paragraph_spacing }}px;
+    --ghf-image-radius: {{ section.settings.image_border_radius }}px;
+    --ghf-title-gap: {{ section.settings.title_gap }}px;
+    --ghf-column-gap: {{ section.settings.column_gap }}px;
+    --ghf-content-gap: {{ section.settings.content_gap }}px;
+    --ghf-pad-top: {{ section.settings.padding_top }}px;
+    --ghf-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --ghf-pad-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ghf-pad-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ghf-btn-bg: {{ section.settings.button_bg_color }};
+    --ghf-btn-bg-hover: {{ section.settings.button_hover_bg_color }};
+    --ghf-btn-text: {{ section.settings.button_text_color }};
+    --ghf-btn-size: {{ section.settings.button_font_size }}px;
+    --ghf-btn-radius: {{ section.settings.button_radius }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--ghf-bg);
+    padding-top: var(--ghf-pad-top-mobile);
+    padding-bottom: var(--ghf-pad-bottom-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ghf-title-gap);
+    max-width: 1204px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  /* theme forces h1-h6 / [class*="title"] { color: ... !important }; keep the design's dark green */
+  .section-{{ section.id }} .gut-harmony-feature__title {
+    margin: 0;
+    font-family: var(--ghf-font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ghf-title-color) !important;
+    font-size: clamp(var(--ghf-title-size-mobile), 3.2vw, var(--ghf-title-size));
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ghf-column-gap);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__media {
+    width: 100%;
+    max-width: 486px;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--ghf-image-radius);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__img--placeholder {
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ghf-content-gap);
+    width: 100%;
+  }
+
+  /* theme forces p { font-family: body !important } and font-weight: regular !important; lock to League Spartan Medium per the design */
+  .section-{{ section.id }} .gut-harmony-feature__body p {
+    margin: 0 0 var(--ghf-content-gap);
+    font-family: var(--ghf-font-body) !important;
+    font-weight: 500 !important;
+    font-size: var(--ghf-text-size);
+    line-height: 1.4;
+    color: var(--ghf-text-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__body strong {
+    font-weight: 700 !important;
+  }
+
+  /* testimonial uses Urbanist italic in the design; override the theme's forced body font */
+  .section-{{ section.id }} .gut-harmony-feature__testimonial p {
+    margin: 0 0 var(--ghf-testimonial-gap);
+    font-family: var(--ghf-font-quote) !important;
+    font-weight: 500 !important;
+    font-style: italic;
+    font-size: var(--ghf-testimonial-size);
+    line-height: 1.4;
+    color: var(--ghf-testimonial-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__testimonial p:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__testimonial strong {
+    font-weight: 700 !important;
+    font-style: italic;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__cta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 12px 64px;
+    border: 0;
+    border-radius: var(--ghf-btn-radius);
+    background-color: var(--ghf-btn-bg);
+    color: var(--ghf-btn-text) !important;
+    font-family: var(--ghf-font-body) !important;
+    font-weight: 500 !important;
+    font-size: var(--ghf-btn-size);
+    line-height: 1.4;
+    text-transform: capitalize;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__button-arrow {
+    display: inline-block;
+    line-height: 1;
+    font-weight: 500 !important;
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__button:hover {
+    background-color: var(--ghf-btn-bg-hover);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__button:focus-visible {
+    outline: 3px solid var(--ghf-btn-bg-hover);
+    outline-offset: 3px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .section-{{ section.id }} .gut-harmony-feature__button {
+      width: 100%;
+      padding: 14px 24px;
+      white-space: normal;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .gut-harmony-feature__button { transition: none; }
+  }
+
+  @media screen and (min-width: 1240px) {
+    .section-{{ section.id }} {
+      padding-top: var(--ghf-pad-top);
+      padding-bottom: var(--ghf-pad-bottom);
+    }
+
+    .section-{{ section.id }} .gut-harmony-feature__inner {
+      padding-inline: 0;
+    }
+
+    .section-{{ section.id }} .gut-harmony-feature__row {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--ghf-column-gap);
+    }
+
+    .section-{{ section.id }} .gut-harmony-feature__media {
+      flex: 0 0 486px;
+    }
+
+    .section-{{ section.id }} .gut-harmony-feature__content {
+      flex: 0 0 694px;
+      max-width: 694px;
+    }
+
+    /* Figma frame 133:7 is a fixed 560px-wide pill, not hug-content */
+    .section-{{ section.id }} .gut-harmony-feature__button {
+      min-width: 560px;
+    }
+  }
+{% endstyle %}
+
+<section class="gut-harmony-feature section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="gut-harmony-feature__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="gut-harmony-feature__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+
+    <div class="gut-harmony-feature__row">
+      <div class="gut-harmony-feature__media">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 972
+            | image_tag:
+              loading: 'lazy',
+              widths: '300,400,486,600,800,972',
+              sizes: '(min-width: 1240px) 486px, 100vw',
+              alt: image_alt,
+              class: 'gut-harmony-feature__img'
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'gut-harmony-feature__img gut-harmony-feature__img--placeholder' }}
+        {%- endif -%}
+      </div>
+
+      <div class="gut-harmony-feature__content">
+        {%- if section.settings.body_text != blank -%}
+          <div class="gut-harmony-feature__body">{{ section.settings.body_text }}</div>
+        {%- endif -%}
+        {%- if section.settings.testimonial_text != blank -%}
+          <div class="gut-harmony-feature__testimonial">{{ section.settings.testimonial_text }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.button_text != blank -%}
+      <div class="gut-harmony-feature__cta">
+        <a class="gut-harmony-feature__button" href="{{ section.settings.button_link | default: '#' }}">
+          <span class="gut-harmony-feature__button-text">{{ section.settings.button_text }}</span>
+          {%- if section.settings.button_show_arrow -%}
+            <span class="gut-harmony-feature__button-arrow" aria-hidden="true">&rarr;</span>
+          {%- endif -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gut Harmony Feature",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_gap",
+      "label": "Gap below title",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Gap between image and text",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between text paragraphs",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "#1: Helps Support Digestion As You Age"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 16,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#0a430d"
+    },
+    {
+      "type": "header",
+      "content": "Graphic image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Graphic image",
+      "info": "Export the graphic from Figma and upload it here. Recommended a square image (~486 x 486)."
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Body text"
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "<p><strong>Did you know? After 50, your digestion may start slowing down every single year. By 60, many women say food feels heavier, slower, and harder to process than it used to.</strong></p><p>That’s why Gut Harmony includes a targeted <strong>3-Part Digestive Support Blend:</strong></p><p><strong>• Apple Cider Vinegar:</strong> Supports digestion and post-meal comfort</p><p><strong>• Heat-Stable Probiotic:</strong> Helps support healthy gut balance</p><p><strong>• Ginger Root:</strong> Traditionally used to support digestive comfort after eating</p>"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Body text size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial"
+    },
+    {
+      "type": "richtext",
+      "id": "testimonial_text",
+      "label": "Testimonial",
+      "default": "<p>💬 “I noticed a huge difference after meals! I stopped taking it for about a month, and the heaviness slowly started coming back. My stomach just felt more uncomfortable again after eating, so I ordered another bundle and have been taking it ever since. Well worth the money and works better than any digestive supplement or gummy I’ve tried.” <strong>— Linda M.</strong></p>"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_size",
+      "label": "Testimonial size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "testimonial_paragraph_spacing",
+      "label": "Space between paragraphs",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "testimonial_color",
+      "label": "Testimonial color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Try Gut Harmony For Better Digestion"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_show_arrow",
+      "label": "Show trailing arrow",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#23a02a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#1d8a23"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gut Harmony Feature",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,482 @@
+{% comment %} Section: gut-harmony-reviews — grid of review cards (photo + stars + title + text + name) {% endcomment %}
+
+{%- unless settings.enable_league_spartan_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign card_bg = settings.global_section_background_color
+    assign text_color = settings.global_section_text_color
+  else
+    assign background_color = section.settings.background_color
+    assign card_bg = section.settings.card_bg
+    assign text_color = section.settings.text_color
+  endif
+-%}
+
+{%- capture star_icon -%}
+<svg class="gut-harmony-reviews__star-svg" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M15.5758 5.71864L10.6548 4.96303L8.44885 0.26314C8.40229 0.182958 8.33609 0.116534 8.25678 0.0703972C8.17746 0.0242607 8.08776 0 7.99649 0C7.90521 0 7.81551 0.0242607 7.73619 0.0703972C7.65688 0.116534 7.59069 0.182958 7.54412 0.26314L5.33887 4.96605L0.417937 5.72166C0.329186 5.73473 0.245683 5.77255 0.176614 5.83096C0.107545 5.88937 0.0555849 5.9661 0.0264503 6.05272C-0.0026844 6.13935 -0.00786527 6.23249 0.0114775 6.32193C0.0308203 6.41136 0.0739373 6.49361 0.136086 6.55963L3.71138 10.2274L2.86583 15.4161C2.85235 15.5101 2.86486 15.606 2.90194 15.6931C2.93902 15.7802 2.9992 15.8549 3.07568 15.9089C3.15215 15.9629 3.24189 15.994 3.33474 15.9986C3.4276 16.0033 3.51987 15.9813 3.60116 15.9352L7.99686 13.5037L12.3926 15.936C12.4738 15.9821 12.5661 16.004 12.659 15.9994C12.7518 15.9947 12.8416 15.9637 12.918 15.9097C12.9945 15.8557 13.0547 15.7809 13.0918 15.6939C13.1289 15.6068 13.1414 15.5108 13.1279 15.4169L12.2831 10.2319L15.8584 6.56417C15.9224 6.49827 15.9671 6.41544 15.9875 6.32499C16.0079 6.23454 16.0032 6.14007 15.9739 6.0522C15.9447 5.96433 15.8919 5.88656 15.8217 5.82763C15.7515 5.7687 15.6666 5.73095 15.5765 5.71864H15.5758Z"/></svg>
+{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --ghr-font-body: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghr-bg: {{ background_color }};
+    --ghr-card-bg: {{ card_bg }};
+    --ghr-card-border: {{ section.settings.card_border_color }};
+    --ghr-text-color: {{ text_color }};
+    --ghr-star-color: {{ section.settings.star_color }};
+    --ghr-star-empty: {{ section.settings.star_empty_color }};
+    --ghr-title-size: {{ section.settings.title_size }}px;
+    --ghr-text-size: {{ section.settings.text_size }}px;
+    --ghr-name-size: {{ section.settings.name_size }}px;
+    --ghr-card-radius: {{ section.settings.card_radius }}px;
+    --ghr-card-padding: {{ section.settings.card_padding }}px;
+    --ghr-image-radius: {{ section.settings.image_radius }}px;
+    --ghr-card-gap: {{ section.settings.card_gap }}px;
+    --ghr-pad-top: {{ section.settings.padding_top }}px;
+    --ghr-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --ghr-pad-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ghr-pad-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--ghr-bg);
+    padding-top: var(--ghr-pad-top-mobile);
+    padding-bottom: var(--ghr-pad-bottom-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__grid {
+    list-style: none;
+    margin: 0 auto;
+    padding-inline: 20px;
+    max-width: 1204px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--ghr-card-gap);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* min-width: 0 lets the grid columns shrink below the photo's intrinsic width */
+    min-width: 0;
+    padding: var(--ghr-card-padding);
+    background-color: var(--ghr-card-bg);
+    border: 1px solid var(--ghr-card-border);
+    border-radius: var(--ghr-card-radius);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__media {
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 251 / 280;
+    object-fit: cover;
+    border-radius: var(--ghr-image-radius);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__img--placeholder {
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__stars {
+    display: flex;
+    gap: 4px;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__star {
+    width: 16px;
+    height: 16px;
+    line-height: 0;
+    color: var(--ghr-star-empty);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__star--filled {
+    color: var(--ghr-star-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__star-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* theme forces p { font-family: body !important; font-weight: regular !important } and [class*="title"] color !important — restore the design */
+  .section-{{ section.id }} .gut-harmony-reviews__title {
+    margin: 0;
+    font-family: var(--ghr-font-body) !important;
+    font-weight: 700 !important;
+    font-size: var(--ghr-title-size);
+    line-height: 1.4;
+    color: var(--ghr-text-color) !important;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__text {
+    margin: 0;
+    font-family: var(--ghr-font-body) !important;
+    font-weight: 500 !important;
+    font-size: var(--ghr-text-size);
+    line-height: 1.4;
+    color: var(--ghr-text-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__name {
+    margin: 0;
+    font-family: var(--ghr-font-body) !important;
+    font-weight: 500 !important;
+    font-size: var(--ghr-name-size);
+    line-height: 1.4;
+    color: var(--ghr-text-color);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      padding-top: var(--ghr-pad-top);
+      padding-bottom: var(--ghr-pad-bottom);
+    }
+
+    .section-{{ section.id }} .gut-harmony-reviews__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1240px) {
+    .section-{{ section.id }} .gut-harmony-reviews__grid {
+      grid-template-columns: repeat(4, 1fr);
+      padding-inline: 0;
+    }
+  }
+{% endstyle %}
+
+<section class="gut-harmony-reviews section-{{ section.id }}" data-section-id="{{ section.id }}">
+  {%- if section.blocks.size > 0 -%}
+    <ul class="gut-harmony-reviews__grid">
+      {%- for block in section.blocks -%}
+        <li class="gut-harmony-reviews__card" {{ block.shopify_attributes }}>
+          <div class="gut-harmony-reviews__media">
+            {%- if block.settings.image != blank -%}
+              {%- assign review_alt = block.settings.image.alt | default: block.settings.name | default: 'Customer review' -%}
+              {{
+                block.settings.image
+                | image_url: width: 502
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '251,400,502',
+                  sizes: '(min-width: 1240px) 251px, (min-width: 750px) 45vw, 90vw',
+                  alt: review_alt,
+                  class: 'gut-harmony-reviews__img'
+              }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'gut-harmony-reviews__img gut-harmony-reviews__img--placeholder' }}
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.rating > 0 -%}
+            <div class="gut-harmony-reviews__stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                <span class="gut-harmony-reviews__star{% if i <= block.settings.rating %} gut-harmony-reviews__star--filled{% endif %}">{{ star_icon }}</span>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+
+          <div class="gut-harmony-reviews__content">
+            {%- if block.settings.title != blank -%}
+              <p class="gut-harmony-reviews__title">{{ block.settings.title }}</p>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="gut-harmony-reviews__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+            {%- if block.settings.name != blank -%}
+              <p class="gut-harmony-reviews__name">{{ block.settings.name }}</p>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Gut Harmony Reviews",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Card"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#e9f5ea"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Stars"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#FFC107"
+    },
+    {
+      "type": "color",
+      "id": "star_empty_color",
+      "label": "Empty star color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Review text size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "name_size",
+      "label": "Reviewer name size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Reviewer image",
+          "info": "Recommended ratio ~251 x 280 (portrait)."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Review title",
+          "default": "Review title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review text"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer name",
+          "default": "— Name"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Gut Harmony Reviews",
+      "category": "Custom Content",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "It actually made meals feel easier",
+            "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
+            "name": "— Linda M."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "My stomach feels so much more balanced",
+            "text": "“I dealt with bloating and uncomfortable digestion for YEARS. Some foods just seemed impossible for me anymore. After starting Gut Harmony, I noticed my stomach felt calmer and more balanced overall. I'm not constantly regretting meals now.”",
+            "name": "— Wendy O."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Huge difference after meals",
+            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
+            "name": "— Linda M."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Love it!!",
+            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
+            "name": "— Linda M."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

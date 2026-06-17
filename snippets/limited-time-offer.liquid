@@ -1,0 +1,897 @@
+{% comment %}
+  Snippet: Limited Time Offer
+  Params: offer_settings, offer_id, offer_features
+{% endcomment %}
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap"
+  rel="stylesheet"
+>
+
+{%- liquid
+  assign product = offer_settings.product
+  assign current_price = offer_settings.price
+  assign compare_price = offer_settings.compare_price
+
+  if product != blank
+    assign current_variant = product.selected_or_first_available_variant
+    if current_price == blank
+      assign current_price = current_variant.price | money_without_trailing_zeros
+    endif
+    if compare_price == blank and current_variant.compare_at_price > current_variant.price
+      assign compare_price = current_variant.compare_at_price | money_without_trailing_zeros
+    endif
+  endif
+
+  if compare_price != blank
+    assign compare_prefix = offer_settings.compare_price_prefix | default: '(was '
+    assign compare_suffix = offer_settings.compare_price_suffix | default: ')'
+    assign compare_price_display = compare_prefix | append: compare_price | append: compare_suffix
+  endif
+
+  assign lto_section_bg = offer_settings.section_bg_color | default: '#ffffff'
+  assign lto_card_bg = offer_settings.card_bg_color | default: '#ffffff'
+  assign lto_media_bg = offer_settings.media_bg_color | default: '#fcf5cf'
+  assign lto_border_color = offer_settings.border_color | default: '#23A02A'
+  assign lto_border_style = offer_settings.border_style | default: 'solid'
+  assign lto_border_width = offer_settings.border_width | default: 2
+  assign lto_border_radius = offer_settings.border_radius | default: 8
+  assign lto_card_padding = offer_settings.card_padding | default: 36
+  assign lto_chip_bg = offer_settings.chip_bg_color | default: '#25282a'
+  assign lto_chip_color = offer_settings.chip_text_color | default: '#ffffff'
+  assign lto_rating_bg = offer_settings.rating_bg_color | default: '#3e8c35'
+  assign lto_rating_color = offer_settings.rating_text_color | default: '#ffffff'
+  assign lto_text = offer_settings.text_color | default: '#202329'
+  assign lto_muted = offer_settings.muted_text_color | default: '#666666'
+  assign lto_price = offer_settings.price_color | default: '#23A02A'
+  assign lto_countdown_color = offer_settings.countdown_color | default: '#d22f2f'
+  assign lto_risk_bg = offer_settings.risk_bg_color | default: '#faf2e8'
+  assign lto_risk_value_color = offer_settings.risk_value_color | default: '#d22f2f'
+  assign lto_btn_bg = offer_settings.button_bg_color | default: '#25282a'
+  assign lto_btn_color = offer_settings.button_text_color | default: '#ffffff'
+  assign lto_btn_hover = offer_settings.button_hover_bg_color | default: '#1a1c1e'
+  assign lto_badge_bg = offer_settings.badge_bg_color | default: '#ffffff'
+  assign lto_badge_color = offer_settings.badge_text_color | default: '#2d5a27'
+  assign lto_check = offer_settings.check_color | default: '#52c663'
+  assign lto_max_width = offer_settings.max_width | default: 960
+  assign lto_content_pad_x = offer_settings.content_padding_x | default: 24
+  assign lto_content_pad_y = offer_settings.content_padding_y | default: 32
+  assign lto_padding_top = offer_settings.padding_top | default: 0
+  assign lto_padding_bottom = offer_settings.padding_bottom | default: 0
+  assign lto_padding_x = offer_settings.padding_x | default: 0
+  assign lto_margin_top = offer_settings.margin_top | default: 0
+  assign lto_margin_bottom = offer_settings.margin_bottom | default: 0
+  assign lto_media_min_height = offer_settings.media_min_height | default: 400
+  assign lto_media_min_height_mobile = offer_settings.media_min_height_mobile | default: 280
+  assign lto_content_pad_y_mobile = offer_settings.content_padding_y_mobile | default: 20
+  assign lto_content_pad_x_mobile = offer_settings.content_padding_x_mobile | default: 16
+  assign lto_padding_top_mobile = offer_settings.padding_top_mobile | default: 0
+  assign lto_padding_bottom_mobile = offer_settings.padding_bottom_mobile | default: 0
+  assign lto_padding_x_mobile = offer_settings.padding_x_mobile | default: 0
+  assign lto_mobile_breakpoint = offer_settings.mobile_breakpoint | default: 900
+  assign lto_mobile_image_position = offer_settings.mobile_image_position | default: 'top'
+  assign lto_image_object_fit = offer_settings.image_object_fit | default: 'cover'
+  assign lto_countdown_mode = offer_settings.countdown_mode | default: 'duration'
+  assign lto_duration_hours = offer_settings.duration_hours | default: 2
+  assign lto_duration_minutes = offer_settings.duration_minutes | default: 33
+  assign lto_duration_seconds = offer_settings.duration_seconds | default: 44
+  assign lto_deadline = offer_settings.deadline | default: '2026-12-31T23:59:59Z'
+  assign lto_show_eyebrow_dots = offer_settings.show_eyebrow_dots
+  if lto_show_eyebrow_dots == nil
+    assign lto_show_eyebrow_dots = true
+  endif
+  assign lto_show_rating = offer_settings.show_rating
+  if lto_show_rating == nil
+    assign lto_show_rating = true
+  endif
+  assign badge_1_icon = offer_settings.badge_1_icon | default: '🫄'
+  assign badge_2_icon = offer_settings.badge_2_icon | default: '🦠'
+-%}
+
+<div
+  class="lto lto--{{ offer_id }}"
+  id="limited-time-offer-{{ offer_id }}"
+  data-section-id="{{ offer_id }}"
+>
+  <div class="lto__wrap">
+    <div class="lto__card">
+      {% if offer_settings.chip_text != blank %}
+        <div class="lto__chip">{{ offer_settings.chip_text }}</div>
+      {% endif %}
+
+      <div class="lto__grid">
+        <div class="lto__media">
+          <div class="lto__media-inner" style="border-radius:10px!important; ">
+            {% if offer_settings.image != blank %}
+              {{
+                offer_settings.image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'lazy',
+                  decoding: 'async',
+                  class: 'lto__image',
+                  alt: offer_settings.image.alt | default: offer_settings.product_title,
+                  widths: '400, 600, 900'
+              }}
+            {% else %}
+              <div class="lto__image-placeholder">{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+            {% endif %}
+
+            {% if offer_settings.badge_1_text != blank %}
+              <span class="lto__badge lto__badge--1">
+                {% if badge_1_icon != blank %}
+                  <span class="lto__badge-icon" aria-hidden="true">{{ badge_1_icon }}</span>
+                {% endif %}
+                {{ offer_settings.badge_1_text }}
+              </span>
+            {% endif %}
+
+            {% if offer_settings.badge_2_text != blank %}
+              <span class="lto__badge lto__badge--2">
+                {% if badge_2_icon != blank %}
+                  <span class="lto__badge-icon" aria-hidden="true">{{ badge_2_icon }}</span>
+                {% endif %}
+                {{ offer_settings.badge_2_text }}
+              </span>
+            {% endif %}
+
+            {% if offer_settings.guarantee_badge != blank %}
+              <div class="lto__seal">
+                {% if offer_settings.guarantee_badge_image != blank %}
+                  {{
+                    offer_settings.guarantee_badge_image
+                    | image_url: width: 160
+                    | image_tag: loading: 'lazy', class: 'lto__seal-img', alt: offer_settings.guarantee_badge
+                  }}
+                {% else %}
+                  <span class="lto__seal-text">{{ offer_settings.guarantee_badge }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="lto__content">
+          {% if lto_show_rating %}
+            <div class="lto__rating">
+              <span class="lto__rating-stars" aria-hidden="true">
+                <svg width="80" height="15" viewBox="0 0 80 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#lto-rating-clip0-{{ offer_id }})">
+                    <g clip-path="url(#lto-rating-clip1-{{ offer_id }})">
+                      <path d="M0 0H15V15H0V0ZM16.25 0H31.25V15H16.25V0ZM32.5 0H47.5V15H32.5V0ZM48.75 0H63.75V15H48.75V0ZM65 0H80V15H65V0Z" fill="black"/>
+                      <path d="M7.5 10.1094L9.78125 9.53125L10.7344 12.4688L7.5 10.1094ZM12.75 6.3125H8.73438L7.5 2.53125L6.26562 6.3125H2.25L5.5 8.65625L4.26562 12.4375L7.51562 10.0937L9.51562 8.65625L12.75 6.3125ZM23.75 10.1094L26.0313 9.53125L26.9844 12.4688L23.75 10.1094ZM29 6.3125H24.9844L23.75 2.53125L22.5156 6.3125H18.5L21.75 8.65625L20.5156 12.4375L23.7656 10.0937L25.7656 8.65625L29 6.3125ZM40 10.1094L42.2812 9.53125L43.2344 12.4688L40 10.1094ZM45.25 6.3125H41.2344L40 2.53125L38.7656 6.3125H34.75L38 8.65625L36.7656 12.4375L40.0156 10.0937L42.0156 8.65625L45.25 6.3125ZM56.25 10.1094L58.5312 9.53125L59.4844 12.4688L56.25 10.1094ZM61.5 6.3125H57.4844L56.25 2.53125L55.0156 6.3125H51L54.25 8.65625L53.0156 12.4375L56.2656 10.0937L58.2656 8.65625L61.5 6.3125ZM72.5 10.1094L74.7812 9.53125L75.7344 12.4688L72.5 10.1094ZM77.75 6.3125H73.7344L72.5 2.53125L71.2656 6.3125H67.25L70.5 8.65625L69.2656 12.4375L72.5156 10.0937L74.5156 8.65625L77.75 6.3125Z" fill="white"/>
+                    </g>
+                  </g>
+                  <defs>
+                    <clipPath id="lto-rating-clip0-{{ offer_id }}">
+                      <rect width="80" height="15" fill="white"/>
+                    </clipPath>
+                    <clipPath id="lto-rating-clip1-{{ offer_id }}">
+                      <rect width="80" height="15" fill="white"/>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+              <span class="lto__rating-text">{{ offer_settings.rating_text }}</span>
+            </div>
+          {% endif %}
+
+          {% if offer_settings.eyebrow != blank %}
+            <div class="lto__eyebrow">
+              {% if lto_show_eyebrow_dots %}
+                <span class="lto__eyebrow-dot" aria-hidden="true"></span>
+              {% endif %}
+              <span>{{ offer_settings.eyebrow }}</span>
+              {% if lto_show_eyebrow_dots %}
+                <span class="lto__eyebrow-dot" aria-hidden="true"></span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if offer_settings.product_title != blank %}
+            <h2 class="lto__title">{{ offer_settings.product_title }}</h2>
+          {% endif %}
+
+          {% if current_price != blank %}
+            <p class="lto__price">{{ current_price }}</p>
+          {% endif %}
+
+          {% if compare_price_display != blank %}
+            <p class="lto__compare">{{ compare_price_display }}</p>
+          {% endif %}
+
+          {% if offer_settings.description != blank %}
+            <p class="lto__description">{{ offer_settings.description }}</p>
+          {% endif %}
+
+          {% if offer_settings.description_richtext != blank %}
+            <div class="lto__description-rich">{{ offer_settings.description_richtext }}</div>
+          {% endif %}
+
+          {% if offer_features.size > 0 %}
+            <ul class="lto__features">
+              {% for feature in offer_features %}
+                {% if feature.type == 'feature' or feature.type == 'lto-feature' %}
+                  {% if feature.settings.text != blank %}
+                  <li class="lto__feature" {{ feature.shopify_attributes }}>
+                    <span class="lto__feature-check" aria-hidden="true">
+                      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 10.5 8.5 14 15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                    <span>{{ feature.settings.text }}</span>
+                  </li>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          <div
+            class="lto__countdown"
+            data-lto-countdown
+            data-mode="{{ lto_countdown_mode }}"
+            data-hours="{{ lto_duration_hours }}"
+            data-minutes="{{ lto_duration_minutes }}"
+            data-seconds="{{ lto_duration_seconds }}"
+            data-deadline="{{ lto_deadline | escape }}"
+          >
+            {% if offer_settings.countdown_label != blank %}
+              <span class="lto__countdown-label">{{ offer_settings.countdown_label }}</span>
+            {% endif %}
+            <span class="lto__countdown-time" data-lto-countdown-time>00:00:00</span>
+          </div>
+
+          {% if offer_settings.button_text != blank %}
+            <a
+              href="{{ offer_settings.button_link | default: '#' }}"
+              class="lto__button"
+              {% if offer_settings.button_link == blank %}role="button"{% endif %}
+            >
+              {{ offer_settings.button_text }}
+            </a>
+          {% endif %}
+
+          {% if offer_settings.risk_label != blank or offer_settings.risk_value != blank %}
+            <div class="lto__risk">
+              {% if offer_settings.risk_label != blank %}
+                <span class="lto__risk-label">{{ offer_settings.risk_label }}</span>
+              {% endif %}
+              {% if offer_settings.risk_value != blank %}
+                <span class="lto__risk-value">{{ offer_settings.risk_value }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+
+          {% if offer_settings.footer_text != blank %}
+            <p class="lto__footer">{{ offer_settings.footer_text }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .lto--{{ offer_id }} {
+    --lto-font: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    --lto-section-bg: {{ lto_section_bg }};
+    --lto-card-bg: {{ lto_card_bg }};
+    --lto-media-bg: {{ lto_media_bg }};
+    --lto-border-color: {{ lto_border_color }};
+    --lto-border-width: {{ lto_border_width }}px;
+    --lto-border-radius: {{ lto_border_radius }}px;
+    --lto-chip-bg: {{ lto_chip_bg }};
+    --lto-chip-color: {{ lto_chip_color }};
+    --lto-rating-bg: {{ lto_rating_bg }};
+    --lto-rating-color: {{ lto_rating_color }};
+    --lto-text: {{ lto_text }};
+    --lto-muted: {{ lto_muted }};
+    --lto-price: {{ lto_price }};
+    --lto-accent-red: {{ lto_countdown_color }};
+    --lto-risk-bg: {{ lto_risk_bg }};
+    --lto-risk-value: {{ lto_risk_value_color }};
+    --lto-btn-bg: {{ lto_btn_bg }};
+    --lto-btn-color: {{ lto_btn_color }};
+    --lto-btn-hover: {{ lto_btn_hover }};
+    --lto-badge-bg: {{ lto_badge_bg }};
+    --lto-badge-color: {{ lto_badge_color }};
+    --lto-check: {{ lto_check }};
+    --lto-max-width: {{ lto_max_width }}px;
+    --lto-content-pad-x: {{ lto_content_pad_x }}px;
+    --lto-content-pad-y: {{ lto_content_pad_y }}px;
+
+    font-family: var(--lto-font);
+    background: var(--lto-section-bg);
+    padding: {{ lto_padding_top }}px {{ lto_padding_x }}px {{ lto_padding_bottom }}px;
+    margin-top: {{ lto_margin_top }}px;
+    margin-bottom: {{ lto_margin_bottom }}px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .lto--{{ offer_id }},
+  .lto--{{ offer_id }} h1,
+  .lto--{{ offer_id }} h2,
+  .lto--{{ offer_id }} h3,
+  .lto--{{ offer_id }} p,
+  .lto--{{ offer_id }} span,
+  .lto--{{ offer_id }} a,
+  .lto--{{ offer_id }} li,
+  .lto--{{ offer_id }} strong {
+    font-family: var(--lto-font) !important;
+  }
+
+  .lto--{{ offer_id }} .lto__wrap {
+    max-width: var(--lto-max-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .lto--{{ offer_id }} .lto__card {
+    position: relative;
+    background: var(--lto-card-bg);
+    border: var(--lto-border-width) {{ lto_border_style }} var(--lto-border-color);
+    border-radius: var(--lto-border-radius);
+    overflow: visible;
+    padding: {{ lto_card_padding }}px;
+  }
+
+  .lto--{{ offer_id }} .lto__chip {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    background: var(--lto-chip-bg);
+    color: var(--lto-chip-color);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 10px 18px;
+    border-radius: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    max-width: calc(100% - 24px);
+  }
+
+  .lto--{{ offer_id }} .lto__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    overflow: hidden;
+    border-radius: var(--lto-border-radius);
+  }
+
+  .lto--{{ offer_id }} .lto__media {
+    background: var(--lto-media-bg);
+    min-height: {{ lto_media_min_height }}px;
+  }
+
+  .lto--{{ offer_id }} .lto__media-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .lto--{{ offer_id }} .lto__image,
+  .lto--{{ offer_id }} .lto__image-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: {{ lto_media_min_height }}px;
+    object-fit: {{ lto_image_object_fit }};
+    object-position: center;
+    display: block;
+    border-radius: 10px!important;
+  }
+
+  .lto--{{ offer_id }} .lto__image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #bbb;
+  }
+
+  .lto--{{ offer_id }} .lto__badge {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--lto-badge-bg);
+    color: var(--lto-badge-color);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 8px 12px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .lto--{{ offer_id }} .lto__badge--1 {
+    top: 16px;
+    left: 16px;
+  }
+
+  .lto--{{ offer_id }} .lto__badge--2 {
+    top: 16px;
+    right: 16px;
+  }
+
+  .lto--{{ offer_id }} .lto__badge-icon {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .lto--{{ offer_id }} .lto__seal {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    max-width: 110px;
+  }
+
+  .lto--{{ offer_id }} .lto__seal-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .lto--{{ offer_id }} .lto__seal-text {
+    display: inline-block;
+    background: #fdda36;
+    color: #1a1a1a;
+    border: 2px solid #2d5a27;
+    border-radius: 50%;
+    width: 96px;
+    height: 96px;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+    padding: 18px 10px;
+    text-transform: uppercase;
+  }
+
+  .lto--{{ offer_id }} .lto__content {
+    padding: 0 var(--lto-content-pad-x);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--lto-text);
+  }
+
+  .lto--{{ offer_id }} .lto__rating {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    background: var(--lto-rating-bg);
+    color: var(--lto-rating-color);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+  }
+
+  .lto--{{ offer_id }} .lto__rating-stars {
+    display: inline-flex;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  .lto--{{ offer_id }} .lto__rating-stars svg {
+    width: 80px;
+    height: 15px;
+    display: block;
+  }
+
+  .lto--{{ offer_id }} .lto__rating-text {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .lto--{{ offer_id }} .lto__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--lto-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .lto--{{ offer_id }} .lto__eyebrow-dot {
+    flex: 0 1 40px;
+    height: 1px;
+    background: #dddddd;
+    max-width: 40px;
+    width: 100%;
+  }
+
+  .lto--{{ offer_id }} .lto__title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--lto-text);
+    max-width: 28ch;
+  }
+
+  .lto--{{ offer_id }} .lto__price {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--lto-price);
+    letter-spacing: -0.02em;
+  }
+
+  .lto--{{ offer_id }} .lto__compare {
+    margin: -2px 0 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--lto-text);
+  }
+
+  .lto--{{ offer_id }} .lto__description {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--lto-text);
+    max-width: 34ch;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--lto-text);
+    max-width: 34ch;
+    text-align: center;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich p {
+    margin: 0;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich p + p {
+    margin-top: 8px;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich strong {
+    font-weight: 700;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich ul,
+  .lto--{{ offer_id }} .lto__description-rich ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .lto--{{ offer_id }} .lto__description-rich li + li {
+    margin-top: 6px;
+  }
+
+  .lto--{{ offer_id }} .lto__features {
+    list-style: none;
+    margin: 4px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .lto--{{ offer_id }} .lto__feature {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--lto-text);
+  }
+
+  .lto--{{ offer_id }} .lto__feature-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(82, 198, 99, 0.15);
+    color: var(--lto-check);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .lto--{{ offer_id }} .lto__feature-check svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+  }
+
+  .lto--{{ offer_id }} .lto__countdown {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  .lto--{{ offer_id }} .lto__countdown-label {
+    color: var(--lto-text);
+    margin-right: 8px;
+    text-transform: uppercase;
+  }
+
+  .lto--{{ offer_id }} .lto__countdown-time {
+    color: var(--lto-accent-red);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lto--{{ offer_id }} .lto__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 2px;
+    padding: 16px 24px;
+    border-radius: 10px;
+    background: var(--lto-btn-bg);
+    color: var(--lto-btn-color) !important;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    border: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .lto--{{ offer_id }} .lto__button:hover {
+    background: var(--lto-btn-hover);
+    color: var(--lto-btn-color) !important;
+  }
+
+  .lto--{{ offer_id }} .lto__risk {
+    width: 100%;
+    background: var(--lto-risk-bg);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: var(--lto-font) !important;
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: normal;
+    color: var(--lto-text);
+    margin-top: 2px;
+  }
+
+  .lto--{{ offer_id }} .lto__risk-label,
+  .lto--{{ offer_id }} .lto__risk-value {
+    font-family: inherit !important;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit !important;
+  }
+
+  .lto--{{ offer_id }} .lto__risk-label {
+    color: var(--lto-muted);
+    margin-right: 6px;
+  }
+
+  .lto--{{ offer_id }} .lto__risk-value {
+    color: var(--lto-risk-value);
+    font-weight: 700;
+  }
+
+  .lto--{{ offer_id }} .lto__footer {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--lto-text);
+    max-width: 40ch;
+  }
+
+  @media (max-width: {{ lto_mobile_breakpoint }}px) {
+    .lto--{{ offer_id }} {
+      padding-top: {{ lto_padding_top_mobile }}px;
+      padding-bottom: {{ lto_padding_bottom_mobile }}px;
+      padding-left: {{ lto_padding_x_mobile }}px;
+      padding-right: {{ lto_padding_x_mobile }}px;
+    }
+
+    .lto--{{ offer_id }} .lto__chip {
+      font-size: 11px;
+      padding: 8px 14px;
+      white-space: normal;
+    }
+
+    .lto--{{ offer_id }} .lto__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .lto--{{ offer_id }} .lto__media {
+      {% if lto_mobile_image_position == 'bottom' %}
+        order: 2;
+      {% else %}
+        order: 1;
+      {% endif %}
+      min-height: {{ lto_media_min_height_mobile }}px;
+    }
+
+    .lto--{{ offer_id }} .lto__content {
+      {% if lto_mobile_image_position == 'bottom' %}
+        order: 1;
+      {% else %}
+        order: 2;
+      {% endif %}
+      padding: 0 {{ lto_content_pad_x_mobile }}px;
+      gap: 6px;
+    }
+
+    .lto--{{ offer_id }} .lto__image,
+    .lto--{{ offer_id }} .lto__image-placeholder {
+      min-height: {{ lto_media_min_height_mobile }}px;
+    }
+
+    .lto--{{ offer_id }} .lto__badge {
+      font-size: 11px;
+      padding: 6px 10px;
+    }
+
+    .lto--{{ offer_id }} .lto__badge--1 {
+      top: 10px;
+      left: 10px;
+    }
+
+    .lto--{{ offer_id }} .lto__badge--2 {
+      top: 10px;
+      right: 10px;
+    }
+
+    .lto--{{ offer_id }} .lto__seal {
+      max-width: 88px;
+    }
+
+    .lto--{{ offer_id }} .lto__seal-text {
+      width: 84px;
+      height: 84px;
+      font-size: 9px;
+      padding: 16px 8px;
+    }
+
+    .lto--{{ offer_id }} .lto__title {
+      font-size: 18px;
+    }
+
+    .lto--{{ offer_id }} .lto__price {
+      font-size: 34px;
+    }
+
+    .lto--{{ offer_id }} .lto__compare {
+      font-size: 16px;
+    }
+
+    .lto--{{ offer_id }} .lto__description {
+      font-size: 14px;
+    }
+
+    .lto--{{ offer_id }} .lto__description-rich {
+      font-size: 14px;
+    }
+
+    .lto--{{ offer_id }} .lto__feature {
+      font-size: 13px;
+    }
+
+    .lto--{{ offer_id }} .lto__countdown {
+      font-size: 16px;
+    }
+
+    .lto--{{ offer_id }} .lto__button {
+      font-size: 14px;
+      padding: 14px 18px;
+    }
+
+    .lto--{{ offer_id }} .lto__risk,
+    .lto--{{ offer_id }} .lto__footer {
+      font-size: 12px;
+    }
+  }
+
+  /* Override global typography-settings.js !important weights */
+  .lto--{{ offer_id }} .lto__chip,
+  .lto--{{ offer_id }} .lto__badge,
+  .lto--{{ offer_id }} .lto__eyebrow,
+  .lto--{{ offer_id }} .lto__rating-text,
+  .lto--{{ offer_id }} .lto__countdown,
+  .lto--{{ offer_id }} .lto__countdown-label,
+  .lto--{{ offer_id }} .lto__countdown-time,
+  .lto--{{ offer_id }} .lto__button,
+  .lto--{{ offer_id }} .lto__price,
+  .lto--{{ offer_id }} .lto__compare,
+  .lto--{{ offer_id }} .lto__risk-value,
+  .lto--{{ offer_id }} .lto__description-rich strong,
+  .lto--{{ offer_id }} .lto__seal-text {
+    font-weight: 700 !important;
+  }
+
+  .lto--{{ offer_id }} .lto__title {
+    font-weight: 600 !important;
+  }
+
+  .lto--{{ offer_id }} .lto__description,
+  .lto--{{ offer_id }} .lto__description-rich,
+  .lto--{{ offer_id }} .lto__description-rich p,
+  .lto--{{ offer_id }} .lto__feature,
+  .lto--{{ offer_id }} .lto__risk,
+  .lto--{{ offer_id }} .lto__risk-label,
+  .lto--{{ offer_id }} .lto__footer {
+    font-weight: 400 !important;
+  }
+{% endstyle %}
+
+<script>
+  (function () {
+    var section = document.getElementById('limited-time-offer-{{ offer_id }}');
+    if (!section) return;
+
+    var countdown = section.querySelector('[data-lto-countdown]');
+    var timeEl = section.querySelector('[data-lto-countdown-time]');
+    if (!countdown || !timeEl) return;
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    var mode = countdown.getAttribute('data-mode');
+    var end;
+
+    if (mode === 'deadline') {
+      var deadline = countdown.getAttribute('data-deadline');
+      var parsed = Date.parse(deadline);
+      end = !isNaN(parsed) ? parsed : Date.now() + (2 * 60 * 60 + 33 * 60 + 44) * 1000;
+    } else {
+      var hours = parseInt(countdown.getAttribute('data-hours') || '2', 10);
+      var minutes = parseInt(countdown.getAttribute('data-minutes') || '33', 10);
+      var seconds = parseInt(countdown.getAttribute('data-seconds') || '44', 10);
+      end = Date.now() + ((hours * 60 + minutes) * 60 + seconds) * 1000;
+    }
+
+    function tick() {
+      var diff = Math.max(0, end - Date.now());
+      var total = Math.floor(diff / 1000);
+      var h = Math.floor(total / 3600);
+      var m = Math.floor((total % 3600) / 60);
+      var s = total % 60;
+      timeEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+      if (diff > 0) window.setTimeout(tick, 1000);
+    }
+
+    tick();
+  })();
+</script>

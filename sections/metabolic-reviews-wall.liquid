@@ -1,0 +1,802 @@
+{% comment %} Section: metabolic-reviews-wall — heading + recommendation gauge + 3-col review grid interleaved with horizontal-scroll photo strips + rating + CTA {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+    assign blue = settings.global_section_accent_1_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+    assign blue = section.settings.accent_color
+  endif
+-%}
+
+{%- capture star_svg -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.857 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>{%- endcapture -%}
+
+{%- capture check_icon -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12ZM18.045 7.455C17.9379 7.34823 17.8103 7.26416 17.6699 7.20782C17.5295 7.15149 17.3792 7.12404 17.228 7.12712C17.0768 7.1302 16.9277 7.16375 16.7897 7.22575C16.6518 7.28776 16.5277 7.37695 16.425 7.488L11.2155 14.1255L8.076 10.9845C7.86274 10.7858 7.58067 10.6776 7.28922 10.6827C6.99776 10.6879 6.71969 10.8059 6.51357 11.0121C6.30745 11.2182 6.18938 11.4963 6.18424 11.7877C6.1791 12.0792 6.28728 12.3612 6.486 12.5745L10.455 16.545C10.5619 16.6517 10.6892 16.7358 10.8294 16.7923C10.9695 16.8487 11.1196 16.8764 11.2706 16.8736C11.4217 16.8708 11.5706 16.8376 11.7085 16.776C11.8465 16.7144 11.9706 16.6256 12.0735 16.515L18.0615 9.03C18.2656 8.81775 18.3784 8.53391 18.3756 8.23944C18.3728 7.94496 18.2546 7.66333 18.0465 7.455H18.045Z"/></svg>{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mrw-fh: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mrw-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mrw-fn: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mrw-bg: {{ section_bg }};
+    --mrw-ink: {{ ink }};
+    --mrw-blue: {{ blue }};
+    --mrw-muted: {{ section.settings.muted_text_color }};
+    --mrw-card-bg: {{ section.settings.card_background }};
+    --mrw-card-border: {{ section.settings.card_border_color }};
+    --mrw-card-radius: {{ section.settings.card_radius }}px;
+    --mrw-card-gap: {{ section.settings.card_gap }}px;
+    --mrw-star: {{ section.settings.star_color }};
+    --mrw-photo-border: {{ section.settings.photo_border_color }};
+    --mrw-photo-radius: {{ section.settings.photo_radius }}px;
+    --mrw-photo-w: {{ section.settings.photo_width }}px;
+    --mrw-overlap: {{ section.settings.photo_overlap }}px;
+    --mrw-button-bg: {{ section.settings.button_background }};
+    --mrw-button-text: {{ section.settings.button_text_color }};
+    --mrw-heading-size: {{ section.settings.heading_size }}px;
+    --mrw-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --mrw-subtitle-size: {{ section.settings.subtitle_size }}px;
+    --mrw-subtitle-size-mobile: {{ section.settings.subtitle_size_mobile }}px;
+    --mrw-row-gap: {{ section.settings.row_gap }}px;
+    --mrw-pad-top: {{ section.settings.padding_top }}px;
+    --mrw-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mrw-bg);
+    padding-top: var(--mrw-pad-top);
+    padding-bottom: var(--mrw-pad-bottom);
+  }
+
+  .section-{{ section.id }} .mrw__inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .section-{{ section.id }} .mrw__head { text-align: center; margin-bottom: 24px; }
+
+  .section-{{ section.id }} .mrw__title {
+    margin: 0;
+    font-family: var(--mrw-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.25;
+    color: var(--mrw-ink) !important;
+    font-size: clamp(var(--mrw-heading-size-mobile), 3.2vw, var(--mrw-heading-size));
+  }
+  .section-{{ section.id }} .mrw__accent { font-family: inherit !important; color: var(--mrw-blue) !important; }
+
+  .section-{{ section.id }} .mrw__subtitle { margin: 12px auto 0; max-width: 900px; }
+  .section-{{ section.id }} .mrw__subtitle p {
+    margin: 0;
+    font-family: var(--mrw-fb) !important;
+    font-weight: 400 !important;
+    line-height: 1.35;
+    color: var(--mrw-ink) !important;
+    font-size: clamp(var(--mrw-subtitle-size-mobile), 1.6vw, var(--mrw-subtitle-size));
+  }
+  .section-{{ section.id }} .mrw__subtitle p + p { margin-top: 4px; }
+
+  /* Recommendation gauge */
+  .section-{{ section.id }} .mrw__gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 0 auto 32px;
+  }
+  .section-{{ section.id }} .mrw__gauge-img { display: block; width: 300px; max-width: 80vw; height: auto; }
+  .section-{{ section.id }} .mrw__gauge-img--placeholder { background-color: #eef0f1; fill: #b9c3c9; border-radius: 8px; }
+  .section-{{ section.id }} .mrw__gauge-label {
+    margin: 0;
+    max-width: 240px;
+    text-align: center;
+    font-family: var(--mrw-fb) !important;
+    font-weight: 600 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mrw-ink) !important;
+  }
+
+  /* Grid: reviews (1 col each) + photo strips (full width) */
+  .section-{{ section.id }} .mrw__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: var(--mrw-card-gap);
+    row-gap: var(--mrw-row-gap);
+    align-items: stretch;
+  }
+
+  /* Review card */
+  .section-{{ section.id }} .mrw__card {
+    box-sizing: border-box;
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: clamp(18px, 2.2vw, 25px);
+    background-color: var(--mrw-card-bg);
+    border: 1px solid var(--mrw-card-border);
+    border-radius: var(--mrw-card-radius);
+  }
+  .section-{{ section.id }} .mrw__card-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .section-{{ section.id }} .mrw__avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mrw-fn) !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--mrw-ink) !important;
+    overflow: hidden;
+  }
+  .section-{{ section.id }} .mrw__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .section-{{ section.id }} .mrw__name {
+    margin: 0;
+    font-family: var(--mrw-fn) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--mrw-ink) !important;
+  }
+  .section-{{ section.id }} .mrw__stars { display: inline-flex; gap: 1px; }
+  .section-{{ section.id }} .mrw__star { width: 16px; height: 16px; line-height: 0; }
+  .section-{{ section.id }} .mrw__star svg { display: block; width: 100%; height: 100%; }
+  .section-{{ section.id }} .mrw__star.is-on { color: var(--mrw-star); }
+  .section-{{ section.id }} .mrw__star.is-off { color: #d8dade; }
+  .section-{{ section.id }} .mrw__headline {
+    margin: 0;
+    font-family: var(--mrw-fb) !important;
+    font-weight: 600 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mrw-ink) !important;
+  }
+  .section-{{ section.id }} .mrw__text {
+    margin: 0;
+    font-family: var(--mrw-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mrw-muted) !important;
+  }
+
+  /* Photo strip: full-width horizontal scroll of tilted, overlapping photos */
+  .section-{{ section.id }} .mrw__strip { grid-column: 1 / -1; min-width: 0; }
+  .section-{{ section.id }} .mrw__strip-track {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: safe center;
+    overflow-x: auto;
+    max-width: 100%;
+    padding: 28px 12px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .section-{{ section.id }} .mrw__strip-track::-webkit-scrollbar { display: none; }
+  .section-{{ section.id }} .mrw__photo {
+    position: relative;
+    flex: 0 0 auto;
+    width: clamp(150px, 42vw, var(--mrw-photo-w));
+    aspect-ratio: 256 / 320;
+    border: 2px solid var(--mrw-photo-border);
+    border-radius: var(--mrw-photo-radius);
+    overflow: hidden;
+    background-color: #eef0f1;
+    box-shadow: 0 4px 10px rgba(143,143,143,0.08), 0 18px 18px rgba(143,143,143,0.05), 0 40px 24px rgba(143,143,143,0.05);
+  }
+  .section-{{ section.id }} .mrw__photo:not(:first-child) { margin-left: calc(var(--mrw-overlap) * -1); }
+  {%- if section.settings.enable_tilt %}
+  .section-{{ section.id }} .mrw__photo:nth-child(6n+1) { transform: rotate(5deg); }
+  .section-{{ section.id }} .mrw__photo:nth-child(6n+2) { transform: rotate(-4deg); }
+  .section-{{ section.id }} .mrw__photo:nth-child(6n+3) { transform: rotate(2deg); }
+  .section-{{ section.id }} .mrw__photo:nth-child(6n+4) { transform: rotate(-6deg); }
+  .section-{{ section.id }} .mrw__photo:nth-child(6n+5) { transform: rotate(6deg); }
+  .section-{{ section.id }} .mrw__photo:nth-child(6n) { transform: rotate(-3deg); }
+  {%- endif %}
+  .section-{{ section.id }} .mrw__photo-img,
+  .section-{{ section.id }} .mrw__photo-ph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .section-{{ section.id }} .mrw__photo-ph { fill: #b9c3c9; }
+
+  /* Footer rating */
+  .section-{{ section.id }} .mrw__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .section-{{ section.id }} .mrw__rating-text {
+    font-family: var(--mrw-fb) !important;
+    font-weight: 600 !important;
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.4;
+    color: var(--mrw-ink) !important;
+  }
+
+  /* CTA */
+  .section-{{ section.id }} .mrw__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center; width: 100%;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .section-{{ section.id }} .mrw__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 553px;
+    max-width: 100%;
+    padding: 16px clamp(18px, 5vw, 32px);
+    font-family: var(--mrw-fb) !important;
+    font-weight: 700 !important;
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--mrw-button-text) !important;
+    background-color: var(--mrw-button-bg);
+    border: 0;
+    border-radius: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .section-{{ section.id }} .mrw__button:hover { opacity: 0.92; transform: translateY(-1px); }
+  .section-{{ section.id }} .mrw__button:focus-visible { outline: 3px solid var(--mrw-blue); outline-offset: 3px; }
+  .section-{{ section.id }} .mrw__guarantee {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mrw-fb) !important;
+    font-weight: 400 !important;
+    font-size: clamp(13px, 1.6vw, 16px);
+    color: var(--mrw-ink) !important;
+  }
+  .section-{{ section.id }} .mrw__guarantee-icon { flex-shrink: 0; width: 16px; height: 16px; line-height: 0; color: var(--mrw-ink); }
+  .section-{{ section.id }} .mrw__guarantee-icon svg { display: block; width: 100%; height: 100%; }
+
+  @media (min-width: 640px) {
+    .section-{{ section.id }} .mrw__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 990px) {
+    .section-{{ section.id }} .mrw__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .mrw__button { transition: none; }
+  }
+{% endstyle %}
+
+<section class="mrw section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="mrw__inner">
+
+    {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank or section.settings.heading_after != blank or section.settings.subtitle != blank -%}
+      <header class="mrw__head">
+        {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank or section.settings.heading_after != blank -%}
+          <h2 class="mrw__title">
+            {{- section.settings.heading_before -}}
+            {%- if section.settings.heading_accent != blank %} <span class="mrw__accent">{{ section.settings.heading_accent }}</span>{% endif -%}
+            {%- if section.settings.heading_after != blank %} {{ section.settings.heading_after }}{% endif -%}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <div class="mrw__subtitle">{{ section.settings.subtitle }}</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.settings.gauge_image != blank or section.settings.gauge_label != blank -%}
+      <div class="mrw__gauge">
+        {%- if section.settings.gauge_image != blank -%}
+          {%- assign gauge_alt = section.settings.gauge_image.alt | default: section.settings.gauge_label | default: 'Reviewer recommendation' -%}
+          {{
+            section.settings.gauge_image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              widths: '300,450,600',
+              sizes: '300px',
+              alt: gauge_alt,
+              class: 'mrw__gauge-img'
+          }}
+        {%- else -%}
+          <div class="mrw__gauge-img mrw__gauge-img--placeholder" style="width:300px;max-width:80vw;aspect-ratio:300/125">{{ 'image' | placeholder_svg_tag: 'mrw__gauge-img--placeholder' }}</div>
+        {%- endif -%}
+        {%- if section.settings.gauge_label != blank -%}
+          <p class="mrw__gauge-label">{{ section.settings.gauge_label }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="mrw__grid">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+
+          {%- when 'review' -%}
+            {%- assign rating = block.settings.rating | default: 5 -%}
+            <article class="mrw__card" {{ block.shopify_attributes }}>
+              <div class="mrw__card-head">
+                {%- if block.settings.avatar_image != blank -%}
+                  {%- assign av_alt = block.settings.name | default: 'Reviewer' -%}
+                  <span class="mrw__avatar">{{ block.settings.avatar_image | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', sizes: '40px', alt: av_alt }}</span>
+                {%- else -%}
+                  <span class="mrw__avatar" style="background-color: {{ block.settings.avatar_color }}">{{ block.settings.initials }}</span>
+                {%- endif -%}
+                {%- if block.settings.name != blank -%}
+                  <p class="mrw__name">{{ block.settings.name }}</p>
+                {%- endif -%}
+              </div>
+              <div class="mrw__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+                {%- for i in (1..5) -%}
+                  <span class="mrw__star {% if i <= rating %}is-on{% else %}is-off{% endif %}">{{ star_svg }}</span>
+                {%- endfor -%}
+              </div>
+              {%- if block.settings.headline != blank -%}
+                <h3 class="mrw__headline">{{ block.settings.headline }}</h3>
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <p class="mrw__text">{{ block.settings.text }}</p>
+              {%- endif -%}
+            </article>
+
+          {%- when 'photo_strip' -%}
+            {%- assign photo_count = 0 -%}
+            {%- for i in (1..6) -%}
+              {%- assign pkey = 'image_' | append: i -%}
+              {%- if block.settings[pkey] != blank -%}{%- assign photo_count = photo_count | plus: 1 -%}{%- endif -%}
+            {%- endfor -%}
+            <div class="mrw__strip" {{ block.shopify_attributes }}>
+              <div class="mrw__strip-track">
+                {%- if photo_count == 0 -%}
+                  {%- for i in (1..6) -%}
+                    <div class="mrw__photo">{{ 'image' | placeholder_svg_tag: 'mrw__photo-ph' }}</div>
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for i in (1..6) -%}
+                    {%- assign pkey = 'image_' | append: i -%}
+                    {%- assign pimg = block.settings[pkey] -%}
+                    {%- if pimg != blank -%}
+                      {%- assign p_alt = pimg.alt | default: 'Customer photo' -%}
+                      <div class="mrw__photo">
+                        {{
+                          pimg
+                          | image_url: width: 600
+                          | image_tag:
+                            loading: 'lazy',
+                            widths: '200,300,420,600',
+                            sizes: '(min-width: 768px) 210px, 60vw',
+                            alt: p_alt,
+                            class: 'mrw__photo-img'
+                        }}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.rating_text != blank -%}
+      <div class="mrw__rating">
+        <span class="mrw__stars" role="img" aria-label="5 out of 5 stars">
+          {%- for i in (1..5) -%}<span class="mrw__star is-on">{{ star_svg }}</span>{%- endfor -%}
+        </span>
+        <span class="mrw__rating-text">{{ section.settings.rating_text }}</span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.button_text != blank -%}
+      <div class="mrw__cta">
+        <a class="mrw__button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_text }}</a>
+        {%- if section.settings.guarantee_text != blank -%}
+          <span class="mrw__guarantee"><span class="mrw__guarantee-icon">{{ check_icon }}</span>{{ section.settings.guarantee_text }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Reviews Wall",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading (before accent)",
+      "default": "Say Goodbye To"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent text (colored)",
+      "default": "“Meno Belly”"
+    },
+    {
+      "type": "text",
+      "id": "heading_after",
+      "label": "Heading (after accent)",
+      "default": "And Feel Comfortable In Your Clothes Again"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "<p>Fed up with solutions that never seem to stick?</p><p>Discover why thousands of women 45+ are turning to Metabolic Flow to support healthy metabolism, balanced energy, and fewer cravings.</p>"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size_mobile",
+      "label": "Subtitle size (mobile)",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Recommendation gauge"
+    },
+    {
+      "type": "image_picker",
+      "id": "gauge_image",
+      "label": "Gauge image",
+      "info": "Export the recommendation gauge graphic from the design (~300 x 125)."
+    },
+    {
+      "type": "text",
+      "id": "gauge_label",
+      "label": "Gauge label",
+      "default": "of reviewers recommend Metabolic Flow 45+"
+    },
+    {
+      "type": "header",
+      "content": "Review cards"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#ececec"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Review body text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#f5a623"
+    },
+    {
+      "type": "header",
+      "content": "Photo strips"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_tilt",
+      "label": "Tilt photos",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "photo_border_color",
+      "label": "Photo border color",
+      "default": "#2b3e6f"
+    },
+    {
+      "type": "range",
+      "id": "photo_radius",
+      "label": "Photo corner radius",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "photo_width",
+      "label": "Photo width (desktop)",
+      "min": 140,
+      "max": 300,
+      "step": 2,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "range",
+      "id": "photo_overlap",
+      "label": "Photo overlap",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Footer rating"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "91% of reviewers recommend Metabolic Flow"
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CLAIM 20% OFF NOW 👉"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "60-Day Money-Back Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#5584c0"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Vertical gap between rows",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Reviewer name",
+          "default": "Karen Mitchell, 58"
+        },
+        {
+          "type": "text",
+          "id": "initials",
+          "label": "Avatar initials",
+          "default": "KM"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar_image",
+          "label": "Avatar image (optional)",
+          "info": "Overrides initials when set."
+        },
+        {
+          "type": "color",
+          "id": "avatar_color",
+          "label": "Avatar background",
+          "default": "#f7d04e"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Review headline",
+          "default": "I Thought My Metabolism Was Gone For Good"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review text"
+        }
+      ]
+    },
+    {
+      "type": "photo_strip",
+      "name": "Photo strip",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Add up to 6 customer photos. They sit in a tilted, overlapping row that scrolls horizontally on smaller screens."
+        },
+        { "type": "image_picker", "id": "image_1", "label": "Photo 1" },
+        { "type": "image_picker", "id": "image_2", "label": "Photo 2" },
+        { "type": "image_picker", "id": "image_3", "label": "Photo 3" },
+        { "type": "image_picker", "id": "image_4", "label": "Photo 4" },
+        { "type": "image_picker", "id": "image_5", "label": "Photo 5" },
+        { "type": "image_picker", "id": "image_6", "label": "Photo 6" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Metabolic Reviews Wall",
+      "blocks": [
+        { "type": "review", "settings": { "name": "Karen Mitchell, 58", "initials": "KM", "avatar_color": "#f7d04e", "rating": 5, "headline": "I Thought My Metabolism Was Gone For Good", "text": "After 50, it felt like my body completely changed. I was eating the same way I always had, but the weight kept creeping up and my energy was at an all-time low. A few weeks after adding Metabolic Flow to my routine, I started feeling more like myself again. My cravings aren't nearly as intense, I have more energy, and I finally feel hopeful about my progress." } },
+        { "type": "review", "settings": { "name": "Joanne Peters, 61", "initials": "JP", "avatar_color": "#f3c7d4", "rating": 5, "headline": "The Weight Kept Coming No Matter What I Tried", "text": "I felt like I was constantly dieting and getting nowhere. Every Monday I'd promise myself this week would be different. What I love most about Metabolic Flow is how simple it is. I feel more in control of my eating habits, my clothes fit more comfortably, and I don't feel like I'm fighting my body every day anymore." } },
+        { "type": "review", "settings": { "name": "Rebecca Johnstone, 56", "initials": "RJ", "avatar_color": "#bcd3ef", "rating": 5, "headline": "Friends Started Asking What I Was Doing", "text": "I honestly didn't notice the changes at first. Then a friend asked if I'd lost weight because I looked happier and more confident. The biggest difference for me has been my energy and the fact that I'm no longer thinking about food all day. I just feel better." } },
+        { "type": "photo_strip" },
+        { "type": "review", "settings": { "name": "Michelle Harlow, 59", "initials": "MH", "avatar_color": "#c3dbef", "rating": 5, "headline": "I Finally Broke The Cycle Of Starting Over Every Monday", "text": "For years I'd start a new plan, stick with it for a week or two, then give up. Metabolic Flow has become part of a routine I can actually maintain. I have fewer cravings, more motivation, and I finally feel like I'm moving in the right direction." } },
+        { "type": "review", "settings": { "name": "Claire Matthews, 54", "initials": "CM", "avatar_color": "#f7d04e", "rating": 5, "headline": "I Was Doing Everything Right... Or So I Thought", "text": "I was walking every day, trying to eat healthy, and still felt stuck. It was frustrating because I felt like I was working harder than ever with very little to show for it. Since starting Metabolic Flow, I feel more balanced, more energized, and much more confident in my daily routine." } },
+        { "type": "review", "settings": { "name": "Sandra Miller, 57", "initials": "SM", "avatar_color": "#f3c7d4", "rating": 5, "headline": "My Favorite Jeans Fit Again And I Couldn't Believe It", "text": "The best feeling wasn't seeing a number on the scale. It was putting on a pair of jeans I hadn't worn in years and feeling comfortable in them again. I have more energy, fewer cravings, and I finally feel like myself when I look in the mirror." } },
+        { "type": "photo_strip" },
+        { "type": "review", "settings": { "name": "Karen Mitchell, 58", "initials": "KM", "avatar_color": "#f7d04e", "rating": 5, "headline": "I Thought My Metabolism Was Gone For Good", "text": "Once I hit my 50s, it felt like everything changed. I was doing the same things I'd always done, but my energy was lower and my clothes kept feeling tighter. A few weeks into Metabolic Flow, I started feeling more balanced and much more confident in myself." } },
+        { "type": "review", "settings": { "name": "Joanne Peters, 61", "initials": "JP", "avatar_color": "#f3c7d4", "rating": 5, "headline": "Friends Started Asking What I Was Doing", "text": "The funny thing is I didn't notice the changes at first. Then a friend asked if I'd changed something because I looked happier and more energized. I feel more in control of my cravings, my routine feels easier, and I finally feel optimistic again." } },
+        { "type": "review", "settings": { "name": "Rebecca Johnstone, 56", "initials": "RJ", "avatar_color": "#bcd3ef", "rating": 5, "headline": "The Best Decision I've Made For Myself In Years", "text": "I've spent years putting everyone else first and neglecting myself. Adding Metabolic Flow to my routine felt like a small step, but it made a huge difference in how I feel every day. More energy, fewer cravings, and so much more confidence." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

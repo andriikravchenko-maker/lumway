@@ -1,0 +1,227 @@
+{%- comment -%}
+  Bundle / quantity selector — Product Details BLOCK (pixel-perfect to Figma 377:4655).
+  VARIANT-BASED: each option maps to a product variant (by order: Option 1 = 1st variant, etc.).
+  Prices come live from the variants; compare/save are computed from the product's compare-at:
+    now     = variant.price
+    compare = product.compare_at_price (per unit) x units
+    save    = compare - variant.price
+    each    = variant.price / units
+  Selecting an option sets the variant in the product form and fires the theme's variant-change
+  events, so the real price + Add-to-cart update.
+  Usage: {% render 'bundle-selector-block', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign uid = block.id
+  assign card_w_css = 'none'
+  if block.settings.stretch_full_width == false
+    assign card_w_css = block.settings.card_max_width | default: 183 | append: 'px'
+  endif
+  assign has_product = false
+  if product != nil and product.variants.size > 0
+    assign has_product = true
+  endif
+
+  assign unit_compare = 0
+  assign sel_index = 0
+  assign first_shown = 0
+  if has_product
+    assign unit_compare = product.compare_at_price
+    if unit_compare == nil or unit_compare == 0
+      assign unit_compare = product.variants.first.compare_at_price
+    endif
+    for i in (1..4)
+      assign vidx = i | minus: 1
+      assign v = product.variants[vidx]
+      assign show_key = 'option_' | append: i | append: '_show'
+      if v and block.settings[show_key]
+        if first_shown == 0
+          assign first_shown = i
+        endif
+        assign sel_key = 'option_' | append: i | append: '_selected'
+        if block.settings[sel_key] and sel_index == 0
+          assign sel_index = i
+        endif
+      endif
+    endfor
+    if sel_index == 0
+      assign sel_index = first_shown
+    endif
+  endif
+-%}
+
+{%- if has_product -%}
+{% style %}
+  {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {{ settings.type_header_font | font_modify: 'weight', '500' | font_face: font_display: 'swap' }}
+  {{ settings.type_header_font | font_modify: 'weight', '600' | font_face: font_display: 'swap' }}
+  {{ settings.type_header_font | font_modify: 'weight', '700' | font_face: font_display: 'swap' }}
+
+  .qsb-{{ uid }} {
+    --qs-font: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }}, system-ui, sans-serif;
+    --qs-accent: {{ block.settings.accent_color | default: '#3f8b35' }};
+    --qs-border: {{ block.settings.border_color | default: '#e5e5e5' }};
+    --qs-card-bg: {{ block.settings.card_background | default: '#ffffff' }};
+    --qs-text: {{ block.settings.text_color | default: '#333333' }};
+    --qs-muted: {{ block.settings.muted_color | default: '#666666' }};
+    --qs-pill-bg: {{ block.settings.pill_background | default: '#efeee8' }};
+    --qs-pill-text: {{ block.settings.pill_text_color | default: '#0a430d' }};
+    --qs-pill-text-sel: {{ block.settings.pill_text_selected_color | default: '#ffffff' }};
+    --qs-card-w: {{ card_w_css }};
+    --qs-gap: {{ block.settings.column_gap | default: 16 }}px;
+    --qs-radius: {{ block.settings.card_radius | default: 8 }}px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: {{ block.settings.margin_top | default: 8 }}px;
+    margin-bottom: {{ block.settings.margin_bottom | default: 8 }}px;
+  }
+  .qsb-{{ uid }} .qs__row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: var(--qs-gap); margin: 0; padding: 0; border: 0; }
+  .qsb-{{ uid }} .qs__unit { position: relative; flex: 1 1 0; min-width: 0; max-width: var(--qs-card-w); display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 0; cursor: pointer; }
+  .qsb-{{ uid }} .qs__input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; z-index: 2; }
+  .qsb-{{ uid }} .qs__card { position: relative; box-sizing: border-box; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 18px 14px 14px; background-color: var(--qs-card-bg); border: 2px solid var(--qs-border); border-radius: var(--qs-radius); transition: border-color 0.15s ease; }
+  .qsb-{{ uid }} .qs__unit.is-selected .qs__card,
+  .qsb-{{ uid }} .qs__unit:has(.qs__input:checked) .qs__card { border-color: var(--qs-accent); }
+  .qsb-{{ uid }} .qs__input:focus-visible ~ .qs__card { outline: 2px solid var(--qs-accent); outline-offset: 2px; }
+  .qsb-{{ uid }} .qs__title { margin: 0; font-family: var(--qs-font); font-weight: 600; font-size: 18px; line-height: 16.8px; letter-spacing: -0.3px; color: var(--qs-text); text-align: center; white-space: nowrap; }
+  .qsb-{{ uid }} .qs__img { width: 80px; max-width: 100%; aspect-ratio: 1 / 1; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
+  .qsb-{{ uid }} .qs__img img, .qsb-{{ uid }} .qs__img svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .qsb-{{ uid }} .qs__img--placeholder { background-color: #eef0f1; fill: #b9c3c9; }
+  .qsb-{{ uid }} .qs__price { display: flex; flex-wrap: wrap; gap: 4px; align-items: baseline; justify-content: center; width: 100%; }
+  .qsb-{{ uid }} .qs__price-now { font-family: var(--qs-font); font-weight: 700; font-size: 18px; line-height: 22.4px; letter-spacing: -0.3px; color: var(--qs-text); }
+  .qsb-{{ uid }} .qs__price-was { font-family: var(--qs-font); font-weight: 400; font-size: 14px; line-height: 1.4; color: var(--qs-muted); opacity: 0.7; text-decoration: line-through; }
+  .qsb-{{ uid }} .qs__save { display: inline-flex; align-items: center; justify-content: center; padding: 4px 12px; border-radius: 4px; background-color: var(--qs-pill-bg); color: var(--qs-pill-text); font-family: var(--qs-font); font-weight: 700; font-size: 14px; line-height: 1.4; letter-spacing: -0.028px; white-space: nowrap; transition: background-color 0.15s ease, color 0.15s ease; }
+  .qsb-{{ uid }} .qs__unit.is-selected .qs__save,
+  .qsb-{{ uid }} .qs__unit:has(.qs__input:checked) .qs__save { background-color: var(--qs-accent); color: var(--qs-pill-text-sel); }
+  .qsb-{{ uid }} .qs__each { margin: 0; font-family: var(--qs-font); font-weight: 500; font-size: 14px; line-height: 19.6px; letter-spacing: -0.3px; color: var(--qs-muted); text-align: center; }
+  .qsb-{{ uid }} .qs__badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); padding: 3px 8px; border-radius: 4px; font-family: var(--qs-font); font-weight: 700; font-size: 10px; line-height: 14px; letter-spacing: -0.3px; color: #ffffff; text-transform: uppercase; white-space: nowrap; z-index: 1; }
+  @media (max-width: 400px) {
+    .qsb-{{ uid }} .qs__card { padding-left: 10px; padding-right: 10px; }
+    .qsb-{{ uid }} .qs__save { padding-inline: 8px; white-space: normal; max-width: 100%; text-align: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .qsb-{{ uid }} .qs__card, .qsb-{{ uid }} .qs__save { transition: none; }
+  }
+{% endstyle %}
+
+<div class="qsb qsb-{{ uid }}" {{ block.shopify_attributes }} data-product-id="{{ product.id }}">
+  <script type="application/json" class="qsb-variants">{{ product.variants | json }}</script>
+  <div class="qs__row" role="radiogroup" aria-label="Choose a pack size">
+    {%- for i in (1..4) -%}
+      {%- liquid
+        assign vidx = i | minus: 1
+        assign v = product.variants[vidx]
+        assign show_key = 'option_' | append: i | append: '_show'
+        unless v and block.settings[show_key]
+          continue
+        endunless
+        assign units_key = 'option_' | append: i | append: '_units'
+        assign units = block.settings[units_key] | default: i
+        if units < 1
+          assign units = 1
+        endif
+        assign label_key = 'option_' | append: i | append: '_label'
+        assign label = block.settings[label_key]
+        if label == blank
+          assign label = v.title
+        endif
+        assign image_key = 'option_' | append: i | append: '_image'
+        assign opt_image = block.settings[image_key]
+        if opt_image == blank
+          assign opt_image = v.image | default: product.featured_image
+        endif
+        assign badge_key = 'option_' | append: i | append: '_badge'
+        assign badge = block.settings[badge_key]
+        assign badge_color_key = 'option_' | append: i | append: '_badge_color'
+        assign badge_color = block.settings[badge_color_key] | default: '#b07a5b'
+        assign now_cents = v.price
+        assign compare_cents = 0
+        if unit_compare and unit_compare > 0
+          assign compare_cents = unit_compare | times: units
+        endif
+        assign save_cents = 0
+        if compare_cents > now_cents
+          assign save_cents = compare_cents | minus: now_cents
+        endif
+        assign each_cents = now_cents | divided_by: units
+        assign is_sel = false
+        if i == sel_index
+          assign is_sel = true
+        endif
+      -%}
+      <label class="qs__unit{% if is_sel %} is-selected{% endif %}">
+        <input type="radio" class="qs__input" name="bundle-{{ uid }}" value="{{ v.id }}"{% if is_sel %} checked{% endif %}{% unless v.available %} data-unavailable="true"{% endunless %} aria-label="{{ label | escape }}, {{ now_cents | money | strip_html | escape }}{% if save_cents > 0 %}, save {{ save_cents | money | strip_html | escape }}{% endif %}">
+        <span class="qs__card">
+          {%- if badge != blank -%}<span class="qs__badge" style="background-color: {{ badge_color }}">{{ badge | escape }}</span>{%- endif -%}
+          {%- if label != blank -%}<span class="qs__title">{{ label | escape }}</span>{%- endif -%}
+          <span class="qs__img">
+            {%- if opt_image != blank -%}
+              {{ opt_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '80,120,160,200', sizes: '80px', alt: label }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'qs__img--placeholder' }}
+            {%- endif -%}
+          </span>
+          <span class="qs__price">
+            <span class="qs__price-now">{{ now_cents | money }}</span>
+            {%- if compare_cents > now_cents -%}<span class="qs__price-was">{{ compare_cents | money }}</span>{%- endif -%}
+          </span>
+          {%- if save_cents > 0 -%}<span class="qs__save">Save {{ save_cents | money }}</span>{%- endif -%}
+        </span>
+        <span class="qs__each">{{ each_cents | money }}/each</span>
+      </label>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('.qsb-{{ uid }}');
+    if (!root || root.__qsbBound) return;
+    root.__qsbBound = true;
+    var variants = [];
+    try { variants = JSON.parse(root.querySelector('.qsb-variants').textContent) || []; } catch (e) { variants = []; }
+    function variantById(id) {
+      for (var k = 0; k < variants.length; k++) { if (String(variants[k].id) === String(id)) return variants[k]; }
+      return null;
+    }
+    function variantInput() {
+      return document.querySelector('product-form input[name="id"]')
+          || document.querySelector('input[name="id"].product-variant-id')
+          || document.querySelector('form[data-type="add-to-cart-form"] input[name="id"]')
+          || document.querySelector('input[name="id"]');
+    }
+    function selectVariant(id) {
+      var variant = variantById(id);
+      if (!variant) return;
+      var input = variantInput();
+      if (input) {
+        input.value = variant.id;
+        input.setAttribute('value', variant.id);
+        if (variant.available !== false) { input.removeAttribute('disabled'); }
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: { variant: variant, source: 'bundle-selector' } }));
+      document.dispatchEvent(new CustomEvent('variant:change', { detail: { variant: variant } }));
+    }
+    var userTouched = false;
+    root.addEventListener('change', function (e) {
+      if (!e.target.classList || !e.target.classList.contains('qs__input')) return;
+      userTouched = true;
+      root.querySelectorAll('.qs__unit').forEach(function (u) {
+        u.classList.toggle('is-selected', u.querySelector('.qs__input').checked);
+      });
+      selectVariant(e.target.value);
+    });
+    // Apply the default-selected option to the product form on load. Re-fire several times:
+    // the theme attaches its variant/price listeners after deferred JS, so a single early
+    // dispatch is missed (price stays on the first variant until a click). userTouched stops
+    // the retries from overriding a manual choice.
+    function init() { if (userTouched) return; var c = root.querySelector('.qs__input:checked'); if (c) selectVariant(c.value); }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+    window.addEventListener('load', init);
+    [200, 600, 1200, 2500].forEach(function (d) { setTimeout(init, d); });
+    document.addEventListener('shopify:section:load', function () { userTouched = false; setTimeout(init, 60); });
+  })();
+</script>
+{%- elsif request.design_mode -%}
+  <div style="padding:16px;border:1px dashed #ccc;border-radius:8px;color:#666;font:14px sans-serif;text-align:center">Quantity Bundle Cards: add this block on a product page (no variants found).</div>
+{%- endif -%}

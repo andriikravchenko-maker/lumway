@@ -1,0 +1,295 @@
+{% comment %} Section: gut-harmony-story — Venn diagram image (left) + narrative text (right) {% endcomment %}
+
+{%- unless settings.enable_league_spartan_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign text_color = settings.global_section_text_color
+  else
+    assign background_color = section.settings.background_color
+    assign text_color = section.settings.text_color
+  endif
+
+  assign image_alt = section.settings.image.alt | default: 'Digestive slowdown explained with a venn diagram'
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --ghs-font: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ghs-bg: {{ background_color }};
+    --ghs-text-color: {{ text_color }};
+    --ghs-text-size: {{ section.settings.text_size }}px;
+    --ghs-text-lh: {{ section.settings.text_line_height }};
+    --ghs-para-gap: {{ section.settings.paragraph_spacing }}px;
+    --ghs-image-radius: {{ section.settings.image_border_radius }}px;
+    --ghs-column-gap: {{ section.settings.column_gap }}px;
+    --ghs-padding-top: {{ section.settings.padding_top }}px;
+    --ghs-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --ghs-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ghs-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--ghs-bg);
+    padding-top: var(--ghs-padding-top-mobile);
+    padding-bottom: var(--ghs-padding-bottom-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ghs-column-gap);
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__media {
+    width: 100%;
+    max-width: 486px;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--ghs-image-radius);
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__image--placeholder {
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__text {
+    width: 100%;
+    max-width: 687px;
+    color: var(--ghs-text-color);
+  }
+
+  /* theme's typography-system.css forces p { font-family: body !important } and p { font-weight: regular !important }; override both to keep the design's League Spartan Medium */
+  .section-{{ section.id }} .gut-harmony-story__text p {
+    margin: 0 0 var(--ghs-para-gap);
+    font-family: var(--ghs-font) !important;
+    font-size: var(--ghs-text-size);
+    font-weight: 500 !important;
+    line-height: var(--ghs-text-lh);
+    color: var(--ghs-text-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-story__text strong {
+    font-family: var(--ghs-font) !important;
+    font-weight: 700;
+  }
+
+  @media screen and (min-width: 1240px) {
+    .section-{{ section.id }} {
+      padding-top: var(--ghs-padding-top);
+      padding-bottom: var(--ghs-padding-bottom);
+    }
+
+    .section-{{ section.id }} .gut-harmony-story__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      max-width: 1197px;
+      padding-inline: 0;
+    }
+
+    .section-{{ section.id }} .gut-harmony-story__media {
+      flex: 0 0 486px;
+    }
+
+    .section-{{ section.id }} .gut-harmony-story__text {
+      flex: 0 0 687px;
+      max-width: 687px;
+    }
+  }
+{% endstyle %}
+
+<section id="gut-harmony-story" class="gut-harmony-story section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="gut-harmony-story__inner">
+    <div class="gut-harmony-story__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 972
+          | image_tag:
+            loading: 'lazy',
+            widths: '300,400,486,600,800,972',
+            sizes: '(min-width: 1240px) 486px, 100vw',
+            alt: image_alt,
+            class: 'gut-harmony-story__image'
+        }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'gut-harmony-story__image gut-harmony-story__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.text != blank -%}
+      <div class="gut-harmony-story__text">{{ section.settings.text }}</div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gut Harmony Story",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Gap between image and text",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Venn diagram image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Venn diagram image",
+      "info": "Export the venn diagram from Figma and upload it here. Recommended a square image (~486 x 486)."
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Story text",
+      "default": "<p><strong>“Your stomach isn’t broken,” my digestive specialist said gently.</strong></p><p>“What you’re experiencing is called post-meal digestive slowdown. And it’s extremely common for women after 50.”</p><p>She pulled out her notebook—that familiar scratch of pen against paper—and leaned in closer.</p><p>“Let me show you what may be happening.”</p><p>She drew three simple circles.</p><p><strong>“First, digestion can naturally start slowing down with age.</strong> Think of it like your stomach taking longer to process heavier meals than it used to.”</p><p><strong>“Second, your gut balance may begin changing over time.</strong> Stress, medications, processed foods, and everyday lifestyle habits can affect the balance of good bacteria in the digestive system.”</p><p><strong>“And third—this is important—many women become more sensitive to foods they used to tolerate just fine.”</strong></p><p>“Wait,” I interrupted. “So it’s not just overeating? Or me doing something wrong?”</p><p>“Exactly.” She smiled.</p>"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_line_height",
+      "label": "Text line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.3
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing",
+      "label": "Spacing between paragraphs",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gut Harmony Story",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

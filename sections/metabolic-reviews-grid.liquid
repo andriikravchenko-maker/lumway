@@ -1,0 +1,209 @@
+{% comment %} Section: metabolic-reviews-grid — standalone grid of review cards (avatar + name + stars + headline + text) {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+  endif
+-%}
+
+{%- capture star_svg -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.857 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --rg-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --rg-fn: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --rg-bg: {{ section_bg }};
+    --rg-ink: {{ ink }};
+    --rg-muted: {{ section.settings.muted_text_color }};
+    --rg-card-bg: {{ section.settings.card_background }};
+    --rg-card-border: {{ section.settings.card_border_color }};
+    --rg-card-radius: {{ section.settings.card_radius }}px;
+    --rg-star: {{ section.settings.star_color }};
+    --rg-cols: {{ section.settings.columns_desktop }};
+    --rg-col-gap: {{ section.settings.column_gap }}px;
+    --rg-row-gap: {{ section.settings.row_gap }}px;
+    --rg-pad-top: {{ section.settings.padding_top }}px;
+    --rg-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--rg-bg);
+    padding-top: var(--rg-pad-top);
+    padding-bottom: var(--rg-pad-bottom);
+  }
+
+  .section-{{ section.id }} .rg__inner {
+    max-width: 1640px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .rg__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: var(--rg-col-gap);
+    row-gap: var(--rg-row-gap);
+    align-items: stretch;
+  }
+
+  .section-{{ section.id }} .rg__card {
+    box-sizing: border-box;
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: clamp(18px, 2.2vw, 25px);
+    background-color: var(--rg-card-bg);
+    border: 1px solid var(--rg-card-border);
+    border-radius: var(--rg-card-radius);
+  }
+  .section-{{ section.id }} .rg__head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .section-{{ section.id }} .rg__avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--rg-fn) !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--rg-ink) !important;
+    overflow: hidden;
+  }
+  .section-{{ section.id }} .rg__avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .section-{{ section.id }} .rg__name {
+    margin: 0;
+    font-family: var(--rg-fn) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 24px;
+    color: var(--rg-ink) !important;
+  }
+  .section-{{ section.id }} .rg__stars { display: inline-flex; gap: 1px; }
+  .section-{{ section.id }} .rg__star { width: 16px; height: 16px; line-height: 0; }
+  .section-{{ section.id }} .rg__star svg { display: block; width: 100%; height: 100%; }
+  .section-{{ section.id }} .rg__star.is-on { color: var(--rg-star); }
+  .section-{{ section.id }} .rg__star.is-off { color: #d8dade; }
+  .section-{{ section.id }} .rg__headline {
+    margin: 0;
+    font-family: var(--rg-fb) !important;
+    font-weight: 600 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--rg-ink) !important;
+  }
+  .section-{{ section.id }} .rg__text {
+    margin: 0;
+    font-family: var(--rg-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--rg-muted) !important;
+  }
+
+  @media (min-width: 640px) {
+    .section-{{ section.id }} .rg__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 990px) {
+    .section-{{ section.id }} .rg__grid { grid-template-columns: repeat(var(--rg-cols), 1fr); }
+  }
+{% endstyle %}
+
+<section class="rg section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="rg__inner">
+    {%- if section.blocks.size > 0 -%}
+      <div class="rg__grid">
+        {%- for block in section.blocks -%}
+          {%- assign rating = block.settings.rating | default: 5 -%}
+          <article class="rg__card" {{ block.shopify_attributes }}>
+            <div class="rg__head">
+              {%- if block.settings.avatar_image != blank -%}
+                {%- assign av_alt = block.settings.name | default: 'Reviewer' -%}
+                <span class="rg__avatar">{{ block.settings.avatar_image | image_url: width: 80 | image_tag: loading: 'lazy', widths: '40,80', sizes: '40px', alt: av_alt }}</span>
+              {%- else -%}
+                <span class="rg__avatar" style="background-color: {{ block.settings.avatar_color }}">{{ block.settings.initials }}</span>
+              {%- endif -%}
+              {%- if block.settings.name != blank -%}
+                <p class="rg__name">{{ block.settings.name }}</p>
+              {%- endif -%}
+            </div>
+            <div class="rg__stars" role="img" aria-label="{{ rating }} out of 5 stars">
+              {%- for i in (1..5) -%}
+                <span class="rg__star {% if i <= rating %}is-on{% else %}is-off{% endif %}">{{ star_svg }}</span>
+              {%- endfor -%}
+            </div>
+            {%- if block.settings.headline != blank -%}
+              <h3 class="rg__headline">{{ block.settings.headline }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="rg__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Reviews Grid",
+  "settings": [
+    { "type": "checkbox", "id": "use_theme_colors", "label": "Use theme colors", "default": false },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "columns_desktop", "label": "Columns (desktop)", "min": 2, "max": 4, "step": 1, "default": 3 },
+    { "type": "range", "id": "column_gap", "label": "Column gap", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 8 },
+    { "type": "range", "id": "row_gap", "label": "Row gap", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 8 },
+    { "type": "header", "content": "Card" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "card_border_color", "label": "Card border color", "default": "#ececec" },
+    { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 8 },
+    { "type": "color", "id": "muted_text_color", "label": "Review body text color", "default": "#666666" },
+    { "type": "color", "id": "star_color", "label": "Star color", "default": "#f5a623" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_background", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "ink_color", "label": "Text color", "default": "#202329" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Reviewer name", "default": "Karen Mitchell" },
+        { "type": "text", "id": "initials", "label": "Avatar initials", "default": "KM" },
+        { "type": "image_picker", "id": "avatar_image", "label": "Avatar image (optional)", "info": "Overrides initials when set." },
+        { "type": "color", "id": "avatar_color", "label": "Avatar background", "default": "#f7d04e" },
+        { "type": "range", "id": "rating", "label": "Star rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "headline", "label": "Review headline", "default": "I Thought My Metabolism Was Gone For Good" },
+        { "type": "textarea", "id": "text", "label": "Review text" }
+      ]
+    }
+  ],
+  "max_blocks": 24,
+  "presets": [
+    {
+      "name": "Metabolic Reviews Grid",
+      "blocks": [
+        { "type": "review", "settings": { "name": "Karen Mitchell", "initials": "KM", "avatar_color": "#f7d04e", "rating": 5, "headline": "I Thought My Metabolism Was Gone For Good", "text": "For years I felt like my body was working against me. I was eating reasonably well, staying active, and still watching the scale slowly creep up. The hardest part was feeling tired all the time and constantly thinking about food. Since adding Metabolic Flow to my routine, I feel more balanced, my cravings are much easier to manage, and I finally feel optimistic again. I only wish I had found it sooner." } },
+        { "type": "review", "settings": { "name": "Joanne Peters", "initials": "JP", "avatar_color": "#f7d04e", "rating": 5, "headline": "The Weight Kept Coming No Matter What I Tried", "text": "Once I hit my 50s, it felt like every pound was harder to lose than the last. I tried cutting carbs, intermittent fasting, and even working out more, but nothing seemed to make a difference. Metabolic Flow has helped me feel more in control of my habits, my clothes fit more comfortably, and I have so much more confidence than I did a few months ago." } },
+        { "type": "review", "settings": { "name": "Rebecca Johnstone", "initials": "RJ", "avatar_color": "#f3d2c2", "rating": 5, "headline": "My Favorite Jeans Fit Again", "text": "I wasn't looking for a miracle. I just wanted to feel comfortable in my clothes again. After a few weeks of taking Metabolic Flow, I started noticing small changes that really added up. I feel less driven by cravings, I have more energy throughout the day, and for the first time in years, I don't dread trying on my favorite jeans." } },
+        { "type": "review", "settings": { "name": "Michelle Harlow", "initials": "MH", "avatar_color": "#bcd3ef", "rating": 5, "headline": "I Finally Broke The Cycle Of Starting Over", "text": "Every Monday I promised myself I would get back on track, and every Friday I felt I had failed again. It was exhausting. Metabolic Flow has become one of the easiest parts of my routine. I feel more motivated, more consistent, and much more confident in my ability to stick with healthy habits long term." } },
+        { "type": "review", "settings": { "name": "Claire Matthews", "initials": "CM", "avatar_color": "#f7d04e", "rating": 5, "headline": "Friends Started Asking What I Was Doing", "text": "The funny thing is I didn't notice the changes right away. But friends and family started commenting that I looked happier and more energized. My afternoon crashes aren't nearly as bad as they used to be, I'm not constantly reaching for snacks, and I feel more like myself than I have in years." } },
+        { "type": "review", "settings": { "name": "Diane Walker", "initials": "DW", "avatar_color": "#f3c7d4", "rating": 5, "headline": "I Feel Better At 58 Than I Did At 48", "text": "I genuinely thought feeling sluggish and frustrated with my weight was just part of getting older. Metabolic Flow completely changed my perspective. My energy feels more consistent, I feel more in control around food, and I finally feel like my efforts are actually paying off. It's one of the best things I've added to my routine." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

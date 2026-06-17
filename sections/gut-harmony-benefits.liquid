@@ -1,0 +1,549 @@
+{% comment %} Section: gut-harmony-benefits — Composite product image left, heading + subheading + CTA right {% endcomment %}
+
+{%- unless settings.enable_oswald_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+{%- unless settings.enable_league_spartan_font -%}
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign heading_color = settings.global_section_heading_color | default: settings.global_section_text_color
+    assign heading_accent_color = settings.global_section_accent_1_color
+    assign subheading_color = settings.global_section_text_color
+    assign button_bg_color = settings.global_button_bg_color | default: settings.global_section_accent_1_color
+    assign button_text_color = settings.global_button_text_color | default: '#ffffff'
+    assign button_hover_bg_color = settings.global_button_hover_bg_color | default: settings.global_section_accent_1_color
+  else
+    assign background_color = section.settings.background_color
+    assign heading_color = section.settings.heading_color
+    assign heading_accent_color = section.settings.heading_accent_color
+    assign subheading_color = section.settings.subheading_color
+    assign button_bg_color = section.settings.button_bg_color
+    assign button_text_color = section.settings.button_text_color
+    assign button_hover_bg_color = section.settings.button_hover_bg_color
+  endif
+
+  assign image_alt = section.settings.image.alt | default: section.settings.heading_accent | default: section.settings.heading_before
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --ghb-bg: {{ background_color }};
+    --ghb-heading-color: {{ heading_color }};
+    --ghb-accent-color: {{ heading_accent_color }};
+    --ghb-subheading-color: {{ subheading_color }};
+    --ghb-button-bg: {{ button_bg_color }};
+    --ghb-button-text: {{ button_text_color }};
+    --ghb-button-hover-bg: {{ button_hover_bg_color }};
+    --ghb-heading-size: {{ section.settings.heading_size }}px;
+    --ghb-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --ghb-heading-line-height: {{ section.settings.heading_line_height }};
+    --ghb-subheading-size: {{ section.settings.subheading_size }}px;
+    --ghb-subheading-size-mobile: {{ section.settings.subheading_size_mobile }}px;
+    --ghb-button-radius: {{ section.settings.button_radius }}px;
+    --ghb-button-font-size: {{ section.settings.button_font_size }}px;
+    --ghb-button-font-size-mobile: {{ section.settings.button_font_size_mobile }}px;
+    --ghb-button-width: {{ section.settings.button_width }}px;
+    --ghb-image-radius: {{ section.settings.image_border_radius }}px;
+    --ghb-column-gap: {{ section.settings.column_gap }}px;
+    --ghb-content-gap: {{ section.settings.content_gap }}px;
+    --ghb-padding-top: {{ section.settings.padding_top }}px;
+    --ghb-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --ghb-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --ghb-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--ghb-bg);
+    padding-top: var(--ghb-padding-top-mobile);
+    padding-bottom: var(--ghb-padding-bottom-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ghb-column-gap);
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__media {
+    width: 100%;
+    max-width: 486px;
+    flex-shrink: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--ghb-image-radius);
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__image--placeholder {
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ghb-content-gap);
+    width: 100%;
+    max-width: 687px;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__heading {
+    margin: 0;
+    font-family: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    line-height: var(--ghb-heading-line-height);
+    color: var(--ghb-heading-color);
+    font-size: clamp(var(--ghb-heading-size-mobile), 6vw, var(--ghb-heading-size));
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__accent {
+    /* theme's typography-system.css forces span { font-family: body !important }; reclaim the heading font */
+    font-family: inherit !important;
+    font-weight: inherit;
+    color: var(--ghb-accent-color);
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__subheading {
+    margin: 0;
+    font-family: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--ghb-subheading-color);
+    font-size: clamp(var(--ghb-subheading-size-mobile), 3.2vw, var(--ghb-subheading-size));
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__subheading > :first-child {
+    margin-top: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__subheading > :last-child {
+    margin-bottom: 0;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 12px 48px;
+    font-family: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+    font-size: var(--ghb-button-font-size-mobile);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ghb-button-text);
+    background-color: var(--ghb-button-bg);
+    border: 0;
+    border-radius: var(--ghb-button-radius);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__button:hover {
+    background-color: var(--ghb-button-hover-bg);
+    transform: translateY(-2px);
+  }
+
+  .section-{{ section.id }} .gut-harmony-benefits__button:focus-visible {
+    outline: 3px solid var(--ghb-accent-color);
+    outline-offset: 3px;
+  }
+
+  @media screen and (min-width: 1240px) {
+    .section-{{ section.id }} {
+      padding-top: var(--ghb-padding-top);
+      padding-bottom: var(--ghb-padding-bottom);
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      max-width: 1197px;
+      padding-inline: 0;
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__media {
+      flex: 0 0 486px;
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__content {
+      flex: 0 0 687px;
+      max-width: 687px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__heading {
+      font-size: var(--ghb-heading-size);
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__subheading {
+      font-size: var(--ghb-subheading-size);
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__button {
+      min-width: var(--ghb-button-width);
+      padding: 12px 64px;
+      font-size: var(--ghb-button-font-size);
+      white-space: nowrap;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .gut-harmony-benefits__button {
+      transition: none;
+    }
+
+    .section-{{ section.id }} .gut-harmony-benefits__button:hover {
+      transform: none;
+    }
+  }
+{% endstyle %}
+
+<section class="gut-harmony-benefits section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="gut-harmony-benefits__inner">
+    <div class="gut-harmony-benefits__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            widths: '300,500,750,1000,1250,1500',
+            sizes: '(min-width: 1240px) 486px, 100vw',
+            alt: image_alt,
+            class: 'gut-harmony-benefits__image'
+        }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'gut-harmony-benefits__image gut-harmony-benefits__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="gut-harmony-benefits__content">
+      {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank or section.settings.heading_after != blank -%}
+        <h2 class="gut-harmony-benefits__heading">
+          {{- section.settings.heading_before -}}
+          {%- if section.settings.heading_accent != blank %} <span class="gut-harmony-benefits__accent">{{ section.settings.heading_accent }}</span>{% endif -%}
+          {%- if section.settings.heading_after != blank %} {{ section.settings.heading_after }}{% endif -%}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <div class="gut-harmony-benefits__subheading">{{ section.settings.subheading }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank -%}
+        <a class="gut-harmony-benefits__button" href="{{ section.settings.button_link | default: '#' }}">
+          {{- section.settings.button_text -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gut Harmony Benefits",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Gap between image and text",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between heading, subheading and button",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image",
+      "info": "Composite image with the benefit badges built in. Recommended ratio ~486 x 401."
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading text (before accent)",
+      "default": "5 Ways Gut Harmony Helps Women"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent text",
+      "info": "This part of the heading uses the accent color.",
+      "default": "Stop Feeling Heavy"
+    },
+    {
+      "type": "text",
+      "id": "heading_after",
+      "label": "Heading text (after accent)",
+      "default": "After Every Meal*"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 88,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headline color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Accent color",
+      "default": "#3f8b35"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheadline",
+      "default": "<p>(Without Harsh Diets)</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheadline size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "label": "Subheadline size (mobile)",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheadline color",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "CTA text",
+      "default": "LEARN MORE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "CTA font size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "CTA font size (mobile)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "CTA corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "button_width",
+      "label": "CTA min width (desktop)",
+      "min": 160,
+      "max": 480,
+      "step": 8,
+      "unit": "px",
+      "default": 384
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button color",
+      "default": "#23a02a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button color (hover)",
+      "default": "#1d8a23"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gut Harmony Benefits",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

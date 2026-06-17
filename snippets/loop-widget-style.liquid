@@ -1,0 +1,242 @@
+{% comment %}
+  Snippet: loop-widget-style — restyle the Loop Subscriptions purchase-options widget to the Lumway design (Figma 681:33).
+  PDP only. Render AFTER 'subscription-plans-data' (needs window.__productVariants).
+
+  CSS: plate layout/colors/fonts, hides the yellow discount badge, puts Subscribe above One-time.
+  JS:  Loop's DOM has no compare/strikethrough price node, so we inject one before the current price:
+         one-time  -> compare_at_price struck, price as current
+         subscribe -> regular price struck, Loop's discounted price as current
+       The struck value is formatted by mirroring Loop's own rendered price string, so currency /
+       separators match 1:1 with no hardcoded values. Variant-aware + survives Loop re-renders.
+{% endcomment %}
+
+<style>
+  {% comment %} font-weight uses !important to override the theme's global "font-weight-overrides" rule
+     (body, p, div, ... { font-weight: var(--font-weight-regular) !important }), which otherwise forces 400. {% endcomment %}
+  .loop-widget-container .loop-widget-purchase-options-label{font-family:"Bricolage Grotesque",sans-serif;font-size:24px;font-weight:600 !important;color:#333;letter-spacing:-0.048px;line-height:1.4;margin:0 0 16px;}
+  .loop-widget-container .loop-widget-purchase-options-container{display:flex;flex-direction:column;gap:16px;}
+  .loop-widget-container .loop-widget-purchase-option-onetime{order:2;}
+  .loop-widget-container .loop-widget-purchase-option{background:#fff;border:2px solid transparent;border-radius:8px;padding:12px 16px;gap:0;}
+  {% comment %} Loop injects plate padding/border via its own CSS variables (--loop-w-btn-group-*) on :root, which beat plain property rules; override the VARIABLES with a doubled-class selector for specificity (confirmed on PDP). {% endcomment %}
+  .loop-widget-container .loop-widget-purchase-option.loop-widget-purchase-option{--loop-w-btn-group-purchase-option-padding:12px 16px !important;--loop-widget-purchase-option-padding:12px 16px !important;--loop-w-btn-group-purchase-option-border-width:2px !important;--loop-w-btn-group-description-margin:0 0 0 0 !important;--loop-widget-sp-selector-description-margin:0 !important;}
+  {% comment %} Kill the 15px top-margin Loop puts on the description content (gap between the frequency dropdown and the benefits block). {% endcomment %}
+  .loop-widget-container .custom-section-subs{margin-top:0 !important;}
+  {% comment %} Subscribe plate holds a collapsed (max-height:0) frequency/description block as a 2nd flex child;
+     Loop's 7px row-gap left dead space under the header and pushed it off-centre. Kill the gap and move the
+     expanded-state spacing inside the collapsible block so it's clipped while collapsed. {% endcomment %}
+  .loop-widget-container .loop-widget-spg-container .loop-widget-sp-selector-wrapper{margin-top:12px;}
+  {% comment %} Subscribe plate: always white + green border (even when selected). Gray fill is reserved
+     for One-time when it's the selected option. {% endcomment %}
+  .loop-widget-container .loop-widget-purchase-option:not(.loop-widget-purchase-option-onetime){border-color:{% if template.suffix == 'lum-template-2-2' %}#5584C0{% else %}#3f8b35{% endif %};background:#fff;}
+    .loop-widget-container .loop-widget-purchase-option-onetime{background:#e5e5e5 !important;border-color:transparent !important;}
+  .loop-widget-container .loop-widget-spg-label-discount-wrapper{gap:16px;align-items:center;}
+  .loop-widget-container .loop-widget-purchase-option-radio{display:flex;align-items:center;justify-content:center;width:24px;height:24px;min-width:24px;flex:0 0 24px;margin:0;}
+  .loop-widget-container .loop-widget-radio-svg{width:24px;height:24px;display:block;color:#333;}
+  .loop-widget-container .loop-widget-purchase-option-label{font-family:"Bricolage Grotesque",sans-serif !important;font-size:16px !important;font-weight:600 !important;color:#333;letter-spacing:-0.032px;line-height:1.2;}
+  .loop-widget-container .loop-widget-purchase-option:not(.loop-widget-purchase-option-onetime) .loop-widget-purchase-option-label{font-weight:700 !important;}
+  .loop-widget-container .loop-widget-purchase-option-discount-badge{display:none;}
+  .loop-widget-container .loop-widget-purchase-option-price-container{display:flex;align-items:center;gap:8px;}
+  .loop-widget-container .loop-widget-purchase-option-price{font-family:"Bricolage Grotesque",sans-serif !important;font-size:18px !important;font-weight:700 !important;color:#333;letter-spacing:-0.036px;}
+  .loop-widget-container .lum-compare-price{font-family:"Bricolage Grotesque",sans-serif !important;font-size:18px !important;line-height:1 !important;font-weight:400;color:#666;opacity:.7;text-decoration:line-through;}
+
+  {% comment %} Expanded subscribe panel — frequency dropdown (Figma 377:3607). Hide Loop's "Frequency" label,
+     restyle the native <select> as a compact pill with a chevron. Description content (product/benefits/gifts)
+     lives in Loop's "Selling plan description (HTML)" field, not here. {% endcomment %}
+  {% comment %} Hide Loop's "Subscription details" tooltip/link — not wanted in this design. {% endcomment %}
+  .loop-widget-tooltip-container{display:none !important;}
+  .loop-widget-container .loop-widget-sp-selector-label{display:none !important;}
+  .loop-widget-container .loop-widget-sp-selector-container{width:auto;}
+  .loop-widget-container .loop-widget-sp-selector{width:auto !important;min-width:240px;height:auto !important;border:1px solid #919391 !important;border-radius:8px !important;padding:9px 44px 9px 17px !important;color:#202329 !important;font-family:"Bricolage Grotesque",sans-serif;font-size:16px !important;font-weight:400 !important;background-color:#fff !important;-webkit-appearance:none !important;appearance:none !important;}
+
+  {% comment %} Add-to-cart button (Figma 377:2600 one-time / 377:3673 subscription). Icon + label + price,
+     label/price swap on the selected Loop option. Doubled class + wrapper beats the theme's
+     ".shop-add-to-cart-wrapper .shop-add-to-cart-button{padding:14px 20px!important}" rule. {% endcomment %}
+  .shop-add-to-cart-wrapper .shop-add-to-cart-button.shop-add-to-cart-button{display:flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;padding:16px 32px !important;border-radius:8px !important;background-color:#202329 !important;color:#fff !important;font-size:16px !important;font-weight:700 !important;letter-spacing:0 !important;text-transform:uppercase !important;}
+  .shop-add-to-cart-button.lum-atc-on .button-icon,.shop-add-to-cart-button.lum-atc-on .button-text{display:none !important;}
+  .shop-add-to-cart-button .lum-atc{display:inline-flex;align-items:center;gap:8px;min-height:24px;}
+  .shop-add-to-cart-button .lum-atc-icon{width:20px;height:20px;flex:0 0 20px;display:flex;align-items:center;color:#fff;}
+  .shop-add-to-cart-button .lum-atc-icon svg{width:20px;height:20px;display:block;}
+  .shop-add-to-cart-button .lum-atc-label,.shop-add-to-cart-button .lum-atc-price{font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:700 !important;line-height:16.8px;color:#fff;white-space:nowrap;text-transform:uppercase;}
+
+  {% comment %} Small screens (<400px): long plan label ("Subscribe and Save 20%") + the two prices were overflowing / wrapping the "%" onto its own line. Scale down so it fits cleanly. {% endcomment %}
+  @media (max-width: 400px){
+    .loop-widget-container .loop-widget-purchase-option-header{gap:8px;}
+    .loop-widget-container .loop-widget-spg-label-discount-wrapper{gap:8px !important;}
+    .loop-widget-container .loop-widget-purchase-option-label{font-size:13px !important;}
+    .loop-widget-container .loop-widget-purchase-option-price{font-size:14px !important;}
+    .loop-widget-container .lum-compare-price{font-size:14px !important;}
+    .loop-widget-container .loop-widget-purchase-option-price-container{gap:4px;white-space:nowrap;}
+  }
+</style>
+
+<script>
+  (function () {
+    var SEL = '.loop-widget-container';
+    var obs;
+    var ATC_SEL = '.shop-add-to-cart-button';
+    var atcObs;
+    var CART_ICON = '<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M7.5 18.3333C7.96 18.3333 8.3333 17.96 8.3333 17.5C8.3333 17.04 7.96 16.6667 7.5 16.6667C7.04 16.6667 6.6667 17.04 6.6667 17.5C6.6667 17.96 7.04 18.3333 7.5 18.3333Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.6667 18.3333C17.13 18.3333 17.5 17.96 17.5 17.5C17.5 17.04 17.13 16.6667 16.6667 16.6667C16.21 16.6667 15.8333 17.04 15.8333 17.5C15.8333 17.96 16.21 18.3333 16.6667 18.3333Z" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/><path d="M0.8333 0.8333H4.1667L6.4 11.9917C6.476 12.3753 6.685 12.72 6.99 12.9652C7.294 13.2105 7.676 13.3408 8.0667 13.3333H16.1667C16.5578 13.3408 16.939 13.2105 17.2437 12.9652C17.5484 12.72 17.757 12.3753 17.8333 11.9917L19.1667 5H5" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    // Format `cents` mirroring the format of Loop's own rendered price string (e.g. "€31.95", "1.234,56 €").
+    function formatLike(cents, ref) {
+      var m = ref.match(/[\d][\d.,\s ]*\d|\d/);
+      if (!m) { return (cents / 100).toFixed(2); }
+      var tok = m[0], before = ref.slice(0, m.index), after = ref.slice(m.index + tok.length);
+      var ld = tok.lastIndexOf('.'), lc = tok.lastIndexOf(',');
+      var dec = ld > lc ? '.' : (lc > -1 ? ',' : '.');
+      var parts = tok.split(dec);
+      var dc = parts.length > 1 ? parts[parts.length - 1].replace(/\D/g, '').length : 0;
+      var thou = dec === '.' ? ',' : '.';
+      var f = (cents / 100).toFixed(dc), ip = f.split('.')[0], dp = f.split('.')[1] || '';
+      ip = ip.replace(/\B(?=(\d{3})+(?!\d))/g, thou);
+      return before + (dc > 0 ? ip + dec + dp : ip) + after;
+    }
+
+    function setStrike(plate, text) {
+      if (!plate) { return; }
+      var priceEl = plate.querySelector('.loop-widget-purchase-option-price');
+      if (!priceEl) { return; }
+      var wrap = priceEl.parentNode;
+      var ex = wrap.querySelector('.lum-compare-price');
+      if (!text) { if (ex) { ex.remove(); } return; }
+      if (ex) { if (ex.textContent !== text) { ex.textContent = text; } return; }
+      var s = document.createElement('span');
+      s.className = 'lum-compare-price';
+      s.textContent = text;
+      wrap.insertBefore(s, priceEl);
+    }
+
+    function build() {
+      var root = document.querySelector(SEL);
+      if (!root) { return; }
+      var form = document.querySelector('form[action*="/cart/add"]');
+      var idEl = form && form.querySelector('[name="id"]');
+      var id = idEl ? +idEl.value : null;
+      var vars = window.__productVariants || [];
+      var v = vars.filter(function (x) { return x.id === id; })[0] || vars[0];
+      if (!v) { return; }
+      var oneEl = root.querySelector('.loop-widget-purchase-option-onetime .loop-widget-purchase-option-price');
+      var oneRef = oneEl ? oneEl.textContent.trim() : '';
+      // Packs are separate variants. Pack variants often carry the single-unit compare-at ($45),
+      // which is LESS than their price ($71.78) — so it gets hidden. Derive the regular price as
+      // single-unit compare × pack size (pack size ≈ variant price / cheapest variant price).
+      var base = vars.reduce(function (a, b) { return (b.price < a.price) ? b : a; }, vars[0]);
+      var packSize = (base && base.price > 0) ? Math.max(1, Math.round(v.price / base.price)) : 1;
+      var regularCents = (v.compare_at_price && v.compare_at_price > v.price)
+        ? v.compare_at_price
+        : ((base.compare_at_price || 0) * packSize);
+      // one-time: struck regular price (only when it's higher than the current price)
+      setStrike(
+        root.querySelector('.loop-widget-purchase-option-onetime'),
+        (regularCents > v.price) ? formatLike(regularCents, oneRef) : null
+      );
+      // subscribe plate(s): struck regular price (Loop already shows the discounted current price)
+      root.querySelectorAll('.loop-widget-purchase-option:not(.loop-widget-purchase-option-onetime)').forEach(function (p) {
+        setStrike(p, oneRef || null);
+      });
+    }
+
+    // Label + price for the currently selected Loop option.
+    function computeATC() {
+      var root = document.querySelector(SEL);
+      var sel = root && root.querySelector('.loop-widget-purchase-option-selected');
+      var isSub = sel && sel.className.indexOf('loop-widget-purchase-option-onetime') === -1;
+      var priceEl = sel && sel.querySelector('.loop-widget-purchase-option-price');
+      return { label: isSub ? 'START SUBSCRIPTION' : 'ADD TO CART', price: priceEl ? priceEl.textContent.trim() : '' };
+    }
+
+    // Build/repair our button content. Self-healing: the theme/Loop wipe the button's children on every
+    // selection change, so this is also driven by an observer on the button itself.
+    function ensureATC() {
+      var btn = document.querySelector(ATC_SEL) || document.querySelector('button[name="add"]');
+      if (!btn) { return; }
+      if (atcObs) { atcObs.disconnect(); }
+      if (btn.disabled || btn.classList.contains('sold-out')) {
+        var ob = btn.querySelector('.lum-atc');
+        if (ob) { ob.remove(); }
+        btn.classList.remove('lum-atc-on');
+      } else {
+        var box = btn.querySelector('.lum-atc');
+        if (!box) {
+          box = document.createElement('span');
+          box.className = 'lum-atc';
+          btn.insertBefore(box, btn.firstChild);
+        }
+        if (!box.querySelector('.lum-atc-label')) {
+          box.innerHTML = '<span class="lum-atc-icon">' + CART_ICON + '</span><span class="lum-atc-label"></span><span class="lum-atc-price"></span>';
+        }
+        var c = computeATC();
+        var labelEl = box.querySelector('.lum-atc-label');
+        if (labelEl.textContent !== c.label) { labelEl.textContent = c.label; }
+        var priceEl = box.querySelector('.lum-atc-price');
+        if (priceEl.textContent !== c.price) { priceEl.textContent = c.price; }
+        priceEl.style.display = c.price ? '' : 'none';
+        btn.classList.add('lum-atc-on');
+      }
+      if (atcObs) {
+        var b2 = document.querySelector(ATC_SEL);
+        if (b2) { atcObs.observe(b2, { childList: true, subtree: true }); }
+      }
+    }
+
+    // Build is idempotent; disconnect while mutating so our own inserts don't re-trigger the observer.
+    function run(hostToObserve) {
+      if (obs) { obs.disconnect(); }
+      try { build(); } catch (e) { /* no-op */ }
+      try { ensureATC(); } catch (e) { /* no-op */ }
+      if (obs && hostToObserve) { obs.observe(hostToObserve, { childList: true, subtree: true }); }
+    }
+
+    function init() {
+      var widget = document.querySelector(SEL);
+      if (!widget) { return; }
+      // Observe a stable ancestor so we keep working after Loop replaces the widget node.
+      var host = widget.closest('.shopify-app-block') || widget.parentNode || widget;
+      obs = new MutationObserver(function () { run(host); });
+      atcObs = new MutationObserver(function () { ensureATC(); });
+      run(host);
+      document.addEventListener('change', function (e) {
+        if (e.target && e.target.name === 'id') { run(host); }
+      });
+    }
+
+    // Loop loads async — wait for the widget to appear.
+    function whenReady() {
+      if (document.querySelector(SEL)) { init(); return; }
+      var mo = new MutationObserver(function () {
+        if (document.querySelector(SEL)) { mo.disconnect(); init(); }
+      });
+      mo.observe(document.documentElement, { childList: true, subtree: true });
+      setTimeout(function () { mo.disconnect(); if (document.querySelector(SEL)) { init(); } }, 10000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', whenReady);
+    } else {
+      whenReady();
+    }
+    // Theme editor: re-init when the product section reloads.
+    document.addEventListener('shopify:section:load', function () { setTimeout(whenReady, 50); });
+  })();
+</script>
+
+
+<script>
+  (function () {
+    var done = false;
+    function preselect() {
+      if (done) return;
+      var root = document.querySelector('.loop-widget-container');
+      if (!root) return;
+      var sub = root.querySelector('.loop-widget-purchase-option:not(.loop-widget-purchase-option-onetime)');
+      var sel = root.querySelector('.loop-widget-purchase-option-selected');
+      if (!sub || !sel) return;
+      if (sel.classList.contains('loop-widget-purchase-option-onetime')) { sub.click(); }
+      done = true; // только один раз, чтобы не мешать ручному выбору
+    }
+    var mo = new MutationObserver(preselect);
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+    document.addEventListener('DOMContentLoaded', preselect);
+    setTimeout(function () { mo.disconnect(); }, 12000);
+  })();
+</script>

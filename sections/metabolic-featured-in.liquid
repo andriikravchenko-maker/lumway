@@ -1,0 +1,281 @@
+{% comment %} Section: metabolic-featured-in — "Featured in" heading + row of press/brand logos {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign heading_color = settings.global_section_text_color
+    assign border_color = settings.global_section_text_color
+  else
+    assign background_color = section.settings.background_color
+    assign heading_color = section.settings.heading_color
+    assign border_color = section.settings.border_color
+  endif
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mfi-font-heading: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mfi-bg: {{ background_color }};
+    --mfi-heading-color: {{ heading_color }};
+    --mfi-border-color: {{ border_color }};
+    --mfi-heading-size: {{ section.settings.heading_size }}px;
+    --mfi-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --mfi-logo-height: {{ section.settings.logo_height }}px;
+    --mfi-logo-gap: {{ section.settings.logo_gap }}px;
+    --mfi-pad-top: {{ section.settings.padding_top }}px;
+    --mfi-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mfi-bg);
+    padding-top: var(--mfi-pad-top);
+    padding-bottom: var(--mfi-pad-bottom);
+    {% if section.settings.show_border %}
+      border-top: 1px solid var(--mfi-border-color);
+      border-bottom: 1px solid var(--mfi-border-color);
+    {% endif %}
+  }
+
+  .section-{{ section.id }} .mfi__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  /* client2 forces h2 -> theme heading font (Bricolage) !important; lock to Oswald */
+  .section-{{ section.id }} .mfi__heading {
+    margin: 0;
+    font-family: var(--mfi-font-heading) !important;
+    font-weight: 500 !important;
+    line-height: 1.25;
+    color: var(--mfi-heading-color) !important;
+    text-align: center;
+    font-size: clamp(var(--mfi-heading-size-mobile), 4vw, var(--mfi-heading-size));
+  }
+
+  .section-{{ section.id }} .mfi__logos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 6vw, var(--mfi-logo-gap));
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .mfi__logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .section-{{ section.id }} .mfi__logo-img {
+    display: block;
+    height: var(--mfi-logo-height);
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  .section-{{ section.id }} .mfi__logo-img--placeholder {
+    width: 180px;
+    height: var(--mfi-logo-height);
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+{% endstyle %}
+
+<section class="mfi section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="mfi__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="mfi__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="mfi__logos">
+        {%- for block in section.blocks -%}
+          {%- assign logo_alt = block.settings.image.alt | default: 'Featured in' -%}
+          <li class="mfi__logo" {{ block.shopify_attributes }}>
+            {%- if block.settings.link != blank -%}
+              <a class="mfi__logo-link" href="{{ block.settings.link }}">
+            {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 420
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '120,200,300,420',
+                    sizes: '210px',
+                    alt: logo_alt,
+                    class: 'mfi__logo-img'
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'mfi__logo-img mfi__logo-img--placeholder' }}
+              {%- endif -%}
+            {%- if block.settings.link != blank -%}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured In Logos",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Ingredients Featured In Articles By"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#202329"
+    },
+    {
+      "type": "header",
+      "content": "Logos"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 24,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "label": "Gap between logos (desktop)",
+      "min": 24,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f7f0f3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border",
+      "label": "Show top & bottom border",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#202329"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Logo image",
+          "info": "Press / brand logo (transparent PNG or SVG)."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Featured In Logos",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

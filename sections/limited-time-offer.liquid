@@ -1,0 +1,608 @@
+{% comment %}
+  Limited Time Offer — standalone section matching Lumway Figma (node 17-185).
+{% endcomment %}
+
+{% render 'limited-time-offer',
+  offer_settings: section.settings,
+  offer_id: section.id,
+  offer_features: section.blocks
+%}
+
+{% schema %}
+{
+  "name": "Limited Time Offer",
+  "tag": "section",
+  "class": "section-limited-time-offer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top chip"
+    },
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Chip text",
+      "default": "FREE $40 PREMIUM SERUM WITH YOUR ORDER"
+    },
+    {
+      "type": "color",
+      "id": "chip_bg_color",
+      "label": "Chip background",
+      "default": "#25282a"
+    },
+    {
+      "type": "color",
+      "id": "chip_text_color",
+      "label": "Chip text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    },
+    {
+      "type": "select",
+      "id": "image_object_fit",
+      "label": "Image fit",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 text",
+      "default": "Daily gut comfort"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_icon",
+      "label": "Badge 1 icon (emoji)",
+      "default": "🫄"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 text",
+      "default": "With probiotics"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_icon",
+      "label": "Badge 2 icon (emoji)",
+      "default": "🦠"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_badge",
+      "label": "Guarantee badge text",
+      "default": "60-Day Feel In Control Guarantee"
+    },
+    {
+      "type": "image_picker",
+      "id": "guarantee_badge_image",
+      "label": "Guarantee badge image (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product (optional, for dynamic price)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Excellent 4.7 out of 5"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "60% OFF FOR A LIMITED TIME ONLY!"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow_dots",
+      "label": "Show eyebrow decorative lines",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product title",
+      "default": "Lumway - Gut Harmony Daily Gummies"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price (manual override)",
+      "default": "$35.99"
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Compare price (manual override)",
+      "default": "$45.99"
+    },
+    {
+      "type": "text",
+      "id": "compare_price_prefix",
+      "label": "Compare price prefix",
+      "default": "(was "
+    },
+    {
+      "type": "text",
+      "id": "compare_price_suffix",
+      "label": "Compare price suffix",
+      "default": ")"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "This exclusive offer is in high demand and stock keeps selling out."
+    },
+    {
+      "type": "richtext",
+      "id": "description_richtext",
+      "label": "Description (rich text)"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "countdown_label",
+      "label": "Countdown label",
+      "default": "DEAL ENDING IN:"
+    },
+    {
+      "type": "select",
+      "id": "countdown_mode",
+      "label": "Countdown mode",
+      "options": [
+        { "value": "duration", "label": "Duration" },
+        { "value": "deadline", "label": "Deadline" }
+      ],
+      "default": "duration"
+    },
+    {
+      "type": "range",
+      "id": "duration_hours",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "label": "Duration hours",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "duration_minutes",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "label": "Duration minutes",
+      "default": 33
+    },
+    {
+      "type": "range",
+      "id": "duration_seconds",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "label": "Duration seconds",
+      "default": 44
+    },
+    {
+      "type": "text",
+      "id": "deadline",
+      "label": "Deadline (ISO)",
+      "default": "2026-12-31T23:59:59Z"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CLAIM 60% OFF + FREE SERUM"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "risk_label",
+      "label": "Risk label",
+      "default": "Sell-Out Risk:"
+    },
+    {
+      "type": "text",
+      "id": "risk_value",
+      "label": "Risk value",
+      "default": "VERY HIGH"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "60-Day Money-Back Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "media_bg_color",
+      "label": "Media background",
+      "default": "#fcf5cf"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#23A02A"
+    },
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border style",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "solid", "label": "Solid" },
+        { "value": "dashed", "label": "Dashed" },
+        { "value": "dotted", "label": "Dotted" }
+      ],
+      "default": "solid"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border width",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "rating_bg_color",
+      "label": "Rating bar background",
+      "default": "#3e8c35"
+    },
+    {
+      "type": "color",
+      "id": "rating_text_color",
+      "label": "Rating bar text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#23A02A"
+    },
+    {
+      "type": "color",
+      "id": "countdown_color",
+      "label": "Countdown color",
+      "default": "#d22f2f"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#25282a"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button hover background",
+      "default": "#1a1c1e"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "risk_bg_color",
+      "label": "Risk bar background",
+      "default": "#faf2e8"
+    },
+    {
+      "type": "color",
+      "id": "risk_value_color",
+      "label": "Risk value color",
+      "default": "#d22f2f"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text",
+      "default": "#2d5a27"
+    },
+    {
+      "type": "color",
+      "id": "check_color",
+      "label": "Checkmark color",
+      "default": "#52c663"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 720,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "label": "Max width",
+      "default": 960
+    },
+    {
+      "type": "range",
+      "id": "media_min_height",
+      "min": 260,
+      "max": 560,
+      "step": 20,
+      "unit": "px",
+      "label": "Media min height (desktop)",
+      "default": 400
+    },
+    {
+      "type": "range",
+      "id": "media_min_height_mobile",
+      "min": 220,
+      "max": 420,
+      "step": 20,
+      "unit": "px",
+      "label": "Media min height (mobile)",
+      "default": 280
+    },
+    {
+      "type": "range",
+      "id": "content_padding_y",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding vertical (desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding horizontal (desktop)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_padding_y_mobile",
+      "min": 12,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding vertical (mobile)",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "content_padding_x_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "unit": "px",
+      "label": "Content padding horizontal (mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding horizontal",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding top (mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding bottom (mobile)",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "min": 0,
+      "max": 24,
+      "step": 4,
+      "unit": "px",
+      "label": "Section padding horizontal (mobile)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_breakpoint",
+      "min": 640,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "label": "Mobile breakpoint",
+      "default": 900
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Mobile image position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "top"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Limited Time Offer",
+      "blocks": [
+        { "type": "feature", "settings": { "text": "Free Shipping" } },
+        { "type": "feature", "settings": { "text": "60-Day Money-Back Guarantee" } },
+        { "type": "feature", "settings": { "text": "Easy Daily Gummies" } },
+        { "type": "feature", "settings": { "text": "Trusted By Women 50+" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

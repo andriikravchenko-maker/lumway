@@ -1,0 +1,8 @@
+{%- liquid
+  assign index_redirect_product = all_products['gut-harmony-gummies']
+  if index_redirect_product
+    echo index_redirect_product.url
+  else
+    echo '/products/gut-harmony-gummies'
+  endif
+-%}

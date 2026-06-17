@@ -1,0 +1,85 @@
+{% comment %}
+  Three-column trust row above cart-drawer-header-blocks — only rendered when toggle is on and all columns have SVG + text (see section condition).
+{% endcomment %}
+<style>
+  .cart-drawer-trust-row {
+    box-sizing: border-box;
+    width: 100%;
+    flex-shrink: 0;
+    padding: 1rem 1.5rem;
+    margin: 0;
+    background-color: var(--cart-trust-row-bg, transparent);
+  }
+  .cart-drawer-trust-row__track {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+  .cart-drawer-trust-row__cell {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .cart-drawer-trust-row__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cart-trust-row-icon, #1a5234);
+    line-height: 0;
+  }
+  .cart-drawer-trust-row__icon :is(svg) {
+    display: block;
+    height: auto;
+    max-height: 40px;
+    width: auto;
+    max-width: 100%;
+  }
+  .cart-drawer-trust-row__label {
+    margin: 0;
+    font-family: var(--font-body-family);
+    font-size: {{ section.settings.cart_trust_row_label_font_desktop | default: 13 }}px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: var(--letter-spacing-body);
+    color: var(--cart-trust-row-text, #333);
+  }
+  @media screen and (max-width: 749px) {
+    .cart-drawer-trust-row {
+      padding: 0.85rem 1.25rem;
+    }
+    .cart-drawer-trust-row__label {
+      font-size: {{ section.settings.cart_trust_row_label_font_mobile | default: 12 }}px;
+    }
+    .cart-drawer-trust-row__icon :is(svg) {
+      max-height: 34px;
+    }
+  }
+</style>
+<div
+  class="cart-drawer-trust-row"
+  style="--cart-trust-row-bg: {{ section.settings.cart_trust_row_bg }}; --cart-trust-row-text: {{ section.settings.cart_trust_row_text_color }}; --cart-trust-row-icon: {{ section.settings.cart_trust_row_icon_color }};"
+  role="region"
+  aria-label="{{ section.settings.cart_trust_row_aria_label | escape }}"
+>
+  <div class="cart-drawer-trust-row__track">
+    <div class="cart-drawer-trust-row__cell">
+      <div class="cart-drawer-trust-row__icon">{{ section.settings.cart_trust_row_col_1_svg }}</div>
+      <p class="cart-drawer-trust-row__label">{{ section.settings.cart_trust_row_col_1_text | escape }}</p>
+    </div>
+    <div class="cart-drawer-trust-row__cell">
+      <div class="cart-drawer-trust-row__icon">{{ section.settings.cart_trust_row_col_2_svg }}</div>
+      <p class="cart-drawer-trust-row__label">{{ section.settings.cart_trust_row_col_2_text | escape }}</p>
+    </div>
+    <div class="cart-drawer-trust-row__cell">
+      <div class="cart-drawer-trust-row__icon">{{ section.settings.cart_trust_row_col_3_svg }}</div>
+      <p class="cart-drawer-trust-row__label">{{ section.settings.cart_trust_row_col_3_text | escape }}</p>
+    </div>
+  </div>
+</div>

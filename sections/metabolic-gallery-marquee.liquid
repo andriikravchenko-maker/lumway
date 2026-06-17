@@ -1,0 +1,207 @@
+{% comment %} Section: metabolic-gallery-marquee — heading + rating + full-bleed auto-scrolling photo marquee {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+    assign accent = settings.global_section_accent_1_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+    assign accent = section.settings.accent_color
+  endif
+-%}
+
+{%- capture star_svg -%}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.857 1.401-8.169L.132 9.21l8.2-1.192z"/></svg>{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --gm-fh: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --gm-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --gm-bg: {{ section_bg }};
+    --gm-ink: {{ ink }};
+    --gm-accent: {{ accent }};
+    --gm-star: {{ section.settings.star_color }};
+    --gm-heading-size: {{ section.settings.heading_size }}px;
+    --gm-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --gm-rating-size: {{ section.settings.rating_size }}px;
+    --gm-photo-h: {{ section.settings.photo_height }}px;
+    --gm-photo-gap: {{ section.settings.photo_gap }}px;
+    --gm-photo-radius: {{ section.settings.photo_radius }}px;
+    --gm-speed: {{ section.settings.marquee_speed }}s;
+    --gm-pad-top: {{ section.settings.padding_top }}px;
+    --gm-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--gm-bg);
+    padding-top: var(--gm-pad-top);
+    padding-bottom: var(--gm-pad-bottom);
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .gm__header {
+    max-width: 1200px;
+    margin: 0 auto 24px;
+    padding-inline: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-{{ section.id }} .gm__heading {
+    margin: 0;
+    text-align: center;
+    font-family: var(--gm-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.2;
+    color: var(--gm-ink) !important;
+    font-size: clamp(var(--gm-heading-size-mobile), 3.4vw, var(--gm-heading-size));
+  }
+  .section-{{ section.id }} .gm__accent { font-family: inherit !important; color: var(--gm-accent) !important; }
+
+  .section-{{ section.id }} .gm__rating { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; }
+  .section-{{ section.id }} .gm__stars { display: inline-flex; gap: 2px; color: var(--gm-star); }
+  .section-{{ section.id }} .gm__star { width: 20px; height: 20px; line-height: 0; }
+  .section-{{ section.id }} .gm__star svg { display: block; width: 100%; height: 100%; }
+  .section-{{ section.id }} .gm__rating-strong,
+  .section-{{ section.id }} .gm__rating-text {
+    font-family: var(--gm-fb) !important;
+    line-height: 1.4;
+    color: var(--gm-ink) !important;
+    font-size: clamp(15px, 1.6vw, var(--gm-rating-size));
+  }
+  .section-{{ section.id }} .gm__rating-strong { font-weight: 600 !important; }
+  .section-{{ section.id }} .gm__rating-text { font-weight: 400 !important; }
+
+  /* Marquee */
+  .section-{{ section.id }} .gm__marquee { width: 100%; overflow: hidden; }
+  .section-{{ section.id }} .gm__track {
+    display: flex;
+    gap: var(--gm-photo-gap);
+    width: max-content;
+    animation: gm-scroll-{{ section.id }} var(--gm-speed) linear infinite;
+  }
+  .section-{{ section.id }} .gm__marquee:hover .gm__track { animation-play-state: paused; }
+  @keyframes gm-scroll-{{ section.id }} {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - (var(--gm-photo-gap) / 2))); }
+  }
+  .section-{{ section.id }} .gm__photo {
+    flex: 0 0 auto;
+    height: clamp(180px, 24vw, var(--gm-photo-h));
+    aspect-ratio: 200 / 260;
+    border-radius: var(--gm-photo-radius);
+    overflow: hidden;
+    background-color: #eef0f1;
+  }
+  .section-{{ section.id }} .gm__photo-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .section-{{ section.id }} .gm__photo-img--placeholder { fill: #b9c3c9; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .gm__track { animation: none; }
+    .section-{{ section.id }} .gm__marquee { overflow-x: auto; }
+  }
+{% endstyle %}
+
+<section class="gm section-{{ section.id }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank or section.settings.show_rating -%}
+    <div class="gm__header">
+      {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank -%}
+        <h2 class="gm__heading">
+          {{- section.settings.heading_before -}}
+          {%- if section.settings.heading_accent != blank %} <span class="gm__accent">{{ section.settings.heading_accent }}</span>{% endif -%}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.show_rating -%}
+        <div class="gm__rating">
+          <span class="gm__stars" role="img" aria-label="5 out of 5 stars">
+            {%- for i in (1..5) -%}<span class="gm__star">{{ star_svg }}</span>{%- endfor -%}
+          </span>
+          {%- if section.settings.rating_label != blank -%}<span class="gm__rating-strong">{{ section.settings.rating_label }}</span>{%- endif -%}
+          {%- if section.settings.rating_text != blank -%}<span class="gm__rating-text">{{ section.settings.rating_text }}</span>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="gm__marquee">
+      <div class="gm__track">
+        {%- for pass in (1..2) -%}
+          {%- for block in section.blocks -%}
+            <div class="gm__photo" {% if pass == 1 %}{{ block.shopify_attributes }}{% else %}aria-hidden="true"{% endif %}>
+              {%- if block.settings.image != blank -%}
+                {%- assign p_alt = block.settings.image.alt | default: 'Customer photo' -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 400
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '200,300,400',
+                    sizes: '200px',
+                    alt: p_alt,
+                    class: 'gm__photo-img'
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'gm__photo-img gm__photo-img--placeholder' }}
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Gallery Marquee",
+  "settings": [
+    { "type": "checkbox", "id": "use_theme_colors", "label": "Use theme colors", "default": false },
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "heading_before", "label": "Heading (before accent)", "default": "Join Thousands of Women Who Are" },
+    { "type": "text", "id": "heading_accent", "label": "Accent text (colored)", "default": "Feeling More In Control Again" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 24, "max": 56, "step": 2, "unit": "px", "default": 40 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size (mobile)", "min": 18, "max": 40, "step": 2, "unit": "px", "default": 24 },
+    { "type": "header", "content": "Rating" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show rating line", "default": true },
+    { "type": "text", "id": "rating_label", "label": "Rating label (bold)", "default": "Rated 4.8 / 5" },
+    { "type": "text", "id": "rating_text", "label": "Trust statement", "default": "Trusted by thousands of users" },
+    { "type": "range", "id": "rating_size", "label": "Rating text size", "min": 14, "max": 24, "step": 1, "unit": "px", "default": 18 },
+    { "type": "color", "id": "star_color", "label": "Star color", "default": "#f5a623" },
+    { "type": "header", "content": "Photo marquee" },
+    { "type": "range", "id": "photo_height", "label": "Photo height", "min": 160, "max": 320, "step": 4, "unit": "px", "default": 260 },
+    { "type": "range", "id": "photo_gap", "label": "Gap between photos", "min": 8, "max": 48, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "photo_radius", "label": "Photo corner radius", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 8 },
+    { "type": "range", "id": "marquee_speed", "label": "Scroll duration", "min": 10, "max": 120, "step": 5, "unit": "s", "default": 40 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_background", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "ink_color", "label": "Text color", "default": "#202329" },
+    { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#5584c0" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo", "info": "Customer photo (~200 x 260)." }
+      ]
+    }
+  ],
+  "max_blocks": 30,
+  "presets": [
+    {
+      "name": "Metabolic Gallery Marquee",
+      "blocks": [
+        { "type": "photo" }, { "type": "photo" }, { "type": "photo" }, { "type": "photo" },
+        { "type": "photo" }, { "type": "photo" }, { "type": "photo" }, { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

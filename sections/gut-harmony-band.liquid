@@ -1,0 +1,252 @@
+{% comment %} Section: gut-harmony-band — centered heading + subheading band {% endcomment %}
+
+{%- unless settings.enable_oswald_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+{%- unless settings.enable_league_spartan_font -%}
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign heading_color = settings.global_section_accent_1_color
+    assign subheading_color = settings.global_section_text_color
+  else
+    assign background_color = section.settings.background_color
+    assign heading_color = section.settings.heading_color
+    assign subheading_color = section.settings.subheading_color
+  endif
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --band-font-heading: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --band-font-body: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --band-bg: {{ background_color }};
+    --band-heading-color: {{ heading_color }};
+    --band-subheading-color: {{ subheading_color }};
+    --band-heading-size: {{ section.settings.heading_size }}px;
+    --band-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --band-subheading-size: {{ section.settings.subheading_size }}px;
+    --band-subheading-size-mobile: {{ section.settings.subheading_size_mobile }}px;
+    --band-gap: {{ section.settings.gap }}px;
+    --band-pad-top: {{ section.settings.padding_top }}px;
+    --band-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --band-pad-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --band-pad-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--band-bg);
+    padding: var(--band-pad-top-mobile) 20px var(--band-pad-bottom-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-band__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--band-gap);
+    max-width: 1200px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .gut-harmony-band__heading {
+    margin: 0;
+    font-family: var(--band-font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    /* theme forces h1-h6 / [class*="heading"] { color: ... !important }; override to keep the design color */
+    color: var(--band-heading-color) !important;
+    font-size: clamp(var(--band-heading-size-mobile), 3.6vw, var(--band-heading-size));
+  }
+
+  /* theme forces p { font-family: body !important } and [class*="heading"] { color: ... !important }; lock both back to the design */
+  .section-{{ section.id }} .gut-harmony-band__subheading {
+    margin: 0;
+    max-width: 998px;
+    font-family: var(--band-font-body) !important;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--band-subheading-color) !important;
+    font-size: clamp(var(--band-subheading-size-mobile), 2.6vw, var(--band-subheading-size));
+  }
+
+  @media screen and (min-width: 1240px) {
+    .section-{{ section.id }} {
+      padding: var(--band-pad-top) 20px var(--band-pad-bottom);
+    }
+  }
+{% endstyle %}
+
+<section class="gut-harmony-band section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="gut-harmony-band__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="gut-harmony-band__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="gut-harmony-band__subheading">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gut Harmony Band",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between heading and subheading",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#f2f9f2"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Here’s how Gut Harmony helps support all three areas at once"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 16,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#23a02a"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "— plus gives you bonus benefits you’ll love:"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "label": "Subheading size (mobile)",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#333333"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gut Harmony Band",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

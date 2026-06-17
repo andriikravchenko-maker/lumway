@@ -1,0 +1,96 @@
+{% comment %}
+  Block: LCT Row — rendered via content_for 'blocks' in parent table.
+{% endcomment %}
+
+{%- liquid
+  assign row_brand_display = block.settings.brand_display | default: 'check'
+  assign row_competitor_display = block.settings.competitor_display | default: 'text'
+  assign row_feature = block.settings.feature | default: 'Feature'
+-%}
+
+<div class="lct__row" {{ block.shopify_attributes }}>
+  <div class="lct__cell lct__cell--label">
+    <span class="lct__label">{{ row_feature }}</span>
+  </div>
+
+  <div class="lct__cell lct__cell--brand">
+    {% if row_brand_display == 'check' %}
+      <span class="lct__icon lct__icon--check" aria-label="Yes">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <circle cx="10" cy="10" r="10" fill="currentColor"/>
+          <path d="M6 10.5L8.5 13L14 7.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    {% else %}
+      <span class="lct__value">{{ block.settings.brand_text }}</span>
+    {% endif %}
+  </div>
+
+  <div class="lct__cell lct__cell--competitor">
+    {% case row_competitor_display %}
+      {% when 'check' %}
+        <span class="lct__icon lct__icon--mark" aria-label="Yes">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3.5 8.5L6.5 11.5L12.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      {% when 'cross' %}
+        <span class="lct__icon lct__icon--cross" aria-label="No">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M4.5 4.5L11.5 11.5M11.5 4.5L4.5 11.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+      {% else %}
+        <span class="lct__value lct__value--muted">{{ block.settings.competitor_text }}</span>
+    {% endcase %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Table Row",
+  "settings": [
+    {
+      "type": "text",
+      "id": "feature",
+      "label": "Feature label",
+      "default": "Daily digestive comfort support*"
+    },
+    {
+      "type": "select",
+      "id": "brand_display",
+      "label": "Brand column",
+      "options": [
+        { "value": "check", "label": "Green checkmark" },
+        { "value": "text", "label": "Text" }
+      ],
+      "default": "check"
+    },
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand text (if not checkmark)"
+    },
+    {
+      "type": "select",
+      "id": "competitor_display",
+      "label": "Competitor column",
+      "options": [
+        { "value": "text", "label": "Text" },
+        { "value": "check", "label": "Checkmark" },
+        { "value": "cross", "label": "Cross" }
+      ],
+      "default": "text"
+    },
+    {
+      "type": "text",
+      "id": "competitor_text",
+      "label": "Competitor text",
+      "default": "Sometimes"
+    }
+  ],
+  "presets": [
+    { "name": "Table Row" }
+  ]
+}
+{% endschema %}

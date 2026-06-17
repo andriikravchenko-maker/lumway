@@ -1,0 +1,572 @@
+{% comment %} Section: metabolic-testimonials — heading + before/after testimonial carousel (Swiper) + CTA {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+    assign blue = settings.global_section_accent_1_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+    assign blue = section.settings.accent_color
+  endif
+-%}
+
+{%- capture check_icon -%}
+<svg class="mt__icon-svg" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12ZM18.045 7.455C17.9379 7.34823 17.8103 7.26416 17.6699 7.20782C17.5295 7.15149 17.3792 7.12404 17.228 7.12712C17.0768 7.1302 16.9277 7.16375 16.7897 7.22575C16.6518 7.28776 16.5277 7.37695 16.425 7.488L11.2155 14.1255L8.076 10.9845C7.86274 10.7858 7.58067 10.6776 7.28922 10.6827C6.99776 10.6879 6.71969 10.8059 6.51357 11.0121C6.30745 11.2182 6.18938 11.4963 6.18424 11.7877C6.1791 12.0792 6.28728 12.3612 6.486 12.5745L10.455 16.545C10.5619 16.6517 10.6892 16.7358 10.8294 16.7923C10.9695 16.8487 11.1196 16.8764 11.2706 16.8736C11.4217 16.8708 11.5706 16.8376 11.7085 16.776C11.8465 16.7144 11.9706 16.6256 12.0735 16.515L18.0615 9.03C18.2656 8.81775 18.3784 8.53391 18.3756 8.23944C18.3728 7.94496 18.2546 7.66333 18.0465 7.455H18.045Z"/></svg>
+{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mt-fh: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mt-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mt-bg: {{ section_bg }};
+    --mt-ink: {{ ink }};
+    --mt-blue: {{ blue }};
+    --mt-card-bg: {{ section.settings.card_background }};
+    --mt-card-border: {{ section.settings.card_border_color }};
+    --mt-badge-bg: {{ section.settings.badge_color }};
+    --mt-button-bg: {{ section.settings.button_background }};
+    --mt-button-text: {{ section.settings.button_text_color }};
+    --mt-heading-size: {{ section.settings.heading_size }}px;
+    --mt-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --mt-card-width: {{ section.settings.card_width }}px;
+    --mt-space: {{ section.settings.space_between }}px;
+    --mt-pad-top: {{ section.settings.padding_top }}px;
+    --mt-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mt-bg);
+    padding-top: var(--mt-pad-top);
+    padding-bottom: var(--mt-pad-bottom);
+  }
+
+  .section-{{ section.id }} .mt__heading {
+    margin: 0 auto 32px;
+    max-width: 1200px;
+    padding-inline: 20px;
+    font-family: var(--mt-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.2;
+    color: var(--mt-ink) !important;
+    text-align: center;
+    font-size: clamp(var(--mt-heading-size-mobile), 3.4vw, var(--mt-heading-size));
+  }
+
+  .section-{{ section.id }} .mt__accent {
+    font-family: inherit !important;
+    color: var(--mt-blue) !important;
+  }
+
+  /* Carousel */
+  .section-{{ section.id }} .mt__carousel {
+    max-width: 1840px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .mt__carousel.mt__carousel--pending { opacity: 0; }
+  .section-{{ section.id }} .mt__carousel { opacity: 1; transition: opacity 0.2s ease; }
+
+  /* No-JS / pre-init fallback: native horizontal scroll */
+  .section-{{ section.id }} .mt__carousel:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    gap: var(--mt-space);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .section-{{ section.id }} .mt__carousel:not(.swiper-initialized) .swiper-wrapper::-webkit-scrollbar { display: none; }
+  .section-{{ section.id }} .mt__carousel:not(.swiper-initialized) .swiper-slide { scroll-snap-align: start; flex-shrink: 0; }
+
+  .section-{{ section.id }} .swiper-slide {
+    width: var(--mt-card-width);
+    max-width: 88vw;
+    height: auto;
+  }
+
+  .section-{{ section.id }} .mt__card {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    background-color: var(--mt-card-bg);
+    border: 1px solid var(--mt-card-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 5px rgba(143,143,143,0.05), 0 18px 9px rgba(143,143,143,0.05), 0 40px 12px rgba(143,143,143,0.05);
+  }
+
+  .section-{{ section.id }} .mt__media {
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .mt__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .section-{{ section.id }} .mt__image--placeholder { background-color: #eef0f1; fill: #b9c3c9; }
+
+  .section-{{ section.id }} .mt__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .section-{{ section.id }} .mt__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 15px;
+    background-color: var(--mt-badge-bg);
+    font-family: var(--mt-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: #ffffff !important;
+  }
+
+  .section-{{ section.id }} .mt__text,
+  .section-{{ section.id }} .mt__name {
+    margin: 0;
+    font-family: var(--mt-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--mt-ink) !important;
+  }
+
+  /* Nav buttons */
+  .section-{{ section.id }} .mt__nav-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .section-{{ section.id }} .mt__nav {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--mt-card-border);
+    background: var(--mt-card-bg);
+    color: var(--mt-ink);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .section-{{ section.id }} .mt__nav:hover { background: var(--mt-bg); }
+  .section-{{ section.id }} .mt__nav.nav-button-disabled { opacity: 0.35; cursor: default; }
+
+  /* CTA */
+  .section-{{ section.id }} .mt__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center; width: 100%;
+    gap: 8px;
+    margin-top: 40px;
+    padding-inline: 20px;
+  }
+
+  .section-{{ section.id }} .mt__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 553px;
+    max-width: 100%;
+    padding: 16px clamp(18px, 5vw, 32px);
+    font-family: var(--mt-fb) !important;
+    font-weight: 700 !important;
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--mt-button-text) !important;
+    background-color: var(--mt-button-bg);
+    border: 0;
+    border-radius: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+  .section-{{ section.id }} .mt__button:hover { opacity: 0.92; transform: translateY(-1px); }
+  .section-{{ section.id }} .mt__button:focus-visible { outline: 3px solid var(--mt-blue); outline-offset: 3px; }
+
+  .section-{{ section.id }} .mt__guarantee {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mt-fb) !important;
+    font-weight: 400 !important;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--mt-ink) !important;
+  }
+  .section-{{ section.id }} .mt__guarantee-icon { flex-shrink: 0; width: 16px; height: 16px; line-height: 0; color: var(--mt-ink); }
+  .section-{{ section.id }} .mt__icon-svg { display: block; width: 100%; height: 100%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .mt__button { transition: none; }
+  }
+{% endstyle %}
+
+<section class="mt section-{{ section.id }}" data-section-id="{{ section.id }}">
+  {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank or section.settings.heading_after != blank -%}
+    <h2 class="mt__heading">
+      {{- section.settings.heading_before -}}
+      {%- if section.settings.heading_accent != blank %} <span class="mt__accent">{{ section.settings.heading_accent }}</span>{% endif -%}
+      {%- if section.settings.heading_after != blank %} {{ section.settings.heading_after }}{% endif -%}
+    </h2>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="mt__carousel mt__carousel--pending swiper" id="mt-carousel-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-autoplay-delay="{{ section.settings.autoplay_delay }}" data-loop="{{ section.settings.loop }}">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- assign t_alt = block.settings.image.alt | default: block.settings.name | default: 'Customer testimonial' -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <article class="mt__card">
+              <div class="mt__media">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 720
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '336,400,600,720',
+                      sizes: '(min-width: 768px) 336px, 80vw',
+                      alt: t_alt,
+                      class: 'mt__image'
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'mt__image mt__image--placeholder' }}
+                {%- endif -%}
+              </div>
+              <div class="mt__content">
+                {%- if block.settings.badge_text != blank -%}
+                  <span class="mt__badge">{{ block.settings.badge_text }}</span>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <p class="mt__text">{{ block.settings.text }}</p>
+                {%- endif -%}
+                {%- if block.settings.name != blank -%}
+                  <p class="mt__name">{{ block.settings.name }}</p>
+                {%- endif -%}
+              </div>
+            </article>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="mt__nav-row">
+      <button type="button" class="mt__nav nav-button prev" aria-label="Previous">&#8249;</button>
+      <button type="button" class="mt__nav nav-button next" aria-label="Next">&#8250;</button>
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.button_text != blank -%}
+    <div class="mt__cta">
+      <a class="mt__button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_text }}</a>
+      {%- if section.settings.guarantee_text != blank -%}
+        <span class="mt__guarantee"><span class="mt__guarantee-icon">{{ check_icon }}</span>{{ section.settings.guarantee_text }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+    function init(root) {
+      var container = root.querySelector('.mt__carousel');
+      if (!container || container.swiper) { if (container) container.classList.remove('mt__carousel--pending'); return; }
+      var prev = root.querySelector('.mt__nav.prev');
+      var next = root.querySelector('.mt__nav.next');
+      var reveal = function () { container.classList.remove('mt__carousel--pending'); };
+      var fallback = setTimeout(reveal, 2500);
+      var loader = (typeof window.swiperCheckAndLoad === 'function') ? window.swiperCheckAndLoad() : Promise.resolve();
+      loader.then(function () {
+        clearTimeout(fallback);
+        reveal();
+        if (!container || container.swiper || typeof window.Swiper === 'undefined') return;
+        new window.Swiper(container, {
+          slidesPerView: 'auto',
+          spaceBetween: {{ section.settings.space_between }},
+          loop: {{ section.settings.loop }},
+          speed: 500,
+          grabCursor: true,
+          {% if section.settings.autoplay %}autoplay: { delay: {{ section.settings.autoplay_delay }}, disableOnInteraction: false, pauseOnMouseEnter: true },{% endif %}
+          navigation: { prevEl: prev, nextEl: next, disabledClass: 'nav-button-disabled' },
+          observer: true,
+          observeParents: true,
+          a11y: { enabled: true }
+        });
+      }).catch(reveal);
+    }
+    function run() {
+      var root = document.querySelector('.section-' + sectionId);
+      if (root) init(root);
+    }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', run); } else { run(); }
+    document.addEventListener('shopify:section:load', function (e) {
+      if (e.detail && e.detail.sectionId === sectionId) { init(e.target); }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Metabolic Testimonials",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading (before accent)",
+      "default": "289,030+ Women Are Feeling Like Themselves Again"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent text (colored)",
+      "default": "Without Restrictive Diets"
+    },
+    {
+      "type": "text",
+      "id": "heading_after",
+      "label": "Heading (after accent)",
+      "default": "Or Hours In The Gym*"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 26
+    },
+    {
+      "type": "header",
+      "content": "Carousel"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "label": "Card width (desktop)",
+      "min": 260,
+      "max": 460,
+      "step": 4,
+      "unit": "px",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "label": "Space between cards",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay delay",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "unit": "ms",
+      "default": 4000
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#5584c0"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#f7f0f3"
+    },
+    {
+      "type": "color",
+      "id": "badge_color",
+      "label": "Verified badge color",
+      "default": "#06b145"
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CLAIM 20% OFF NOW 👉"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "60-Day Money-Back Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Before/after image",
+          "info": "Square image (~336 x 336) with Before/After labels baked in."
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text",
+          "default": "Verified customer"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Testimonial text"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name",
+          "default": "— Name, 00"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 16,
+  "presets": [
+    {
+      "name": "Metabolic Testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "badge_text": "Verified customer", "text": "“For years I felt like my metabolism had completely slowed down. I was constantly tired, always craving something sweet, and nothing seemed to work anymore. A few weeks into Metabolic Flow, I noticed I had more energy throughout the day and finally felt back in control.”", "name": "— Karen M., 58" } },
+        { "type": "testimonial", "settings": { "badge_text": "Verified customer", "text": "“I was tired of starting a new diet every Monday. What I love most is how simple this is. I just take it daily and focus on making better choices. For the first time in years, it doesn't feel like a constant struggle.”", "name": "— Rebecca H., 61" } },
+        { "type": "testimonial", "settings": { "badge_text": "Verified customer", "text": "“The biggest difference wasn't the number on the scale. It was how much better I felt. I wasn't thinking about snacks all day long and I had so much more energy to keep up with my family.”", "name": "— Susan T., 62" } },
+        { "type": "testimonial", "settings": { "badge_text": "Verified customer", "text": "“My favorite thing is that I feel comfortable in my clothes again. I don't avoid mirrors anymore and getting dressed in the morning doesn't feel frustrating like it used to.”", "name": "— Diane R., 59" } },
+        { "type": "testimonial", "settings": { "badge_text": "Verified customer", "text": "“The afternoon energy crash used to hit me around 3 PM. Since adding Metabolic Flow, my energy feels much steadier and I don't reach for sugar anymore.”", "name": "— Patricia W., 54" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

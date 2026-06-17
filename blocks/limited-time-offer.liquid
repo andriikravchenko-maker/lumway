@@ -1,0 +1,192 @@
+{% comment %}
+  Block: Limited Time Offer for Listicle (Figma node 17-185)
+{% endcomment %}
+
+<div class="listicle-lto-block" {{ block.shopify_attributes }}>
+  {% render 'limited-time-offer',
+    offer_settings: block.settings,
+    offer_id: block.id,
+    offer_features: block.blocks
+  %}
+</div>
+
+{% schema %}
+{
+  "name": "Limited Time Offer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top chip"
+    },
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Chip text",
+      "default": "FREE $40 PREMIUM SERUM WITH YOUR ORDER"
+    },
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Product image"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 text",
+      "default": "Daily gut comfort"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 text",
+      "default": "With probiotics"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_badge",
+      "label": "Guarantee badge text",
+      "default": "60-Day Feel In Control Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Excellent 4.7 out of 5"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "60% OFF FOR A LIMITED TIME ONLY!"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product title",
+      "default": "Lumway - Gut Harmony Daily Gummies"
+    },
+    {
+      "type": "text",
+      "id": "price",
+      "label": "Price",
+      "default": "$35.99"
+    },
+    {
+      "type": "text",
+      "id": "compare_price",
+      "label": "Compare price",
+      "default": "$45.99"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "This exclusive offer is in high demand and stock keeps selling out."
+    },
+    {
+      "type": "richtext",
+      "id": "description_richtext",
+      "label": "Description (rich text)"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "text",
+      "id": "countdown_label",
+      "label": "Countdown label",
+      "default": "DEAL ENDING IN:"
+    },
+    {
+      "type": "range",
+      "id": "duration_hours",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "label": "Hours",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "duration_minutes",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "label": "Minutes",
+      "default": 33
+    },
+    {
+      "type": "range",
+      "id": "duration_seconds",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "label": "Seconds",
+      "default": 44
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CLAIM 60% OFF + FREE SERUM"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "risk_label",
+      "label": "Risk label",
+      "default": "Sell-Out Risk:"
+    },
+    {
+      "type": "text",
+      "id": "risk_value",
+      "label": "Risk value",
+      "default": "VERY HIGH"
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "60-Day Money-Back Guarantee"
+    }
+  ],
+  "blocks": [
+    { "type": "lto-feature" }
+  ],
+  "presets": [
+    {
+      "name": "Limited Time Offer",
+      "category": "Promotional",
+      "blocks": [
+        { "type": "lto-feature", "settings": { "text": "Free Shipping" } },
+        { "type": "lto-feature", "settings": { "text": "60-Day Money-Back Guarantee" } },
+        { "type": "lto-feature", "settings": { "text": "Easy Daily Gummies" } },
+        { "type": "lto-feature", "settings": { "text": "Trusted By Women 50+" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

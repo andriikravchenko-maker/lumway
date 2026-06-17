@@ -1,0 +1,36 @@
+{% comment %}
+  Loads Oswald from Google Fonts and overrides theme typography variables when enabled.
+  Controlled via Theme Settings > Typography > Oswald Font.
+{% endcomment %}
+
+{% if settings.enable_oswald_font %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+    rel="stylesheet"
+  >
+
+  {% liquid
+    assign oswald_weight = settings.oswald_font_weight | default: 400
+    assign oswald_scope = settings.oswald_font_scope | default: 'all'
+  %}
+
+  <style>
+    :root {
+      {% if oswald_scope == 'all' or oswald_scope == 'body' %}
+        --font-body-family: 'Oswald', sans-serif;
+        --font-body-family-override: 'Oswald', sans-serif;
+        --font-body-weight: {{ oswald_weight }};
+        --font-body-weight-override: {{ oswald_weight }};
+      {% endif %}
+
+      {% if oswald_scope == 'all' or oswald_scope == 'headings' %}
+        --font-heading-family: 'Oswald', sans-serif;
+        --font-heading-family-override: 'Oswald', sans-serif;
+        --font-heading-weight: {{ oswald_weight }};
+        --font-heading-weight-override: {{ oswald_weight }};
+      {% endif %}
+    }
+  </style>
+{% endif %}

@@ -1,0 +1,343 @@
+{% comment %} Section: metabolic-reasons — heading + row of icon + title "reason" items {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+    assign accent = settings.global_section_accent_1_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+    assign accent = section.settings.accent_color
+  endif
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mr-fh: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mr-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mr-bg: {{ section_bg }};
+    --mr-ink: {{ ink }};
+    --mr-accent: {{ accent }};
+    --mr-cols: {{ section.settings.columns_desktop }};
+    --mr-icon: {{ section.settings.icon_size }}px;
+    --mr-heading-size: {{ section.settings.heading_size }}px;
+    --mr-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --mr-title-size: {{ section.settings.title_size }}px;
+    --mr-title-size-mobile: {{ section.settings.title_size_mobile }}px;
+    --mr-col-gap: {{ section.settings.column_gap }}px;
+    --mr-row-gap: {{ section.settings.row_gap }}px;
+    --mr-gap: {{ section.settings.section_gap }}px;
+    --mr-pad-top: {{ section.settings.padding_top }}px;
+    --mr-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mr-bg);
+    padding-top: var(--mr-pad-top);
+    padding-bottom: var(--mr-pad-bottom);
+  }
+
+  .section-{{ section.id }} .mr__inner {
+    max-width: 1640px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(32px, 4vw, var(--mr-gap));
+  }
+
+  /* Heading — theme forces h2 font; lock to Oswald */
+  .section-{{ section.id }} .mr__heading {
+    margin: 0;
+    text-align: center;
+    font-family: var(--mr-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.2;
+    color: var(--mr-ink) !important;
+    font-size: clamp(var(--mr-heading-size-mobile), 3.4vw, var(--mr-heading-size));
+  }
+  .section-{{ section.id }} .mr__accent { font-family: inherit !important; color: var(--mr-accent) !important; }
+
+  /* Reasons grid */
+  .section-{{ section.id }} .mr__grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--mr-col-gap);
+    row-gap: var(--mr-row-gap);
+    justify-items: center;
+  }
+  .section-{{ section.id }} .mr__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    text-align: center;
+    max-width: 320px;
+  }
+  .section-{{ section.id }} .mr__icon {
+    width: clamp(96px, 14vw, var(--mr-icon));
+    aspect-ratio: 1 / 1;
+  }
+  .section-{{ section.id }} .mr__icon-img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .section-{{ section.id }} .mr__icon-img--placeholder { border-radius: 50%; background-color: #f0ebe9; fill: #b9c3c9; }
+  .section-{{ section.id }} .mr__title {
+    margin: 0;
+    font-family: var(--mr-fb) !important;
+    font-weight: 600 !important;
+    line-height: 1.3;
+    color: var(--mr-ink) !important;
+    font-size: clamp(var(--mr-title-size-mobile), 1.8vw, var(--mr-title-size));
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }} .mr__grid { grid-template-columns: repeat(var(--mr-cols), 1fr); }
+  }
+{% endstyle %}
+
+<section class="mr section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="mr__inner">
+
+    {%- if section.settings.heading_before != blank or section.settings.heading_accent != blank -%}
+      <h2 class="mr__heading">
+        {{- section.settings.heading_before -}}
+        {%- if section.settings.heading_accent != blank %} <span class="mr__accent">{{ section.settings.heading_accent }}</span>{% endif -%}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="mr__grid">
+        {%- for block in section.blocks -%}
+          <div class="mr__item" {{ block.shopify_attributes }}>
+            <div class="mr__icon">
+              {%- if block.settings.icon != blank -%}
+                {%- assign icon_alt = block.settings.title | default: 'Reason' -%}
+                {{
+                  block.settings.icon
+                  | image_url: width: 264
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '132,200,264',
+                    sizes: '132px',
+                    alt: icon_alt,
+                    class: 'mr__icon-img'
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'mr__icon-img mr__icon-img--placeholder' }}
+              {%- endif -%}
+            </div>
+            {%- if block.settings.title != blank -%}
+              <p class="mr__title">{{ block.settings.title }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Reasons",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading (before accent)",
+      "default": "More Reasons Women Choose"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent text (colored)",
+      "default": "Metabolic Flow"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Items"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns (desktop)",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size (desktop)",
+      "min": 80,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 132
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 16,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#5584c0"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_gap",
+      "label": "Gap (heading to items)",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap (when wrapped)",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reason",
+      "name": "Reason",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Circular icon (~132 x 132, SVG or PNG)."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Science-Backed Ingredients"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Metabolic Reasons",
+      "blocks": [
+        { "type": "reason", "settings": { "title": "Science-Backed Ingredients" } },
+        { "type": "reason", "settings": { "title": "Just 2 Capsules Daily" } },
+        { "type": "reason", "settings": { "title": "Made In The USA" } },
+        { "type": "reason", "settings": { "title": "Designed For Women 45+" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

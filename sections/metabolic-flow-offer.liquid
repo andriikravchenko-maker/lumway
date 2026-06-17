@@ -1,0 +1,792 @@
+{% comment %} Section: metabolic-flow-offer — offer card (header + image + checklist + price + CTA) and customer-results list {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+    assign blue = settings.global_section_accent_1_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+    assign blue = section.settings.accent_color
+  endif
+
+  assign image_alt = section.settings.image.alt | default: section.settings.promo_text | default: 'Special offer'
+  assign features = section.blocks | where: 'type', 'offer_feature'
+  assign results = section.blocks | where: 'type', 'result'
+-%}
+
+{%- capture offer_icon -%}
+<svg class="mfo__icon-svg" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M24 12C24 15.1826 22.7357 18.2348 20.4853 20.4853C18.2348 22.7357 15.1826 24 12 24C8.8174 24 5.76516 22.7357 3.51472 20.4853C1.26428 18.2348 0 15.1826 0 12C0 8.8174 1.26428 5.76516 3.51472 3.51472C5.76516 1.26428 8.8174 0 12 0C15.1826 0 18.2348 1.26428 20.4853 3.51472C22.7357 5.76516 24 8.8174 24 12ZM18.045 7.455C17.9379 7.34823 17.8103 7.26416 17.6699 7.20782C17.5295 7.15149 17.3792 7.12404 17.228 7.12712C17.0768 7.1302 16.9277 7.16375 16.7897 7.22575C16.6518 7.28776 16.5277 7.37695 16.425 7.488L11.2155 14.1255L8.076 10.9845C7.86274 10.7858 7.58067 10.6776 7.28922 10.6827C6.99776 10.6879 6.71969 10.8059 6.51357 11.0121C6.30745 11.2182 6.18938 11.4963 6.18424 11.7877C6.1791 12.0792 6.28728 12.3612 6.486 12.5745L10.455 16.545C10.5619 16.6517 10.6892 16.7358 10.8294 16.7923C10.9695 16.8487 11.1196 16.8764 11.2706 16.8736C11.4217 16.8708 11.5706 16.8376 11.7085 16.776C11.8465 16.7144 11.9706 16.6256 12.0735 16.515L18.0615 9.03C18.2656 8.81775 18.3784 8.53391 18.3756 8.23944C18.3728 7.94496 18.2546 7.66333 18.0465 7.455H18.045Z"/></svg>
+{%- endcapture -%}
+
+{%- capture result_icon -%}
+<svg class="mfo__icon-svg" viewBox="0 0 17.8322 14.1892" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M15.0603 0.452381C15.3684 0.159014 15.7785 -0.00317215 16.204 4.70211e-05C16.6294 0.00326619 17.037 0.171639 17.3407 0.469636C17.6443 0.767633 17.8204 1.17195 17.8316 1.59726C17.8428 2.02258 17.6884 2.43563 17.4009 2.74926L8.6728 13.6649C8.52272 13.8265 8.34158 13.9563 8.14021 14.0463C7.93885 14.1364 7.72139 14.1849 7.50085 14.189C7.28031 14.193 7.0612 14.1526 6.85664 14.0701C6.65208 13.9875 6.46626 13.8646 6.3103 13.7086L0.522175 7.92051C0.360985 7.77031 0.231699 7.58918 0.142029 7.38793C0.0523589 7.18669 0.00414204 6.96944 0.000255325 6.74915C-0.00363139 6.52886 0.0368918 6.31005 0.119407 6.10576C0.201921 5.90148 0.324738 5.7159 0.480529 5.56011C0.63632 5.40432 0.821893 5.2815 1.02618 5.19899C1.23047 5.11647 1.44928 5.07595 1.66957 5.07984C1.88986 5.08372 2.1071 5.13194 2.30835 5.22161C2.5096 5.31128 2.69073 5.44057 2.84092 5.60176L7.42155 10.1802L15.0187 0.500507L15.0603 0.452381Z"/></svg>
+{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mfo-fh: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mfo-fb: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mfo-section-bg: {{ section_bg }};
+    --mfo-ink: {{ ink }};
+    --mfo-blue: {{ blue }};
+    --mfo-white: {{ section.settings.header_text_color }};
+    --mfo-card-bg: {{ section.settings.card_background }};
+    --mfo-original: {{ section.settings.original_price_color }};
+    --mfo-divider: {{ section.settings.feature_divider_color }};
+    --mfo-rule: {{ section.settings.results_divider_color }};
+    --mfo-offer-icon: {{ section.settings.offer_icon_color }};
+    --mfo-result-icon: {{ section.settings.result_icon_color }};
+    --mfo-radius: {{ section.settings.card_radius }}px;
+    --mfo-pad-top: {{ section.settings.padding_top }}px;
+    --mfo-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mfo-section-bg);
+    padding-top: var(--mfo-pad-top);
+    padding-bottom: var(--mfo-pad-bottom);
+  }
+
+  .section-{{ section.id }} .mfo__inner {
+    max-width: 996px;
+    margin-inline: auto;
+    padding-inline: 16px;
+    box-sizing: border-box;
+  }
+
+  /* ---- Offer card ---- */
+  .section-{{ section.id }} .mfo__card {
+    max-width: 792px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-{{ section.id }} .mfo__header {
+    background-color: var(--mfo-ink);
+    border-radius: var(--mfo-radius) var(--mfo-radius) 0 0;
+    padding: 32px 16px;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .mfo__promo {
+    margin: 0;
+    font-family: var(--mfo-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.25;
+    color: var(--mfo-white) !important;
+    font-size: clamp(22px, 4vw, 32px);
+  }
+
+  .section-{{ section.id }} .mfo__body {
+    background-color: var(--mfo-card-bg);
+    border: 2px solid var(--mfo-blue);
+    border-top: 0;
+    border-radius: 0 0 var(--mfo-radius) var(--mfo-radius);
+    padding: clamp(20px, 4vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    align-items: center;
+  }
+
+  .section-{{ section.id }} .mfo__media {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .section-{{ section.id }} .mfo__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .section-{{ section.id }} .mfo__image--placeholder {
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+
+  .section-{{ section.id }} .mfo__features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .section-{{ section.id }} .mfo__feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--mfo-divider);
+  }
+
+  .section-{{ section.id }} .mfo__feature-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    line-height: 0;
+    color: var(--mfo-offer-icon);
+  }
+
+  .section-{{ section.id }} .mfo__feature-text {
+    font-family: var(--mfo-fb) !important;
+    font-weight: 600 !important;
+    line-height: 1.33;
+    color: var(--mfo-ink) !important;
+    font-size: clamp(16px, 2.6vw, 24px);
+  }
+
+  .section-{{ section.id }} .mfo__feature-accent { color: var(--mfo-blue) !important; }
+
+  .section-{{ section.id }} .mfo__price {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .mfo__price-original {
+    font-family: var(--mfo-fh) !important;
+    font-weight: 500 !important;
+    color: var(--mfo-original) !important;
+    opacity: 0.7;
+    text-decoration: line-through;
+    font-size: clamp(18px, 3vw, 26px);
+  }
+
+  .section-{{ section.id }} .mfo__price-sale {
+    font-family: var(--mfo-fh) !important;
+    font-weight: 500 !important;
+    color: var(--mfo-blue) !important;
+    font-size: clamp(28px, 5vw, 40px);
+  }
+
+  .section-{{ section.id }} .mfo__cta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-{{ section.id }} .mfo__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 553px;
+    max-width: 100%;
+    padding: 16px clamp(18px, 5vw, 32px);
+    font-family: var(--mfo-fb) !important;
+    font-weight: 700 !important;
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--mfo-white) !important;
+    background-color: var(--mfo-ink);
+    border: 0;
+    border-radius: 8px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .section-{{ section.id }} .mfo__button:hover { opacity: 0.92; transform: translateY(-1px); }
+  .section-{{ section.id }} .mfo__button:focus-visible { outline: 3px solid var(--mfo-blue); outline-offset: 3px; }
+
+  .section-{{ section.id }} button.mfo__button {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  .section-{{ section.id }} .mfo__button.is-loading {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }} .mfo__button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .section-{{ section.id }} .mfo__cart-error {
+    margin: 0;
+    font-family: var(--mfo-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    color: #c0392b !important;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .mfo__delivery {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .section-{{ section.id }} .mfo__delivery span {
+    font-family: var(--mfo-fb) !important;
+    font-weight: 400 !important;
+    color: var(--mfo-ink) !important;
+    font-size: clamp(14px, 2vw, 18px);
+  }
+
+  /* ---- Results ---- */
+  .section-{{ section.id }} .mfo__divider {
+    border: 0;
+    border-top: 1px solid var(--mfo-rule);
+    margin: 40px 0;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .mfo__results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .section-{{ section.id }} .mfo__results-title {
+    margin: 0;
+    font-family: var(--mfo-fh) !important;
+    font-weight: 500 !important;
+    line-height: 1.25;
+    color: var(--mfo-ink) !important;
+    text-align: center;
+    font-size: clamp(24px, 4vw, 32px);
+  }
+
+  .section-{{ section.id }} .mfo__results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .mfo__result {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .section-{{ section.id }} .mfo__result-icon {
+    flex-shrink: 0;
+    width: 22px;
+    margin-top: 3px;
+    line-height: 0;
+    color: var(--mfo-result-icon);
+  }
+
+  .section-{{ section.id }} .mfo__result-text,
+  .section-{{ section.id }} .mfo__result-text * {
+    font-family: var(--mfo-fb) !important;
+    color: var(--mfo-ink) !important;
+  }
+
+  .section-{{ section.id }} .mfo__result-text {
+    font-weight: 400 !important;
+    line-height: 1.5;
+    font-size: clamp(15px, 2vw, 20px);
+  }
+
+  .section-{{ section.id }} .mfo__result-text strong { font-weight: 600 !important; }
+
+  .section-{{ section.id }} .mfo__icon-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-{{ section.id }} .mfo__result-icon .mfo__icon-svg { height: auto; }
+{% endstyle %}
+
+<section class="mfo section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="mfo__inner">
+    <div class="mfo__card">
+      {%- if section.settings.promo_text != blank -%}
+        <div class="mfo__header">
+          <p class="mfo__promo">{{ section.settings.promo_text }}</p>
+        </div>
+      {%- endif -%}
+
+      <div class="mfo__body">
+        <div class="mfo__media">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1000
+              | image_tag:
+                loading: 'lazy',
+                widths: '320,500,750,1000',
+                sizes: '(min-width: 824px) 500px, 90vw',
+                alt: image_alt,
+                class: 'mfo__image'
+            }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'mfo__image mfo__image--placeholder' }}
+          {%- endif -%}
+        </div>
+
+        {%- if features.size > 0 -%}
+          <ul class="mfo__features">
+            {%- for block in features -%}
+              <li class="mfo__feature" {{ block.shopify_attributes }}>
+                <span class="mfo__feature-icon">{{ offer_icon }}</span>
+                <span class="mfo__feature-text">
+                  {%- if block.settings.accent != blank -%}<span class="mfo__feature-accent">{{ block.settings.accent }}</span> {% endif -%}
+                  {{- block.settings.text -}}
+                </span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.original_price != blank or section.settings.sale_price != blank -%}
+          <div class="mfo__price">
+            {%- if section.settings.original_price != blank -%}
+              <span class="mfo__price-original">{{ section.settings.original_price }}</span>
+            {%- endif -%}
+            {%- if section.settings.sale_price != blank -%}
+              <span class="mfo__price-sale">{{ section.settings.sale_price }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank -%}
+          {%- liquid
+            assign buy_product = section.settings.product
+            assign buy_variant = buy_product.selected_or_first_available_variant
+          -%}
+          <div class="mfo__cta">
+            {%- if buy_variant != blank -%}
+              <button
+                type="button"
+                class="mfo__button mfo__button--atc"
+                data-variant-id="{{ buy_variant.id }}"
+                data-quantity="{{ section.settings.quantity | default: 1 }}"
+                data-behavior="{{ section.settings.cart_behavior }}"
+                data-adding-text="{{ section.settings.button_adding_text | escape }}"
+                data-error-text="{{ section.settings.button_error_text | escape }}"
+                {% unless buy_variant.available %}disabled{% endunless %}
+              >
+                <span class="mfo__button-label">{{ section.settings.button_text }}</span>
+              </button>
+              <p class="mfo__cart-error" role="alert" hidden></p>
+            {%- else -%}
+              <a class="mfo__button" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_text }}</a>
+            {%- endif -%}
+            {%- if section.settings.delivery_left != blank or section.settings.delivery_right != blank -%}
+              <div class="mfo__delivery">
+                {%- if section.settings.delivery_left != blank -%}<span>{{ section.settings.delivery_left }}</span>{% endif -%}
+                {%- if section.settings.delivery_right != blank -%}<span>{{ section.settings.delivery_right }}</span>{% endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if section.settings.show_results -%}
+      <hr class="mfo__divider">
+      <div class="mfo__results">
+        {%- if section.settings.results_title != blank -%}
+          <h2 class="mfo__results-title">{{ section.settings.results_title }}</h2>
+        {%- endif -%}
+        {%- if results.size > 0 -%}
+          <ul class="mfo__results-list">
+            {%- for block in results -%}
+              <li class="mfo__result" {{ block.shopify_attributes }}>
+                <span class="mfo__result-icon">{{ result_icon }}</span>
+                <span class="mfo__result-text">{{ block.settings.text }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (function () {
+    function initMfoCart(root) {
+      var button = root.querySelector('.mfo__button--atc');
+      if (!button || button.dataset.mfoBound) return;
+      button.dataset.mfoBound = 'true';
+
+      var errorEl = root.querySelector('.mfo__cart-error');
+      var label = button.querySelector('.mfo__button-label');
+      var defaultText = label.textContent;
+
+      function resetButton() {
+        button.classList.remove('is-loading');
+        label.textContent = defaultText;
+      }
+
+      button.addEventListener('click', function () {
+        if (button.classList.contains('is-loading')) return;
+        button.classList.add('is-loading');
+        if (button.dataset.addingText) label.textContent = button.dataset.addingText;
+        if (errorEl) errorEl.hidden = true;
+
+        var routes = window.routes || {};
+        var behavior = button.dataset.behavior || 'drawer';
+        var formData = new FormData();
+        formData.append('id', button.dataset.variantId);
+        formData.append('quantity', button.dataset.quantity || 1);
+        if (behavior === 'drawer') {
+          formData.append('sections', 'cart-drawer,cart-icon-bubble');
+          formData.append('sections_url', window.location.pathname);
+        }
+
+        fetch(routes.cart_add_url || '/cart/add', {
+          method: 'POST',
+          headers: { 'X-Requested-With': 'XMLHttpRequest', Accept: 'application/json' },
+          body: formData
+        })
+          .then(function (response) { return response.json(); })
+          .then(function (data) {
+            if (data.status) throw new Error(data.description || '');
+
+            if (behavior === 'checkout') {
+              window.location.href = '/checkout';
+              return;
+            }
+            if (behavior === 'cart') {
+              window.location.href = routes.cart_url || '/cart';
+              return;
+            }
+
+            var drawer = document.querySelector('cart-drawer');
+            if (drawer && typeof drawer.renderContents === 'function') {
+              drawer.renderContents(data);
+            } else {
+              window.location.href = routes.cart_url || '/cart';
+              return;
+            }
+
+            fetch('/cart.js')
+              .then(function (r) { return r.json(); })
+              .then(function (cart) {
+                document.querySelectorAll('.cart-count-bubble, [data-cart-count]').forEach(function (el) {
+                  el.textContent = cart.item_count;
+                });
+              });
+
+            resetButton();
+          })
+          .catch(function (err) {
+            resetButton();
+            if (errorEl) {
+              errorEl.textContent = (err && err.message) || button.dataset.errorText || 'Unable to add to cart. Please try again.';
+              errorEl.hidden = false;
+            }
+          });
+      });
+    }
+
+    var sectionEl = document.querySelector('.section-{{ section.id }}');
+    if (sectionEl) initMfoCart(sectionEl);
+
+    document.addEventListener('shopify:section:load', function (event) {
+      if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+        initMfoCart(event.target);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Metabolic Flow Offer",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply global theme colors instead of the design colors below."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card body background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "ink_color",
+      "label": "Dark / text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color (border, price, links)",
+      "default": "#5584c0"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header & button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "original_price_color",
+      "label": "Original price color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "feature_divider_color",
+      "label": "Checklist divider color",
+      "default": "#c2c2c2"
+    },
+    {
+      "type": "color",
+      "id": "results_divider_color",
+      "label": "Results divider color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "offer_icon_color",
+      "label": "Offer check icon color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "result_icon_color",
+      "label": "Results check icon color",
+      "default": "#5584c0"
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "20% Off + 2 FREE Gifts"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "The whole product scene as one square image (~500 x 500), badges baked in."
+    },
+    {
+      "type": "header",
+      "content": "Price"
+    },
+    {
+      "type": "text",
+      "id": "original_price",
+      "label": "Original price",
+      "default": "$45.00"
+    },
+    {
+      "type": "text",
+      "id": "sale_price",
+      "label": "Sale price",
+      "default": "$35.99"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "BUY NOW"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product to add to cart",
+      "info": "When set, the button adds this product straight to the cart (first available variant) instead of opening a link."
+    },
+    {
+      "type": "range",
+      "id": "quantity",
+      "label": "Quantity to add",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "cart_behavior",
+      "label": "After adding to cart",
+      "options": [
+        { "value": "drawer", "label": "Open cart drawer" },
+        { "value": "cart", "label": "Go to cart page" },
+        { "value": "checkout", "label": "Go to checkout" }
+      ],
+      "default": "drawer"
+    },
+    {
+      "type": "text",
+      "id": "button_adding_text",
+      "label": "Button text while adding",
+      "default": "ADDING..."
+    },
+    {
+      "type": "text",
+      "id": "button_error_text",
+      "label": "Error message",
+      "default": "Unable to add to cart. Please try again."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Used only when no product is selected above."
+    },
+    {
+      "type": "text",
+      "id": "delivery_left",
+      "label": "Delivery text (left)",
+      "default": "Fast Delivery"
+    },
+    {
+      "type": "text",
+      "id": "delivery_right",
+      "label": "Delivery text (right)",
+      "default": "60-Day Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Customer results"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_results",
+      "label": "Show results section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "results_title",
+      "label": "Results title",
+      "default": "Our Customers Results:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "offer_feature",
+      "name": "Offer feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accent",
+          "label": "Accent word (colored)",
+          "info": "Optional. Shown in the accent color, e.g. \"Free\"."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "result",
+      "name": "Result",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Text",
+          "info": "Bold the lead-in, e.g. <strong>Weeks 1–2</strong> — ..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Metabolic Flow Offer",
+      "blocks": [
+        { "type": "offer_feature", "settings": { "accent": "", "text": "Metabolic Flow™ 30-Day Supply" } },
+        { "type": "offer_feature", "settings": { "accent": "Free", "text": "Portable Pill Case" } },
+        { "type": "offer_feature", "settings": { "accent": "Free", "text": "Mystery Gift" } },
+        { "type": "offer_feature", "settings": { "accent": "", "text": "60-Day Money-Back Guarantee" } },
+        { "type": "result", "settings": { "text": "<strong>Weeks 1–2</strong> — Energy starts feeling more steady throughout the day." } },
+        { "type": "result", "settings": { "text": "<strong>Weeks 3–4</strong> — Many women notice fewer cravings and less mindless snacking." } },
+        { "type": "result", "settings": { "text": "<strong>Weeks 5–8</strong> — Clothes may start fitting a little more comfortably as healthy habits become easier to maintain." } },
+        { "type": "result", "settings": { "text": "<strong>Weeks 9–12</strong> — Increased confidence as women begin noticing meaningful changes in how they look and feel." } },
+        { "type": "result", "settings": { "text": "<strong>3+ Months</strong> — Many women say they finally feel like they're back in control of their weight-management journey." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

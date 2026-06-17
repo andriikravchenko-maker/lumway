@@ -1,0 +1,36 @@
+{% comment %}
+  Loads League Spartan from Google Fonts and overrides theme typography variables when enabled.
+  Controlled via Theme Settings > Typography > League Spartan Font.
+{% endcomment %}
+
+{% if settings.enable_league_spartan_font %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap"
+    rel="stylesheet"
+  >
+
+  {% liquid
+    assign league_spartan_weight = settings.league_spartan_font_weight | default: 400
+    assign league_spartan_scope = settings.league_spartan_font_scope | default: 'all'
+  %}
+
+  <style>
+    :root {
+      {% if league_spartan_scope == 'all' or league_spartan_scope == 'body' %}
+        --font-body-family: 'League Spartan', sans-serif;
+        --font-body-family-override: 'League Spartan', sans-serif;
+        --font-body-weight: {{ league_spartan_weight }};
+        --font-body-weight-override: {{ league_spartan_weight }};
+      {% endif %}
+
+      {% if league_spartan_scope == 'all' or league_spartan_scope == 'headings' %}
+        --font-heading-family: 'League Spartan', sans-serif;
+        --font-heading-family-override: 'League Spartan', sans-serif;
+        --font-heading-weight: {{ league_spartan_weight }};
+        --font-heading-weight-override: {{ league_spartan_weight }};
+      {% endif %}
+    }
+  </style>
+{% endif %}

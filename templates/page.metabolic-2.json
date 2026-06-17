@@ -1,0 +1,1215 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "use_theme_colors": true,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "metabolic_flow_hero_idimz3": {
+      "type": "metabolic-flow-hero",
+      "blocks": {
+        "benefit_hNmEaH": {
+          "type": "benefit",
+          "settings": {
+            "icon": "⚡",
+            "text": "<strong>87%</strong> reported fewer cravings & better energy*"
+          }
+        },
+        "benefit_hjeVqJ": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🏆",
+            "text": "<strong>60-Day</strong> Feel In Control Guarantee"
+          }
+        },
+        "benefit_xVbbwR": {
+          "type": "benefit",
+          "settings": {
+            "icon": "✨",
+            "text": "<strong>87%</strong> felt more confident in their body*"
+          }
+        },
+        "benefit_ajfecf": {
+          "type": "benefit",
+          "settings": {
+            "icon": "⭐",
+            "text": "<strong>4.8</strong> Star Reviews"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_hNmEaH",
+        "benefit_hjeVqJ",
+        "benefit_xVbbwR",
+        "benefit_ajfecf"
+      ],
+      "name": "Metabolic Flow Hero",
+      "settings": {
+        "use_theme_colors": false,
+        "section_background": "#ffffff",
+        "panel_background": "#ffe3e9",
+        "headline_color": "#ec3c6e",
+        "text_color": "#202329",
+        "star_color": "#ffc107",
+        "image": "shopify://shop_images/Frame_296.png",
+        "headline": "\"I'm Down 2 Jean Sizes, Have More Energy, And Finally Feel Like Myself AGAIN\"",
+        "headline_size": 64,
+        "headline_size_mobile": 34,
+        "subheadline": "<p><strong>Try Metabolic Flow:</strong> Support Healthy Metabolism, Reduce the Cycle of Constant Cravings, and Feel More Comfortable in Your Body Again.*</p>",
+        "subheadline_size": 32,
+        "subheadline_size_mobile": 18,
+        "benefit_size": 22,
+        "button_text": "CLAIM 20% OFF NOW →",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_radius": 8,
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "button_hover_background": "#3a3f45",
+        "content_gap": 24,
+        "show_rating": true,
+        "rating_text": "Rated 4.8 / 5",
+        "trust_text": "Trusted by thousands of users"
+      }
+    },
+    "metabolic_flow_offer_QthNVW": {
+      "type": "metabolic-flow-offer",
+      "blocks": {
+        "offer_feature_8qrq6D": {
+          "type": "offer_feature",
+          "settings": {
+            "accent": "",
+            "text": "Metabolic Flow™ 30-Day Supply"
+          }
+        },
+        "offer_feature_LDAD4t": {
+          "type": "offer_feature",
+          "settings": {
+            "accent": "Free",
+            "text": "Portable Pill Case"
+          }
+        },
+        "offer_feature_gp4hFX": {
+          "type": "offer_feature",
+          "settings": {
+            "accent": "Free",
+            "text": "Mystery Gift"
+          }
+        },
+        "offer_feature_UiK69Q": {
+          "type": "offer_feature",
+          "settings": {
+            "accent": "",
+            "text": "60-Day Money-Back Guarantee"
+          }
+        },
+        "result_eHmAVz": {
+          "type": "result",
+          "settings": {
+            "text": "<strong>Weeks 1–2</strong> — Energy starts feeling more steady throughout the day."
+          }
+        },
+        "result_UdgQqx": {
+          "type": "result",
+          "settings": {
+            "text": "<strong>Weeks 3–4</strong> — Many women notice fewer cravings and less mindless snacking."
+          }
+        },
+        "result_fLR3gt": {
+          "type": "result",
+          "settings": {
+            "text": "<strong>Weeks 5–8</strong> — Clothes may start fitting a little more comfortably as healthy habits become easier to maintain."
+          }
+        },
+        "result_xjGTxm": {
+          "type": "result",
+          "settings": {
+            "text": "<strong>Weeks 9–12</strong> — Increased confidence as women begin noticing meaningful changes in how they look and feel."
+          }
+        },
+        "result_fF4AjW": {
+          "type": "result",
+          "settings": {
+            "text": "<strong>3+ Months</strong> — Many women say they finally feel like they're back in control of their weight-management journey."
+          }
+        }
+      },
+      "block_order": [
+        "offer_feature_8qrq6D",
+        "offer_feature_LDAD4t",
+        "offer_feature_gp4hFX",
+        "offer_feature_UiK69Q",
+        "result_eHmAVz",
+        "result_UdgQqx",
+        "result_fLR3gt",
+        "result_xjGTxm",
+        "result_fF4AjW"
+      ],
+      "name": "Metabolic Flow Offer",
+      "settings": {
+        "use_theme_colors": false,
+        "card_radius": 20,
+        "padding_top": 40,
+        "padding_bottom": 120,
+        "section_background": "#ffffff",
+        "card_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#dd4e6e",
+        "header_text_color": "#ffffff",
+        "original_price_color": "#666666",
+        "feature_divider_color": "#c2c2c2",
+        "results_divider_color": "#e0e0e0",
+        "offer_icon_color": "#202329",
+        "result_icon_color": "#ec3c6e",
+        "promo_text": "20% Off + 2 FREE Gifts",
+        "image": "shopify://shop_images/Frame_3.png",
+        "original_price": "$45.00",
+        "sale_price": "$35.99",
+        "button_text": "BUY NOW",
+        "product": "feel-balanced-after-45",
+        "quantity": 1,
+        "cart_behavior": "drawer",
+        "button_adding_text": "ADDING...",
+        "button_error_text": "Unable to add to cart. Please try again.",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "delivery_left": "Fast Delivery",
+        "delivery_right": "60-Day Guarantee",
+        "show_results": true,
+        "results_title": "Our Customers Results:"
+      }
+    },
+    "metabolic_featured_in_kLWWMh": {
+      "type": "metabolic-featured-in",
+      "blocks": {
+        "logo_tJMawB": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Good_Housekeeping_logo_in_bold_uppercase_letters_on_a_transparent_background..png",
+            "link": ""
+          }
+        },
+        "logo_EWUiki": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/Women_s_Health_logo_in_black_on_a_transparent_background..png",
+            "link": ""
+          }
+        },
+        "logo_eaeqhT": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify://shop_images/The_word_Cosmopolitan_in_bold_uppercase_black_lettering..png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_tJMawB",
+        "logo_EWUiki",
+        "logo_eaeqhT"
+      ],
+      "name": "Featured In Logos",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "Ingredients Featured In Articles By",
+        "heading_size": 32,
+        "heading_size_mobile": 22,
+        "heading_color": "#202329",
+        "logo_height": 48,
+        "logo_gap": 120,
+        "background_color": "#fffcf9",
+        "show_border": true,
+        "border_color": "#202329",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "metabolic_testimonials_wWFNeY": {
+      "type": "metabolic-testimonials",
+      "blocks": {
+        "testimonial_tCahhg": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/c05ba2f9be57c2ac933833913d27984ee280ec47.png",
+            "badge_text": "Verified customer",
+            "text": "“For years I felt like my metabolism had completely slowed down. I was constantly tired, always craving something sweet, and nothing seemed to work anymore. A few weeks into Metabolic Flow, I noticed I had more energy throughout the day and finally felt back in control.”",
+            "name": "— Karen M., 58"
+          }
+        },
+        "testimonial_kjbQdY": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/3f826a359d87fcd86bef90d835c4b4c4f4b8aed1.png",
+            "badge_text": "Verified customer",
+            "text": "“I was tired of starting a new diet every Monday. What I love most is how simple this is. I just take it daily and focus on making better choices. For the first time in years, it doesn't feel like a constant struggle.”",
+            "name": "— Rebecca H., 61"
+          }
+        },
+        "testimonial_yQVpUd": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/ecd155323c50812548865ca41614876072012bf5.png",
+            "badge_text": "Verified customer",
+            "text": "“The biggest difference wasn't the number on the scale. It was how much better I felt. I wasn't thinking about snacks all day long and I had so much more energy to keep up with my family.”",
+            "name": "— Susan T., 62"
+          }
+        },
+        "testimonial_eHM4GF": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
+            "badge_text": "Verified customer",
+            "text": "“My favorite thing is that I feel comfortable in my clothes again. I don't avoid mirrors anymore and getting dressed in the morning doesn't feel frustrating like it used to.”",
+            "name": "— Diane R., 59"
+          }
+        },
+        "testimonial_BLHeXT": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/71c2d5afb795461038ef78e216aac611e1562621.png",
+            "badge_text": "Verified customer",
+            "text": "“The afternoon energy crash used to hit me around 3 PM. Since adding Metabolic Flow, my energy feels much steadier and I don't reach for sugar anymore.”",
+            "name": "— Patricia W., 54"
+          }
+        },
+        "testimonial_3yRfCR": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/1b8dc49be592bba2b11d3458ebea084fadc8e9a5.png",
+            "badge_text": "Verified customer",
+            "text": "\"I had accepted that weight gain was just part of getting older. Metabolic Flow helped me feel more like myself again. My clothes fit better, my cravings aren't what they used to be, and I feel so much more confident.\"",
+            "name": "— Linda P., 56"
+          }
+        },
+        "testimonial_yMkmh9": {
+          "type": "testimonial",
+          "settings": {
+            "badge_text": "Verified customer",
+            "text": "\"I didn't expect much, but after a couple of months I realized I was making better choices naturally. Fewer cravings, better energy, and I finally feel like my body is working with me instead of against me.\"",
+            "name": "— Janet K., 63"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_tCahhg",
+        "testimonial_kjbQdY",
+        "testimonial_yQVpUd",
+        "testimonial_eHM4GF",
+        "testimonial_BLHeXT",
+        "testimonial_3yRfCR",
+        "testimonial_yMkmh9"
+      ],
+      "name": "Metabolic Testimonials",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "289,030+ Women Are Feeling Like Themselves Again",
+        "heading_accent": "Without Restrictive Diets",
+        "heading_after": "Or Hours In The Gym*",
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "card_width": 360,
+        "space_between": 24,
+        "autoplay": false,
+        "autoplay_delay": 4000,
+        "loop": true,
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "card_background": "#ffffff",
+        "card_border_color": "#f7f0f3",
+        "badge_color": "#06b145",
+        "button_text": "CLAIM 20% OFF NOW 👉",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "guarantee_text": "60-Day Money-Back Guarantee",
+        "padding_top": 100,
+        "padding_bottom": 48
+      }
+    },
+    "metabolic_reviews_wall_hUCTMa": {
+      "type": "metabolic-reviews-wall",
+      "blocks": {
+        "review_QxWkBd": {
+          "type": "review",
+          "settings": {
+            "name": "Karen Mitchell, 58",
+            "initials": "KM",
+            "avatar_color": "#f7d04e",
+            "rating": 5,
+            "headline": "I Thought My Metabolism Was Gone For Good",
+            "text": "After 50, it felt like my body completely changed. I was eating the same way I always had, but the weight kept creeping up and my energy was at an all-time low. A few weeks after adding Metabolic Flow to my routine, I started feeling more like myself again. My cravings aren't nearly as intense, I have more energy, and I finally feel hopeful about my progress."
+          }
+        },
+        "review_gNrtyr": {
+          "type": "review",
+          "settings": {
+            "name": "Joanne Peters, 61",
+            "initials": "JP",
+            "avatar_color": "#f3c7d4",
+            "rating": 5,
+            "headline": "The Weight Kept Coming No Matter What I Tried",
+            "text": "I felt like I was constantly dieting and getting nowhere. Every Monday I'd promise myself this week would be different. What I love most about Metabolic Flow is how simple it is. I feel more in control of my eating habits, my clothes fit more comfortably, and I don't feel like I'm fighting my body every day anymore."
+          }
+        },
+        "review_Ftbwg3": {
+          "type": "review",
+          "settings": {
+            "name": "Rebecca Johnstone, 56",
+            "initials": "RJ",
+            "avatar_color": "#bcd3ef",
+            "rating": 5,
+            "headline": "Friends Started Asking What I Was Doing",
+            "text": "I honestly didn't notice the changes at first. Then a friend asked if I'd lost weight because I looked happier and more confident. The biggest difference for me has been my energy and the fact that I'm no longer thinking about food all day. I just feel better."
+          }
+        },
+        "photo_strip_Venh6V": {
+          "type": "photo_strip",
+          "settings": {
+            "image_1": "shopify://shop_images/58fba7b4f1d2d3f43f50989f6e6c43f043a7619c.png",
+            "image_2": "shopify://shop_images/f9cc687561534b39e04e824ffc32bc3b77204a02.png",
+            "image_3": "shopify://shop_images/b3c3e31865df0ce6c9596f9ffc5caf1d0add155b.png",
+            "image_4": "shopify://shop_images/cb6b5453ad96858ae64a1491d6204421ddb3dcc5.png",
+            "image_5": "shopify://shop_images/65f2ffd71b98b94a0a1c43e58e72006e55bfcbc4.png",
+            "image_6": "shopify://shop_images/48700e520d9fbfabff1b0238e5b8f190203a5d79.png"
+          }
+        },
+        "review_HkW4TF": {
+          "type": "review",
+          "settings": {
+            "name": "Michelle Harlow, 59",
+            "initials": "MH",
+            "avatar_color": "#c3dbef",
+            "rating": 5,
+            "headline": "I Finally Broke The Cycle Of Starting Over Every Monday",
+            "text": "For years I'd start a new plan, stick with it for a week or two, then give up. Metabolic Flow has become part of a routine I can actually maintain. I have fewer cravings, more motivation, and I finally feel like I'm moving in the right direction."
+          }
+        },
+        "review_KdfV8B": {
+          "type": "review",
+          "settings": {
+            "name": "Claire Matthews, 54",
+            "initials": "CM",
+            "avatar_color": "#f7d04e",
+            "rating": 5,
+            "headline": "I Was Doing Everything Right... Or So I Thought",
+            "text": "I was walking every day, trying to eat healthy, and still felt stuck. It was frustrating because I felt like I was working harder than ever with very little to show for it. Since starting Metabolic Flow, I feel more balanced, more energized, and much more confident in my daily routine."
+          }
+        },
+        "review_D8FPea": {
+          "type": "review",
+          "settings": {
+            "name": "Sandra Miller, 57",
+            "initials": "SM",
+            "avatar_color": "#f3c7d4",
+            "rating": 5,
+            "headline": "My Favorite Jeans Fit Again And I Couldn't Believe It",
+            "text": "The best feeling wasn't seeing a number on the scale. It was putting on a pair of jeans I hadn't worn in years and feeling comfortable in them again. I have more energy, fewer cravings, and I finally feel like myself when I look in the mirror."
+          }
+        },
+        "photo_strip_Udr6kA": {
+          "type": "photo_strip",
+          "settings": {
+            "image_1": "shopify://shop_images/b02d3d366d0b73cc350683aa417a1a67131fc695.png",
+            "image_2": "shopify://shop_images/2cd27e8463f4082e0f18a592f1453623455e6faa.png",
+            "image_3": "shopify://shop_images/32097a0f1c2117456e996cf76a548c6e06b0b099.png",
+            "image_4": "shopify://shop_images/16c139514ea38e9963401803fd1bed24fa0215ed.png",
+            "image_5": "shopify://shop_images/94418f3a870d18292e4ba5dc59d843736aebae00.png",
+            "image_6": "shopify://shop_images/5076ed0d2563cdad9c401bb5b9a33e7f98f49cef.png"
+          }
+        },
+        "review_RRdERw": {
+          "type": "review",
+          "settings": {
+            "name": "Karen Mitchell, 58",
+            "initials": "KM",
+            "avatar_color": "#f7d04e",
+            "rating": 5,
+            "headline": "I Thought My Metabolism Was Gone For Good",
+            "text": "Once I hit my 50s, it felt like everything changed. I was doing the same things I'd always done, but my energy was lower and my clothes kept feeling tighter. A few weeks into Metabolic Flow, I started feeling more balanced and much more confident in myself."
+          }
+        },
+        "review_jGhQWF": {
+          "type": "review",
+          "settings": {
+            "name": "Joanne Peters, 61",
+            "initials": "JP",
+            "avatar_color": "#f3c7d4",
+            "rating": 5,
+            "headline": "Friends Started Asking What I Was Doing",
+            "text": "The funny thing is I didn't notice the changes at first. Then a friend asked if I'd changed something because I looked happier and more energized. I feel more in control of my cravings, my routine feels easier, and I finally feel optimistic again."
+          }
+        },
+        "review_afKwWP": {
+          "type": "review",
+          "settings": {
+            "name": "Rebecca Johnstone, 56",
+            "initials": "RJ",
+            "avatar_color": "#bcd3ef",
+            "rating": 5,
+            "headline": "The Best Decision I've Made For Myself In Years",
+            "text": "I've spent years putting everyone else first and neglecting myself. Adding Metabolic Flow to my routine felt like a small step, but it made a huge difference in how I feel every day. More energy, fewer cravings, and so much more confidence."
+          }
+        }
+      },
+      "block_order": [
+        "review_QxWkBd",
+        "review_gNrtyr",
+        "review_Ftbwg3",
+        "photo_strip_Venh6V",
+        "review_HkW4TF",
+        "review_KdfV8B",
+        "review_D8FPea",
+        "photo_strip_Udr6kA",
+        "review_RRdERw",
+        "review_jGhQWF",
+        "review_afKwWP"
+      ],
+      "name": "Metabolic Reviews Wall",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "Say Goodbye To",
+        "heading_accent": "“Meno Belly”",
+        "heading_after": "And Feel Comfortable In Your Clothes Again",
+        "heading_size": 32,
+        "heading_size_mobile": 24,
+        "subtitle": "<p>Fed up with solutions that never seem to stick?</p><p>Discover why thousands of women 45+ are turning to Metabolic Flow to support healthy metabolism, balanced energy, and fewer cravings.</p>",
+        "subtitle_size": 24,
+        "subtitle_size_mobile": 16,
+        "gauge_image": "shopify://shop_images/Callout_image.png",
+        "gauge_label": "of reviewers recommend Metabolic Flow 45+",
+        "card_background": "#ffffff",
+        "card_border_color": "#ececec",
+        "card_radius": 8,
+        "card_gap": 8,
+        "muted_text_color": "#666666",
+        "star_color": "#f5a623",
+        "enable_tilt": true,
+        "photo_border_color": "#2b3e6f",
+        "photo_radius": 20,
+        "photo_width": 212,
+        "photo_overlap": 16,
+        "rating_text": "91% of reviewers recommend Metabolic Flow",
+        "button_text": "CLAIM 20% OFF NOW 👉",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "guarantee_text": "60-Day Money-Back Guarantee",
+        "section_background": "#f9f9f9",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "row_gap": 30,
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "metabolic_weight_after_45_ideqDM": {
+      "type": "metabolic-weight-after-45",
+      "blocks": {
+        "list_item_7LG6yQ": {
+          "type": "list_item",
+          "settings": {
+            "text": "More frequent cravings, especially for sweets and carbohydrates"
+          }
+        },
+        "list_item_HLLkKB": {
+          "type": "list_item",
+          "settings": {
+            "text": "Lower energy throughout the day"
+          }
+        },
+        "list_item_iBrTRQ": {
+          "type": "list_item",
+          "settings": {
+            "text": "Increased difficulty maintaining a healthy weight"
+          }
+        },
+        "list_item_dgf87B": {
+          "type": "list_item",
+          "settings": {
+            "text": "Extra weight around the midsection that feels harder to manage"
+          }
+        }
+      },
+      "block_order": [
+        "list_item_7LG6yQ",
+        "list_item_HLLkKB",
+        "list_item_iBrTRQ",
+        "list_item_dgf87B"
+      ],
+      "name": "Metabolic Weight After 45",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "The #1 Reason Women Struggle With",
+        "heading_accent": "Stubborn Weight After 45",
+        "heading_after": "Even When They're Eating Well And Staying Active",
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "image": "shopify://shop_images/4bad832ddcf40b9bca506ee55384cc12275fc165.png",
+        "image_max_width": 1290,
+        "image_radius": 0,
+        "intro_text": "<p>For many women, weight management starts feeling completely different after 45.</p><p>The same eating habits. The same workouts.</p><p>Yet the scale feels stuck, cravings become harder to ignore, and clothes start fitting differently.</p><p>It's frustrating—and incredibly common.</p><p><strong>One reason may be that metabolism naturally changes with age.</strong></p>",
+        "list_lead": "As these changes happen, many women notice:",
+        "conclusion_text": "<p>That's why more women are looking beyond restrictive diets and focusing on supporting their metabolism instead.*</p>",
+        "body_size": 24,
+        "body_size_mobile": 16,
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "section_gap": 40,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "metabolic_gallery_proof_YfjFVD": {
+      "type": "metabolic-gallery-proof",
+      "name": "Metabolic Gallery Proof",
+      "settings": {
+        "use_theme_colors": false,
+        "eyebrow_text": "<p>Finally, There's Good News For Women</p><p>Struggling With Menopause Weight Gain</p>",
+        "eyebrow_size": 24,
+        "eyebrow_size_mobile": 16,
+        "heading_text": "<strong>Metabolic Flow</strong> helps support <strong>healthy metabolism, balanced energy, and fewer cravings</strong>—without extreme diets or endless hours in the gym.",
+        "heading_size": 32,
+        "heading_size_mobile": 22,
+        "body_text": "<p>Each ingredient was carefully selected to help women feel more in control of their bodies during and after menopause.</p><p>It's designed for women who are tired of battling stubborn cravings, low energy, and the frustrating changes that often come with menopause.</p><p>That's why so many women are making Metabolic Flow part of their daily routine.</p>",
+        "body_size": 24,
+        "body_size_mobile": 15,
+        "image": "shopify://shop_images/Image_Gallery_and_Statistics_1ff45d96-ad6e-4b49-8147-024b76a4b08b.png",
+        "image_max_width": 1600,
+        "image_radius": 0,
+        "button_text": "CLAIM 20% OFF NOW 👉",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "guarantee_text": "60-Day Money-Back Guarantee",
+        "section_background": "#ffeef3",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "section_gap": 32,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "metabolic_ingredients_xFDF7D": {
+      "type": "metabolic-ingredients",
+      "blocks": {
+        "ingredient_8ak88M": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/781c69c0b64b9dab2b9164839c042fd7dd3bb00b.png",
+            "name": "Berberine",
+            "benefit": "Activates AMPK — often called the body's metabolic master switch.",
+            "description": "A botanical used in traditional wellness practices, Berberine works by supporting the body's natural metabolic processes and healthy energy production. With over 50 clinical studies behind this botanical ingredient, Berberine has become one of the most researched ingredients in the metabolic wellness space."
+          }
+        },
+        "ingredient_pVtx6m": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/b81aa23d1caa5df312e1321283f370652f40addb.png",
+            "name": "Chromium",
+            "benefit": "Provides 69% of your Daily Value of Chromium.",
+            "description": "Chromium is an essential mineral involved in carbohydrate, protein, and fat metabolism. It helps support healthy insulin sensitivity and healthy blood sugar levels already within the normal range."
+          }
+        },
+        "ingredient_EpcLgC": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/754fd87701b9eff663c26561568d11b97f37246b.png",
+            "name": "Cinnamon Bark Extract",
+            "benefit": "A concentrated 4:1 botanical extract used for centuries.",
+            "description": "Cinnamon contains naturally occurring compounds that help support healthy metabolic function and complement Berberine and Chromium as part of a complete metabolism-support formula."
+          }
+        },
+        "ingredient_WjVLmV": {
+          "type": "ingredient",
+          "settings": {
+            "icon": "shopify://shop_images/ddc3654acd27c1173b2d690d080820f8b575cf5a.png",
+            "name": "Chicory Root Fiber",
+            "benefit": "Added to support both metabolism and digestive wellness.",
+            "description": "This prebiotic fiber helps nourish beneficial gut bacteria while supporting overall digestive comfort, creating a more balanced daily wellness routine."
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_8ak88M",
+        "ingredient_pVtx6m",
+        "ingredient_EpcLgC",
+        "ingredient_WjVLmV"
+      ],
+      "name": "Metabolic Ingredients",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "All It Takes Is",
+        "heading_accent1": "Just 2 Capsules",
+        "heading_mid": "A Day To Feel More",
+        "heading_accent2": "Confident In Your Clothes Again",
+        "heading_size": 40,
+        "heading_size_mobile": 24,
+        "body_main": "<p>Metabolic Flow contains a blend of carefully selected ingredients designed to support healthy metabolism, balanced energy, and fewer cravings.</p><p>Every ingredient was chosen with one goal in mind: helping women feel more in control of their bodies again.</p>",
+        "body_note": "Without restrictive diets or unrealistic routines.",
+        "body_size": 24,
+        "body_size_mobile": 15,
+        "image": "shopify://shop_images/313423aa68905dfbf160d0d38b242378a78e7f83.png",
+        "image_max_width": 1330,
+        "image_radius": 0,
+        "icon_size": 132,
+        "button_text": "CLAIM 20% OFF NOW 👉",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "guarantee_text": "60-Day Money-Back Guarantee",
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "gap_small": 32,
+        "gap_large": 64,
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    },
+    "metabolic_transformation_AT6wPN": {
+      "type": "metabolic-transformation",
+      "blocks": {
+        "benefit_fQTxjK": {
+          "type": "benefit",
+          "settings": {
+            "text": "Feel less controlled by cravings"
+          }
+        },
+        "benefit_H69Y6P": {
+          "type": "benefit",
+          "settings": {
+            "text": "Stop feeling frustrated by the scale"
+          }
+        },
+        "benefit_jJMQPn": {
+          "type": "benefit",
+          "settings": {
+            "text": "Support their metabolism after 45"
+          }
+        },
+        "benefit_XwzEWF": {
+          "type": "benefit",
+          "settings": {
+            "text": "Feel more energized throughout the day"
+          }
+        },
+        "benefit_w84A7M": {
+          "type": "benefit",
+          "settings": {
+            "text": "Feel more confident in their favorite clothes again"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_fQTxjK",
+        "benefit_H69Y6P",
+        "benefit_jJMQPn",
+        "benefit_XwzEWF",
+        "benefit_w84A7M"
+      ],
+      "name": "Metabolic Transformation",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "Say Goodbye To \"Meno Belly\" And Feel Like Yourself Again",
+        "heading_accent": "with Metabolic Flow",
+        "heading_size": 40,
+        "heading_size_mobile": 24,
+        "image": "shopify://shop_images/354d28c5e79affec48d0bdf6db5306b034cccc38.png",
+        "image_radius": 0,
+        "list_heading": "Women love Metabolic Flow because it helps them:",
+        "check_color": "#202329",
+        "body_size": 24,
+        "body_size_mobile": 16,
+        "button_text": "CLAIM 20% OFF NOW 👉",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "guarantee_text": "60-Day Money-Back Guarantee",
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "column_gap": 24,
+        "section_gap": 32,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "metabolic_reasons_WH8TQy": {
+      "type": "metabolic-reasons",
+      "blocks": {
+        "reason_PhCgmF": {
+          "type": "reason",
+          "settings": {
+            "icon": "shopify://shop_images/Container_28fb3b3a-77b4-4d3a-a753-0a0e0e7a656e.svg",
+            "title": "Science-Backed Ingredients"
+          }
+        },
+        "reason_tyrHXp": {
+          "type": "reason",
+          "settings": {
+            "icon": "shopify://shop_images/Container1.svg",
+            "title": "Just 2 Capsules Daily"
+          }
+        },
+        "reason_rRkQhm": {
+          "type": "reason",
+          "settings": {
+            "icon": "shopify://shop_images/Container2.svg",
+            "title": "Made In The USA"
+          }
+        },
+        "reason_p96Eik": {
+          "type": "reason",
+          "settings": {
+            "icon": "shopify://shop_images/Container3.svg",
+            "title": "Designed For Women 45+"
+          }
+        }
+      },
+      "block_order": [
+        "reason_PhCgmF",
+        "reason_tyrHXp",
+        "reason_rRkQhm",
+        "reason_p96Eik"
+      ],
+      "name": "Metabolic Reasons",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "More Reasons Women Choose",
+        "heading_accent": "Metabolic Flow",
+        "heading_size": 40,
+        "heading_size_mobile": 24,
+        "columns_desktop": 4,
+        "icon_size": 132,
+        "title_size": 24,
+        "title_size_mobile": 16,
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "section_gap": 64,
+        "column_gap": 24,
+        "row_gap": 40,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "metabolic_gallery_marquee_VYqAhe": {
+      "type": "metabolic-gallery-marquee",
+      "blocks": {
+        "photo_YhJ48F": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/cb6b5453ad96858ae64a1491d6204421ddb3dcc5.png"
+          }
+        },
+        "photo_GzhHiV": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/58fba7b4f1d2d3f43f50989f6e6c43f043a7619c.png"
+          }
+        },
+        "photo_fCMPXb": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/2cd27e8463f4082e0f18a592f1453623455e6faa.png"
+          }
+        },
+        "photo_XzznT6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/16c139514ea38e9963401803fd1bed24fa0215ed.png"
+          }
+        },
+        "photo_R6xheL": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/65f2ffd71b98b94a0a1c43e58e72006e55bfcbc4.png"
+          }
+        },
+        "photo_D3eyGJ": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/48700e520d9fbfabff1b0238e5b8f190203a5d79.png"
+          }
+        },
+        "photo_wxFhPe": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/32097a0f1c2117456e996cf76a548c6e06b0b099.png"
+          }
+        },
+        "photo_xwUbKi": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/f9cc687561534b39e04e824ffc32bc3b77204a02.png"
+          }
+        },
+        "photo_wi3WTT": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/b02d3d366d0b73cc350683aa417a1a67131fc695.png"
+          }
+        }
+      },
+      "block_order": [
+        "photo_YhJ48F",
+        "photo_GzhHiV",
+        "photo_fCMPXb",
+        "photo_XzznT6",
+        "photo_R6xheL",
+        "photo_D3eyGJ",
+        "photo_wxFhPe",
+        "photo_xwUbKi",
+        "photo_wi3WTT"
+      ],
+      "name": "Metabolic Gallery Marquee",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "Join Thousands of Women Who Are",
+        "heading_accent": "Feeling More In Control Again",
+        "heading_size": 40,
+        "heading_size_mobile": 24,
+        "show_rating": true,
+        "rating_label": "Rated 4.8 / 5",
+        "rating_text": "Trusted by thousands of users",
+        "rating_size": 18,
+        "star_color": "#f5a623",
+        "photo_height": 260,
+        "photo_gap": 24,
+        "photo_radius": 8,
+        "marquee_speed": 40,
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "metabolic_reviews_grid_cyXjC4": {
+      "type": "metabolic-reviews-grid",
+      "blocks": {
+        "review_bf4Xgh": {
+          "type": "review",
+          "settings": {
+            "name": "Karen Mitchell",
+            "initials": "KM",
+            "avatar_color": "#f7d04e",
+            "rating": 5,
+            "headline": "I Thought My Metabolism Was Gone For Good",
+            "text": "For years I felt like my body was working against me. I was eating reasonably well, staying active, and still watching the scale slowly creep up. The hardest part was feeling tired all the time and constantly thinking about food. Since adding Metabolic Flow to my routine, I feel more balanced, my cravings are much easier to manage, and I finally feel optimistic again. I only wish I had found it sooner."
+          }
+        },
+        "review_4nE9ti": {
+          "type": "review",
+          "settings": {
+            "name": "Joanne Peters",
+            "initials": "JP",
+            "avatar_color": "#f7d04e",
+            "rating": 5,
+            "headline": "The Weight Kept Coming No Matter What I Tried",
+            "text": "Once I hit my 50s, it felt like every pound was harder to lose than the last. I tried cutting carbs, intermittent fasting, and even working out more, but nothing seemed to make a difference. Metabolic Flow has helped me feel more in control of my habits, my clothes fit more comfortably, and I have so much more confidence than I did a few months ago."
+          }
+        },
+        "review_e6ccYx": {
+          "type": "review",
+          "settings": {
+            "name": "Rebecca Johnstone",
+            "initials": "RJ",
+            "avatar_color": "#f3d2c2",
+            "rating": 5,
+            "headline": "My Favorite Jeans Fit Again",
+            "text": "I wasn't looking for a miracle. I just wanted to feel comfortable in my clothes again. After a few weeks of taking Metabolic Flow, I started noticing small changes that really added up. I feel less driven by cravings, I have more energy throughout the day, and for the first time in years, I don't dread trying on my favorite jeans."
+          }
+        },
+        "review_xyRQLk": {
+          "type": "review",
+          "settings": {
+            "name": "Michelle Harlow",
+            "initials": "MH",
+            "avatar_color": "#bcd3ef",
+            "rating": 5,
+            "headline": "I Finally Broke The Cycle Of Starting Over",
+            "text": "Every Monday I promised myself I would get back on track, and every Friday I felt I had failed again. It was exhausting. Metabolic Flow has become one of the easiest parts of my routine. I feel more motivated, more consistent, and much more confident in my ability to stick with healthy habits long term."
+          }
+        },
+        "review_wjQ9qj": {
+          "type": "review",
+          "settings": {
+            "name": "Claire Matthews",
+            "initials": "CM",
+            "avatar_color": "#f7d04e",
+            "rating": 5,
+            "headline": "Friends Started Asking What I Was Doing",
+            "text": "The funny thing is I didn't notice the changes right away. But friends and family started commenting that I looked happier and more energized. My afternoon crashes aren't nearly as bad as they used to be, I'm not constantly reaching for snacks, and I feel more like myself than I have in years."
+          }
+        },
+        "review_qP4GMc": {
+          "type": "review",
+          "settings": {
+            "name": "Diane Walker",
+            "initials": "DW",
+            "avatar_color": "#f3c7d4",
+            "rating": 5,
+            "headline": "I Feel Better At 58 Than I Did At 48",
+            "text": "I genuinely thought feeling sluggish and frustrated with my weight was just part of getting older. Metabolic Flow completely changed my perspective. My energy feels more consistent, I feel more in control around food, and I finally feel like my efforts are actually paying off. It's one of the best things I've added to my routine."
+          }
+        }
+      },
+      "block_order": [
+        "review_bf4Xgh",
+        "review_4nE9ti",
+        "review_e6ccYx",
+        "review_xyRQLk",
+        "review_wjQ9qj",
+        "review_qP4GMc"
+      ],
+      "name": "Metabolic Reviews Grid",
+      "settings": {
+        "use_theme_colors": false,
+        "columns_desktop": 3,
+        "column_gap": 8,
+        "row_gap": 8,
+        "card_background": "#ffffff",
+        "card_border_color": "#ececec",
+        "card_radius": 8,
+        "muted_text_color": "#666666",
+        "star_color": "#f5a623",
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    },
+    "metabolic_faq_jcJQxP": {
+      "type": "metabolic-faq",
+      "blocks": {
+        "faq_item_xDGnVT": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does one bottle last?",
+            "answer": "<p>Each bottle contains 60 capsules, a full 30-day supply at the suggested 2 capsules per day.</p>"
+          }
+        },
+        "faq_item_JK6GLA": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What ingredients are in Metabolic Flow?",
+            "answer": "<p>A blend of Berberine, Chromium, Cinnamon Bark Extract, and Chicory Root Fiber. The full list is on the product page.</p>"
+          }
+        },
+        "faq_item_VQeHF3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is Metabolic Flow right for me?",
+            "answer": "<p>It is formulated for women 45+ who want to support healthy metabolism, balanced energy, and fewer cravings. If you have a medical condition or take medication, check with your doctor first.</p>"
+          }
+        },
+        "faq_item_wFNkYp": {
+          "type": "faq_item",
+          "settings": {
+            "question": "When should I expect to notice a difference?",
+            "answer": "<p>Everyone is different. Many women notice changes within a few weeks of daily use, with the best results over 2 to 3 months.</p>"
+          }
+        },
+        "faq_item_yJdCUX": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Are there any side effects?",
+            "answer": "<p>Metabolic Flow is made from well-studied ingredients and is generally well tolerated. If you have any concerns, talk to your healthcare provider.</p>"
+          }
+        },
+        "faq_item_7gnpkA": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is a subscription worth it?",
+            "answer": "<p>Subscribing saves money on every order and makes sure you never run out. You can pause, change, or cancel anytime.</p>"
+          }
+        },
+        "faq_item_97AqF7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How does the subscription work?",
+            "answer": "<p>Choose a delivery frequency at checkout and we ship automatically. Manage everything from your account, with no commitment.</p>"
+          }
+        },
+        "faq_item_6zTXzq": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Where is Metabolic Flow made?",
+            "answer": "<p>Metabolic Flow is made in the USA in a facility that follows strict quality standards.</p>"
+          }
+        },
+        "faq_item_QcXbAc": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Why is Metabolic Flow designed for women 45+?",
+            "answer": "<p>Metabolism naturally shifts with age. Metabolic Flow was created to support women through those changes during and after menopause.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_xDGnVT",
+        "faq_item_JK6GLA",
+        "faq_item_VQeHF3",
+        "faq_item_wFNkYp",
+        "faq_item_yJdCUX",
+        "faq_item_7gnpkA",
+        "faq_item_97AqF7",
+        "faq_item_6zTXzq",
+        "faq_item_QcXbAc"
+      ],
+      "name": "Metabolic FAQ",
+      "settings": {
+        "use_theme_colors": false,
+        "heading_before": "Frequently Asked",
+        "heading_accent": "Questions",
+        "heading_size": 40,
+        "heading_size_mobile": 24,
+        "question_size": 18,
+        "answer_size": 16,
+        "answer_color": "#666666",
+        "card_background": "#ffffff",
+        "card_border_color": "#ec3c6e",
+        "button_text": "CLAIM 20% OFF NOW →",
+        "button_link": "shopify://products/feel-balanced-after-45",
+        "button_background": "#202329",
+        "button_text_color": "#ffffff",
+        "guarantee_text": "60-Day Money-Back Guarantee",
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "accent_color": "#ec3c6e",
+        "column_gap": 24,
+        "item_gap": 16,
+        "section_gap": 40,
+        "padding_top": 56,
+        "padding_bottom": 56
+      }
+    },
+    "metabolic_comments_7txh9V": {
+      "type": "metabolic-comments",
+      "blocks": {
+        "comment_JbjF7C": {
+          "type": "comment",
+          "settings": {
+            "author_name": "Susan Parker",
+            "author_initials": "SP",
+            "avatar_color": "#f5821f",
+            "content": "<p>I started taking Metabolic Flow about 8 months ago after feeling completely stuck. I was eating fairly well, staying active, and still watching the scale slowly creep up every year.</p><p>The hardest part wasn't even the weight—it was feeling like my body had changed overnight. My cravings were stronger than ever, my energy was all over the place, and none of the things that used to work seemed to make a difference.</p><p>I almost didn't order because I'd tried so many things before.<br>I'm so glad I did.</p><p>It wasn't instant, but after a few weeks I noticed I wasn't constantly thinking about snacks anymore. My energy felt more stable and I finally felt like my efforts were starting to matter again.</p><p>Months later, I feel more confident, more comfortable in my clothes, and honestly more like myself than I have in years.</p>",
+            "likes": "487",
+            "timestamp": "2 h",
+            "reply_author": "Metabolic Flow",
+            "reply_initials": "MF",
+            "reply_avatar_color": "#009688",
+            "reply_verified": true,
+            "reply_content": "<p>Susan, thank you so much for sharing this.</p><p>What you've described is something we hear from so many women. The constant cravings, changing energy levels, and feeling like your body isn't responding the way it used to can be incredibly frustrating.</p><p>We're so happy Metabolic Flow has become part of a routine that's helping you feel more confident and in control again.</p>",
+            "reply_likes": "134",
+            "reply_timestamp": "1 h"
+          }
+        },
+        "comment_nxVt7f": {
+          "type": "comment",
+          "settings": {
+            "author_name": "Jennifer Harrison",
+            "author_initials": "JH",
+            "avatar_color": "#4267b2",
+            "content": "<p>I love these! The first thing I noticed wasn't my weight—it was that I wasn't thinking about food all day anymore. I used to find myself constantly reaching for something sweet in the afternoon and evening. Now I feel much more balanced and my energy doesn't crash the way it used to. Definitely staying subscribed.</p>",
+            "likes": "291",
+            "timestamp": "3 h",
+            "reply_author": "Metabolic Flow",
+            "reply_initials": "MF",
+            "reply_avatar_color": "#009688",
+            "reply_verified": true,
+            "reply_content": "<p>Jennifer, that's amazing to hear.<br>Many women tell us that feeling more in control of cravings is one of the first things they notice. Thank you for being part of the Metabolic Flow family! ❤️</p>",
+            "reply_likes": "201",
+            "reply_timestamp": "2 h"
+          }
+        },
+        "comment_waqfdC": {
+          "type": "comment",
+          "settings": {
+            "author_name": "Linda Matthews",
+            "author_initials": "LM",
+            "avatar_color": "#8a8d91",
+            "content": "<p>Is anyone else surprised by how easy this is to stick with? I've started so many plans over the years and always ended up quitting. Taking two capsules a day is probably the simplest thing I've tried.</p>",
+            "likes": "214",
+            "timestamp": "5 h",
+            "reply_author": "",
+            "reply_initials": "MF",
+            "reply_avatar_color": "#009688",
+            "reply_verified": true,
+            "reply_content": "",
+            "reply_likes": "",
+            "reply_timestamp": ""
+          }
+        },
+        "comment_bxkA4d": {
+          "type": "comment",
+          "settings": {
+            "author_name": "Karen Drennan",
+            "author_initials": "KD",
+            "avatar_color": "#8a8d91",
+            "content": "<p>My favorite part is honestly how my clothes fit now. I haven't changed everything about my life, but I feel so much more comfortable and confident than I did a few months ago.</p>",
+            "likes": "337",
+            "timestamp": "6 h",
+            "reply_author": "",
+            "reply_initials": "MF",
+            "reply_avatar_color": "#009688",
+            "reply_verified": true,
+            "reply_content": "",
+            "reply_likes": "",
+            "reply_timestamp": ""
+          }
+        }
+      },
+      "block_order": [
+        "comment_JbjF7C",
+        "comment_nxVt7f",
+        "comment_waqfdC",
+        "comment_bxkA4d"
+      ],
+      "name": "Metabolic Comments",
+      "settings": {
+        "use_theme_colors": false,
+        "show_comment_box": true,
+        "comment_prompt": "Please log in to post",
+        "section_background": "#ffffff",
+        "ink_color": "#202329",
+        "author_color": "#385898",
+        "muted_color": "#666666",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "main",
+    "metabolic_flow_hero_idimz3",
+    "metabolic_flow_offer_QthNVW",
+    "metabolic_featured_in_kLWWMh",
+    "metabolic_testimonials_wWFNeY",
+    "metabolic_reviews_wall_hUCTMa",
+    "metabolic_weight_after_45_ideqDM",
+    "metabolic_gallery_proof_YfjFVD",
+    "metabolic_ingredients_xFDF7D",
+    "metabolic_transformation_AT6wPN",
+    "metabolic_reasons_WH8TQy",
+    "metabolic_gallery_marquee_VYqAhe",
+    "metabolic_reviews_grid_cyXjC4",
+    "metabolic_faq_jcJQxP",
+    "metabolic_comments_7txh9V"
+  ]
+}

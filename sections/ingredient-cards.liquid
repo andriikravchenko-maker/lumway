@@ -1,0 +1,586 @@
+{% comment %}
+  Ingredient Cards section
+  - Headline with optional accent text
+  - 1..N ingredient cards (image, title, dose badge, description, benefit line with arrow)
+{% endcomment %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap"
+  rel="stylesheet"
+>
+
+<section
+  class="ingredient-cards ingredient-cards--{{ section.id }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-up{% endif %}"
+  id="ingredient-cards-{{ section.id }}"
+>
+  <div class="ingredient-cards__container">
+    {% if section.settings.heading != blank or section.settings.heading_accent != blank %}
+      <header class="ingredient-cards__header">
+        <h2 class="ingredient-cards__heading">
+          {%- if section.settings.heading != blank -%}
+            {{ section.settings.heading }}
+          {%- endif -%}
+          {%- if section.settings.heading_accent != blank -%}
+            {% if section.settings.heading != blank %} {% endif %}
+            <span class="ingredient-cards__heading-accent">{{ section.settings.heading_accent }}</span>
+          {%- endif -%}
+        </h2>
+        {% if section.settings.subtitle != blank %}
+          <p class="ingredient-cards__subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="ingredient-cards__grid" data-count="{{ section.blocks.size }}">
+        {% for block in section.blocks %}
+          {% if block.type == 'ingredient' %}
+            <article class="ingredient-card" {{ block.shopify_attributes }}>
+              <div class="ingredient-card__image-wrap">
+                {% if block.settings.image != blank %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 200
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'ingredient-card__image',
+                      alt: block.settings.image.alt | default: block.settings.title,
+                      widths: '100, 200, 300'
+                  }}
+                {% else %}
+                  <div class="ingredient-card__image ingredient-card__image--placeholder">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="ingredient-card__body">
+                {% if block.settings.title != blank %}
+                  <h3 class="ingredient-card__title">{{ block.settings.title }}</h3>
+                {% endif %}
+
+                {% if block.settings.badge_text != blank %}
+                  <div class="ingredient-card__badge">
+                    <span class="ingredient-card__badge-text">{{ block.settings.badge_text }}</span>
+                  </div>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <div class="ingredient-card__description">{{ block.settings.description }}</div>
+                {% endif %}
+
+                {% if block.settings.benefit_text != blank %}
+                  <div class="ingredient-card__benefit">
+                    <span class="ingredient-card__benefit-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M9.5 17.5 4 12l5.5-5.5M4.5 12H14a6 6 0 0 1 6 6v0"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span class="ingredient-card__benefit-text">{{ block.settings.benefit_text }}</span>
+                  </div>
+                {% endif %}
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% style %}
+  .ingredient-cards--{{ section.id }} {
+    background: {{ section.settings.section_background | default: '#f9f9f9' }};
+    padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-cards__container {
+    max-width: {{ section.settings.container_width | default: 1200 }}px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-cards__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    gap: 8px;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-cards__heading {
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 700;
+    font-size: {{ section.settings.heading_size | default: 40 }}px;
+    line-height: 1.2;
+    letter-spacing: -2px;
+    color: {{ section.settings.heading_color | default: '#000000' }};
+    margin: 0;
+    text-align: center;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-cards__heading-accent {
+    color: {{ section.settings.accent_color | default: '#23a02a' }};
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-cards__subtitle {
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 18px;
+    color: #555;
+    margin: 0;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size | at_most: 4 | at_least: 1 }}, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card {
+    background: {{ section.settings.card_background | default: '#ffffff' }};
+    border: 1px solid {{ section.settings.card_border_color | default: '#c2c2c2' }};
+    border-radius: {{ section.settings.card_border_radius | default: 8 }}px;
+    padding: 33px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__image-wrap {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f3f3f3;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 100px;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__image--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c2c2c2;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__title {
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.2;
+    color: {{ section.settings.title_color | default: '#000000' }};
+    margin: 0;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__badge {
+    background: {{ section.settings.badge_background | default: 'rgba(253, 218, 54, 0.1)' }};
+    padding: 4px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__badge-text {
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    color: {{ section.settings.badge_text_color | default: '#995e05' }};
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__description {
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+    color: {{ section.settings.description_color | default: '#000000' }};
+    width: 100%;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__description p {
+    margin: 0 0 8px 0;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__benefit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: {{ section.settings.benefit_color | default: '#23a02a' }};
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__benefit-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    transform: rotate(180deg);
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__benefit-icon svg {
+    width: 16px;
+    height: 16px;
+    display: block;
+  }
+
+  .ingredient-cards--{{ section.id }} .ingredient-card__benefit-text {
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+
+  @media (max-width: 990px) {
+    .ingredient-cards--{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_mobile | default: 56 }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile | default: 56 }}px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__heading {
+      font-size: {{ section.settings.heading_size_mobile | default: 28 }}px;
+      letter-spacing: -1px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__container {
+      gap: 28px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card {
+      padding: 24px;
+      gap: 16px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__image-wrap,
+    .ingredient-cards--{{ section.id }} .ingredient-card__image {
+      width: 80px;
+      height: 80px;
+      border-radius: 80px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__title {
+      font-size: 20px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__description {
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 991px) and (max-width: 1199px) {
+    .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
+      grid-template-columns: repeat({{ section.blocks.size | at_most: 3 | at_least: 1 }}, minmax(0, 1fr));
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card {
+      padding: 24px;
+    }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Ingredient Cards",
+  "tag": "section",
+  "class": "shopify-section--ingredient-cards",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Every ingredient"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent text",
+      "default": "earns its place"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 24,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size (Desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size (Mobile)",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#23a02a"
+    },
+    {
+      "type": "header",
+      "content": "Card styling"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#c2c2c2"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Card title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "color",
+      "id": "badge_background",
+      "label": "Badge background",
+      "default": "#fff8d6"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#995e05"
+    },
+    {
+      "type": "header",
+      "content": "Benefit line"
+    },
+    {
+      "type": "color",
+      "id": "benefit_color",
+      "label": "Benefit text & icon color",
+      "default": "#23a02a"
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 800,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Content width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (Desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (Desktop)",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding (Mobile)",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding (Mobile)",
+      "default": 56
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon image",
+          "info": "Square image works best (will be cropped to a circle)."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Ingredient name",
+          "default": "Apple Cider Vinegar"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Dose / badge text",
+          "default": "500mg per serving"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Stimulates digestive enzymes and supports the body's natural acid balance — helping food move more comfortably after meals.</p>"
+        },
+        {
+          "type": "text",
+          "id": "benefit_text",
+          "label": "Benefit line",
+          "default": "Reduces post-meal heaviness*"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ingredient Cards",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Apple Cider Vinegar",
+            "badge_text": "500mg per serving",
+            "description": "<p>Stimulates digestive enzymes and supports the body's natural acid balance — helping food move more comfortably after meals.</p>",
+            "benefit_text": "Reduces post-meal heaviness*"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Probiotic Blend",
+            "badge_text": "1 Billion CFU",
+            "description": "<p>Beneficial bacteria that support a balanced gut microbiome. Daily intake helps maintain the environment for comfortable digestion.</p>",
+            "benefit_text": "Supports gut flora balance*"
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "title": "Ginger & Turmeric",
+            "badge_text": "300mg combined",
+            "description": "<p>Ginger helps food move smoothly through the gut. Turmeric supports the gut's natural inflammatory response for lasting comfort.</p>",
+            "benefit_text": "Eases digestive discomfort*"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

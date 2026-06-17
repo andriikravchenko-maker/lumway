@@ -1,0 +1,553 @@
+{% comment %} Section: metabolic-flow-hero — split hero: product image (left) + headline/benefits/CTA (right) + rating row {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign panel_bg = settings.global_section_background_color
+    assign headline_color = settings.global_section_accent_1_color
+    assign text_color = settings.global_section_text_color
+    assign button_bg = settings.global_section_button_color | default: settings.global_section_text_color
+    assign button_text_color = '#ffffff'
+  else
+    assign panel_bg = section.settings.panel_background
+    assign headline_color = section.settings.headline_color
+    assign text_color = section.settings.text_color
+    assign button_bg = section.settings.button_background
+    assign button_text_color = section.settings.button_text_color
+  endif
+
+  assign image_alt = section.settings.image.alt | default: section.settings.headline | default: 'Product'
+-%}
+
+{%- capture star_icon -%}
+<svg class="mf-hero__star-svg" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.401 8.168L12 18.896l-7.335 3.869 1.401-8.168L.132 9.21l8.2-1.192z"/></svg>
+{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --mfh-font-heading: 'Oswald', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mfh-font-body: 'League Spartan', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mfh-section-bg: {{ section.settings.section_background }};
+    --mfh-panel-bg: {{ panel_bg }};
+    --mfh-headline-color: {{ headline_color }};
+    --mfh-text-color: {{ text_color }};
+    --mfh-button-bg: {{ button_bg }};
+    --mfh-button-text: {{ button_text_color }};
+    --mfh-button-hover-bg: {{ section.settings.button_hover_background }};
+    --mfh-star-color: {{ section.settings.star_color }};
+    --mfh-headline-size: {{ section.settings.headline_size }}px;
+    --mfh-headline-size-mobile: {{ section.settings.headline_size_mobile }}px;
+    --mfh-subheadline-size: {{ section.settings.subheadline_size }}px;
+    --mfh-subheadline-size-mobile: {{ section.settings.subheadline_size_mobile }}px;
+    --mfh-benefit-size: {{ section.settings.benefit_size }}px;
+    --mfh-button-radius: {{ section.settings.button_radius }}px;
+    --mfh-content-gap: {{ section.settings.content_gap }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--mfh-section-bg);
+  }
+
+  .section-{{ section.id }} .mf-hero__split {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-{{ section.id }} .mf-hero__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 948 / 800;
+    background-color: var(--mfh-panel-bg);
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .mf-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .section-{{ section.id }} .mf-hero__image--placeholder {
+    background-color: #eef0f1;
+    fill: #b9c3c9;
+  }
+
+  .section-{{ section.id }} .mf-hero__panel {
+    background-color: var(--mfh-panel-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+  }
+
+  .section-{{ section.id }} .mf-hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--mfh-content-gap);
+    width: 100%;
+    max-width: 860px;
+    text-align: center;
+  }
+
+  /* client2 forces headings to Bricolage (selective-heading-fonts.css h2 !important) + theme color/weight; override to the design */
+  .section-{{ section.id }} .mf-hero__headline {
+    margin: 0;
+    font-family: var(--mfh-font-heading) !important;
+    font-weight: 500 !important;
+    line-height: 1.25;
+    color: var(--mfh-headline-color) !important;
+    font-size: clamp(var(--mfh-headline-size-mobile), 4.2vw, var(--mfh-headline-size));
+  }
+
+  /* theme forces body font/color on p; override to League Spartan */
+  .section-{{ section.id }} .mf-hero__subheadline,
+  .section-{{ section.id }} .mf-hero__subheadline p {
+    margin: 0;
+    font-family: var(--mfh-font-body) !important;
+    font-weight: 400 !important;
+    line-height: 1.5;
+    color: var(--mfh-text-color) !important;
+    font-size: clamp(var(--mfh-subheadline-size-mobile), 2.4vw, var(--mfh-subheadline-size));
+  }
+
+  .section-{{ section.id }} .mf-hero__subheadline > :first-child { margin-top: 0; }
+  .section-{{ section.id }} .mf-hero__subheadline > :last-child { margin-bottom: 0; }
+  .section-{{ section.id }} .mf-hero__subheadline strong { font-weight: 600 !important; }
+
+  .section-{{ section.id }} .mf-hero__benefits {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    column-count: 1;
+    column-gap: 24px;
+  }
+
+  .section-{{ section.id }} .mf-hero__benefit,
+  .section-{{ section.id }} .mf-hero__benefit * {
+    font-family: var(--mfh-font-body) !important;
+    color: var(--mfh-text-color) !important;
+  }
+
+  .section-{{ section.id }} .mf-hero__benefit {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    font-weight: 400 !important;
+    font-size: clamp(16px, 1.6vw, var(--mfh-benefit-size));
+    line-height: 1.3;
+  }
+
+  .section-{{ section.id }} .mf-hero__benefit:last-child { margin-bottom: 0; }
+  .section-{{ section.id }} .mf-hero__benefit strong { font-weight: 700 !important; }
+
+  .section-{{ section.id }} .mf-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px 32px;
+    font-family: var(--mfh-font-body) !important;
+    font-weight: 700 !important;
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.25;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    color: var(--mfh-button-text) !important;
+    background-color: var(--mfh-button-bg);
+    border: 0;
+    border-radius: var(--mfh-button-radius);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+  }
+
+  .section-{{ section.id }} .mf-hero__button:hover {
+    background-color: var(--mfh-button-hover-bg);
+    transform: translateY(-2px);
+  }
+
+  .section-{{ section.id }} .mf-hero__button:focus-visible {
+    outline: 3px solid var(--mfh-headline-color);
+    outline-offset: 3px;
+  }
+
+  .section-{{ section.id }} .mf-hero__rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 20px;
+    font-family: var(--mfh-font-body) !important;
+    color: var(--mfh-text-color) !important;
+  }
+
+  .section-{{ section.id }} .mf-hero__rating-text,
+  .section-{{ section.id }} .mf-hero__trust {
+    font-family: var(--mfh-font-body) !important;
+    color: var(--mfh-text-color) !important;
+  }
+
+  .section-{{ section.id }} .mf-hero__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--mfh-star-color);
+  }
+
+  .section-{{ section.id }} .mf-hero__star-svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+
+  .section-{{ section.id }} .mf-hero__rating-text {
+    font-weight: 600 !important;
+    font-size: 18px;
+  }
+
+  .section-{{ section.id }} .mf-hero__trust {
+    font-weight: 400 !important;
+    font-size: 18px;
+  }
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} .mf-hero__split {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .section-{{ section.id }} .mf-hero__media {
+      flex: 948 1 0;
+      aspect-ratio: auto;
+    }
+
+    .section-{{ section.id }} .mf-hero__panel {
+      flex: 972 1 0;
+      padding: 64px 56px;
+    }
+
+    .section-{{ section.id }} .mf-hero__content {
+      gap: 40px;
+    }
+
+    .section-{{ section.id }} .mf-hero__benefits {
+      column-count: 2;
+    }
+
+    .section-{{ section.id }} .mf-hero__button {
+      font-size: var(--mfh-button-size, 18px);
+    }
+  }
+{% endstyle %}
+
+<section class="mf-hero section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="mf-hero__split">
+    <div class="mf-hero__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1896
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            widths: '480,768,948,1200,1500,1896',
+            sizes: '(min-width: 990px) 49vw, 100vw',
+            alt: image_alt,
+            class: 'mf-hero__image'
+        }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'mf-hero__image mf-hero__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="mf-hero__panel">
+      <div class="mf-hero__content">
+        {%- if section.settings.headline != blank -%}
+          <h2 class="mf-hero__headline">{{ section.settings.headline }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.subheadline != blank -%}
+          <div class="mf-hero__subheadline">{{ section.settings.subheadline }}</div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <ul class="mf-hero__benefits">
+            {%- for block in section.blocks -%}
+              <li class="mf-hero__benefit" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon != blank -%}<span class="mf-hero__benefit-icon">{{ block.settings.icon }}</span> {% endif -%}
+                {{- block.settings.text -}}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if section.settings.button_text != blank -%}
+          <a class="mf-hero__button" href="{{ section.settings.button_link | default: '#' }}">
+            {{- section.settings.button_text -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.show_rating -%}
+    <div class="mf-hero__rating">
+      <span class="mf-hero__stars" role="img" aria-label="{{ section.settings.rating_value | default: 5 }} out of 5 stars">
+        {%- for i in (1..5) -%}{{ star_icon }}{%- endfor -%}
+      </span>
+      {%- if section.settings.rating_text != blank -%}
+        <span class="mf-hero__rating-text">{{ section.settings.rating_text }}</span>
+      {%- endif -%}
+      {%- if section.settings.trust_text != blank -%}
+        <span class="mf-hero__trust">{{ section.settings.trust_text }}</span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Flow Hero",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use theme colors",
+      "default": false,
+      "info": "Apply the global theme colors instead of the design colors below."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Section background (rating area)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "panel_background",
+      "label": "Right panel background",
+      "default": "#f7f0f3"
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#5584c0"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#FFC107"
+    },
+    {
+      "type": "header",
+      "content": "Product image (left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "The whole left scene as one image (product, badges, offer). Recommended ratio ~948 x 800."
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "\"I'm Down 2 Jean Sizes, Have More Energy, And Finally Feel Like Myself AGAIN\""
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 32,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "headline_size_mobile",
+      "label": "Headline size (mobile)",
+      "min": 22,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "header",
+      "content": "Subheadline"
+    },
+    {
+      "type": "richtext",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "<p><strong>Try Metabolic Flow:</strong> Support Healthy Metabolism, Reduce the Cycle of Constant Cravings, and Feel More Comfortable in Your Body Again.*</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "label": "Subheadline size",
+      "min": 16,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size_mobile",
+      "label": "Subheadline size (mobile)",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Benefits",
+      "info": "Shown in 2 columns on desktop. Add up to 6."
+    },
+    {
+      "type": "range",
+      "id": "benefit_size",
+      "label": "Benefit text size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CLAIM 20% OFF NOW →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button color",
+      "default": "#202329"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background",
+      "label": "Button color (hover)",
+      "default": "#3a3f45"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between content blocks (mobile)",
+      "min": 12,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Rating row"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating text",
+      "default": "Rated 4.8 / 5"
+    },
+    {
+      "type": "text",
+      "id": "trust_text",
+      "label": "Trust statement",
+      "default": "Trusted by thousands of users"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "⚡"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<strong>87%</strong> reported fewer cravings & better energy*"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Metabolic Flow Hero",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "⚡", "text": "<strong>87%</strong> reported fewer cravings & better energy*" } },
+        { "type": "benefit", "settings": { "icon": "🏆", "text": "<strong>60-Day</strong> Feel In Control Guarantee" } },
+        { "type": "benefit", "settings": { "icon": "✨", "text": "<strong>87%</strong> felt more confident in their body*" } },
+        { "type": "benefit", "settings": { "icon": "⭐", "text": "<strong>4.8</strong> Star Reviews" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

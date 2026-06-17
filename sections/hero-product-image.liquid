@@ -1,0 +1,420 @@
+{% comment %} Section: hero-product-image — Product image left, heading + CTA right {% endcomment %}
+
+{{ 'hero-product-image.css' | asset_url | stylesheet_tag }}
+
+{%- unless settings.enable_oswald_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+{%- unless settings.enable_league_spartan_font -%}
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;600;700&display=swap" rel="stylesheet">
+{%- endunless -%}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign background_color = settings.global_section_background_color
+    assign heading_color = settings.global_section_heading_color | default: settings.global_section_text_color
+    assign heading_accent_color = settings.global_section_accent_1_color
+    assign subheading_color = settings.global_section_text_color
+    assign button_bg_color = settings.global_button_bg_color | default: settings.global_section_accent_1_color
+    assign button_text_color = settings.global_button_text_color | default: '#ffffff'
+    assign button_hover_bg_color = settings.global_button_hover_bg_color | default: settings.global_section_accent_1_color
+  else
+    assign background_color = section.settings.background_color
+    assign heading_color = section.settings.heading_color
+    assign heading_accent_color = section.settings.heading_accent_color
+    assign subheading_color = section.settings.subheading_color
+    assign button_bg_color = section.settings.button_bg_color
+    assign button_text_color = section.settings.button_text_color
+    assign button_hover_bg_color = section.settings.button_hover_bg_color
+  endif
+
+  assign image_alt = section.settings.image.alt | default: section.settings.heading_accent | default: section.settings.heading_before
+-%}
+
+<style>
+  .section-{{ section.id }} {
+    --hpi-bg: {{ background_color }};
+    --hpi-heading-color: {{ heading_color }};
+    --hpi-heading-accent-color: {{ heading_accent_color }};
+    --hpi-subheading-color: {{ subheading_color }};
+    --hpi-button-bg: {{ button_bg_color }};
+    --hpi-button-text: {{ button_text_color }};
+    --hpi-button-hover-bg: {{ button_hover_bg_color }};
+    --hpi-heading-size: {{ section.settings.heading_size }}px;
+    --hpi-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+    --hpi-heading-line-height: {{ section.settings.heading_line_height }};
+    --hpi-subheading-size: {{ section.settings.subheading_size }}px;
+    --hpi-subheading-size-mobile: {{ section.settings.subheading_size_mobile }}px;
+    --hpi-button-radius: {{ section.settings.button_radius }}px;
+    --hpi-button-font-size: {{ section.settings.button_font_size }}px;
+    --hpi-button-font-size-mobile: {{ section.settings.button_font_size_mobile }}px;
+    --hpi-image-radius: {{ section.settings.image_border_radius }}px;
+    --hpi-column-gap: {{ section.settings.column_gap }}px;
+    --hpi-column-gap-mobile: {{ section.settings.column_gap_mobile }}px;
+    --hpi-content-gap: {{ section.settings.content_gap }}px;
+    --hpi-content-gap-mobile: {{ section.settings.content_gap_mobile }}px;
+    --hpi-padding-top: {{ section.settings.padding_top }}px;
+    --hpi-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --hpi-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --hpi-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+</style>
+
+<section
+  class="hero-product-image section-{{ section.id }} hero-product-image--image-{{ section.settings.image_position }}"
+  data-section-id="{{ section.id }}"
+>
+  <div class="hero-product-image__inner page-width">
+    <div class="hero-product-image__media">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            widths: '300,500,750,1000,1250,1500',
+            sizes: '(min-width: 769px) 486px, 100vw',
+            alt: image_alt,
+            class: 'hero-product-image__image'
+        }}
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'hero-product-image__image hero-product-image__image--placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="hero-product-image__content">
+      {% if section.settings.heading_before != blank or section.settings.heading_accent != blank or section.settings.heading_after != blank %}
+        <h2 class="hero-product-image__heading">
+          {{- section.settings.heading_before -}}
+          {% if section.settings.heading_accent != blank %} <span class="hero-product-image__heading-accent">{{ section.settings.heading_accent }}</span>{% endif %}
+          {%- if section.settings.heading_after != blank %} {{ section.settings.heading_after }}{% endif -%}
+        </h2>
+      {% endif %}
+
+      {%- if section.settings.subheading != blank -%}
+        <div class="hero-product-image__subheading">{{ section.settings.subheading }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_text != blank -%}
+        <a
+          href="{{ section.settings.button_link | default: '#' }}"
+          class="hero-product-image__button"
+        >
+          {{ section.settings.button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero with Product Image",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "use_theme_colors",
+      "label": "Use Theme Colors",
+      "default": false,
+      "info": "Apply the global theme colors to this section"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position (desktop)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Gap between image and text",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "column_gap_mobile",
+      "label": "Gap between image and text (mobile)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between heading, subheading and button",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "Gap between heading, subheading and button (mobile)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Upload the composite image (product photo with built-in benefits)."
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_before",
+      "label": "Heading text (before accent)",
+      "default": "5 Ways Gut Harmony Helps Women"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "Accent text",
+      "info": "This part will use the accent color.",
+      "default": "Stop Feeling Heavy"
+    },
+    {
+      "type": "text",
+      "id": "heading_after",
+      "label": "Heading text (after accent)",
+      "default": "After Every Meal*"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 88,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.2
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Accent color",
+      "default": "#3f8b35"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>(Without Harsh Diets)</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "label": "Subheading size (mobile)",
+      "min": 10,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "LEARN MORE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "Button font size (mobile)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#23a02a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button background (hover)",
+      "default": "#1d8a23"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero with Product Image",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,261 @@
+{% comment %} Section: metabolic-comments — social-proof comment thread (comments + nested brand replies) {% endcomment %}
+
+{%- liquid
+  if section.settings.use_theme_colors
+    assign section_bg = settings.global_section_background_color
+    assign ink = settings.global_section_text_color
+  else
+    assign section_bg = section.settings.section_background
+    assign ink = section.settings.ink_color
+  endif
+-%}
+
+{%- capture like_badge -%}<span class="cm__like-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg></span>{%- endcapture -%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --cm-fb: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --cm-bg: {{ section_bg }};
+    --cm-ink: {{ ink }};
+    --cm-link: {{ section.settings.author_color }};
+    --cm-muted: {{ section.settings.muted_color }};
+    --cm-pad-top: {{ section.settings.padding_top }}px;
+    --cm-pad-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .section-{{ section.id }} {
+    background-color: var(--cm-bg);
+    padding-top: var(--cm-pad-top);
+    padding-bottom: var(--cm-pad-bottom);
+  }
+
+  .section-{{ section.id }} .cm__inner {
+    max-width: 792px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    box-sizing: border-box;
+  }
+
+  /* Write box */
+  .section-{{ section.id }} .cm__box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #ededed;
+  }
+  .section-{{ section.id }} .cm__box-input {
+    flex: 1 1 auto;
+    background-color: #f0f2f5;
+    border-radius: 18px;
+    padding: 9px 16px;
+    font-family: var(--cm-fb) !important;
+    font-size: 14px;
+    color: var(--cm-muted) !important;
+  }
+
+  /* Avatar */
+  .section-{{ section.id }} .cm__avatar {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--cm-fb) !important;
+    font-weight: 600 !important;
+    font-size: 13px;
+    color: #ffffff;
+    text-transform: uppercase;
+    overflow: hidden;
+  }
+  .section-{{ section.id }} .cm__avatar--empty { background-color: #e4e6eb; }
+  .section-{{ section.id }} .cm__avatar--sm { width: 32px; height: 32px; font-size: 12px; }
+
+  /* Comment */
+  .section-{{ section.id }} .cm__comment { display: flex; gap: 10px; margin-top: 18px; }
+  .section-{{ section.id }} .cm__comment:first-of-type { margin-top: 0; }
+  .section-{{ section.id }} .cm__main { flex: 1 1 0; min-width: 0; }
+  .section-{{ section.id }} .cm__author {
+    margin: 0;
+    font-family: var(--cm-fb) !important;
+    font-weight: 600 !important;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--cm-link) !important;
+    text-decoration: none;
+  }
+  .section-{{ section.id }} .cm__verified { color: var(--cm-link); }
+  .section-{{ section.id }} .cm__content {
+    font-family: var(--cm-fb) !important;
+    font-weight: 400 !important;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--cm-ink) !important;
+    margin-top: 2px;
+  }
+  .section-{{ section.id }} .cm__content > * { margin: 0; }
+  .section-{{ section.id }} .cm__content > * + * { margin-top: 14px; }
+
+  /* Meta row */
+  .section-{{ section.id }} .cm__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-family: var(--cm-fb) !important;
+    font-size: 12px;
+    color: var(--cm-muted) !important;
+  }
+  .section-{{ section.id }} .cm__act { font-weight: 600; }
+  .section-{{ section.id }} .cm__dot { opacity: 0.7; }
+  .section-{{ section.id }} .cm__like { display: inline-flex; align-items: center; gap: 3px; }
+  .section-{{ section.id }} .cm__like-badge {
+    width: 16px; height: 16px; border-radius: 50%;
+    background-color: #1877f2; color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .section-{{ section.id }} .cm__like-badge svg { width: 10px; height: 10px; display: block; }
+
+  /* Reply */
+  .section-{{ section.id }} .cm__reply { display: flex; gap: 10px; margin-top: 14px; }
+
+  @media (max-width: 480px) {
+    .section-{{ section.id }} .cm__reply { gap: 8px; }
+  }
+{% endstyle %}
+
+<section class="cm section-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="cm__inner">
+
+    {%- if section.settings.show_comment_box -%}
+      <div class="cm__box">
+        <span class="cm__avatar cm__avatar--empty" aria-hidden="true"></span>
+        <div class="cm__box-input">{{ section.settings.comment_prompt | default: 'Please log in to post' }}</div>
+      </div>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      <article class="cm__comment" {{ block.shopify_attributes }}>
+        <span class="cm__avatar" style="background-color: {{ block.settings.avatar_color }}">{{ block.settings.author_initials }}</span>
+        <div class="cm__main">
+          {%- if block.settings.author_name != blank -%}<span class="cm__author">{{ block.settings.author_name }}</span>{%- endif -%}
+          {%- if block.settings.content != blank -%}<div class="cm__content">{{ block.settings.content }}</div>{%- endif -%}
+          <div class="cm__meta">
+            <span class="cm__act">Like</span><span class="cm__dot">·</span><span class="cm__act">Reply</span>
+            {%- if block.settings.likes != blank -%}<span class="cm__dot">·</span><span class="cm__like">{{ like_badge }}{{ block.settings.likes }}</span>{%- endif -%}
+            {%- if block.settings.timestamp != blank -%}<span class="cm__dot">·</span><span class="cm__time">{{ block.settings.timestamp }}</span>{%- endif -%}
+          </div>
+
+          {%- if block.settings.reply_content != blank or block.settings.reply_author != blank -%}
+            <div class="cm__reply">
+              <span class="cm__avatar cm__avatar--sm" style="background-color: {{ block.settings.reply_avatar_color }}">{{ block.settings.reply_initials }}</span>
+              <div class="cm__main">
+                {%- if block.settings.reply_author != blank -%}
+                  <span class="cm__author">{{ block.settings.reply_author }}{% if block.settings.reply_verified %} <span class="cm__verified" aria-label="Verified">✓</span>{% endif %}</span>
+                {%- endif -%}
+                {%- if block.settings.reply_content != blank -%}<div class="cm__content">{{ block.settings.reply_content }}</div>{%- endif -%}
+                <div class="cm__meta">
+                  <span class="cm__act">Like</span><span class="cm__dot">·</span><span class="cm__act">Reply</span>
+                  {%- if block.settings.reply_likes != blank -%}<span class="cm__dot">·</span><span class="cm__like">{{ like_badge }}{{ block.settings.reply_likes }}</span>{%- endif -%}
+                  {%- if block.settings.reply_timestamp != blank -%}<span class="cm__dot">·</span><span class="cm__time">{{ block.settings.reply_timestamp }}</span>{%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </article>
+    {%- endfor -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Metabolic Comments",
+  "settings": [
+    { "type": "checkbox", "id": "use_theme_colors", "label": "Use theme colors", "default": false },
+    { "type": "checkbox", "id": "show_comment_box", "label": "Show \"write a comment\" box", "default": true },
+    { "type": "text", "id": "comment_prompt", "label": "Comment box prompt", "default": "Please log in to post" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_background", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "ink_color", "label": "Comment text color", "default": "#202329" },
+    { "type": "color", "id": "author_color", "label": "Author name color", "default": "#385898" },
+    { "type": "color", "id": "muted_color", "label": "Meta text color", "default": "#666666" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 }
+  ],
+  "blocks": [
+    {
+      "type": "comment",
+      "name": "Comment",
+      "settings": [
+        { "type": "text", "id": "author_name", "label": "Author name", "default": "Susan Parker" },
+        { "type": "text", "id": "author_initials", "label": "Author initials", "default": "SP" },
+        { "type": "color", "id": "avatar_color", "label": "Avatar color", "default": "#f5821f" },
+        { "type": "richtext", "id": "content", "label": "Comment text", "default": "<p>I started taking Metabolic Flow about 8 months ago after feeling completely stuck.</p>" },
+        { "type": "text", "id": "likes", "label": "Likes count", "default": "487" },
+        { "type": "text", "id": "timestamp", "label": "Timestamp", "default": "2 h" },
+        { "type": "header", "content": "Reply (optional)" },
+        { "type": "text", "id": "reply_author", "label": "Reply author" },
+        { "type": "text", "id": "reply_initials", "label": "Reply initials", "default": "MF" },
+        { "type": "color", "id": "reply_avatar_color", "label": "Reply avatar color", "default": "#009688" },
+        { "type": "checkbox", "id": "reply_verified", "label": "Show verified check", "default": true },
+        { "type": "richtext", "id": "reply_content", "label": "Reply text" },
+        { "type": "text", "id": "reply_likes", "label": "Reply likes" },
+        { "type": "text", "id": "reply_timestamp", "label": "Reply timestamp" }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Metabolic Comments",
+      "blocks": [
+        {
+          "type": "comment",
+          "settings": {
+            "author_name": "Susan Parker", "author_initials": "SP", "avatar_color": "#f5821f",
+            "content": "<p>I started taking Metabolic Flow about 8 months ago after feeling completely stuck. I was eating fairly well, staying active, and still watching the scale slowly creep up every year.</p><p>The hardest part wasn't even the weight—it was feeling like my body had changed overnight. My cravings were stronger than ever, my energy was all over the place, and none of the things that used to work seemed to make a difference.</p><p>I almost didn't order because I'd tried so many things before.<br>I'm so glad I did.</p><p>It wasn't instant, but after a few weeks I noticed I wasn't constantly thinking about snacks anymore. My energy felt more stable and I finally felt like my efforts were starting to matter again.</p><p>Months later, I feel more confident, more comfortable in my clothes, and honestly more like myself than I have in years.</p>",
+            "likes": "487", "timestamp": "2 h",
+            "reply_author": "Metabolic Flow", "reply_initials": "MF", "reply_avatar_color": "#009688", "reply_verified": true,
+            "reply_content": "<p>Susan, thank you so much for sharing this.</p><p>What you've described is something we hear from so many women. The constant cravings, changing energy levels, and feeling like your body isn't responding the way it used to can be incredibly frustrating.</p><p>We're so happy Metabolic Flow has become part of a routine that's helping you feel more confident and in control again.</p>",
+            "reply_likes": "134", "reply_timestamp": "1 h"
+          }
+        },
+        {
+          "type": "comment",
+          "settings": {
+            "author_name": "Jennifer Harrison", "author_initials": "JH", "avatar_color": "#4267b2",
+            "content": "<p>I love these! The first thing I noticed wasn't my weight—it was that I wasn't thinking about food all day anymore. I used to find myself constantly reaching for something sweet in the afternoon and evening. Now I feel much more balanced and my energy doesn't crash the way it used to. Definitely staying subscribed.</p>",
+            "likes": "291", "timestamp": "3 h",
+            "reply_author": "Metabolic Flow", "reply_initials": "MF", "reply_avatar_color": "#009688", "reply_verified": true,
+            "reply_content": "<p>Jennifer, that's amazing to hear.<br>Many women tell us that feeling more in control of cravings is one of the first things they notice. Thank you for being part of the Metabolic Flow family! ❤️</p>",
+            "reply_likes": "201", "reply_timestamp": "2 h"
+          }
+        },
+        {
+          "type": "comment",
+          "settings": {
+            "author_name": "Linda Matthews", "author_initials": "LM", "avatar_color": "#8a8d91",
+            "content": "<p>Is anyone else surprised by how easy this is to stick with? I've started so many plans over the years and always ended up quitting. Taking two capsules a day is probably the simplest thing I've tried.</p>",
+            "likes": "214", "timestamp": "5 h"
+          }
+        },
+        {
+          "type": "comment",
+          "settings": {
+            "author_name": "Karen Drennan", "author_initials": "KD", "avatar_color": "#8a8d91",
+            "content": "<p>My favorite part is honestly how my clothes fit now. I haven't changed everything about my life, but I feel so much more comfortable and confident than I did a few months ago.</p>",
+            "likes": "337", "timestamp": "6 h"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

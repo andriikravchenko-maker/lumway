@@ -1,0 +1,77 @@
+{% comment %}
+  Block: Lum Comparison Table for Listicle (Figma node 17-246)
+{% endcomment %}
+
+<div class="listicle-lct-block" {{ block.shopify_attributes }}>
+  {% render 'lum-comparison-table-styles', table_settings: block.settings, table_id: block.id %}
+
+  <div
+    class="lct lct--{{ block.id }}"
+    id="lum-comparison-table-{{ block.id }}"
+  >
+    <div class="lct__wrap">
+      <div class="lct__scroll" tabindex="0" role="region" aria-label="Product comparison table">
+        <div class="lct__table">
+          {% render 'lum-comparison-table-header', table_settings: block.settings %}
+
+          {% if block.blocks.size > 0 %}
+            {% content_for 'blocks' %}
+          {% else %}
+            {% render 'lum-comparison-table-default-rows' %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Lum Comparison Table",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "brand_image",
+      "label": "Brand product image"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand title",
+      "default": "Gut Harmony ACV"
+    },
+    {
+      "type": "image_picker",
+      "id": "competitor_image",
+      "label": "Competitor product image"
+    },
+    {
+      "type": "text",
+      "id": "competitor_title",
+      "label": "Competitor title",
+      "default": "Typical Gut Gummies"
+    }
+  ],
+  "blocks": [
+    { "type": "lct-row" }
+  ],
+  "presets": [
+    {
+      "name": "Lum Comparison Table",
+      "category": "Promotional",
+      "blocks": [
+        { "type": "lct-row", "settings": { "feature": "Daily digestive comfort support*", "brand_display": "check", "competitor_display": "text", "competitor_text": "Sometimes" } },
+        { "type": "lct-row", "settings": { "feature": "1500mg Apple Cider Vinegar", "brand_display": "check", "competitor_display": "text", "competitor_text": "Varies" } },
+        { "type": "lct-row", "settings": { "feature": "Includes probiotics", "brand_display": "check", "competitor_display": "text", "competitor_text": "Not always" } },
+        { "type": "lct-row", "settings": { "feature": "Ginger & turmeric blend", "brand_display": "check", "competitor_display": "text", "competitor_text": "Rarely" } },
+        { "type": "lct-row", "settings": { "feature": "Easy gummy routine", "brand_display": "check", "competitor_display": "check" } },
+        { "type": "lct-row", "settings": { "feature": "No messy ACV drinks", "brand_display": "check", "competitor_display": "cross" } },
+        { "type": "lct-row", "settings": { "feature": "Designed for everyday use", "brand_display": "check", "competitor_display": "text", "competitor_text": "Sometimes" } },
+        { "type": "lct-row", "settings": { "feature": "Vegetarian-friendly", "brand_display": "check", "competitor_display": "text", "competitor_text": "Varies" } },
+        { "type": "lct-row", "settings": { "feature": "Gluten-free", "brand_display": "check", "competitor_display": "text", "competitor_text": "Not always" } },
+        { "type": "lct-row", "settings": { "feature": "Manufactured in the USA", "brand_display": "check", "competitor_display": "text", "competitor_text": "Varies" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
