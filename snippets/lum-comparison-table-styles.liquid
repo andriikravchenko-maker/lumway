@@ -258,12 +258,42 @@
       padding-right: max({{ lct_padding_x }}px, 12px);
     }
 
+    /* Stacked mobile layout (matches babybjorn comparison chart): no horizontal
+       scroll, products side by side on top, each feature label becomes a
+       full-width centered section header with the two values beneath it. */
+    .lct--{{ table_id }} .lct__scroll {
+      overflow-x: visible;
+    }
+
     .lct--{{ table_id }} .lct__table {
-      min-width: 560px;
+      min-width: 0;
     }
 
     .lct--{{ table_id }} .lct__row {
-      grid-template-columns: minmax(160px, 1.2fr) minmax(100px, 0.9fr) minmax(100px, 0.9fr);
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .lct--{{ table_id }} .lct__cell--label {
+      grid-column: 1 / -1;
+      justify-content: center;
+      text-align: center;
+      background: #f8f8f8;
+    }
+
+    .lct--{{ table_id }} .lct__label {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Hide the empty feature-header cell so the two products sit at the very top */
+    .lct--{{ table_id }} .lct__row--header .lct__cell--label.lct__cell--empty {
+      display: none;
+    }
+
+    /* Drop the desktop highlight-border offset so the stacked header cells align */
+    .lct--{{ table_id }} .lct__cell--brand-first {
+      margin-top: 0;
+      padding-top: var(--lct-cell-py);
     }
 
     .lct--{{ table_id }} .lct__header-image,

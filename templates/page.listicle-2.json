@@ -641,10 +641,31 @@
             "lts_guarantee_ggwPDG"
           ]
         },
+        "listicle_lto_title_a1B2c3": {
+          "type": "listicle-lto-title",
+          "name": "Listicle LTO Title",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "heading_tag": "h2",
+            "font_size": 32,
+            "font_size_mobile": 24,
+            "font_weight": "700",
+            "text_color": "#111111",
+            "subtitle_font_size": 16,
+            "subtitle_color": "#666666",
+            "subtitle_margin_top": 8,
+            "text_align": "center",
+            "margin_top": 0,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        },
         "limited_time_offer_gAjrfj": {
           "type": "limited-time-offer",
           "name": "Limited Time Offer",
           "settings": {
+            "show_save_badge": false,
             "chip_text": "TODAY ONLY: FREE SHIPPING INCLUDED",
             "image": "shopify://shop_images/Left__Image_Column.png",
             "badge_1_text": "",
@@ -950,7 +971,8 @@
             "max_width": 600,
             "border_radius": 12,
             "margin_top": 20,
-            "margin_bottom": 20
+            "margin_bottom": 20,
+            "enable_heartbeat": false
           },
           "blocks": {}
         },
@@ -1020,6 +1042,7 @@
         "listicle_item_iawkPf",
         "listicle_item_kMBAUN",
         "limited_time_sale_Mmazzb",
+        "listicle_lto_title_a1B2c3",
         "limited_time_offer_gAjrfj",
         "comparison_table_kdRbKE",
         "listicle_item_tfiBeM",
