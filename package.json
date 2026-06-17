@@ -1,0 +1,15 @@
+{
+  "name": "lumway-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "dev": "dotenv -- node scripts/dev.mjs",
+    "dev:sync": "dotenv -- node scripts/dev.mjs --sync",
+    "theme:list": "dotenv -- node scripts/theme-list.mjs",
+    "theme:init": "dotenv -- node scripts/theme-init.mjs"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.4.2"
+  }
+}
