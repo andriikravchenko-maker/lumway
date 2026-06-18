@@ -191,6 +191,62 @@
 </style>
 
 <script>
+  {% if template.suffix == 'lumway3' %}
+  /* lumway3 template: show the button only after the first section is scrolled
+     past, and hide it again once the gut-harmony-cta section comes into view. */
+  (function () {
+    var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
+    if (!stickyEl) return;
+
+    // This block lives inside a section that Dawn fades in on scroll
+    // (`.scroll-trigger` sets opacity:0 while the section is offscreen). Opacity
+    // on an ancestor hides its whole subtree, so the fixed button stays
+    // invisible until the listicle section scrolls into view. Re-parent it to
+    // <body> so it escapes the section's opacity and shows from page load.
+    if (stickyEl.parentNode !== document.body) {
+      document.body.appendChild(stickyEl);
+    }
+
+    // The button is visible from page load; it only hides once the
+    // gut-harmony-cta section enters the viewport.
+    var ctaInner = null;
+
+    function update() {
+      if (!ctaInner) {
+        ctaInner = document.querySelector('.gut-harmony-cta__inner');
+      }
+      var atCta = ctaInner && ctaInner.getBoundingClientRect().top < window.innerHeight;
+      stickyEl.classList.toggle('is-lto-hidden', !!atCta);
+    }
+
+    // This theme scrolls the document root with `overflow: clip`, so window
+    // `scroll` events are unreliable. Drive updates with IntersectionObserver
+    // (fires from the compositor regardless of the scroll mechanism) and keep
+    // scroll/resize as a fallback.
+    var io = ('IntersectionObserver' in window)
+      ? new IntersectionObserver(update, { threshold: [0, 1] })
+      : null;
+
+    // Defer the hide logic until the page has fully loaded. Before images
+    // settle into place the page is short and the CTA can momentarily sit
+    // inside the viewport, which would hide the button right after it appears.
+    function start() {
+      ctaInner = document.querySelector('.gut-harmony-cta__inner');
+      if (io && ctaInner) {
+        io.observe(ctaInner);
+      }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+    }
+
+    if (document.readyState === 'complete') {
+      start();
+    } else {
+      window.addEventListener('load', start);
+    }
+  })();
+  {% else %}
   (function () {
     var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
     if (!stickyEl) return;
@@ -213,6 +269,7 @@
 
     ltoCards.forEach(function (card) { observer.observe(card); });
   })();
+  {% endif %}
 </script>
 
 {% schema %}

@@ -31,6 +31,8 @@
     --ghr-text-color: {{ text_color }};
     --ghr-star-color: {{ section.settings.star_color }};
     --ghr-star-empty: {{ section.settings.star_empty_color }};
+    --ghr-heading-size: {{ section.settings.heading_size }}px;
+    --ghr-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
     --ghr-title-size: {{ section.settings.title_size }}px;
     --ghr-text-size: {{ section.settings.text_size }}px;
     --ghr-name-size: {{ section.settings.name_size }}px;
@@ -38,6 +40,8 @@
     --ghr-card-padding: {{ section.settings.card_padding }}px;
     --ghr-image-radius: {{ section.settings.image_radius }}px;
     --ghr-card-gap: {{ section.settings.card_gap }}px;
+    --ghr-spv: {{ section.settings.slides_per_view }};
+    --ghr-spv-mobile: {{ section.settings.slides_per_view_mobile }};
     --ghr-pad-top: {{ section.settings.padding_top }}px;
     --ghr-pad-bottom: {{ section.settings.padding_bottom }}px;
     --ghr-pad-top-mobile: {{ section.settings.padding_top_mobile }}px;
@@ -50,6 +54,19 @@
     padding-bottom: var(--ghr-pad-bottom-mobile);
   }
 
+  .section-{{ section.id }} .gut-harmony-reviews__heading {
+    margin: 0 auto 32px;
+    padding-inline: 20px;
+    max-width: 1204px;
+    box-sizing: border-box;
+    font-family: var(--ghr-font-body) !important;
+    font-weight: 700 !important;
+    font-size: var(--ghr-heading-size-mobile);
+    line-height: 1.2;
+    text-align: center;
+    color: var(--ghr-text-color) !important;
+  }
+
   .section-{{ section.id }} .gut-harmony-reviews__grid {
     list-style: none;
     margin: 0 auto;
@@ -59,6 +76,73 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--ghr-card-gap);
+  }
+
+  /* ---- Slider mode ---- */
+  .section-{{ section.id }}.gut-harmony-reviews--slider .gut-harmony-reviews__slider-wrap {
+    position: relative;
+    max-width: 1204px;
+    margin: 0 auto;
+    padding-inline: 20px;
+  }
+
+  .section-{{ section.id }}.gut-harmony-reviews--slider .gut-harmony-reviews__grid {
+    display: flex;
+    grid-template-columns: none;
+    /* padding lives on the wrap so the scroll track has no unreachable trailing space */
+    padding-inline: 0;
+    max-width: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .section-{{ section.id }}.gut-harmony-reviews--slider .gut-harmony-reviews__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-{{ section.id }}.gut-harmony-reviews--slider .gut-harmony-reviews__card {
+    scroll-snap-align: start;
+    flex: 0 0 calc((100% - (var(--ghr-spv-mobile) - 1) * var(--ghr-card-gap)) / var(--ghr-spv-mobile));
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--ghr-card-border);
+    background-color: var(--ghr-card-bg);
+    color: var(--ghr-text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: opacity 0.2s ease;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__nav svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__nav--prev {
+    left: 4px;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__nav--next {
+    right: 4px;
+  }
+
+  .section-{{ section.id }} .gut-harmony-reviews__nav[disabled] {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .section-{{ section.id }} .gut-harmony-reviews__card {
@@ -153,8 +237,16 @@
       padding-bottom: var(--ghr-pad-bottom);
     }
 
+    .section-{{ section.id }} .gut-harmony-reviews__heading {
+      font-size: var(--ghr-heading-size);
+    }
+
     .section-{{ section.id }} .gut-harmony-reviews__grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section-{{ section.id }}.gut-harmony-reviews--slider .gut-harmony-reviews__card {
+      flex-basis: calc((100% - (var(--ghr-spv) - 1) * var(--ghr-card-gap)) / var(--ghr-spv));
     }
   }
 
@@ -166,53 +258,134 @@
   }
 {% endstyle %}
 
-<section class="gut-harmony-reviews section-{{ section.id }}" data-section-id="{{ section.id }}">
-  {%- if section.blocks.size > 0 -%}
-    <ul class="gut-harmony-reviews__grid">
-      {%- for block in section.blocks -%}
-        <li class="gut-harmony-reviews__card" {{ block.shopify_attributes }}>
-          <div class="gut-harmony-reviews__media">
-            {%- if block.settings.image != blank -%}
-              {%- assign review_alt = block.settings.image.alt | default: block.settings.name | default: 'Customer review' -%}
-              {{
-                block.settings.image
-                | image_url: width: 502
-                | image_tag:
-                  loading: 'lazy',
-                  widths: '251,400,502',
-                  sizes: '(min-width: 1240px) 251px, (min-width: 750px) 45vw, 90vw',
-                  alt: review_alt,
-                  class: 'gut-harmony-reviews__img'
-              }}
-            {%- else -%}
-              {{ 'image' | placeholder_svg_tag: 'gut-harmony-reviews__img gut-harmony-reviews__img--placeholder' }}
-            {%- endif -%}
-          </div>
+{%- assign is_slider = section.settings.enable_slider -%}
 
-          {%- if block.settings.rating > 0 -%}
-            <div class="gut-harmony-reviews__stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
-              {%- for i in (1..5) -%}
-                <span class="gut-harmony-reviews__star{% if i <= block.settings.rating %} gut-harmony-reviews__star--filled{% endif %}">{{ star_icon }}</span>
-              {%- endfor -%}
-            </div>
+<section
+  class="gut-harmony-reviews section-{{ section.id }}{% if is_slider %} gut-harmony-reviews--slider{% endif %}"
+  data-section-id="{{ section.id }}"
+>
+  {%- if section.settings.heading != blank -%}
+    <h2 class="gut-harmony-reviews__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  {%- capture review_cards -%}
+    {%- for block in section.blocks -%}
+      <li class="gut-harmony-reviews__card" {{ block.shopify_attributes }}>
+        <div class="gut-harmony-reviews__media">
+          {%- if block.settings.image != blank -%}
+            {%- assign review_alt = block.settings.image.alt | default: block.settings.name | default: 'Customer review' -%}
+            {{
+              block.settings.image
+              | image_url: width: 502
+              | image_tag:
+                loading: 'lazy',
+                widths: '251,400,502',
+                sizes: '(min-width: 1240px) 251px, (min-width: 750px) 45vw, 90vw',
+                alt: review_alt,
+                class: 'gut-harmony-reviews__img'
+            }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'gut-harmony-reviews__img gut-harmony-reviews__img--placeholder' }}
           {%- endif -%}
+        </div>
 
-          <div class="gut-harmony-reviews__content">
-            {%- if block.settings.title != blank -%}
-              <p class="gut-harmony-reviews__title">{{ block.settings.title }}</p>
-            {%- endif -%}
-            {%- if block.settings.text != blank -%}
-              <p class="gut-harmony-reviews__text">{{ block.settings.text }}</p>
-            {%- endif -%}
-            {%- if block.settings.name != blank -%}
-              <p class="gut-harmony-reviews__name">{{ block.settings.name }}</p>
-            {%- endif -%}
+        {%- if block.settings.rating > 0 -%}
+          <div class="gut-harmony-reviews__stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <span class="gut-harmony-reviews__star{% if i <= block.settings.rating %} gut-harmony-reviews__star--filled{% endif %}">{{ star_icon }}</span>
+            {%- endfor -%}
           </div>
-        </li>
-      {%- endfor -%}
-    </ul>
+        {%- endif -%}
+
+        <div class="gut-harmony-reviews__content">
+          {%- if block.settings.title != blank -%}
+            <p class="gut-harmony-reviews__title">{{ block.settings.title }}</p>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            <p class="gut-harmony-reviews__text">{{ block.settings.text }}</p>
+          {%- endif -%}
+          {%- if block.settings.name != blank -%}
+            <p class="gut-harmony-reviews__name">{{ block.settings.name }}</p>
+          {%- endif -%}
+        </div>
+      </li>
+    {%- endfor -%}
+  {%- endcapture -%}
+
+  {%- if section.blocks.size > 0 -%}
+    {%- if is_slider -%}
+      <div class="gut-harmony-reviews__slider-wrap">
+        <button type="button" class="gut-harmony-reviews__nav gut-harmony-reviews__nav--prev" aria-label="Previous reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <ul class="gut-harmony-reviews__grid">{{ review_cards }}</ul>
+        <button type="button" class="gut-harmony-reviews__nav gut-harmony-reviews__nav--next" aria-label="Next reviews">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    {%- else -%}
+      <ul class="gut-harmony-reviews__grid">{{ review_cards }}</ul>
+    {%- endif -%}
   {%- endif -%}
 </section>
+
+{%- comment -%}
+  Always output the slider script (not gated by the toggle) so the global, delegated
+  handlers are registered on initial page load. Browsers don't execute <script> tags
+  injected via the Section Rendering API (theme editor), so a conditional script would
+  never run right after enabling the slider — delegation from document survives re-renders.
+{%- endcomment -%}
+<script>
+  (function () {
+    if (window.__ghrSliderReady) return;
+    window.__ghrSliderReady = true;
+
+    function step(grid) {
+      var card = grid.querySelector('.gut-harmony-reviews__card');
+      if (!card) return grid.clientWidth;
+      var gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    }
+
+    function update(grid) {
+      var wrap = grid.closest('.gut-harmony-reviews__slider-wrap');
+      if (!wrap) return;
+      var prev = wrap.querySelector('.gut-harmony-reviews__nav--prev');
+      var next = wrap.querySelector('.gut-harmony-reviews__nav--next');
+      var maxScroll = grid.scrollWidth - grid.clientWidth - 1;
+      if (prev) prev.disabled = grid.scrollLeft <= 0;
+      if (next) next.disabled = grid.scrollLeft >= maxScroll;
+    }
+
+    function refresh() {
+      document.querySelectorAll('.gut-harmony-reviews--slider .gut-harmony-reviews__grid').forEach(update);
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('.gut-harmony-reviews__nav');
+      if (!btn) return;
+      var wrap = btn.closest('.gut-harmony-reviews__slider-wrap');
+      var grid = wrap && wrap.querySelector('.gut-harmony-reviews__grid');
+      if (!grid) return;
+      var dir = btn.classList.contains('gut-harmony-reviews__nav--prev') ? -1 : 1;
+      grid.scrollBy({ left: dir * step(grid), behavior: 'smooth' });
+    });
+
+    // scroll doesn't bubble — listen in the capture phase
+    document.addEventListener('scroll', function (e) {
+      var grid = e.target.classList && e.target.classList.contains('gut-harmony-reviews__grid') ? e.target : null;
+      if (grid) update(grid);
+    }, true);
+
+    document.addEventListener('shopify:section:load', refresh);
+    window.addEventListener('resize', refresh);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', refresh);
+    } else {
+      refresh();
+    }
+  })();
+</script>
 
 {% schema %}
 {
@@ -224,6 +397,36 @@
       "label": "Use theme colors",
       "default": false,
       "info": "Apply the global theme colors to this section instead of the ones below."
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section title",
+      "info": "Leave blank to hide."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Title size",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 28
     },
     {
       "type": "header",
@@ -278,6 +481,35 @@
       "step": 2,
       "unit": "px",
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable slider",
+      "default": false,
+      "info": "Turn the grid into a horizontal slider with navigation arrows."
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view",
+      "label": "Slides per view (desktop)",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_mobile",
+      "label": "Slides per view (mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
     },
     {
       "type": "header",
