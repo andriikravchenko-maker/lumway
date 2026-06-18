@@ -317,7 +317,8 @@
 </style>
 
 <div class="custom-footer {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-up{% endif %}">
-  {%- if section.settings.show_newsletter -%}
+  {%- comment -%} Hide the newsletter on the page.lumway3 template only {%- endcomment -%}
+  {%- if section.settings.show_newsletter and template != 'page.lumway3' -%}
     <!-- Newsletter Section -->
     <section class="newsletter-section">
       <div class="newsletter-container">
