@@ -698,6 +698,8 @@
             "duration_seconds": 44,
             "button_text": "START YOUR GUT RESET →",
             "button_link": "shopify://products/gut-harmony-gummies",
+            "button_bg_color": "#00724D",
+            "button_hover_bg_color": "#005a3d",
             "risk_label": "",
             "risk_value": "",
             "footer_text": "30-day Risk Free & Money-Back Guarantee"
