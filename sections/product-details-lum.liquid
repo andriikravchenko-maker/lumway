@@ -1,0 +1,167 @@
+{%- comment -%}
+  Section: product-details-lum — new PDP buy box.
+  Figma: gallery desktop 433:2984 / mobile 484:7021; heading blocks desktop 433:3000 / mobile 484:7029.
+  Lean, mobile-first, reuses theme conventions. Old shop-product-details is untouched.
+  Left column = gallery (product-gallery-lum). Right column = buy-box blocks (added per build step).
+  Font = theme header font (Bricolage). CSS scoped to .section-{{ section.id }}.
+  NOTE: desktop two-column metrics are provisional until the full desktop PDP frame is pulled;
+  the blocks themselves are pixel-perfect.
+{%- endcomment -%}
+
+<section class="pdl section-{{ section.id }}">
+  <div class="pdl__media">
+    {%- render 'product-gallery-lum', product: product -%}
+  </div>
+
+  <div class="pdl__info">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when 'rating' -%}
+          <div class="pdl-rating" {{ block.shopify_attributes }}>
+            {%- if block.settings.stars > 0 -%}
+              <span class="pdl-rating__stars" aria-hidden="true">
+                {%- for i in (1..block.settings.stars) -%}<span class="pdl-rating__star">{{ 'lum-icon-star.svg' | inline_asset_content }}</span>{%- endfor -%}
+              </span>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}<span class="pdl-rating__text">{{ block.settings.text | escape }}</span>{%- endif -%}
+          </div>
+
+        {%- when 'title' -%}
+          {%- assign pdl_heading = block.settings.heading | default: product.title -%}
+          <h1 class="pdl-title" {{ block.shopify_attributes }}>{{ pdl_heading | escape }}</h1>
+
+        {%- when 'subtitle' -%}
+          {%- if block.settings.text != blank -%}<div class="pdl-subtitle" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>{%- endif -%}
+
+        {%- when 'labels' -%}
+          <ul class="pdl-labels" {{ block.shopify_attributes }}>
+            {%- for i in (1..6) -%}
+              {%- assign sk = 'chip_' | append: i | append: '_show' -%}
+              {%- assign tk = 'chip_' | append: i | append: '_text' -%}
+              {%- if block.settings[sk] and block.settings[tk] != blank -%}
+                <li class="pdl-chip"><span class="pdl-chip__icon">{{ 'lum-icon-tick.svg' | inline_asset_content }}</span><span class="pdl-chip__text">{{ block.settings[tk] | escape }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+        {%- when '@app' -%}
+          {%- render block -%}
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{%- style -%}
+  {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {{ settings.type_header_font | font_modify: 'weight', '700' | font_face: font_display: 'swap' }}
+
+  .section-{{ section.id }}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    --pdl-font: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }}, system-ui, sans-serif;
+    --pdl-ink: #113b34;
+  }
+  .section-{{ section.id }} .pdl{ display:flex; flex-direction:column; }
+  .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
+
+  /* Rating */
+  .section-{{ section.id }} .pdl-rating{ display:flex; align-items:center; gap:12px; }
+  .section-{{ section.id }} .pdl-rating__stars{ display:inline-flex; align-items:center; }
+  .section-{{ section.id }} .pdl-rating__star{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; }
+  .section-{{ section.id }} .pdl-rating__star svg{ display:block; width:16.67px; height:15.83px; }
+  .section-{{ section.id }} .pdl-rating__text{ display:inline-flex; align-items:center; min-height:20px; font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1; letter-spacing:-0.28px; color:var(--pdl-ink); }
+
+  /* Title */
+  .section-{{ section.id }} .pdl-title{ margin:0; font-family:var(--pdl-font); font-weight:700; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--pdl-ink); text-transform:capitalize; }
+
+  /* Subtitle (8px under the title per Figma, 16px from neighbours) */
+  .section-{{ section.id }} .pdl-subtitle{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); }
+  .section-{{ section.id }} .pdl-subtitle p{ margin:0; }
+  .section-{{ section.id }} .pdl-title + .pdl-subtitle{ margin-top:-8px; }
+
+  /* Benefit chips */
+  .section-{{ section.id }} .pdl-labels{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+  .section-{{ section.id }} .pdl-chip{ display:inline-flex; align-items:center; gap:4px; height:32px; padding:0 12px; background:#f4f4f2; border-radius:28px; box-sizing:border-box; }
+  .section-{{ section.id }} .pdl-chip__icon{ display:inline-flex; width:12px; height:12px; flex:0 0 12px; }
+  .section-{{ section.id }} .pdl-chip__icon svg{ display:block; width:100%; height:100%; }
+  .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); white-space:nowrap; }
+
+  @media (min-width:990px){
+    .section-{{ section.id }} .pdl{ flex-direction:row; align-items:flex-start; gap:40px; max-width:1200px; margin:0 auto; padding:40px 48px; }
+    .section-{{ section.id }} .pdl__media{ flex:0 1 658px; min-width:0; }
+    .section-{{ section.id }} .pdl__info{ flex:1 1 0; min-width:0; padding:0; }
+    .section-{{ section.id }} .pdl-title{ font-size:36px; letter-spacing:-0.72px; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product Details Lum",
+  "tag": "section",
+  "class": "section-product-details-lum",
+  "settings": [
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "rating",
+      "name": "Rating",
+      "limit": 1,
+      "settings": [
+        { "type": "range", "id": "stars", "label": "Stars", "min": 0, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "text", "label": "Text", "default": "2k+ happy verified customers" }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "info": "Leave blank to use the product title." }
+      ]
+    },
+    {
+      "type": "subtitle",
+      "name": "Subtitle",
+      "limit": 1,
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Science-backed natural formula designed to support appetite balance, smooth digestion, and healthy metabolic function through every phase of life.</p>" }
+      ]
+    },
+    {
+      "type": "labels",
+      "name": "Benefit chips",
+      "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "chip_1_show", "label": "Show chip 1", "default": true },
+        { "type": "text", "id": "chip_1_text", "label": "Chip 1", "default": "Reduce Cravings" },
+        { "type": "checkbox", "id": "chip_2_show", "label": "Show chip 2", "default": true },
+        { "type": "text", "id": "chip_2_text", "label": "Chip 2", "default": "Feel Lighter Daily" },
+        { "type": "checkbox", "id": "chip_3_show", "label": "Show chip 3", "default": true },
+        { "type": "text", "id": "chip_3_text", "label": "Chip 3", "default": "Fat Loss" },
+        { "type": "checkbox", "id": "chip_4_show", "label": "Show chip 4", "default": true },
+        { "type": "text", "id": "chip_4_text", "label": "Chip 4", "default": "Drug-free" },
+        { "type": "checkbox", "id": "chip_5_show", "label": "Show chip 5", "default": false },
+        { "type": "text", "id": "chip_5_text", "label": "Chip 5" },
+        { "type": "checkbox", "id": "chip_6_show", "label": "Show chip 6", "default": false },
+        { "type": "text", "id": "chip_6_text", "label": "Chip 6" }
+      ]
+    },
+    { "type": "@app" }
+  ],
+  "presets": [
+    {
+      "name": "Product Details Lum",
+      "blocks": [
+        { "type": "rating" },
+        { "type": "title" },
+        { "type": "subtitle" },
+        { "type": "labels" }
+      ]
+    }
+  ]
+}
+{% endschema %}

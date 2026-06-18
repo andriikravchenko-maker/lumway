@@ -1,0 +1,92 @@
+{%- comment -%}
+  Product gallery — Lumway PDP. Forked for the product-details-lum section (old product-gallery untouched).
+  Pixel-perfect to Figma: desktop 433:2984, mobile 484:7021.
+    Mobile  : square main (radius 16) + thumbnail row (radius 8, 2px gap, active border #113b34).
+    Desktop : main aspect 658/494 (radius 28) + 2-col grid of the rest (radius 28, 8px gap), static.
+  Images come live from product.media (not hardcoded from Figma).
+  Mobile: tap a thumb to swap the main image. Desktop: static (all images shown).
+  Usage: {% render 'product-gallery-lum', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign gallery_media = product.media | where: 'media_type', 'image'
+  assign gallery_count = gallery_media.size
+-%}
+
+{%- if gallery_count > 0 -%}
+  {%- assign main_media = gallery_media.first -%}
+  <div class="lpg" data-lpg>
+    <div class="lpg__stage">
+      <img class="lpg__stage-img" data-lpg-stage
+        src="{{ main_media.preview_image | image_url: width: 658 }}"
+        srcset="{{ main_media.preview_image | image_url: width: 343 }} 343w,
+                {{ main_media.preview_image | image_url: width: 494 }} 494w,
+                {{ main_media.preview_image | image_url: width: 658 }} 658w,
+                {{ main_media.preview_image | image_url: width: 988 }} 988w,
+                {{ main_media.preview_image | image_url: width: 1316 }} 1316w"
+        sizes="(min-width: 990px) 658px, calc(100vw - 32px)"
+        width="658" height="494" loading="eager" fetchpriority="high"
+        alt="{{ main_media.preview_image.alt | escape | default: product.title | escape }}">
+    </div>
+
+    {%- if gallery_count > 1 -%}
+      <div class="lpg__rail">
+        {%- for media in gallery_media -%}
+          <button type="button"
+            class="lpg__item{% if forloop.first %} lpg__item--first is-active{% endif %}"
+            data-lpg-item
+            data-full="{{ media.preview_image | image_url: width: 658 }}"
+            data-srcset="{{ media.preview_image | image_url: width: 343 }} 343w, {{ media.preview_image | image_url: width: 494 }} 494w, {{ media.preview_image | image_url: width: 658 }} 658w, {{ media.preview_image | image_url: width: 988 }} 988w, {{ media.preview_image | image_url: width: 1316 }} 1316w"
+            aria-label="View image {{ forloop.index }}">
+            <img
+              src="{{ media.preview_image | image_url: width: 325 }}"
+              srcset="{{ media.preview_image | image_url: width: 134 }} 134w, {{ media.preview_image | image_url: width: 200 }} 200w, {{ media.preview_image | image_url: width: 325 }} 325w, {{ media.preview_image | image_url: width: 650 }} 650w"
+              sizes="(min-width: 990px) 325px, 67px"
+              width="325" height="325" loading="lazy"
+              alt="{{ media.preview_image.alt | escape | default: product.title | escape }}">
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- style -%}
+    .lpg{display:flex;flex-direction:column;gap:8px;padding:16px 16px 0;}
+    .lpg__stage{position:relative;width:100%;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:#f4f4f2;}
+    .lpg__stage-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+    .lpg__rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+    .lpg__rail::-webkit-scrollbar{display:none;}
+    .lpg__item{flex:1 0 0;min-width:0;aspect-ratio:1/1;position:relative;padding:0;margin:0;border:1px solid rgba(17,59,52,.1);overflow:hidden;background:#f4f4f2;cursor:pointer;}
+    /* theme rounds <button> to ~40px via its global button radius; beat it (specificity + !important), square 4px like the original .shop-thumbnail */
+    .lpg .lpg__item{border-radius:4px !important;}
+    .lpg__item.is-active{border-color:#113b34;}
+    .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+    @media (min-width:990px){
+      .lpg{padding:0;}
+      .lpg__stage{aspect-ratio:658/494;border-radius:28px;}
+      .lpg__rail{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;}
+      .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:default;}
+      .lpg__item--first{display:none;}
+    }
+  {%- endstyle -%}
+
+  <script>
+    (function(){
+      var root = document.querySelector('[data-lpg]');
+      if(!root) return;
+      var stage = root.querySelector('[data-lpg-stage]');
+      if(!stage) return;
+      root.addEventListener('click', function(e){
+        if(window.matchMedia('(min-width:990px)').matches) return; /* desktop gallery is static */
+        var item = e.target.closest('[data-lpg-item]');
+        if(!item) return;
+        var full = item.getAttribute('data-full');
+        var ss = item.getAttribute('data-srcset');
+        if(full) stage.src = full;
+        if(ss) stage.srcset = ss;
+        root.querySelectorAll('[data-lpg-item]').forEach(function(b){ b.classList.remove('is-active'); });
+        item.classList.add('is-active');
+      });
+    })();
+  </script>
+{%- endif -%}
