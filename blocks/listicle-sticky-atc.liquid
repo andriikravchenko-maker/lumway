@@ -63,6 +63,11 @@
     box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
     transform: none !important;
     margin-bottom: 0 !important;
+    transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .listicle-sticky-atc-{{ block.id }}.is-sticky.is-lto-hidden {
+    bottom: -200px !important;
   }
 
   /* Desktop Hide Option */
@@ -184,6 +189,31 @@
     }
   }
 </style>
+
+<script>
+  (function () {
+    var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
+    if (!stickyEl) return;
+
+    var ltoCards = document.querySelectorAll('.lto__card');
+    if (!ltoCards.length) return;
+
+    var visible = new Set();
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          visible.add(entry.target);
+        } else {
+          visible.delete(entry.target);
+        }
+      });
+      stickyEl.classList.toggle('is-lto-hidden', visible.size > 0);
+    }, { threshold: 0 });
+
+    ltoCards.forEach(function (card) { observer.observe(card); });
+  })();
+</script>
 
 {% schema %}
 {
