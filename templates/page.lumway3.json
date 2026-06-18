@@ -279,6 +279,26 @@
     "listicle_mpBXdm": {
       "type": "listicle",
       "blocks": {
+        "listicle_lto_title_bYDLBG": {
+          "type": "listicle-lto-title",
+          "name": "Listicle LTO Title",
+          "settings": {
+            "title": "Easy Way To Support Your Wellness Goal",
+            "subtitle": "",
+            "heading_tag": "h2",
+            "font_size": 32,
+            "font_size_mobile": 24,
+            "font_weight": "700",
+            "text_color": "#111111",
+            "subtitle_font_size": 16,
+            "subtitle_color": "#666666",
+            "subtitle_margin_top": 8,
+            "text_align": "center",
+            "margin_top": 0,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        },
         "limited_time_offer_4MLtTT": {
           "type": "limited-time-offer",
           "name": "Limited Time Offer",
@@ -381,14 +401,15 @@
         }
       },
       "block_order": [
+        "listicle_lto_title_bYDLBG",
         "limited_time_offer_4MLtTT",
         "listicle_sticky_atc_8EwYPV"
       ],
       "name": "Listicle (Theme Blocks)",
       "settings": {
         "section_max_width": 900,
-        "padding_top": 60,
-        "padding_bottom": 60,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "gap": 30,
         "use_custom_font": false,
         "section_font_family": "assistant_n4",
