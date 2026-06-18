@@ -965,7 +965,7 @@
         "sticky_add_to_cart_CGgphY": {
           "type": "listicle-sticky-atc",
           "settings": {
-            "button_text": "TRY IT NOW  →",
+            "button_text": "TRY IT NOW",
             "button_link": "https://lumway.health/products/gut-harmony-gummies",
             "button_bg": "#00724d",
             "button_text_color": "#ffffff",
