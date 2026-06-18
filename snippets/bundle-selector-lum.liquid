@@ -1,0 +1,183 @@
+{%- comment -%}
+  Bundle / pack selector — Lumway PDP. Forked from bundle-selector-block (logic reused), new design.
+  Figma mobile 484:7056 (desktop layout added later). VARIANT-BASED: option N -> product.variants[N-1] by order.
+  Selecting an option sets the variant in the product form and fires variant:change, so the price in the
+  Purchase Type / Recharge block + add-to-cart update. No price shown on cards (prices live below).
+  Pack visual = the bottle image repeated: [paid bottles] (+) [free bottles], per Figma.
+  Bottle image: block.settings.bottle_image (image_picker), falls back to the product image.
+  Usage: {% render 'bundle-selector-lum', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign uid = block.id
+  assign has_product = false
+  if product != nil and product.variants.size > 0
+    assign has_product = true
+  endif
+  assign bottle_img = block.settings.bottle_image | default: product.featured_image
+  assign sel_index = 0
+  assign first_shown = 0
+  if has_product
+    for i in (1..4)
+      assign vidx = i | minus: 1
+      assign v = product.variants[vidx]
+      assign show_key = 'option_' | append: i | append: '_show'
+      if v and block.settings[show_key]
+        if first_shown == 0
+          assign first_shown = i
+        endif
+        assign sel_key = 'option_' | append: i | append: '_selected'
+        if block.settings[sel_key] and sel_index == 0
+          assign sel_index = i
+        endif
+      endif
+    endfor
+    if sel_index == 0
+      assign sel_index = first_shown
+    endif
+  endif
+-%}
+
+{%- if has_product -%}
+{% style %}
+  .bsl-{{ uid }}{
+    --bsl-font: 'Inter Tight', system-ui, sans-serif;
+    --bsl-ink: #113b34;
+    --bsl-card: #f4f4f2;
+    display:flex; flex-direction:column; gap:16px; width:100%;
+  }
+  .bsl-{{ uid }} .bsl__label{ margin:0; font-family:var(--bsl-font); font-weight:600; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--bsl-ink); }
+  .bsl-{{ uid }} .bsl__list{ display:flex; flex-direction:column; gap:16px; }
+  .bsl-{{ uid }} .bsl__card{ position:relative; display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:60px; padding:8px 12px; background:var(--bsl-card); border:1px solid rgba(17,59,52,.1); border-radius:12px; cursor:pointer; box-sizing:border-box; }
+  .bsl-{{ uid }} .bsl__card.is-selected{ border-color:var(--bsl-ink); }
+  .bsl-{{ uid }} .bsl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; z-index:2; }
+  .bsl-{{ uid }} .bsl__main{ display:flex; align-items:center; gap:8px; min-width:0; }
+  .bsl-{{ uid }} .bsl__radio{ flex:0 0 18px; width:18px; height:18px; border-radius:50%; border:1.5px solid rgba(17,59,52,.35); background:#fff; position:relative; box-sizing:border-box; }
+  .bsl-{{ uid }} .bsl__card.is-selected .bsl__radio{ border-color:var(--bsl-ink); }
+  .bsl-{{ uid }} .bsl__card.is-selected .bsl__radio::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--bsl-ink); }
+  .bsl-{{ uid }} .bsl__title{ font-family:var(--bsl-font); font-weight:600; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--bsl-ink); white-space:nowrap; }
+
+  .bsl-{{ uid }} .bsl__pack{ flex:0 0 auto; display:flex; align-items:center; }
+  .bsl-{{ uid }} .bsl__bottles{ display:flex; align-items:center; }
+  .bsl-{{ uid }} .bsl__bottle{ flex:0 0 34px; width:34px; height:44px; }
+  .bsl-{{ uid }} .bsl__bottle + .bsl__bottle{ margin-left:-16px; }
+  .bsl-{{ uid }} .bsl__bottle img{ display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .bsl-{{ uid }} .bsl__plus{ position:relative; z-index:1; display:inline-flex; align-items:center; justify-content:center; height:24px; margin:0 -4px; padding:0 4px; background:#fff; border-radius:30px; }
+  .bsl-{{ uid }} .bsl__plus svg{ display:block; width:24px; height:24px; }
+
+  .bsl-{{ uid }} .bsl__badge{ position:absolute; top:-12px; left:11px; z-index:3; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--bsl-font); font-weight:500; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+  .bsl-{{ uid }} .bsl__note{ display:flex; align-items:flex-start; gap:8px; margin:0; }
+  .bsl-{{ uid }} .bsl__note-icon{ flex:0 0 16px; width:16px; height:16px; margin-top:1px; }
+  .bsl-{{ uid }} .bsl__note-icon svg{ display:block; width:100%; height:100%; }
+  .bsl-{{ uid }} .bsl__note-text{ font-family:var(--bsl-font); font-weight:400; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--bsl-ink); }
+  .bsl-{{ uid }} .bsl__input:focus-visible ~ .bsl__main .bsl__radio{ outline:2px solid var(--bsl-ink); outline-offset:2px; }
+{% endstyle %}
+
+<div class="bsl bsl-{{ uid }}" {{ block.shopify_attributes }} data-product-id="{{ product.id }}">
+  <script type="application/json" class="bsl-variants">{{ product.variants | json }}</script>
+  {%- if block.settings.heading != blank -%}<p class="bsl__label">{{ block.settings.heading | escape }}</p>{%- endif -%}
+  <div class="bsl__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Select quantity' | escape }}">
+    {%- for i in (1..4) -%}
+      {%- liquid
+        assign vidx = i | minus: 1
+        assign v = product.variants[vidx]
+        assign show_key = 'option_' | append: i | append: '_show'
+        unless v and block.settings[show_key]
+          continue
+        endunless
+        assign label_key = 'option_' | append: i | append: '_label'
+        assign label = block.settings[label_key]
+        if label == blank
+          assign label = v.title
+        endif
+        assign paid_key = 'option_' | append: i | append: '_paid'
+        assign free_key = 'option_' | append: i | append: '_free'
+        assign paid = block.settings[paid_key] | default: 1
+        assign free = block.settings[free_key] | default: 0
+        assign badge_key = 'option_' | append: i | append: '_badge'
+        assign badge = block.settings[badge_key]
+        assign badge_bg_key = 'option_' | append: i | append: '_badge_bg'
+        assign badge_bg = block.settings[badge_bg_key] | default: '#fad356'
+        assign badge_tc_key = 'option_' | append: i | append: '_badge_text'
+        assign badge_tc = block.settings[badge_tc_key] | default: '#113b34'
+        assign is_sel = false
+        if i == sel_index
+          assign is_sel = true
+        endif
+      -%}
+      <label class="bsl__card{% if is_sel %} is-selected{% endif %}">
+        <input type="radio" class="bsl__input" name="bsl-{{ uid }}" value="{{ v.id }}"{% if is_sel %} checked{% endif %} aria-label="{{ label | escape }}">
+        {%- if badge != blank -%}<span class="bsl__badge" style="background:{{ badge_bg }};color:{{ badge_tc }}">{{ badge | escape }}</span>{%- endif -%}
+        <span class="bsl__main">
+          <span class="bsl__radio" aria-hidden="true"></span>
+          <span class="bsl__title">{{ label | escape }}</span>
+        </span>
+        {%- if bottle_img != blank and paid > 0 -%}
+          <span class="bsl__pack" aria-hidden="true">
+            <span class="bsl__bottles">
+              {%- for b in (1..paid) -%}<span class="bsl__bottle">{{ bottle_img | image_url: width: 102 | image_tag: loading: 'lazy', widths: '34,68,102', sizes: '34px', alt: '' }}</span>{%- endfor -%}
+            </span>
+            {%- if free > 0 -%}
+              <span class="bsl__plus">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
+              <span class="bsl__bottles">
+                {%- for b in (1..free) -%}<span class="bsl__bottle">{{ bottle_img | image_url: width: 102 | image_tag: loading: 'lazy', widths: '34,68,102', sizes: '34px', alt: '' }}</span>{%- endfor -%}
+              </span>
+            {%- endif -%}
+          </span>
+        {%- endif -%}
+      </label>
+    {%- endfor -%}
+  </div>
+  {%- if block.settings.note != blank -%}
+    <p class="bsl__note">
+      <span class="bsl__note-icon">{{ 'lum-icon-info.svg' | inline_asset_content }}</span>
+      <span class="bsl__note-text">{{ block.settings.note | escape }}</span>
+    </p>
+  {%- endif -%}
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('.bsl-{{ uid }}');
+    if (!root || root.__bslBound) return;
+    root.__bslBound = true;
+    var variants = [];
+    try { variants = JSON.parse(root.querySelector('.bsl-variants').textContent) || []; } catch (e) { variants = []; }
+    function variantById(id) { for (var k = 0; k < variants.length; k++) { if (String(variants[k].id) === String(id)) return variants[k]; } return null; }
+    function variantInput() {
+      return document.querySelector('product-form input[name="id"]')
+          || document.querySelector('form[action*="/cart/add"] input[name="id"]')
+          || document.querySelector('input[name="id"]');
+    }
+    function selectVariant(id) {
+      var variant = variantById(id);
+      if (!variant) return;
+      var input = variantInput();
+      if (input) {
+        input.value = variant.id;
+        input.setAttribute('value', variant.id);
+        if (variant.available !== false) { input.removeAttribute('disabled'); }
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: { variant: variant, source: 'bundle-selector-lum' } }));
+      document.dispatchEvent(new CustomEvent('variant:change', { detail: { variant: variant } }));
+    }
+    var userTouched = false;
+    root.addEventListener('change', function (e) {
+      if (!e.target.classList || !e.target.classList.contains('bsl__input')) return;
+      userTouched = true;
+      root.querySelectorAll('.bsl__card').forEach(function (c) {
+        c.classList.toggle('is-selected', c.querySelector('.bsl__input').checked);
+      });
+      selectVariant(e.target.value);
+    });
+    function init() { if (userTouched) return; var c = root.querySelector('.bsl__input:checked'); if (c) selectVariant(c.value); }
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+    window.addEventListener('load', init);
+    [200, 600, 1200, 2500].forEach(function (d) { setTimeout(init, d); });
+    document.addEventListener('shopify:section:load', function () { userTouched = false; setTimeout(init, 60); });
+  })();
+</script>
+{%- elsif request.design_mode -%}
+  <div style="padding:16px;border:1px dashed #ccc;border-radius:8px;color:#666;font:14px sans-serif;text-align:center">Bundle selector: add this on a product page (no variants found).</div>
+{%- endif -%}

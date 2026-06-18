@@ -47,13 +47,59 @@
             "chip_6_show": false,
             "chip_6_text": ""
           }
+        },
+        "bundle_BLEyFB": {
+          "type": "bundle",
+          "settings": {
+            "heading": "Select Quantity",
+            "note": "Take more than 8 weeks may necessary to see a meaningful benefits.",
+            "bottle_image": "shopify://shop_images/08dff9038208e631dc1215097ef4d75db3afb770.png",
+            "option_1_show": true,
+            "option_1_selected": false,
+            "option_1_label": "1 Jar",
+            "option_1_paid": 1,
+            "option_1_free": 0,
+            "option_1_badge": "",
+            "option_1_badge_bg": "#fad356",
+            "option_1_badge_text": "#113b34",
+            "option_2_show": true,
+            "option_2_selected": true,
+            "option_2_label": "Buy 2 Get 1 Free",
+            "option_2_paid": 2,
+            "option_2_free": 1,
+            "option_2_badge": "Best Deal",
+            "option_2_badge_bg": "#fad356",
+            "option_2_badge_text": "#113b34",
+            "option_3_show": true,
+            "option_3_selected": false,
+            "option_3_label": "Buy 3 Get 2 Free",
+            "option_3_paid": 3,
+            "option_3_free": 2,
+            "option_3_badge": "Family Pack",
+            "option_3_badge_bg": "#113b34",
+            "option_3_badge_text": "#ffffff",
+            "option_4_show": false,
+            "option_4_selected": false,
+            "option_4_label": "",
+            "option_4_paid": 1,
+            "option_4_free": 0,
+            "option_4_badge": "",
+            "option_4_badge_bg": "#fad356",
+            "option_4_badge_text": "#113b34"
+          }
+        },
+        "recharge_subscriptions_subscription_widget_v2_XTwRV8": {
+          "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "settings": {}
         }
       },
       "block_order": [
         "rating_yAxVBj",
         "title_EEBYtC",
         "subtitle_yJn7CD",
-        "labels_ziBqxf"
+        "labels_ziBqxf",
+        "bundle_BLEyFB",
+        "recharge_subscriptions_subscription_widget_v2_XTwRV8"
       ],
       "name": "Product Details Lum",
       "settings": {
@@ -64,6 +110,49 @@
     "main": {
       "type": "shop-product-details",
       "blocks": {
+        "bundle_selector_GGbpHV": {
+          "type": "bundle_selector",
+          "settings": {
+            "accent_color": "#3f8b35",
+            "border_color": "#e5e5e5",
+            "card_background": "#ffffff",
+            "text_color": "#333333",
+            "muted_color": "#666666",
+            "pill_background": "#efeee8",
+            "pill_text_color": "#0a430d",
+            "pill_text_selected_color": "#ffffff",
+            "stretch_full_width": true,
+            "card_max_width": 183,
+            "column_gap": 16,
+            "card_radius": 8,
+            "margin_top": 8,
+            "margin_bottom": 8,
+            "option_1_show": true,
+            "option_1_units": 1,
+            "option_1_label": "",
+            "option_1_badge": "",
+            "option_1_badge_color": "#b07a5b",
+            "option_1_selected": false,
+            "option_2_show": true,
+            "option_2_units": 2,
+            "option_2_label": "",
+            "option_2_badge": "POPULAR",
+            "option_2_badge_color": "#b07a5b",
+            "option_2_selected": false,
+            "option_3_show": true,
+            "option_3_units": 3,
+            "option_3_label": "",
+            "option_3_badge": "BEST VALUE",
+            "option_3_badge_color": "#cfae63",
+            "option_3_selected": true,
+            "option_4_show": false,
+            "option_4_units": 4,
+            "option_4_label": "",
+            "option_4_badge": "",
+            "option_4_badge_color": "#b07a5b",
+            "option_4_selected": false
+          }
+        },
         "trustpilot_rating_aQmaFM": {
           "type": "trustpilot_rating",
           "settings": {
@@ -1320,6 +1409,7 @@
         }
       },
       "block_order": [
+        "bundle_selector_GGbpHV",
         "trustpilot_rating_aQmaFM",
         "divider_ejMCwH",
         "title_9LH9qV",
@@ -1350,6 +1440,7 @@
         "video_carousel_standalone_xw3T8p",
         "customer_review_XcjYbg"
       ],
+      "disabled": true,
       "name": "Product Details",
       "settings": {
         "use_theme_colors": false,

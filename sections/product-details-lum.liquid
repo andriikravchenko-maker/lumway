@@ -45,6 +45,9 @@
             {%- endfor -%}
           </ul>
 
+        {%- when 'bundle' -%}
+          {%- render 'bundle-selector-lum', block: block, product: product -%}
+
         {%- when '@app' -%}
           {%- render block -%}
 
@@ -54,13 +57,21 @@
 </section>
 
 {%- style -%}
-  {{ settings.type_header_font | font_face: font_display: 'swap' }}
-  {{ settings.type_header_font | font_modify: 'weight', '700' | font_face: font_display: 'swap' }}
+  @font-face{ font-family:'Inter Tight'; font-style:normal; font-weight:400 700; font-display:swap; src:url({{ 'lum-inter-tight.woff2' | asset_url }}) format('woff2'); }
+
+  /* This whole PDP is Inter Tight. This section renders ONLY on this template, so overriding the theme's font
+     variables here re-fonts the entire page (header / footer / reused blocks) and touches nothing else on the
+     store. Override the VARIABLES, not each property (theme reads font-family: var(--font-*-family)). */
+  :root{
+    --font-body-family: 'Inter Tight', system-ui, sans-serif !important;
+    --font-heading-family: 'Inter Tight', system-ui, sans-serif !important;
+    --font-accent-family: 'Inter Tight', system-ui, sans-serif !important;
+  }
 
   .section-{{ section.id }}{
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
-    --pdl-font: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }}, system-ui, sans-serif;
+    --pdl-font: 'Inter Tight', system-ui, sans-serif;
     --pdl-ink: #113b34;
   }
   .section-{{ section.id }} .pdl{ display:flex; flex-direction:column; }
@@ -150,6 +161,52 @@
         { "type": "text", "id": "chip_6_text", "label": "Chip 6" }
       ]
     },
+    {
+      "type": "bundle",
+      "name": "Bundle / pack selector",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Select Quantity" },
+        { "type": "text", "id": "note", "label": "Note", "default": "Take more than 8 weeks may necessary to see a meaningful benefits." },
+        { "type": "image_picker", "id": "bottle_image", "label": "Bottle image", "info": "Single bottle shown in the pack visuals; repeated per option. Defaults to the product image." },
+        { "type": "header", "content": "Option 1" },
+        { "type": "checkbox", "id": "option_1_show", "label": "Show", "default": true },
+        { "type": "checkbox", "id": "option_1_selected", "label": "Selected by default", "default": false },
+        { "type": "text", "id": "option_1_label", "label": "Label", "default": "1 Jar" },
+        { "type": "range", "id": "option_1_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 1 },
+        { "type": "range", "id": "option_1_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 0 },
+        { "type": "text", "id": "option_1_badge", "label": "Badge" },
+        { "type": "color", "id": "option_1_badge_bg", "label": "Badge background", "default": "#fad356" },
+        { "type": "color", "id": "option_1_badge_text", "label": "Badge text", "default": "#113b34" },
+        { "type": "header", "content": "Option 2" },
+        { "type": "checkbox", "id": "option_2_show", "label": "Show", "default": true },
+        { "type": "checkbox", "id": "option_2_selected", "label": "Selected by default", "default": true },
+        { "type": "text", "id": "option_2_label", "label": "Label", "default": "Buy 2 Get 1 Free" },
+        { "type": "range", "id": "option_2_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 2 },
+        { "type": "range", "id": "option_2_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 1 },
+        { "type": "text", "id": "option_2_badge", "label": "Badge", "default": "Best Deal" },
+        { "type": "color", "id": "option_2_badge_bg", "label": "Badge background", "default": "#fad356" },
+        { "type": "color", "id": "option_2_badge_text", "label": "Badge text", "default": "#113b34" },
+        { "type": "header", "content": "Option 3" },
+        { "type": "checkbox", "id": "option_3_show", "label": "Show", "default": true },
+        { "type": "checkbox", "id": "option_3_selected", "label": "Selected by default", "default": false },
+        { "type": "text", "id": "option_3_label", "label": "Label", "default": "Buy 3 Get 2 Free" },
+        { "type": "range", "id": "option_3_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 3 },
+        { "type": "range", "id": "option_3_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 2 },
+        { "type": "text", "id": "option_3_badge", "label": "Badge", "default": "Family Pack" },
+        { "type": "color", "id": "option_3_badge_bg", "label": "Badge background", "default": "#113b34" },
+        { "type": "color", "id": "option_3_badge_text", "label": "Badge text", "default": "#ffffff" },
+        { "type": "header", "content": "Option 4" },
+        { "type": "checkbox", "id": "option_4_show", "label": "Show", "default": false },
+        { "type": "checkbox", "id": "option_4_selected", "label": "Selected by default", "default": false },
+        { "type": "text", "id": "option_4_label", "label": "Label" },
+        { "type": "range", "id": "option_4_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 1 },
+        { "type": "range", "id": "option_4_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 0 },
+        { "type": "text", "id": "option_4_badge", "label": "Badge" },
+        { "type": "color", "id": "option_4_badge_bg", "label": "Badge background", "default": "#fad356" },
+        { "type": "color", "id": "option_4_badge_text", "label": "Badge text", "default": "#113b34" }
+      ]
+    },
     { "type": "@app" }
   ],
   "presets": [
@@ -159,7 +216,8 @@
         { "type": "rating" },
         { "type": "title" },
         { "type": "subtitle" },
-        { "type": "labels" }
+        { "type": "labels" },
+        { "type": "bundle" }
       ]
     }
   ]
