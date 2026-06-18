@@ -462,7 +462,6 @@
         "event_Gyihf8",
         "event_whkjLx"
       ],
-      "disabled": true,
       "name": "Gut Harmony Timeline",
       "settings": {
         "use_theme_colors": false,
@@ -483,7 +482,7 @@
         "text_size": 18,
         "text_color": "#333333",
         "icon_color": "#333333",
-        "button_text": "Shop Now",
+        "button_text": "",
         "button_url": "https://lumway.health/products/gut-harmony-gummies",
         "button_font_size": 24,
         "button_radius": 32,
@@ -555,6 +554,7 @@
     },
     "gut_harmony_image_jB4AKy": {
       "type": "gut-harmony-image",
+      "disabled": true,
       "name": "Gut Harmony Image",
       "settings": {
         "image": "shopify://shop_images/Containe1r.png",
@@ -601,6 +601,12 @@
           "settings": {
             "text": "Designed To Support Digestion & Post-Meal Comfort*"
           }
+        },
+        "feature_Mr3peF": {
+          "type": "feature",
+          "settings": {
+            "text": "30-Day Risk Free & Money back Guarantee"
+          }
         }
       },
       "block_order": [
@@ -608,7 +614,8 @@
         "feature_kPEdGG",
         "feature_8Rjrwe",
         "feature_PPWHz3",
-        "feature_Nd3aMx"
+        "feature_Nd3aMx",
+        "feature_Mr3peF"
       ],
       "name": "Gut Harmony CTA",
       "settings": {
