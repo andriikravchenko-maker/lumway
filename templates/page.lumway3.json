@@ -310,9 +310,9 @@
             "button_link": "",
             "button_bg_color": "#00724D",
             "button_hover_bg_color": "#005A3D",
-            "risk_label": "Sell-Out Risk:",
-            "risk_value": "VERY HIGH",
-            "footer_text": "60-Day Money-Back Guarantee"
+            "risk_label": "",
+            "risk_value": "",
+            "footer_text": "30-Day Money-Back Guarantee"
           },
           "blocks": {
             "lto_feature_eDfEW9": {
