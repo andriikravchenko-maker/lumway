@@ -16,6 +16,10 @@
   .icl-{{ uid }} .icl__text{ display:flex; flex-direction:column; gap:4px; min-width:0; }
   .icl-{{ uid }} .icl__title{ margin:0; font-family:var(--icl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--icl-ink); }
   .icl-{{ uid }} .icl__sub{ margin:0; font-family:var(--icl-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:rgba(17,59,52,.6); }
+  @media (min-width:990px){
+    .icl-{{ uid }}{ flex-direction:row; gap:8px; }
+    .icl-{{ uid }} .icl__row{ flex:1 1 0; min-width:0; }
+  }
 {% endstyle %}
 
 <div class="icl icl-{{ uid }}" {{ block.shopify_attributes }}>

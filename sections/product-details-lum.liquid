@@ -83,7 +83,7 @@
     --pdl-font: 'Inter Tight', system-ui, sans-serif;
     --pdl-ink: #113b34;
   }
-  .section-{{ section.id }} .pdl{ display:flex; flex-direction:column; }
+  .section-{{ section.id }}.pdl{ display:flex; flex-direction:column; }
   .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
 
   /* Rating */
@@ -109,9 +109,9 @@
   .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); white-space:nowrap; }
 
   @media (min-width:990px){
-    .section-{{ section.id }} .pdl{ flex-direction:row; align-items:flex-start; gap:40px; max-width:1200px; margin:0 auto; padding:40px 48px; }
-    .section-{{ section.id }} .pdl__media{ flex:0 1 658px; min-width:0; }
-    .section-{{ section.id }} .pdl__info{ flex:1 1 0; min-width:0; padding:0; }
+    .section-{{ section.id }}.pdl{ flex-direction:row; align-items:flex-start; gap:28px; max-width:1440px; margin:0 auto; padding:40px 48px; box-sizing:border-box; }
+    .section-{{ section.id }} .pdl__media{ flex:1 1 0; min-width:0; }
+    .section-{{ section.id }} .pdl__info{ flex:1 1 0; min-width:0; padding:0; gap:24px; }
     .section-{{ section.id }} .pdl-title{ font-size:36px; letter-spacing:-0.72px; }
   }
 {%- endstyle -%}
