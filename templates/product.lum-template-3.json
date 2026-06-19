@@ -176,6 +176,47 @@
             "row_4_title": "",
             "row_4_text": ""
           }
+        },
+        "cross_sell_mig": {
+          "type": "cross_sell",
+          "settings": {
+            "heading": "Thousands of customers also buy",
+            "heading_color": "#113b34",
+            "card_bg": "#f4f4f2",
+            "show_compare": true,
+            "save_auto": true,
+            "save_prefix": "Save",
+            "save_bg": "#fa6c56",
+            "save_text": "#ffffff",
+            "add_label": "Add",
+            "button_bg": "#ffffff",
+            "button_text": "#113b34",
+            "product_1": "feel-balanced-after-45",
+            "custom_title_1": ""
+          }
+        },
+        "product_tabs_mig": {
+          "type": "product_tabs",
+          "settings": {
+            "tab_1_title": "Benefits",
+            "tab_1_icon": "star",
+            "tab_1_row_1_label": "Benefit:",
+            "tab_1_row_1_text": "Describe the key benefit here.",
+            "tab_2_title": "Perfect For",
+            "tab_2_icon": "profile",
+            "tab_2_row_1_label": "Perfect for:",
+            "tab_2_row_1_text": "Describe who this product is for.",
+            "tab_3_title": "How to take",
+            "tab_3_icon": "note",
+            "tab_3_row_1_label": "Daily dosage:",
+            "tab_3_row_1_text": "2 gummies, max 3 gummies",
+            "tab_3_row_2_label": "When:",
+            "tab_3_row_2_text": "at the morning as a metabolism stabilize\nbefore dinner as a craving shutdown",
+            "tab_3_row_3_label": "Monthly supply:",
+            "tab_3_row_3_text": "1 jar per person",
+            "tab_3_row_4_label": "Storage:",
+            "tab_3_row_4_text": "in a cool, dry place away from direct sunlight and excessive heat."
+          }
         }
       },
       "block_order": [
@@ -187,42 +228,14 @@
         "purchase_type_zrrNbf",
         "recharge_subscriptions_subscription_widget_v2_XTwRV8",
         "add_to_cart_qyiqCe",
-        "info_cards_PrQdTj"
+        "info_cards_PrQdTj",
+        "cross_sell_mig",
+        "product_tabs_mig"
       ],
       "name": "Product Details Lum",
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
-      }
-    },
-    "cross_sell_lum_x1": {
-      "type": "cross-sell-lum",
-      "blocks": {
-        "cs_b1": {
-          "type": "product",
-          "settings": {
-            "product": "feel-balanced-after-45",
-            "custom_title": ""
-          }
-        }
-      },
-      "block_order": [
-        "cs_b1"
-      ],
-      "settings": {
-        "heading": "Thousands of customers also buy",
-        "heading_color": "#113b34",
-        "card_bg": "#f4f4f2",
-        "show_compare": true,
-        "save_auto": true,
-        "save_prefix": "Save",
-        "save_bg": "#fa6c56",
-        "save_text": "#ffffff",
-        "add_label": "Add",
-        "button_bg": "#ffffff",
-        "button_text": "#113b34",
-        "padding_top": 24,
-        "padding_bottom": 24
       }
     },
     "main": {
@@ -3154,56 +3167,10 @@
         "bottom_border_style": "solid",
         "bottom_border_color": "#e5e5e5"
       }
-    },
-    "product_tabs_lum_x1": {
-      "type": "product-tabs-lum",
-      "blocks": {
-        "t1": {
-          "type": "tab",
-          "settings": {
-            "title": "Benefits",
-            "icon": "star",
-            "row_1_label": "Benefit:",
-            "row_1_text": "Describe the key benefit here."
-          }
-        },
-        "t2": {
-          "type": "tab",
-          "settings": {
-            "title": "Perfect For",
-            "icon": "profile",
-            "row_1_label": "Perfect for:",
-            "row_1_text": "Describe who this product is for."
-          }
-        },
-        "t3": {
-          "type": "tab",
-          "settings": {
-            "title": "How to take",
-            "icon": "note",
-            "row_1_label": "Daily dosage:",
-            "row_1_text": "2 gummies, max 3 gummies",
-            "row_2_label": "When:",
-            "row_2_text": "at the morning as a metabolism stabilize\nbefore dinner as a craving shutdown",
-            "row_3_label": "Monthly supply:",
-            "row_3_text": "1 jar per person",
-            "row_4_label": "Storage:",
-            "row_4_text": "in a cool, dry place away from direct sunlight and excessive heat."
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3"
-      ],
-      "settings": {}
     }
   },
   "order": [
     "product_details_lum_DcMDgT",
-    "cross_sell_lum_x1",
-    "product_tabs_lum_x1",
     "main",
     "scrolling_features_bar_AhP6EL",
     "sticky_add_to_cart_NJqgUd",
