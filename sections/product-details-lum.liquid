@@ -48,6 +48,15 @@
         {%- when 'bundle' -%}
           {%- render 'bundle-selector-lum', block: block, product: product -%}
 
+        {%- when 'purchase_type' -%}
+          {%- render 'purchase-type-lum', block: block, product: product -%}
+
+        {%- when 'add_to_cart' -%}
+          {%- render 'add-to-cart-lum', block: block, product: product -%}
+
+        {%- when 'info_cards' -%}
+          {%- render 'info-cards-lum', block: block -%}
+
         {%- when '@app' -%}
           {%- render block -%}
 
@@ -168,43 +177,149 @@
       "settings": [
         { "type": "text", "id": "heading", "label": "Heading", "default": "Select Quantity" },
         { "type": "text", "id": "note", "label": "Note", "default": "Take more than 8 weeks may necessary to see a meaningful benefits." },
-        { "type": "image_picker", "id": "bottle_image", "label": "Bottle image", "info": "Single bottle shown in the pack visuals; repeated per option. Defaults to the product image." },
+        { "type": "image_picker", "id": "bottle_image", "label": "Fallback image", "info": "Used when an option has no image set. Defaults to the product image." },
+        { "type": "color", "id": "save_badge_bg", "label": "Save badge background", "default": "#fa6c56" },
+        { "type": "color", "id": "save_badge_text", "label": "Save badge text", "default": "#ffffff" },
+        { "type": "checkbox", "id": "save_auto", "label": "Auto-calculate Save (compare × jars − pack price)", "default": true },
+        { "type": "text", "id": "save_prefix", "label": "Save prefix", "default": "Save " },
         { "type": "header", "content": "Option 1" },
         { "type": "checkbox", "id": "option_1_show", "label": "Show", "default": true },
         { "type": "checkbox", "id": "option_1_selected", "label": "Selected by default", "default": false },
         { "type": "text", "id": "option_1_label", "label": "Label", "default": "1 Jar" },
-        { "type": "range", "id": "option_1_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 1 },
-        { "type": "range", "id": "option_1_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 0 },
-        { "type": "text", "id": "option_1_badge", "label": "Badge" },
-        { "type": "color", "id": "option_1_badge_bg", "label": "Badge background", "default": "#fad356" },
-        { "type": "color", "id": "option_1_badge_text", "label": "Badge text", "default": "#113b34" },
+        { "type": "text", "id": "option_1_sublabel", "label": "Sub-label" },
+        { "type": "image_picker", "id": "option_1_image", "label": "Image" },
+        { "type": "image_picker", "id": "option_1_image_2", "label": "Image 2 (after +)" },
+        { "type": "range", "id": "option_1_paid", "label": "Jars (paid)", "min": 1, "max": 5, "step": 1, "default": 1 },
+        { "type": "range", "id": "option_1_free", "label": "Jars (free, after +)", "min": 0, "max": 5, "step": 1, "default": 0 },
+        { "type": "text", "id": "option_1_save", "label": "Save badge", "default": "Save $12" },
+        { "type": "text", "id": "option_1_badge", "label": "Top badge" },
+        { "type": "color", "id": "option_1_badge_bg", "label": "Top badge background", "default": "#fad356" },
+        { "type": "color", "id": "option_1_badge_text", "label": "Top badge text", "default": "#113b34" },
         { "type": "header", "content": "Option 2" },
         { "type": "checkbox", "id": "option_2_show", "label": "Show", "default": true },
         { "type": "checkbox", "id": "option_2_selected", "label": "Selected by default", "default": true },
-        { "type": "text", "id": "option_2_label", "label": "Label", "default": "Buy 2 Get 1 Free" },
-        { "type": "range", "id": "option_2_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 2 },
-        { "type": "range", "id": "option_2_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 1 },
-        { "type": "text", "id": "option_2_badge", "label": "Badge", "default": "Best Deal" },
-        { "type": "color", "id": "option_2_badge_bg", "label": "Badge background", "default": "#fad356" },
-        { "type": "color", "id": "option_2_badge_text", "label": "Badge text", "default": "#113b34" },
+        { "type": "text", "id": "option_2_label", "label": "Label", "default": "2+1 Free" },
+        { "type": "text", "id": "option_2_sublabel", "label": "Sub-label", "default": "Free shipping" },
+        { "type": "image_picker", "id": "option_2_image", "label": "Image" },
+        { "type": "image_picker", "id": "option_2_image_2", "label": "Image 2 (after +)" },
+        { "type": "range", "id": "option_2_paid", "label": "Jars (paid)", "min": 1, "max": 5, "step": 1, "default": 2 },
+        { "type": "range", "id": "option_2_free", "label": "Jars (free, after +)", "min": 0, "max": 5, "step": 1, "default": 1 },
+        { "type": "text", "id": "option_2_save", "label": "Save badge", "default": "Save $12" },
+        { "type": "text", "id": "option_2_badge", "label": "Top badge", "default": "Best Deal" },
+        { "type": "color", "id": "option_2_badge_bg", "label": "Top badge background", "default": "#fad356" },
+        { "type": "color", "id": "option_2_badge_text", "label": "Top badge text", "default": "#113b34" },
         { "type": "header", "content": "Option 3" },
         { "type": "checkbox", "id": "option_3_show", "label": "Show", "default": true },
         { "type": "checkbox", "id": "option_3_selected", "label": "Selected by default", "default": false },
-        { "type": "text", "id": "option_3_label", "label": "Label", "default": "Buy 3 Get 2 Free" },
-        { "type": "range", "id": "option_3_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 3 },
-        { "type": "range", "id": "option_3_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 2 },
-        { "type": "text", "id": "option_3_badge", "label": "Badge", "default": "Family Pack" },
-        { "type": "color", "id": "option_3_badge_bg", "label": "Badge background", "default": "#113b34" },
-        { "type": "color", "id": "option_3_badge_text", "label": "Badge text", "default": "#ffffff" },
+        { "type": "text", "id": "option_3_label", "label": "Label", "default": "3+2 Free" },
+        { "type": "text", "id": "option_3_sublabel", "label": "Sub-label", "default": "Free shipping" },
+        { "type": "image_picker", "id": "option_3_image", "label": "Image" },
+        { "type": "image_picker", "id": "option_3_image_2", "label": "Image 2 (after +)" },
+        { "type": "range", "id": "option_3_paid", "label": "Jars (paid)", "min": 1, "max": 5, "step": 1, "default": 3 },
+        { "type": "range", "id": "option_3_free", "label": "Jars (free, after +)", "min": 0, "max": 5, "step": 1, "default": 2 },
+        { "type": "text", "id": "option_3_save", "label": "Save badge", "default": "Save $12" },
+        { "type": "text", "id": "option_3_badge", "label": "Top badge", "default": "Family Pack" },
+        { "type": "color", "id": "option_3_badge_bg", "label": "Top badge background", "default": "#113b34" },
+        { "type": "color", "id": "option_3_badge_text", "label": "Top badge text", "default": "#ffffff" },
         { "type": "header", "content": "Option 4" },
         { "type": "checkbox", "id": "option_4_show", "label": "Show", "default": false },
         { "type": "checkbox", "id": "option_4_selected", "label": "Selected by default", "default": false },
         { "type": "text", "id": "option_4_label", "label": "Label" },
-        { "type": "range", "id": "option_4_paid", "label": "Bottles (paid)", "min": 1, "max": 5, "step": 1, "default": 1 },
-        { "type": "range", "id": "option_4_free", "label": "Free bottles (after +)", "min": 0, "max": 5, "step": 1, "default": 0 },
-        { "type": "text", "id": "option_4_badge", "label": "Badge" },
-        { "type": "color", "id": "option_4_badge_bg", "label": "Badge background", "default": "#fad356" },
-        { "type": "color", "id": "option_4_badge_text", "label": "Badge text", "default": "#113b34" }
+        { "type": "text", "id": "option_4_sublabel", "label": "Sub-label" },
+        { "type": "image_picker", "id": "option_4_image", "label": "Image" },
+        { "type": "image_picker", "id": "option_4_image_2", "label": "Image 2 (after +)" },
+        { "type": "range", "id": "option_4_paid", "label": "Jars (paid)", "min": 1, "max": 5, "step": 1, "default": 1 },
+        { "type": "range", "id": "option_4_free", "label": "Jars (free, after +)", "min": 0, "max": 5, "step": 1, "default": 0 },
+        { "type": "text", "id": "option_4_save", "label": "Save badge" },
+        { "type": "text", "id": "option_4_badge", "label": "Top badge" },
+        { "type": "color", "id": "option_4_badge_bg", "label": "Top badge background", "default": "#fad356" },
+        { "type": "color", "id": "option_4_badge_text", "label": "Top badge text", "default": "#113b34" }
+      ]
+    },
+    {
+      "type": "purchase_type",
+      "name": "Purchase type",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Purchase Type" },
+        { "type": "select", "id": "preselect", "label": "Preselect", "options": [{ "value": "subscribe", "label": "Subscribe" }, { "value": "one_time", "label": "One-time" }], "default": "subscribe" },
+        { "type": "checkbox", "id": "force_show_subscribe", "label": "Show subscribe without plans (design preview)", "default": false },
+        { "type": "header", "content": "Dynamic interval" },
+        { "type": "select", "id": "interval_mode", "label": "Interval mode", "options": [{ "value": "mapped", "label": "Mapped (theme maps pack index)" }, { "value": "auto", "label": "Auto (variant allocations)" }], "default": "mapped" },
+        { "type": "text", "id": "monthly_plan_id", "label": "Monthly selling plan id", "info": "Mapped mode, for pack below threshold." },
+        { "type": "text", "id": "bimonthly_plan_id", "label": "Bi-monthly selling plan id", "info": "Mapped mode, for pack at/above threshold." },
+        { "type": "range", "id": "interval_threshold", "label": "Bi-monthly from pack #", "min": 2, "max": 5, "step": 1, "default": 2 },
+        { "type": "text", "id": "interval_label_format", "label": "Interval label format", "default": "{n}-Month-Delivery" },
+        { "type": "header", "content": "Labels & badge" },
+        { "type": "text", "id": "one_time_title", "label": "One-time title", "default": "One-time Purchase" },
+        { "type": "text", "id": "save_badge_text", "label": "Save badge text", "default": "Save $12" },
+        { "type": "checkbox", "id": "save_badge_auto", "label": "Auto-compute badge (compare minus subscribe)", "default": false },
+        { "type": "color", "id": "save_badge_bg", "label": "Badge background", "default": "#fad356" },
+        { "type": "color", "id": "save_badge_text_color", "label": "Badge text", "default": "#113b34" },
+        { "type": "checkbox", "id": "show_per_pack", "label": "Show /pack suffix", "default": true },
+        { "type": "text", "id": "per_pack_suffix", "label": "Per-pack suffix", "default": "/pack" },
+        { "type": "header", "content": "Subscribe benefits" },
+        { "type": "checkbox", "id": "benefit_1_show", "label": "Show benefit 1", "default": true },
+        { "type": "text", "id": "benefit_1_text", "label": "Benefit 1", "default": "Free Shipping" },
+        { "type": "checkbox", "id": "benefit_2_show", "label": "Show benefit 2", "default": true },
+        { "type": "text", "id": "benefit_2_text", "label": "Benefit 2", "default": "Craving Control Guide" },
+        { "type": "checkbox", "id": "benefit_3_show", "label": "Show benefit 3", "default": true },
+        { "type": "text", "id": "benefit_3_text", "label": "Benefit 3", "default": "Gut Health Tracker" },
+        { "type": "checkbox", "id": "benefit_4_show", "label": "Show benefit 4", "default": true },
+        { "type": "text", "id": "benefit_4_text", "label": "Benefit 4", "default": "Modify or cancel anytime" },
+        { "type": "checkbox", "id": "benefit_5_show", "label": "Show benefit 5", "default": false },
+        { "type": "text", "id": "benefit_5_text", "label": "Benefit 5" },
+        { "type": "checkbox", "id": "benefit_6_show", "label": "Show benefit 6", "default": false },
+        { "type": "text", "id": "benefit_6_text", "label": "Benefit 6" }
+      ]
+    },
+    {
+      "type": "add_to_cart",
+      "name": "Add to cart",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Add to Cart" },
+        { "type": "checkbox", "id": "show_price_in_button", "label": "Show price", "default": true },
+        { "type": "checkbox", "id": "show_compare_in_button", "label": "Show compare-at (struck)", "default": true },
+        { "type": "select", "id": "cart_icon", "label": "Cart icon", "options": [{ "value": "cart", "label": "Cart" }, { "value": "none", "label": "None" }], "default": "none" },
+        { "type": "color", "id": "button_bg", "label": "Button background", "default": "#00724d" },
+        { "type": "color", "id": "button_hover_bg", "label": "Button hover", "default": "#005e3f" },
+        { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#ffffff" }
+      ]
+    },
+    {
+      "type": "info_cards",
+      "name": "Info cards",
+      "limit": 1,
+      "settings": [
+        { "type": "header", "content": "Card 1" },
+        { "type": "checkbox", "id": "row_1_show", "label": "Show", "default": true },
+        { "type": "select", "id": "row_1_icon", "label": "Icon", "options": [{ "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "tick", "label": "Tick" }, { "value": "info", "label": "Info" }, { "value": "star", "label": "Star" }, { "value": "none", "label": "None" }], "default": "truck" },
+        { "type": "image_picker", "id": "row_1_image", "label": "Icon image (overrides icon)" },
+        { "type": "color", "id": "row_1_bg", "label": "Background", "default": "#ebf7e0" },
+        { "type": "text", "id": "row_1_title", "label": "Title", "default": "Expected delivery in 3 business days" },
+        { "type": "text", "id": "row_1_text", "label": "Caption", "default": "All of our products are shipped from USA" },
+        { "type": "header", "content": "Card 2" },
+        { "type": "checkbox", "id": "row_2_show", "label": "Show", "default": true },
+        { "type": "select", "id": "row_2_icon", "label": "Icon", "options": [{ "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "tick", "label": "Tick" }, { "value": "info", "label": "Info" }, { "value": "star", "label": "Star" }, { "value": "none", "label": "None" }], "default": "shield" },
+        { "type": "image_picker", "id": "row_2_image", "label": "Icon image (overrides icon)" },
+        { "type": "color", "id": "row_2_bg", "label": "Background", "default": "#fff9bd" },
+        { "type": "text", "id": "row_2_title", "label": "Title", "default": "30-days money-back guarantee" },
+        { "type": "text", "id": "row_2_text", "label": "Caption", "default": "Feel the difference or get refunded." },
+        { "type": "header", "content": "Card 3" },
+        { "type": "checkbox", "id": "row_3_show", "label": "Show", "default": false },
+        { "type": "select", "id": "row_3_icon", "label": "Icon", "options": [{ "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "tick", "label": "Tick" }, { "value": "info", "label": "Info" }, { "value": "star", "label": "Star" }, { "value": "none", "label": "None" }], "default": "tick" },
+        { "type": "image_picker", "id": "row_3_image", "label": "Icon image (overrides icon)" },
+        { "type": "color", "id": "row_3_bg", "label": "Background", "default": "#ebf7e0" },
+        { "type": "text", "id": "row_3_title", "label": "Title" },
+        { "type": "text", "id": "row_3_text", "label": "Caption" },
+        { "type": "header", "content": "Card 4" },
+        { "type": "checkbox", "id": "row_4_show", "label": "Show", "default": false },
+        { "type": "select", "id": "row_4_icon", "label": "Icon", "options": [{ "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "tick", "label": "Tick" }, { "value": "info", "label": "Info" }, { "value": "star", "label": "Star" }, { "value": "none", "label": "None" }], "default": "info" },
+        { "type": "image_picker", "id": "row_4_image", "label": "Icon image (overrides icon)" },
+        { "type": "color", "id": "row_4_bg", "label": "Background", "default": "#fff9bd" },
+        { "type": "text", "id": "row_4_title", "label": "Title" },
+        { "type": "text", "id": "row_4_text", "label": "Caption" }
       ]
     },
     { "type": "@app" }
@@ -217,7 +332,10 @@
         { "type": "title" },
         { "type": "subtitle" },
         { "type": "labels" },
-        { "type": "bundle" }
+        { "type": "bundle" },
+        { "type": "purchase_type" },
+        { "type": "add_to_cart" },
+        { "type": "info_cards" }
       ]
     }
   ]

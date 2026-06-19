@@ -1,10 +1,10 @@
 {%- comment -%}
-  Bundle / pack selector — Lumway PDP. Forked from bundle-selector-block (logic reused), new design.
-  Figma mobile 484:7056 (desktop layout added later). VARIANT-BASED: option N -> product.variants[N-1] by order.
-  Selecting an option sets the variant in the product form and fires variant:change, so the price in the
-  Purchase Type / Recharge block + add-to-cart update. No price shown on cards (prices live below).
-  Pack visual = the bottle image repeated: [paid bottles] (+) [free bottles], per Figma.
-  Bottle image: block.settings.bottle_image (image_picker), falls back to the product image.
+  Bundle / pack selector — Lumway PDP. Redesign: Figma 557:2603 (3 cards in a row, mobile).
+  LOGIC UNCHANGED: VARIANT-BASED, option N -> product.variants[N-1] by order. Selecting an option
+  sets the variant in the product form and fires variant:change, so the Purchase Type / Recharge block
+  + add-to-cart price update. data-pack-total (paid+free) still drives the struck price downstream.
+  Pack visual = explicit images per option: [image] (+) [image 2]. Option 1 = one image; options 2-4 =
+  image + "+" + image 2 (two image_pickers). Falls back to block.settings.bottle_image / product image.
   Usage: {% render 'bundle-selector-lum', block: block, product: product %}
 {%- endcomment -%}
 
@@ -14,7 +14,10 @@
   if product != nil and product.variants.size > 0
     assign has_product = true
   endif
-  assign bottle_img = block.settings.bottle_image | default: product.featured_image
+  assign fallback_img = block.settings.bottle_image | default: product.featured_image
+  assign save_bg = block.settings.save_badge_bg | default: '#fa6c56'
+  assign save_tc = block.settings.save_badge_text | default: '#ffffff'
+  assign base_compare = product.variants.first.compare_at_price | default: product.variants.first.price
   assign sel_index = 0
   assign first_shown = 0
   if has_product
@@ -47,36 +50,36 @@
     display:flex; flex-direction:column; gap:16px; width:100%;
   }
   .bsl-{{ uid }} .bsl__label{ margin:0; font-family:var(--bsl-font); font-weight:600; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--bsl-ink); }
-  .bsl-{{ uid }} .bsl__list{ display:flex; flex-direction:column; gap:16px; }
-  .bsl-{{ uid }} .bsl__card{ position:relative; display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:60px; padding:8px 12px; background:var(--bsl-card); border:1px solid rgba(17,59,52,.1); border-radius:12px; cursor:pointer; box-sizing:border-box; }
+  .bsl-{{ uid }} .bsl__grid{ display:flex; align-items:stretch; gap:4px; }
+  .bsl-{{ uid }} .bsl__card{ position:relative; flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:8px; padding:12px; background:var(--bsl-card); border:1.5px solid rgba(17,59,52,.1); border-radius:12px; cursor:pointer; box-sizing:border-box; }
   .bsl-{{ uid }} .bsl__card.is-selected{ border-color:var(--bsl-ink); }
   .bsl-{{ uid }} .bsl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; z-index:2; }
-  .bsl-{{ uid }} .bsl__main{ display:flex; align-items:center; gap:8px; min-width:0; }
-  .bsl-{{ uid }} .bsl__radio{ flex:0 0 18px; width:18px; height:18px; border-radius:50%; border:1.5px solid rgba(17,59,52,.35); background:#fff; position:relative; box-sizing:border-box; }
-  .bsl-{{ uid }} .bsl__card.is-selected .bsl__radio{ border-color:var(--bsl-ink); }
-  .bsl-{{ uid }} .bsl__card.is-selected .bsl__radio::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--bsl-ink); }
+  .bsl-{{ uid }} .bsl__card:has(.bsl__input:focus-visible){ outline:2px solid var(--bsl-ink); outline-offset:2px; }
+
+  .bsl-{{ uid }} .bsl__pack{ display:flex; align-items:center; justify-content:center; gap:2px; width:100%; height:48px; }
+  .bsl-{{ uid }} .bsl__img{ flex:0 1 auto; min-width:0; height:48px; display:flex; align-items:center; justify-content:center; }
+  .bsl-{{ uid }} .bsl__img img{ display:block; width:auto; height:auto; max-width:100%; max-height:48px; object-fit:contain; }
+  .bsl-{{ uid }} .bsl__pack--multi .bsl__img img{ max-height:36px; }
+  .bsl-{{ uid }} .bsl__plus{ position:relative; z-index:1; flex:0 0 12px; display:inline-flex; align-items:center; justify-content:center; width:12px; height:8px; padding:0 1.375px; background:#fff; border-radius:10.313px; box-sizing:border-box; }
+  .bsl-{{ uid }} .bsl__plus svg{ display:block; width:8.25px; height:8.25px; }
+
+  .bsl-{{ uid }} .bsl__text{ display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center; }
   .bsl-{{ uid }} .bsl__title{ font-family:var(--bsl-font); font-weight:600; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--bsl-ink); white-space:nowrap; }
+  .bsl-{{ uid }} .bsl__sub{ font-family:var(--bsl-font); font-weight:400; font-size:10px; line-height:1.2; letter-spacing:-0.2px; color:rgba(17,59,52,.6); white-space:nowrap; }
 
-  .bsl-{{ uid }} .bsl__pack{ flex:0 0 auto; display:flex; align-items:center; }
-  .bsl-{{ uid }} .bsl__bottles{ display:flex; align-items:center; }
-  .bsl-{{ uid }} .bsl__bottle{ flex:0 0 34px; width:34px; height:44px; }
-  .bsl-{{ uid }} .bsl__bottle + .bsl__bottle{ margin-left:-16px; }
-  .bsl-{{ uid }} .bsl__bottle img{ display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
-  .bsl-{{ uid }} .bsl__plus{ position:relative; z-index:1; display:inline-flex; align-items:center; justify-content:center; height:24px; margin:0 -4px; padding:0 4px; background:#fff; border-radius:30px; }
-  .bsl-{{ uid }} .bsl__plus svg{ display:block; width:24px; height:24px; }
+  .bsl-{{ uid }} .bsl__badge{ position:absolute; top:-13px; left:50%; transform:translateX(-50%); z-index:3; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--bsl-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+  .bsl-{{ uid }} .bsl__save{ position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); z-index:3; display:inline-flex; align-items:center; padding:2px 4px; border-radius:28px; font-family:var(--bsl-font) !important; font-weight:500 !important; font-size:10px; line-height:1.2; letter-spacing:-0.2px; white-space:nowrap; }
 
-  .bsl-{{ uid }} .bsl__badge{ position:absolute; top:-12px; left:11px; z-index:3; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--bsl-font); font-weight:500; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
   .bsl-{{ uid }} .bsl__note{ display:flex; align-items:flex-start; gap:8px; margin:0; }
   .bsl-{{ uid }} .bsl__note-icon{ flex:0 0 16px; width:16px; height:16px; margin-top:1px; }
   .bsl-{{ uid }} .bsl__note-icon svg{ display:block; width:100%; height:100%; }
   .bsl-{{ uid }} .bsl__note-text{ font-family:var(--bsl-font); font-weight:400; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--bsl-ink); }
-  .bsl-{{ uid }} .bsl__input:focus-visible ~ .bsl__main .bsl__radio{ outline:2px solid var(--bsl-ink); outline-offset:2px; }
 {% endstyle %}
 
 <div class="bsl bsl-{{ uid }}" {{ block.shopify_attributes }} data-product-id="{{ product.id }}">
   <script type="application/json" class="bsl-variants">{{ product.variants | json }}</script>
   {%- if block.settings.heading != blank -%}<p class="bsl__label">{{ block.settings.heading | escape }}</p>{%- endif -%}
-  <div class="bsl__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Select quantity' | escape }}">
+  <div class="bsl__grid" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Select quantity' | escape }}">
     {%- for i in (1..4) -%}
       {%- liquid
         assign vidx = i | minus: 1
@@ -90,6 +93,12 @@
         if label == blank
           assign label = v.title
         endif
+        assign sub_key = 'option_' | append: i | append: '_sublabel'
+        assign sublabel = block.settings[sub_key]
+        assign img1_key = 'option_' | append: i | append: '_image'
+        assign img1 = block.settings[img1_key] | default: fallback_img
+        assign img2_key = 'option_' | append: i | append: '_image_2'
+        assign img2 = block.settings[img2_key]
         assign paid_key = 'option_' | append: i | append: '_paid'
         assign free_key = 'option_' | append: i | append: '_free'
         assign paid = block.settings[paid_key] | default: 1
@@ -100,30 +109,33 @@
         assign badge_bg = block.settings[badge_bg_key] | default: '#fad356'
         assign badge_tc_key = 'option_' | append: i | append: '_badge_text'
         assign badge_tc = block.settings[badge_tc_key] | default: '#113b34'
+        assign save_key = 'option_' | append: i | append: '_save'
+        assign save = block.settings[save_key]
+        assign total_jars = paid | plus: free
+        assign save_amount = base_compare | times: total_jars | minus: v.price
         assign is_sel = false
         if i == sel_index
           assign is_sel = true
         endif
       -%}
-      <label class="bsl__card{% if is_sel %} is-selected{% endif %}">
+      <label class="bsl__card{% if is_sel %} is-selected{% endif %}" data-variant="{{ v.id }}" data-pack-total="{{ paid | plus: free }}" data-pack-paid="{{ paid }}" data-pack-free="{{ free }}">
         <input type="radio" class="bsl__input" name="bsl-{{ uid }}" value="{{ v.id }}"{% if is_sel %} checked{% endif %} aria-label="{{ label | escape }}">
         {%- if badge != blank -%}<span class="bsl__badge" style="background:{{ badge_bg }};color:{{ badge_tc }}">{{ badge | escape }}</span>{%- endif -%}
-        <span class="bsl__main">
-          <span class="bsl__radio" aria-hidden="true"></span>
-          <span class="bsl__title">{{ label | escape }}</span>
+        <span class="bsl__pack{% if img2 != blank %} bsl__pack--multi{% endif %}" aria-hidden="true">
+          {%- if img1 != blank -%}<span class="bsl__img">{{ img1 | image_url: width: 180 | image_tag: loading: 'lazy', widths: '60,120,180', sizes: '60px', alt: '' }}</span>{%- endif -%}
+          {%- if img2 != blank -%}
+            <span class="bsl__plus">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
+            <span class="bsl__img">{{ img2 | image_url: width: 180 | image_tag: loading: 'lazy', widths: '60,120,180', sizes: '60px', alt: '' }}</span>
+          {%- endif -%}
         </span>
-        {%- if bottle_img != blank and paid > 0 -%}
-          <span class="bsl__pack" aria-hidden="true">
-            <span class="bsl__bottles">
-              {%- for b in (1..paid) -%}<span class="bsl__bottle">{{ bottle_img | image_url: width: 102 | image_tag: loading: 'lazy', widths: '34,68,102', sizes: '34px', alt: '' }}</span>{%- endfor -%}
-            </span>
-            {%- if free > 0 -%}
-              <span class="bsl__plus">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
-              <span class="bsl__bottles">
-                {%- for b in (1..free) -%}<span class="bsl__bottle">{{ bottle_img | image_url: width: 102 | image_tag: loading: 'lazy', widths: '34,68,102', sizes: '34px', alt: '' }}</span>{%- endfor -%}
-              </span>
-            {%- endif -%}
-          </span>
+        <span class="bsl__text">
+          <span class="bsl__title">{{ label | escape }}</span>
+          {%- if sublabel != blank -%}<span class="bsl__sub">{{ sublabel | escape }}</span>{%- endif -%}
+        </span>
+        {%- if block.settings.save_auto -%}
+          {%- if save_amount > 0 -%}<span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ block.settings.save_prefix | default: 'Save ' }}{{ save_amount | money }}</span>{%- endif -%}
+        {%- elsif save != blank -%}
+          <span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ save | escape }}</span>
         {%- endif -%}
       </label>
     {%- endfor -%}
@@ -149,9 +161,20 @@
           || document.querySelector('form[action*="/cart/add"] input[name="id"]')
           || document.querySelector('input[name="id"]');
     }
+    function packForId(id) {
+      var inp = root.querySelector('.bsl__input[value="' + id + '"]');
+      var card = inp ? inp.closest('.bsl__card') : null;
+      if (!card) return null;
+      return { variantId: id,
+        total: parseInt(card.getAttribute('data-pack-total') || '1', 10),
+        paid: parseInt(card.getAttribute('data-pack-paid') || '1', 10),
+        free: parseInt(card.getAttribute('data-pack-free') || '0', 10) };
+    }
     function selectVariant(id) {
       var variant = variantById(id);
       if (!variant) return;
+      var pack = packForId(id);
+      if (pack) window.__lumBundlePack = pack;
       var input = variantInput();
       if (input) {
         input.value = variant.id;
@@ -159,8 +182,8 @@
         if (variant.available !== false) { input.removeAttribute('disabled'); }
         input.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: { variant: variant, source: 'bundle-selector-lum' } }));
-      document.dispatchEvent(new CustomEvent('variant:change', { detail: { variant: variant } }));
+      document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: { variant: variant, source: 'bundle-selector-lum', pack: pack } }));
+      document.dispatchEvent(new CustomEvent('variant:change', { detail: { variant: variant, pack: pack } }));
     }
     var userTouched = false;
     root.addEventListener('change', function (e) {

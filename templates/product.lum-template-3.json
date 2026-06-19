@@ -88,9 +88,54 @@
             "option_4_badge_text": "#113b34"
           }
         },
+        "purchase_type_zrrNbf": {
+          "type": "purchase_type",
+          "settings": {
+            "heading": "Purchase Type",
+            "preselect": "subscribe",
+            "force_show_subscribe": false,
+            "interval_mode": "mapped",
+            "monthly_plan_id": "",
+            "bimonthly_plan_id": "",
+            "interval_threshold": 2,
+            "interval_label_format": "{n}-Month-Delivery",
+            "one_time_title": "One-time Purchase",
+            "save_badge_text": "Save $12",
+            "save_badge_auto": false,
+            "save_badge_bg": "#fad356",
+            "save_badge_text_color": "#113b34",
+            "show_per_pack": true,
+            "per_pack_suffix": "/pack",
+            "benefit_1_show": true,
+            "benefit_1_text": "Free Shipping",
+            "benefit_2_show": true,
+            "benefit_2_text": "Craving Control Guide",
+            "benefit_3_show": true,
+            "benefit_3_text": "Gut Health Tracker",
+            "benefit_4_show": true,
+            "benefit_4_text": "Modify or cancel anytime",
+            "benefit_5_show": false,
+            "benefit_5_text": "",
+            "benefit_6_show": false,
+            "benefit_6_text": ""
+          }
+        },
         "recharge_subscriptions_subscription_widget_v2_XTwRV8": {
           "type": "shopify://apps/recharge-subscriptions/blocks/subscription-widget-v2/371eed76-0b44-4869-9813-730372ea378e",
+          "disabled": true,
           "settings": {}
+        },
+        "add_to_cart_qyiqCe": {
+          "type": "add_to_cart",
+          "settings": {
+            "button_label": "Add to Cart",
+            "show_price_in_button": true,
+            "show_compare_in_button": true,
+            "cart_icon": "none",
+            "button_bg": "#00724d",
+            "button_hover_bg": "#005e3f",
+            "button_text_color": "#ffffff"
+          }
         }
       },
       "block_order": [
@@ -99,7 +144,9 @@
         "subtitle_yJn7CD",
         "labels_ziBqxf",
         "bundle_BLEyFB",
-        "recharge_subscriptions_subscription_widget_v2_XTwRV8"
+        "purchase_type_zrrNbf",
+        "recharge_subscriptions_subscription_widget_v2_XTwRV8",
+        "add_to_cart_qyiqCe"
       ],
       "name": "Product Details Lum",
       "settings": {

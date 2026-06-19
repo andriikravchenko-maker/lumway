@@ -1,0 +1,109 @@
+{%- comment -%}
+  Add to Cart — Lumway PDP. Renders the product form (the new section has none) + a custom button.
+  Creates name="id" + name="selling_plan" that bundle-selector-lum / purchase-type-lum depend on.
+  Button: Figma 557:2691 (bg #00724d, radius 30, "Add to Cart – $price" + struck "$compare", no icon).
+  Price = Elixir_GetDisplayPrice (subscribe-discounted when a plan is active). Struck = single-jar
+  compare-at x total jars in the pack (paid+free, from window.__lumBundlePack set by the bundle).
+  Usage: {% render 'add-to-cart-lum', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign uid = block.id
+  assign cur = product.selected_or_first_available_variant
+  assign btn_label = block.settings.button_label | default: 'Add to Cart'
+  assign form_id = 'product-form-lum-' | append: uid
+-%}
+
+{%- if product != nil and product.variants.size > 0 -%}
+{% style %}
+  .patc-{{ uid }}{
+    --patc-bg: {{ block.settings.button_bg | default: '#00724d' }};
+    --patc-fg: {{ block.settings.button_text_color | default: '#ffffff' }};
+    --patc-font:'Inter Tight', system-ui, sans-serif;
+    width:100%;
+  }
+  .patc-{{ uid }} .patc__btn{ position:relative; display:flex !important; align-items:center; justify-content:center; gap:8px; width:100%; min-height:48px !important; height:auto !important; padding:12px 24px !important; margin:0 !important; border:0 !important; border-radius:30px !important; background:var(--patc-bg) !important; background-image:none !important; box-shadow:none !important; text-shadow:none !important; color:var(--patc-fg) !important; text-transform:none !important; cursor:pointer; font-family:var(--patc-font) !important; -webkit-appearance:none; appearance:none; }
+  .patc-{{ uid }} .patc__btn::before,
+  .patc-{{ uid }} .patc__btn::after{ display:none !important; }
+  .patc-{{ uid }} .patc__btn:hover{ background:{{ block.settings.button_hover_bg | default: '#005e3f' }} !important; }
+  .patc-{{ uid }} .patc__btn[disabled]{ opacity:.55; cursor:not-allowed; }
+  .patc-{{ uid }} .patc__content{ display:inline-flex; align-items:center; gap:8px; }
+  .patc-{{ uid }} .patc__icon{ display:inline-flex; width:20px; height:20px; flex:0 0 20px; }
+  .patc-{{ uid }} .patc__icon svg{ display:block; width:100%; height:100%; }
+  .patc-{{ uid }} .patc__line{ display:inline-flex; align-items:center; font-family:var(--patc-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; }
+  .patc-{{ uid }} .patc__line *{ font-family:var(--patc-font) !important; }
+  .patc-{{ uid }} .patc__compare{ font-family:var(--patc-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--patc-fg); opacity:.3; text-decoration:line-through; }
+  .patc-{{ uid }} .patc__btn.loading .patc__content,
+  .patc-{{ uid }} .patc__btn.is-loading .patc__content{ visibility:hidden; }
+  .patc-{{ uid }} .patc__spinner{ position:absolute; inset:0; margin:auto; width:20px; height:20px; display:none; }
+  .patc-{{ uid }} .patc__btn.loading .patc__spinner,
+  .patc-{{ uid }} .patc__btn.is-loading .patc__spinner{ display:block; }
+  .patc-{{ uid }} .patc__spinner svg{ width:100%; height:100%; animation:patc-spin .8s linear infinite; }
+  @keyframes patc-spin{ to{ transform:rotate(360deg); } }
+{% endstyle %}
+
+<div class="patc patc-{{ uid }}" {{ block.shopify_attributes }}>
+  <script type="application/json" class="patc-variants">{{ product.variants | json }}</script>
+  <product-form class="product-form" data-section-id="{{ uid }}">
+    {%- form 'product', product, id: form_id, class: 'product-buy-form-pdp product-buy-form--lum', novalidate: 'novalidate' -%}
+      <input type="hidden" name="id" value="{{ cur.id }}" class="product-variant-id"{% unless cur.available %} disabled{% endunless %}>
+      <input type="hidden" name="selling_plan" value="">
+      <button type="submit" name="add" class="patc__btn disable-global-button-styling"{% unless cur.available %} disabled{% endunless %} data-atc-button>
+        <span class="patc__content">
+          {%- if block.settings.cart_icon == 'cart' -%}<span class="patc__icon">{{ 'lum-icon-cart.svg' | inline_asset_content }}</span>{%- endif -%}
+          <span class="patc__line"><span data-role="atc-label">{% if cur.available %}{{ btn_label | escape }}{% else %}{{ 'products.product.sold_out' | t | default: 'Sold out' }}{% endif %}</span>{%- if block.settings.show_price_in_button -%}<span class="patc__price" data-role="atc-price"></span>{%- endif -%}</span>
+          {%- if block.settings.show_compare_in_button -%}<span class="patc__compare" data-role="atc-compare"></span>{%- endif -%}
+        </span>
+        <span class="patc__spinner" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="40 60"/></svg></span>
+      </button>
+    {%- endform -%}
+  </product-form>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('.patc-{{ uid }}');
+    if (!root || root.__patcBound) return;
+    root.__patcBound = true;
+    var variants = [];
+    try { variants = JSON.parse(root.querySelector('.patc-variants').textContent) || []; } catch (e) { variants = []; }
+    var moneyFormat = {{ shop.money_format | json }};
+    var priceEl = root.querySelector('[data-role="atc-price"]');
+    var compareEl = root.querySelector('[data-role="atc-compare"]');
+
+    function fmt(c) {
+      if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, moneyFormat);
+      return String(moneyFormat).replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
+    }
+    function currentVariant() {
+      var input = root.querySelector('input[name="id"]') || document.querySelector('input[name="id"]');
+      var id = input && input.value;
+      for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(id)) return variants[i]; }
+      return variants[0] || null;
+    }
+    function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
+    function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
+    var override = null; // {price, compare} pushed by purchase-type-lum via 'lum:atc-price'
+    function render() {
+      var v = currentVariant();
+      if (!v) return;
+      var price = (override && override.price != null) ? override.price : v.price;
+      // struck = single-jar compare-at price x total jars in the pack (paid + free)
+      var compare = (override && override.compare != null) ? override.compare : (baseCompare() * packTotal(v));
+      if (priceEl) priceEl.textContent = price ? (' – ' + fmt(price)) : '';
+      if (compareEl) {
+        if (compare && compare > price) { compareEl.textContent = fmt(compare); compareEl.style.display = ''; }
+        else { compareEl.textContent = ''; compareEl.style.display = 'none'; }
+      }
+    }
+    document.addEventListener('lum:atc-price', function (e) { override = (e && e.detail) || null; render(); });
+    ['variant:change', 'simple-variant-picker:variantChange'].forEach(function (ev) {
+      document.addEventListener(ev, function () { setTimeout(render, 0); });
+    });
+    document.addEventListener('change', function (e) { if (e.target && e.target.name === 'id') setTimeout(render, 0); });
+    if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', render); } else { render(); }
+    [150, 600, 1500].forEach(function (d) { setTimeout(render, d); });
+    document.addEventListener('shopify:section:load', function () { setTimeout(render, 60); });
+  })();
+</script>
+{%- endif -%}
