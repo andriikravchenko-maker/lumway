@@ -898,7 +898,7 @@ cart-drawer-items {
   font-size: 1.2rem !important;
 } */
 .gb-cart-drawer-lb .cart-item__details dl .product-option {
-  font-size: 1rem;
+  font-size: 1.6rem;
 }
 @media only screen and (max-width: 749px) {
   .drawer__header {
@@ -943,7 +943,7 @@ cart-drawer-items {
   .cart-drawer .product-option,
   .cart-drawer .product-option dt,
   .cart-drawer .product-option dd {
-    font-size: 1rem;
+    font-size: 1.4rem;
     line-height: 1.3;
   }
   .cart-drawer .gb-price-drawer s,
