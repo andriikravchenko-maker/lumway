@@ -54,35 +54,50 @@
             "heading": "Select Quantity",
             "note": "Take more than 8 weeks may necessary to see a meaningful benefits.",
             "bottle_image": "shopify://shop_images/08dff9038208e631dc1215097ef4d75db3afb770.png",
+            "save_badge_bg": "#fa6c56",
+            "save_badge_text": "#ffffff",
+            "save_auto": true,
+            "save_prefix": "Save",
             "option_1_show": true,
             "option_1_selected": false,
             "option_1_label": "1 Jar",
+            "option_1_sublabel": "",
+            "option_1_image": "shopify://shop_images/08dff9038208e631dc1215097ef4d75db3afb770.png",
             "option_1_paid": 1,
             "option_1_free": 0,
+            "option_1_save": "Save $12",
             "option_1_badge": "",
             "option_1_badge_bg": "#fad356",
             "option_1_badge_text": "#113b34",
             "option_2_show": true,
             "option_2_selected": true,
             "option_2_label": "Buy 2 Get 1 Free",
+            "option_2_sublabel": "Free shipping",
+            "option_2_image": "shopify://shop_images/08dff9038208e631dc1215097ef4d75db3afb770.png",
+            "option_2_image_2": "shopify://shop_images/08dff9038208e631dc1215097ef4d75db3afb770.png",
             "option_2_paid": 2,
             "option_2_free": 1,
+            "option_2_save": "Save $12",
             "option_2_badge": "Best Deal",
             "option_2_badge_bg": "#fad356",
             "option_2_badge_text": "#113b34",
             "option_3_show": true,
             "option_3_selected": false,
             "option_3_label": "Buy 3 Get 2 Free",
+            "option_3_sublabel": "Free shipping",
             "option_3_paid": 3,
             "option_3_free": 2,
+            "option_3_save": "Save $12",
             "option_3_badge": "Family Pack",
             "option_3_badge_bg": "#113b34",
             "option_3_badge_text": "#ffffff",
             "option_4_show": false,
             "option_4_selected": false,
             "option_4_label": "",
+            "option_4_sublabel": "",
             "option_4_paid": 1,
             "option_4_free": 0,
+            "option_4_save": "",
             "option_4_badge": "",
             "option_4_badge_bg": "#fad356",
             "option_4_badge_text": "#113b34"
@@ -136,6 +151,31 @@
             "button_hover_bg": "#005e3f",
             "button_text_color": "#ffffff"
           }
+        },
+        "info_cards_PrQdTj": {
+          "type": "info_cards",
+          "settings": {
+            "row_1_show": true,
+            "row_1_icon": "truck",
+            "row_1_bg": "#ebf7e0",
+            "row_1_title": "Expected delivery in 3 business days",
+            "row_1_text": "All of our products are shipped from USA",
+            "row_2_show": true,
+            "row_2_icon": "shield",
+            "row_2_bg": "#fff9bd",
+            "row_2_title": "30-days money-back guarantee",
+            "row_2_text": "Feel the difference or get refunded.",
+            "row_3_show": false,
+            "row_3_icon": "tick",
+            "row_3_bg": "#ebf7e0",
+            "row_3_title": "",
+            "row_3_text": "",
+            "row_4_show": false,
+            "row_4_icon": "info",
+            "row_4_bg": "#fff9bd",
+            "row_4_title": "",
+            "row_4_text": ""
+          }
         }
       },
       "block_order": [
@@ -146,12 +186,43 @@
         "bundle_BLEyFB",
         "purchase_type_zrrNbf",
         "recharge_subscriptions_subscription_widget_v2_XTwRV8",
-        "add_to_cart_qyiqCe"
+        "add_to_cart_qyiqCe",
+        "info_cards_PrQdTj"
       ],
       "name": "Product Details Lum",
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "cross_sell_lum_x1": {
+      "type": "cross-sell-lum",
+      "blocks": {
+        "cs_b1": {
+          "type": "product",
+          "settings": {
+            "product": "feel-balanced-after-45",
+            "custom_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "cs_b1"
+      ],
+      "settings": {
+        "heading": "Thousands of customers also buy",
+        "heading_color": "#113b34",
+        "card_bg": "#f4f4f2",
+        "show_compare": true,
+        "save_auto": true,
+        "save_prefix": "Save",
+        "save_bg": "#fa6c56",
+        "save_text": "#ffffff",
+        "add_label": "Add",
+        "button_bg": "#ffffff",
+        "button_text": "#113b34",
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
     "main": {
@@ -3083,10 +3154,56 @@
         "bottom_border_style": "solid",
         "bottom_border_color": "#e5e5e5"
       }
+    },
+    "product_tabs_lum_x1": {
+      "type": "product-tabs-lum",
+      "blocks": {
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "title": "Benefits",
+            "icon": "star",
+            "row_1_label": "Benefit:",
+            "row_1_text": "Describe the key benefit here."
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "title": "Perfect For",
+            "icon": "profile",
+            "row_1_label": "Perfect for:",
+            "row_1_text": "Describe who this product is for."
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "title": "How to take",
+            "icon": "note",
+            "row_1_label": "Daily dosage:",
+            "row_1_text": "2 gummies, max 3 gummies",
+            "row_2_label": "When:",
+            "row_2_text": "at the morning as a metabolism stabilize\nbefore dinner as a craving shutdown",
+            "row_3_label": "Monthly supply:",
+            "row_3_text": "1 jar per person",
+            "row_4_label": "Storage:",
+            "row_4_text": "in a cool, dry place away from direct sunlight and excessive heat."
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "product_details_lum_DcMDgT",
+    "cross_sell_lum_x1",
+    "product_tabs_lum_x1",
     "main",
     "scrolling_features_bar_AhP6EL",
     "sticky_add_to_cart_NJqgUd",

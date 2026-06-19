@@ -133,7 +133,7 @@
           {%- if sublabel != blank -%}<span class="bsl__sub">{{ sublabel | escape }}</span>{%- endif -%}
         </span>
         {%- if block.settings.save_auto -%}
-          {%- if save_amount > 0 -%}<span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ block.settings.save_prefix | default: 'Save ' }}{{ save_amount | money }}</span>{%- endif -%}
+          {%- if save_amount > 0 -%}<span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{{ save_amount | money }}</span>{%- endif -%}
         {%- elsif save != blank -%}
           <span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ save | escape }}</span>
         {%- endif -%}
