@@ -33,7 +33,7 @@
 {%- if product != nil and product.variants.size > 0 -%}
 {% style %}
   .ptl-{{ uid }}{ --ptl-font:'Inter Tight', system-ui, sans-serif; --ptl-ink:#113b34; --ptl-card:#f4f4f2; --ptl-line:rgba(17,59,52,.1); display:flex; flex-direction:column; gap:16px; width:100%; }
-  .ptl-{{ uid }} .ptl__label{ margin:0; font-family:var(--ptl-font); font-weight:600; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--ptl-ink); }
+  .ptl-{{ uid }} .ptl__label{ margin:0; font-family:var(--ptl-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--ptl-ink); }
   .ptl-{{ uid }} .ptl__list{ display:flex; flex-direction:column; gap:8px; }
   .ptl-{{ uid }} .ptl__card{ position:relative; display:flex; flex-direction:column; gap:8px; padding:12px; background:var(--ptl-card); border:1px solid var(--ptl-line); border-radius:12px; cursor:pointer; box-sizing:border-box; }
   .ptl-{{ uid }} .ptl__card.is-selected{ border:1.5px solid var(--ptl-ink); }
@@ -67,7 +67,7 @@
     {%- if show_sub -%}
       <label class="ptl__card ptl__card--sub{% if preselect_sub %} is-selected{% endif %}">
         <input type="radio" class="ptl__input" name="ptl-{{ uid }}" value="subscribe"{% if preselect_sub %} checked{% endif %} data-ptl-type="subscribe">
-        <span class="ptl__badge" data-role="save-badge" style="background:{{ block.settings.save_badge_bg | default: '#fad356' }};color:{{ block.settings.save_badge_text_color | default: '#113b34' }}">{{ block.settings.save_badge_text | default: 'Save' | escape }}</span>
+        {%- if block.settings.save_badge_show -%}<span class="ptl__badge" data-role="save-badge" style="background:{{ block.settings.save_badge_bg | default: '#fad356' }};color:{{ block.settings.save_badge_text_color | default: '#113b34' }}">{{ block.settings.save_badge_text | default: 'Save' | escape }}</span>{%- endif -%}
         <span class="ptl__top">
           <span class="ptl__main"><span class="ptl__radio" aria-hidden="true"></span><span class="ptl__title" data-role="interval">Subscribe</span></span>
           <span class="ptl__prices"><span class="ptl__price" data-role="sub-price"></span><span class="ptl__compare" data-role="sub-compare"></span></span>
