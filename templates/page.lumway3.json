@@ -327,7 +327,7 @@
             "duration_minutes": 33,
             "duration_seconds": 44,
             "button_text": "START YOUR GUT RESET →",
-            "button_link": "",
+            "button_link": "shopify://products/gut-harmony-gummies",
             "button_bg_color": "#00724d",
             "button_hover_bg_color": "#005a3d",
             "risk_label": "",
@@ -376,7 +376,7 @@
           "name": "Sticky Add to Cart",
           "settings": {
             "button_text": "Try Gut Harmony Now",
-            "button_link": "",
+            "button_link": "shopify://products/gut-harmony-gummies",
             "button_bg": "#00724d",
             "button_text_color": "#ffffff",
             "enable_heartbeat": true,
