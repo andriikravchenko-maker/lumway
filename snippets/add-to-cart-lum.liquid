@@ -54,6 +54,8 @@
   /* Sticky add-to-cart (mobile): mirrors the main button, slides up when the main button scrolls out of view */
   .patc-{{ uid }} .patc__sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 16px; padding-bottom:calc(10px + env(safe-area-inset-bottom)); background:#fff; box-shadow:0 -2px 16px rgba(17,59,52,.10); transform:translateY(130%); transition:transform .28s ease; box-sizing:border-box; }
   .patc-{{ uid }} .patc__sticky.is-visible{ transform:translateY(0); }
+  /* hide the sticky bar while the mobile menu drawer is open (header sets body.lhead-drawer-open) */
+  body.lhead-drawer-open .patc-{{ uid }} .patc__sticky{ transform:translateY(130%) !important; }
   @media (min-width:990px){ .patc-{{ uid }} .patc__sticky{ display:none !important; } }
 {% endstyle %}
 
