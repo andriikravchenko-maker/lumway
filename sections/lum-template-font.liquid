@@ -11,6 +11,15 @@
 {% style %}
   #MainContent,
   #MainContent *{ font-family:'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif !important; }
+
+  /* Product Benefits — this template only: drop the dark list plaque, make benefit text + heart icon black.
+     #MainContent gives ID specificity, which beats the section's class-level !important rules. */
+  #MainContent .custom-benefits-list{ background:transparent !important; border:0 !important; box-shadow:none !important; }
+  #MainContent .custom-benefit-title,
+  #MainContent .custom-benefit-description{ color:#000 !important; }
+  #MainContent .custom-benefit-icon,
+  #MainContent .custom-benefit-icon svg{ color:#000 !important; }
+  #MainContent .custom-benefit-icon svg path{ fill:#000 !important; }
 {% endstyle %}
 {% schema %}
 {
