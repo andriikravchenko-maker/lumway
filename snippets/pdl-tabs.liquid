@@ -31,9 +31,16 @@
   .ptab-{{ uid }} .ptab__panel{ display:none; flex-direction:column; gap:16px; }
   .ptab-{{ uid }} .ptab__panel.is-active{ display:flex; }
   .ptab-{{ uid }} .ptab__row{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
-  .ptab-{{ uid }} .ptab__pill{ display:inline-flex; align-items:center; justify-content:center; padding:4px 8px; border-radius:28px; background:var(--ptab-pill); font-family:var(--ptab-font) !important; font-weight:600 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--ptab-ink); }
+  .ptab-{{ uid }} .ptab__pill{ display:inline-flex; align-items:center; justify-content:center; padding:4px 8px; border-radius:28px; background:var(--ptab-pill); font-family:var(--ptab-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--ptab-ink); }
   .ptab-{{ uid }} .ptab__text{ display:flex; flex-direction:column; gap:8px; width:100%; }
   .ptab-{{ uid }} .ptab__text p{ margin:0; font-family:var(--ptab-font) !important; font-weight:400 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--ptab-muted); }
+  /* checklist layout (Benefits / Perfect For): tick-circle + title + optional subtitle */
+  .ptab-{{ uid }} .ptab__check{ display:flex; align-items:flex-start; gap:8px; width:100%; }
+  .ptab-{{ uid }} .ptab__check-icon{ flex:0 0 20px; width:20px; height:20px; color:var(--ptab-ink); }
+  .ptab-{{ uid }} .ptab__check-icon svg{ display:block; width:100%; height:100%; }
+  .ptab-{{ uid }} .ptab__check-text{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .ptab-{{ uid }} .ptab__check-title{ font-family:var(--ptab-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--ptab-ink); }
+  .ptab-{{ uid }} .ptab__check-sub{ font-family:var(--ptab-font) !important; font-weight:400 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--ptab-muted); }
 {% endstyle %}
 
 <div class="ptab ptab-{{ uid }}" {{ block.shopify_attributes }}>
@@ -64,6 +71,10 @@
     </div>
     <div class="ptab__panel-wrap">
       {%- for t in tab_list -%}
+        {%- liquid
+          assign lyk = 'tab_' | append: t | append: '_layout'
+          assign layout = block.settings[lyk] | default: 'rows'
+        -%}
         <div class="ptab__panel{% if forloop.first %} is-active{% endif %}" data-panel="{{ forloop.index0 }}" role="tabpanel">
           {%- for r in (1..6) -%}
             {%- liquid
@@ -73,18 +84,28 @@
               assign rt = block.settings[tk2]
             -%}
             {%- if rl != blank or rt != blank -%}
-              <div class="ptab__row">
-                {%- if rl != blank -%}<span class="ptab__pill">{{ rl | escape }}</span>{%- endif -%}
-                {%- if rt != blank -%}
-                  <div class="ptab__text">
-                    {%- assign lines = rt | newline_to_br | split: '<br />' -%}
-                    {%- for line in lines -%}
-                      {%- assign ln = line | strip_newlines | strip -%}
-                      {%- if ln != blank -%}<p>{{ ln | escape }}</p>{%- endif -%}
-                    {%- endfor -%}
-                  </div>
-                {%- endif -%}
-              </div>
+              {%- if layout == 'checklist' -%}
+                <div class="ptab__check">
+                  <span class="ptab__check-icon">{{ 'lum-icon-tick-circle.svg' | inline_asset_content }}</span>
+                  <span class="ptab__check-text">
+                    {%- if rl != blank -%}<span class="ptab__check-title">{{ rl | escape }}</span>{%- endif -%}
+                    {%- if rt != blank -%}<span class="ptab__check-sub">{{ rt | escape }}</span>{%- endif -%}
+                  </span>
+                </div>
+              {%- else -%}
+                <div class="ptab__row">
+                  {%- if rl != blank -%}<span class="ptab__pill">{{ rl | escape }}</span>{%- endif -%}
+                  {%- if rt != blank -%}
+                    <div class="ptab__text">
+                      {%- assign lines = rt | newline_to_br | split: '<br />' -%}
+                      {%- for line in lines -%}
+                        {%- assign ln = line | strip_newlines | strip -%}
+                        {%- if ln != blank -%}<p>{{ ln | escape }}</p>{%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
         </div>

@@ -114,6 +114,13 @@
   .section-{{ section.id }} .pdl-chip__icon svg{ display:block; width:100%; height:100%; }
   .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); white-space:nowrap; }
 
+  /* Theme re-fonts these text nodes with its own font; force Inter Tight (beats the theme rules) */
+  .section-{{ section.id }} .pdl-rating__text,
+  .section-{{ section.id }} .pdl-title,
+  .section-{{ section.id }} .pdl-subtitle,
+  .section-{{ section.id }} .pdl-subtitle p,
+  .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font) !important; }
+
   @media (min-width:990px){
     .section-{{ section.id }}.pdl{ flex-direction:row; align-items:flex-start; gap:28px; max-width:1440px; margin:0 auto; padding:40px 48px; box-sizing:border-box; }
     .section-{{ section.id }} .pdl__media{ flex:1 1 0; min-width:0; }
@@ -902,6 +909,18 @@
           "id": "button_text_color",
           "label": "Button text",
           "default": "#ffffff"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sticky",
+          "label": "Show sticky bar on mobile",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "sticky_label",
+          "label": "Sticky button label",
+          "default": "Try it Now"
         }
       ]
     },
@@ -1403,6 +1422,22 @@
           "default": "star"
         },
         {
+          "type": "select",
+          "id": "tab_1_layout",
+          "label": "Content layout",
+          "default": "checklist",
+          "options": [
+            {
+              "value": "rows",
+              "label": "Labels + text"
+            },
+            {
+              "value": "checklist",
+              "label": "Tick checklist"
+            }
+          ]
+        },
+        {
           "type": "text",
           "id": "tab_1_row_1_label",
           "label": "Row 1 label"
@@ -1505,6 +1540,22 @@
           "default": "profile"
         },
         {
+          "type": "select",
+          "id": "tab_2_layout",
+          "label": "Content layout",
+          "default": "checklist",
+          "options": [
+            {
+              "value": "rows",
+              "label": "Labels + text"
+            },
+            {
+              "value": "checklist",
+              "label": "Tick checklist"
+            }
+          ]
+        },
+        {
           "type": "text",
           "id": "tab_2_row_1_label",
           "label": "Row 1 label"
@@ -1605,6 +1656,22 @@
             }
           ],
           "default": "note"
+        },
+        {
+          "type": "select",
+          "id": "tab_3_layout",
+          "label": "Content layout",
+          "default": "rows",
+          "options": [
+            {
+              "value": "rows",
+              "label": "Labels + text"
+            },
+            {
+              "value": "checklist",
+              "label": "Tick checklist"
+            }
+          ]
         },
         {
           "type": "text",

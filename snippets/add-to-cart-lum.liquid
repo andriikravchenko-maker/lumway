@@ -12,6 +12,17 @@
   assign cur = product.selected_or_first_available_variant
   assign btn_label = block.settings.button_label | default: 'Add to Cart'
   assign form_id = 'product-form-lum-' | append: uid
+  comment
+    Sticky bar shows a FIXED price: 1 jar by subscription (regardless of the pack selected above).
+    1 jar = first variant; its first selling-plan allocation = the subscribe price (Shopify pre-computes it).
+  endcomment
+  assign one_jar = product.variants.first
+  assign sub_alloc = one_jar.selling_plan_allocations.first
+  assign sticky_price = one_jar.price
+  if sub_alloc
+    assign sticky_price = sub_alloc.price
+  endif
+  assign sticky_compare = one_jar.compare_at_price | default: one_jar.price
 -%}
 
 {%- if product != nil and product.variants.size > 0 -%}
@@ -40,6 +51,10 @@
   .patc-{{ uid }} .patc__btn.is-loading .patc__spinner{ display:block; }
   .patc-{{ uid }} .patc__spinner svg{ width:100%; height:100%; animation:patc-spin .8s linear infinite; }
   @keyframes patc-spin{ to{ transform:rotate(360deg); } }
+  /* Sticky add-to-cart (mobile): mirrors the main button, slides up when the main button scrolls out of view */
+  .patc-{{ uid }} .patc__sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 16px; padding-bottom:calc(10px + env(safe-area-inset-bottom)); background:#fff; box-shadow:0 -2px 16px rgba(17,59,52,.10); transform:translateY(130%); transition:transform .28s ease; box-sizing:border-box; }
+  .patc-{{ uid }} .patc__sticky.is-visible{ transform:translateY(0); }
+  @media (min-width:990px){ .patc-{{ uid }} .patc__sticky{ display:none !important; } }
 {% endstyle %}
 
 <div class="patc patc-{{ uid }}" {{ block.shopify_attributes }}>
@@ -58,6 +73,17 @@
       </button>
     {%- endform -%}
   </product-form>
+
+  {%- unless block.settings.show_sticky == false -%}
+    <div class="patc__sticky" data-patc-sticky aria-hidden="true">
+      <button type="button" class="patc__btn disable-global-button-styling" data-patc-sticky-btn>
+        <span class="patc__content">
+          <span class="patc__line"><span>{{ block.settings.sticky_label | default: 'Try it Now' | escape }}</span><span class="patc__price"> – {{ sticky_price | money }}</span></span>
+          {%- if sticky_compare > sticky_price -%}<span class="patc__compare">{{ sticky_compare | money }}</span>{%- endif -%}
+        </span>
+      </button>
+    </div>
+  {%- endunless -%}
 </div>
 
 <script>
@@ -70,6 +96,11 @@
     var moneyFormat = {{ shop.money_format | json }};
     var priceEl = root.querySelector('[data-role="atc-price"]');
     var compareEl = root.querySelector('[data-role="atc-compare"]');
+    var stickyPriceEl = root.querySelector('[data-role="sticky-price"]');
+    var stickyCompareEl = root.querySelector('[data-role="sticky-compare"]');
+    var mainBtn = root.querySelector('[data-atc-button]');
+    var stickyBar = root.querySelector('[data-patc-sticky]');
+    var stickyBtn = root.querySelector('[data-patc-sticky-btn]');
 
     function fmt(c) {
       if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, moneyFormat);
@@ -104,6 +135,19 @@
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', render); } else { render(); }
     [150, 600, 1500].forEach(function (d) { setTimeout(render, d); });
     document.addEventListener('shopify:section:load', function () { setTimeout(render, 60); });
+
+    // Sticky bar (mobile): tap scrolls to the pack selector / buy box; bar shows when the main button is out of view.
+    if (stickyBtn) {
+      stickyBtn.addEventListener('click', function () {
+        var target = document.querySelector('.bsl') || document.querySelector('.ptl') || mainBtn;
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+    if (stickyBar && mainBtn && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { stickyBar.classList.toggle('is-visible', !en.isIntersecting); });
+      }, { threshold: 0 }).observe(mainBtn);
+    }
   })();
 </script>
 {%- endif -%}

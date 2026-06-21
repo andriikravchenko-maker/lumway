@@ -200,12 +200,11 @@
           "settings": {
             "tab_1_title": "Benefits",
             "tab_1_icon": "star",
-            "tab_1_row_1_label": "Benefit:",
-            "tab_1_row_1_text": "Describe the key benefit here.",
+            "tab_1_row_1_label": "Reduce Sugar Cravings",
+            "tab_1_row_1_text": "Stay in control when cravings strike.",
             "tab_2_title": "Perfect For",
             "tab_2_icon": "profile",
-            "tab_2_row_1_label": "Perfect for:",
-            "tab_2_row_1_text": "Describe who this product is for.",
+            "tab_2_row_1_label": "Struggle with carbs snacking",
             "tab_3_title": "How to take",
             "tab_3_icon": "note",
             "tab_3_row_1_label": "Daily dosage:",
@@ -215,7 +214,19 @@
             "tab_3_row_3_label": "Monthly supply:",
             "tab_3_row_3_text": "1 jar per person",
             "tab_3_row_4_label": "Storage:",
-            "tab_3_row_4_text": "in a cool, dry place away from direct sunlight and excessive heat."
+            "tab_3_row_4_text": "in a cool, dry place away from direct sunlight and excessive heat.",
+            "tab_1_layout": "checklist",
+            "tab_1_row_2_label": "Feel Less Bloated",
+            "tab_1_row_2_text": "Reduce feelings of heaviness after eating.",
+            "tab_1_row_3_label": "Gut-Health Balance",
+            "tab_1_row_3_text": "Promote comfortable digestion and regularity.",
+            "tab_1_row_4_label": "Weight-loss Support",
+            "tab_1_row_4_text": "Stabilizing fat-loss combining with your wellness routine.",
+            "tab_2_layout": "checklist",
+            "tab_2_row_2_label": "Experience stronger cravings during hormonal changes",
+            "tab_2_row_3_label": "Feel bloated, heavy, or puffy throughout the day",
+            "tab_2_row_4_label": "Want natural support for digestion and metabolic system",
+            "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits"
           }
         }
       },
@@ -1724,7 +1735,8 @@
         "delivery_text_desktop_font_size": 14,
         "delivery_text_mobile_font_size": 12,
         "delivery_text_letter_spacing": 0
-      }
+      },
+      "disabled": true
     },
     "product_benefits_NWiWMe": {
       "type": "product-benefits",
