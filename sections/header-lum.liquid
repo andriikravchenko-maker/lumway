@@ -2,7 +2,7 @@
   Header (Lumway) — new global header, mobile-first. Figma mobile bar 678:4124 (+ drawer).
   Built as a NEW section (theme's header.liquid untouched); swapped into header-group.json.
   Reuses: global <cart-drawer> (in layout) via its open(); localization snippets; the merchant's
-  Navigation menu (section.settings.menu); cart.item_count for the dot. Desktop nav comes in a later pass.
+  Navigation menu (section.settings.menu); cart.item_count for the dot. Desktop layout (>=990px): Figma 433:2953.
 {%- endcomment -%}
 {%- liquid
   assign uid = section.id
@@ -10,7 +10,7 @@
   assign logo = section.settings.logo | default: settings.logo
 -%}
 {% style %}
-  .lhead-{{ uid }}{ --lhead-ink:#1c1c1a; --lhead-line:#f5f3ef; --lhead-pill:#e9e3d6; --lhead-muted:#8a8a85; --lhead-font:'Inter Tight', system-ui, sans-serif; background:#fff; position:relative; z-index:30; }
+  .lhead-{{ uid }}{ --lhead-ink:#1c1c1a; --lhead-line:#f5f3ef; --lhead-pill:#e1daca; --lhead-muted:#8a8a85; --lhead-green:#113b34; --lhead-green-10:rgba(17,59,52,0.1); --lhead-yellow:#fad356; --lhead-font:'Inter Tight', system-ui, sans-serif; background:#fff; position:relative; z-index:30; }
   .lhead-{{ uid }} .lhead__bar{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--lhead-line); box-sizing:border-box; }
   .lhead-{{ uid }} .lhead__menu{ justify-self:start; display:inline-flex; align-items:center; padding:6px 0; margin:0; border:0; background:transparent; cursor:pointer; font-family:var(--lhead-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--lhead-ink); text-transform:uppercase; -webkit-tap-highlight-color:transparent; }
   .lhead-{{ uid }} .lhead__logo{ justify-self:center; display:inline-flex; align-items:center; }
@@ -27,21 +27,144 @@
   .lhead-{{ uid }} .lhead__drawer.is-open{ transform:translateX(0); visibility:visible; }
   .lhead-{{ uid }} .lhead__drawer-bar{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; padding:16px 0; border-bottom:1px solid var(--lhead-line); margin:0 0 24px; }
   .lhead-{{ uid }} .lhead__nav{ display:flex; flex-direction:column; gap:24px; }
-  .lhead-{{ uid }} .lhead__item{ display:flex; align-items:center; gap:12px; padding:0; margin:0; border:0; background:transparent; cursor:pointer; text-align:left; -webkit-tap-highlight-color:transparent; text-decoration:none; }
+  .lhead-{{ uid }} .lhead__item{ display:flex; align-items:center; gap:8px; padding:0; margin:0; border:0; background:transparent; cursor:pointer; text-align:left; -webkit-tap-highlight-color:transparent; text-decoration:none; }
   .lhead-{{ uid }} .lhead__item-text{ font-family:var(--lhead-font) !important; font-weight:700 !important; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--lhead-ink); }
-  .lhead-{{ uid }} .lhead__item-arrow{ display:inline-flex; align-items:center; justify-content:center; width:50px; height:36px; border-radius:28px; background:var(--lhead-pill); flex:0 0 auto; }
-  .lhead-{{ uid }} .lhead__item-arrow svg{ display:block; width:20px; height:16px; color:var(--lhead-ink); }
+  .lhead-{{ uid }} .lhead__item-arrow{ display:inline-flex; align-items:center; justify-content:center; padding:4px 12px; border-radius:28px; background:var(--lhead-pill); flex:0 0 auto; }
+  .lhead-{{ uid }} .lhead__item-arrow svg{ display:block; width:18px; height:14px; color:var(--lhead-ink); }
   .lhead-{{ uid }} .lhead__group{ display:flex; flex-direction:column; gap:16px; }
-  .lhead-{{ uid }} .lhead__sub{ display:flex; flex-direction:column; gap:16px; }
-  .lhead-{{ uid }} .lhead__sublink{ font-family:var(--lhead-font) !important; font-weight:400 !important; font-size:18px; line-height:1.2; letter-spacing:-0.36px; color:var(--lhead-muted); text-decoration:none; -webkit-tap-highlight-color:transparent; }
-  .lhead-{{ uid }} .lhead__locale{ margin-top:24px; }
-  .lhead-{{ uid }} .lhead__account{ margin-top:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; height:64px; border-radius:40px; background:var(--lhead-ink); color:#fff; text-decoration:none; font-family:var(--lhead-font) !important; font-weight:600 !important; font-size:18px; letter-spacing:-0.36px; -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__sub{ display:flex; flex-direction:column; gap:12px; }
+  .lhead-{{ uid }} .lhead__sublink{ font-family:var(--lhead-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:rgba(28,28,26,0.6); text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__locale{ margin-top:24px; align-self:flex-start; }
+  .lhead-{{ uid }} .lhead__locale .localization-form{ margin:0 !important; padding:0 !important; width:auto; }
+  .lhead-{{ uid }} .lhead__locale .localization-form > div{ margin:0; padding:0; }
+  .lhead-{{ uid }} .lhead__locale .disclosure{ display:inline-block; position:relative; }
+  .lhead-{{ uid }} .lhead__locale .localization-form__select{ display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:4px 12px; min-width:0; min-height:0; margin:0 !important; border:0; border-radius:28px; background:var(--lhead-pill); color:var(--lhead-ink); font-family:var(--lhead-font) !important; font-weight:400 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; text-transform:uppercase; cursor:pointer; }
+  .lhead-{{ uid }} .lhead__locale .localization-form__select:before,
+  .lhead-{{ uid }} .lhead__locale .localization-form__select:after{ display:none !important; }
+  .lhead-{{ uid }} .lhead__locale .localization-form__select .icon-caret{ position:static; right:auto; top:auto; }
+  .lhead-{{ uid }} .lhead__locale .localization-form__select .icon-caret,
+  .lhead-{{ uid }} .lhead__locale .localization-form__select svg{ width:14px; height:14px; margin:0; }
+  .lhead-{{ uid }} .lhead__locale .localization-current{ display:inline-flex; align-items:center; gap:6px; margin:0; }
+  .lhead-{{ uid }} .lhead__locale .localization-current img{ display:block; width:18px; height:auto; border-radius:2px; }
+  /* Country dropdown search (shows when the store has many regions): theme adds a double frame + an in-field icon that renders as a dark circle in this drawer — strip both */
+  .lhead-{{ uid }} .lhead__locale .field:before,
+  .lhead-{{ uid }} .lhead__locale .field:after{ display:none !important; }
+  .lhead-{{ uid }} .lhead__locale .country-filter__search-icon,
+  .lhead-{{ uid }} .lhead__locale .country-filter__reset-button,
+  .lhead-{{ uid }} .lhead__locale .field__button{ display:none !important; }
+  .lhead-{{ uid }} .lhead__locale .country-filter__input.field__input{ box-shadow:none !important; padding-right:1.2rem !important; }
+  .lhead-{{ uid }} .lhead__locale .country-selector__close-button{ background:transparent !important; box-shadow:none !important; border-radius:0 !important; }
+  .lhead-{{ uid }} .lhead__locale .country-selector__close-button .icon{ color:var(--lhead-ink) !important; }
+  .lhead-{{ uid }} .lhead__account{ margin-top:auto; display:flex; align-items:center; justify-content:center; gap:8px; width:100%; height:48px; padding:12px 24px; box-sizing:border-box; border-radius:30px; background:var(--lhead-ink); color:#fff; text-decoration:none; font-family:var(--lhead-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; -webkit-tap-highlight-color:transparent; }
   .lhead-{{ uid }} .lhead__account-icon{ display:inline-flex; width:24px; height:24px; }
   .lhead-{{ uid }} .lhead__account-icon svg{ display:block; width:100%; height:100%; }
+
+  /* ===== Desktop header (Figma 433:2953) ===== */
+  .lhead-{{ uid }} .lhead__desk{ display:none; }
+  @media (min-width:990px){
+    .lhead-{{ uid }} .lhead__bar,
+    .lhead-{{ uid }} .lhead__drawer{ display:none !important; }
+    .lhead-{{ uid }} .lhead__desk{ display:flex; align-items:center; justify-content:space-between; gap:24px; padding:12px 48px; box-sizing:border-box; }
+    .lhead-{{ uid }} .lhead__desk-nav{ flex:1 1 0; min-width:0; display:flex; align-items:center; gap:20px; }
+    .lhead-{{ uid }} .lhead__desk-link,
+    .lhead-{{ uid }} .lhead__desk-pill > span:first-child{ font-family:var(--lhead-font) !important; font-weight:500 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--lhead-green); text-transform:uppercase; text-decoration:none; white-space:nowrap; }
+    .lhead-{{ uid }} .lhead__desk-link{ -webkit-tap-highlight-color:transparent; }
+    .lhead-{{ uid }} .lhead__desk-shop{ position:relative; display:inline-flex; }
+    .lhead-{{ uid }} .lhead__desk-pill{ display:inline-flex; align-items:center; gap:4px; padding:4px 12px; border-radius:28px; background:var(--lhead-green-10); border:0; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+    .lhead-{{ uid }} .lhead__desk-plus{ display:inline-flex; width:20px; height:20px; color:var(--lhead-green); }
+    .lhead-{{ uid }} .lhead__desk-plus svg{ display:block; width:100%; height:100%; }
+    .lhead-{{ uid }} .lhead__desk-mega{ position:absolute; top:calc(100% + 12px); left:0; min-width:240px; display:flex; flex-direction:column; gap:2px; padding:10px; background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:16px; box-shadow:0 14px 34px rgba(17,59,52,.12); opacity:0; visibility:hidden; transform:translateY(-6px); transition:opacity .18s ease, transform .18s ease, visibility .18s; z-index:6; }
+    .lhead-{{ uid }} .lhead__desk-shop:hover .lhead__desk-mega,
+    .lhead-{{ uid }} .lhead__desk-shop.is-open .lhead__desk-mega{ opacity:1; visibility:visible; transform:translateY(0); }
+    .lhead-{{ uid }} .lhead__desk-mega a{ font-family:var(--lhead-font) !important; font-weight:500 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--lhead-green); text-decoration:none; padding:8px 10px; border-radius:10px; white-space:nowrap; }
+    .lhead-{{ uid }} .lhead__desk-mega a:hover{ background:var(--lhead-green-10); }
+    .lhead-{{ uid }} .lhead__desk-logo{ flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; }
+    .lhead-{{ uid }} .lhead__desk-logo img{ display:block; width:{{ section.settings.logo_width | default: 97 }}px; height:auto; }
+    .lhead-{{ uid }} .lhead__desk-logo-text{ font-family:var(--lhead-font) !important; font-weight:700 !important; font-size:22px; letter-spacing:-0.5px; color:var(--lhead-green); }
+    .lhead-{{ uid }} .lhead__desk-actions{ flex:1 1 0; min-width:0; display:flex; align-items:center; justify-content:flex-end; gap:8px; }
+    .lhead-{{ uid }} .lhead__desk-account{ display:inline-flex; align-items:center; justify-content:center; height:48px; padding:8px 24px; border-radius:28px; background:var(--lhead-yellow); color:var(--lhead-green); text-decoration:none; -webkit-tap-highlight-color:transparent; }
+    .lhead-{{ uid }} .lhead__desk-account svg{ display:block; width:24px; height:24px; }
+    .lhead-{{ uid }} .lhead__desk-cart{ position:relative; display:inline-flex; align-items:center; gap:8px; height:48px; padding:8px 24px; border-radius:28px; background:var(--lhead-green); color:#fff; text-decoration:none; -webkit-tap-highlight-color:transparent; }
+    .lhead-{{ uid }} .lhead__desk-cart-icon{ display:inline-flex; width:24px; height:24px; }
+    .lhead-{{ uid }} .lhead__desk-cart-icon svg{ display:block; width:100%; height:100%; color:#fff; }
+    .lhead-{{ uid }} .lhead__desk-cart-text{ font-family:var(--lhead-font) !important; font-weight:500 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:#fff; text-transform:uppercase; }
+    .lhead-{{ uid }} .lhead__desk-cart-dot{ position:absolute; left:40px; top:9px; width:8px; height:8px; border-radius:50%; background:var(--lhead-yellow); display:none; }
+    .lhead-{{ uid }} .lhead__desk-cart-dot.is-on{ display:block; }
+    /* desktop localization "US/ENG": transparent, ISO only, opens downward */
+    .lhead-{{ uid }} .lhead__desk-locale{ margin-top:0 !important; align-self:center; }
+    .lhead-{{ uid }} .lhead__desk-locale .localization-form__select{ background:transparent !important; color:var(--lhead-green) !important; padding:8px 12px !important; gap:2px; }
+    .lhead-{{ uid }} .lhead__desk-locale .localization-current img{ display:none !important; }
+    .lhead-{{ uid }} .lhead__desk-locale .localization-form__select svg{ display:block !important; width:12px !important; height:auto !important; margin-top:-2px; }
+    .lhead-{{ uid }} .lhead__desk-locale .disclosure__list-wrapper{ bottom:auto !important; top:100% !important; transform:translateY(1rem) !important; }
+  }
   body.lhead-drawer-open{ overflow:hidden; }
 {% endstyle %}
 
 <header class="lhead lhead-{{ uid }}" data-lhead>
+  <div class="lhead__desk">
+    <nav class="lhead__desk-nav" aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}">
+      {%- for link in menu.links -%}
+        {%- if link.links.size > 0 -%}
+          <div class="lhead__desk-shop" data-lhead-shop>
+            <button type="button" class="lhead__desk-pill" data-lhead-shop-btn aria-expanded="false">
+              <span>{{ link.title | escape }}</span>
+              <span class="lhead__desk-plus">{{ 'lum-icon-plus.svg' | inline_asset_content }}</span>
+            </button>
+            <div class="lhead__desk-mega" data-lhead-shop-panel>
+              {%- for child in link.links -%}
+                <a href="{{ child.url }}">{{ child.title | escape }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <a href="{{ link.url }}" class="lhead__desk-link">{{ link.title | escape }}</a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="lhead__desk-logo" aria-label="{{ shop.name | escape }}">
+      {%- if logo != blank -%}
+        {{ logo | image_url: width: 320 | image_tag: widths: '90,180,320', sizes: '110px', alt: shop.name, loading: 'eager' }}
+      {%- else -%}
+        <span class="lhead__desk-logo-text">{{ shop.name | escape }}</span>
+      {%- endif -%}
+    </a>
+
+    <div class="lhead__desk-actions">
+      {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+        <localization-form class="lhead__locale lhead__desk-locale">
+          {%- form 'localization', id: 'LumCountryFormDesk', class: 'localization-form' -%}
+            <div>
+              <h2 class="visually-hidden">{{ 'localization.country_label' | t }}</h2>
+              {%- render 'country-localization', localPosition: 'LumCountryDesk' -%}
+            </div>
+          {%- endform -%}
+        </localization-form>
+      {%- elsif section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+        <localization-form class="lhead__locale lhead__desk-locale">
+          {%- form 'localization', id: 'LumLanguageFormDesk', class: 'localization-form' -%}
+            <div>
+              <h2 class="visually-hidden">{{ 'localization.language_label' | t }}</h2>
+              {%- render 'language-localization', localPosition: 'LumLanguageDesk' -%}
+            </div>
+          {%- endform -%}
+        </localization-form>
+      {%- endif -%}
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="lhead__desk-account" aria-label="{% if customer %}{{ 'customer.account_fallback' | t | default: 'Account' }}{% else %}{{ 'customer.log_in' | t | default: 'Log in' }}{% endif %}">
+          {{ 'lum-icon-account.svg' | inline_asset_content }}
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" class="lhead__desk-cart" data-lhead-cart aria-label="{{ 'templates.cart.cart' | t }}">
+        <span class="lhead__desk-cart-icon">{{ 'lum-icon-cart-header.svg' | inline_asset_content }}</span>
+        <span class="lhead__desk-cart-dot{% if cart.item_count > 0 %} is-on{% endif %}" aria-hidden="true"></span>
+        <span class="lhead__desk-cart-text">{{ 'templates.cart.cart' | t | default: 'Cart' }}</span>
+      </a>
+    </div>
+  </div>
+
   <div class="lhead__bar">
     <button type="button" class="lhead__menu" data-lhead-toggle aria-expanded="false" aria-controls="lhead-drawer-{{ uid }}">{{ 'sections.header.menu' | t | default: 'Menu' | upcase }}</button>
     <a href="{{ routes.root_url }}" class="lhead__logo" aria-label="{{ shop.name | escape }}">
@@ -76,12 +199,12 @@
     <nav class="lhead__nav" aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}">
       {%- for link in menu.links -%}
         {%- if link.links.size > 0 -%}
-          <div class="lhead__group" data-lhead-acc>
-            <button type="button" class="lhead__item" data-lhead-acc-btn aria-expanded="true">
+          <div class="lhead__group">
+            <a href="{{ link.url }}" class="lhead__item">
               <span class="lhead__item-text">{{ link.title | escape }}</span>
               <span class="lhead__item-arrow">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
-            </button>
-            <div class="lhead__sub" data-lhead-acc-panel>
+            </a>
+            <div class="lhead__sub">
               {%- for child in link.links -%}
                 <a href="{{ child.url }}" class="lhead__sublink">{{ child.title | escape }}</a>
               {%- endfor -%}
@@ -102,6 +225,17 @@
           <div>
             <h2 class="visually-hidden">{{ 'localization.language_label' | t }}</h2>
             {%- render 'language-localization', localPosition: 'LumLanguage' -%}
+          </div>
+        {%- endform -%}
+      </localization-form>
+    {%- endif -%}
+
+    {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
+      <localization-form class="lhead__locale">
+        {%- form 'localization', id: 'LumCountryForm', class: 'localization-form' -%}
+          <div>
+            <h2 class="visually-hidden">{{ 'localization.country_label' | t }}</h2>
+            {%- render 'country-localization', localPosition: 'LumCountry' -%}
           </div>
         {%- endform -%}
       </localization-form>
@@ -135,23 +269,32 @@
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setDrawer(false); });
 
-    // accordion (open by default; tap toggles)
-    root.querySelectorAll('[data-lhead-acc]').forEach(function (acc) {
-      var btn = acc.querySelector('[data-lhead-acc-btn]');
-      var panel = acc.querySelector('[data-lhead-acc-panel]');
-      if (!btn || !panel) return;
-      btn.addEventListener('click', function () {
-        var open = btn.getAttribute('aria-expanded') !== 'false';
-        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
-        panel.style.display = open ? 'none' : 'flex';
-      });
-    });
-
     // cart icon: open the global cart drawer if present, else go to /cart
     root.querySelectorAll('[data-lhead-cart]').forEach(function (c) {
       c.addEventListener('click', function (e) {
         var cd = document.querySelector('cart-drawer');
         if (cd && typeof cd.open === 'function') { e.preventDefault(); setDrawer(false); cd.open(); }
+      });
+    });
+
+    // desktop Shop dropdown: click toggles (CSS handles hover); click outside closes
+    root.querySelectorAll('[data-lhead-shop]').forEach(function (shop) {
+      var btn = shop.querySelector('[data-lhead-shop-btn]');
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = !shop.classList.contains('is-open');
+        shop.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      root.querySelectorAll('[data-lhead-shop].is-open').forEach(function (shop) {
+        if (!shop.contains(e.target)) {
+          shop.classList.remove('is-open');
+          var b = shop.querySelector('[data-lhead-shop-btn]');
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
       });
     });
   })();
@@ -167,7 +310,7 @@
     { "type": "range", "id": "logo_width", "label": "Logo width", "min": 70, "max": 160, "step": 1, "default": 97, "unit": "px" },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
     { "type": "checkbox", "id": "enable_language_selector", "label": "Language selector", "default": true },
-    { "type": "checkbox", "id": "enable_country_selector", "label": "Country selector", "default": false }
+    { "type": "checkbox", "id": "enable_country_selector", "label": "Country selector (region/currency)", "default": true }
   ]
 }
 {% endschema %}
