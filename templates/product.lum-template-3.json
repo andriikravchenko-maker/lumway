@@ -9,6 +9,10 @@
  */
 {
   "sections": {
+    "lum_template_font": {
+      "type": "lum-template-font",
+      "settings": {}
+    },
     "product_details_lum_DcMDgT": {
       "type": "product-details-lum",
       "blocks": {
@@ -115,6 +119,7 @@
             "interval_threshold": 2,
             "interval_label_format": "{n}-Month-Delivery",
             "one_time_title": "One-time Purchase",
+            "save_badge_show": false,
             "save_badge_text": "Save $12",
             "save_badge_auto": false,
             "save_badge_bg": "#fad356",
@@ -149,7 +154,9 @@
             "cart_icon": "none",
             "button_bg": "#00724d",
             "button_hover_bg": "#005e3f",
-            "button_text_color": "#ffffff"
+            "button_text_color": "#ffffff",
+            "show_sticky": true,
+            "sticky_label": "Try it Now"
           }
         },
         "info_cards_PrQdTj": {
@@ -192,7 +199,17 @@
             "button_bg": "#ffffff",
             "button_text": "#113b34",
             "product_1": "feel-balanced-after-45",
-            "custom_title_1": ""
+            "custom_title_1": "",
+            "product_2": "",
+            "custom_title_2": "",
+            "product_3": "",
+            "custom_title_3": "",
+            "product_4": "",
+            "custom_title_4": "",
+            "product_5": "",
+            "custom_title_5": "",
+            "product_6": "",
+            "custom_title_6": ""
           }
         },
         "product_tabs_mig": {
@@ -200,13 +217,37 @@
           "settings": {
             "tab_1_title": "Benefits",
             "tab_1_icon": "star",
+            "tab_1_layout": "checklist",
             "tab_1_row_1_label": "Reduce Sugar Cravings",
             "tab_1_row_1_text": "Stay in control when cravings strike.",
+            "tab_1_row_2_label": "Feel Less Bloated",
+            "tab_1_row_2_text": "Reduce feelings of heaviness after eating.",
+            "tab_1_row_3_label": "Gut-Health Balance",
+            "tab_1_row_3_text": "Promote comfortable digestion and regularity.",
+            "tab_1_row_4_label": "Weight-loss Support",
+            "tab_1_row_4_text": "Stabilizing fat-loss combining with your wellness routine.",
+            "tab_1_row_5_label": "",
+            "tab_1_row_5_text": "",
+            "tab_1_row_6_label": "",
+            "tab_1_row_6_text": "",
             "tab_2_title": "Perfect For",
             "tab_2_icon": "profile",
+            "tab_2_layout": "checklist",
             "tab_2_row_1_label": "Struggle with carbs snacking",
+            "tab_2_row_1_text": "",
+            "tab_2_row_2_label": "Experience stronger cravings during hormonal changes",
+            "tab_2_row_2_text": "",
+            "tab_2_row_3_label": "Feel bloated, heavy, or puffy throughout the day",
+            "tab_2_row_3_text": "",
+            "tab_2_row_4_label": "Want natural support for digestion and metabolic system",
+            "tab_2_row_4_text": "",
+            "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits",
+            "tab_2_row_5_text": "",
+            "tab_2_row_6_label": "",
+            "tab_2_row_6_text": "",
             "tab_3_title": "How to take",
             "tab_3_icon": "note",
+            "tab_3_layout": "rows",
             "tab_3_row_1_label": "Daily dosage:",
             "tab_3_row_1_text": "2 gummies, max 3 gummies",
             "tab_3_row_2_label": "When:",
@@ -215,18 +256,10 @@
             "tab_3_row_3_text": "1 jar per person",
             "tab_3_row_4_label": "Storage:",
             "tab_3_row_4_text": "in a cool, dry place away from direct sunlight and excessive heat.",
-            "tab_1_layout": "checklist",
-            "tab_1_row_2_label": "Feel Less Bloated",
-            "tab_1_row_2_text": "Reduce feelings of heaviness after eating.",
-            "tab_1_row_3_label": "Gut-Health Balance",
-            "tab_1_row_3_text": "Promote comfortable digestion and regularity.",
-            "tab_1_row_4_label": "Weight-loss Support",
-            "tab_1_row_4_text": "Stabilizing fat-loss combining with your wellness routine.",
-            "tab_2_layout": "checklist",
-            "tab_2_row_2_label": "Experience stronger cravings during hormonal changes",
-            "tab_2_row_3_label": "Feel bloated, heavy, or puffy throughout the day",
-            "tab_2_row_4_label": "Want natural support for digestion and metabolic system",
-            "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits"
+            "tab_3_row_5_label": "",
+            "tab_3_row_5_text": "",
+            "tab_3_row_6_label": "",
+            "tab_3_row_6_text": ""
           }
         }
       },
@@ -247,6 +280,141 @@
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "statistics_column_DdVxjB": {
+      "type": "statistics-column",
+      "blocks": {
+        "statistic_cym8yE": {
+          "type": "statistic",
+          "settings": {
+            "number": "92%",
+            "title": "Feel Lighter After Meals",
+            "description": "Customers report less bloating and digestive discomfort as part of their daily routine.*"
+          }
+        },
+        "statistic_4xEk88": {
+          "type": "statistic",
+          "settings": {
+            "number": "94%",
+            "title": "Daily Gut Comfort",
+            "description": "Users say Debloat fits easily into their everyday routine without stress or timing.*"
+          }
+        },
+        "statistic_nVx69D": {
+          "type": "statistic",
+          "settings": {
+            "number": "88%",
+            "title": "Gentle & Easy to Tolerate",
+            "description": "Customers describe the formula as gentle enough for daily use.*"
+          }
+        }
+      },
+      "block_order": [
+        "statistic_cym8yE",
+        "statistic_4xEk88",
+        "statistic_nVx69D"
+      ],
+      "custom_css": [
+        ".studies-disclaimer-content {padding-left: 0;}"
+      ],
+      "name": "Statistics Column",
+      "settings": {
+        "use_theme_colors": false,
+        "override_theme_section_background": false,
+        "heading": "Our Gut Comfort",
+        "heading_accent": "Impact",
+        "subtitle": "",
+        "header_margin_bottom": 48,
+        "heading_vertical_alignment": "center",
+        "heading_color": "#ffffff",
+        "heading_size_mobile": 32,
+        "heading_size_desktop": 40,
+        "heading_line_height": 1.2,
+        "heading_tag": "h2",
+        "heading_text_alignment": "center",
+        "subtitle_color": "#ffffff",
+        "subtitle_size_mobile": 14,
+        "subtitle_size_desktop": 16,
+        "override_global_accent": true,
+        "accent_color": "#23a02a",
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(253, 218, 54, 1), rgba(253, 218, 54, 1) 97%)",
+        "accent_text_margin_left": 0,
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "number_color": "#ffffff",
+        "number_gradient": "linear-gradient(25deg, rgba(35, 160, 42, 1), rgba(35, 160, 42, 1) 100%)",
+        "number_size_mobile": 36,
+        "number_size_desktop": 64,
+        "stat_text_vertical_alignment": "flex-start",
+        "move_text_below_number": false,
+        "title_color": "#ffffff",
+        "title_size_mobile": 18,
+        "title_size_desktop": 24,
+        "description_color": "#ffffff",
+        "description_size_mobile": 14,
+        "description_size_desktop": 18,
+        "enable_two_column_layout": false,
+        "center_text_vertically": false,
+        "enable_counter_animation": true,
+        "contain_section": false,
+        "section_max_width": 1200,
+        "container_padding_top": 65,
+        "container_padding_right": 40,
+        "container_padding_bottom": 65,
+        "container_padding_left": 40,
+        "container_padding_top_mobile": 20,
+        "container_padding_right_mobile": 20,
+        "container_padding_bottom_mobile": 20,
+        "container_padding_left_mobile": 20,
+        "container_border_radius": 12,
+        "container_background": "linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "container_bg_size": "cover",
+        "container_bg_position": "center center",
+        "enable_container_bg_overlay": false,
+        "container_bg_overlay_color": "#000000",
+        "container_bg_overlay_opacity": 30,
+        "enable_border": false,
+        "border_width": 1,
+        "border_style": "solid",
+        "border_color": "#c2c2c2",
+        "enable_shadow": false,
+        "section_padding_top_desktop": 65,
+        "section_padding_bottom_desktop": 65,
+        "section_padding_horizontal_desktop": 15,
+        "section_padding_top_mobile": 0,
+        "section_padding_bottom_mobile": 0,
+        "section_padding_horizontal_mobile": 15,
+        "image_border_radius": 8,
+        "image_position_desktop": "right",
+        "image_position_mobile": "above",
+        "image_column_width": 50,
+        "show_disclaimer": true,
+        "disclaimer_text": "*Based on internal customer feedback and post-purchase surveys. Individual results may vary. These statements have not been evaluated by the Food and Drug Administration.",
+        "disclaimer_color": "#ffffff",
+        "disclaimer_icon_color": "#ffffff",
+        "disclaimer_background_color": "#202329",
+        "disclaimer_size_mobile": 14,
+        "disclaimer_size_desktop": 16,
+        "disclaimer_line_height": 1.4,
+        "disclaimer_padding_top": 16,
+        "disclaimer_padding_bottom": 16,
+        "disclaimer_padding_left": 16,
+        "disclaimer_padding_right": 16,
+        "disclaimer_border_radius": 8,
+        "disclaimer_border_style": "none",
+        "disclaimer_border_width": 1,
+        "disclaimer_border_color": "#ffffff",
+        "enable_top_border": false,
+        "top_border_width": 1,
+        "top_border_color": "#e0e0e0",
+        "enable_bottom_border": false,
+        "bottom_border_width": 1,
+        "bottom_border_color": "#e0e0e0",
+        "section_background": "linear-gradient(135deg, rgba(32, 35, 41, 1), rgba(32, 35, 41, 1) 99%)",
+        "divider_color": "#c2c2c2"
       }
     },
     "main": {
@@ -1660,6 +1828,7 @@
         "feature_item_CJxhgK",
         "feature_item_VMc6KP"
       ],
+      "disabled": true,
       "settings": {
         "theme_color_mode": "theme_default",
         "vertical_padding": 15,
@@ -1693,6 +1862,7 @@
     },
     "sticky_add_to_cart_NJqgUd": {
       "type": "sticky-add-to-cart",
+      "disabled": true,
       "settings": {
         "trigger_behavior": "atc_button",
         "scroll_percentage_trigger": 25,
@@ -1735,8 +1905,819 @@
         "delivery_text_desktop_font_size": 14,
         "delivery_text_mobile_font_size": 12,
         "delivery_text_letter_spacing": 0
+      }
+    },
+    "ingredient_cards_QN6qFk": {
+      "type": "ingredient-cards",
+      "blocks": {
+        "ingredient_3yTYWc": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/Frame_182.png",
+            "title": "Apple Cider Vinegar",
+            "badge_text": "500mg per serving",
+            "description": "<p>Stimulates digestive enzymes and supports the body's natural acid balance — helping food move more comfortably after meals.</p>",
+            "benefit_text": "Reduces post-meal heaviness*"
+          }
+        },
+        "ingredient_gTpCwV": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/Frame_182_1.png",
+            "title": "Probiotic Blend",
+            "badge_text": "1 Billion CFU",
+            "description": "<p>Beneficial bacteria that support a balanced gut microbiome. Daily intake helps maintain the environment for comfortable digestion.</p>",
+            "benefit_text": "Supports gut flora balance*"
+          }
+        },
+        "ingredient_x6WJib": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/Frame_182_2.png",
+            "title": "Ginger & Turmeric",
+            "badge_text": "300mg combined",
+            "description": "<p>Ginger helps food move smoothly through the gut. Turmeric supports the gut's natural inflammatory response for lasting comfort.</p>",
+            "benefit_text": "Eases digestive discomfort*"
+          }
+        }
       },
-      "disabled": true
+      "block_order": [
+        "ingredient_3yTYWc",
+        "ingredient_gTpCwV",
+        "ingredient_x6WJib"
+      ],
+      "custom_css": [
+        ".ingredient-cards__heading-accent {color: #23a02a !important;}"
+      ],
+      "name": "Ingredient Cards",
+      "settings": {
+        "heading": "Every ingredient",
+        "heading_accent": "earns its place",
+        "subtitle": "",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "heading_color": "#000000",
+        "accent_color": "#23a02a",
+        "card_background": "#ffffff",
+        "card_border_color": "#c2c2c2",
+        "card_border_radius": 8,
+        "title_color": "#000000",
+        "description_color": "#000000",
+        "badge_background": "#fff8d6",
+        "badge_text_color": "#995e05",
+        "benefit_color": "#23a02a",
+        "section_background": "#f9f9f9",
+        "container_width": 1200,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 56
+      }
+    },
+    "roadmap_TPGkeD": {
+      "type": "roadmap",
+      "blocks": {
+        "roadmap_step_jYHEwX": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "",
+            "title": "Week 1 | Feel the Shift",
+            "description": "<ul><li>Start feeling lighter after meals*</li><li>Less heaviness and everyday discomfort*</li><li>A simple routine that’s easy to stick to</li></ul>",
+            "custom_icon": "<svg width=\"48\" height=\"52\" viewbox=\"0 0 48 52\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M23.0401 41.9187C23.7103 41.2 23.9546 40.3606 23.5021 39.6168C22.2493 37.5655 19.1865 39.9332 16.9692 39.7515C14.7722 39.5714 12.8164 38.552 10.6681 37.8552C10.5443 36.3191 10.7651 35.0178 10.4629 33.4097L8.34428 37.7863L8.68407 38.3767C11.4181 39.4884 14.0551 40.4515 16.9629 41.1138L21.6825 39.9191C21.955 39.8502 22.4811 39.9817 22.5938 40.1915C22.7066 40.4014 22.5688 40.9854 22.3605 41.1044L21.2394 41.7465C21.1078 41.8216 20.8917 42.08 20.8808 42.224C20.8667 42.3979 21.1798 42.6829 21.3505 42.7283L23.715 43.3593C24.7109 43.6255 25.284 44.5791 25.1478 45.5985C24.7798 48.3796 21.4601 49.0466 18.6588 48.7366C13.6511 48.1838 8.8203 46.8998 4.24009 44.861C0.979909 43.4094 -0.554661 40.8273 0.181306 37.2602C1.08795 32.8663 2.71178 28.7308 5.03869 24.9116C7.30922 21.1848 11.1269 18.8892 15.5301 18.9049L27.7675 18.9471C32.4167 18.9628 36.1732 22.187 37.6514 26.454C38.4469 28.7512 38.7929 30.9387 39.0451 33.3909C39.6417 39.1909 39.7387 44.9158 39.7168 50.7409C39.7137 51.5583 39.1688 52.0046 38.425 51.9999L33.8714 51.9686C33.4627 51.9654 33.1448 51.2843 33.1401 50.921L33.0759 45.5766L32.9412 33.369C32.9381 33.0949 32.5858 32.7395 32.3712 32.7144C32.0941 32.6815 31.6462 33.0104 31.6462 33.3799L31.6431 51.1856C31.6431 51.6382 31.1483 51.9842 30.7271 51.9842L11.3523 51.9811C11.0705 51.9811 10.5835 51.4456 10.5866 51.1841L10.6117 48.4688C14.6266 49.4271 19.6265 50.7957 23.1951 49.4945C24.7689 48.9213 25.9026 47.6874 26.2377 46.0887C26.5931 44.3975 25.7444 42.8786 24.1425 42.3086L23.0433 41.9171L23.0401 41.9187ZM27.3902 38.0917C27.3354 37.7331 26.6824 37.1271 26.2846 37.0566C25.7475 36.9611 25.2057 37.7331 25.1917 38.1762C25.1729 38.7634 25.6207 39.2661 26.2439 39.5104C26.5289 39.6215 27.0143 39.4493 27.185 39.2489C27.387 39.0108 27.4685 38.5975 27.3902 38.0917Z\" fill=\"white\"></path>\n<path d=\"M21.9221 16.7675C26.5523 16.7675 30.3058 13.014 30.3058 8.38376C30.3058 3.75354 26.5523 0 21.9221 0C17.2919 0 13.5383 3.75354 13.5383 8.38376C13.5383 13.014 17.2919 16.7675 21.9221 16.7675Z\" fill=\"white\"></path>\n<path d=\"M43.8664 18.6106C41.7556 19.4061 41.5411 19.5392 40.816 21.6938C40.7362 21.9318 40.4214 22.2575 40.2163 22.2575C39.3112 22.2575 39.9548 19.3309 36.8121 18.692C36.6148 18.6513 36.2953 18.3914 36.2296 18.2301C36.1528 18.0422 36.502 17.6241 36.7213 17.5912C39.6996 17.1465 39.3739 14.3404 40.1036 13.9443C40.8333 13.5481 40.802 15.6182 41.8276 16.6501C42.7249 17.5521 44.153 17.444 44.2547 18.1079C44.2782 18.263 44.0167 18.5558 43.868 18.6122L43.8664 18.6106Z\" fill=\"white\"></path>\n<path d=\"M47.089 27.3168C45.0658 27.8836 45.6139 29.6468 44.9014 29.7376C44.7354 29.7596 44.4348 29.3947 44.416 29.2162C44.2062 27.3168 42.2535 27.4593 42.1877 26.8721C42.1721 26.7343 42.468 26.454 42.6152 26.4273C44.6524 26.0421 44.2578 23.8765 44.8998 24.0362C45.5419 24.196 45.2318 26.1283 47.0905 26.3945C47.2518 26.4179 47.601 26.7155 47.5697 26.8721C47.5384 27.0286 47.2565 27.2682 47.0874 27.3152L47.089 27.3168Z\" fill=\"white\"></path>\n</svg>",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_ppKVa3": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "",
+            "title": "Week 2-3 | Build Your Gut Rhythm",
+            "description": "<ul><li>Notice less frequent bloating*</li><li>Smoother, more comfortable digestion*</li><li>Meals feel easier on your stomach*</li></ul>",
+            "custom_icon": "<svg width=\"55\" height=\"52\" viewbox=\"0 0 55 52\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M14.6294 37.0788C8.24127 29.4473 5.74268 19.453 10.2338 10.4909C13.6038 3.9637 20.1041 0.0507465 27.4441 0.000473028C33.8204 -0.0430973 39.7711 2.92471 43.3841 8.3023L14.631 37.0788H14.6294ZM15.6164 17.7219C16.3403 13.7235 19.035 10.3468 22.7468 8.93407C23.5965 8.61064 24.0959 7.91855 23.8177 7.05552C23.5747 6.30477 22.7385 5.90928 21.909 6.19752C17.0928 7.87162 13.6038 12.4465 12.7106 17.447C12.5397 18.4056 13.0793 19.158 13.9456 19.2686C14.9176 19.3943 15.4237 18.7776 15.6147 17.7219H15.6164Z\" fill=\"white\"></path>\n<path d=\"M27.5111 52.0002C26.7051 51.9734 26.2007 51.5293 26.2292 50.7987C26.2325 50.7032 26.1672 50.3864 26.075 50.3613C25.5237 50.2021 23.4809 51.5813 22.7352 50.3563C22.5559 50.0613 22.586 49.4933 22.7704 49.1715L25.2137 45.7177C21.6912 43.8844 18.7166 41.5467 16.0103 38.7364L31.7911 22.979L44.5069 10.2515C48.3277 17.4473 47.4312 25.4424 43.6339 32.2964C40.6174 37.7427 35.3857 42.7449 29.7869 45.7177L32.2302 49.1615C32.6458 49.7463 32.4212 50.487 31.766 50.802C30.3868 51.1003 29.6964 50.2976 29.0931 50.3412C28.6624 50.373 29.0227 52.0472 27.5078 51.9986L27.5111 52.0002Z\" fill=\"white\"></path>\n<path d=\"M3.63289 26.8431L0.361763 25.2009C0.0232547 25.0316 0.0115267 24.2138 0.259542 23.9072C0.551129 23.5452 1.0857 23.448 1.56162 23.6792L4.76069 25.231C5.22488 25.4556 5.28186 26.1896 4.9953 26.5817C4.69198 26.9956 4.12724 27.0928 3.63289 26.8448V26.8431Z\" fill=\"white\"></path>\n<path d=\"M53.9969 33.5246C54.5918 33.7944 54.9052 34.1564 54.7845 34.7798C54.7125 35.1502 54.1243 35.6998 53.6584 35.492L50.3806 34.0274C49.8007 33.7676 49.5712 33.1845 49.8041 32.6784C50.1007 32.0365 50.7057 32.0298 51.2872 32.2929L53.9986 33.523L53.9969 33.5246Z\" fill=\"white\"></path>\n<path d=\"M1.63036 35.2957C0.98686 35.589 0.402013 35.5772 0.107075 34.9539C-0.187863 34.3305 0.153995 33.811 0.795819 33.5294L3.98819 32.1285C4.48087 31.9123 5.06571 32.4955 5.10761 32.953C5.15453 33.4557 4.84283 33.8311 4.3401 34.0607L1.62868 35.2974L1.63036 35.2957Z\" fill=\"white\"></path>\n<path d=\"M51.0425 26.9121C50.4962 27.1819 49.8845 26.7998 49.7572 26.3742C49.5628 25.7223 49.8896 25.3235 50.4526 25.0554L53.5461 23.584C53.8981 23.4164 54.4913 23.7348 54.632 24.0248C54.813 24.3984 54.7594 25.0805 54.3974 25.2581L51.0442 26.9121H51.0425Z\" fill=\"white\"></path>\n</svg>",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_RcWbKw": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "",
+            "title": "Week 3–4 | Lasting Gut Comfort",
+            "description": "<ul><li>More consistent daily gut balance*</li><li>Less discomfort from everyday foods*</li><li>A routine that fits your lifestyle*</li></ul><p>Based on individual experience and ingredient research.</p>",
+            "custom_icon": "<svg width=\"55\" height=\"52\" viewbox=\"0 0 55 52\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M36.4885 4.72219H40.2669C42.0549 4.72219 43.9915 6.32977 43.9963 8.28702L44.0453 25.6412C37.3761 24.9324 31.3762 28.7013 29.0598 34.8974C27.6357 38.7075 27.8652 42.6948 29.8193 46.4827L3.60122 46.4653C1.77213 46.4653 0.00949162 44.7122 0.00790936 42.8736L0 8.62879C0 6.49432 1.81169 4.70953 3.87338 4.70637L7.52364 4.70162L7.56953 8.09557C7.59485 10.0006 9.34482 11.3598 11.0901 11.3993C12.9508 11.442 14.7625 10.0971 14.8115 8.10981L14.8954 4.69529L29.1183 4.68896L29.1848 8.11614C29.2212 10.0259 30.9838 11.3566 32.7622 11.3914C34.5407 11.4262 36.4299 10.0512 36.4521 8.11614L36.4916 4.71745L36.4885 4.72219ZM9.59482 23.5163C10.1803 23.5163 10.7641 23.0827 10.7625 22.4514V18.7632C10.7625 18.135 10.1787 17.7094 9.59165 17.7078L6.24201 17.703C5.55215 17.703 5.04424 18.1761 5.04583 18.8771L5.05215 22.3153C5.05215 23.0194 5.53317 23.5194 6.24676 23.5194L9.59482 23.5163ZM19.1801 23.5099C19.7292 23.5099 20.2418 23.0226 20.2434 22.5226L20.264 18.8961C20.2672 18.2173 19.7687 17.7078 19.0757 17.7078L15.7276 17.7046C15.1311 17.7046 14.5568 18.135 14.5584 18.7632L14.5647 22.3565C14.5647 23.0305 15.0679 23.5147 15.734 23.5131L19.1786 23.5099H19.1801ZM28.6563 23.5052C29.3288 23.5036 29.7401 22.915 29.7386 22.366L29.7275 18.8613C29.7259 18.1872 29.2275 17.7062 28.5724 17.7062H25.2323C24.5203 17.7062 24.0456 18.2109 24.0488 18.904L24.0662 22.3565C24.0693 23.0242 24.5424 23.5163 25.2355 23.5147L28.6563 23.5052ZM38.1562 23.5131C38.8049 23.453 39.221 22.9419 39.2195 22.3612L39.2084 18.8581C39.2068 18.2157 38.7068 17.711 38.066 17.7094L34.7195 17.703C34.0597 17.703 33.5075 18.1872 33.5107 18.8739L33.5281 22.4672C33.5312 23.1428 34.1151 23.5163 34.7195 23.5147L38.1577 23.5099L38.1562 23.5131ZM18.552 35.2281C18.8352 35.5129 19.6184 35.5446 19.9127 35.2218L25.3494 29.2694C25.8351 28.7361 25.9981 28.1396 25.5456 27.6206C25.093 27.1017 24.3177 27.0558 23.8257 27.5874L19.1627 32.6253L16.7846 30.3231C16.3606 29.9133 15.7118 30.0367 15.3194 30.3896C15.0141 30.6633 14.7609 31.4228 15.1375 31.801L18.5536 35.2297L18.552 35.2281ZM9.67393 33.8089C10.3654 33.8073 10.7768 33.1712 10.7736 32.6142L10.7578 29.0573C10.7578 28.7219 10.2388 28.0732 9.90336 28.0732H5.92398C5.50943 28.0732 5.04583 28.7662 5.04583 29.1507L5.05215 32.619C5.05215 33.187 5.48569 33.8215 6.11385 33.8199L9.67235 33.8089H9.67393Z\" fill=\"white\"></path>\n<path d=\"M54.6338 39.744C54.6338 46.5129 49.1465 52.0001 42.3776 52.0001C35.6087 52.0001 30.1215 46.5129 30.1215 39.744C30.1215 32.9751 35.6087 27.4878 42.3776 27.4878C49.1465 27.4878 54.6338 32.9751 54.6338 39.744ZM47.6481 43.0461L44.1245 40.0747C44.2131 39.3389 43.9124 38.687 43.2447 38.2804L43.2289 31.7108C43.2289 31.2551 42.7463 30.8628 42.4045 30.8596C42.009 30.8564 41.5011 31.2203 41.5011 31.6729L41.4947 38.2962C40.6546 38.7582 40.3967 39.6902 40.7637 40.4544C41.1514 41.2629 42.0279 41.6585 42.9678 41.4212L46.7241 44.5572C47.069 44.8452 47.7177 44.6395 47.9092 44.3135C48.1655 43.8816 48.0896 43.4164 47.6466 43.043L47.6481 43.0461Z\" fill=\"white\"></path>\n<path d=\"M34.6894 7.85474C34.6926 8.92435 33.7258 9.5256 32.903 9.57149C32.0043 9.62054 30.9189 9.00662 30.9157 7.95442L30.8951 1.76937C30.892 0.725081 31.8318 0.0573678 32.7606 0.00990001C33.6087 -0.0344032 34.6688 0.630146 34.672 1.65387L34.6894 7.85632V7.85474Z\" fill=\"white\"></path>\n<path d=\"M13.1201 7.56544C13.1232 8.70625 12.3479 9.42617 11.3733 9.56541C10.5679 9.67934 9.35589 9.07491 9.35114 8.04012L9.32265 1.81076C9.3179 0.769636 10.204 0.044962 11.0916 0.00224105C12.0853 -0.0452267 13.1058 0.665207 13.1074 1.76804L13.1201 7.56386V7.56544Z\" fill=\"white\"></path>\n</svg>",
+            "bullet_icon_size": 16
+          }
+        }
+      },
+      "block_order": [
+        "roadmap_step_jYHEwX",
+        "roadmap_step_ppKVa3",
+        "roadmap_step_RcWbKw"
+      ],
+      "custom_css": [
+        ".roadmap-circle {width: 40px; height: 40px;}",
+        ".roadmap-circle svg {width: 24px; height: 24px;}"
+      ],
+      "name": "Roadmap",
+      "settings": {
+        "use_theme_colors": false,
+        "contained_section": true,
+        "max_container_width": 600,
+        "max_section_width": 1200,
+        "enable_background_image": false,
+        "background_size_desktop": "cover",
+        "background_position_desktop": "center center",
+        "background_size_mobile": "cover",
+        "background_position_mobile": "center center",
+        "enable_background_overlay": false,
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 50,
+        "heading": "Feel the gut",
+        "subheading": "<p>Week by Week</p>",
+        "heading_size": 40,
+        "heading_line_height": 1.3,
+        "heading_size_mobile": 24,
+        "heading_line_height_mobile": 1.3,
+        "subheading_size": 18,
+        "subheading_size_mobile": 14,
+        "step_title_size": 24,
+        "step_title_letter_spacing": "heading",
+        "step_title_size_mobile": 18,
+        "step_description_size": 18,
+        "step_description_size_mobile": 12,
+        "accent_text": "difference",
+        "override_global_accent": true,
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "accent_color": "#23a02a",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": 700,
+        "image_position": "right",
+        "image_column_width": 40,
+        "image_column_full_height": false,
+        "full_height_min_height": 600,
+        "mobile_image_above_timeline": false,
+        "text_column_width": 50,
+        "image_border_radius": 8,
+        "timeline_width": 2,
+        "timeline_border_radius": 2,
+        "timeline_max_width": 100,
+        "show_badges": true,
+        "desktop_badge_font_size": 12,
+        "badge_font_size_mobile": 11,
+        "badge_font_weight": "600",
+        "badge_border_radius": 50,
+        "badge_border_width": 1,
+        "badge_border_style": "solid",
+        "badge_border_color": "#23a02a",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "roadmap_item_spacing_desktop": 40,
+        "roadmap_item_spacing_mobile": 30,
+        "enable_spacing": true,
+        "section_spacing_top_desktop": 72,
+        "section_spacing_bottom_desktop": 72,
+        "section_spacing_left_desktop": 80,
+        "section_spacing_right_desktop": 80,
+        "section_spacing_top_mobile": 36,
+        "section_spacing_bottom_mobile": 36,
+        "section_spacing_left_mobile": 24,
+        "section_spacing_right_mobile": 24,
+        "enable_placeholder_space_desktop": false,
+        "placeholder_min_height_desktop": 600,
+        "enable_placeholder_space_mobile": false,
+        "placeholder_height_mobile": 300,
+        "section_background": "linear-gradient(135deg, rgba(249, 249, 249, 1), rgba(249, 249, 249, 1) 100%)",
+        "heading_color": "#121212",
+        "subheading_color": "#121212",
+        "step_title_color": "#121212",
+        "step_description_color": "#666666",
+        "timeline_color": "#e0e0e0",
+        "active_timeline_color": "#4caf50",
+        "circle_color": "#23a02a",
+        "circle_icon_color": "#ffffff",
+        "badge_background": "#e24f6c",
+        "badge_text_color": "#ffffff",
+        "show_button": false,
+        "button_text": "GET STARTED",
+        "button_action_type": "scroll_top",
+        "redirect_product": "",
+        "custom_url": "",
+        "use_global_button_style": true,
+        "button_border_radius": 8,
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#ffffff",
+        "button_hover_text_color": "#000000"
+      }
+    },
+    "customer_reviews_carousel_NgVaXw": {
+      "type": "customer-reviews-carousel",
+      "blocks": {
+        "review_m8qMYC": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16_png.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“I noticed a difference within the first week — especially after meals. I don’t feel that heavy, bloated feeling anymore. It’s subtle, but really noticeable day to day.”",
+            "reviewer_name": "Emily R.",
+            "reviewer_age": "34",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_Brta4Y": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_2.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“This tincture has been a staple in my daily routine as it's helped with digestion and bloating significantly.” ",
+            "reviewer_name": "Jessica M.",
+            "reviewer_age": "53",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_cQpc4j": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_3.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“It didn’t work overnight for me, but after about 10–12 days I started noticing less bloating. It feels more like a gradual improvement than a quick fix.”",
+            "reviewer_name": "Lauren K.",
+            "reviewer_age": "37",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_8cjTyc": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_4.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“My digestion just feels more ‘normal’ now. Less discomfort after eating, less guessing what will upset my stomach.”",
+            "reviewer_name": "Sarah T.",
+            "reviewer_age": "45",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_wNLbay": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_5.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“I love that I don’t have to take capsules anymore. These are actually enjoyable, and I’ve been way more consistent because of that.”",
+            "reviewer_name": "Amanda J.",
+            "reviewer_age": "29",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_FXxqza": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_6.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“I mainly got this for bloating, and it definitely helped. Not dramatic, but I feel lighter and less uncomfortable during the day.”",
+            "reviewer_name": "Nicole D.",
+            "reviewer_age": "55",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_6x6kdA": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_7.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“After about a week, I realized I wasn’t thinking about my stomach as much. That alone made it worth it.”",
+            "reviewer_name": "Rachel S.",
+            "reviewer_age": "33",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_9b3eY4": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_8.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“I have a sensitive stomach, so I was hesitant — but this felt really gentle. No weird side effects, just gradual improvement.”",
+            "reviewer_name": "Megan L.",
+            "reviewer_age": "42",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_gyMjCt": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_9.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“I take it every morning and it just became part of my routine. I feel less bloated after meals and more comfortable overall.”",
+            "reviewer_name": "Olivia P.",
+            "reviewer_age": "31",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_X8BJaj": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_16.png_10.png",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“It took a couple of weeks, but I do feel a difference now. Less heaviness, especially in the evenings.”",
+            "reviewer_name": "Danielle H.",
+            "reviewer_age": "47",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        }
+      },
+      "block_order": [
+        "review_m8qMYC",
+        "review_Brta4Y",
+        "review_cQpc4j",
+        "review_8cjTyc",
+        "review_wNLbay",
+        "review_FXxqza",
+        "review_6x6kdA",
+        "review_9b3eY4",
+        "review_gyMjCt",
+        "review_X8BJaj"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "use_theme_colors": false,
+        "anchor_id": "reviews",
+        "section_width": 1200,
+        "center_cards_desktop": true,
+        "center_cards_mobile": false,
+        "section_background": "#e9f5ea",
+        "title_text": "Transformations That",
+        "accent_text": "Speak For Themselves ",
+        "title_color": "#000000",
+        "accent_color": "#23a02a",
+        "override_global_accent": false,
+        "accent_text_margin_left": 0,
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(239, 74, 101, 1), rgba(255, 107, 157, 1) 100%)",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "custom_heading_styling": false,
+        "heading_font_size": 56,
+        "heading_font_size_mobile": 48,
+        "heading_line_height": 1.2,
+        "header_margin_bottom": 10,
+        "show_description": true,
+        "description_text": "",
+        "description_color": "#000000",
+        "description_font_size": 16,
+        "description_bottom_margin": 24,
+        "use_global_nav_buttons": true,
+        "prev_button_bg": "#ffffff",
+        "prev_button_color": "#000000",
+        "prev_button_border": "#e0e0e0",
+        "next_button_bg": "#ef4a65",
+        "next_button_color": "#ffffff",
+        "next_button_border": "#ef4a65",
+        "button_horizontal_padding": 12,
+        "scroll_amount": 360,
+        "navigation_margin_top": 5,
+        "card_width": 390,
+        "card_width_tablet": 300,
+        "card_width_mobile": 280,
+        "card_border_radius": 10,
+        "card_border_color": "#e0e0e0",
+        "card_background": "#ffffff",
+        "card_margin_top": 0,
+        "card_margin_right": 0,
+        "card_margin_bottom": 0,
+        "card_margin_left": 0,
+        "star_filled_color": "#23a02a",
+        "star_empty_color": "#ffffff",
+        "carousel_review_star_size": 16,
+        "review_text_color": "#000000",
+        "review_text_size": 14,
+        "review_text_size_mobile": 12,
+        "reviewer_info_color": "#ffffff",
+        "reviewer_info_bg_color": "#000000",
+        "reviewer_info_font_size": 12,
+        "verified_badge_text": "Verified Buyer",
+        "verified_badge_color": "#ef4a65",
+        "verified_icon_color": "#ef4a65",
+        "verified_badge_font_size": 10,
+        "enable_reviewer_info_border": false,
+        "reviewer_info_border_width": 1,
+        "reviewer_info_border_style": "solid",
+        "reviewer_info_border_color": "#000000",
+        "reviewer_info_border_radius": 8,
+        "product_title_color": "#000000",
+        "product_price_color": "#ef4a65",
+        "product_bg_color": "#f9f9f9",
+        "product_title_font_size": 12,
+        "product_price_font_size": 12,
+        "product_compare_price_font_size": 10,
+        "product_compare_price_color": "#9b9b9b",
+        "purchase_date_font_size": 10,
+        "product_border_color": "#eeeeee",
+        "product_border_width": 1,
+        "product_border_style": "solid",
+        "summary_star_color": "#ffffff",
+        "summary_text_color": "#ffffff",
+        "rating_summary_text": "<p>Real Results, Real Stories</p>",
+        "rating_summary_font_size": 13,
+        "rating_summary_bg_color": "#23a02a",
+        "rating_summary_margin_bottom": 0,
+        "purchase_date_prefix": "Purchased on",
+        "purchase_date_color": "#000000",
+        "purchase_date_icon_color": "#000000",
+        "rating_summary_gradient": "",
+        "enable_rating_summary_border": false,
+        "rating_summary_border_width": 1,
+        "rating_summary_border_style": "solid",
+        "rating_summary_border_color": "#ffbf00",
+        "rating_summary_border_radius": 50
+      }
+    },
+    "product_benefits_JqCwGw": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_gGfqCr": {
+          "type": "benefit",
+          "settings": {
+            "title": "Helps reduce occasional bloating and digestive discomfort*",
+            "description": "",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_cyATRp": {
+          "type": "benefit",
+          "settings": {
+            "title": "Supports digestion after everyday meals*",
+            "description": "",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_xiCaAF": {
+          "type": "benefit",
+          "settings": {
+            "title": "Daily gut comfort in a simple gummy form",
+            "description": "",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_3b7fjK": {
+          "type": "benefit",
+          "settings": {
+            "title": "With probiotics for gut balance",
+            "description": "",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_aQYzaT": {
+          "type": "benefit",
+          "settings": {
+            "title": "Gentle, easy-to-take formula for daily use",
+            "description": "",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_igBGEx": {
+          "type": "benefit",
+          "settings": {
+            "title": "No mixing, no timing stress — just a simple routine",
+            "description": "",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_gGfqCr",
+        "benefit_cyATRp",
+        "benefit_xiCaAF",
+        "benefit_3b7fjK",
+        "benefit_aQYzaT",
+        "benefit_igBGEx"
+      ],
+      "custom_css": [
+        ".custom-benefits-section .custom-benefits-list,.custom-benefits-section-wrapper .custom-benefits-list {border-radius: 10px !important;}",
+        ".custom-benefits-section .global-accent-text,.custom-benefits-section-wrapper .global-accent-text {background: linear-gradient(90deg, #23a02a, #23a02a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-left: 0px !important;}"
+      ],
+      "settings": {
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "padding_left": 25,
+        "padding_right": 25,
+        "image_position_desktop": "right",
+        "heading_size_mobile": 34,
+        "heading_size_desktop": 40,
+        "heading_line_height_mobile": 1.1,
+        "heading_line_height_desktop": 1.1,
+        "subtitle_size_mobile": 13,
+        "subtitle_size_desktop": 18,
+        "benefit_title_size_mobile": 14,
+        "benefit_title_size_desktop": 14,
+        "benefit_description_size_mobile": 12,
+        "benefit_description_size_desktop": 12,
+        "accent_color": "#fdffff",
+        "use_theme_colors": false,
+        "title_below_icon": false,
+        "override_global_accent": false,
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(35, 160, 42, 1), rgba(35, 160, 42, 1) 100%)",
+        "accent_text_margin_left": 0,
+        "list_background": "linear-gradient(180deg, rgba(46, 46, 46, 1), rgba(27, 27, 27, 1) 99%)",
+        "list_border_radius": 8,
+        "benefits_list_max_width": 800,
+        "border_color": "#cbecd6",
+        "heading_accent": "love it?",
+        "heading_regular": "Why people",
+        "subtitle": "Gut Harmony gummies are designed for everyday digestive comfort. \nA simple daily routine that supports digestion, helps reduce occasional bloating, and keeps you feeling light — without strict diets or complicated routines.",
+        "show_image": true,
+        "media_type": "image",
+        "feature_image": "shopify://shop_images/2_4.png",
+        "image_alt": "Feature product image",
+        "video_autoplay": true,
+        "video_muted": true,
+        "video_loop": true,
+        "video_controls": false,
+        "mobile_image_full_width": false,
+        "hide_media_on_desktop": false,
+        "image_column_full_height": false,
+        "image_margin_top": 0,
+        "image_margin_bottom": 20,
+        "enable_image_border": false,
+        "image_border_width": 1,
+        "image_border_style": "solid",
+        "image_border_color": "#000000",
+        "image_border_radius": 8,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "description_color": "#fdffff",
+        "section_background": "linear-gradient(90deg, rgba(249, 249, 249, 1), rgba(249, 249, 249, 1) 100%)",
+        "use_background_image": false,
+        "background_image_size": "cover",
+        "background_image_position_mode": "preset",
+        "background_image_position": "center center",
+        "background_focal_point_x": 50,
+        "background_focal_point_y": 50,
+        "background_image_attachment": "scroll",
+        "background_overlay_enable": false,
+        "background_overlay_color": "#0000004d",
+        "background_overlay_opacity": 30,
+        "enable_top_border": false,
+        "top_border_width": 1,
+        "top_border_style": "solid",
+        "top_border_color": "#e5e5e5",
+        "enable_bottom_border": false,
+        "bottom_border_width": 1,
+        "bottom_border_style": "solid",
+        "bottom_border_color": "#e5e5e5"
+      }
+    },
+    "store_faq_eyikxg": {
+      "type": "store-faq",
+      "blocks": {
+        "faq_item_efQ6GC": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long before I see results?",
+            "answer": "<p>Most people start noticing a difference within 28-40 days of consistent use — like feeling lighter after meals and less daily discomfort.* For best results, take 3 gummies daily as part of a simple routine. Keep in mind: results can vary depending on your body and diet.</p>"
+          }
+        },
+        "faq_item_KkNCA7": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How many gummies should I take per day?",
+            "answer": "<p>Take 3 gummies daily, anytime that fits your routine — with or without food. Each jar contains 60 gummies  No strict timing, no complicated schedule.</p>"
+          }
+        },
+        "faq_item_Mbywda": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it gentle on sensitive stomachs?",
+            "answer": "<p>Yes — Gut Harmony is designed to be gentle and easy to tolerate. It’s free from major allergens, gluten, and artificial fillers, and uses a balanced blend of digestive-support ingredients.* If you have a medical condition or a highly sensitive gut, it’s always best to check with your doctor first.</p>"
+          }
+        },
+        "faq_item_7hX7zV": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What does the 60-day guarantee include?",
+            "answer": "<p>If you don’t feel a difference, you’re covered. We offer a 60-day money-back guarantee — even if the jar is opened. Just reach out to our support team, and we’ll take care of the rest. No hassle. </p>"
+          }
+        },
+        "faq_item_T4fbLF": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I take this if I’m pregnant or nursing?",
+            "answer": "<p>We recommend speaking with your healthcare provider before using any supplement during pregnancy or while nursing. </p>"
+          }
+        },
+        "faq_item_rhqHRh": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Where are these made?",
+            "answer": "<p>Gut Harmony Gummies are made in the USA in a cGMP- and NSF-certified facility. Every batch is tested for:Microbiological safetyHeavy metals So you can feel confident about what you’re taking daily.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_efQ6GC",
+        "faq_item_KkNCA7",
+        "faq_item_Mbywda",
+        "faq_item_7hX7zV",
+        "faq_item_T4fbLF",
+        "faq_item_rhqHRh"
+      ],
+      "custom_css": [
+        ".store-faq-section {background-color: #f9f9f9 !important;}"
+      ],
+      "name": "Store FAQ",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "Frequently Asked Questions",
+        "subtitle": "<p>Find answers to common questions about our products, shipping, returns, and more.</p>",
+        "heading_color": "#000000",
+        "subtitle_color": "#111111",
+        "section_padding": 60,
+        "container_padding_mobile": 15,
+        "container_padding_desktop": 15,
+        "section_bg_color": "#f9f9f9",
+        "border_radius": 8,
+        "border_color": "#e5e5e5",
+        "divider_color": "#e5e5e5",
+        "border_style": "full",
+        "border_width": 1,
+        "question_color": "#000000",
+        "question_bg_color": "#ffffff",
+        "answer_color": "#000000",
+        "answer_bg_color": "#ffffff",
+        "accordion_mode": true,
+        "image_border_radius": 8,
+        "image_full_height": false,
+        "full_height_min_height": 600,
+        "use_background_image": false,
+        "background_image_size": "cover",
+        "background_image_position": "center center",
+        "background_image_attachment": "scroll",
+        "background_overlay_enable": false,
+        "background_overlay_color": "#0000004d",
+        "background_overlay_opacity": 30,
+        "center_when_no_image": true,
+        "center_max_width": 1000,
+        "two_column_desktop": true,
+        "column_gap": 15,
+        "faq_item_spacing": 0,
+        "individual_item_borders": true,
+        "question_padding_top": 15,
+        "question_padding_bottom": 15,
+        "question_padding_left": 20,
+        "question_padding_right": 20,
+        "answer_padding_top": 15,
+        "answer_padding_bottom": 15,
+        "answer_padding_left": 20,
+        "answer_padding_right": 20,
+        "heading_font_size": 36,
+        "heading_font_size_mobile": 30,
+        "heading_line_height": 1.2,
+        "subtitle_font_size": 16,
+        "subtitle_font_size_mobile": 14,
+        "subtitle_line_height": 1.5,
+        "question_font_size": 16,
+        "question_font_size_mobile": 14,
+        "answer_font_size": 14,
+        "answer_font_size_mobile": 13,
+        "enable_section_top_border": false,
+        "section_top_border_width": 1,
+        "section_top_border_style": "solid",
+        "section_top_border_color": "#e5e5e5",
+        "enable_section_bottom_border": false,
+        "section_bottom_border_width": 1,
+        "section_bottom_border_style": "solid",
+        "section_bottom_border_color": "#e5e5e5"
+      }
     },
     "product_benefits_NWiWMe": {
       "type": "product-benefits",
@@ -1834,6 +2815,7 @@
         "benefit_DfUzfT",
         "benefit_WHMTNT"
       ],
+      "disabled": true,
       "custom_css": [
         ".custom-benefits-section .custom-benefits-list,.custom-benefits-section-wrapper .custom-benefits-list {border-radius: 10px !important;}",
         ".custom-benefits-section .global-accent-text,.custom-benefits-section-wrapper .global-accent-text {background: linear-gradient(90deg, #8f3e4d, #8f3e4d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-left: 0px !important;}"
@@ -1952,6 +2934,7 @@
         "roadmap_step_6CxNFj",
         "roadmap_step_VJarkw"
       ],
+      "disabled": true,
       "name": "Roadmap",
       "settings": {
         "use_theme_colors": false,
@@ -2158,6 +3141,7 @@
         "statistic_kjCCDm",
         "statistic_nX7Y8L"
       ],
+      "disabled": true,
       "name": "Statistics Column",
       "settings": {
         "use_theme_colors": false,
@@ -2308,6 +3292,7 @@
         "benefit_ybHHta",
         "benefit_jYzLxy"
       ],
+      "disabled": true,
       "settings": {
         "use_theme_colors": false,
         "heading": "HELPS WITH",
@@ -2469,6 +3454,7 @@
         "feature_row_afwJDU",
         "feature_row_PzLNMd"
       ],
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "use_theme_colors": false,
@@ -2649,6 +3635,7 @@
         "review_WyftnL",
         "review_Tb4YXf"
       ],
+      "disabled": true,
       "settings": {
         "use_theme_colors": true,
         "anchor_id": "reviews",
@@ -2745,6 +3732,7 @@
     },
     "satisfaction_guarantee_J4ypTy": {
       "type": "satisfaction-guarantee",
+      "disabled": true,
       "settings": {
         "use_theme_colors": true,
         "show_photos": true,
@@ -2875,6 +3863,7 @@
         "faq_item_appL6A",
         "faq_item_fMQrU3"
       ],
+      "disabled": true,
       "settings": {
         "use_theme_colors": false,
         "heading": "Frequently Asked Questions",
@@ -2990,6 +3979,7 @@
         "review_WqmyNx",
         "review_gmPq4G"
       ],
+      "disabled": true,
       "settings": {
         "title": "Latest Facebook Reviews",
         "badge_text": "Recently viral on Facebook",
@@ -3032,6 +4022,7 @@
     },
     "collection_grid_GifUVw": {
       "type": "collection-grid",
+      "disabled": true,
       "custom_css": [
         ".collection-grid-section .product-image-container {padding: 0px;}"
       ],
@@ -3182,10 +4173,17 @@
     }
   },
   "order": [
+    "lum_template_font",
     "product_details_lum_DcMDgT",
+    "statistics_column_DdVxjB",
     "main",
     "scrolling_features_bar_AhP6EL",
     "sticky_add_to_cart_NJqgUd",
+    "ingredient_cards_QN6qFk",
+    "roadmap_TPGkeD",
+    "customer_reviews_carousel_NgVaXw",
+    "product_benefits_JqCwGw",
+    "store_faq_eyikxg",
     "product_benefits_NWiWMe",
     "roadmap_RDTbJn",
     "customer_reviews_KdHUeH",
