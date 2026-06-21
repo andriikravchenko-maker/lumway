@@ -12,9 +12,8 @@
   "type": "header",
   "sections": {
     "custom_announcement_bar_inxgM4": {
-      "type": "custom-announcement-bar",
-      "disabled": true,
-      "name": "Announcement Bar",
+      "type": "promo-bar-lum",
+      "name": "Promo bar",
       "settings": {
         "use_theme_colors": false,
         "enable_slider": true,
@@ -108,7 +107,7 @@
       }
     },
     "header": {
-      "type": "header",
+      "type": "header-lum",
       "settings": {
         "logo_position": "middle-center",
         "mobile_logo_position": "center",

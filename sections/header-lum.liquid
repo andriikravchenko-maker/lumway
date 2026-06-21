@@ -1,0 +1,173 @@
+{%- comment -%}
+  Header (Lumway) — new global header, mobile-first. Figma mobile bar 678:4124 (+ drawer).
+  Built as a NEW section (theme's header.liquid untouched); swapped into header-group.json.
+  Reuses: global <cart-drawer> (in layout) via its open(); localization snippets; the merchant's
+  Navigation menu (section.settings.menu); cart.item_count for the dot. Desktop nav comes in a later pass.
+{%- endcomment -%}
+{%- liquid
+  assign uid = section.id
+  assign menu = section.settings.menu
+  assign logo = section.settings.logo | default: settings.logo
+-%}
+{% style %}
+  .lhead-{{ uid }}{ --lhead-ink:#1c1c1a; --lhead-line:#f5f3ef; --lhead-pill:#e9e3d6; --lhead-muted:#8a8a85; --lhead-font:'Inter Tight', system-ui, sans-serif; background:#fff; position:relative; z-index:30; }
+  .lhead-{{ uid }} .lhead__bar{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--lhead-line); box-sizing:border-box; }
+  .lhead-{{ uid }} .lhead__menu{ justify-self:start; display:inline-flex; align-items:center; padding:6px 0; margin:0; border:0; background:transparent; cursor:pointer; font-family:var(--lhead-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--lhead-ink); text-transform:uppercase; -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__logo{ justify-self:center; display:inline-flex; align-items:center; }
+  .lhead-{{ uid }} .lhead__logo img{ display:block; width:{{ section.settings.logo_width | default: 97 }}px; height:auto; }
+  .lhead-{{ uid }} .lhead__logo-text{ font-family:var(--lhead-font) !important; font-weight:600; font-size:20px; color:var(--lhead-ink); }
+  .lhead-{{ uid }} .lhead__cart{ justify-self:end; position:relative; display:inline-flex; align-items:center; color:var(--lhead-ink); -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__cart-icon{ display:block; width:24px; height:24px; }
+  .lhead-{{ uid }} .lhead__cart-icon svg{ display:block; width:100%; height:100%; }
+  .lhead-{{ uid }} .lhead__cart-dot{ position:absolute; top:3px; right:0; width:8px; height:8px; border-radius:50%; background:#fad356; display:none; }
+  .lhead-{{ uid }} .lhead__cart-dot.is-on{ display:block; }
+
+  /* drawer */
+  .lhead-{{ uid }} .lhead__drawer{ position:fixed; left:0; right:0; top:0; bottom:0; z-index:40; background:#fff; display:flex; flex-direction:column; padding:0 16px 24px; overflow-y:auto; transform:translateX(-100%); transition:transform .28s ease; visibility:hidden; }
+  .lhead-{{ uid }} .lhead__drawer.is-open{ transform:translateX(0); visibility:visible; }
+  .lhead-{{ uid }} .lhead__drawer-bar{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; padding:16px 0; border-bottom:1px solid var(--lhead-line); margin:0 0 24px; }
+  .lhead-{{ uid }} .lhead__nav{ display:flex; flex-direction:column; gap:24px; }
+  .lhead-{{ uid }} .lhead__item{ display:flex; align-items:center; gap:12px; padding:0; margin:0; border:0; background:transparent; cursor:pointer; text-align:left; -webkit-tap-highlight-color:transparent; text-decoration:none; }
+  .lhead-{{ uid }} .lhead__item-text{ font-family:var(--lhead-font) !important; font-weight:700 !important; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--lhead-ink); }
+  .lhead-{{ uid }} .lhead__item-arrow{ display:inline-flex; align-items:center; justify-content:center; width:50px; height:36px; border-radius:28px; background:var(--lhead-pill); flex:0 0 auto; }
+  .lhead-{{ uid }} .lhead__item-arrow svg{ display:block; width:20px; height:16px; color:var(--lhead-ink); }
+  .lhead-{{ uid }} .lhead__group{ display:flex; flex-direction:column; gap:16px; }
+  .lhead-{{ uid }} .lhead__sub{ display:flex; flex-direction:column; gap:16px; }
+  .lhead-{{ uid }} .lhead__sublink{ font-family:var(--lhead-font) !important; font-weight:400 !important; font-size:18px; line-height:1.2; letter-spacing:-0.36px; color:var(--lhead-muted); text-decoration:none; -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__locale{ margin-top:24px; }
+  .lhead-{{ uid }} .lhead__account{ margin-top:auto; display:inline-flex; align-items:center; justify-content:center; gap:8px; height:64px; border-radius:40px; background:var(--lhead-ink); color:#fff; text-decoration:none; font-family:var(--lhead-font) !important; font-weight:600 !important; font-size:18px; letter-spacing:-0.36px; -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__account-icon{ display:inline-flex; width:24px; height:24px; }
+  .lhead-{{ uid }} .lhead__account-icon svg{ display:block; width:100%; height:100%; }
+  body.lhead-drawer-open{ overflow:hidden; }
+{% endstyle %}
+
+<header class="lhead lhead-{{ uid }}" data-lhead>
+  <div class="lhead__bar">
+    <button type="button" class="lhead__menu" data-lhead-toggle aria-expanded="false" aria-controls="lhead-drawer-{{ uid }}">{{ 'sections.header.menu' | t | default: 'Menu' | upcase }}</button>
+    <a href="{{ routes.root_url }}" class="lhead__logo" aria-label="{{ shop.name | escape }}">
+      {%- if logo != blank -%}
+        {{ logo | image_url: width: 300 | image_tag: widths: '97,194,300', sizes: '97px', alt: shop.name, loading: 'eager' }}
+      {%- else -%}
+        <span class="lhead__logo-text">{{ shop.name | escape }}</span>
+      {%- endif -%}
+    </a>
+    <a href="{{ routes.cart_url }}" class="lhead__cart" data-lhead-cart aria-label="{{ 'templates.cart.cart' | t }}">
+      <span class="lhead__cart-icon">{{ 'lum-icon-cart-header.svg' | inline_asset_content }}</span>
+      <span class="lhead__cart-dot{% if cart.item_count > 0 %} is-on{% endif %}" data-lhead-cart-dot aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="lhead__drawer" id="lhead-drawer-{{ uid }}" data-lhead-drawer>
+    <div class="lhead__drawer-bar">
+      <button type="button" class="lhead__menu" data-lhead-toggle aria-expanded="true">{{ 'sections.header.menu' | t | default: 'Menu' | upcase }}</button>
+      <a href="{{ routes.root_url }}" class="lhead__logo" aria-label="{{ shop.name | escape }}">
+        {%- if logo != blank -%}
+          {{ logo | image_url: width: 300 | image_tag: widths: '97,194,300', sizes: '97px', alt: shop.name, loading: 'lazy' }}
+        {%- else -%}
+          <span class="lhead__logo-text">{{ shop.name | escape }}</span>
+        {%- endif -%}
+      </a>
+      <a href="{{ routes.cart_url }}" class="lhead__cart" data-lhead-cart aria-label="{{ 'templates.cart.cart' | t }}">
+        <span class="lhead__cart-icon">{{ 'lum-icon-cart-header.svg' | inline_asset_content }}</span>
+        <span class="lhead__cart-dot{% if cart.item_count > 0 %} is-on{% endif %}" aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <nav class="lhead__nav" aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}">
+      {%- for link in menu.links -%}
+        {%- if link.links.size > 0 -%}
+          <div class="lhead__group" data-lhead-acc>
+            <button type="button" class="lhead__item" data-lhead-acc-btn aria-expanded="true">
+              <span class="lhead__item-text">{{ link.title | escape }}</span>
+              <span class="lhead__item-arrow">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
+            </button>
+            <div class="lhead__sub" data-lhead-acc-panel>
+              {%- for child in link.links -%}
+                <a href="{{ child.url }}" class="lhead__sublink">{{ child.title | escape }}</a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <a href="{{ link.url }}" class="lhead__item">
+            <span class="lhead__item-text">{{ link.title | escape }}</span>
+            <span class="lhead__item-arrow">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
+      <localization-form class="lhead__locale">
+        {%- form 'localization', id: 'LumLanguageForm', class: 'localization-form' -%}
+          <div>
+            <h2 class="visually-hidden">{{ 'localization.language_label' | t }}</h2>
+            {%- render 'language-localization', localPosition: 'LumLanguage' -%}
+          </div>
+        {%- endform -%}
+      </localization-form>
+    {%- endif -%}
+
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="lhead__account">
+        <span class="lhead__account-icon">{{ 'lum-icon-account.svg' | inline_asset_content }}</span>
+        <span>{% if customer %}{{ 'customer.account_fallback' | t | default: 'Account' }}{% else %}{{ 'customer.log_in' | t | default: 'Log in' }}{% endif %}</span>
+      </a>
+    {%- endif -%}
+  </div>
+</header>
+
+<script>
+  (function () {
+    var root = document.querySelector('.lhead-{{ uid }}');
+    if (!root || root.__lheadBound) return;
+    root.__lheadBound = true;
+    var drawer = root.querySelector('[data-lhead-drawer]');
+    var toggles = [].slice.call(root.querySelectorAll('[data-lhead-toggle]'));
+
+    function setDrawer(open) {
+      if (!drawer) return;
+      drawer.classList.toggle('is-open', open);
+      document.body.classList.toggle('lhead-drawer-open', open);
+      toggles.forEach(function (t) { t.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+    }
+    toggles.forEach(function (t) {
+      t.addEventListener('click', function () { setDrawer(!drawer.classList.contains('is-open')); });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setDrawer(false); });
+
+    // accordion (open by default; tap toggles)
+    root.querySelectorAll('[data-lhead-acc]').forEach(function (acc) {
+      var btn = acc.querySelector('[data-lhead-acc-btn]');
+      var panel = acc.querySelector('[data-lhead-acc-panel]');
+      if (!btn || !panel) return;
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') !== 'false';
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        panel.style.display = open ? 'none' : 'flex';
+      });
+    });
+
+    // cart icon: open the global cart drawer if present, else go to /cart
+    root.querySelectorAll('[data-lhead-cart]').forEach(function (c) {
+      c.addEventListener('click', function (e) {
+        var cd = document.querySelector('cart-drawer');
+        if (cd && typeof cd.open === 'function') { e.preventDefault(); setDrawer(false); cd.open(); }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Header (Lumway)",
+  "class": "section-header-lum",
+  "settings": [
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Upload the lumway PNG (transparent background). If empty, the theme logo is used." },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 70, "max": 160, "step": 1, "default": 97, "unit": "px" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "enable_language_selector", "label": "Language selector", "default": true },
+    { "type": "checkbox", "id": "enable_country_selector", "label": "Country selector", "default": false }
+  ]
+}
+{% endschema %}
