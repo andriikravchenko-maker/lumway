@@ -1,0 +1,771 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "use_theme_colors": true,
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "gut_harmony_benefits_6bQW6X": {
+      "type": "gut-harmony-benefits",
+      "name": "Gut Harmony Benefits",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#f9f9f9",
+        "image": "shopify://shop_images/Product_Image_Container.png",
+        "image_border_radius": 0,
+        "heading_before": "5 Ways Gut Harmony Helps Women",
+        "heading_accent": "Stop Feeling Heavy",
+        "heading_after": "After Every Meal*",
+        "heading_size": 64,
+        "heading_size_mobile": 32,
+        "heading_line_height": 1.2,
+        "heading_color": "#333333",
+        "heading_accent_color": "#3f8b35",
+        "subheading": "",
+        "subheading_size": 32,
+        "subheading_size_mobile": 18,
+        "subheading_color": "#6b6b6b",
+        "button_text": "LEARN MORE",
+        "button_link": "#gut-harmony-story",
+        "button_font_size": 24,
+        "button_font_size_mobile": 16,
+        "button_radius": 32,
+        "button_width": 384,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "gut_harmony_story_WcWnBY": {
+      "type": "gut-harmony-story",
+      "name": "Gut Harmony Story",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "column_gap": 24,
+        "background_color": "#ffffff",
+        "image": "shopify://shop_images/Venn_Diagram_Container.png",
+        "image_border_radius": 0,
+        "text": "<p><strong>“Your stomach isn’t broken,” my digestive specialist said gently.</strong></p><p>“What you’re experiencing is called post-meal digestive slowdown. And it’s extremely common for women after 50.”</p><p>She pulled out her notebook—that familiar scratch of pen against paper—and leaned in closer.</p><p>“Let me show you what may be happening.”</p><p>She drew three simple circles.</p><p><strong>“First, digestion can naturally start slowing down with age.</strong> Think of it like your stomach taking longer to process heavier meals than it used to.”</p><p><strong>“Second, your gut balance may begin changing over time.</strong> Stress, medications, processed foods, and everyday lifestyle habits can affect the balance of good bacteria in the digestive system.”</p><p><strong>“And third—this is important—many women become more sensitive to foods they used to tolerate just fine.”</strong></p><p>“Wait,” I interrupted. “So it’s not just overeating? Or me doing something wrong?”</p><p>“Exactly.” She smiled.</p>",
+        "text_size": 18,
+        "text_line_height": 1.3,
+        "paragraph_spacing": 24,
+        "text_color": "#333333"
+      }
+    },
+    "gut_harmony_band_J4x4Lt": {
+      "type": "gut-harmony-band",
+      "name": "Gut Harmony Band",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "gap": 16,
+        "background_color": "#f2f9f2",
+        "heading": "Here’s how Gut Harmony helps support all three areas at once",
+        "heading_size": 44,
+        "heading_size_mobile": 26,
+        "heading_color": "#23a02a",
+        "subheading": "— plus gives you bonus benefits you’ll love:",
+        "subheading_size": 32,
+        "subheading_size_mobile": 18,
+        "subheading_color": "#333333"
+      }
+    },
+    "gut_harmony_feature_AEPXCy": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "#1: Helps Support Digestion As You Age",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/Container_1_59b20b3f-3cf0-4b43-a63f-0a676173d7d7.png",
+        "image_border_radius": 0,
+        "body_text": "<p><strong>Did you know? After 50, your digestion may start slowing down every single year. By 60, many women say food feels heavier, slower, and harder to process than it used to.</strong></p><p>That’s why Gut Harmony includes a targeted <strong>3-Part Digestive Support Blend:</strong></p><p><strong>• Apple Cider Vinegar:</strong> Supports digestion and post-meal comfort</p><p><strong>• Heat-Stable Probiotic:</strong> Helps support healthy gut balance</p><p><strong>• Ginger Root:</strong> Traditionally used to support digestive comfort after eating</p>",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "<p>💬 “I noticed a huge difference after meals! I stopped taking it for about a month, and the heaviness slowly started coming back. My stomach just felt more uncomfortable again after eating, so I ordered another bundle and have been taking it ever since. Well worth the money and works better than any digestive supplement or gummy I’ve tried.” <strong>— Linda M.</strong></p>",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "gut_harmony_feature_ncw9RV": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "#2: Makes Heavy Meals Feel Easier Again",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/Image_section.png",
+        "image_border_radius": 0,
+        "body_text": "<p>Remember when you could eat a full meal without feeling <strong>heavy, bloated, or uncomfortable afterward?</strong></p><p>For many <strong>women over 50</strong>, meals that once felt completely normal may suddenly start feeling heavier, slower, and more uncomfortable afterward.</p><p>That can lead to:<br/>• avoiding certain foods<br/>• feeling uncomfortable after dinner<br/>• undoing your jeans after eating<br/>• constantly thinking about your stomach after meals</p><p>But many women say supporting digestion consistently helped meals start feeling “normal” again.</p><p></p>",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "<p>💬 <em>“Before Gut Harmony, I always felt so heavy after dinner and had to sit around uncomfortable for hours. Things are a lot better now, and meals just feel easier on my stomach overall.”</em> — <strong>Candice</strong></p><p>💬 <em>“I am 67 and just finished my 1st bottle. I am honestly shocked by how much more comfortable I feel after eating now. Trust me ladies, this stuff is AMAZING.”</em> — <strong>Cindy Hurst</strong></p>",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "gut_harmony_feature_6gkhMK": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "#3: Rebalances Your Gut Microbiome",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/Image_3.png",
+        "image_border_radius": 0,
+        "body_text": "<p><strong>This is the game-changer many digestive products miss completely.<br/>Without healthy gut bacteria, your digestion may struggle to function properly — no matter what else you try.</strong></p><p>Research shows the <strong>gut microbiome plays a major role in:</strong></p><p>• digestion<br/>• food sensitivity<br/>• bloating<br/>• post-meal comfort</p><p>When that balance gets disrupted, many women start noticing:</p><p>• <strong>heavier digestion</strong><br/>• <strong>increased bloating</strong><br/>• <strong>discomfort after meals</strong><br/>• <strong>foods feeling “harder” on the stomach</strong></p><p>As digestive health experts explain:</p><p>“When gut bacteria becomes imbalanced, digestion may not work as efficiently as it once did. Supporting healthy gut balance may help restore smoother digestive function over time.”</p>",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "<p>💬 <em>“I used to think feeling uncomfortable after meals was just part of getting older. But after taking Gut Harmony consistently, my stomach feels so much more balanced overall and I'm not constantly thinking about my digestion anymore.”</em> — <strong>Sheryl</strong><em>uff is AMAZING.”</em> — <strong>Cindy Hurst</strong></p>",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "gut_harmony_feature_VV9tY4": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "#4: Helps You Feel Like Yourself Again",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/Image_Container.png",
+        "image_border_radius": 0,
+        "body_text": "<p>Here’s the unexpected part many women don’t talk about:</p><p><strong>When digestion feels better, everything else can start feeling better too.</strong></p><p>Many women say they notice:</p><p>• less heaviness after meals<br/><br/>• more confidence wearing fitted clothes<br/><br/>• <strong>feeling more comfortable in their body again</strong><br/><br/>• less stress around food and eating</p><p>Because when you’re not constantly thinking about your stomach after every meal, it can change how you feel day-to-day overall.</p>",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "<p>💬 <em>“Gut Harmony has honestly made such a difference for me. I don’t feel uncomfortable after eating all the time anymore, and I </em><em><strong>feel much more confident going out to dinner or wearing clothes that used to make me self-conscious after meals.</strong></em><em>”</em> — <strong>Patricia</strong></p>",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "gut_harmony_feature_xnyyPX": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "#5: Brings Back Confidence Around Food",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/Image_Container-1.png",
+        "image_border_radius": 0,
+        "body_text": "<p>No more:</p><p>• <strong>Avoiding certain meals because you know you’ll regret it later</strong><br/><br/>• Feeling uncomfortable or “too full” after going out to eat<br/><br/>• <strong>Stressing about bloating before dinners, events, or vacations</strong><br/><br/>• Constantly thinking about your stomach after every meal</p>",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "<p>💬 <em>“Digestive issues had honestly started affecting my confidence. I avoided certain restaurants, dreaded heavy meals, and always worried about how I’d feel afterward. </em><em><strong>After a few weeks with Gut Harmony, that all changed. Meals feel so much easier on me now and I finally feel relaxed around food again.</strong></em><em>”</em> — <strong>Erin</strong></p><p>💬 <em>“I didn’t realize how much my digestion was affecting my day-to-day life until it started improving. I’m more comfortable eating out again, I don’t feel miserable after dinner anymore, and honestly </em><em><strong>I just feel more like myself again.</strong></em><em>”</em> — <strong>Kim James</strong></p>",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "listicle_mpBXdm": {
+      "type": "listicle",
+      "blocks": {
+        "listicle_lto_title_bYDLBG": {
+          "type": "listicle-lto-title",
+          "name": "Listicle LTO Title",
+          "settings": {
+            "title": "Easy Way To Support Your Wellness Goal",
+            "subtitle": "",
+            "heading_tag": "h2",
+            "font_size": 32,
+            "font_size_mobile": 24,
+            "font_weight": "700",
+            "text_color": "#111111",
+            "subtitle_font_size": 16,
+            "subtitle_color": "#666666",
+            "subtitle_margin_top": 8,
+            "text_align": "center",
+            "margin_top": 0,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        },
+        "limited_time_offer_4MLtTT": {
+          "type": "limited-time-offer",
+          "name": "Limited Time Offer",
+          "settings": {
+            "anchor_id": "",
+            "chip_text": "Price Locked Limited Time",
+            "image": "shopify://shop_images/Left__Image_Column.png",
+            "badge_1_text": "",
+            "badge_2_text": "",
+            "guarantee_badge": "",
+            "show_rating": true,
+            "rating_text": "Excellent 4.7 out of 5",
+            "eyebrow": "",
+            "product_title": "DAILY GUT HARMONY GUMMIES",
+            "price": "$35.99",
+            "compare_price": "$45.99",
+            "show_save_badge": true,
+            "save_badge_prefix": "Save $",
+            "save_badge_text": "",
+            "save_badge_bg_color": "#d22f2f",
+            "save_badge_text_color": "#ffffff",
+            "description": "This exclusive offer is in high demand and stock keeps selling out.",
+            "description_richtext": "",
+            "countdown_label": "DEAL ENDING IN:",
+            "duration_hours": 2,
+            "duration_minutes": 33,
+            "duration_seconds": 44,
+            "button_text": "START YOUR GUT RESET →",
+            "button_link": "",
+            "button_bg_color": "#00724d",
+            "button_hover_bg_color": "#005a3d",
+            "risk_label": "",
+            "risk_value": "",
+            "footer_text": "30-Day Money-Back Guarantee"
+          },
+          "blocks": {
+            "lto_feature_eDfEW9": {
+              "type": "lto-feature",
+              "settings": {
+                "text": "Free Shipping"
+              },
+              "blocks": {}
+            },
+            "lto_feature_X8fb7E": {
+              "type": "lto-feature",
+              "settings": {
+                "text": "60-Day Money-Back Guarantee"
+              },
+              "blocks": {}
+            },
+            "lto_feature_zeHFJx": {
+              "type": "lto-feature",
+              "settings": {
+                "text": "Easy Daily Gummies"
+              },
+              "blocks": {}
+            },
+            "lto_feature_JU8FQY": {
+              "type": "lto-feature",
+              "settings": {
+                "text": "Trusted By Women 50+"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "lto_feature_eDfEW9",
+            "lto_feature_X8fb7E",
+            "lto_feature_zeHFJx",
+            "lto_feature_JU8FQY"
+          ]
+        },
+        "listicle_sticky_atc_8EwYPV": {
+          "type": "listicle-sticky-atc",
+          "name": "Sticky Add to Cart",
+          "settings": {
+            "button_text": "Try Gut Harmony Now",
+            "button_link": "",
+            "button_bg": "#00724d",
+            "button_text_color": "#ffffff",
+            "enable_heartbeat": true,
+            "button_font_size": 18,
+            "button_font_size_mobile": 16,
+            "button_padding_y": 20,
+            "button_padding_x": 40,
+            "button_border_radius": 8,
+            "show_subtext": false,
+            "subtext": "",
+            "subtext_color": "#25282a",
+            "subtext_font_size": 12,
+            "sticky": true,
+            "mobile_only": false,
+            "container_bg": "#ffffff",
+            "max_width": 500,
+            "border_radius": 12,
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "listicle_lto_title_bYDLBG",
+        "limited_time_offer_4MLtTT",
+        "listicle_sticky_atc_8EwYPV"
+      ],
+      "name": "Listicle (Theme Blocks)",
+      "settings": {
+        "section_max_width": 900,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "gap": 30,
+        "use_custom_font": false,
+        "section_font_family": "assistant_n4",
+        "heading_letter_spacing": 0,
+        "body_letter_spacing": 0,
+        "font_size_preset": "medium",
+        "use_theme_colors": false,
+        "disable_scroll_animation": true,
+        "section_background_color": "#ffffff",
+        "section_text_color": "#333333",
+        "container_padding_horizontal": 20,
+        "mobile_container_padding": 20
+      }
+    },
+    "gut_harmony_timeline_3TwkeT": {
+      "type": "gut-harmony-timeline",
+      "blocks": {
+        "event_yFB6T6": {
+          "type": "event",
+          "settings": {
+            "label": "Weeks 1–2:",
+            "text": "Less heaviness after meals, more comfortable digestion begins"
+          }
+        },
+        "event_RcB68T": {
+          "type": "event",
+          "settings": {
+            "label": "Weeks 3–4:",
+            "text": "Meals start feeling easier on the stomach, less post-meal discomfort"
+          }
+        },
+        "event_Gyihf8": {
+          "type": "event",
+          "settings": {
+            "label": "Weeks 5–8:",
+            "text": "Improved digestive balance and fewer “bloated after eating” moments"
+          }
+        },
+        "event_whkjLx": {
+          "type": "event",
+          "settings": {
+            "label": "Weeks 9–12:",
+            "text": "More consistent digestive comfort and renewed confidence around food"
+          }
+        }
+      },
+      "block_order": [
+        "event_yFB6T6",
+        "event_RcB68T",
+        "event_Gyihf8",
+        "event_whkjLx"
+      ],
+      "name": "Gut Harmony Timeline",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "event_gap": 16,
+        "background_color": "#ffffff",
+        "image": "shopify://shop_images/Product_image.png",
+        "image_border_radius": 0,
+        "title": "Your 90-Day Digestive Comfort Timeline",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#23a02a",
+        "text_size": 18,
+        "text_color": "#333333",
+        "icon_color": "#333333",
+        "button_text": "",
+        "button_url": "https://lumway.health/products/gut-harmony-gummies",
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#1d8a23"
+      }
+    },
+    "gut_harmony_ingredients_M9kGVY": {
+      "type": "gut-harmony-ingredients",
+      "blocks": {
+        "ingredient_Ur9LcD": {
+          "type": "ingredient",
+          "settings": {
+            "text": "Apple Cider Vinegar, Heat-Stable Probiotic & Ginger Root"
+          }
+        },
+        "ingredient_MKCfbj": {
+          "type": "ingredient",
+          "settings": {
+            "text": "Supports Healthy Gut Balance"
+          }
+        },
+        "ingredient_8LeiUB": {
+          "type": "ingredient",
+          "settings": {
+            "text": "Helps Support Comfortable Digestion"
+          }
+        },
+        "ingredient_4AwdVz": {
+          "type": "ingredient",
+          "settings": {
+            "text": "Traditionally Used For Digestive Support"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_Ur9LcD",
+        "ingredient_MKCfbj",
+        "ingredient_8LeiUB",
+        "ingredient_4AwdVz"
+      ],
+      "name": "Gut Harmony Ingredients",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 40,
+        "column_gap": 24,
+        "media_gap": 24,
+        "item_gap": 16,
+        "background_color": "#ffffff",
+        "title_line_1": "Meet The Ingredients",
+        "title_line_2": "Helping Support Comfortable Digestion",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color_1": "#23a02a",
+        "title_color_2": "#333333",
+        "left_image": "shopify://shop_images/Ingredients_Image_Left.png",
+        "right_image": "shopify://shop_images/Ingredients_Image_Right.png",
+        "image_border_radius": 0,
+        "text_size": 18,
+        "text_color": "#333333",
+        "icon_color": "#333333",
+        "description": "<p><strong>Apple Cider Vinegar, Heat-Stable Probiotic & Ginger Root</strong></p><p>These digestive support ingredients were selected to help support healthy gut bacteria, smoother digestion, and digestive comfort after eating.*</p>"
+      }
+    },
+    "gut_harmony_image_jB4AKy": {
+      "type": "gut-harmony-image",
+      "disabled": true,
+      "name": "Gut Harmony Image",
+      "settings": {
+        "image": "shopify://shop_images/Containe1r.png",
+        "link": "",
+        "max_width": 1204,
+        "image_border_radius": 0,
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 56,
+        "use_theme_colors": false,
+        "background_color": "#ffffff"
+      }
+    },
+    "gut_harmony_cta_Tt37Cp": {
+      "type": "gut-harmony-cta",
+      "blocks": {
+        "feature_DaABtJ": {
+          "type": "feature",
+          "settings": {
+            "text": "90-Day Smooth Digestion Guarantee"
+          }
+        },
+        "feature_kPEdGG": {
+          "type": "feature",
+          "settings": {
+            "text": "Made in the USA with globally sourced ingredients"
+          }
+        },
+        "feature_8Rjrwe": {
+          "type": "feature",
+          "settings": {
+            "text": "Apple Cider Vinegar + Probiotic + Ginger Formula"
+          }
+        },
+        "feature_PPWHz3": {
+          "type": "feature",
+          "settings": {
+            "text": "Trusted By Women 50+"
+          }
+        },
+        "feature_Nd3aMx": {
+          "type": "feature",
+          "settings": {
+            "text": "Designed To Support Digestion & Post-Meal Comfort*"
+          }
+        },
+        "feature_Mr3peF": {
+          "type": "feature",
+          "settings": {
+            "text": "30-Day Risk Free & Money back Guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "feature_DaABtJ",
+        "feature_kPEdGG",
+        "feature_8Rjrwe",
+        "feature_PPWHz3",
+        "feature_Nd3aMx",
+        "feature_Mr3peF"
+      ],
+      "name": "Gut Harmony CTA",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "content_gap": 40,
+        "feature_gap": 16,
+        "background_color": "#f2f9f2",
+        "title": "Take Control Of Your Digestion Again",
+        "title_size": 44,
+        "title_size_mobile": 26,
+        "title_color": "#333333",
+        "text_size": 24,
+        "text_color": "#333333",
+        "icon_color": "#333333",
+        "button_text": "START YOUR DAILY GUT ROUTINE →",
+        "button_url": "https://lumway.health/products/gut-harmony-gummies",
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#1d8a23"
+      }
+    },
+    "gut_harmony_reviews_RY8qtC": {
+      "type": "gut-harmony-reviews",
+      "blocks": {
+        "review_MM7nQf": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Reviewer_Image.png",
+            "rating": 5,
+            "title": "It actually made meals feel easier",
+            "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_nChqbJ": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Reviewer_Image1.png",
+            "rating": 5,
+            "title": "My stomach feels so much more balanced",
+            "text": "“I dealt with bloating and uncomfortable digestion for YEARS. Some foods just seemed impossible for me anymore. After starting Gut Harmony, I noticed my stomach felt calmer and more balanced overall. I'm not constantly regretting meals now.”",
+            "name": "— Wendy O."
+          }
+        },
+        "review_fiaiPe": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Reviewer_Image2.png",
+            "rating": 5,
+            "title": "Huge difference after meals",
+            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_8h3ftx": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Reviewer_Image3.png",
+            "rating": 5,
+            "title": "Love it!!",
+            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
+            "name": "— Linda M."
+          }
+        }
+      },
+      "block_order": [
+        "review_MM7nQf",
+        "review_nChqbJ",
+        "review_fiaiPe",
+        "review_8h3ftx"
+      ],
+      "name": "Gut Harmony Reviews",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "Real People. Real Results",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "card_gap": 24,
+        "enable_slider": true,
+        "slides_per_view": 3,
+        "slides_per_view_mobile": 1,
+        "background_color": "#ffffff",
+        "card_bg": "#ffffff",
+        "card_border_color": "#e9f5ea",
+        "card_radius": 8,
+        "card_padding": 16,
+        "image_radius": 0,
+        "star_color": "#ffc107",
+        "star_empty_color": "#e0e0e0",
+        "text_color": "#333333",
+        "title_size": 16,
+        "text_size": 14,
+        "name_size": 16
+      }
+    },
+    "gut_harmony_cta_banner_Mjc8aE": {
+      "type": "gut-harmony-cta-banner",
+      "name": "Gut Harmony CTA Banner",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "content_gap": 40,
+        "background_color": "#f2f9f2",
+        "header": "Click Below to Begin Your Transformation",
+        "header_size": 44,
+        "header_size_mobile": 26,
+        "header_color": "#333333",
+        "button_text": "GET GUT HARMONY NOW →",
+        "button_url": "shopify://products/gut-harmony-gummies",
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#1d8a23",
+        "subheader": "Your future self will thank you for finally taking control of your digestion today.",
+        "subheader_size": 32,
+        "subheader_size_mobile": 18,
+        "subheader_color": "#333333"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "gut_harmony_benefits_6bQW6X",
+    "gut_harmony_story_WcWnBY",
+    "gut_harmony_band_J4x4Lt",
+    "gut_harmony_feature_AEPXCy",
+    "gut_harmony_feature_ncw9RV",
+    "gut_harmony_feature_6gkhMK",
+    "gut_harmony_feature_VV9tY4",
+    "gut_harmony_feature_xnyyPX",
+    "listicle_mpBXdm",
+    "gut_harmony_timeline_3TwkeT",
+    "gut_harmony_ingredients_M9kGVY",
+    "gut_harmony_image_jB4AKy",
+    "gut_harmony_cta_Tt37Cp",
+    "gut_harmony_reviews_RY8qtC",
+    "gut_harmony_cta_banner_Mjc8aE"
+  ]
+}

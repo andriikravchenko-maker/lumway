@@ -145,14 +145,14 @@
       <h2 class="gut-harmony-cta-banner__header">{{ section.settings.header }}</h2>
     {%- endif -%}
 
+    {%- if section.settings.subheader != blank -%}
+      <p class="gut-harmony-cta-banner__subheader">{{ section.settings.subheader }}</p>
+    {%- endif -%}
+
     {%- if section.settings.button_text != blank -%}
       <a class="gut-harmony-cta-banner__button" href="{{ section.settings.button_url | default: '#' }}">
         {{- section.settings.button_text -}}
       </a>
-    {%- endif -%}
-
-    {%- if section.settings.subheader != blank -%}
-      <p class="gut-harmony-cta-banner__subheader">{{ section.settings.subheader }}</p>
     {%- endif -%}
   </div>
 </section>
