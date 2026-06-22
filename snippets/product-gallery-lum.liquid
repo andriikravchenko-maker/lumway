@@ -1,0 +1,133 @@
+{%- comment -%}
+  Product gallery — Lumway PDP. Forked for the product-details-lum section (old product-gallery untouched).
+  Pixel-perfect to Figma: desktop 433:2984, mobile 484:7021.
+    Mobile  : square main (radius 16) + thumbnail row (radius 8, 2px gap, active border #113b34).
+    Desktop : main aspect 658/494 (radius 28) + 2-col grid of the rest (radius 28, 8px gap), static.
+  Images come live from product.media (not hardcoded from Figma).
+  Mobile: tap a thumb to swap the main image. Desktop: static (all images shown).
+  Usage: {% render 'product-gallery-lum', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign gallery_media = product.media | where: 'media_type', 'image'
+  assign gallery_count = gallery_media.size
+-%}
+
+{%- if gallery_count > 0 -%}
+  {%- assign main_media = gallery_media.first -%}
+  <div class="lpg" data-lpg>
+    <div class="lpg__stage">
+      <img class="lpg__stage-img" data-lpg-stage
+        src="{{ main_media.preview_image | image_url: width: 658 }}"
+        srcset="{{ main_media.preview_image | image_url: width: 343 }} 343w,
+                {{ main_media.preview_image | image_url: width: 494 }} 494w,
+                {{ main_media.preview_image | image_url: width: 658 }} 658w,
+                {{ main_media.preview_image | image_url: width: 988 }} 988w,
+                {{ main_media.preview_image | image_url: width: 1316 }} 1316w"
+        sizes="(min-width: 990px) 658px, calc(100vw - 32px)"
+        width="658" height="494" loading="eager" fetchpriority="high"
+        alt="{{ main_media.preview_image.alt | escape | default: product.title | escape }}">
+      {%- if gallery_count > 1 -%}
+        <span class="lpg__arrow lpg__arrow--prev" data-lpg-prev role="button" tabindex="0" aria-label="Previous image">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
+        <span class="lpg__arrow lpg__arrow--next" data-lpg-next role="button" tabindex="0" aria-label="Next image">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if gallery_count > 1 -%}
+      <div class="lpg__rail" data-lpg-rail>
+        {%- for media in gallery_media -%}
+          <button type="button"
+            class="lpg__item{% if forloop.first %} lpg__item--first is-active{% endif %}"
+            data-lpg-item
+            data-full="{{ media.preview_image | image_url: width: 658 }}"
+            data-srcset="{{ media.preview_image | image_url: width: 343 }} 343w, {{ media.preview_image | image_url: width: 494 }} 494w, {{ media.preview_image | image_url: width: 658 }} 658w, {{ media.preview_image | image_url: width: 988 }} 988w, {{ media.preview_image | image_url: width: 1316 }} 1316w"
+            aria-label="View image {{ forloop.index }}">
+            <img
+              src="{{ media.preview_image | image_url: width: 325 }}"
+              srcset="{{ media.preview_image | image_url: width: 134 }} 134w, {{ media.preview_image | image_url: width: 200 }} 200w, {{ media.preview_image | image_url: width: 325 }} 325w, {{ media.preview_image | image_url: width: 650 }} 650w"
+              sizes="(min-width: 990px) 325px, 67px"
+              width="325" height="325" loading="lazy"
+              alt="{{ media.preview_image.alt | escape | default: product.title | escape }}">
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- style -%}
+    .lpg{display:flex;flex-direction:column;gap:8px;padding:16px 16px 0;}
+    .lpg__stage{position:relative;width:100%;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:#f4f4f2;}
+    /* TEMP: original size (contain) while product images are placeholders and crop with cover; revert to object-fit:cover when the real product card is ready */
+    .lpg__stage-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;}
+    .lpg__rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
+    .lpg__rail::-webkit-scrollbar{display:none;}
+    /* exactly 5 thumbs in view (each = 1/5 of the row minus the 4 gaps); the rest scroll */
+    .lpg__item{flex:0 0 calc((100% - 8px) / 5);min-width:0;aspect-ratio:1/1;position:relative;padding:0;margin:0;border:1px solid rgba(17,59,52,.1);overflow:hidden;background:#f4f4f2;cursor:pointer;}
+    /* theme rounds <button> via its global button radius; beat it (specificity + !important) — Figma thumb r8 */
+    .lpg .lpg__item{border-radius:8px !important;}
+    .lpg__item.is-active{border-color:#113b34;}
+    .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;} /* TEMP: contain — revert to cover when real images are ready */
+    .lpg__arrow{position:absolute !important;top:50% !important;transform:translateY(-50%) !important;z-index:2 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;width:auto !important;min-width:0 !important;min-height:0 !important;height:auto !important;padding:6px 12px !important;margin:0 !important;background:#fff !important;background-image:none !important;box-shadow:none !important;text-shadow:none !important;border:0 !important;border-radius:28px !important;color:#113b34 !important;cursor:pointer;-webkit-appearance:none;appearance:none;}
+    .lpg__arrow::before,.lpg__arrow::after{display:none !important;}
+    .lpg__arrow--prev{left:4px !important;right:auto !important;}
+    .lpg__arrow--next{right:4px !important;left:auto !important;}
+    .lpg__arrow.is-disabled{opacity:.5;cursor:default;pointer-events:none;}
+    .lpg__arrow svg{display:block !important;width:18px !important;height:14px !important;}
+    .lpg__arrow--prev svg{transform:rotate(180deg) !important;}
+    @media (min-width:990px){
+      .lpg{padding:0;}
+      .lpg__stage{aspect-ratio:658/494;border-radius:28px;}
+      .lpg__rail{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;}
+      .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:default;}
+      .lpg__item--first{display:none;}
+      .lpg__arrow{display:none !important;}
+    }
+  {%- endstyle -%}
+
+  <script>
+    (function(){
+      var root = document.querySelector('[data-lpg]');
+      if(!root) return;
+      var stage = root.querySelector('[data-lpg-stage]');
+      var rail = root.querySelector('[data-lpg-rail]');
+      var items = [].slice.call(root.querySelectorAll('[data-lpg-item]'));
+      var prev = root.querySelector('[data-lpg-prev]');
+      var next = root.querySelector('[data-lpg-next]');
+      if(!stage || !items.length) return;
+      var current = 0;
+      function isDesktop(){ return window.matchMedia('(min-width:990px)').matches; }
+      function centerThumb(item){
+        if(!rail) return;
+        var left = item.offsetLeft - (rail.clientWidth - item.offsetWidth) / 2;
+        rail.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+      }
+      function select(i){
+        if(i < 0) i = 0;
+        if(i > items.length - 1) i = items.length - 1;
+        current = i;
+        var item = items[i];
+        var full = item.getAttribute('data-full');
+        var ss = item.getAttribute('data-srcset');
+        if(full) stage.src = full;
+        if(ss) stage.srcset = ss;
+        items.forEach(function(b){ b.classList.remove('is-active'); });
+        item.classList.add('is-active');
+        centerThumb(item);
+        if(prev) prev.classList.toggle('is-disabled', i === 0);
+        if(next) next.classList.toggle('is-disabled', i === items.length - 1);
+      }
+      root.addEventListener('click', function(e){
+        if(isDesktop()) return; /* desktop gallery is a static grid */
+        var item = e.target.closest('[data-lpg-item]');
+        if(item) select(items.indexOf(item));
+      });
+      function goPrev(){ if(!isDesktop()) select(current - 1); }
+      function goNext(){ if(!isDesktop()) select(current + 1); }
+      function onKey(fn){ return function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fn(); } }; }
+      if(prev){ prev.addEventListener('click', goPrev); prev.addEventListener('keydown', onKey(goPrev)); }
+      if(next){ next.addEventListener('click', goNext); next.addEventListener('keydown', onKey(goNext)); }
+      if(prev) prev.classList.add('is-disabled');
+      if(next) next.classList.toggle('is-disabled', items.length <= 1);
+    })();
+  </script>
+{%- endif -%}

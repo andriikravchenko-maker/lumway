@@ -1,0 +1,31 @@
+{%- comment -%}
+  Promo bar (Lumway) — thin announcement bar above the header. Figma 557:3399.
+  New section; swapped into header-group.json in place of the theme's custom-announcement-bar.
+{%- endcomment -%}
+{%- liquid assign uid = section.id -%}
+{% style %}
+  .promo-{{ uid }}{ display:flex; align-items:center; justify-content:center; padding:8px 16px; background:{{ section.settings.bg | default: '#fad356' }}; box-sizing:border-box; }
+  .promo-{{ uid }} .promo__text{ margin:0; font-family:'Inter Tight', system-ui, sans-serif !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:{{ section.settings.text_color | default: '#113b34' }}; text-align:center; text-transform:uppercase; }
+  .promo-{{ uid }} a.promo__text{ text-decoration:none; }
+{% endstyle %}
+{%- if section.settings.text != blank -%}
+  <div class="promo promo-{{ uid }}">
+    {%- if section.settings.link != blank -%}
+      <a class="promo__text" href="{{ section.settings.link }}">{{ section.settings.text | escape }}</a>
+    {%- else -%}
+      <p class="promo__text">{{ section.settings.text | escape }}</p>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Promo bar (Lumway)",
+  "class": "section-promo-lum",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "FREE SHIPPING ON $39" },
+    { "type": "url", "id": "link", "label": "Link (optional)" },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#fad356" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#113b34" }
+  ]
+}
+{% endschema %}

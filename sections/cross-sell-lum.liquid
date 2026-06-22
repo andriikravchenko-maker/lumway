@@ -1,0 +1,143 @@
+{%- comment -%}
+  Cross-sell "also buy" — Lumway. Figma 557:2715. Standalone section.
+  Each product = a block (product picker + optional custom image / title). Price, compare-at and the
+  auto "Save" badge come from the product. The Add button adds the product straight to cart and opens
+  the cart drawer, reusing the theme helper window.handleProductUpsellAdd (assets/upsell-simple.js).
+{%- endcomment -%}
+
+{%- liquid
+  assign sid = section.id
+  assign card_bg = section.settings.card_bg | default: '#f4f4f2'
+  assign save_bg = section.settings.save_bg | default: '#fa6c56'
+  assign save_tc = section.settings.save_text | default: '#ffffff'
+  assign btn_bg = section.settings.button_bg | default: '#ffffff'
+  assign btn_tc = section.settings.button_text | default: '#113b34'
+-%}
+
+{% style %}
+  .xsl-{{ sid }}{ --xsl-font:'Inter Tight', system-ui, sans-serif; --xsl-ink:#113b34; --xsl-card:{{ card_bg }}; padding:{{ section.settings.padding_top | default: 24 }}px 16px {{ section.settings.padding_bottom | default: 24 }}px; }
+  .xsl-{{ sid }} .xsl__inner{ max-width:740px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+  .xsl-{{ sid }} .xsl__heading{ margin:0; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:{{ section.settings.heading_color | default: '#113b34' }}; }
+  .xsl-{{ sid }} .xsl__list{ display:flex; flex-direction:column; gap:8px; }
+  .xsl-{{ sid }} .xsl__card{ display:flex; align-items:center; gap:8px; padding:12px; background:var(--xsl-card); border-radius:12px; box-sizing:border-box; }
+  .xsl-{{ sid }} .xsl__main{ display:flex; align-items:center; gap:8px; min-width:0; flex:1 1 auto; }
+  .xsl-{{ sid }} .xsl__img{ flex:0 0 56px; width:56px; height:56px; background:#fff; border-radius:6px; overflow:hidden; }
+  .xsl-{{ sid }} .xsl__img img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .xsl-{{ sid }} .xsl__info{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+  .xsl-{{ sid }} .xsl__title{ margin:0; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--xsl-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .xsl-{{ sid }} .xsl__prices{ display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+  .xsl-{{ sid }} .xsl__price{ font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--xsl-ink); }
+  .xsl-{{ sid }} .xsl__compare{ font-family:var(--xsl-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:rgba(17,59,52,.4); text-decoration:line-through; }
+  .xsl-{{ sid }} .xsl__save{ display:inline-flex; align-items:center; padding:2px 4px; border-radius:28px; font-family:var(--xsl-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; background:{{ save_bg }}; color:{{ save_tc }}; white-space:nowrap; }
+  .xsl-{{ sid }} .xsl__form{ flex:0 0 auto; margin:0; }
+  .xsl-{{ sid }} .xsl__add{ display:inline-flex; align-items:center; justify-content:center; gap:4px; min-height:32px; padding:8px 12px; border:0 !important; border-radius:30px !important; background:{{ btn_bg }} !important; background-image:none !important; box-shadow:none !important; text-shadow:none !important; color:{{ btn_tc }} !important; text-transform:none !important; cursor:pointer; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; -webkit-appearance:none; appearance:none; }
+  .xsl-{{ sid }} .xsl__add::before, .xsl-{{ sid }} .xsl__add::after{ display:none !important; }
+  .xsl-{{ sid }} .xsl__add[disabled]{ opacity:.6; cursor:default; }
+  .xsl-{{ sid }} .xsl__add-icon{ display:inline-flex; flex:0 0 16px; width:16px; height:16px; color:{{ btn_tc }}; }
+  .xsl-{{ sid }} .xsl__add-icon svg{ display:block; width:100%; height:100%; }
+  .xsl-{{ sid }} .xsl__add .xsl__add-label{ font-family:var(--xsl-font) !important; font-weight:600 !important; letter-spacing:-0.24px; }
+  .xsl-{{ sid }} .xsl__empty{ padding:16px; border:1px dashed rgba(17,59,52,.3); border-radius:12px; font-family:var(--xsl-font); font-size:13px; color:rgba(17,59,52,.6); text-align:center; }
+  @media (min-width:990px){
+    .xsl-{{ sid }}{ padding-left:48px; padding-right:48px; }
+    .xsl-{{ sid }} .xsl__inner{ max-width:1344px; }
+  }
+{% endstyle %}
+
+<div class="xsl xsl-{{ sid }}">
+  <div class="xsl__inner">
+    {%- if section.settings.heading != blank -%}<p class="xsl__heading">{{ section.settings.heading | escape }}</p>{%- endif -%}
+    <div class="xsl__list">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign prod = block.settings.product
+          unless prod != blank
+            continue
+          endunless
+          assign variant = prod.selected_or_first_available_variant | default: prod.variants.first
+          assign img = block.settings.custom_image | default: prod.featured_image
+          assign title = block.settings.custom_title | default: prod.title
+          assign price = variant.price
+          assign compare = variant.compare_at_price
+          assign has_compare = false
+          if section.settings.show_compare and compare and compare > price
+            assign has_compare = true
+            assign save_amount = compare | minus: price
+          endif
+        -%}
+        <div class="xsl__card" {{ block.shopify_attributes }}>
+          <div class="xsl__main">
+            <span class="xsl__img">
+              {%- if img != blank -%}{{ img | image_url: width: 112 | image_tag: loading: 'lazy', widths: '56,112', sizes: '56px', alt: title }}{%- endif -%}
+            </span>
+            <div class="xsl__info">
+              <p class="xsl__title">{{ title | escape }}</p>
+              <div class="xsl__prices">
+                <span class="xsl__price">{{ price | money }}</span>
+                {%- if has_compare -%}<span class="xsl__compare">{{ compare | money }}</span>{%- endif -%}
+                {%- if has_compare and section.settings.save_auto and save_amount > 0 -%}
+                  <span class="xsl__save">{{ section.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{{ save_amount | money }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+          <form id="xsl-form-{{ block.id }}" class="xsl__form" action="{{ routes.cart_add_url }}" method="post" data-cart-action="drawer" onsubmit="return false;">
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="button" class="xsl__add disable-global-button-styling" onclick="handleProductUpsellAdd(this, 'xsl-form-{{ block.id }}')"{% unless variant.available %} disabled{% endunless %}>
+              <span class="xsl__add-icon">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
+              <span class="xsl__add-label">{{ section.settings.add_label | default: 'Add' | escape }}</span>
+            </button>
+          </form>
+        </div>
+      {%- else -%}
+        {%- if request.design_mode -%}<div class="xsl__empty">Add product blocks and pick a product for each.</div>{%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script src="{{ 'upsell-simple.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Cross-sell also buy",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Thousands of customers also buy" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#113b34" },
+    { "type": "color", "id": "card_bg", "label": "Card background", "default": "#f4f4f2" },
+    { "type": "checkbox", "id": "show_compare", "label": "Show compare-at (struck)", "default": true },
+    { "type": "header", "content": "Save badge" },
+    { "type": "checkbox", "id": "save_auto", "label": "Auto-calc Save (compare − price)", "default": true },
+    { "type": "text", "id": "save_prefix", "label": "Save prefix", "default": "Save " },
+    { "type": "color", "id": "save_bg", "label": "Save background", "default": "#fa6c56" },
+    { "type": "color", "id": "save_text", "label": "Save text", "default": "#ffffff" },
+    { "type": "header", "content": "Add button" },
+    { "type": "text", "id": "add_label", "label": "Button label", "default": "Add" },
+    { "type": "color", "id": "button_bg", "label": "Button background", "default": "#ffffff" },
+    { "type": "color", "id": "button_text", "label": "Button text / icon", "default": "#113b34" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "default": 24, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "default": 24, "unit": "px" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "custom_image", "label": "Custom image" },
+        { "type": "text", "id": "custom_title", "label": "Custom title" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Cross-sell also buy",
+      "blocks": [{ "type": "product" }, { "type": "product" }]
+    }
+  ]
+}
+{% endschema %}
