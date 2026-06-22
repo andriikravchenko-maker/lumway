@@ -1947,7 +1947,7 @@
         "ingredient_x6WJib"
       ],
       "custom_css": [
-        ".ingredient-cards__heading-accent {color: #23a02a !important;}"
+        ".ingredient-cards__heading-accent {color: #113b34 !important;}"
       ],
       "name": "Ingredient Cards",
       "settings": {
@@ -1957,7 +1957,7 @@
         "heading_size": 40,
         "heading_size_mobile": 28,
         "heading_color": "#000000",
-        "accent_color": "#23a02a",
+        "accent_color": "#113B34",
         "card_background": "#ffffff",
         "card_border_color": "#c2c2c2",
         "card_border_radius": 8,
@@ -1965,7 +1965,7 @@
         "description_color": "#000000",
         "badge_background": "#fff8d6",
         "badge_text_color": "#995e05",
-        "benefit_color": "#23a02a",
+        "benefit_color": "#113B34",
         "section_background": "#f9f9f9",
         "container_width": 1200,
         "padding_top": 80,
@@ -2048,7 +2048,7 @@
         "override_global_accent": true,
         "use_accent_gradient": false,
         "accent_text_gradient": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
-        "accent_color": "#23a02a",
+        "accent_color": "#113B34",
         "accent_font_family": "inherit",
         "accent_font_style": "normal",
         "accent_font_weight": 700,
@@ -2069,7 +2069,7 @@
         "badge_border_radius": 50,
         "badge_border_width": 1,
         "badge_border_style": "solid",
-        "badge_border_color": "#23a02a",
+        "badge_border_color": "#113B34",
         "desktop_content_alignment": "center",
         "mobile_content_alignment": "center",
         "roadmap_item_spacing_desktop": 40,
@@ -2094,7 +2094,7 @@
         "step_description_color": "#666666",
         "timeline_color": "#e0e0e0",
         "active_timeline_color": "#4caf50",
-        "circle_color": "#23a02a",
+        "circle_color": "#113B34",
         "circle_icon_color": "#ffffff",
         "badge_background": "#e24f6c",
         "badge_text_color": "#ffffff",
