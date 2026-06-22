@@ -54,6 +54,8 @@
   /* Sticky add-to-cart (mobile): mirrors the main button, slides up when the main button scrolls out of view */
   .patc-{{ uid }} .patc__sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 16px; padding-bottom:calc(10px + env(safe-area-inset-bottom)); background:#fff; box-shadow:0 -2px 16px rgba(17,59,52,.10); transform:translateY(130%); transition:transform .28s ease; box-sizing:border-box; }
   .patc-{{ uid }} .patc__sticky.is-visible{ transform:translateY(0); }
+  /* sticky "Try it Now" lands at the top of the buy-box selection (header is not sticky, so a small gap is enough) */
+  .bsl, .ptl{ scroll-margin-top:24px; }
   /* hide the sticky bar while the mobile menu drawer is open (header sets body.lhead-drawer-open) */
   body.lhead-drawer-open .patc-{{ uid }} .patc__sticky{ transform:translateY(130%) !important; }
   @media (min-width:990px){ .patc-{{ uid }} .patc__sticky{ display:none !important; } }
@@ -141,8 +143,10 @@
     // Sticky bar (mobile): tap scrolls to the pack selector / buy box; bar shows when the main button is out of view.
     if (stickyBtn) {
       stickyBtn.addEventListener('click', function () {
-        var target = document.querySelector('.bsl') || document.querySelector('.ptl') || mainBtn;
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // land at the TOP of the buy-box selection area (purchase type / pack selector), whichever sits highest
+        var sel = ['.ptl', '.bsl'].map(function (s) { return document.querySelector(s); }).filter(Boolean);
+        var target = sel.sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; })[0] || mainBtn;
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
     if (stickyBar && mainBtn && 'IntersectionObserver' in window) {
