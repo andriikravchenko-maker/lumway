@@ -918,6 +918,7 @@
         "listicle_timer_y6kXVp": {
           "type": "listicle-timer",
           "name": "Listicle Timer",
+          "disabled": true,
           "settings": {
             "title": "⚡ Limited Time Deal + Free Shipping ⚡",
             "subtitle": "",
