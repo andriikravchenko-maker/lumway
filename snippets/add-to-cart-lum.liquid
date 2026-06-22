@@ -154,6 +154,33 @@
         entries.forEach(function (en) { stickyBar.classList.toggle('is-visible', !en.isIntersecting); });
       }, { threshold: 0 }).observe(mainBtn);
     }
+
+    // Add to cart via AJAX + open the cart drawer. The theme's global shop-cart-button-handler.js is only
+    // loaded by the theme's own product section (not on this custom one), so we mirror it here. The
+    // 'drawer-initialized' guard matches that script, so neither double-binds if both ever run.
+    var atcForm = root.querySelector('form[action*="/cart/add"]');
+    if (atcForm && !atcForm.classList.contains('drawer-initialized')) {
+      atcForm.classList.add('drawer-initialized');
+      atcForm.addEventListener('submit', function (e) {
+        var cartDrawer = document.querySelector('cart-drawer');
+        if (!cartDrawer || typeof cartDrawer.renderContents !== 'function') return; // no drawer -> normal POST to /cart
+        e.preventDefault();
+        if (mainBtn) { mainBtn.classList.add('loading'); mainBtn.setAttribute('aria-disabled', 'true'); }
+        var fd = new FormData(atcForm);
+        fd.append('sections', 'cart-drawer,cart-icon-bubble');
+        fd.append('sections_url', window.location.pathname);
+        fetch(((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js', {
+          method: 'POST', headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }, body: fd
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data && data.status) { window.alert(data.description || 'Could not add to cart'); return; }
+            cartDrawer.renderContents(data); // refreshes the drawer contents and opens it
+          })
+          .catch(function () { atcForm.submit(); })
+          .finally(function () { if (mainBtn) { mainBtn.classList.remove('loading'); mainBtn.removeAttribute('aria-disabled'); } });
+      });
+    }
   })();
 </script>
 {%- endif -%}
