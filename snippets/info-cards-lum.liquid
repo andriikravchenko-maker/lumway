@@ -1,0 +1,65 @@
+{%- comment -%}
+  Info cards (delivery / guarantee assurances) — Lumway PDP. Figma 557:2704.
+  Repeated rows (row_1..row_4): icon + title + caption on a colored card. Fully configurable.
+  Icon = built-in select (truck / shield / tick / info / star) or a custom image (image overrides select).
+  Usage: {% render 'info-cards-lum', block: block %}
+{%- endcomment -%}
+{%- liquid
+  assign uid = block.id
+-%}
+{% style %}
+  .icl-{{ uid }}{ --icl-font:'Inter Tight', system-ui, sans-serif; --icl-ink:#113b34; display:flex; flex-direction:column; gap:5px; width:100%; }
+  .icl-{{ uid }} .icl__row{ display:flex; align-items:flex-start; gap:8px; padding:12px; border-radius:12px; box-sizing:border-box; }
+  .icl-{{ uid }} .icl__icon{ flex:0 0 32px; width:32px; height:32px; color:var(--icl-ink); }
+  .icl-{{ uid }} .icl__icon svg{ display:block; width:100%; height:100%; }
+  .icl-{{ uid }} .icl__icon img{ display:block; width:100%; height:100%; object-fit:contain; }
+  .icl-{{ uid }} .icl__text{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .icl-{{ uid }} .icl__title{ margin:0; font-family:var(--icl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--icl-ink); }
+  .icl-{{ uid }} .icl__sub{ margin:0; font-family:var(--icl-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:rgba(17,59,52,.6); }
+  @media (min-width:990px){
+    .icl-{{ uid }}{ flex-direction:row; gap:8px; }
+    .icl-{{ uid }} .icl__row{ flex:1 1 0; min-width:0; }
+  }
+{% endstyle %}
+
+<div class="icl icl-{{ uid }}" {{ block.shopify_attributes }}>
+  {%- for i in (1..4) -%}
+    {%- liquid
+      assign show_key = 'row_' | append: i | append: '_show'
+      unless block.settings[show_key]
+        continue
+      endunless
+      assign icon_key = 'row_' | append: i | append: '_icon'
+      assign img_key = 'row_' | append: i | append: '_image'
+      assign bg_key = 'row_' | append: i | append: '_bg'
+      assign title_key = 'row_' | append: i | append: '_title'
+      assign text_key = 'row_' | append: i | append: '_text'
+      assign icon = block.settings[icon_key]
+      assign icon_img = block.settings[img_key]
+      assign bg = block.settings[bg_key] | default: '#ebf7e0'
+      assign title = block.settings[title_key]
+      assign text = block.settings[text_key]
+    -%}
+    {%- if title != blank or text != blank or icon_img != blank -%}
+      <div class="icl__row" style="background:{{ bg }}">
+        {%- if icon_img != blank -%}
+          <span class="icl__icon">{{ icon_img | image_url: width: 64 | image_tag: loading: 'lazy', widths: '32,64', sizes: '32px', alt: '' }}</span>
+        {%- elsif icon != blank and icon != 'none' -%}
+          <span class="icl__icon">
+            {%- case icon -%}
+              {%- when 'truck' -%}{{ 'lum-icon-truck.svg' | inline_asset_content }}
+              {%- when 'shield' -%}{{ 'lum-icon-shield.svg' | inline_asset_content }}
+              {%- when 'tick' -%}{{ 'lum-icon-tick.svg' | inline_asset_content }}
+              {%- when 'info' -%}{{ 'lum-icon-info.svg' | inline_asset_content }}
+              {%- when 'star' -%}{{ 'lum-icon-star.svg' | inline_asset_content }}
+            {%- endcase -%}
+          </span>
+        {%- endif -%}
+        <span class="icl__text">
+          {%- if title != blank -%}<p class="icl__title">{{ title | escape }}</p>{%- endif -%}
+          {%- if text != blank -%}<p class="icl__sub">{{ text | escape }}</p>{%- endif -%}
+        </span>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>

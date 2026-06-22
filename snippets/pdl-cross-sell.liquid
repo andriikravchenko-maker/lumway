@@ -1,0 +1,89 @@
+{%- comment -%}
+  Cross-sell "also buy" — renders inside product-details-lum's right column (block type 'cross_sell').
+  Products come from flat block settings product_1..product_6 (+ optional custom image / title).
+  Add button adds the product to cart + opens the drawer via window.handleProductUpsellAdd (upsell-simple.js).
+  Usage: {% render 'pdl-cross-sell', block: block %}
+{%- endcomment -%}
+{%- liquid
+  assign uid = block.id
+  assign card_bg = block.settings.card_bg | default: '#f4f4f2'
+  assign save_bg = block.settings.save_bg | default: '#fa6c56'
+  assign save_tc = block.settings.save_text | default: '#ffffff'
+  assign btn_bg = block.settings.button_bg | default: '#ffffff'
+  assign btn_tc = block.settings.button_text | default: '#113b34'
+-%}
+{% style %}
+  .xsl-{{ uid }}{ --xsl-font:'Inter Tight', system-ui, sans-serif; --xsl-ink:#113b34; --xsl-card:{{ card_bg }}; display:flex; flex-direction:column; gap:16px; }
+  .xsl-{{ uid }} .xsl__heading{ margin:0; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:{{ block.settings.heading_color | default: '#113b34' }}; }
+  .xsl-{{ uid }} .xsl__list{ display:flex; flex-direction:column; gap:8px; }
+  .xsl-{{ uid }} .xsl__card{ display:flex; align-items:center; gap:8px; padding:12px; background:var(--xsl-card); border-radius:12px; box-sizing:border-box; }
+  .xsl-{{ uid }} .xsl__main{ display:flex; align-items:center; gap:8px; min-width:0; flex:1 1 auto; }
+  .xsl-{{ uid }} .xsl__img{ flex:0 0 56px; width:56px; height:56px; background:#fff; border-radius:6px; overflow:hidden; }
+  .xsl-{{ uid }} .xsl__img img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .xsl-{{ uid }} .xsl__info{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+  .xsl-{{ uid }} .xsl__title{ margin:0; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--xsl-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .xsl-{{ uid }} .xsl__prices{ display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+  .xsl-{{ uid }} .xsl__price{ font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--xsl-ink); }
+  .xsl-{{ uid }} .xsl__compare{ font-family:var(--xsl-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:rgba(17,59,52,.4); text-decoration:line-through; }
+  .xsl-{{ uid }} .xsl__save{ display:inline-flex; align-items:center; padding:2px 4px; border-radius:28px; font-family:var(--xsl-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; background:{{ save_bg }}; color:{{ save_tc }}; white-space:nowrap; }
+  .xsl-{{ uid }} .xsl__form{ flex:0 0 auto; margin:0; }
+  .xsl-{{ uid }} .xsl__add{ display:inline-flex; align-items:center; justify-content:center; gap:4px; min-height:32px; padding:8px 12px; border:0 !important; border-radius:30px !important; background:{{ btn_bg }} !important; background-image:none !important; box-shadow:none !important; text-shadow:none !important; color:{{ btn_tc }} !important; text-transform:none !important; cursor:pointer; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; -webkit-appearance:none; appearance:none; }
+  .xsl-{{ uid }} .xsl__add::before, .xsl-{{ uid }} .xsl__add::after{ display:none !important; }
+  .xsl-{{ uid }} .xsl__add-icon{ display:inline-flex; flex:0 0 16px; width:16px; height:16px; color:{{ btn_tc }}; }
+  .xsl-{{ uid }} .xsl__add-icon svg{ display:block; width:100%; height:100%; }
+  .xsl-{{ uid }} .xsl__add .xsl__add-label{ font-family:var(--xsl-font) !important; font-weight:600 !important; letter-spacing:-0.24px; }
+{% endstyle %}
+
+<div class="xsl xsl-{{ uid }}" {{ block.shopify_attributes }}>
+  {%- if block.settings.heading != blank -%}<p class="xsl__heading">{{ block.settings.heading | escape }}</p>{%- endif -%}
+  <div class="xsl__list">
+    {%- for i in (1..6) -%}
+      {%- liquid
+        assign pk = 'product_' | append: i
+        assign prod = block.settings[pk]
+        unless prod != blank
+          continue
+        endunless
+        assign imk = 'custom_image_' | append: i
+        assign ttk = 'custom_title_' | append: i
+        assign variant = prod.selected_or_first_available_variant | default: prod.variants.first
+        assign img = block.settings[imk] | default: prod.featured_image
+        assign title = block.settings[ttk] | default: prod.title
+        assign price = variant.price
+        assign compare = variant.compare_at_price
+        assign has_compare = false
+        if block.settings.show_compare and compare and compare > price
+          assign has_compare = true
+          assign save_amount = compare | minus: price
+        endif
+        assign fid = 'xsl-form-' | append: uid | append: '-' | append: i
+      -%}
+      <div class="xsl__card">
+        <div class="xsl__main">
+          <span class="xsl__img">
+            {%- if img != blank -%}{{ img | image_url: width: 112 | image_tag: loading: 'lazy', widths: '56,112', sizes: '56px', alt: title }}{%- endif -%}
+          </span>
+          <div class="xsl__info">
+            <p class="xsl__title">{{ title | escape }}</p>
+            <div class="xsl__prices">
+              <span class="xsl__price">{{ price | money }}</span>
+              {%- if has_compare -%}<span class="xsl__compare">{{ compare | money }}</span>{%- endif -%}
+              {%- if has_compare and block.settings.save_auto and save_amount > 0 -%}
+                <span class="xsl__save">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{{ save_amount | money }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+        <form id="{{ fid }}" class="xsl__form" action="{{ routes.cart_add_url }}" method="post" data-cart-action="drawer" onsubmit="return false;">
+          <input type="hidden" name="id" value="{{ variant.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="button" class="xsl__add disable-global-button-styling" onclick="handleProductUpsellAdd(this, '{{ fid }}')"{% unless variant.available %} disabled{% endunless %}>
+            <span class="xsl__add-icon">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
+            <span class="xsl__add-label">{{ block.settings.add_label | default: 'Add' | escape }}</span>
+          </button>
+        </form>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+<script src="{{ 'upsell-simple.js' | asset_url }}" defer></script>

@@ -1,0 +1,1780 @@
+{%- comment -%}
+  Section: product-details-lum — new PDP buy box.
+  Figma: gallery desktop 433:2984 / mobile 484:7021; heading blocks desktop 433:3000 / mobile 484:7029.
+  Lean, mobile-first, reuses theme conventions. Old shop-product-details is untouched.
+  Left column = gallery (product-gallery-lum). Right column = buy-box blocks (added per build step).
+  Font = theme header font (Bricolage). CSS scoped to .section-{{ section.id }}.
+  NOTE: desktop two-column metrics are provisional until the full desktop PDP frame is pulled;
+  the blocks themselves are pixel-perfect.
+{%- endcomment -%}
+
+<section class="pdl section-{{ section.id }}">
+  <div class="pdl__media">
+    {%- render 'product-gallery-lum', product: product -%}
+  </div>
+
+  <div class="pdl__info">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when 'rating' -%}
+          <div class="pdl-rating" {{ block.shopify_attributes }}>
+            {%- if block.settings.stars > 0 -%}
+              <span class="pdl-rating__stars" aria-hidden="true">
+                {%- for i in (1..block.settings.stars) -%}<span class="pdl-rating__star">{{ 'lum-icon-star.svg' | inline_asset_content }}</span>{%- endfor -%}
+              </span>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}<span class="pdl-rating__text">{{ block.settings.text | escape }}</span>{%- endif -%}
+          </div>
+
+        {%- when 'title' -%}
+          {%- assign pdl_heading = block.settings.heading | default: product.title -%}
+          <h1 class="pdl-title" {{ block.shopify_attributes }}>{{ pdl_heading | escape }}</h1>
+
+        {%- when 'subtitle' -%}
+          {%- if block.settings.text != blank -%}<div class="pdl-subtitle" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>{%- endif -%}
+
+        {%- when 'labels' -%}
+          <ul class="pdl-labels" {{ block.shopify_attributes }}>
+            {%- for i in (1..6) -%}
+              {%- assign sk = 'chip_' | append: i | append: '_show' -%}
+              {%- assign tk = 'chip_' | append: i | append: '_text' -%}
+              {%- if block.settings[sk] and block.settings[tk] != blank -%}
+                <li class="pdl-chip"><span class="pdl-chip__icon">{{ 'lum-icon-tick.svg' | inline_asset_content }}</span><span class="pdl-chip__text">{{ block.settings[tk] | escape }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+        {%- when 'bundle' -%}
+          {%- render 'bundle-selector-lum', block: block, product: product -%}
+
+        {%- when 'purchase_type' -%}
+          {%- render 'purchase-type-lum', block: block, product: product -%}
+
+        {%- when 'add_to_cart' -%}
+          {%- render 'add-to-cart-lum', block: block, product: product -%}
+
+        {%- when 'info_cards' -%}
+          {%- render 'info-cards-lum', block: block -%}
+
+        {%- when 'cross_sell' -%}
+          {%- render 'pdl-cross-sell', block: block -%}
+
+        {%- when 'product_tabs' -%}
+          {%- render 'pdl-tabs', block: block -%}
+
+        {%- when '@app' -%}
+          {%- render block -%}
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{%- style -%}
+  @font-face{ font-family:'Inter Tight'; font-style:normal; font-weight:400 700; font-display:swap; src:url({{ 'lum-inter-tight.woff2' | asset_url }}) format('woff2'); }
+
+  /* This whole PDP is Inter Tight. This section renders ONLY on this template, so overriding the theme's font
+     variables here re-fonts the entire page (header / footer / reused blocks) and touches nothing else on the
+     store. Override the VARIABLES, not each property (theme reads font-family: var(--font-*-family)). */
+  :root{
+    --font-body-family: 'Inter Tight', system-ui, sans-serif !important;
+    --font-heading-family: 'Inter Tight', system-ui, sans-serif !important;
+    --font-accent-family: 'Inter Tight', system-ui, sans-serif !important;
+  }
+
+  .section-{{ section.id }}{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    --pdl-font: 'Inter Tight', system-ui, sans-serif;
+    --pdl-ink: #113b34;
+  }
+  .section-{{ section.id }}.pdl{ display:flex; flex-direction:column; }
+  .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
+
+  /* Rating */
+  .section-{{ section.id }} .pdl-rating{ display:flex; align-items:center; gap:12px; }
+  .section-{{ section.id }} .pdl-rating__stars{ display:inline-flex; align-items:center; }
+  .section-{{ section.id }} .pdl-rating__star{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; }
+  .section-{{ section.id }} .pdl-rating__star svg{ display:block; width:16.67px; height:15.83px; }
+  .section-{{ section.id }} .pdl-rating__text{ display:inline-flex; align-items:center; min-height:20px; font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1; letter-spacing:-0.28px; color:var(--pdl-ink); }
+
+  /* Title */
+  .section-{{ section.id }} .pdl-title{ margin:0; font-family:var(--pdl-font); font-weight:700; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--pdl-ink); text-transform:capitalize; }
+
+  /* Subtitle (8px under the title per Figma, 16px from neighbours) */
+  .section-{{ section.id }} .pdl-subtitle{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); }
+  .section-{{ section.id }} .pdl-subtitle p{ margin:0; }
+  .section-{{ section.id }} .pdl-title + .pdl-subtitle{ margin-top:-8px; }
+
+  /* Benefit chips */
+  .section-{{ section.id }} .pdl-labels{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+  .section-{{ section.id }} .pdl-chip{ display:inline-flex; align-items:center; gap:4px; height:32px; padding:0 12px; background:#f4f4f2; border-radius:28px; box-sizing:border-box; }
+  .section-{{ section.id }} .pdl-chip__icon{ display:inline-flex; width:12px; height:12px; flex:0 0 12px; }
+  .section-{{ section.id }} .pdl-chip__icon svg{ display:block; width:100%; height:100%; }
+  .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); white-space:nowrap; }
+
+  /* Theme re-fonts these text nodes with its own font; force Inter Tight (beats the theme rules) */
+  .section-{{ section.id }} .pdl-rating__text,
+  .section-{{ section.id }} .pdl-title,
+  .section-{{ section.id }} .pdl-subtitle,
+  .section-{{ section.id }} .pdl-subtitle p,
+  .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font) !important; }
+
+  @media (min-width:990px){
+    .section-{{ section.id }}.pdl{ flex-direction:row; align-items:flex-start; gap:28px; max-width:1440px; margin:0 auto; padding:40px 48px; box-sizing:border-box; }
+    .section-{{ section.id }} .pdl__media{ flex:1 1 0; min-width:0; }
+    .section-{{ section.id }} .pdl__info{ flex:1 1 0; min-width:0; padding:0; gap:24px; }
+    .section-{{ section.id }} .pdl-title{ font-size:36px; letter-spacing:-0.72px; }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Product Details Lum",
+  "tag": "section",
+  "class": "section-product-details-lum",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rating",
+      "name": "Rating",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Stars",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "2k+ happy verified customers"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "info": "Leave blank to use the product title."
+        }
+      ]
+    },
+    {
+      "type": "subtitle",
+      "name": "Subtitle",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Science-backed natural formula designed to support appetite balance, smooth digestion, and healthy metabolic function through every phase of life.</p>"
+        }
+      ]
+    },
+    {
+      "type": "labels",
+      "name": "Benefit chips",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "chip_1_show",
+          "label": "Show chip 1",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "chip_1_text",
+          "label": "Chip 1",
+          "default": "Reduce Cravings"
+        },
+        {
+          "type": "checkbox",
+          "id": "chip_2_show",
+          "label": "Show chip 2",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "chip_2_text",
+          "label": "Chip 2",
+          "default": "Feel Lighter Daily"
+        },
+        {
+          "type": "checkbox",
+          "id": "chip_3_show",
+          "label": "Show chip 3",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "chip_3_text",
+          "label": "Chip 3",
+          "default": "Fat Loss"
+        },
+        {
+          "type": "checkbox",
+          "id": "chip_4_show",
+          "label": "Show chip 4",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "chip_4_text",
+          "label": "Chip 4",
+          "default": "Drug-free"
+        },
+        {
+          "type": "checkbox",
+          "id": "chip_5_show",
+          "label": "Show chip 5",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "chip_5_text",
+          "label": "Chip 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "chip_6_show",
+          "label": "Show chip 6",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "chip_6_text",
+          "label": "Chip 6"
+        }
+      ]
+    },
+    {
+      "type": "bundle",
+      "name": "Bundle / pack selector",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Select Quantity"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note",
+          "default": "Take more than 8 weeks may necessary to see a meaningful benefits."
+        },
+        {
+          "type": "image_picker",
+          "id": "bottle_image",
+          "label": "Fallback image",
+          "info": "Used when an option has no image set. Defaults to the product image."
+        },
+        {
+          "type": "color",
+          "id": "save_badge_bg",
+          "label": "Save badge background",
+          "default": "#fa6c56"
+        },
+        {
+          "type": "color",
+          "id": "save_badge_text",
+          "label": "Save badge text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "checkbox",
+          "id": "save_auto",
+          "label": "Auto-calculate Save (compare × jars − pack price)",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "save_prefix",
+          "label": "Save prefix",
+          "default": "Save "
+        },
+        {
+          "type": "header",
+          "content": "Option 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_selected",
+          "label": "Selected by default",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "option_1_label",
+          "label": "Label",
+          "default": "1 Jar"
+        },
+        {
+          "type": "text",
+          "id": "option_1_sublabel",
+          "label": "Sub-label"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_1_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "option_1_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "option_1_save",
+          "label": "Save badge",
+          "default": "Save $12"
+        },
+        {
+          "type": "text",
+          "id": "option_1_badge",
+          "label": "Top badge"
+        },
+        {
+          "type": "color",
+          "id": "option_1_badge_bg",
+          "label": "Top badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "option_1_badge_text",
+          "label": "Top badge text",
+          "default": "#113b34"
+        },
+        {
+          "type": "header",
+          "content": "Option 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_2_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "option_2_selected",
+          "label": "Selected by default",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "option_2_label",
+          "label": "Label",
+          "default": "2+1 Free"
+        },
+        {
+          "type": "text",
+          "id": "option_2_sublabel",
+          "label": "Sub-label",
+          "default": "Free shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_2_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_2_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_2_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "option_2_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "option_2_save",
+          "label": "Save badge",
+          "default": "Save $12"
+        },
+        {
+          "type": "text",
+          "id": "option_2_badge",
+          "label": "Top badge",
+          "default": "Best Deal"
+        },
+        {
+          "type": "color",
+          "id": "option_2_badge_bg",
+          "label": "Top badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "option_2_badge_text",
+          "label": "Top badge text",
+          "default": "#113b34"
+        },
+        {
+          "type": "header",
+          "content": "Option 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_3_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "option_3_selected",
+          "label": "Selected by default",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "option_3_label",
+          "label": "Label",
+          "default": "3+2 Free"
+        },
+        {
+          "type": "text",
+          "id": "option_3_sublabel",
+          "label": "Sub-label",
+          "default": "Free shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_3_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_3_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_3_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "option_3_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "option_3_save",
+          "label": "Save badge",
+          "default": "Save $12"
+        },
+        {
+          "type": "text",
+          "id": "option_3_badge",
+          "label": "Top badge",
+          "default": "Family Pack"
+        },
+        {
+          "type": "color",
+          "id": "option_3_badge_bg",
+          "label": "Top badge background",
+          "default": "#113b34"
+        },
+        {
+          "type": "color",
+          "id": "option_3_badge_text",
+          "label": "Top badge text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Option 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_4_show",
+          "label": "Show",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "option_4_selected",
+          "label": "Selected by default",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "option_4_label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "option_4_sublabel",
+          "label": "Sub-label"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_4_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_4_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_4_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "option_4_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "option_4_save",
+          "label": "Save badge"
+        },
+        {
+          "type": "text",
+          "id": "option_4_badge",
+          "label": "Top badge"
+        },
+        {
+          "type": "color",
+          "id": "option_4_badge_bg",
+          "label": "Top badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "option_4_badge_text",
+          "label": "Top badge text",
+          "default": "#113b34"
+        }
+      ]
+    },
+    {
+      "type": "purchase_type",
+      "name": "Purchase type",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Purchase Type"
+        },
+        {
+          "type": "select",
+          "id": "preselect",
+          "label": "Preselect",
+          "options": [
+            {
+              "value": "subscribe",
+              "label": "Subscribe"
+            },
+            {
+              "value": "one_time",
+              "label": "One-time"
+            }
+          ],
+          "default": "subscribe"
+        },
+        {
+          "type": "checkbox",
+          "id": "force_show_subscribe",
+          "label": "Show subscribe without plans (design preview)",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Dynamic interval"
+        },
+        {
+          "type": "select",
+          "id": "interval_mode",
+          "label": "Interval mode",
+          "options": [
+            {
+              "value": "mapped",
+              "label": "Mapped (theme maps pack index)"
+            },
+            {
+              "value": "auto",
+              "label": "Auto (variant allocations)"
+            }
+          ],
+          "default": "mapped"
+        },
+        {
+          "type": "text",
+          "id": "monthly_plan_id",
+          "label": "Monthly selling plan id",
+          "info": "Mapped mode, for pack below threshold."
+        },
+        {
+          "type": "text",
+          "id": "bimonthly_plan_id",
+          "label": "Bi-monthly selling plan id",
+          "info": "Mapped mode, for pack at/above threshold."
+        },
+        {
+          "type": "range",
+          "id": "interval_threshold",
+          "label": "Bi-monthly from pack #",
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "interval_label_format",
+          "label": "Interval label format",
+          "default": "{n}-Month-Delivery"
+        },
+        {
+          "type": "header",
+          "content": "Labels & badge"
+        },
+        {
+          "type": "text",
+          "id": "one_time_title",
+          "label": "One-time title",
+          "default": "One-time Purchase"
+        },
+        {
+          "type": "checkbox",
+          "id": "save_badge_show",
+          "label": "Show save badge",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "save_badge_text",
+          "label": "Save badge text",
+          "default": "Save $12"
+        },
+        {
+          "type": "checkbox",
+          "id": "save_badge_auto",
+          "label": "Auto-compute badge (compare minus subscribe)",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "save_badge_bg",
+          "label": "Badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "save_badge_text_color",
+          "label": "Badge text",
+          "default": "#113b34"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_per_pack",
+          "label": "Show /pack suffix",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "per_pack_suffix",
+          "label": "Per-pack suffix",
+          "default": "/pack"
+        },
+        {
+          "type": "header",
+          "content": "Subscribe benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefit_1_show",
+          "label": "Show benefit 1",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "benefit_1_text",
+          "label": "Benefit 1",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefit_2_show",
+          "label": "Show benefit 2",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "benefit_2_text",
+          "label": "Benefit 2",
+          "default": "Craving Control Guide"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefit_3_show",
+          "label": "Show benefit 3",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "benefit_3_text",
+          "label": "Benefit 3",
+          "default": "Gut Health Tracker"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefit_4_show",
+          "label": "Show benefit 4",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "benefit_4_text",
+          "label": "Benefit 4",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefit_5_show",
+          "label": "Show benefit 5",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "benefit_5_text",
+          "label": "Benefit 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefit_6_show",
+          "label": "Show benefit 6",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "benefit_6_text",
+          "label": "Benefit 6"
+        }
+      ]
+    },
+    {
+      "type": "add_to_cart",
+      "name": "Add to cart",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Add to Cart"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price_in_button",
+          "label": "Show price",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_compare_in_button",
+          "label": "Show compare-at (struck)",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "cart_icon",
+          "label": "Cart icon",
+          "options": [
+            {
+              "value": "cart",
+              "label": "Cart"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "color",
+          "id": "button_bg",
+          "label": "Button background",
+          "default": "#00724d"
+        },
+        {
+          "type": "color",
+          "id": "button_hover_bg",
+          "label": "Button hover",
+          "default": "#005e3f"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_sticky",
+          "label": "Show sticky bar on mobile",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "sticky_label",
+          "label": "Sticky button label",
+          "default": "Try it Now"
+        }
+      ]
+    },
+    {
+      "type": "info_cards",
+      "name": "Info cards",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Card 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "row_1_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "row_1_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "image_picker",
+          "id": "row_1_image",
+          "label": "Icon image (overrides icon)"
+        },
+        {
+          "type": "color",
+          "id": "row_1_bg",
+          "label": "Background",
+          "default": "#ebf7e0"
+        },
+        {
+          "type": "text",
+          "id": "row_1_title",
+          "label": "Title",
+          "default": "Expected delivery in 3 business days"
+        },
+        {
+          "type": "text",
+          "id": "row_1_text",
+          "label": "Caption",
+          "default": "All of our products are shipped from USA"
+        },
+        {
+          "type": "header",
+          "content": "Card 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "row_2_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "row_2_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "shield"
+        },
+        {
+          "type": "image_picker",
+          "id": "row_2_image",
+          "label": "Icon image (overrides icon)"
+        },
+        {
+          "type": "color",
+          "id": "row_2_bg",
+          "label": "Background",
+          "default": "#fff9bd"
+        },
+        {
+          "type": "text",
+          "id": "row_2_title",
+          "label": "Title",
+          "default": "30-days money-back guarantee"
+        },
+        {
+          "type": "text",
+          "id": "row_2_text",
+          "label": "Caption",
+          "default": "Feel the difference or get refunded."
+        },
+        {
+          "type": "header",
+          "content": "Card 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "row_3_show",
+          "label": "Show",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "row_3_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "tick"
+        },
+        {
+          "type": "image_picker",
+          "id": "row_3_image",
+          "label": "Icon image (overrides icon)"
+        },
+        {
+          "type": "color",
+          "id": "row_3_bg",
+          "label": "Background",
+          "default": "#ebf7e0"
+        },
+        {
+          "type": "text",
+          "id": "row_3_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "row_3_text",
+          "label": "Caption"
+        },
+        {
+          "type": "header",
+          "content": "Card 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "row_4_show",
+          "label": "Show",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "row_4_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "truck",
+              "label": "Truck"
+            },
+            {
+              "value": "shield",
+              "label": "Shield"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "info"
+        },
+        {
+          "type": "image_picker",
+          "id": "row_4_image",
+          "label": "Icon image (overrides icon)"
+        },
+        {
+          "type": "color",
+          "id": "row_4_bg",
+          "label": "Background",
+          "default": "#fff9bd"
+        },
+        {
+          "type": "text",
+          "id": "row_4_title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "row_4_text",
+          "label": "Caption"
+        }
+      ]
+    },
+    {
+      "type": "cross_sell",
+      "name": "Also buy (cross-sell)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Thousands of customers also buy"
+        },
+        {
+          "type": "color",
+          "id": "heading_color",
+          "label": "Heading color",
+          "default": "#113b34"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Card background",
+          "default": "#f4f4f2"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_compare",
+          "label": "Show compare-at (struck)",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "save_auto",
+          "label": "Auto-calc Save",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "save_prefix",
+          "label": "Save prefix",
+          "default": "Save "
+        },
+        {
+          "type": "color",
+          "id": "save_bg",
+          "label": "Save background",
+          "default": "#fa6c56"
+        },
+        {
+          "type": "color",
+          "id": "save_text",
+          "label": "Save text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "add_label",
+          "label": "Add button label",
+          "default": "Add"
+        },
+        {
+          "type": "color",
+          "id": "button_bg",
+          "label": "Add button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text",
+          "label": "Add button text / icon",
+          "default": "#113b34"
+        },
+        {
+          "type": "header",
+          "content": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image_1",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_1",
+          "label": "Custom title"
+        },
+        {
+          "type": "header",
+          "content": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image_2",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_2",
+          "label": "Custom title"
+        },
+        {
+          "type": "header",
+          "content": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image_3",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_3",
+          "label": "Custom title"
+        },
+        {
+          "type": "header",
+          "content": "Product 4"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image_4",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_4",
+          "label": "Custom title"
+        },
+        {
+          "type": "header",
+          "content": "Product 5"
+        },
+        {
+          "type": "product",
+          "id": "product_5",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image_5",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_5",
+          "label": "Custom title"
+        },
+        {
+          "type": "header",
+          "content": "Product 6"
+        },
+        {
+          "type": "product",
+          "id": "product_6",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image_6",
+          "label": "Custom image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title_6",
+          "label": "Custom title"
+        }
+      ]
+    },
+    {
+      "type": "product_tabs",
+      "name": "Product tabs",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Tab 1"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_title",
+          "label": "Title",
+          "default": "Benefits"
+        },
+        {
+          "type": "select",
+          "id": "tab_1_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "profile",
+              "label": "Profile"
+            },
+            {
+              "value": "note",
+              "label": "Note"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "star"
+        },
+        {
+          "type": "select",
+          "id": "tab_1_layout",
+          "label": "Content layout",
+          "default": "checklist",
+          "options": [
+            {
+              "value": "rows",
+              "label": "Labels + text"
+            },
+            {
+              "value": "checklist",
+              "label": "Tick checklist"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "tab_1_row_1_label",
+          "label": "Row 1 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_1_row_1_text",
+          "label": "Row 1 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_row_2_label",
+          "label": "Row 2 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_1_row_2_text",
+          "label": "Row 2 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_row_3_label",
+          "label": "Row 3 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_1_row_3_text",
+          "label": "Row 3 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_row_4_label",
+          "label": "Row 4 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_1_row_4_text",
+          "label": "Row 4 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_row_5_label",
+          "label": "Row 5 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_1_row_5_text",
+          "label": "Row 5 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_1_row_6_label",
+          "label": "Row 6 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_1_row_6_text",
+          "label": "Row 6 text"
+        },
+        {
+          "type": "header",
+          "content": "Tab 2"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_title",
+          "label": "Title",
+          "default": "Perfect For"
+        },
+        {
+          "type": "select",
+          "id": "tab_2_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "profile",
+              "label": "Profile"
+            },
+            {
+              "value": "note",
+              "label": "Note"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "profile"
+        },
+        {
+          "type": "select",
+          "id": "tab_2_layout",
+          "label": "Content layout",
+          "default": "checklist",
+          "options": [
+            {
+              "value": "rows",
+              "label": "Labels + text"
+            },
+            {
+              "value": "checklist",
+              "label": "Tick checklist"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "tab_2_row_1_label",
+          "label": "Row 1 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_2_row_1_text",
+          "label": "Row 1 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_row_2_label",
+          "label": "Row 2 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_2_row_2_text",
+          "label": "Row 2 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_row_3_label",
+          "label": "Row 3 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_2_row_3_text",
+          "label": "Row 3 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_row_4_label",
+          "label": "Row 4 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_2_row_4_text",
+          "label": "Row 4 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_row_5_label",
+          "label": "Row 5 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_2_row_5_text",
+          "label": "Row 5 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_2_row_6_label",
+          "label": "Row 6 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_2_row_6_text",
+          "label": "Row 6 text"
+        },
+        {
+          "type": "header",
+          "content": "Tab 3"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_title",
+          "label": "Title",
+          "default": "How to take"
+        },
+        {
+          "type": "select",
+          "id": "tab_3_icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "star",
+              "label": "Star"
+            },
+            {
+              "value": "profile",
+              "label": "Profile"
+            },
+            {
+              "value": "note",
+              "label": "Note"
+            },
+            {
+              "value": "info",
+              "label": "Info"
+            },
+            {
+              "value": "tick",
+              "label": "Tick"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "note"
+        },
+        {
+          "type": "select",
+          "id": "tab_3_layout",
+          "label": "Content layout",
+          "default": "rows",
+          "options": [
+            {
+              "value": "rows",
+              "label": "Labels + text"
+            },
+            {
+              "value": "checklist",
+              "label": "Tick checklist"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "tab_3_row_1_label",
+          "label": "Row 1 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_3_row_1_text",
+          "label": "Row 1 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_row_2_label",
+          "label": "Row 2 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_3_row_2_text",
+          "label": "Row 2 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_row_3_label",
+          "label": "Row 3 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_3_row_3_text",
+          "label": "Row 3 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_row_4_label",
+          "label": "Row 4 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_3_row_4_text",
+          "label": "Row 4 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_row_5_label",
+          "label": "Row 5 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_3_row_5_text",
+          "label": "Row 5 text"
+        },
+        {
+          "type": "text",
+          "id": "tab_3_row_6_label",
+          "label": "Row 6 label"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_3_row_6_text",
+          "label": "Row 6 text"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Details Lum",
+      "blocks": [
+        {
+          "type": "rating"
+        },
+        {
+          "type": "title"
+        },
+        {
+          "type": "subtitle"
+        },
+        {
+          "type": "labels"
+        },
+        {
+          "type": "bundle"
+        },
+        {
+          "type": "purchase_type"
+        },
+        {
+          "type": "add_to_cart"
+        },
+        {
+          "type": "info_cards"
+        },
+        {
+          "type": "cross_sell"
+        },
+        {
+          "type": "product_tabs"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

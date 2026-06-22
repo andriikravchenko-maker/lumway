@@ -1,0 +1,32 @@
+{%- comment -%}
+  Template font (Lumway) — scoped Inter Tight override.
+  Lives ONLY in product.lum-template-3.json, so it changes nothing on other
+  products that share these theme sections. Loads the webfont (it is not loaded
+  anywhere else in the theme) and forces it across this template's #MainContent.
+  No core/theme files edited. Remove the section to revert to theme fonts.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+{% style %}
+  #MainContent,
+  #MainContent *{ font-family:'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif !important; }
+
+  /* Product Benefits — this template only: drop the dark list plaque, make benefit text + heart icon black.
+     #MainContent gives ID specificity, which beats the section's class-level !important rules. */
+  #MainContent .custom-benefits-list{ background:transparent !important; border:0 !important; box-shadow:none !important; }
+  #MainContent .custom-benefit-title,
+  #MainContent .custom-benefit-description{ color:#000 !important; }
+  #MainContent .custom-benefit-icon,
+  #MainContent .custom-benefit-icon svg{ color:#000 !important; }
+  #MainContent .custom-benefit-icon svg path{ fill:#000 !important; }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Template font (Inter)",
+  "settings": [
+    { "type": "paragraph", "content": "Forces Inter Tight across this template's content only (other products are unaffected). Remove this section to revert to the theme fonts." }
+  ],
+  "presets": [{ "name": "Template font (Inter)" }]
+}
+{% endschema %}

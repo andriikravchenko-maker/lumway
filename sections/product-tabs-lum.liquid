@@ -1,0 +1,153 @@
+{%- comment -%}
+  Product tabs — Lumway. Figma 557:2733. Standalone section.
+  Each tab = a block (title + icon + up to 6 rows: a pill label + body text, body may be multi-line).
+  Active tab is white and pops above the grey bar; clicking a tab swaps the panel. First tab active by default.
+{%- endcomment -%}
+
+{%- liquid
+  assign sid = section.id
+-%}
+
+{% style %}
+  .ptab-{{ sid }}{ --ptab-font:'Inter Tight', system-ui, sans-serif; --ptab-ink:#113b34; --ptab-line:rgba(17,59,52,.1); --ptab-grey:#f4f4f2; --ptab-pill:rgba(17,59,52,.12); --ptab-muted:rgba(17,59,52,.6); padding:{{ section.settings.padding_top | default: 24 }}px 16px {{ section.settings.padding_bottom | default: 24 }}px; }
+  .ptab-{{ sid }} .ptab__inner{ max-width:740px; margin:0 auto; }
+  .ptab-{{ sid }} .ptab__tabs{ display:flex; align-items:flex-end; }
+  .ptab-{{ sid }} .ptab__tab{ flex:1 1 0; min-width:0; display:flex !important; align-items:center; justify-content:center; gap:8px; min-height:44px; height:auto !important; padding:10px 12px !important; margin:0 !important; background:var(--ptab-grey) !important; background-image:none !important; box-shadow:none !important; text-shadow:none !important; color:var(--ptab-ink) !important; border:1px solid var(--ptab-line) !important; border-radius:0 !important; cursor:pointer; box-sizing:border-box; text-transform:none !important; -webkit-appearance:none; appearance:none; }
+  .ptab-{{ sid }} .ptab__tab::before, .ptab-{{ sid }} .ptab__tab::after{ display:none !important; }
+  .ptab-{{ sid }} .ptab__tab + .ptab__tab{ margin-left:-1px !important; }
+  .ptab-{{ sid }} .ptab__tab:first-child{ border-top-left-radius:12px !important; }
+  .ptab-{{ sid }} .ptab__tab:last-child{ border-top-right-radius:12px !important; }
+  .ptab-{{ sid }} .ptab__tab.is-active{ min-height:52px; background:#fff !important; border-bottom-color:#fff !important; border-top-left-radius:12px !important; border-top-right-radius:12px !important; position:relative; z-index:2; }
+  .ptab-{{ sid }} .ptab__tab-icon{ flex:0 0 20px; width:20px; height:20px; color:var(--ptab-ink); }
+  .ptab-{{ sid }} .ptab__tab-icon svg{ display:block; width:100%; height:100%; }
+  .ptab-{{ sid }} .ptab__tab-label{ font-family:var(--ptab-font) !important; font-weight:600 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--ptab-ink); white-space:nowrap; }
+
+  .ptab-{{ sid }} .ptab__panel-wrap{ position:relative; z-index:1; background:#fff; border:1px solid var(--ptab-line); border-top:0; border-bottom-left-radius:12px; border-bottom-right-radius:12px; padding:16px; }
+  .ptab-{{ sid }} .ptab__panel{ display:none; flex-direction:column; gap:16px; }
+  .ptab-{{ sid }} .ptab__panel.is-active{ display:flex; }
+  .ptab-{{ sid }} .ptab__row{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+  .ptab-{{ sid }} .ptab__pill{ display:inline-flex; align-items:center; justify-content:center; padding:4px 8px; border-radius:28px; background:var(--ptab-pill); font-family:var(--ptab-font) !important; font-weight:600 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--ptab-ink); }
+  .ptab-{{ sid }} .ptab__text{ display:flex; flex-direction:column; gap:8px; width:100%; }
+  .ptab-{{ sid }} .ptab__text p{ margin:0; font-family:var(--ptab-font) !important; font-weight:400 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--ptab-muted); }
+  @media (min-width:990px){
+    .ptab-{{ sid }}{ padding-left:48px; padding-right:48px; }
+    .ptab-{{ sid }} .ptab__inner{ max-width:1344px; }
+  }
+{% endstyle %}
+
+<div class="ptab ptab-{{ sid }}">
+  <div class="ptab__inner">
+    {%- if section.blocks.size > 0 -%}
+      <div class="ptab__tabs" role="tablist">
+        {%- for block in section.blocks -%}
+          {%- assign icon = block.settings.icon -%}
+          <button type="button" class="ptab__tab disable-global-button-styling{% if forloop.first %} is-active{% endif %}" data-tab="{{ forloop.index0 }}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+            {%- if icon != blank and icon != 'none' -%}
+              <span class="ptab__tab-icon">
+                {%- case icon -%}
+                  {%- when 'star' -%}{{ 'lum-icon-star-bold.svg' | inline_asset_content }}
+                  {%- when 'profile' -%}{{ 'lum-icon-profile-tick.svg' | inline_asset_content }}
+                  {%- when 'note' -%}{{ 'lum-icon-note.svg' | inline_asset_content }}
+                  {%- when 'info' -%}{{ 'lum-icon-info.svg' | inline_asset_content }}
+                  {%- when 'tick' -%}{{ 'lum-icon-tick.svg' | inline_asset_content }}
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+            <span class="ptab__tab-label">{{ block.settings.title | default: 'Tab' | escape }}</span>
+          </button>
+        {%- endfor -%}
+      </div>
+      <div class="ptab__panel-wrap">
+        {%- for block in section.blocks -%}
+          <div class="ptab__panel{% if forloop.first %} is-active{% endif %}" data-panel="{{ forloop.index0 }}" role="tabpanel">
+            {%- for r in (1..6) -%}
+              {%- liquid
+                assign lk = 'row_' | append: r | append: '_label'
+                assign tk = 'row_' | append: r | append: '_text'
+                assign rl = block.settings[lk]
+                assign rt = block.settings[tk]
+              -%}
+              {%- if rl != blank or rt != blank -%}
+                <div class="ptab__row">
+                  {%- if rl != blank -%}<span class="ptab__pill">{{ rl | escape }}</span>{%- endif -%}
+                  {%- if rt != blank -%}
+                    <div class="ptab__text">
+                      {%- assign lines = rt | newline_to_br | split: '<br />' -%}
+                      {%- for line in lines -%}
+                        {%- assign ln = line | strip_newlines | strip -%}
+                        {%- if ln != blank -%}<p>{{ ln | escape }}</p>{%- endif -%}
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- elsif request.design_mode -%}
+      <div style="padding:16px;border:1px dashed #ccc;border-radius:12px;color:#666;font:14px sans-serif;text-align:center">Add Tab blocks.</div>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.querySelector('.ptab-{{ sid }}');
+    if (!root || root.__ptabBound) return;
+    root.__ptabBound = true;
+    var tabs = [].slice.call(root.querySelectorAll('.ptab__tab'));
+    var panels = [].slice.call(root.querySelectorAll('.ptab__panel'));
+    function activate(i) {
+      tabs.forEach(function (t, k) { var on = k === i; t.classList.toggle('is-active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      panels.forEach(function (p, k) { p.classList.toggle('is-active', k === i); });
+    }
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { activate(i); }); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "default": 24, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "default": 24, "unit": "px" }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Tab title", "default": "Tab" },
+        { "type": "select", "id": "icon", "label": "Icon", "options": [{ "value": "star", "label": "Star" }, { "value": "profile", "label": "Profile" }, { "value": "note", "label": "Note" }, { "value": "info", "label": "Info" }, { "value": "tick", "label": "Tick" }, { "value": "none", "label": "None" }], "default": "star" },
+        { "type": "header", "content": "Rows (pill label + text)" },
+        { "type": "text", "id": "row_1_label", "label": "Row 1 label" },
+        { "type": "textarea", "id": "row_1_text", "label": "Row 1 text" },
+        { "type": "text", "id": "row_2_label", "label": "Row 2 label" },
+        { "type": "textarea", "id": "row_2_text", "label": "Row 2 text" },
+        { "type": "text", "id": "row_3_label", "label": "Row 3 label" },
+        { "type": "textarea", "id": "row_3_text", "label": "Row 3 text" },
+        { "type": "text", "id": "row_4_label", "label": "Row 4 label" },
+        { "type": "textarea", "id": "row_4_text", "label": "Row 4 text" },
+        { "type": "text", "id": "row_5_label", "label": "Row 5 label" },
+        { "type": "textarea", "id": "row_5_text", "label": "Row 5 text" },
+        { "type": "text", "id": "row_6_label", "label": "Row 6 label" },
+        { "type": "textarea", "id": "row_6_text", "label": "Row 6 text" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Product tabs",
+      "blocks": [
+        { "type": "tab", "settings": { "title": "Benefits", "icon": "star", "row_1_label": "Benefit:", "row_1_text": "Describe the key benefit here." } },
+        { "type": "tab", "settings": { "title": "Perfect For", "icon": "profile", "row_1_label": "Perfect for:", "row_1_text": "Describe who this product is for." } },
+        { "type": "tab", "settings": { "title": "How to take", "icon": "note", "row_1_label": "Daily dosage:", "row_1_text": "2 gummies, max 3 gummies", "row_2_label": "When:", "row_2_text": "at the morning as a metabolism stabilize\nbefore dinner as a craving shutdown", "row_3_label": "Monthly supply:", "row_3_text": "1 jar per person", "row_4_label": "Storage:", "row_4_text": "in a cool, dry place away from direct sunlight and excessive heat." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
