@@ -337,7 +337,7 @@
         "subtitle_size_mobile": 14,
         "subtitle_size_desktop": 16,
         "override_global_accent": true,
-        "accent_color": "#23a02a",
+        "accent_color": "#FAD356",
         "use_accent_gradient": false,
         "accent_text_gradient": "linear-gradient(45deg, rgba(253, 218, 54, 1), rgba(253, 218, 54, 1) 97%)",
         "accent_text_margin_left": 0,
@@ -345,7 +345,7 @@
         "accent_font_style": "normal",
         "accent_font_weight": "inherit",
         "number_color": "#ffffff",
-        "number_gradient": "linear-gradient(25deg, rgba(35, 160, 42, 1), rgba(35, 160, 42, 1) 100%)",
+        "number_gradient": "linear-gradient(25deg, rgba(250, 211, 86, 1), rgba(250, 211, 86, 1))",
         "number_size_mobile": 36,
         "number_size_desktop": 64,
         "stat_text_vertical_alignment": "flex-start",
@@ -413,7 +413,7 @@
         "enable_bottom_border": false,
         "bottom_border_width": 1,
         "bottom_border_color": "#e0e0e0",
-        "section_background": "linear-gradient(135deg, rgba(32, 35, 41, 1), rgba(32, 35, 41, 1) 99%)",
+        "section_background": "linear-gradient(135deg, rgba(17, 59, 52, 1), rgba(17, 59, 52, 1) 100%)",
         "divider_color": "#c2c2c2"
       }
     },
