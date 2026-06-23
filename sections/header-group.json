@@ -15,10 +15,10 @@
       "type": "promo-bar-lum",
       "name": "Promo bar",
       "settings": {
-        "text": "FREE SHIPPING ON $39",
+        "text": "FREE SHIPPING ON ORDERS $39+",
         "link": "",
         "bg": "#fad356",
-        "text_color": "#ffffff"
+        "text_color": "#000000"
       }
     },
     "header": {
