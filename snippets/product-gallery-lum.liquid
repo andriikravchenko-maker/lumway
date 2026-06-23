@@ -14,19 +14,25 @@
 -%}
 
 {%- if gallery_count > 0 -%}
-  {%- assign main_media = gallery_media.first -%}
   <div class="lpg" data-lpg>
     <div class="lpg__stage">
-      <img class="lpg__stage-img" data-lpg-stage
-        src="{{ main_media.preview_image | image_url: width: 658 }}"
-        srcset="{{ main_media.preview_image | image_url: width: 343 }} 343w,
-                {{ main_media.preview_image | image_url: width: 494 }} 494w,
-                {{ main_media.preview_image | image_url: width: 658 }} 658w,
-                {{ main_media.preview_image | image_url: width: 988 }} 988w,
-                {{ main_media.preview_image | image_url: width: 1316 }} 1316w"
-        sizes="(min-width: 990px) 658px, calc(100vw - 32px)"
-        width="{{ main_media.preview_image.width }}" height="{{ main_media.preview_image.height }}" loading="eager" fetchpriority="high"
-        alt="{{ main_media.preview_image.alt | escape | default: product.title | escape }}">
+      <div class="lpg__track" data-lpg-track>
+        {%- for media in gallery_media -%}
+          <div class="lpg__slide" data-lpg-slide>
+            <img class="lpg__stage-img"
+              src="{{ media.preview_image | image_url: width: 658 }}"
+              srcset="{{ media.preview_image | image_url: width: 343 }} 343w,
+                      {{ media.preview_image | image_url: width: 494 }} 494w,
+                      {{ media.preview_image | image_url: width: 658 }} 658w,
+                      {{ media.preview_image | image_url: width: 988 }} 988w,
+                      {{ media.preview_image | image_url: width: 1316 }} 1316w"
+              sizes="(min-width: 990px) 658px, calc(100vw - 32px)"
+              width="{{ media.preview_image.width }}" height="{{ media.preview_image.height }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"{% if forloop.first %} fetchpriority="high"{% endif %}
+              alt="{{ media.preview_image.alt | escape | default: product.title | escape }}">
+          </div>
+        {%- endfor -%}
+      </div>
       {%- if gallery_count > 1 -%}
         <span class="lpg__arrow lpg__arrow--prev" data-lpg-prev role="button" tabindex="0" aria-label="Previous image">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
         <span class="lpg__arrow lpg__arrow--next" data-lpg-next role="button" tabindex="0" aria-label="Next image">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
@@ -56,8 +62,12 @@
 
   {%- style -%}
     .lpg{display:flex;flex-direction:column;gap:8px;padding:16px 16px 0;}
-    .lpg__stage{position:relative;width:100%;border-radius:16px;overflow:hidden;background:#f4f4f2;}
-    /* container hugs the uploaded photo: no fixed aspect, height follows the image (no grey letterboxing above/below) */
+    .lpg__stage{position:relative;width:100%;}
+    /* mobile: horizontal swipe slider (scroll-snap). the track is the rounded window; slides snap one-per-view. */
+    .lpg__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;border-radius:16px;background:#f4f4f2;}
+    .lpg__track::-webkit-scrollbar{display:none;}
+    .lpg__slide{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;}
+    /* container hugs the uploaded photo: no fixed aspect, height follows the image (no grey letterboxing) */
     .lpg__stage-img{display:block;width:100%;height:auto;}
     .lpg__rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
     .lpg__rail::-webkit-scrollbar{display:none;}
@@ -67,20 +77,22 @@
     .lpg .lpg__item{border-radius:8px !important;}
     .lpg__item.is-active{border-color:#113b34;}
     .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-    .lpg__arrow{position:absolute !important;top:50% !important;transform:translateY(-50%) !important;z-index:2 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;width:auto !important;min-width:0 !important;min-height:0 !important;height:auto !important;padding:6px 12px !important;margin:0 !important;background:#fff !important;background-image:none !important;box-shadow:none !important;text-shadow:none !important;border:0 !important;border-radius:28px !important;color:#113b34 !important;cursor:pointer;-webkit-appearance:none;appearance:none;}
+    .lpg__arrow{position:absolute !important;top:50% !important;transform:translateY(-50%) !important;z-index:2 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;width:auto !important;min-width:0 !important;min-height:0 !important;height:48px !important;padding:0 12px !important;margin:0 !important;background:rgba(242,242,242,.85) !important;background-image:none !important;box-shadow:none !important;text-shadow:none !important;border:0 !important;border-radius:28px !important;color:#113b34 !important;cursor:pointer;-webkit-appearance:none;appearance:none;}
     .lpg__arrow::before,.lpg__arrow::after{display:none !important;}
-    .lpg__arrow--prev{left:4px !important;right:auto !important;}
-    .lpg__arrow--next{right:4px !important;left:auto !important;}
+    .lpg__arrow--prev{left:calc(50% - 50vw) !important;right:auto !important;border-radius:0 28px 28px 0 !important;}
+    .lpg__arrow--next{right:calc(50% - 50vw) !important;left:auto !important;border-radius:28px 0 0 28px !important;}
     .lpg__arrow.is-disabled{opacity:.5;cursor:default;pointer-events:none;}
     .lpg__arrow svg{display:block !important;width:18px !important;height:14px !important;}
     .lpg__arrow--prev svg{transform:rotate(180deg) !important;}
     @media (min-width:990px){
       .lpg{padding:0;}
-      .lpg__stage{border-radius:28px;}
+      /* desktop: same 1-up slider as mobile, but the arrows rest against the photo edges (not the screen) */
+      .lpg__track{border-radius:28px;}
       .lpg__rail{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;}
-      .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:default;}
+      .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:pointer;}
       .lpg__item--first{display:none;}
-      .lpg__arrow{display:none !important;}
+      .lpg__arrow--prev{left:0 !important;}
+      .lpg__arrow--next{right:0 !important;}
     }
   {%- endstyle -%}
 
@@ -88,46 +100,52 @@
     (function(){
       var root = document.querySelector('[data-lpg]');
       if(!root) return;
-      var stage = root.querySelector('[data-lpg-stage]');
+      var track = root.querySelector('[data-lpg-track]');
+      var slides = [].slice.call(root.querySelectorAll('[data-lpg-slide]'));
       var rail = root.querySelector('[data-lpg-rail]');
       var items = [].slice.call(root.querySelectorAll('[data-lpg-item]'));
       var prev = root.querySelector('[data-lpg-prev]');
       var next = root.querySelector('[data-lpg-next]');
-      if(!stage || !items.length) return;
+      if(!track || !slides.length) return;
       var current = 0;
-      function isDesktop(){ return window.matchMedia('(min-width:990px)').matches; }
       function centerThumb(item){
         if(!rail) return;
         var left = item.offsetLeft - (rail.clientWidth - item.offsetWidth) / 2;
         rail.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
       }
-      function select(i){
+      function setActive(i){
         if(i < 0) i = 0;
-        if(i > items.length - 1) i = items.length - 1;
+        if(i > slides.length - 1) i = slides.length - 1;
         current = i;
-        var item = items[i];
-        var full = item.getAttribute('data-full');
-        var ss = item.getAttribute('data-srcset');
-        if(full) stage.src = full;
-        if(ss) stage.srcset = ss;
-        items.forEach(function(b){ b.classList.remove('is-active'); });
-        item.classList.add('is-active');
-        centerThumb(item);
+        items.forEach(function(b, bi){ b.classList.toggle('is-active', bi === i); });
+        if(items[i]) centerThumb(items[i]);
         if(prev) prev.classList.toggle('is-disabled', i === 0);
-        if(next) next.classList.toggle('is-disabled', i === items.length - 1);
+        if(next) next.classList.toggle('is-disabled', i === slides.length - 1);
       }
+      function scrollToSlide(i){
+        if(i < 0) i = 0;
+        if(i > slides.length - 1) i = slides.length - 1;
+        track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+        setActive(i);
+      }
+      var scrollTimer;
+      track.addEventListener('scroll', function(){
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function(){
+          var idx = Math.round(track.scrollLeft / track.clientWidth);
+          if(idx !== current) setActive(idx);
+        }, 60);
+      }, { passive: true });
       root.addEventListener('click', function(e){
-        if(isDesktop()) return; /* desktop gallery is a static grid */
         var item = e.target.closest('[data-lpg-item]');
-        if(item) select(items.indexOf(item));
+        if(item) scrollToSlide(items.indexOf(item));
       });
-      function goPrev(){ if(!isDesktop()) select(current - 1); }
-      function goNext(){ if(!isDesktop()) select(current + 1); }
+      function goPrev(){ scrollToSlide(current - 1); }
+      function goNext(){ scrollToSlide(current + 1); }
       function onKey(fn){ return function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fn(); } }; }
       if(prev){ prev.addEventListener('click', goPrev); prev.addEventListener('keydown', onKey(goPrev)); }
       if(next){ next.addEventListener('click', goNext); next.addEventListener('keydown', onKey(goNext)); }
-      if(prev) prev.classList.add('is-disabled');
-      if(next) next.classList.toggle('is-disabled', items.length <= 1);
+      setActive(0);
     })();
   </script>
 {%- endif -%}
