@@ -32,6 +32,29 @@
   .xsl-{{ uid }} .xsl__add-icon{ display:inline-flex; flex:0 0 16px; width:16px; height:16px; color:{{ btn_tc }}; }
   .xsl-{{ uid }} .xsl__add-icon svg{ display:block; width:100%; height:100%; }
   .xsl-{{ uid }} .xsl__add .xsl__add-label{ font-family:var(--xsl-font) !important; font-weight:600 !important; letter-spacing:-0.24px; }
+
+  /* Desktop-only redesign (Figma 519:2690): price + Save move into the title row, description under it.
+     Mobile is byte-identical: .xsl__head is transparent (display:contents) and .xsl__desc is hidden below 990px,
+     so everything above this comment renders exactly as before on mobile. */
+  .xsl-{{ uid }} .xsl__head{ display:contents; }
+  .xsl-{{ uid }} .xsl__inline-price{ display:none; }
+  .xsl-{{ uid }} .xsl__desc{ display:none; margin:0; font-family:var(--xsl-font) !important; font-weight:400 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:rgba(17,59,52,.6); }
+  @media (min-width:990px){
+    .xsl-{{ uid }} .xsl__card{ gap:16px; padding:12px; border-radius:12px; }
+    .xsl-{{ uid }} .xsl__main{ gap:16px; }
+    .xsl-{{ uid }} .xsl__img{ flex:0 0 64px; width:64px; height:64px; border-radius:6px; }
+    .xsl-{{ uid }} .xsl__info{ gap:4px; }
+    .xsl-{{ uid }} .xsl__head{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; row-gap:4px; }
+    .xsl-{{ uid }} .xsl__title{ font-size:16px; letter-spacing:-0.32px; overflow:visible; text-overflow:clip; }
+    .xsl-{{ uid }} .xsl__inline-price{ display:inline; }
+    .xsl-{{ uid }} .xsl__price{ display:none; }
+    .xsl-{{ uid }} .xsl__prices{ gap:8px; }
+    .xsl-{{ uid }} .xsl__compare{ font-size:14px; letter-spacing:-0.28px; }
+    .xsl-{{ uid }} .xsl__save{ padding:4px 8px; font-weight:500 !important; font-size:14px; letter-spacing:-0.28px; background:#fad356; color:#113b34; }
+    .xsl-{{ uid }} .xsl__desc{ display:block; }
+    .xsl-{{ uid }} .xsl__add{ min-height:48px; gap:8px; padding:12px 24px; font-size:16px; letter-spacing:-0.32px; box-shadow:0 2px 6px rgba(17,59,52,.08) !important; }
+    .xsl-{{ uid }} .xsl__add-icon{ flex:0 0 24px; width:24px; height:24px; }
+  }
 {% endstyle %}
 
 <div class="xsl xsl-{{ uid }}" {{ block.shopify_attributes }}>
@@ -49,6 +72,11 @@
         assign variant = prod.selected_or_first_available_variant | default: prod.variants.first
         assign img = block.settings[imk] | default: prod.featured_image
         assign title = block.settings[ttk] | default: prod.title
+        assign stk = 'custom_subtitle_' | append: i
+        assign subtitle = block.settings[stk]
+        if subtitle == blank
+          assign subtitle = prod.description | strip_html | strip_newlines | truncatewords: 14, ''
+        endif
         assign price = variant.price
         assign compare = variant.compare_at_price
         assign has_compare = false
@@ -64,14 +92,17 @@
             {%- if img != blank -%}{{ img | image_url: width: 112 | image_tag: loading: 'lazy', widths: '56,112', sizes: '56px', alt: title }}{%- endif -%}
           </span>
           <div class="xsl__info">
-            <p class="xsl__title">{{ title | escape }}</p>
-            <div class="xsl__prices">
-              <span class="xsl__price">{{ price | money }}</span>
-              {%- if has_compare -%}<span class="xsl__compare">{{ compare | money }}</span>{%- endif -%}
-              {%- if has_compare and block.settings.save_auto and save_amount > 0 -%}
-                <span class="xsl__save">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{{ save_amount | money }}</span>
-              {%- endif -%}
+            <div class="xsl__head">
+              <p class="xsl__title">{{ title | escape }}<span class="xsl__inline-price"> - {{ price | money }}</span></p>
+              <div class="xsl__prices">
+                <span class="xsl__price">{{ price | money }}</span>
+                {%- if has_compare -%}<span class="xsl__compare">{{ compare | money }}</span>{%- endif -%}
+                {%- if has_compare and block.settings.save_auto and save_amount > 0 -%}
+                  <span class="xsl__save">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{{ save_amount | money }}</span>
+                {%- endif -%}
+              </div>
             </div>
+            {%- if subtitle != blank -%}<p class="xsl__desc">{{ subtitle | escape }}</p>{%- endif -%}
           </div>
         </div>
         <form id="{{ fid }}" class="xsl__form" action="{{ routes.cart_add_url }}" method="post" data-cart-action="drawer" onsubmit="return false;">

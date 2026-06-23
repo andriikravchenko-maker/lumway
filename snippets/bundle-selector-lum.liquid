@@ -68,7 +68,17 @@
   .bsl-{{ uid }} .bsl__sub{ font-family:var(--bsl-font) !important; font-weight:400 !important; font-size:10px; line-height:1.2; letter-spacing:-0.2px; color:rgba(17,59,52,.6); white-space:nowrap; }
 
   .bsl-{{ uid }} .bsl__badge{ position:absolute; top:-13px; left:50%; transform:translateX(-50%); z-index:3; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--bsl-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
-  .bsl-{{ uid }} .bsl__save{ position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); z-index:3; display:inline-flex; align-items:center; padding:2px 4px; border-radius:28px; font-family:var(--bsl-font) !important; font-weight:500 !important; font-size:10px; line-height:1.2; letter-spacing:-0.2px; white-space:nowrap; }
+  .bsl-{{ uid }} .bsl__save{ position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); z-index:3; display:inline-flex; align-items:center; padding:3px 6px; border-radius:28px; font-family:var(--bsl-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+  /* Desktop only: bigger badges (top "Best deal" / "Family pack" + bottom "Save"). Mobile keeps the base sizes above. */
+  @media (min-width:990px){
+    .bsl-{{ uid }} .bsl__badge{ top:-14px; padding:5px 10px; font-size:13px; letter-spacing:-0.26px; }
+    .bsl-{{ uid }} .bsl__save{ bottom:-10px; padding:3px 7px; font-size:12px; letter-spacing:-0.24px; }
+    /* bigger product images (jars) + top room so they clear the Best Deal / Family Pack badge */
+    .bsl-{{ uid }} .bsl__pack{ height:64px; margin-top:4px; }
+    .bsl-{{ uid }} .bsl__img{ height:60px; }
+    .bsl-{{ uid }} .bsl__img img{ max-height:60px; }
+    .bsl-{{ uid }} .bsl__pack--multi .bsl__img img{ max-height:44px; }
+  }
 
   .bsl-{{ uid }} .bsl__note{ display:flex; align-items:flex-start; gap:8px; margin:0; }
   .bsl-{{ uid }} .bsl__note-icon{ flex:0 0 16px; width:16px; height:16px; margin-top:1px; }
