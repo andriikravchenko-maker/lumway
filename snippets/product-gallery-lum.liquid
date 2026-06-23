@@ -25,7 +25,7 @@
                 {{ main_media.preview_image | image_url: width: 988 }} 988w,
                 {{ main_media.preview_image | image_url: width: 1316 }} 1316w"
         sizes="(min-width: 990px) 658px, calc(100vw - 32px)"
-        width="658" height="494" loading="eager" fetchpriority="high"
+        width="{{ main_media.preview_image.width }}" height="{{ main_media.preview_image.height }}" loading="eager" fetchpriority="high"
         alt="{{ main_media.preview_image.alt | escape | default: product.title | escape }}">
       {%- if gallery_count > 1 -%}
         <span class="lpg__arrow lpg__arrow--prev" data-lpg-prev role="button" tabindex="0" aria-label="Previous image">{{ 'lum-icon-arrow.svg' | inline_asset_content }}</span>
@@ -56,9 +56,9 @@
 
   {%- style -%}
     .lpg{display:flex;flex-direction:column;gap:8px;padding:16px 16px 0;}
-    .lpg__stage{position:relative;width:100%;aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:#f4f4f2;}
-    /* TEMP: original size (contain) while product images are placeholders and crop with cover; revert to object-fit:cover when the real product card is ready */
-    .lpg__stage-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;}
+    .lpg__stage{position:relative;width:100%;border-radius:16px;overflow:hidden;background:#f4f4f2;}
+    /* container hugs the uploaded photo: no fixed aspect, height follows the image (no grey letterboxing above/below) */
+    .lpg__stage-img{display:block;width:100%;height:auto;}
     .lpg__rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
     .lpg__rail::-webkit-scrollbar{display:none;}
     /* exactly 5 thumbs in view (each = 1/5 of the row minus the 4 gaps); the rest scroll */
@@ -66,7 +66,7 @@
     /* theme rounds <button> via its global button radius; beat it (specificity + !important) — Figma thumb r8 */
     .lpg .lpg__item{border-radius:8px !important;}
     .lpg__item.is-active{border-color:#113b34;}
-    .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;} /* TEMP: contain — revert to cover when real images are ready */
+    .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
     .lpg__arrow{position:absolute !important;top:50% !important;transform:translateY(-50%) !important;z-index:2 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;width:auto !important;min-width:0 !important;min-height:0 !important;height:auto !important;padding:6px 12px !important;margin:0 !important;background:#fff !important;background-image:none !important;box-shadow:none !important;text-shadow:none !important;border:0 !important;border-radius:28px !important;color:#113b34 !important;cursor:pointer;-webkit-appearance:none;appearance:none;}
     .lpg__arrow::before,.lpg__arrow::after{display:none !important;}
     .lpg__arrow--prev{left:4px !important;right:auto !important;}
@@ -76,7 +76,7 @@
     .lpg__arrow--prev svg{transform:rotate(180deg) !important;}
     @media (min-width:990px){
       .lpg{padding:0;}
-      .lpg__stage{aspect-ratio:658/494;border-radius:28px;}
+      .lpg__stage{border-radius:28px;}
       .lpg__rail{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;}
       .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:default;}
       .lpg__item--first{display:none;}
