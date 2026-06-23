@@ -13,6 +13,8 @@
   .lhead-{{ uid }}{ --lhead-ink:#1c1c1a; --lhead-line:#f5f3ef; --lhead-pill:#e1daca; --lhead-muted:#8a8a85; --lhead-green:#113b34; --lhead-green-10:rgba(17,59,52,0.1); --lhead-yellow:#fad356; --lhead-font:'Inter Tight', system-ui, sans-serif; background:#fff; position:relative; z-index:30; }
   .lhead-{{ uid }} .lhead__bar{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px; padding:16px; border-bottom:1px solid var(--lhead-line); box-sizing:border-box; }
   .lhead-{{ uid }} .lhead__menu{ justify-self:start; display:inline-flex; align-items:center; padding:6px 0; margin:0; border:0; background:transparent; cursor:pointer; font-family:var(--lhead-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--lhead-ink); text-transform:uppercase; -webkit-tap-highlight-color:transparent; }
+  .lhead-{{ uid }} .lhead__menu--x{ padding:4px 0; margin-left:-2px; }
+  .lhead-{{ uid }} .lhead__close-icon{ display:block; width:24px; height:24px; color:var(--lhead-ink); }
   .lhead-{{ uid }} .lhead__logo{ justify-self:center; display:inline-flex; align-items:center; }
   .lhead-{{ uid }} .lhead__logo img{ display:block; width:{{ section.settings.logo_width | default: 97 }}px; height:auto; }
   .lhead-{{ uid }} .lhead__logo-text{ font-family:var(--lhead-font) !important; font-weight:600; font-size:20px; color:var(--lhead-ink); }
@@ -182,7 +184,7 @@
 
   <div class="lhead__drawer" id="lhead-drawer-{{ uid }}" data-lhead-drawer>
     <div class="lhead__drawer-bar">
-      <button type="button" class="lhead__menu" data-lhead-toggle aria-expanded="true">{{ 'sections.header.menu' | t | default: 'Menu' | upcase }}</button>
+      <button type="button" class="lhead__menu lhead__menu--x" data-lhead-toggle aria-expanded="true" aria-label="{{ 'accessibility.close' | t | default: 'Close menu' }}"><svg class="lhead__close-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
       <a href="{{ routes.root_url }}" class="lhead__logo" aria-label="{{ shop.name | escape }}">
         {%- if logo != blank -%}
           {{ logo | image_url: width: 300 | image_tag: widths: '97,194,300', sizes: '97px', alt: shop.name, loading: 'lazy' }}
