@@ -13,8 +13,9 @@
   assign btn_label = block.settings.button_label | default: 'Add to Cart'
   assign form_id = 'product-form-lum-' | append: uid
   comment
-    Sticky bar shows a FIXED price: 1 jar by subscription (regardless of the pack selected above).
-    1 jar = first variant; its first selling-plan allocation = the subscribe price (Shopify pre-computes it).
+    Sticky bar shows the per-jar SUBSCRIBE price of the pack selected in the bundle selector, computed in JS
+    below as (variant subscribe price / total jars in the pack). The server values here are the initial
+    paint (1 jar by subscription) before JS runs / before the shopper changes the selection.
   endcomment
   assign one_jar = product.variants.first
   assign sub_alloc = one_jar.selling_plan_allocations.first
@@ -82,8 +83,8 @@
     <div class="patc__sticky" data-patc-sticky aria-hidden="true">
       <button type="button" class="patc__btn disable-global-button-styling" data-patc-sticky-btn>
         <span class="patc__content">
-          <span class="patc__line"><span>{{ block.settings.sticky_label | default: 'Try it Now' | escape }}</span><span class="patc__price"> – {{ sticky_price | money }}</span></span>
-          {%- if sticky_compare > sticky_price -%}<span class="patc__compare">{{ sticky_compare | money }}</span>{%- endif -%}
+          <span class="patc__line"><span>{{ block.settings.sticky_label | default: 'Try it Now' | escape }}</span><span class="patc__price" data-role="sticky-price"> – {{ sticky_price | money }}</span></span>
+          <span class="patc__compare" data-role="sticky-compare"{% if sticky_compare <= sticky_price %} style="display:none"{% endif %}>{{ sticky_compare | money }}</span>
         </span>
       </button>
     </div>
@@ -120,6 +121,7 @@
     function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
     var override = null; // {price, compare} pushed by purchase-type-lum via 'lum:atc-price'
     function render() {
+      renderSticky();
       var v = currentVariant();
       if (!v) return;
       var price = (override && override.price != null) ? override.price : v.price;
@@ -129,6 +131,22 @@
       if (compareEl) {
         if (compare && compare > price) { compareEl.textContent = fmt(compare); compareEl.style.display = ''; }
         else { compareEl.textContent = ''; compareEl.style.display = 'none'; }
+      }
+    }
+    // Sticky "Try it Now": per-jar SUBSCRIBE price of the SELECTED pack = (variant subscribe price / total jars),
+    // so 1 jar shows the 1-jar subscribe price, the 2-pack shows its per-jar price, etc. Struck = per-jar regular.
+    function renderSticky() {
+      if (!stickyPriceEl) return;
+      var v = currentVariant();
+      if (!v) return;
+      var total = packTotal(v) || 1; if (total < 1) total = 1;
+      var a = v.selling_plan_allocations && v.selling_plan_allocations[0];
+      var perSub = Math.round((a ? a.price : v.price) / total);
+      var perReg = v.compare_at_price || Math.round(v.price / total);
+      stickyPriceEl.textContent = perSub ? (' – ' + fmt(perSub)) : '';
+      if (stickyCompareEl) {
+        if (perReg && perReg > perSub) { stickyCompareEl.textContent = fmt(perReg); stickyCompareEl.style.display = ''; }
+        else { stickyCompareEl.textContent = ''; stickyCompareEl.style.display = 'none'; }
       }
     }
     document.addEventListener('lum:atc-price', function (e) { override = (e && e.detail) || null; render(); });
