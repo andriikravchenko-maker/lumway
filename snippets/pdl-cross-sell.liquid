@@ -17,7 +17,7 @@
   .xsl-{{ uid }} .xsl__heading{ margin:0; font-family:var(--xsl-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:{{ block.settings.heading_color | default: '#113b34' }}; }
   .xsl-{{ uid }} .xsl__list{ display:flex; flex-direction:column; gap:8px; }
   .xsl-{{ uid }} .xsl__card{ display:flex; align-items:center; gap:8px; padding:12px; background:var(--xsl-card); border-radius:12px; box-sizing:border-box; }
-  .xsl-{{ uid }} .xsl__main{ display:flex; align-items:center; gap:8px; min-width:0; flex:1 1 auto; }
+  .xsl-{{ uid }} .xsl__main{ display:flex; align-items:center; gap:8px; min-width:0; flex:1 1 auto; text-decoration:none; color:inherit; cursor:pointer; }
   .xsl-{{ uid }} .xsl__img{ flex:0 0 56px; width:56px; height:56px; background:#fff; border-radius:6px; overflow:hidden; }
   .xsl-{{ uid }} .xsl__img img{ display:block; width:100%; height:100%; object-fit:cover; }
   .xsl-{{ uid }} .xsl__info{ display:flex; flex-direction:column; gap:8px; min-width:0; }
@@ -87,7 +87,7 @@
         assign fid = 'xsl-form-' | append: uid | append: '-' | append: i
       -%}
       <div class="xsl__card">
-        <div class="xsl__main">
+        <a href="{{ prod.url }}" class="xsl__main">
           <span class="xsl__img">
             {%- if img != blank -%}{{ img | image_url: width: 112 | image_tag: loading: 'lazy', widths: '56,112', sizes: '56px', alt: title }}{%- endif -%}
           </span>
@@ -104,7 +104,7 @@
             </div>
             {%- if subtitle != blank -%}<p class="xsl__desc">{{ subtitle | escape }}</p>{%- endif -%}
           </div>
-        </div>
+        </a>
         <form id="{{ fid }}" class="xsl__form" action="{{ routes.cart_add_url }}" method="post" data-cart-action="drawer" onsubmit="return false;">
           <input type="hidden" name="id" value="{{ variant.id }}">
           <input type="hidden" name="quantity" value="1">
