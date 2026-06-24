@@ -83,7 +83,7 @@
     <div class="patc__sticky" data-patc-sticky aria-hidden="true">
       <button type="button" class="patc__btn disable-global-button-styling" data-patc-sticky-btn>
         <span class="patc__content">
-          <span class="patc__line"><span>{{ block.settings.sticky_label | default: 'Try it Now' | escape }}</span><span class="patc__price" data-role="sticky-price"> – {{ sticky_price | money }}</span></span>
+          <span class="patc__line"><span>{{ block.settings.sticky_label | default: 'Try it Now' | escape }}</span><span class="patc__price" data-role="sticky-price"> – {{ sticky_price | money }}/pack</span></span>
           <span class="patc__compare" data-role="sticky-compare"{% if sticky_compare <= sticky_price %} style="display:none"{% endif %}>{{ sticky_compare | money }}</span>
         </span>
       </button>
@@ -143,7 +143,7 @@
       var a = v.selling_plan_allocations && v.selling_plan_allocations[0];
       var perSub = Math.round((a ? a.price : v.price) / total);
       var perReg = v.compare_at_price || Math.round(v.price / total);
-      stickyPriceEl.textContent = perSub ? (' – ' + fmt(perSub)) : '';
+      stickyPriceEl.textContent = perSub ? (' – ' + fmt(perSub) + '/pack') : '';
       if (stickyCompareEl) {
         if (perReg && perReg > perSub) { stickyCompareEl.textContent = fmt(perReg); stickyCompareEl.style.display = ''; }
         else { stickyCompareEl.textContent = ''; stickyCompareEl.style.display = 'none'; }
