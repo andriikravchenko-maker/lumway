@@ -50,6 +50,7 @@
 
     {% comment %} Subscription plans JSON (PDP only): window.__subscriptionPlansData from product object. {% endcomment %}
     {% if template.name == 'product' %}
+      {% render 'pdp-lcp-preload', product: product %}
       {% render 'subscription-plans-data', product: product %}
       {% render 'loop-widget-style', product: product %}
     {% endif %}

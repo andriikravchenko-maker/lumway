@@ -1,0 +1,20 @@
+{%- comment -%}
+  pdp-lcp-preload — preloads the gallery's first image (the LCP element on the custom PDP) so the
+  browser starts fetching it while <head> is still parsing, ahead of the render-blocking CSS/JS.
+  Rendered from layout/theme.liquid <head> (product block).
+
+  CRITICAL: href / imagesrcset / imagesizes must stay identical to the <img class="lpg__stage-img">
+  in snippets/product-gallery-lum.liquid (same widths 343/494/658/988/1316, same sizes). If they
+  drift apart the browser downloads the LCP image twice.
+
+  Scope: only the templates that render product-details-lum (the lum gallery). If a new lum PDP
+  template is added, add its suffix to the test below, otherwise it gets no preload (safe, just slower).
+{%- endcomment -%}
+{%- if template.suffix == 'lum-template-3' or template.suffix == 'lum-template-4' -%}
+  {%- assign lcp_media = product.media | where: 'media_type', 'image' | first -%}
+  {%- if lcp_media -%}
+    {% comment %}theme-check-disable AssetPreload{% endcomment %}
+    <link rel="preload" as="image" href="{{ lcp_media.preview_image | image_url: width: 658 }}" imagesrcset="{{ lcp_media.preview_image | image_url: width: 343 }} 343w, {{ lcp_media.preview_image | image_url: width: 494 }} 494w, {{ lcp_media.preview_image | image_url: width: 658 }} 658w, {{ lcp_media.preview_image | image_url: width: 988 }} 988w, {{ lcp_media.preview_image | image_url: width: 1316 }} 1316w" imagesizes="(min-width: 990px) 658px, calc(100vw - 32px)" fetchpriority="high">
+    {% comment %}theme-check-enable AssetPreload{% endcomment %}
+  {%- endif -%}
+{%- endif -%}
