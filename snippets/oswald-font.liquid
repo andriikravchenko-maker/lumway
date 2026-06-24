@@ -6,10 +6,10 @@
 {% if settings.enable_oswald_font %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  {%- comment -%} PDP (lum-template-3/-4): load non-render-blocking to cut ~750ms off LCP. Header/footer still get Oswald (swaps in via display=swap). Other templates keep the original blocking load. {%- endcomment -%}
+  {%- comment -%} PDP (lum-template-3/-4): non-render-blocking (media=print) + display=optional, so Oswald no longer blocks first paint AND does not swap in after it (no CLS). Trade: on a cold load the header/footer show the system fallback until Oswald is cached. Other templates keep the original blocking swap load. {%- endcomment -%}
   {%- if template.suffix == 'lum-template-3' or template.suffix == 'lum-template-4' -%}
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet"></noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=optional" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=optional" rel="stylesheet"></noscript>
   {%- else -%}
     <link
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
