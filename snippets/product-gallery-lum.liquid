@@ -18,7 +18,8 @@
     <div class="lpg__stage">
       <div class="lpg__track" data-lpg-track>
         {%- for media in gallery_media -%}
-          <div class="lpg__slide" data-lpg-slide>
+          {%- comment -%} reserve the slide's height from the real image ratio so it never pops in late (fixes intermittent CLS on slow loads). visually identical: the image fills the reserved box. {%- endcomment -%}
+          <div class="lpg__slide" data-lpg-slide style="aspect-ratio: {{ media.preview_image.aspect_ratio | default: 1.34 }};">
             <img class="lpg__stage-img"
               src="{{ media.preview_image | image_url: width: 658 }}"
               srcset="{{ media.preview_image | image_url: width: 343 }} 343w,
