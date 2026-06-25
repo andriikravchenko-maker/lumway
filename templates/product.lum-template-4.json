@@ -1947,12 +1947,22 @@
             "description": "<p>Ginger helps food move smoothly through the gut. Turmeric supports the gut's natural inflammatory response for lasting comfort.</p>",
             "benefit_text": "Eases digestive discomfort*"
           }
+        },
+        "ingredient_NTHJDE": {
+          "type": "ingredient",
+          "settings": {
+            "title": "Mixed Berry Flavor",
+            "badge_text": "without artificial flavorings",
+            "description": "<p>Creates a balanced berry taste that makes daily supplementation enjoyable.</p>",
+            "benefit_text": ""
+          }
         }
       },
       "block_order": [
         "ingredient_3yTYWc",
         "ingredient_gTpCwV",
-        "ingredient_x6WJib"
+        "ingredient_x6WJib",
+        "ingredient_NTHJDE"
       ],
       "custom_css": [
         ".ingredient-cards__heading-accent {color: #5e1424 !important;}"
