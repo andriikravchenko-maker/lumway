@@ -1921,7 +1921,7 @@
         "ingredient_3yTYWc": {
           "type": "ingredient",
           "settings": {
-            "image": "shopify://shop_images/Frame_182.png",
+            "image": "shopify://shop_images/Ellipse_868.webp",
             "title": "Inulin",
             "badge_text": "Feeds Beneficial Gut Bacteria",
             "description": "<p>Supports microbiome diversity and digestive regularity.</p>",
@@ -1931,7 +1931,7 @@
         "ingredient_gTpCwV": {
           "type": "ingredient",
           "settings": {
-            "image": "shopify://shop_images/Frame_182_1.png",
+            "image": "shopify://shop_images/Ellipse_869.webp",
             "title": "FOS",
             "badge_text": "Nourishes Your Gut From Within",
             "description": "<p>Fructooligosaccharides (FOS) works alongside Inulin to help beneficial bacteria thrive that support a balanced gut microbiome. </p>",
@@ -1941,7 +1941,7 @@
         "ingredient_x6WJib": {
           "type": "ingredient",
           "settings": {
-            "image": "shopify://shop_images/Frame_182_2.png",
+            "image": "shopify://shop_images/Ellipse_870.webp",
             "title": "Pectin",
             "badge_text": "Supports Digestive Comfort",
             "description": "<p>A natural soluble fiber that complements your daily fiber intake.</p>",
@@ -1951,6 +1951,7 @@
         "ingredient_NTHJDE": {
           "type": "ingredient",
           "settings": {
+            "image": "shopify://shop_images/Ellipse_871.webp",
             "title": "Mixed Berry Flavor",
             "badge_text": "Without Artificial Flavorings",
             "description": "<p>Creates a balanced berry taste that makes daily supplementation enjoyable.</p>",
