@@ -21,6 +21,8 @@
   #MainContent .custom-benefit-icon svg{ color:#000 !important; }
   #MainContent .custom-benefit-icon svg path{ fill:#000 !important; }
 {% endstyle %}
+{%- comment -%} PDP-only Real User Monitoring (Core Web Vitals -> existing GA4 as a distinct additive event). Lives in this PDP-only section, so it never runs on other templates. {%- endcomment -%}
+{% render 'pdp-web-vitals' %}
 {% schema %}
 {
   "name": "Template font (Inter)",

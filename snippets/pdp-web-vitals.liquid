@@ -1,0 +1,44 @@
+{%- comment -%}
+  pdp-web-vitals — PDP-only Real User Monitoring (RUM), fully isolated.
+  Measures real visitors' Core Web Vitals (LCP, CLS, INP, FCP, TTFB), computes a 0-100 score per
+  metric (the same log-normal curve Lighthouse uses), and POSTs them to an endpoint YOU own
+  (a Google Apps Script web app that appends to your Sheet).
+
+  Fully isolated from the store's existing analytics: it does not read, modify, or send to them.
+  Plain fetch() to your own URL, wrapped in try/catch so it can never break the page. If the
+  endpoint URL below is not set, it does nothing. Scoped to the lum PDP by where it is rendered
+  (sections/lum-template-font.liquid, lum-template-3/-4 only).
+{%- endcomment -%}
+<script type="module">
+  (async function () {
+    var ENDPOINT = 'https://script.google.com/macros/s/AKfycbylkKgl9t0vUCecF6ICnhrAlm3EBy5X4We-Ew8HoZo4ykrkaWRL69i8TI2B48nrOhXd/exec';
+    if (typeof ENDPOINT !== 'string' || ENDPOINT.indexOf('http') !== 0) return;
+    function erfc(x){var z=Math.abs(x),t=1/(1+z/2),r=t*Math.exp(-z*z-1.26551223+t*(1.00002368+t*(0.37409196+t*(0.09678418+t*(-0.18628806+t*(0.27886807+t*(-1.13520398+t*(1.48851587+t*(-0.82215223+t*0.17087277)))))))));return x>=0?r:2-r;}
+    function score(name, value){
+      var P={LCP:[2500,4000],FCP:[1800,3000],CLS:[0.1,0.25],INP:[200,500],TTFB:[800,1800]};
+      var p=P[name]; if(!p||value<=0) return '';
+      var m=Math.log(p[1]), std=(m-Math.log(p[0]))/1.2815515594908738;
+      return Math.round(Math.max(0,Math.min(1,0.5*erfc(((Math.log(value)-m)/std)/Math.SQRT2)))*100);
+    }
+    try {
+      var wv = await import('https://unpkg.com/web-vitals@4?module');
+      var report = function (metric) {
+        try {
+          var raw = metric.value;
+          var body = JSON.stringify({
+            metric_name: metric.name,
+            metric_value: metric.name === 'CLS' ? Math.round(raw * 1000) / 1000 : Math.round(raw),
+            metric_score: score(metric.name, raw),
+            metric_rating: metric.rating,
+            page_template: {{ template | json }},
+            url: location.pathname,
+            device: (window.innerWidth <= 768 ? 'mobile' : 'desktop'),
+            connection: (navigator.connection && navigator.connection.effectiveType) || ''
+          });
+          fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=UTF-8' }, body: body });
+        } catch (e) {}
+      };
+      wv.onLCP(report); wv.onCLS(report); wv.onINP(report); wv.onFCP(report); wv.onTTFB(report);
+    } catch (e) {}
+  })();
+</script>
