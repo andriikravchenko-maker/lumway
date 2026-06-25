@@ -1932,9 +1932,9 @@
           "type": "ingredient",
           "settings": {
             "image": "shopify://shop_images/Frame_182_1.png",
-            "title": "Fructooligosaccharides",
+            "title": "FOS",
             "badge_text": "Nourishes Your Gut From Within",
-            "description": "<p>Works alongside Inulin to help beneficial bacteria thrive that support a balanced gut microbiome. </p>",
+            "description": "<p>Fructooligosaccharides (FOS) works alongside Inulin to help beneficial bacteria thrive that support a balanced gut microbiome. </p>",
             "benefit_text": ""
           }
         },
