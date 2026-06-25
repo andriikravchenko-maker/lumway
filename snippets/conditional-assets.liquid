@@ -25,11 +25,21 @@
 
 {% comment %} Conditional Stylesheets {% endcomment %}
 {%- if settings.cart_type == 'drawer' -%}
-  {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
-  {{ 'component-cart.css' | asset_url | stylesheet_tag }}
-  {{ 'component-totals.css' | asset_url | stylesheet_tag }}
-  {{ 'component-price.css' | asset_url | stylesheet_tag }}
-  {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+  {%- if template.suffix == 'lum-template-3' or template.suffix == 'lum-template-4' -%}
+    {%- comment -%} PDP only: cart-drawer styles are not on the first screen, so load them non-render-blocking (media=print) to cut LCP. component-price/discounts stay blocking (may appear above the fold here). Other templates keep the original blocking load. {%- endcomment -%}
+    <link rel="stylesheet" href="{{ 'component-cart-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-cart.css' | asset_url }}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{{ 'component-totals.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>{{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}{{ 'component-cart.css' | asset_url | stylesheet_tag }}{{ 'component-totals.css' | asset_url | stylesheet_tag }}</noscript>
+    {{ 'component-price.css' | asset_url | stylesheet_tag }}
+    {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+  {%- else -%}
+    {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+    {{ 'component-cart.css' | asset_url | stylesheet_tag }}
+    {{ 'component-totals.css' | asset_url | stylesheet_tag }}
+    {{ 'component-price.css' | asset_url | stylesheet_tag }}
+    {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+  {%- endif -%}
 {%- endif -%}
 
 {% if settings.enable_global_border_styling %}
