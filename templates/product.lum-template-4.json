@@ -32,7 +32,7 @@
         "subtitle_yJn7CD": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed natural formula designed to support appetite balance, smooth digestion, and healthy metabolic function through every phase of life.</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
           }
         },
         "labels_ziBqxf": {
@@ -43,7 +43,7 @@
             "chip_2_show": true,
             "chip_2_text": "Feel Lighter Daily",
             "chip_3_show": true,
-            "chip_3_text": "Fat Loss",
+            "chip_3_text": "Weight-loss",
             "chip_4_show": true,
             "chip_4_text": "Drug-free",
             "chip_5_show": false,
