@@ -2664,7 +2664,7 @@
         "subtitle": "<p>Find answers to common questions about our products, shipping, returns, and more.</p>",
         "heading_color": "#000000",
         "subtitle_color": "#111111",
-        "section_padding": 60,
+        "section_padding": 30,
         "container_padding_mobile": 15,
         "container_padding_desktop": 15,
         "section_bg_color": "#f9f9f9",
