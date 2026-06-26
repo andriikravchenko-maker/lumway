@@ -2136,7 +2136,7 @@
         "review_m8qMYC": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_58_40_PM_1.webp",
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_58_40_PM_1_4400337d-0598-4326-970c-2e80410ec167.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2156,7 +2156,7 @@
         "review_Brta4Y": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/image-81.webp",
+            "review_image": "shopify://shop_images/image_81.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2176,7 +2176,7 @@
         "review_8cjTyc": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/image_77.webp",
+            "review_image": "shopify://shop_images/image_77_e49a8749-a170-43ae-9fa8-c850b4d3fce6.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2196,7 +2196,7 @@
         "review_wNLbay": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/image-82.webp",
+            "review_image": "shopify://shop_images/image_82.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2213,10 +2213,30 @@
             "purchase_date": "March 14th, 2025"
           }
         },
+        "review_9b3eY4": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_85.webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“I have a sensitive stomach, so I was hesitant — but this felt really gentle. No weird side effects, just gradual improvement.”",
+            "reviewer_name": "Megan L.",
+            "reviewer_age": "37",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
         "review_6x6kdA": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/image-86.webp",
+            "review_image": "shopify://shop_images/image_86.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2233,50 +2253,10 @@
             "purchase_date": "March 14th, 2025"
           }
         },
-        "review_9b3eY4": {
-          "type": "review",
-          "settings": {
-            "review_image": "shopify://shop_images/image-85.webp",
-            "image_position": "center center",
-            "wrap_image": true,
-            "rating": 4,
-            "review_text": "“I have a sensitive stomach, so I was hesitant — but this felt really gentle. No weird side effects, just gradual improvement.”",
-            "reviewer_name": "Megan L.",
-            "reviewer_age": "32",
-            "show_verified_badge": false,
-            "show_purchased_product": false,
-            "product_reference": "",
-            "product_title": "Product Name",
-            "product_price": "$29.99",
-            "product_compare_price": "$39.99",
-            "show_purchase_date": true,
-            "purchase_date": "March 14th, 2025"
-          }
-        },
-        "review_cQpc4j": {
-          "type": "review",
-          "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_57_58_PM_1.webp",
-            "image_position": "center center",
-            "wrap_image": true,
-            "rating": 5,
-            "review_text": "“It didn’t work overnight for me, but after about 10–12 days I started noticing less bloating. It feels more like a gradual improvement than a quick fix.”",
-            "reviewer_name": "Lauren K.",
-            "reviewer_age": "37",
-            "show_verified_badge": false,
-            "show_purchased_product": false,
-            "product_reference": "",
-            "product_title": "Product Name",
-            "product_price": "$29.99",
-            "product_compare_price": "$39.99",
-            "show_purchase_date": true,
-            "purchase_date": "March 14th, 2025"
-          }
-        },
         "review_gyMjCt": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_01_50_27_PM_1.webp",
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_01_50_27_PM_1_1633dd18-7f83-423b-a268-49dfd5ad2fa8.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2293,10 +2273,30 @@
             "purchase_date": "March 14th, 2025"
           }
         },
+        "review_cQpc4j": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_57_58_PM_1_c8b36dad-069d-4d19-a68b-fd04607acabf.webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“It didn’t work overnight for me, but after about 10–12 days I started noticing less bloating. It feels more like a gradual improvement than a quick fix.”",
+            "reviewer_name": "Lauren K.",
+            "reviewer_age": "42",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
         "review_FXxqza": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_37_47_PM_1.webp",
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_37_47_PM_1_c1585ef3-1a4f-43be-a039-52d2f8c7702c.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 4,
@@ -2316,7 +2316,7 @@
         "review_X8BJaj": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/image_78.webp",
+            "review_image": "shopify://shop_images/image_78_99f9e61f-ce48-4282-9193-adcc0d94f7bd.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 4,
@@ -2339,10 +2339,10 @@
         "review_Brta4Y",
         "review_8cjTyc",
         "review_wNLbay",
-        "review_6x6kdA",
         "review_9b3eY4",
-        "review_cQpc4j",
+        "review_6x6kdA",
         "review_gyMjCt",
+        "review_cQpc4j",
         "review_FXxqza",
         "review_X8BJaj"
       ],
