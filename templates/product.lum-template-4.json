@@ -2293,26 +2293,6 @@
             "purchase_date": "March 14th, 2025"
           }
         },
-        "review_gyMjCt": {
-          "type": "review",
-          "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_01_50_27_PM_1.webp",
-            "image_position": "center center",
-            "wrap_image": true,
-            "rating": 5,
-            "review_text": "“I take it every morning and it just became part of my routine. I feel less bloated after meals and more comfortable overall.”",
-            "reviewer_name": "Olivia P.",
-            "reviewer_age": "63",
-            "show_verified_badge": false,
-            "show_purchased_product": false,
-            "product_reference": "",
-            "product_title": "Product Name",
-            "product_price": "$29.99",
-            "product_compare_price": "$39.99",
-            "show_purchase_date": true,
-            "purchase_date": "March 14th, 2025"
-          }
-        },
         "review_X8BJaj": {
           "type": "review",
           "settings": {
@@ -2323,6 +2303,26 @@
             "review_text": "“It took a couple of weeks, but I do feel a difference now. Less heaviness, especially in the evenings.”",
             "reviewer_name": "Danielle H.",
             "reviewer_age": "47",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_gyMjCt": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_01_50_27_PM_1.webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“I take it every morning and it just became part of my routine. I feel less bloated after meals and more comfortable overall.”",
+            "reviewer_name": "Olivia P.",
+            "reviewer_age": "63",
             "show_verified_badge": false,
             "show_purchased_product": false,
             "product_reference": "",
@@ -2343,8 +2343,8 @@
         "review_FXxqza",
         "review_6x6kdA",
         "review_9b3eY4",
-        "review_gyMjCt",
-        "review_X8BJaj"
+        "review_X8BJaj",
+        "review_gyMjCt"
       ],
       "name": "Customer Reviews",
       "settings": {
