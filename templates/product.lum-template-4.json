@@ -2173,26 +2173,6 @@
             "purchase_date": "March 14th, 2025"
           }
         },
-        "review_cQpc4j": {
-          "type": "review",
-          "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_57_58_PM_1.webp",
-            "image_position": "center center",
-            "wrap_image": true,
-            "rating": 5,
-            "review_text": "“It didn’t work overnight for me, but after about 10–12 days I started noticing less bloating. It feels more like a gradual improvement than a quick fix.”",
-            "reviewer_name": "Lauren K.",
-            "reviewer_age": "37",
-            "show_verified_badge": false,
-            "show_purchased_product": false,
-            "product_reference": "",
-            "product_title": "Product Name",
-            "product_price": "$29.99",
-            "product_compare_price": "$39.99",
-            "show_purchase_date": true,
-            "purchase_date": "March 14th, 2025"
-          }
-        },
         "review_8cjTyc": {
           "type": "review",
           "settings": {
@@ -2223,26 +2203,6 @@
             "review_text": "“I love that I don’t have to take capsules anymore. These are actually enjoyable, and I’ve been way more consistent because of that.”",
             "reviewer_name": "Amanda J.",
             "reviewer_age": "29",
-            "show_verified_badge": false,
-            "show_purchased_product": false,
-            "product_reference": "",
-            "product_title": "Product Name",
-            "product_price": "$29.99",
-            "product_compare_price": "$39.99",
-            "show_purchase_date": true,
-            "purchase_date": "March 14th, 2025"
-          }
-        },
-        "review_FXxqza": {
-          "type": "review",
-          "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_46_05_PM_1.webp",
-            "image_position": "center center",
-            "wrap_image": true,
-            "rating": 4,
-            "review_text": "“I mainly got this for bloating, and it definitely helped. Not dramatic, but I feel lighter and less uncomfortable during the day.”",
-            "reviewer_name": "Nicole D.",
-            "reviewer_age": "55",
             "show_verified_badge": false,
             "show_purchased_product": false,
             "product_reference": "",
@@ -2293,16 +2253,16 @@
             "purchase_date": "March 14th, 2025"
           }
         },
-        "review_X8BJaj": {
+        "review_cQpc4j": {
           "type": "review",
           "settings": {
-            "review_image": "shopify://shop_images/image_78.webp",
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_57_58_PM_1.webp",
             "image_position": "center center",
             "wrap_image": true,
-            "rating": 4,
-            "review_text": "“It took a couple of weeks, but I do feel a difference now. Less heaviness, especially in the evenings.”",
-            "reviewer_name": "Danielle H.",
-            "reviewer_age": "47",
+            "rating": 5,
+            "review_text": "“It didn’t work overnight for me, but after about 10–12 days I started noticing less bloating. It feels more like a gradual improvement than a quick fix.”",
+            "reviewer_name": "Lauren K.",
+            "reviewer_age": "37",
             "show_verified_badge": false,
             "show_purchased_product": false,
             "product_reference": "",
@@ -2332,19 +2292,59 @@
             "show_purchase_date": true,
             "purchase_date": "March 14th, 2025"
           }
+        },
+        "review_FXxqza": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_37_47_PM_1.webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“I mainly got this for bloating, and it definitely helped. Not dramatic, but I feel lighter and less uncomfortable during the day.”",
+            "reviewer_name": "Nicole D.",
+            "reviewer_age": "55",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_X8BJaj": {
+          "type": "review",
+          "settings": {
+            "review_image": "shopify://shop_images/image_78.webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“It took a couple of weeks, but I do feel a difference now. Less heaviness, especially in the evenings.”",
+            "reviewer_name": "Danielle H.",
+            "reviewer_age": "47",
+            "show_verified_badge": false,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": true,
+            "purchase_date": "March 14th, 2025"
+          }
         }
       },
       "block_order": [
         "review_m8qMYC",
         "review_Brta4Y",
-        "review_cQpc4j",
         "review_8cjTyc",
         "review_wNLbay",
-        "review_FXxqza",
         "review_6x6kdA",
         "review_9b3eY4",
-        "review_X8BJaj",
-        "review_gyMjCt"
+        "review_cQpc4j",
+        "review_gyMjCt",
+        "review_FXxqza",
+        "review_X8BJaj"
       ],
       "name": "Customer Reviews",
       "settings": {
