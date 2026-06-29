@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "lum_template_font": {
@@ -341,6 +350,7 @@
         "feature_item_UyXzHh",
         "feature_item_jgefXd"
       ],
+      "disabled": true,
       "custom_css": [
         ".scrolling-features-bar {background-color: #fcf5cf; color: #000;}",
         ".scrolling-features-bar .feature-icon svg {fill: #000;}",
@@ -1103,6 +1113,7 @@
         "benefit_dkQXUq",
         "benefit_LxHyEk"
       ],
+      "disabled": true,
       "settings": {
         "use_theme_colors": false,
         "heading": "HELPS WITH",
@@ -1136,6 +1147,7 @@
     },
     "satisfaction_guarantee_J4ypTy": {
       "type": "satisfaction-guarantee",
+      "disabled": true,
       "settings": {
         "use_theme_colors": true,
         "show_photos": true,
@@ -1304,6 +1316,7 @@
         "video_testimonial_dBeGPf",
         "video_testimonial_bUnaCD"
       ],
+      "disabled": true,
       "name": "Video Testimonials",
       "settings": {
         "padding_top": 50,
