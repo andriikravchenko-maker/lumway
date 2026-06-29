@@ -490,7 +490,7 @@
         "section_padding_bottom_desktop": 65,
         "section_padding_horizontal_desktop": 15,
         "section_padding_top_mobile": 25,
-        "section_padding_bottom_mobile": 0,
+        "section_padding_bottom_mobile": 25,
         "section_padding_horizontal_mobile": 15,
         "image_border_radius": 8,
         "image_position_desktop": "right",
