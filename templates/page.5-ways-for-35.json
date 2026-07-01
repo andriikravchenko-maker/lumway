@@ -18,39 +18,6 @@
         "padding_bottom": 28
       }
     },
-    "sale_countdown_banner_KfxjF8": {
-      "type": "sale-countdown-banner",
-      "name": "Sale Countdown Banner",
-      "settings": {
-        "use_theme_colors": true,
-        "heading_text": "LIMITED TIME SALE",
-        "highlight_text": "30% OFF",
-        "show_colon": true,
-        "show_icon": true,
-        "icon_text": "⚡️",
-        "show_days": false,
-        "custom_end_time": true,
-        "end_year": 2024,
-        "end_month": 12,
-        "end_day": 31,
-        "end_hour": 23,
-        "end_minute": 59,
-        "sticky": true,
-        "background_color": "#ffeaee",
-        "text_color": "#ef4a65",
-        "highlight_color": "#FAD356",
-        "highlight_underline": true,
-        "countdown_color": "#ef4a65",
-        "countdown_label_color": "#000000",
-        "border_color": "#ef4a65",
-        "days_label": "DAYS",
-        "hours_label": "HRS",
-        "minutes_label": "MIN",
-        "seconds_label": "SEC",
-        "time_format_single_digit": "0",
-        "zero_value": "00"
-      }
-    },
     "gut_harmony_benefits_6bQW6X": {
       "type": "gut-harmony-benefits",
       "name": "Gut Harmony Benefits",
@@ -785,7 +752,6 @@
   },
   "order": [
     "main",
-    "sale_countdown_banner_KfxjF8",
     "gut_harmony_benefits_6bQW6X",
     "gut_harmony_story_WcWnBY",
     "gut_harmony_band_J4x4Lt",
