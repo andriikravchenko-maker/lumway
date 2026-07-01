@@ -32,14 +32,14 @@
         "background_color": "#f9f9f9",
         "image": "shopify://shop_images/Product_Image_Container.png",
         "image_border_radius": 0,
-        "heading_before": "5 Ways Gut Harmony Helps Women",
+        "heading_before": "5 Ways Gut Harmony Helps Women 35+",
         "heading_accent": "Stop Feeling Heavy",
         "heading_after": "After Every Meal*",
         "heading_size": 64,
         "heading_size_mobile": 32,
         "heading_line_height": 1.2,
         "heading_color": "#333333",
-        "heading_accent_color": "#3f8b35",
+        "heading_accent_color": "#00724D",
         "subheading": "",
         "subheading_size": 32,
         "subheading_size_mobile": 18,
@@ -593,7 +593,7 @@
         "feature_PPWHz3": {
           "type": "feature",
           "settings": {
-            "text": "Trusted By Women 50+"
+            "text": "Trusted By Women 35+"
           }
         },
         "feature_Nd3aMx": {
