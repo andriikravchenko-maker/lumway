@@ -61,7 +61,7 @@
       ],
       "settings": {
         "use_theme_colors": false,
-        "show_newsletter": true,
+        "show_newsletter": false,
         "newsletter_title": "Subscribe to our emails",
         "newsletter_title_alignment": "center",
         "newsletter_title_color": "",
