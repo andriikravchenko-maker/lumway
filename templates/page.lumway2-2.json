@@ -18,6 +18,35 @@
         "padding_bottom": 28
       }
     },
+    "announcement_bar_pjm4bT": {
+      "type": "announcement-bar",
+      "name": "Countdown Banner",
+      "settings": {
+        "use_theme_colors": true,
+        "sticky_with_header": true,
+        "announcement_text": "HOLIDAY SALE ENDS IN",
+        "show_days": false,
+        "custom_date": false,
+        "end_date": "2026-07-02 23:59:59",
+        "timezone": "America/New_York",
+        "days_label": "DAYS",
+        "hours_label": "HRS",
+        "minutes_label": "MIN",
+        "seconds_label": "SEC",
+        "text_color": "#000000",
+        "timer_bg_color": "#000000",
+        "timer_text_color": "#FFFFFF",
+        "label_text_color": "#FFFFFF",
+        "background_type": "animated_gradient",
+        "hide_shine_effect": false,
+        "static_gradient_value": "linear-gradient(135deg, #FFF5EA, #FF99A9)",
+        "solid_bg_color": "#FF99A9",
+        "gradient_color_1": "#FFF5EA",
+        "gradient_color_2": "#FFDAE0",
+        "gradient_color_3": "#FDFFE7",
+        "gradient_color_4": "#FF99A9"
+      }
+    },
     "gut_harmony_benefits_6bQW6X": {
       "type": "gut-harmony-benefits",
       "name": "Gut Harmony Benefits",
@@ -540,11 +569,17 @@
       "name": "Gut Harmony Reviews",
       "settings": {
         "use_theme_colors": false,
+        "heading": "",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
         "padding_top": 80,
         "padding_bottom": 80,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "card_gap": 24,
+        "enable_slider": false,
+        "slides_per_view": 4,
+        "slides_per_view_mobile": 1,
         "background_color": "#ffffff",
         "card_bg": "#ffffff",
         "card_border_color": "#e9f5ea",
@@ -590,6 +625,7 @@
   },
   "order": [
     "main",
+    "announcement_bar_pjm4bT",
     "gut_harmony_benefits_6bQW6X",
     "gut_harmony_story_WcWnBY",
     "gut_harmony_band_J4x4Lt",
