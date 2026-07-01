@@ -614,16 +614,6 @@
             "name": "— Linda M."
           }
         },
-        "review_nChqbJ": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Reviewer_Image1.png",
-            "rating": 5,
-            "title": "My stomach feels so much more balanced",
-            "text": "“I dealt with bloating and uncomfortable digestion for YEARS. Some foods just seemed impossible for me anymore. After starting Gut Harmony, I noticed my stomach felt calmer and more balanced overall. I'm not constantly regretting meals now.”",
-            "name": "— Wendy O."
-          }
-        },
         "review_MM7nQf": {
           "type": "review",
           "settings": {
@@ -633,13 +623,23 @@
             "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
             "name": "— Linda M."
           }
+        },
+        "review_nChqbJ": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Reviewer_Image1.png",
+            "rating": 5,
+            "title": "My stomach feels so much more balanced",
+            "text": "“I dealt with bloating and uncomfortable digestion for YEARS. Some foods just seemed impossible for me anymore. After starting Gut Harmony, I noticed my stomach felt calmer and more balanced overall. I'm not constantly regretting meals now.”",
+            "name": "— Wendy O."
+          }
         }
       },
       "block_order": [
         "review_8h3ftx",
         "review_fiaiPe",
-        "review_nChqbJ",
-        "review_MM7nQf"
+        "review_MM7nQf",
+        "review_nChqbJ"
       ],
       "name": "Gut Harmony Reviews",
       "settings": {
