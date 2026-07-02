@@ -1,4 +1,12 @@
 {%- comment -%}
+  FROZEN SNAPSHOT v1 (2026-07-02) — not rendered anywhere, do not edit.
+  Purchase Type before the v2 test rework: subscribe/one-time cards + pack-aware benefits
+  (Free Shipping auto-hidden for the 1-jar pack via benefit_N_multi_only).
+  Restore = copy this file over snippets/purchase-type-lum.liquid. The matching schema
+  (benefit_N_multi_only checkboxes) lives in sections/product-details-lum.liquid; the full
+  exact pair is preserved on git branch snapshot-purchase-type-v1-freeship.
+{%- endcomment -%}
+{%- comment -%}
   Purchase Type (subscribe / one-time) — Lumway PDP. Figma mobile 484:7110.
   Native Shopify selling plans (Recharge is the processor). The SUBSCRIBE interval is driven by the pack
   selector: resolvePlanForVariant() picks the plan/interval per the selected variant.
