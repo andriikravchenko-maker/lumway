@@ -458,7 +458,7 @@
         "accent_font_style": "normal",
         "accent_font_weight": "inherit",
         "number_color": "#ffffff",
-        "number_gradient": "linear-gradient(25deg, rgba(169, 97, 122, 1), rgba(50, 71, 122, 1) 99%)",
+        "number_gradient": "linear-gradient(25deg, rgba(169, 97, 122, 1), rgba(169, 97, 122, 1) 99%)",
         "number_size_mobile": 36,
         "number_size_desktop": 64,
         "stat_text_vertical_alignment": "flex-start",
