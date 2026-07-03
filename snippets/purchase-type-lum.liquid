@@ -2,7 +2,9 @@
   Purchase Type (subscribe / one-time) — Lumway PDP. Figma mobile 484:7110.
   Native Shopify selling plans (Recharge is the processor). The SUBSCRIBE interval is driven by the pack
   selector: resolvePlanForVariant() picks the plan/interval per the selected variant.
-    interval_mode 'mapped' (default): option index -> plan id (option < threshold -> monthly, >= threshold -> bi-monthly).
+    interval_mode 'mapped' (default): a pack of N jars subscribes to the N-month plan (1->monthly, 2->2-month, 3->3-month);
+      if the product has no N-month plan it steps down to the nearest smaller interval. The resolved plan is published
+      on window.__lumResolvedSub so the sticky bar (add-to-cart-lum) shows the same subscribe price.
     interval_mode 'auto': read the selected variant.selling_plan_allocations (Recharge variant-level plans).
   Selecting subscribe writes name="selling_plan" (via Elixir_SetProductFormSellingPlan) + sets the price
   context (Elixir_SetSubscriptionContext) so the ATC button shows the discounted price.
@@ -83,8 +85,9 @@
           {%- for i in (1..6) -%}
             {%- assign bshow = 'benefit_' | append: i | append: '_show' -%}
             {%- assign btext = 'benefit_' | append: i | append: '_text' -%}
+            {%- assign bmulti = 'benefit_' | append: i | append: '_multi_only' -%}
             {%- if block.settings[bshow] and block.settings[btext] != blank -%}
-              <li><span class="ptl__check">{{ 'lum-icon-tick.svg' | inline_asset_content }}</span><span>{{ block.settings[btext] | escape }}</span></li>
+              <li{% if block.settings[bmulti] %} data-multi-only{% endif %}><span class="ptl__check">{{ 'lum-icon-tick.svg' | inline_asset_content }}</span><span>{{ block.settings[btext] | escape }}</span></li>
             {%- endif -%}
           {%- endfor -%}
         </ul>
@@ -109,7 +112,6 @@
 
     var SUFFIX = {{ suffix | json }};
     var MODE = root.getAttribute('data-interval-mode') || 'mapped';
-    var THRESHOLD = {{ block.settings.interval_threshold | default: 2 }};
     var MONTHLY_ID = {{ block.settings.monthly_plan_id | default: '' | json }};
     var BIMONTHLY_ID = {{ block.settings.bimonthly_plan_id | default: '' | json }};
     var LABEL_FMT = {{ block.settings.interval_label_format | json }} || '{n}-Month-Delivery';
@@ -157,7 +159,7 @@
     function planForMonths(months) {
       var ids = Object.keys(plansById);
       for (var i = 0; i < ids.length; i++) { if (intervalMonthsFromPlan(plansById[ids[i]]) === months) return plansById[ids[i]]; }
-      return ids.length ? plansById[ids[0]] : null;
+      return null;
     }
     function applyAdjustment(price, plan) {
       if (!plan || !plan.price_adjustments || !plan.price_adjustments.length) return price;
@@ -183,12 +185,15 @@
                  subPrice: (typeof a.price !== 'undefined') ? a.price : v.price,
                  subCompare: a.compare_at_price || v.compare_at_price || 0 };
       }
-      // mapped: pack position -> monthly / bi-monthly (auto-find plan by interval, or explicit id)
+      // mapped: a pack of N jars -> the N-month plan; no N-month plan on this product -> nearest smaller interval
       var pos = variantIndex(v) + 1;
-      var useBi = pos >= THRESHOLD;
-      var months = useBi ? 2 : 1;
-      var explicitId = useBi ? BIMONTHLY_ID : MONTHLY_ID;
-      var plan = explicitId ? plansById[String(explicitId)] : planForMonths(months);
+      var explicitId = pos === 1 ? MONTHLY_ID : (pos === 2 ? BIMONTHLY_ID : '');
+      var plan = explicitId ? plansById[String(explicitId)] : null;
+      if (!explicitId) {
+        for (var mm = pos; mm >= 1 && !plan; mm--) plan = planForMonths(mm);
+        if (!plan) { var ks = Object.keys(plansById); if (ks.length) plan = plansById[ks[0]]; }
+      }
+      var months = plan ? (intervalMonthsFromPlan(plan) || pos) : pos;
       return { planId: plan ? plan.id : explicitId, months: months,
                subPrice: plan ? applyAdjustment(v.price, plan) : v.price,
                subCompare: v.compare_at_price || 0 };
@@ -208,19 +213,30 @@
 
     function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
     function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
-    function emitPrice(price, compare) {
-      document.dispatchEvent(new CustomEvent('lum:atc-price', { detail: { price: price, compare: compare } }));
+    // subscribe price of EVERY pack (not just the selected one) for the bundle cards' dynamic Save badges
+    try {
+      var subByVariant = {};
+      variants.forEach(function (pv) { var pr = resolvePlanForVariant(pv); if (pr && pr.planId) subByVariant[String(pv.id)] = pr.subPrice; });
+      window.__lumSubByVariant = subByVariant;
+    } catch (e) {}
+    function emitPrice(price, compare, type) {
+      document.dispatchEvent(new CustomEvent('lum:atc-price', { detail: { price: price, compare: compare, type: type } }));
     }
     function recompute() {
       var v = currentVariant();
       if (!v) return;
       var r = subInput ? resolvePlanForVariant(v) : null;
+      // publish the resolved plan so the sticky bar shows the SAME subscribe price/interval for this pack
+      window.__lumResolvedSub = (r && r.planId) ? { variantId: v.id, planId: r.planId, subPrice: r.subPrice, months: r.months } : null;
       // subscribe selected but no plan for this variant -> fall back to one-time
       if (subInput && subInput.checked && (!r || !r.planId || !hasPlans)) {
         var ot = root.querySelector('input[value="one_time"]');
         if (ot) { ot.checked = true; syncSelected(); }
       }
       var total = packTotal(v) || 1; // jars in the pack (paid + free)
+      // benefits flagged multi-only (Free Shipping) belong to the 2+/3+ jar packs, not the single jar
+      var multi = total > 1 || variantIndex(v) > 0;
+      root.querySelectorAll('.ptl__benefits [data-multi-only]').forEach(function (li) { li.style.display = multi ? '' : 'none'; });
       // Purchase Type shows the PER-JAR price (pack total / jars); struck = single-jar compare-at, per jar.
       var jarStruck = baseCompare();
       var otJar = Math.round(v.price / total);
@@ -236,7 +252,7 @@
       var subscribing = isSubscribe() && hasPlans && r && r.planId;
       if (subscribing) applySubscribe(r, v); else clearSubscribe();
       // The ATC button keeps the PACK TOTAL price + pack-level struck (single-jar compare x jars).
-      emitPrice(subscribing ? r.subPrice : v.price, baseCompare() * total);
+      emitPrice(subscribing ? r.subPrice : v.price, baseCompare() * total, subscribing ? 'subscribe' : 'one_time');
     }
 
     function selectType(type) {
