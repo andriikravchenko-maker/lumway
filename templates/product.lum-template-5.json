@@ -458,7 +458,7 @@
         "accent_font_style": "normal",
         "accent_font_weight": "inherit",
         "number_color": "#ffffff",
-        "number_gradient": "linear-gradient(25deg, rgba(169, 97, 122, 1), rgba(169, 97, 122, 1) 100%)",
+        "number_gradient": "linear-gradient(25deg, rgba(169, 97, 122, 1), rgba(85, 132, 192, 1) 100%)",
         "number_size_mobile": 36,
         "number_size_desktop": 64,
         "stat_text_vertical_alignment": "flex-start",
@@ -581,17 +581,17 @@
         "ingredient_x6WJib"
       ],
       "custom_css": [
-        ".ingredient-cards__heading-accent {color: #23a02a !important;}"
+        ".ingredient-cards__heading-accent {color: #a9617a !important;}"
       ],
       "name": "Ingredient Cards",
       "settings": {
-        "heading": "Every Ingredient Has A Purpose",
-        "heading_accent": "",
+        "heading": "Every Ingredient",
+        "heading_accent": "Has a Purpose",
         "subtitle": "",
         "heading_size": 40,
         "heading_size_mobile": 28,
         "heading_color": "#000000",
-        "accent_color": "#5584c0",
+        "accent_color": "#32477A",
         "card_background": "#ffffff",
         "card_border_color": "#c2c2c2",
         "card_border_radius": 8,
