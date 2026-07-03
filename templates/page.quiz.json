@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
+        "use_theme_colors": true,
         "padding_top": 28,
         "padding_bottom": 28
       }
