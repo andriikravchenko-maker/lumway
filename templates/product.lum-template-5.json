@@ -1140,7 +1140,7 @@
       ],
       "settings": {
         "padding_top": 50,
-        "padding_bottom": 50,
+        "padding_bottom": 15,
         "padding_left": 25,
         "padding_right": 25,
         "image_position_desktop": "right",
