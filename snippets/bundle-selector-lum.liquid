@@ -128,7 +128,7 @@
           assign is_sel = true
         endif
       -%}
-      <label class="bsl__card{% if is_sel %} is-selected{% endif %}" data-variant="{{ v.id }}" data-pack-total="{{ paid | plus: free }}" data-pack-paid="{{ paid }}" data-pack-free="{{ free }}">
+      <label class="bsl__card{% if is_sel %} is-selected{% endif %}" data-variant="{{ v.id }}" data-pack-total="{{ paid | plus: free }}" data-pack-paid="{{ paid }}" data-pack-free="{{ free }}" data-price="{{ v.price }}" data-compare-total="{{ base_compare | times: total_jars }}">
         <input type="radio" class="bsl__input" name="bsl-{{ uid }}" value="{{ v.id }}"{% if is_sel %} checked{% endif %} aria-label="{{ label | escape }}">
         {%- if badge != blank -%}<span class="bsl__badge" style="background:{{ badge_bg }};color:{{ badge_tc }}">{{ badge | escape }}</span>{%- endif -%}
         <span class="bsl__pack{% if img2 != blank %} bsl__pack--multi{% endif %}" aria-hidden="true">
@@ -143,7 +143,8 @@
           {%- if sublabel != blank -%}<span class="bsl__sub">{{ sublabel | escape }}</span>{%- endif -%}
         </span>
         {%- if block.settings.save_auto -%}
-          {%- if save_amount > 0 -%}<span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{{ save_amount | money }}</span>{%- endif -%}
+          {%- comment -%} span always present: JS re-fills it per purchase type (one-time vs subscribe) {%- endcomment -%}
+          <span class="bsl__save" data-role="save" style="background:{{ save_bg }};color:{{ save_tc }}{% if save_amount <= 0 %};display:none{% endif %}">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{% if save_amount > 0 %}{{ save_amount | money }}{% endif %}</span>
         {%- elsif save != blank -%}
           <span class="bsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ save | escape }}</span>
         {%- endif -%}
@@ -195,6 +196,34 @@
       document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: { variant: variant, source: 'bundle-selector-lum', pack: pack } }));
       document.dispatchEvent(new CustomEvent('variant:change', { detail: { variant: variant, pack: pack } }));
     }
+    // Dynamic Save badges: recompute per purchase type (one-time uses variant price, subscribe uses the
+    // pack's resolved plan price published by purchase-type-lum in window.__lumSubByVariant).
+    var SAVE_AUTO = {{ block.settings.save_auto | default: false | json }};
+    var SAVE_PREFIX = {{ block.settings.save_prefix | default: 'Save' | strip | json }};
+    var MONEY_FMT = {{ shop.money_format | json }};
+    function fmtMoney(c) {
+      if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, MONEY_FMT);
+      return String(MONEY_FMT).replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
+    }
+    function updateSaves(type) {
+      if (!SAVE_AUTO) return;
+      var subMap = window.__lumSubByVariant || {};
+      root.querySelectorAll('.bsl__card').forEach(function (card) {
+        var el = card.querySelector('[data-role="save"]');
+        if (!el) return;
+        var compareTotal = parseInt(card.getAttribute('data-compare-total') || '0', 10);
+        var price = parseInt(card.getAttribute('data-price') || '0', 10);
+        var sub = subMap[String(card.getAttribute('data-variant'))];
+        var eff = (type === 'subscribe' && sub) ? sub : price;
+        var amt = compareTotal - eff;
+        if (amt > 0) { el.textContent = SAVE_PREFIX + ' ' + fmtMoney(amt); el.style.display = ''; }
+        else { el.style.display = 'none'; }
+      });
+    }
+    document.addEventListener('lum:atc-price', function (e) {
+      var t = e && e.detail && e.detail.type;
+      if (t) updateSaves(t);
+    });
     var userTouched = false;
     root.addEventListener('change', function (e) {
       if (!e.target.classList || !e.target.classList.contains('bsl__input')) return;

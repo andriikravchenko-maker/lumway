@@ -52,6 +52,7 @@
   .patc-{{ uid }} .patc__btn.is-loading .patc__spinner{ display:block; }
   .patc-{{ uid }} .patc__spinner svg{ width:100%; height:100%; animation:patc-spin .8s linear infinite; }
   @keyframes patc-spin{ to{ transform:rotate(360deg); } }
+  .patc-{{ uid }} .patc__note{ margin:8px 0 0; text-align:center; font-family:var(--patc-font) !important; font-weight:400; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:#113b34; }
   /* Sticky add-to-cart (mobile): mirrors the main button, slides up when the main button scrolls out of view */
   .patc-{{ uid }} .patc__sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 16px; padding-bottom:calc(10px + env(safe-area-inset-bottom)); background:#fff; box-shadow:0 -2px 16px rgba(17,59,52,.10); transform:translateY(130%); transition:transform .28s ease; box-sizing:border-box; }
   .patc-{{ uid }} .patc__sticky.is-visible{ transform:translateY(0); }
@@ -78,6 +79,11 @@
       </button>
     {%- endform -%}
   </product-form>
+
+  {%- if block.settings.multi_note_text != blank -%}
+    {%- comment -%} shown by JS only when the selected pack has 2+ jars (same rule as the multi-only subscribe benefits) {%- endcomment -%}
+    <p class="patc__note" data-role="multi-note" style="display:none">{{ block.settings.multi_note_text | escape }}</p>
+  {%- endif -%}
 
   {%- unless block.settings.show_sticky == false -%}
     <div class="patc__sticky" data-patc-sticky aria-hidden="true">
@@ -119,11 +125,15 @@
     }
     function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
     function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
+    function variantIndexOf(v) { for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(v.id)) return i; } return 0; }
+    var noteEl = root.querySelector('[data-role="multi-note"]');
     var override = null; // {price, compare} pushed by purchase-type-lum via 'lum:atc-price'
     function render() {
       renderSticky();
       var v = currentVariant();
       if (!v) return;
+      // note under the CTA (e.g. "Free shipping on first order") belongs to the 2+/3+ jar packs only
+      if (noteEl) noteEl.style.display = (packTotal(v) > 1 || variantIndexOf(v) > 0) ? '' : 'none';
       var price = (override && override.price != null) ? override.price : v.price;
       // struck = single-jar compare-at price x total jars in the pack (paid + free)
       var compare = (override && override.compare != null) ? override.compare : (baseCompare() * packTotal(v));
@@ -135,13 +145,17 @@
     }
     // Sticky "Try it Now": per-jar SUBSCRIBE price of the SELECTED pack = (variant subscribe price / total jars),
     // so 1 jar shows the 1-jar subscribe price, the 2-pack shows its per-jar price, etc. Struck = per-jar regular.
+    // The pack's plan comes from purchase-type-lum (window.__lumResolvedSub) — plans can differ per pack
+    // (e.g. 3-month at 15% vs monthly at 20%); allocations[0] is only the fallback when that block is absent.
     function renderSticky() {
       if (!stickyPriceEl) return;
       var v = currentVariant();
       if (!v) return;
       var total = packTotal(v) || 1; if (total < 1) total = 1;
+      var rs = window.__lumResolvedSub;
       var a = v.selling_plan_allocations && v.selling_plan_allocations[0];
-      var perSub = Math.round((a ? a.price : v.price) / total);
+      var subPack = (rs && String(rs.variantId) === String(v.id)) ? rs.subPrice : (a ? a.price : v.price);
+      var perSub = Math.round(subPack / total);
       var perReg = v.compare_at_price || Math.round(v.price / total);
       stickyPriceEl.textContent = perSub ? (' – ' + fmt(perSub) + '/pack') : '';
       if (stickyCompareEl) {
