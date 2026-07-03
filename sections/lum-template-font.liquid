@@ -12,22 +12,37 @@
   #MainContent,
   #MainContent *{ font-family:'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif !important; }
 
-  /* Product Benefits — this template only: drop the dark list plaque, make benefit text + heart icon black.
-     #MainContent gives ID specificity, which beats the section's class-level !important rules. */
+  {% if section.settings.pdp_benefit_overrides %}
+  /* Product Benefits — PDP look (toggle in section settings): drop the dark list plaque, make benefit
+     text + heart icon black. #MainContent gives ID specificity, which beats the section's class-level
+     !important rules. */
   #MainContent .custom-benefits-list{ background:transparent !important; border:0 !important; box-shadow:none !important; }
   #MainContent .custom-benefit-title,
   #MainContent .custom-benefit-description{ color:#000 !important; }
   #MainContent .custom-benefit-icon,
   #MainContent .custom-benefit-icon svg{ color:#000 !important; }
   #MainContent .custom-benefit-icon svg path{ fill:#000 !important; }
+  {% endif %}
 {% endstyle %}
-{%- comment -%} PDP-only Real User Monitoring (Core Web Vitals -> our own Google Sheet, isolated from the store's existing analytics). Lives in this PDP-only section, so it never runs on other templates. {%- endcomment -%}
-{% render 'pdp-web-vitals' %}
+{%- comment -%} Real User Monitoring (Core Web Vitals -> our own Google Sheet, isolated from the store's existing analytics). Runs only on templates where this section is present AND the toggle is on. {%- endcomment -%}
+{% if section.settings.enable_rum %}{% render 'pdp-web-vitals' %}{% endif %}
 {% schema %}
 {
   "name": "Template font (Inter)",
   "settings": [
-    { "type": "paragraph", "content": "Forces Inter Tight across this template's content only (other products are unaffected). Remove this section to revert to the theme fonts." }
+    { "type": "paragraph", "content": "Forces Inter Tight across this template's content only (other products are unaffected). Remove this section to revert to the theme fonts." },
+    {
+      "type": "checkbox",
+      "id": "pdp_benefit_overrides",
+      "label": "Apply PDP Product Benefits overrides (transparent plaque, black text)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_rum",
+      "label": "Send Core Web Vitals to the monitoring sheet",
+      "default": true
+    }
   ],
   "presets": [{ "name": "Template font (Inter)" }]
 }

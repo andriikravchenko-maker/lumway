@@ -9,6 +9,13 @@
  */
 {
   "sections": {
+    "lum_template_font": {
+      "type": "lum-template-font",
+      "settings": {
+        "pdp_benefit_overrides": false,
+        "enable_rum": false
+      }
+    },
     "main": {
       "type": "main-page",
       "disabled": true,
@@ -624,6 +631,7 @@
     }
   },
   "order": [
+    "lum_template_font",
     "main",
     "announcement_bar_pjm4bT",
     "gut_harmony_benefits_6bQW6X",
