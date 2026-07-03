@@ -650,7 +650,7 @@
       "custom_css": [
         ".roadmap-circle {width: 40px; height: 40px;}",
         ".roadmap-circle svg {width: 24px; height: 24px;}",
-        ".roadmap-description ul li::before {background: #5584c0;}",
+        ".roadmap-description ul li::before {background: #A9617A;}",
         ".roadmap-description h6 {font-size: 14px; font-weight: 300 !important; color: #666666;}",
         ".roadmap-title {letter-spacing: 1% !important;}"
       ],
