@@ -78,7 +78,6 @@
             "option_2_label": "2 Jars",
             "option_2_sublabel": "Free shipping",
             "option_2_image": "shopify://shop_images/product-bottle_1.png",
-            "option_2_image_2": "shopify://shop_images/product-bottle-2.png",
             "option_2_paid": 2,
             "option_2_free": 0,
             "option_2_save": "Save $12",
@@ -90,7 +89,6 @@
             "option_3_label": "3 Jars",
             "option_3_sublabel": "Free shipping",
             "option_3_image": "shopify://shop_images/product-bottle_d61e299f-cd42-489c-a479-2e7795e9094c.png",
-            "option_3_image_2": "shopify://shop_images/product-bottle_1.png",
             "option_3_paid": 3,
             "option_3_free": 0,
             "option_3_save": "Save $12",
@@ -130,16 +128,22 @@
             "per_pack_suffix": "/pack",
             "benefit_1_show": true,
             "benefit_1_text": "Free Shipping",
+            "benefit_1_multi_only": true,
             "benefit_2_show": true,
             "benefit_2_text": "Craving Control Guide",
+            "benefit_2_multi_only": false,
             "benefit_3_show": true,
             "benefit_3_text": "Gut Health Tracker",
+            "benefit_3_multi_only": false,
             "benefit_4_show": true,
             "benefit_4_text": "Modify or cancel anytime",
+            "benefit_4_multi_only": false,
             "benefit_5_show": false,
             "benefit_5_text": "",
+            "benefit_5_multi_only": false,
             "benefit_6_show": false,
-            "benefit_6_text": ""
+            "benefit_6_text": "",
+            "benefit_6_multi_only": false
           }
         },
         "recharge_subscriptions_subscription_widget_v2_XTwRV8": {
@@ -151,6 +155,7 @@
           "type": "add_to_cart",
           "settings": {
             "button_label": "Add to Cart",
+            "multi_note_text": "Free shipping on first order",
             "show_price_in_button": true,
             "show_compare_in_button": true,
             "cart_icon": "none",
