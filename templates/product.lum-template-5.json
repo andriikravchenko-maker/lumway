@@ -32,24 +32,24 @@
         "subtitle_yJn7CD": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed natural formula designed to support appetite balance, smooth digestion, and healthy metabolic function through every phase of life.</p>"
+            "text": "<p>Science-backed metabolic support formulated for perimenopause, menopause & beyond to help women navigate age-related changes.</p>"
           }
         },
         "labels_ziBqxf": {
           "type": "labels",
           "settings": {
             "chip_1_show": true,
-            "chip_1_text": "Reduce Cravings",
+            "chip_1_text": "Fewer Cravings",
             "chip_2_show": true,
-            "chip_2_text": "Feel Lighter Daily",
+            "chip_2_text": "Gut Support",
             "chip_3_show": true,
-            "chip_3_text": "Weight-Loss",
+            "chip_3_text": "Steady Energy",
             "chip_4_show": true,
-            "chip_4_text": "Drug-free",
-            "chip_5_show": false,
-            "chip_5_text": "",
-            "chip_6_show": false,
-            "chip_6_text": ""
+            "chip_4_text": "Healthy Blood Sugar",
+            "chip_5_show": true,
+            "chip_5_text": "Increase Metabolic Rate",
+            "chip_6_show": true,
+            "chip_6_text": "Hormone-Free"
           }
         },
         "bundle_BLEyFB": {
