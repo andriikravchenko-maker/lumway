@@ -24,7 +24,7 @@
       "settings": {
         "use_theme_colors": true,
         "sticky_with_header": true,
-        "announcement_text": "✨LIMITED TIME DEAL + FREE SHIPPING",
+        "announcement_text": "Limited Time Offer",
         "show_days": false,
         "custom_date": false,
         "end_date": "2026-07-02 23:59:59",
@@ -34,17 +34,17 @@
         "minutes_label": "MIN",
         "seconds_label": "SEC",
         "text_color": "#000000",
-        "timer_bg_color": "#000000",
-        "timer_text_color": "#FFFFFF",
-        "label_text_color": "#FFFFFF",
+        "timer_bg_color": "#FFFFFF",
+        "timer_text_color": "#ffffff",
+        "label_text_color": "#ffffff",
         "background_type": "animated_gradient",
         "hide_shine_effect": false,
         "static_gradient_value": "linear-gradient(135deg, #FFF5EA, #FF99A9)",
-        "solid_bg_color": "#FF99A9",
-        "gradient_color_1": "#FFF5EA",
-        "gradient_color_2": "#FFDAE0",
-        "gradient_color_3": "#FDFFE7",
-        "gradient_color_4": "#FF99A9"
+        "solid_bg_color": "#ff99a9",
+        "gradient_color_1": "#fff5ea",
+        "gradient_color_2": "#ffdae0",
+        "gradient_color_3": "#fdffe7",
+        "gradient_color_4": "#ff99a9"
       }
     },
     "gut_harmony_benefits_6bQW6X": {
