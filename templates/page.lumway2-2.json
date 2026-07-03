@@ -48,10 +48,10 @@
         "hide_shine_effect": false,
         "static_gradient_value": "linear-gradient(135deg, #FFF5EA, #FF99A9)",
         "solid_bg_color": "#ff99a9",
-        "gradient_color_1": "#F9F9F9",
-        "gradient_color_2": "#F9F9F9",
-        "gradient_color_3": "#F9F9F9",
-        "gradient_color_4": "#F9F9F9"
+        "gradient_color_1": "#f9f9f9",
+        "gradient_color_2": "#f9f9f9",
+        "gradient_color_3": "#f9f9f9",
+        "gradient_color_4": "#f9f9f9"
       }
     },
     "gut_harmony_benefits_6bQW6X": {
@@ -61,7 +61,7 @@
         "use_theme_colors": false,
         "padding_top": 80,
         "padding_bottom": 80,
-        "padding_top_mobile": 40,
+        "padding_top_mobile": 12,
         "padding_bottom_mobile": 40,
         "column_gap": 24,
         "content_gap": 24,
