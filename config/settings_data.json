@@ -553,6 +553,11 @@
         "type": "shopify://apps/appstle-subscription/blocks/appstle-subscription-helper/fe257d39-6f88-4f35-ab08-bd437e3aa94e",
         "disabled": true,
         "settings": {}
+      },
+      "16973212098894713329": {
+        "type": "shopify://apps/urgency-all-in-one-fomo-app/blocks/app-embed/9f1fd920-d273-490f-83fe-0f8188671817",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
