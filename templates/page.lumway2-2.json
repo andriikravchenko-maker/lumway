@@ -34,17 +34,17 @@
         "minutes_label": "MIN",
         "seconds_label": "SEC",
         "text_color": "#000000",
-        "timer_bg_color": "#FFFFFF",
+        "timer_bg_color": "#ffffff",
         "timer_text_color": "#000000",
         "label_text_color": "#030303",
         "background_type": "animated_gradient",
         "hide_shine_effect": false,
         "static_gradient_value": "linear-gradient(135deg, #FFF5EA, #FF99A9)",
         "solid_bg_color": "#ff99a9",
-        "gradient_color_1": "#FFFFFF",
-        "gradient_color_2": "#FCF809",
-        "gradient_color_3": "#FFFFFF",
-        "gradient_color_4": "#D4FC09"
+        "gradient_color_1": "#ffffff",
+        "gradient_color_2": "#FFFFFF",
+        "gradient_color_3": "#ffffff",
+        "gradient_color_4": "#FFFFFF"
       }
     },
     "gut_harmony_benefits_6bQW6X": {
