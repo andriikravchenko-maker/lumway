@@ -1136,6 +1136,7 @@
         "review_UYnDt8",
         "review_bLG88D"
       ],
+      "disabled": true,
       "name": "Customer Reviews",
       "settings": {
         "use_theme_colors": false,
