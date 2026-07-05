@@ -191,9 +191,11 @@
 </style>
 
 <script>
-  {% if template.suffix == 'lumway3' %}
-  /* lumway3 template: show the button only after the first section is scrolled
-     past, and hide it again once the gut-harmony-cta section comes into view. */
+  {% if template.suffix == 'lumway3' or template.suffix == '5-ways-for-35' %}
+  /* lumway3 / 5-ways-for-35: the button must be visible from page load. Its parent section
+     carries theme scroll animations (ancestor transform/opacity), which both hide the subtree
+     and turn position:fixed into section-relative, so re-parent to <body>. Hidden again once
+     the gut-harmony-cta section comes into view. */
   (function () {
     var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
     if (!stickyEl) return;
