@@ -209,16 +209,42 @@
       document.body.appendChild(stickyEl);
     }
 
-    // The button is visible from page load; it only hides once the
-    // gut-harmony-cta section enters the viewport.
+    // lumway3: visible from page load, hides once the gut-harmony-cta section enters the viewport.
+    // 5-ways-for-35: hidden while the first content section (hero) is on screen and while the LTO
+    // product cards are in view (they carry their own CTA); stays visible at the final CTA.
+    var WAIT_FIRST = {% if template.suffix == '5-ways-for-35' %}true{% else %}false{% endif %};
     var ctaInner = null;
+    var firstSec = null;
+    var ltoCards = null;
+
+    function findFirstSection() {
+      var secs = document.querySelectorAll('#MainContent .shopify-section');
+      for (var k = 0; k < secs.length; k++) {
+        if (secs[k].offsetHeight > 50) return secs[k]; // skip utility sections (font loader etc.)
+      }
+      return null;
+    }
+
+    function inView(el) {
+      var r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    }
 
     function update() {
       if (!ctaInner) {
         ctaInner = document.querySelector('.gut-harmony-cta__inner');
       }
-      var atCta = ctaInner && ctaInner.getBoundingClientRect().top < window.innerHeight;
-      stickyEl.classList.toggle('is-lto-hidden', !!atCta);
+      var atCta = !WAIT_FIRST && ctaInner && ctaInner.getBoundingClientRect().top < window.innerHeight;
+      var onFirst = false, onCards = false;
+      if (WAIT_FIRST) {
+        if (!firstSec) firstSec = findFirstSection();
+        onFirst = firstSec ? firstSec.getBoundingClientRect().bottom > 0 : false;
+        if (!ltoCards || !ltoCards.length) ltoCards = document.querySelectorAll('.lto__card');
+        for (var c = 0; c < ltoCards.length; c++) {
+          if (inView(ltoCards[c])) { onCards = true; break; }
+        }
+      }
+      stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards);
     }
 
     // This theme scrolls the document root with `overflow: clip`, so window
@@ -236,6 +262,12 @@
       ctaInner = document.querySelector('.gut-harmony-cta__inner');
       if (io && ctaInner) {
         io.observe(ctaInner);
+      }
+      if (WAIT_FIRST) {
+        firstSec = findFirstSection();
+        if (io && firstSec) io.observe(firstSec);
+        ltoCards = document.querySelectorAll('.lto__card');
+        if (io) { for (var c = 0; c < ltoCards.length; c++) io.observe(ltoCards[c]); }
       }
       update();
       window.addEventListener('scroll', update, { passive: true });
