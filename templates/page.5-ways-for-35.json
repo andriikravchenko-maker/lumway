@@ -50,7 +50,7 @@
           "type": "stat",
           "settings": {
             "icon": "eye",
-            "text": "15 people viewed this today",
+            "text": "150 people viewed this today",
             "subtext": ""
           }
         },
@@ -75,7 +75,7 @@
         "position": "left",
         "bg_color": "#ffffff",
         "text_color": "#113b34",
-        "bottom_offset": 32,
+        "bottom_offset": 104,
         "show_times": "8,14,20,30,60",
         "start_delay": 6,
         "show_secs": 5,
