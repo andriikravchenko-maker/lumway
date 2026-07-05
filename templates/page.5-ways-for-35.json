@@ -9,6 +9,81 @@
  */
 {
   "sections": {
+    "lum_template_font": {
+      "type": "lum-template-font",
+      "settings": {
+        "pdp_benefit_overrides": false,
+        "enable_rum": false
+      }
+    },
+    "social_proof_pop": {
+      "type": "social-proof-pop",
+      "blocks": {
+        "spp_purchase": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Jennifer",
+            "location": "California",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_jessica": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Jessica",
+            "location": "Texas",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_emily": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Emily",
+            "location": "New York",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_viewed": {
+          "type": "stat",
+          "settings": {
+            "icon": "eye",
+            "text": "15 people viewed this today",
+            "subtext": ""
+          }
+        },
+        "spp_orders": {
+          "type": "stat",
+          "settings": {
+            "icon": "cart",
+            "text": "32 orders today",
+            "subtext": "",
+            "show_verified": true
+          }
+        }
+      },
+      "block_order": [
+        "spp_purchase",
+        "spp_viewed",
+        "spp_orders",
+        "spp_jessica",
+        "spp_emily"
+      ],
+      "settings": {
+        "position": "left",
+        "bg_color": "#ffffff",
+        "text_color": "#113b34",
+        "bottom_offset": 32,
+        "show_times": "8,14,20,30,60",
+        "start_delay": 6,
+        "show_secs": 5,
+        "gap_secs": 8,
+        "loop": true,
+        "remember_close": true
+      }
+    },
     "main": {
       "type": "main-page",
       "disabled": true,
@@ -699,6 +774,7 @@
     }
   },
   "order": [
+    "lum_template_font",
     "main",
     "gut_harmony_benefits_6bQW6X",
     "gut_harmony_story_WcWnBY",
@@ -713,6 +789,7 @@
     "gut_harmony_ingredients_M9kGVY",
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_reviews_RY8qtC",
-    "gut_harmony_cta_banner_Mjc8aE"
+    "gut_harmony_cta_banner_Mjc8aE",
+    "social_proof_pop"
   ]
 }
