@@ -16,74 +16,6 @@
         "enable_rum": false
       }
     },
-    "social_proof_pop": {
-      "type": "social-proof-pop",
-      "blocks": {
-        "spp_purchase": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Jennifer",
-            "location": "California",
-            "product": "Gut Flow Gummies"
-          }
-        },
-        "spp_jessica": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Jessica",
-            "location": "Texas",
-            "product": "Gut Flow Gummies"
-          }
-        },
-        "spp_emily": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Emily",
-            "location": "New York",
-            "product": "Gut Flow Gummies"
-          }
-        },
-        "spp_viewed": {
-          "type": "stat",
-          "settings": {
-            "icon": "eye",
-            "text": "150 people viewed this today",
-            "subtext": ""
-          }
-        },
-        "spp_orders": {
-          "type": "stat",
-          "settings": {
-            "icon": "cart",
-            "text": "32 orders today",
-            "subtext": "",
-            "show_verified": true
-          }
-        }
-      },
-      "block_order": [
-        "spp_purchase",
-        "spp_viewed",
-        "spp_orders",
-        "spp_jessica",
-        "spp_emily"
-      ],
-      "settings": {
-        "position": "left",
-        "bg_color": "#ffffff",
-        "text_color": "#113b34",
-        "bottom_offset": 104,
-        "show_times": "8,14,20,30,60",
-        "start_delay": 6,
-        "show_secs": 5,
-        "gap_secs": 8,
-        "loop": true,
-        "remember_close": true
-      }
-    },
     "main": {
       "type": "main-page",
       "disabled": true,
@@ -91,6 +23,35 @@
         "use_theme_colors": true,
         "padding_top": 28,
         "padding_bottom": 28
+      }
+    },
+    "announcement_bar_FaiKFR": {
+      "type": "announcement-bar",
+      "name": "Countdown Banner",
+      "settings": {
+        "use_theme_colors": true,
+        "sticky_with_header": false,
+        "announcement_text": "Limited Time Offer",
+        "show_days": false,
+        "custom_date": false,
+        "end_date": "2023-12-31 23:59:59",
+        "timezone": "America/New_York",
+        "days_label": "DAYS",
+        "hours_label": "HRS",
+        "minutes_label": "MIN",
+        "seconds_label": "SEC",
+        "text_color": "#000000",
+        "timer_bg_color": "#000000",
+        "timer_text_color": "#FFFFFF",
+        "label_text_color": "#FFFFFF",
+        "background_type": "animated_gradient",
+        "hide_shine_effect": false,
+        "static_gradient_value": "linear-gradient(135deg, #FFF5EA, #FF99A9)",
+        "solid_bg_color": "#FF99A9",
+        "gradient_color_1": "#FFF5EA",
+        "gradient_color_2": "#FFDAE0",
+        "gradient_color_3": "#FDFFE7",
+        "gradient_color_4": "#FF99A9"
       }
     },
     "gut_harmony_benefits_6bQW6X": {
@@ -771,11 +732,82 @@
         "subheader_size_mobile": 18,
         "subheader_color": "#333333"
       }
+    },
+    "social_proof_pop": {
+      "type": "social-proof-pop",
+      "blocks": {
+        "spp_purchase": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Jennifer",
+            "location": "California",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_viewed": {
+          "type": "stat",
+          "settings": {
+            "icon": "eye",
+            "text": "150 people viewed this today",
+            "subtext": "",
+            "show_verified": false
+          }
+        },
+        "spp_orders": {
+          "type": "stat",
+          "settings": {
+            "icon": "cart",
+            "text": "32 orders today",
+            "subtext": "",
+            "show_verified": true
+          }
+        },
+        "spp_jessica": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Jessica",
+            "location": "Texas",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_emily": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Emily",
+            "location": "New York",
+            "product": "Gut Flow Gummies"
+          }
+        }
+      },
+      "block_order": [
+        "spp_purchase",
+        "spp_viewed",
+        "spp_orders",
+        "spp_jessica",
+        "spp_emily"
+      ],
+      "settings": {
+        "position": "left",
+        "bg_color": "#ffffff",
+        "text_color": "#113b34",
+        "bottom_offset": 104,
+        "verified_text": "Verified by Lumway",
+        "show_times": "8,14,20,30,60",
+        "start_delay": 6,
+        "show_secs": 5,
+        "gap_secs": 8,
+        "loop": true,
+        "remember_close": true
+      }
     }
   },
   "order": [
     "lum_template_font",
     "main",
+    "announcement_bar_FaiKFR",
     "gut_harmony_benefits_6bQW6X",
     "gut_harmony_story_WcWnBY",
     "gut_harmony_band_J4x4Lt",
