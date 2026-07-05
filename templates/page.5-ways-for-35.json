@@ -741,7 +741,58 @@
           "settings": {
             "image": "shopify://shop_images/17_-Photoroom.png",
             "name": "Jennifer",
+            "stock_text": "Only 8 left",
             "location": "California",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_jessica": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Jessica",
+            "stock_text": "Only 7 left",
+            "location": "Texas",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_emily": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Emily",
+            "stock_text": "Only 6 left",
+            "location": "New York",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_sarah": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Sarah",
+            "stock_text": "Only 5 left",
+            "location": "Florida",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_amanda": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Amanda",
+            "stock_text": "Only 4 left",
+            "location": "Ohio",
+            "product": "Gut Flow Gummies"
+          }
+        },
+        "spp_megan": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/17_-Photoroom.png",
+            "name": "Megan",
+            "stock_text": "Only 3 left",
+            "location": "Arizona",
             "product": "Gut Flow Gummies"
           }
         },
@@ -750,8 +801,7 @@
           "settings": {
             "icon": "eye",
             "text": "150 people viewed this today",
-            "subtext": "",
-            "show_verified": false
+            "subtext": ""
           }
         },
         "spp_orders": {
@@ -762,24 +812,6 @@
             "subtext": "",
             "show_verified": true
           }
-        },
-        "spp_jessica": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Jessica",
-            "location": "Texas",
-            "product": "Gut Flow Gummies"
-          }
-        },
-        "spp_emily": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Emily",
-            "location": "New York",
-            "product": "Gut Flow Gummies"
-          }
         }
       },
       "block_order": [
@@ -787,20 +819,35 @@
         "spp_viewed",
         "spp_orders",
         "spp_jessica",
-        "spp_emily"
+        "spp_emily",
+        "spp_sarah",
+        "spp_amanda",
+        "spp_megan"
       ],
       "settings": {
         "position": "left",
+        "vertical": "top",
         "bg_color": "#ffffff",
         "text_color": "#113b34",
-        "bottom_offset": 104,
-        "verified_text": "Verified by Lumway",
-        "show_times": "8,14,20,30,60",
+        "bottom_offset": 56,
+        "show_times": "3,8.5,15,30,60,80,105,160",
         "start_delay": 6,
         "show_secs": 5,
         "gap_secs": 8,
         "loop": true,
         "remember_close": true
+      }
+    },
+    "sticky_countdown": {
+      "type": "sticky-countdown-banner",
+      "settings": {
+        "text": "Limited time offer ends in",
+        "hours": 2,
+        "position": "top",
+        "hide_on_first": true,
+        "after_end": "hide",
+        "bg_color": "#113b34",
+        "text_color": "#ffffff"
       }
     }
   },
@@ -822,6 +869,7 @@
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_reviews_RY8qtC",
     "gut_harmony_cta_banner_Mjc8aE",
-    "social_proof_pop"
+    "social_proof_pop",
+    "sticky_countdown"
   ]
 }

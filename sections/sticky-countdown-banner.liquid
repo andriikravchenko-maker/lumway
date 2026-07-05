@@ -1,0 +1,163 @@
+{% comment %} Section: sticky-countdown-banner — fixed promo bar with an evergreen countdown.
+   Unlike sale-countdown-banner (fixed calendar date), this one gives EACH visitor a personal
+   deadline of N hours from their first view, persisted in localStorage so reloads do not reset it.
+   Re-parents itself to <body> (theme scroll animations put transforms on ancestors, which would
+   pin position:fixed to the section). Starts hidden and slides in; zero effect on LCP/CLS. {% endcomment %}
+
+{%- liquid
+  assign scb_bg = section.settings.bg_color | default: '#113b34'
+  assign scb_ink = section.settings.text_color | default: '#ffffff'
+-%}
+
+<div id="scb-{{ section.id }}" class="scb scb--{{ section.settings.position | default: 'top' }}"
+  data-hours="{{ section.settings.hours | default: 2 }}"
+  data-after-end="{{ section.settings.after_end | default: 'hide' }}"
+  data-wait-first="{{ section.settings.hide_on_first }}"
+  role="status" aria-live="off">
+  <span class="scb__text">{{ section.settings.text | default: 'Limited time offer ends in' | escape }}</span>
+  <span class="scb__timer" data-scb-timer>--:--:--</span>
+</div>
+
+{% style %}
+  #scb-{{ section.id }}{ position:fixed; left:0; right:0; z-index:9990; display:flex; align-items:center; justify-content:center; gap:10px; padding:10px 16px; background:{{ scb_bg }}; color:{{ scb_ink }}; font-family:'Inter Tight', system-ui, sans-serif; transition:transform .35s cubic-bezier(0.4,0,0.2,1); }
+  .scb--top#scb-{{ section.id }}{ top:0; transform:translateY(-110%); box-shadow:0 2px 12px rgba(0,0,0,.12); }
+  .scb--bottom#scb-{{ section.id }}{ bottom:0; transform:translateY(110%); box-shadow:0 -2px 12px rgba(0,0,0,.12); }
+  #scb-{{ section.id }}.is-visible{ transform:translateY(0); }
+  #scb-{{ section.id }} .scb__text{ font-size:13px; font-weight:500; line-height:1.2; letter-spacing:-0.2px; }
+  #scb-{{ section.id }} .scb__timer{ font-size:15px; font-weight:700; line-height:1.2; letter-spacing:0.5px; font-variant-numeric:tabular-nums; }
+  @media (min-width:750px){
+    #scb-{{ section.id }} .scb__text{ font-size:14px; }
+    #scb-{{ section.id }} .scb__timer{ font-size:16px; }
+  }
+  @media (prefers-reduced-motion: reduce){ #scb-{{ section.id }}{ transition:none; } }
+{% endstyle %}
+
+<script>
+  (function () {
+    var root = document.getElementById('scb-{{ section.id }}');
+    if (!root || root.__scbBound) return;
+    root.__scbBound = true;
+
+    // escape animated/transformed ancestors so position:fixed sticks to the viewport
+    if (root.parentNode !== document.body) { document.body.appendChild(root); }
+
+    var timerEl = root.querySelector('[data-scb-timer]');
+    var HOURS = parseFloat(root.getAttribute('data-hours')) || 2;
+    var AFTER = root.getAttribute('data-after-end') || 'hide';
+    var WAIT_FIRST = root.getAttribute('data-wait-first') === 'true';
+    var SPAN = HOURS * 3600 * 1000;
+    var KEY = 'scb-deadline-{{ section.id }}';
+
+    var end = 0;
+    try { end = parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) {}
+    var now = Date.now();
+    // no deadline yet, or a stale one that no longer matches the configured span -> start fresh
+    if (!end || end - now > SPAN + 60000) {
+      end = now + SPAN;
+      try { localStorage.setItem(KEY, String(end)); } catch (e) {}
+    }
+
+    var ended = false;
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function tick() {
+      var left = Math.max(0, Math.round((end - Date.now()) / 1000));
+      var h = Math.floor(left / 3600);
+      var m = Math.floor((left % 3600) / 60);
+      var s = left % 60;
+      timerEl.textContent = pad(h) + ':' + pad(m) + ':' + pad(s);
+      if (left > 0) { window.setTimeout(tick, 1000); return; }
+      if (AFTER === 'restart') {
+        end = Date.now() + SPAN;
+        try { localStorage.setItem(KEY, String(end)); } catch (e) {}
+        window.setTimeout(tick, 1000);
+      } else {
+        ended = true;
+        root.classList.remove('is-visible');
+      }
+    }
+
+    // visibility: either always on, or hidden while the first content section (hero) is on screen
+    var firstSec = null;
+    function findFirstSection() {
+      var secs = document.querySelectorAll('#MainContent .shopify-section');
+      for (var k = 0; k < secs.length; k++) {
+        if (secs[k].offsetHeight > 50) return secs[k];
+      }
+      return null;
+    }
+    function update() {
+      if (ended) return;
+      var onFirst = false;
+      if (WAIT_FIRST) {
+        if (!firstSec) firstSec = findFirstSection();
+        onFirst = firstSec ? firstSec.getBoundingClientRect().bottom > 0 : false;
+      }
+      root.classList.toggle('is-visible', !onFirst);
+    }
+
+    function start() {
+      tick();
+      if (WAIT_FIRST) {
+        firstSec = findFirstSection();
+        var io = ('IntersectionObserver' in window) ? new IntersectionObserver(update, { threshold: [0, 1] }) : null;
+        if (io && firstSec) io.observe(firstSec);
+        window.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+      }
+      update();
+    }
+    if (document.readyState === 'complete') { start(); }
+    else { window.addEventListener('load', start); }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Sticky countdown banner",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Evergreen countdown: every visitor gets their own deadline of N hours from the first view (survives reloads)."
+    },
+    { "type": "text", "id": "text", "label": "Text", "default": "Limited time offer ends in" },
+    {
+      "type": "range",
+      "id": "hours",
+      "label": "Countdown length (hours)",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_first",
+      "label": "Hide while the first screen (hero) is visible",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "after_end",
+      "label": "When the countdown ends",
+      "options": [
+        { "value": "hide", "label": "Hide the banner" },
+        { "value": "restart", "label": "Restart the countdown" }
+      ],
+      "default": "hide"
+    },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#113b34" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "Sticky countdown banner" }]
+}
+{% endschema %}
