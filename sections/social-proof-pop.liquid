@@ -1,0 +1,287 @@
+{% comment %} Section: social-proof-pop — rotating social-proof toasts (purchase notice with product photo / stat lines).
+   Content is static from the customizer (no orders API, no external scripts; the only request is the
+   product photo from the Shopify CDN). Starts only after window load + delay and is position:fixed,
+   so it cannot affect LCP or CLS. {% endcomment %}
+
+{%- if section.blocks.size > 0 -%}
+<div id="spp-{{ section.id }}" class="spp spp--{{ section.settings.position | default: 'left' }}"
+  data-delay="{{ section.settings.start_delay | default: 6 }}"
+  data-show="{{ section.settings.show_secs | default: 5 }}"
+  data-gap="{{ section.settings.gap_secs | default: 12 }}"
+  data-loop="{{ section.settings.loop }}"
+  data-remember="{{ section.settings.remember_close }}"
+  data-times="{{ section.settings.show_times | strip | escape }}"
+  role="status" aria-live="polite">
+  <button type="button" class="spp__close" data-spp-close aria-label="Close">&#215;</button>
+  {%- for block in section.blocks -%}
+    <div class="spp__item" data-spp-item style="display:none" {{ block.shopify_attributes }}>
+      {%- if block.type == 'purchase' -%}
+        {%- if block.settings.image -%}
+          <span class="spp__photo">{{ block.settings.image | image_url: width: 176 | image_tag: widths: '88,176', sizes: '88px', loading: 'lazy', alt: block.settings.product }}</span>
+        {%- endif -%}
+        <span class="spp__body">
+          <span class="spp__lines">
+            <strong>{{ block.settings.name | escape }}</strong>
+            <span>from <strong>{{ block.settings.location | escape }}</strong></span>
+            <span>purchased <strong>{{ block.settings.product | escape }}</strong></span>
+          </span>
+          {%- if section.settings.verified_text != blank -%}
+            <span class="spp__verified">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#1fa04a"/><path d="m6.2 10.3 2.4 2.4 5.2-5.4" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {{ section.settings.verified_text | escape }}
+            </span>
+          {%- endif -%}
+        </span>
+      {%- else -%}
+        <span class="spp__icon" aria-hidden="true">
+          {%- case block.settings.icon -%}
+            {%- when 'cart' -%}
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.1 8.6h11.8l-.82 9.06A2.4 2.4 0 0 1 14.69 20H9.31a2.4 2.4 0 0 1-2.39-2.34L6.1 8.6Z" fill="currentColor"/><path d="M9.2 10.2V6.9a2.8 2.8 0 0 1 5.6 0v3.3" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg>
+            {%- when 'check' -%}
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            {%- else -%}
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
+          {%- endcase -%}
+        </span>
+        <span class="spp__body">
+          <span class="spp__text">{{ block.settings.text | escape }}</span>
+          {%- if block.settings.subtext != blank -%}<span class="spp__sub">{{ block.settings.subtext | escape }}</span>{%- endif -%}
+          {%- if block.settings.show_verified and section.settings.verified_text != blank -%}
+            <span class="spp__verified">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#1fa04a"/><path d="m6.2 10.3 2.4 2.4 5.2-5.4" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              {{ section.settings.verified_text | escape }}
+            </span>
+          {%- endif -%}
+        </span>
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{%- liquid
+  assign spp_bg = section.settings.bg_color | default: '#ffffff'
+  assign spp_ink = section.settings.text_color | default: '#113b34'
+  assign spp_ink_soft = spp_ink | color_modify: 'alpha', 0.5
+  assign spp_ink_faint = spp_ink | color_modify: 'alpha', 0.1
+-%}
+{% style %}
+  #spp-{{ section.id }}{ position:fixed; bottom:{{ section.settings.bottom_offset | default: 16 }}px; z-index:60; display:flex; align-items:center; max-width:400px; padding:14px 40px 14px 14px; background:{{ spp_bg }}; border:1px solid {{ spp_ink_faint }}; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,.16); font-family:'Inter Tight', system-ui, sans-serif; opacity:0; transform:translateY(12px); pointer-events:none; transition:opacity .3s ease, transform .3s ease; }
+  #spp-{{ section.id }}.is-visible{ opacity:1; transform:none; pointer-events:auto; }
+  .spp--left#spp-{{ section.id }}{ left:16px; right:auto; }
+  .spp--right#spp-{{ section.id }}{ right:16px; left:auto; }
+  .spp--center#spp-{{ section.id }}{ left:50%; right:auto; transform:translate(-50%, 12px); }
+  .spp--center#spp-{{ section.id }}.is-visible{ transform:translate(-50%, 0); }
+  #spp-{{ section.id }} .spp__item{ display:flex; align-items:center; gap:14px; min-width:0; width:100%; }
+  #spp-{{ section.id }} .spp__photo{ flex:0 0 84px; height:100px; display:flex; align-items:center; justify-content:center; }
+  #spp-{{ section.id }} .spp__photo img{ display:block; width:auto; height:auto; max-width:84px; max-height:100px; object-fit:contain; }
+  #spp-{{ section.id }} .spp__body{ display:flex; flex-direction:column; min-width:0; }
+  #spp-{{ section.id }} .spp__lines{ display:flex; flex-direction:column; gap:3px; font-size:14.5px; line-height:1.25; letter-spacing:-0.2px; color:{{ spp_ink }}; }
+  #spp-{{ section.id }} .spp__lines strong{ font-weight:700; }
+  #spp-{{ section.id }} .spp__verified{ display:flex; align-items:center; gap:7px; margin-top:9px; font-size:13px; color:{{ spp_ink_soft }}; }
+  #spp-{{ section.id }} .spp__verified svg{ width:17px; height:17px; flex:0 0 17px; display:block; }
+  #spp-{{ section.id }} .spp__icon{ flex:0 0 36px; width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; background:#1fa04a; border-radius:50%; color:#fff; }
+  #spp-{{ section.id }} .spp__icon svg{ width:18px; height:18px; display:block; }
+  #spp-{{ section.id }} .spp__text{ font-size:14px; line-height:1.3; letter-spacing:-0.2px; color:{{ spp_ink }}; font-weight:500; }
+  #spp-{{ section.id }} .spp__sub{ display:block; margin-top:2px; font-size:11.5px; color:{{ spp_ink_soft }}; }
+  #spp-{{ section.id }} .spp__close{ position:absolute; top:8px; right:8px; width:26px; height:26px; padding:0; margin:0; border:0; background:transparent; color:{{ spp_ink_soft }}; font-size:18px; line-height:1; cursor:pointer; -webkit-appearance:none; appearance:none; }
+  @media (max-width:749px){
+    #spp-{{ section.id }}{ padding:10px 32px 10px 10px; border-radius:14px; }
+    .spp--left#spp-{{ section.id }}{ left:12px; right:12px; max-width:none; }
+    .spp--right#spp-{{ section.id }}{ right:12px; left:12px; max-width:none; }
+    .spp--center#spp-{{ section.id }}{ left:12px; right:12px; max-width:none; transform:translateY(12px); }
+    .spp--center#spp-{{ section.id }}.is-visible{ transform:none; }
+    #spp-{{ section.id }} .spp__item{ gap:10px; }
+    #spp-{{ section.id }} .spp__photo{ flex-basis:60px; height:74px; }
+    #spp-{{ section.id }} .spp__photo img{ max-width:60px; max-height:74px; }
+    #spp-{{ section.id }} .spp__lines{ font-size:13px; gap:2px; }
+    #spp-{{ section.id }} .spp__verified{ margin-top:6px; font-size:12px; }
+    #spp-{{ section.id }} .spp__verified svg{ width:15px; height:15px; flex-basis:15px; }
+    #spp-{{ section.id }} .spp__icon{ flex-basis:32px; width:32px; height:32px; }
+    #spp-{{ section.id }} .spp__text{ font-size:13px; }
+    #spp-{{ section.id }} .spp__close{ top:6px; right:6px; width:22px; height:22px; font-size:16px; }
+  }
+  @media (prefers-reduced-motion: reduce){ #spp-{{ section.id }}{ transition:none; } }
+{% endstyle %}
+
+<script>
+  (function () {
+    var root = document.getElementById('spp-{{ section.id }}');
+    if (!root || root.__sppBound) return;
+    root.__sppBound = true;
+    var items = [].slice.call(root.querySelectorAll('[data-spp-item]'));
+    if (!items.length) return;
+    var DELAY = (parseInt(root.getAttribute('data-delay'), 10) || 6) * 1000;
+    var SHOW = (parseInt(root.getAttribute('data-show'), 10) || 5) * 1000;
+    var GAP = (parseInt(root.getAttribute('data-gap'), 10) || 12) * 1000;
+    var LOOP = root.getAttribute('data-loop') === 'true';
+    var REMEMBER = root.getAttribute('data-remember') === 'true';
+    try { if (REMEMBER && sessionStorage.getItem('spp-closed') === '1') return; } catch (e) {}
+    var i = 0, closed = false;
+    var closeBtn = root.querySelector('[data-spp-close]');
+    if (closeBtn) closeBtn.addEventListener('click', function () {
+      closed = true;
+      root.classList.remove('is-visible');
+      try { if (REMEMBER) sessionStorage.setItem('spp-closed', '1'); } catch (e) {}
+    });
+    function showIdx(k) {
+      if (closed) return;
+      if (document.hidden) { setTimeout(function () { showIdx(k); }, 4000); return; }
+      items.forEach(function (el, m) { el.style.display = (m === k) ? '' : 'none'; });
+      root.classList.add('is-visible');
+      setTimeout(function () { root.classList.remove('is-visible'); }, SHOW);
+    }
+    function show() { showIdx(i); setTimeout(next, SHOW); }
+    function next() {
+      i++;
+      if (i >= items.length) { if (!LOOP) return; i = 0; }
+      setTimeout(show, GAP);
+    }
+    // schedule mode: comma-separated seconds from page open; one show per entry, then stop.
+    var TIMES = (root.getAttribute('data-times') || '').split(',')
+      .map(function (s) { return parseFloat(s) * 1000; })
+      .filter(function (n) { return isFinite(n) && n >= 0; });
+    if (TIMES.length) {
+      TIMES.forEach(function (t, k) { setTimeout(function () { showIdx(k % items.length); }, t); });
+    } else if (document.readyState === 'complete') { setTimeout(show, DELAY); }
+    else { window.addEventListener('load', function () { setTimeout(show, DELAY); }); }
+    document.addEventListener('shopify:section:load', function () { root.classList.remove('is-visible'); });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Social proof pop-up",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Rotating bottom toasts. Content is static (edit it here); nothing is fetched from real orders."
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        { "value": "left", "label": "Bottom left" },
+        { "value": "center", "label": "Bottom center" },
+        { "value": "right", "label": "Bottom right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#113b34"
+    },
+    {
+      "type": "range",
+      "id": "bottom_offset",
+      "label": "Distance from bottom (px)",
+      "min": 8,
+      "max": 200,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "verified_text",
+      "label": "Verified line (purchase pop-ups)",
+      "default": "Verified by Lumway"
+    },
+    {
+      "type": "text",
+      "id": "show_times",
+      "label": "Schedule (seconds from open, comma-separated)",
+      "info": "E.g. 8,30,60 shows the first three blocks at those moments, then stops. Leave empty to rotate on an interval instead."
+    },
+    {
+      "type": "range",
+      "id": "start_delay",
+      "label": "First pop-up after (seconds)",
+      "min": 2,
+      "max": 30,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "show_secs",
+      "label": "Visible for (seconds)",
+      "min": 3,
+      "max": 15,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "gap_secs",
+      "label": "Pause between pop-ups (seconds)",
+      "min": 4,
+      "max": 60,
+      "step": 2,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Repeat in a loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remember_close",
+      "label": "Stay hidden after close (this visit)",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "purchase",
+      "name": "Purchase notification",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Product photo" },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Jennifer" },
+        { "type": "text", "id": "location", "label": "Location", "default": "California" },
+        { "type": "text", "id": "product", "label": "Product", "default": "Gut Flow Gummies" }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Stat line",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "eye", "label": "Eye" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "check", "label": "Check" }
+          ],
+          "default": "eye"
+        },
+        { "type": "text", "id": "text", "label": "Text", "default": "15 people viewed this today" },
+        { "type": "text", "id": "subtext", "label": "Small line below (optional)" },
+        { "type": "checkbox", "id": "show_verified", "label": "Show the Verified line", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social proof pop-up",
+      "blocks": [
+        { "type": "purchase" },
+        { "type": "stat" },
+        { "type": "stat", "settings": { "icon": "cart", "text": "32 orders today" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
