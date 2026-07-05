@@ -740,11 +740,61 @@
         "spp_purchase": {
           "type": "purchase",
           "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
+            "image": "shopify://shop_images/product-bottle_1.png",
             "name": "Jennifer",
+            "stock_text": "Only 8 left",
             "location": "California",
-            "product": "Gut Flow Gummies",
-            "stock_text": "Only 8 left"
+            "product": "2 Jars of Gut Flow Gummies"
+          }
+        },
+        "spp_jessica": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/product-bottle_d61e299f-cd42-489c-a479-2e7795e9094c.png",
+            "name": "Jessica",
+            "stock_text": "Only 7 left",
+            "location": "Texas",
+            "product": "3 Jars of Gut Flow Gummies"
+          }
+        },
+        "spp_emily": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/product-bottle_1.png",
+            "name": "Emily",
+            "stock_text": "Only 6 left",
+            "location": "New York",
+            "product": "2 Jars of Gut Flow Gummies"
+          }
+        },
+        "spp_sarah": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/product-bottle_d61e299f-cd42-489c-a479-2e7795e9094c.png",
+            "name": "Sarah",
+            "stock_text": "Only 5 left",
+            "location": "Florida",
+            "product": "3 Jars of Gut Flow Gummies"
+          }
+        },
+        "spp_amanda": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/product-bottle_1.png",
+            "name": "Amanda",
+            "stock_text": "Only 4 left",
+            "location": "Ohio",
+            "product": "2 Jars of Gut Flow Gummies"
+          }
+        },
+        "spp_megan": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/product-bottle_d61e299f-cd42-489c-a479-2e7795e9094c.png",
+            "name": "Megan",
+            "stock_text": "Only 3 left",
+            "location": "Arizona",
+            "product": "3 Jars of Gut Flow Gummies"
           }
         },
         "spp_viewed": {
@@ -752,8 +802,7 @@
           "settings": {
             "icon": "eye",
             "text": "150 people viewed this today",
-            "subtext": "",
-            "show_verified": false
+            "subtext": ""
           }
         },
         "spp_orders": {
@@ -763,56 +812,6 @@
             "text": "32 orders today",
             "subtext": "",
             "show_verified": true
-          }
-        },
-        "spp_jessica": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Jessica",
-            "location": "Texas",
-            "product": "Gut Flow Gummies",
-            "stock_text": "Only 7 left"
-          }
-        },
-        "spp_emily": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Emily",
-            "location": "New York",
-            "product": "Gut Flow Gummies",
-            "stock_text": "Only 6 left"
-          }
-        },
-        "spp_sarah": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Sarah",
-            "location": "Florida",
-            "product": "Gut Flow Gummies",
-            "stock_text": "Only 5 left"
-          }
-        },
-        "spp_amanda": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Amanda",
-            "location": "Ohio",
-            "product": "Gut Flow Gummies",
-            "stock_text": "Only 4 left"
-          }
-        },
-        "spp_megan": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/17_-Photoroom.png",
-            "name": "Megan",
-            "location": "Arizona",
-            "product": "Gut Flow Gummies",
-            "stock_text": "Only 3 left"
           }
         }
       },
@@ -828,11 +827,10 @@
       ],
       "settings": {
         "position": "left",
+        "vertical": "top",
         "bg_color": "#ffffff",
         "text_color": "#113b34",
-        "vertical": "top",
         "bottom_offset": 56,
-        "verified_text": "Verified by Lumway",
         "show_times": "3,8.5,15,30,60,80,105,160",
         "start_delay": 6,
         "show_secs": 5,
