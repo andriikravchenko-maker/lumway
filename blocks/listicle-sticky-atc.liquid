@@ -191,7 +191,7 @@
 </style>
 
 <script>
-  {% if template.suffix == 'lumway3' or template.suffix == '5-ways-for-35' %}
+  {% if template.suffix == 'lumway3' or template.suffix contains '5-ways-for-35' %}
   /* lumway3 / 5-ways-for-35: the button must be visible from page load. Its parent section
      carries theme scroll animations (ancestor transform/opacity), which both hide the subtree
      and turn position:fixed into section-relative, so re-parent to <body>. Hidden again once
@@ -212,7 +212,7 @@
     // lumway3: visible from page load, hides once the gut-harmony-cta section enters the viewport.
     // 5-ways-for-35: hidden while the first content section (hero) is on screen and while the LTO
     // product cards are in view (they carry their own CTA); stays visible at the final CTA.
-    var WAIT_FIRST = {% if template.suffix == '5-ways-for-35' %}true{% else %}false{% endif %};
+    var WAIT_FIRST = {% if template.suffix contains '5-ways-for-35' %}true{% else %}false{% endif %};
     var ctaInner = null;
     var firstSec = null;
     var ltoCards = null;
