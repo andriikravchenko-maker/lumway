@@ -66,7 +66,7 @@
         "padding_bottom_mobile": 40,
         "column_gap": 24,
         "content_gap": 24,
-        "background_color": "#F0F0F0",
+        "background_color": "#f0f0f0",
         "image": "shopify://shop_images/image.webp",
         "image_border_radius": 40,
         "heading_before": "Why Do So Many Women",
@@ -76,7 +76,7 @@
         "heading_size_mobile": 32,
         "heading_line_height": 1.2,
         "heading_color": "#3b3b3b",
-        "heading_accent_color": "#A9617A",
+        "heading_accent_color": "#a9617a",
         "subheading": "<p><em>It’s not always about hormones. </em></p><p><em>New research suggests </em><em><strong>your metabolism, circulation and daily energy may play a bigger role</strong></em><em> than many women realize.</em></p>",
         "subheading_size": 22,
         "subheading_size_mobile": 16,
@@ -87,9 +87,55 @@
         "button_font_size_mobile": 16,
         "button_radius": 32,
         "button_width": 384,
-        "button_bg_color": "#3B3B3B",
+        "button_bg_color": "#3b3b3b",
         "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#6F6F6F"
+        "button_hover_bg_color": "#6f6f6f"
+      }
+    },
+    "content_sidebar_YqGF9T": {
+      "type": "content-sidebar",
+      "blocks": {
+        "author_YQhdhE": {
+          "type": "author",
+          "settings": {
+            "author_image": "shopify://shop_images/Lauren_K._4b506774-8428-4c31-b287-f795bdcbf0c1.png",
+            "author_name": "<strong>Dr. Sarah Collins</strong>",
+            "badge": true,
+            "date": "Certified Menopause Specialist · 20+ years in practice",
+            "text_size": 14,
+            "star_color": "#F1C40F",
+            "empty_star_color": "#e0e0e0",
+            "badge_color": "#19bdff",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0
+          }
+        }
+      },
+      "block_order": [
+        "author_YQhdhE"
+      ],
+      "name": "Advertorial Section",
+      "settings": {
+        "use_theme_colors": true,
+        "section_background_color": "#ffffff",
+        "global_button_color": "#19bdff",
+        "breadcrumb_color": "#b7b7b7",
+        "sidebar_background_color": "#ffffff",
+        "sidebar_title_color": "#000000",
+        "sidebar_button_bg_color": "#19bdff",
+        "sidebar_button_text_color": "#000000",
+        "rating_bar_color": "#19bdff",
+        "rating_background_color": "#ffffff",
+        "show_breadcrumb": false,
+        "breadcrumb_home_text": "Home",
+        "breadcrumb_separator": ">",
+        "breadcrumb_second_text": "Category",
+        "breadcrumb_second_url": "",
+        "breadcrumb_current_text": "Current Page",
+        "sidebar_width": 0,
+        "hide_sidebar_mobile": false
       }
     },
     "gut_harmony_story_WcWnBY": {
@@ -860,6 +906,7 @@
     "main",
     "announcement_bar_FaiKFR",
     "gut_harmony_benefits_6bQW6X",
+    "content_sidebar_YqGF9T",
     "gut_harmony_story_WcWnBY",
     "gut_harmony_band_J4x4Lt",
     "gut_harmony_feature_AEPXCy",
