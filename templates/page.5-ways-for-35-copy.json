@@ -475,206 +475,65 @@
         "mobile_container_padding": 20
       }
     },
-    "gut_harmony_timeline_3TwkeT": {
-      "type": "gut-harmony-timeline",
+    "ingredient_cards_63fat3": {
+      "type": "ingredient-cards",
       "blocks": {
-        "event_yFB6T6": {
-          "type": "event",
+        "ingredient_ninQ68": {
+          "type": "ingredient",
           "settings": {
-            "label": "Weeks 1–2:",
-            "text": "Less heaviness after meals, more comfortable digestion begins"
+            "title": "Apple Cider Vinegar",
+            "badge_text": "500mg per serving",
+            "description": "<p>Stimulates digestive enzymes and supports the body's natural acid balance — helping food move more comfortably after meals.</p>",
+            "benefit_text": "Reduces post-meal heaviness*"
           }
         },
-        "event_RcB68T": {
-          "type": "event",
+        "ingredient_CtGbeF": {
+          "type": "ingredient",
           "settings": {
-            "label": "Weeks 3–4:",
-            "text": "Meals start feeling easier on the stomach, less post-meal discomfort"
+            "title": "Probiotic Blend",
+            "badge_text": "1 Billion CFU",
+            "description": "<p>Beneficial bacteria that support a balanced gut microbiome. Daily intake helps maintain the environment for comfortable digestion.</p>",
+            "benefit_text": "Supports gut flora balance*"
           }
         },
-        "event_Gyihf8": {
-          "type": "event",
+        "ingredient_GkHiXH": {
+          "type": "ingredient",
           "settings": {
-            "label": "Weeks 5–8:",
-            "text": "Improved digestive balance and fewer “bloated after eating” moments"
-          }
-        },
-        "event_whkjLx": {
-          "type": "event",
-          "settings": {
-            "label": "Weeks 9–12:",
-            "text": "More consistent digestive comfort and renewed confidence around food"
+            "title": "Ginger & Turmeric",
+            "badge_text": "300mg combined",
+            "description": "<p>Ginger helps food move smoothly through the gut. Turmeric supports the gut's natural inflammatory response for lasting comfort.</p>",
+            "benefit_text": "Eases digestive discomfort*"
           }
         }
       },
       "block_order": [
-        "event_yFB6T6",
-        "event_RcB68T",
-        "event_Gyihf8",
-        "event_whkjLx"
+        "ingredient_ninQ68",
+        "ingredient_CtGbeF",
+        "ingredient_GkHiXH"
       ],
-      "name": "Gut Harmony Timeline",
+      "name": "Ingredient Cards",
       "settings": {
-        "use_theme_colors": false,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "column_gap": 24,
-        "content_gap": 24,
-        "event_gap": 16,
-        "background_color": "#f4f4f2",
-        "image": "shopify://shop_images/Product_image.png",
-        "image_border_radius": 0,
-        "title": "Your 90-Day Digestive Comfort Timeline",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#00724d",
-        "text_size": 18,
-        "text_color": "#3b3b3b",
-        "icon_color": "#3b3b3b",
-        "button_text": "",
-        "button_url": "https://lumway.health/products/gut-harmony-gummies",
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg": "#1d8a23"
-      }
-    },
-    "gut_harmony_ingredients_M9kGVY": {
-      "type": "gut-harmony-ingredients",
-      "blocks": {
-        "ingredient_Ur9LcD": {
-          "type": "ingredient",
-          "settings": {
-            "text": "Apple Cider Vinegar, Heat-Stable Probiotic & Ginger Root"
-          }
-        },
-        "ingredient_MKCfbj": {
-          "type": "ingredient",
-          "settings": {
-            "text": "Supports Healthy Gut Balance"
-          }
-        },
-        "ingredient_8LeiUB": {
-          "type": "ingredient",
-          "settings": {
-            "text": "Helps Support Comfortable Digestion"
-          }
-        },
-        "ingredient_4AwdVz": {
-          "type": "ingredient",
-          "settings": {
-            "text": "Traditionally Used For Digestive Support"
-          }
-        }
-      },
-      "block_order": [
-        "ingredient_Ur9LcD",
-        "ingredient_MKCfbj",
-        "ingredient_8LeiUB",
-        "ingredient_4AwdVz"
-      ],
-      "name": "Gut Harmony Ingredients",
-      "settings": {
-        "use_theme_colors": false,
+        "heading": "Why the Formula",
+        "heading_accent": "Works Differently",
+        "subtitle": "",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "heading_color": "#000000",
+        "accent_color": "#23a02a",
+        "card_background": "#ffffff",
+        "card_border_color": "#c2c2c2",
+        "card_border_radius": 8,
+        "title_color": "#000000",
+        "description_color": "#000000",
+        "badge_background": "#fff8d6",
+        "badge_text_color": "#995e05",
+        "benefit_color": "#23a02a",
+        "section_background": "#f9f9f9",
+        "container_width": 1200,
         "padding_top": 80,
         "padding_bottom": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "title_gap": 40,
-        "column_gap": 24,
-        "media_gap": 24,
-        "item_gap": 16,
-        "background_color": "#f4f4f2",
-        "title_line_1": "Meet The Ingredients",
-        "title_line_2": "Helping Support Comfortable Digestion",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color_1": "#00724d",
-        "title_color_2": "#333333",
-        "left_image": "shopify://shop_images/Ingredients_Image_Left.png",
-        "right_image": "shopify://shop_images/Ingredients_Image_Right.png",
-        "image_border_radius": 0,
-        "text_size": 18,
-        "text_color": "#3b3b3b",
-        "icon_color": "#3b3b3b",
-        "description": "<p><strong>Apple Cider Vinegar, Heat-Stable Probiotic & Ginger Root</strong></p><p>These digestive support ingredients were selected to help support healthy gut bacteria, smoother digestion, and digestive comfort after eating.*</p>"
-      }
-    },
-    "gut_harmony_cta_Tt37Cp": {
-      "type": "gut-harmony-cta",
-      "blocks": {
-        "feature_DaABtJ": {
-          "type": "feature",
-          "settings": {
-            "text": "90-Day Smooth Digestion Guarantee"
-          }
-        },
-        "feature_kPEdGG": {
-          "type": "feature",
-          "settings": {
-            "text": "Made in the USA with globally sourced ingredients"
-          }
-        },
-        "feature_8Rjrwe": {
-          "type": "feature",
-          "settings": {
-            "text": "Apple Cider Vinegar + Probiotic + Ginger Formula"
-          }
-        },
-        "feature_PPWHz3": {
-          "type": "feature",
-          "settings": {
-            "text": "Trusted By Women 35+"
-          }
-        },
-        "feature_Nd3aMx": {
-          "type": "feature",
-          "settings": {
-            "text": "Designed To Support Digestion & Post-Meal Comfort*"
-          }
-        },
-        "feature_Mr3peF": {
-          "type": "feature",
-          "settings": {
-            "text": "30-Day Risk Free & Money back Guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "feature_DaABtJ",
-        "feature_kPEdGG",
-        "feature_8Rjrwe",
-        "feature_PPWHz3",
-        "feature_Nd3aMx",
-        "feature_Mr3peF"
-      ],
-      "name": "Gut Harmony CTA",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 32,
-        "content_gap": 40,
-        "feature_gap": 16,
-        "background_color": "#f2f9f2",
-        "title": "Take Control Of Your Digestion Again",
-        "title_size": 44,
-        "title_size_mobile": 26,
-        "title_color": "#3b3b3b",
-        "text_size": 16,
-        "text_color": "#3b3b3b",
-        "icon_color": "#3b3b3b",
-        "button_text": "START YOUR DAILY GUT ROUTINE →",
-        "button_url": "https://lumway.health/products/gut-harmony-gummies",
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg": "#00724d",
-        "button_text_color": "#ffffff",
-        "button_hover_bg": "#088f63"
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 56
       }
     },
     "gut_harmony_reviews_RY8qtC": {
@@ -755,8 +614,83 @@
         "name_size": 16
       }
     },
+    "gut_harmony_cta_Tt37Cp": {
+      "type": "gut-harmony-cta",
+      "blocks": {
+        "feature_DaABtJ": {
+          "type": "feature",
+          "settings": {
+            "text": "Better Appetite Control"
+          }
+        },
+        "feature_kPEdGG": {
+          "type": "feature",
+          "settings": {
+            "text": "Fewer Cravings"
+          }
+        },
+        "feature_8Rjrwe": {
+          "type": "feature",
+          "settings": {
+            "text": "More Stable Daily Energy"
+          }
+        },
+        "feature_PPWHz3": {
+          "type": "feature",
+          "settings": {
+            "text": "Healthy blood sugar support"
+          }
+        },
+        "feature_Nd3aMx": {
+          "type": "feature",
+          "settings": {
+            "text": "Designed To Support Digestion & Post-Meal Comfort*"
+          }
+        },
+        "feature_Mr3peF": {
+          "type": "feature",
+          "settings": {
+            "text": "30-Day Risk Free & Money back Guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "feature_DaABtJ",
+        "feature_kPEdGG",
+        "feature_8Rjrwe",
+        "feature_PPWHz3",
+        "feature_Nd3aMx",
+        "feature_Mr3peF"
+      ],
+      "name": "Gut Harmony CTA",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "content_gap": 40,
+        "feature_gap": 16,
+        "background_color": "#F4F2F1",
+        "title": "What You May Notice With Consistent Use",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#3b3b3b",
+        "text_size": 16,
+        "text_color": "#3b3b3b",
+        "icon_color": "#32477A",
+        "button_text": "START YOUR DAILY GUT ROUTINE →",
+        "button_url": "",
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg": "#00724d",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#088f63"
+      }
+    },
     "gut_harmony_cta_banner_Mjc8aE": {
       "type": "gut-harmony-cta-banner",
+      "disabled": true,
       "name": "Gut Harmony CTA Banner",
       "settings": {
         "use_theme_colors": false,
@@ -918,10 +852,9 @@
     "gut_harmony_feature_VV9tY4",
     "gut_harmony_feature_xnyyPX",
     "listicle_mpBXdm",
-    "gut_harmony_timeline_3TwkeT",
-    "gut_harmony_ingredients_M9kGVY",
-    "gut_harmony_cta_Tt37Cp",
+    "ingredient_cards_63fat3",
     "gut_harmony_reviews_RY8qtC",
+    "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
     "social_proof_pop",
     "sticky_countdown"
