@@ -240,7 +240,7 @@
         "enable_bottom_border": true,
         "bottom_border_width": 1,
         "bottom_border_style": "solid",
-        "bottom_border_color": "#D2D2D2"
+        "bottom_border_color": "#CECECE"
       }
     },
     "gut_harmony_feature_AEPXCy": {
@@ -607,7 +607,7 @@
         "description_color": "#3B3B3B",
         "divider_color": "#32477A",
         "override_global_accent": false,
-        "accent_color": "#3B3B3B",
+        "accent_color": "#794054",
         "use_accent_gradient": false,
         "accent_text_gradient": "linear-gradient(45deg, rgba(239, 74, 101, 1), rgba(255, 107, 157, 1) 100%)",
         "accent_font_family": "inherit",
@@ -915,7 +915,7 @@
     "sticky_countdown": {
       "type": "sticky-countdown-banner",
       "settings": {
-        "text": "Limited time offer ends in",
+        "text": "LIMITED TIME OFFER ENDS IN",
         "hours": 2,
         "sync_lts": true,
         "position": "top",
