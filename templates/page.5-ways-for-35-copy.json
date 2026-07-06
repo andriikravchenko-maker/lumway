@@ -119,7 +119,7 @@
       "name": "Advertorial Section",
       "settings": {
         "use_theme_colors": true,
-        "section_background_color": "#ffffff",
+        "section_background_color": "#FFEBE9",
         "global_button_color": "#19bdff",
         "breadcrumb_color": "#b7b7b7",
         "sidebar_background_color": "#ffffff",
