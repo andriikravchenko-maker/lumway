@@ -21,15 +21,22 @@
       return Math.round(Math.max(0,Math.min(1,0.5*erfc(((Math.log(value)-m)/std)/Math.SQRT2)))*100);
     }
     try {
-      var wv = await import('https://unpkg.com/web-vitals@4?module');
+      {%- comment -%} attribution build: also reports WHICH element caused the metric (CLS shift source, LCP element, INP target) {%- endcomment -%}
+      var wv = await import('https://unpkg.com/web-vitals@4/attribution?module');
       var report = function (metric) {
         try {
           var raw = metric.value;
+          var attr = metric.attribution || {};
+          var target = '';
+          if (metric.name === 'CLS') target = attr.largestShiftTarget || '';
+          else if (metric.name === 'LCP') target = attr.element || '';
+          else if (metric.name === 'INP') target = attr.interactionTarget || '';
           var body = JSON.stringify({
             metric_name: metric.name,
             metric_value: metric.name === 'CLS' ? Math.round(raw * 1000) / 1000 : Math.round(raw),
             metric_score: score(metric.name, raw),
             metric_rating: metric.rating,
+            metric_target: String(target).slice(0, 160),
             page_template: {{ template | json }},
             url: location.pathname,
             device: (window.innerWidth <= 768 ? 'mobile' : 'desktop'),
