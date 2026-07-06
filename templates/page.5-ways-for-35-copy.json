@@ -900,7 +900,7 @@
       "settings": {
         "position": "left",
         "bg_color": "#ffffff",
-        "text_color": "#113b34",
+        "text_color": "#794054",
         "vertical": "top",
         "bottom_offset": 44,
         "verified_text": "Verified by Lumway",
@@ -921,7 +921,7 @@
         "position": "top",
         "hide_on_first": true,
         "after_end": "hide",
-        "bg_color": "#113b34",
+        "bg_color": "#32477A",
         "text_color": "#ffffff"
       }
     }
