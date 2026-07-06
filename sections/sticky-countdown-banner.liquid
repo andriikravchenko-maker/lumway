@@ -13,6 +13,7 @@
   data-hours="{{ section.settings.hours | default: 2 }}"
   data-after-end="{{ section.settings.after_end | default: 'hide' }}"
   data-wait-first="{{ section.settings.hide_on_first }}"
+  data-sync-lts="{{ section.settings.sync_lts }}"
   role="status" aria-live="off">
   <span class="scb__text">{{ section.settings.text | default: 'Limited time offer ends in' | escape }}</span>
   <span class="scb__timer" data-scb-timer>--:--:--</span>
@@ -45,6 +46,7 @@
     var HOURS = parseFloat(root.getAttribute('data-hours')) || 2;
     var AFTER = root.getAttribute('data-after-end') || 'hide';
     var WAIT_FIRST = root.getAttribute('data-wait-first') === 'true';
+    var SYNC_LTS = root.getAttribute('data-sync-lts') === 'true';
     var SPAN = HOURS * 3600 * 1000;
     var KEY = 'scb-deadline-{{ section.id }}';
 
@@ -75,6 +77,14 @@
         root.classList.remove('is-visible');
       }
     }
+    // sync mode: mirror the page's LTS Countdown digits verbatim, so the two timers can never diverge.
+    // Falls back to the own evergreen countdown when the page has no LTS timer.
+    function mirror(srcEl) {
+      var t = (srcEl.textContent || '').trim();
+      if (t) timerEl.textContent = t;
+      if (t === '00:00:00' && AFTER !== 'restart') { ended = true; root.classList.remove('is-visible'); return; }
+      window.setTimeout(function () { mirror(srcEl); }, 500);
+    }
 
     // visibility: either always on, or hidden while the first content section (hero) is on screen
     var firstSec = null;
@@ -96,7 +106,8 @@
     }
 
     function start() {
-      tick();
+      var srcEl = SYNC_LTS ? document.querySelector('[data-lto-countdown-time], [id^="lts-countdown-time-"]') : null;
+      if (srcEl) { mirror(srcEl); } else { tick(); }
       if (WAIT_FIRST) {
         firstSec = findFirstSection();
         var io = ('IntersectionObserver' in window) ? new IntersectionObserver(update, { threshold: [0, 1] }) : null;
@@ -128,6 +139,13 @@
       "max": 24,
       "step": 1,
       "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "sync_lts",
+      "label": "Mirror the page's LTS Countdown when present",
+      "info": "Shows exactly the same time as the Limited Time Offer timer. Hours above apply only when the page has no LTS timer.",
+      "default": true
     },
     {
       "type": "select",

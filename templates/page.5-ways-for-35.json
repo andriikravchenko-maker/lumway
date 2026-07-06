@@ -830,7 +830,7 @@
         "vertical": "top",
         "bg_color": "#ffffff",
         "text_color": "#113b34",
-        "bottom_offset": 56,
+        "bottom_offset": 44,
         "show_times": "3,8.5,15,30,60,80,105,160",
         "start_delay": 6,
         "show_secs": 5,
