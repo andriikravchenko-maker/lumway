@@ -67,7 +67,7 @@
         "column_gap": 24,
         "content_gap": 24,
         "background_color": "#f0f0f0",
-        "image": "shopify://shop_images/image.webp",
+        "image": "shopify://shop_images/image_32.webp",
         "image_border_radius": 40,
         "heading_before": "Why Do So Many Women",
         "heading_accent": "Lose Their Desire",
@@ -140,6 +140,7 @@
     },
     "gut_harmony_story_WcWnBY": {
       "type": "gut-harmony-story",
+      "disabled": true,
       "name": "Gut Harmony Story",
       "settings": {
         "use_theme_colors": false,
@@ -168,14 +169,14 @@
         "padding_top_mobile": 32,
         "padding_bottom_mobile": 32,
         "gap": 16,
-        "background_color": "#f2f9f2",
-        "heading": "Here’s how Gut Harmony helps support all three areas at once",
-        "heading_size": 44,
-        "heading_size_mobile": 26,
-        "heading_color": "#00724d",
-        "subheading": "— plus gives you bonus benefits you’ll love:",
+        "background_color": "#F4F2F1",
+        "heading": "For years, women have been told that losing desire after 45 is just “part of getting older.”",
+        "heading_size": 30,
+        "heading_size_mobile": 18,
+        "heading_color": "#A9617A",
+        "subheading": "<p>✔️ Hormones change</p>✔️ Energy drops. <p>✔️ Your body feels different.</p>",
         "subheading_size": 32,
-        "subheading_size_mobile": 18,
+        "subheading_size_mobile": 16,
         "subheading_color": "#3b3b3b"
       }
     },
