@@ -186,7 +186,7 @@
         "subtitle_LjgwEz": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>But what if that explanation is incomplete?</p><p>What if feeling less connected, less energized, and less like yourself isn’t only about hormones — but also about the systems that help your body create energy, maintain healthy circulation, and respond to daily life?</p><p>That’s where the conversation is starting to change.</p>"
+            "subtitle": "<p><strong>But what if that explanation is incomplete?</strong></p><p>What if feeling less connected, less energized, and less like yourself isn’t only about hormones — but also about the systems that help your body create energy, maintain healthy circulation, and respond to daily life?</p><p>That’s where the conversation is starting to change.</p>"
           }
         }
       },
@@ -237,10 +237,10 @@
         "top_border_width": 1,
         "top_border_style": "solid",
         "top_border_color": "#e0e0e0",
-        "enable_bottom_border": false,
+        "enable_bottom_border": true,
         "bottom_border_width": 1,
         "bottom_border_style": "solid",
-        "bottom_border_color": "#e0e0e0"
+        "bottom_border_color": "#D2D2D2"
       }
     },
     "gut_harmony_feature_AEPXCy": {
