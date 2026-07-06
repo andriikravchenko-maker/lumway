@@ -490,21 +490,24 @@
           "type": "feature",
           "settings": {
             "title": "Customer Support",
-            "description": "Our dedicated support team is available to help you with any questions or concerns you may have."
+            "description": "Our dedicated support team is available to help you with any questions or concerns you may have.",
+            "feature_image": "shopify://shop_images/b81aa23d1caa5df312e1321283f370652f40addb.png"
           }
         },
         "feature_49r4WG": {
           "type": "feature",
           "settings": {
             "title": "Easy to Use",
-            "description": "Designed with simplicity in mind, our products are intuitive and user-friendly for everyone."
+            "description": "Designed with simplicity in mind, our products are intuitive and user-friendly for everyone.",
+            "feature_image": "shopify://shop_images/754fd87701b9eff663c26561568d11b97f37246b.png"
           }
         },
         "feature_cY7CE9": {
           "type": "feature",
           "settings": {
             "title": "Fast Delivery",
-            "description": "We ship quickly and efficiently to ensure you receive your order as soon as possible."
+            "description": "We ship quickly and efficiently to ensure you receive your order as soon as possible.",
+            "feature_image": "shopify://shop_images/ddc3654acd27c1173b2d690d080820f8b575cf5a.png"
           }
         }
       },
