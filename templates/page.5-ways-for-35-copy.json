@@ -621,7 +621,7 @@
         "padding_bottom": 80,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "card_gap": 6,
+        "card_gap": 32,
         "enable_slider": true,
         "slides_per_view": 3,
         "slides_per_view_mobile": 1,
