@@ -475,65 +475,98 @@
         "mobile_container_padding": 20
       }
     },
-    "ingredient_cards_63fat3": {
-      "type": "ingredient-cards",
+    "alternating_features_ktLx6Y": {
+      "type": "alternating-features",
       "blocks": {
-        "ingredient_ninQ68": {
-          "type": "ingredient",
+        "feature_abhmyb": {
+          "type": "feature",
           "settings": {
-            "title": "Apple Cider Vinegar",
-            "badge_text": "500mg per serving",
-            "description": "<p>Stimulates digestive enzymes and supports the body's natural acid balance — helping food move more comfortably after meals.</p>",
-            "benefit_text": "Reduces post-meal heaviness*"
+            "title": "Quality First",
+            "description": "We prioritize quality in everything we do. Our products are built to last and exceed industry standards.",
+            "feature_image": "shopify://shop_images/781c69c0b64b9dab2b9164839c042fd7dd3bb00b.png"
           }
         },
-        "ingredient_CtGbeF": {
-          "type": "ingredient",
+        "feature_U7bqkz": {
+          "type": "feature",
           "settings": {
-            "title": "Probiotic Blend",
-            "badge_text": "1 Billion CFU",
-            "description": "<p>Beneficial bacteria that support a balanced gut microbiome. Daily intake helps maintain the environment for comfortable digestion.</p>",
-            "benefit_text": "Supports gut flora balance*"
+            "title": "Customer Support",
+            "description": "Our dedicated support team is available to help you with any questions or concerns you may have."
           }
         },
-        "ingredient_GkHiXH": {
-          "type": "ingredient",
+        "feature_49r4WG": {
+          "type": "feature",
           "settings": {
-            "title": "Ginger & Turmeric",
-            "badge_text": "300mg combined",
-            "description": "<p>Ginger helps food move smoothly through the gut. Turmeric supports the gut's natural inflammatory response for lasting comfort.</p>",
-            "benefit_text": "Eases digestive discomfort*"
+            "title": "Easy to Use",
+            "description": "Designed with simplicity in mind, our products are intuitive and user-friendly for everyone."
+          }
+        },
+        "feature_cY7CE9": {
+          "type": "feature",
+          "settings": {
+            "title": "Fast Delivery",
+            "description": "We ship quickly and efficiently to ensure you receive your order as soon as possible."
           }
         }
       },
       "block_order": [
-        "ingredient_ninQ68",
-        "ingredient_CtGbeF",
-        "ingredient_GkHiXH"
+        "feature_abhmyb",
+        "feature_U7bqkz",
+        "feature_49r4WG",
+        "feature_cY7CE9"
       ],
-      "name": "Ingredient Cards",
+      "name": "Alternating Features",
       "settings": {
-        "heading": "Why the Formula",
-        "heading_accent": "Works Differently",
-        "subtitle": "",
-        "heading_size": 40,
-        "heading_size_mobile": 28,
-        "heading_color": "#000000",
-        "accent_color": "#23a02a",
-        "card_background": "#ffffff",
-        "card_border_color": "#c2c2c2",
-        "card_border_radius": 8,
-        "title_color": "#000000",
-        "description_color": "#000000",
-        "badge_background": "#fff8d6",
-        "badge_text_color": "#995e05",
-        "benefit_color": "#23a02a",
-        "section_background": "#f9f9f9",
-        "container_width": 1200,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 56,
-        "padding_bottom_mobile": 56
+        "use_theme_colors": true,
+        "title": "How Our Product",
+        "title_accent": "Helps You",
+        "subheading": "",
+        "hide_main_image": false,
+        "side_heading_layout": false,
+        "heading_alignment_mobile": "center",
+        "heading_alignment_desktop": "center",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "section_border_radius": 0,
+        "feature_spacing": 30,
+        "divider_spacing_top": 20,
+        "divider_spacing_bottom": 20,
+        "background_color": "#F4F2F1",
+        "use_gradient": false,
+        "gradient_start_color": "#EF4A65",
+        "gradient_end_color": "#990000",
+        "gradient_angle": 90,
+        "heading_color": "#ffffff",
+        "subheading_color": "#DDDDDD",
+        "feature_title_color": "#ffffff",
+        "description_color": "#ffffff",
+        "divider_color": "rgba(255,255,255,0.2)",
+        "override_global_accent": false,
+        "accent_color": "#000000",
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(239, 74, 101, 1), rgba(255, 107, 157, 1) 100%)",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "icon_size": 70,
+        "icon_image_size": 35,
+        "icon_background_enabled": true,
+        "icon_background_color": "#FFFFFF",
+        "icon_color": "#000000",
+        "icon_object_fit": "contain",
+        "icon_border_radius": 50,
+        "image_border_radius": 8,
+        "feature_image_object_fit": "contain",
+        "bold_feature_title": false,
+        "section_title_size_desktop": 34,
+        "section_title_size_mobile": 28,
+        "heading_line_height_desktop": 1.2,
+        "heading_line_height_mobile": 1.2,
+        "subheading_line_height_desktop": 1.5,
+        "subheading_line_height_mobile": 1.5,
+        "feature_title_size_mobile": 14,
+        "feature_title_size_desktop": 16,
+        "description_size_mobile": 13,
+        "description_size_desktop": 14
       }
     },
     "gut_harmony_reviews_RY8qtC": {
@@ -542,7 +575,7 @@
         "review_8h3ftx": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Reviewer_Image3.png",
+            "image": "shopify://shop_images/image_104.webp",
             "rating": 5,
             "title": "Love it!!",
             "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
@@ -552,7 +585,7 @@
         "review_fiaiPe": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Reviewer_Image2.png",
+            "image": "shopify://shop_images/Image_Container.png",
             "rating": 5,
             "title": "Huge difference after meals",
             "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
@@ -562,44 +595,33 @@
         "review_MM7nQf": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Reviewer_Image.png",
+            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
             "rating": 5,
             "title": "It actually made meals feel easier",
             "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
             "name": "— Linda M."
-          }
-        },
-        "review_nChqbJ": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Reviewer_Image1.png",
-            "rating": 5,
-            "title": "My stomach feels so much more balanced",
-            "text": "“I dealt with bloating and uncomfortable digestion for YEARS. Some foods just seemed impossible for me anymore. After starting Gut Harmony, I noticed my stomach felt calmer and more balanced overall. I'm not constantly regretting meals now.”",
-            "name": "— Wendy O."
           }
         }
       },
       "block_order": [
         "review_8h3ftx",
         "review_fiaiPe",
-        "review_MM7nQf",
-        "review_nChqbJ"
+        "review_MM7nQf"
       ],
       "name": "Gut Harmony Reviews",
       "settings": {
         "use_theme_colors": false,
-        "heading": "Real People. Real Results",
+        "heading": "One Product. Big Impact.",
         "heading_size": 40,
         "heading_size_mobile": 28,
         "padding_top": 80,
         "padding_bottom": 80,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
-        "card_gap": 24,
-        "enable_slider": true,
+        "card_gap": 6,
+        "enable_slider": false,
         "slides_per_view": 3,
-        "slides_per_view_mobile": 1,
+        "slides_per_view_mobile": 2,
         "background_color": "#ffffff",
         "card_bg": "#ffffff",
         "card_border_color": "#e9f5ea",
@@ -852,7 +874,7 @@
     "gut_harmony_feature_VV9tY4",
     "gut_harmony_feature_xnyyPX",
     "listicle_mpBXdm",
-    "ingredient_cards_63fat3",
+    "alternating_features_ktLx6Y",
     "gut_harmony_reviews_RY8qtC",
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
