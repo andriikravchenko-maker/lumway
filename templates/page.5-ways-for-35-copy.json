@@ -520,8 +520,8 @@
       "name": "Alternating Features",
       "settings": {
         "use_theme_colors": true,
-        "title": "How Our Product",
-        "title_accent": "Helps You",
+        "title": "Why the Formula",
+        "title_accent": "Works Differently",
         "subheading": "",
         "hide_main_image": false,
         "side_heading_layout": false,
@@ -566,9 +566,9 @@
         "heading_line_height_mobile": 1.2,
         "subheading_line_height_desktop": 1.5,
         "subheading_line_height_mobile": 1.5,
-        "feature_title_size_mobile": 14,
+        "feature_title_size_mobile": 16,
         "feature_title_size_desktop": 16,
-        "description_size_mobile": 13,
+        "description_size_mobile": 16,
         "description_size_desktop": 14
       }
     },
