@@ -77,7 +77,7 @@
         "heading_line_height": 1.2,
         "heading_color": "#3b3b3b",
         "heading_accent_color": "#A9617A",
-        "subheading": "<p><em>It’s not always about hormones. New research suggests </em><em><strong>your metabolism, circulation, and daily energy may play a bigger role</strong></em><em> than many women realize.</em></p>",
+        "subheading": "<p><em>It’s not always about hormones. </em></p><p><em>New research suggests </em><em><strong>your metabolism, circulation and daily energy may play a bigger role</strong></em><em> than many women realize.</em></p>",
         "subheading_size": 22,
         "subheading_size_mobile": 16,
         "subheading_color": "#6b6b6b",
@@ -87,9 +87,9 @@
         "button_font_size_mobile": 16,
         "button_radius": 32,
         "button_width": 384,
-        "button_bg_color": "#000000",
+        "button_bg_color": "#3B3B3B",
         "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#3b3b3b"
+        "button_hover_bg_color": "#6F6F6F"
       }
     },
     "gut_harmony_story_WcWnBY": {
