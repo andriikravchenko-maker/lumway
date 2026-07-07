@@ -155,9 +155,30 @@
   }
   {% endif %}
 
+  /* the label stays on one line; JS below shrinks the button font until it fits.
+     The font's metrics sit the caps slightly high in the line box, so nudge the label
+     down a hair to line up with the arrow (em = scales with the font). */
+  .listicle-sticky-atc-{{ block.id }} .button-text {
+    white-space: nowrap;
+    min-width: 0;
+    line-height: 1.2;
+    position: relative;
+    top: 0.1em;
+  }
+
   .listicle-sticky-atc-{{ block.id }} .button-arrow {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
+  }
+
+  /* arrow scales with the button font. The glyph fills only ~58% of its viewBox, so the box
+     is sized ~1.3em to make the VISIBLE arrow match the caps height; display:block kills the
+     inline-baseline offset, flex centering keeps it level with the text */
+  .listicle-sticky-atc-{{ block.id }} .button-arrow svg {
+    display: block;
+    width: 1.3em;
+    height: 1.3em;
   }
 
   .listicle-sticky-atc-{{ block.id }} .sticky-atc-subtext {
@@ -191,6 +212,27 @@
 </style>
 
 <script>
+  /* fit-to-width: with nowrap on, long labels would overflow the button; shrink the
+     label font (never below 11px) until the whole row fits. No-op when it already fits. */
+  (function () {
+    var btn = document.querySelector('.listicle-sticky-atc-{{ block.id }} .sticky-atc-button');
+    if (!btn) return;
+    var txt = btn.querySelector('.button-text');
+    if (!txt) return;
+    function fit() {
+      btn.style.fontSize = '';
+      var size = parseFloat(window.getComputedStyle(btn).fontSize) || 16;
+      var guard = 0;
+      // shrink the BUTTON font (label + em-sized arrow follow together), keep a 6px slack
+      while (btn.scrollWidth > btn.clientWidth - 6 && size > 11 && guard < 24) {
+        size -= 0.5;
+        btn.style.fontSize = size + 'px';
+        guard++;
+      }
+    }
+    if (document.readyState === 'complete') { fit(); } else { window.addEventListener('load', fit); }
+    window.addEventListener('resize', fit);
+  })();
   {% if template.suffix == 'lumway3' or template.suffix contains '5-ways-for-35' %}
   /* lumway3 / 5-ways-for-35: the button must be visible from page load. Its parent section
      carries theme scroll animations (ancestor transform/opacity), which both hide the subtree
