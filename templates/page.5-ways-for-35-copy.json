@@ -88,7 +88,7 @@
         "button_radius": 32,
         "button_width": 384,
         "button_bg_color": "#3b3b3b",
-        "button_text_color": "#ffffff",
+        "button_text_color": "#F1EEEF",
         "button_hover_bg_color": "#6f6f6f"
       }
     },
@@ -1061,7 +1061,7 @@
         "position": "top",
         "hide_on_first": true,
         "after_end": "hide",
-        "bg_color": "#A9617A",
+        "bg_color": "#a9617a",
         "text_color": "#ffffff"
       }
     }
