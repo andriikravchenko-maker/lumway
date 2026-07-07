@@ -212,12 +212,19 @@
     // lumway3: visible from page load, hides once the gut-harmony-cta section enters the viewport.
     // 5-ways-for-35: hidden while the first content section (hero) is on screen and while the LTO
     // product cards are in view (they carry their own CTA); stays visible at the final CTA.
+    // If the page carries the PDP buy box (product-details-lum), the button also hides while the
+    // buy box is on screen and its tap scrolls to the buy box instead of leaving the page.
     var WAIT_FIRST = {% if template.suffix contains '5-ways-for-35' %}true{% else %}false{% endif %};
     var ctaInner = null;
     var firstSec = null;
     var ltoCards = null;
+    var pdlEl = null;
 
     function findFirstSection() {
+      // the hero (gut-harmony-benefits) is the explicit gate when present: the button pops in
+      // right after it is scrolled past, regardless of announcement bars above it
+      var hero = document.querySelector('.gut-harmony-benefits');
+      if (hero) return hero.closest('.shopify-section') || hero;
       var secs = document.querySelectorAll('#MainContent .shopify-section');
       for (var k = 0; k < secs.length; k++) {
         if (secs[k].offsetHeight > 50) return secs[k]; // skip utility sections (font loader etc.)
@@ -235,7 +242,7 @@
         ctaInner = document.querySelector('.gut-harmony-cta__inner');
       }
       var atCta = !WAIT_FIRST && ctaInner && ctaInner.getBoundingClientRect().top < window.innerHeight;
-      var onFirst = false, onCards = false;
+      var onFirst = false, onCards = false, onCta = false;
       if (WAIT_FIRST) {
         if (!firstSec) firstSec = findFirstSection();
         onFirst = firstSec ? firstSec.getBoundingClientRect().bottom > 0 : false;
@@ -243,8 +250,20 @@
         for (var c = 0; c < ltoCards.length; c++) {
           if (inView(ltoCards[c])) { onCards = true; break; }
         }
+        // pages with the buy box route their CTA button to it, so the sticky yields while the
+        // gut-harmony-cta section is on screen; pages without a buy box keep the sticky there
+        onCta = pdlEl && ctaInner ? inView(ctaInner) : false;
       }
-      stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards);
+      // buy zone = from the buy box top down to its Add to Cart button; the section's tail
+      // (info cards, tabs) does not count, so the button pops back as soon as the ATC is passed
+      var onPdl = false;
+      if (pdlEl) {
+        var atcBtn = pdlEl.querySelector('[data-atc-button]');
+        var zoneTop = pdlEl.getBoundingClientRect().top;
+        var zoneBottom = (atcBtn || pdlEl).getBoundingClientRect().bottom;
+        onPdl = zoneTop < window.innerHeight && zoneBottom > 0;
+      }
+      stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards || onCta || onPdl);
     }
 
     // This theme scrolls the document root with `overflow: clip`, so window
@@ -269,9 +288,26 @@
         ltoCards = document.querySelectorAll('.lto__card');
         if (io) { for (var c = 0; c < ltoCards.length; c++) io.observe(ltoCards[c]); }
       }
+      pdlEl = document.querySelector('.section-product-details-lum');
+      if (io && pdlEl) {
+        io.observe(pdlEl);
+        var atcBtnObs = pdlEl.querySelector('[data-atc-button]');
+        if (atcBtnObs) io.observe(atcBtnObs);
+      }
       update();
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
+    }
+
+    // buy box on the page: the button becomes an on-page anchor instead of a product link
+    var scrollBtn = stickyEl.querySelector('.sticky-atc-button');
+    if (scrollBtn) {
+      scrollBtn.addEventListener('click', function (e) {
+        var target = pdlEl || document.querySelector('.section-product-details-lum');
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     }
 
     if (document.readyState === 'complete') {

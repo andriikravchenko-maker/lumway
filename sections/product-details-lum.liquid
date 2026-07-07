@@ -8,9 +8,22 @@
   the blocks themselves are pixel-perfect.
 {%- endcomment -%}
 
-<section class="pdl section-{{ section.id }}">
+{%- liquid
+  comment
+    On product templates the page's product drives the section. On any other template (landing
+    pages) it falls back to the product picked in the section settings, so the same buy box can
+    be dropped onto a landing without duplicating code.
+  endcomment
+  assign pdl_product = product | default: section.settings.product
+-%}
+{%- if pdl_product == blank -%}
+  {%- if request.design_mode -%}
+    <div style="padding:24px;border:1px dashed #ccc;border-radius:8px;color:#666;font:14px sans-serif;text-align:center">Product Details Lum: pick a product in the section settings.</div>
+  {%- endif -%}
+{%- else -%}
+<section id="product-details-lum" class="pdl section-{{ section.id }}">
   <div class="pdl__media">
-    {%- render 'product-gallery-lum', product: product -%}
+    {%- render 'product-gallery-lum', product: pdl_product -%}
   </div>
 
   <div class="pdl__info">
@@ -28,7 +41,7 @@
           </div>
 
         {%- when 'title' -%}
-          {%- assign pdl_heading = block.settings.heading | default: product.title -%}
+          {%- assign pdl_heading = block.settings.heading | default: pdl_product.title -%}
           <h1 class="pdl-title" {{ block.shopify_attributes }}>{{ pdl_heading | escape }}</h1>
 
         {%- when 'subtitle' -%}
@@ -46,13 +59,13 @@
           </ul>
 
         {%- when 'bundle' -%}
-          {%- render 'bundle-selector-lum', block: block, product: product -%}
+          {%- render 'bundle-selector-lum', block: block, product: pdl_product -%}
 
         {%- when 'purchase_type' -%}
-          {%- render 'purchase-type-lum', block: block, product: product -%}
+          {%- render 'purchase-type-lum', block: block, product: pdl_product -%}
 
         {%- when 'add_to_cart' -%}
-          {%- render 'add-to-cart-lum', block: block, product: product -%}
+          {%- render 'add-to-cart-lum', block: block, product: pdl_product -%}
 
         {%- when 'info_cards' -%}
           {%- render 'info-cards-lum', block: block -%}
@@ -74,14 +87,16 @@
 {%- style -%}
   @font-face{ font-family:'Inter Tight'; font-style:normal; font-weight:400 700; font-display:swap; src:url({{ 'lum-inter-tight.woff2' | asset_url }}) format('woff2'); }
 
-  /* This whole PDP is Inter Tight. This section renders ONLY on this template, so overriding the theme's font
-     variables here re-fonts the entire page (header / footer / reused blocks) and touches nothing else on the
-     store. Override the VARIABLES, not each property (theme reads font-family: var(--font-*-family)). */
+  {% if template.name == 'product' %}
+  /* This whole PDP is Inter Tight. On product templates the section re-fonts the entire page
+     (header / footer / reused blocks) via the theme's font variables. On landings the page keeps
+     its own fonts (the section text itself is Inter Tight via --pdl-font either way). */
   :root{
     --font-body-family: 'Inter Tight', system-ui, sans-serif !important;
     --font-heading-family: 'Inter Tight', system-ui, sans-serif !important;
     --font-accent-family: 'Inter Tight', system-ui, sans-serif !important;
   }
+  {% endif %}
 
   .section-{{ section.id }}{
     padding-top: {{ section.settings.padding_top }}px;
@@ -128,6 +143,7 @@
     .section-{{ section.id }} .pdl-title{ font-size:36px; letter-spacing:-0.72px; }
   }
 {%- endstyle -%}
+{%- endif -%}
 
 {% schema %}
 {
@@ -154,6 +170,12 @@
       "step": 4,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product (for non-product pages)",
+      "info": "Product templates always use the page's own product. Pick one here only when placing this section on a landing or page."
     }
   ],
   "blocks": [
