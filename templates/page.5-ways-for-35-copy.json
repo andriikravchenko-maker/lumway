@@ -103,7 +103,7 @@
             "badge": true,
             "date": "Certified Menopause Specialist · 20+ years in practice",
             "text_size": 14,
-            "star_color": "#F1C40F",
+            "star_color": "#f1c40f",
             "empty_star_color": "#e0e0e0",
             "badge_color": "#19bdff",
             "padding_top": 0,
@@ -119,7 +119,7 @@
       "name": "Advertorial Section",
       "settings": {
         "use_theme_colors": true,
-        "section_background_color": "#F0F0F0",
+        "section_background_color": "#f0f0f0",
         "global_button_color": "#19bdff",
         "breadcrumb_color": "#b7b7b7",
         "sidebar_background_color": "#ffffff",
@@ -159,30 +159,22 @@
         "text_color": "#3b3b3b"
       }
     },
-    "gut_harmony_band_J4x4Lt": {
-      "type": "gut-harmony-band",
-      "name": "Gut Harmony Band",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 0,
-        "gap": 16,
-        "background_color": "#FFFFFF",
-        "heading": "For years, women have been told that losing desire after 45 is just “part of getting older.”",
-        "heading_size": 30,
-        "heading_size_mobile": 18,
-        "heading_color": "#A9617A",
-        "subheading": "And eventually, many women begin to believe: “This is just my new normal.”",
-        "subheading_size": 32,
-        "subheading_size_mobile": 16,
-        "subheading_color": "#3b3b3b"
-      }
-    },
     "rich_text_BR7tJa": {
       "type": "rich-text",
       "blocks": {
+        "title_6k7zw7": {
+          "type": "title",
+          "settings": {
+            "title": "For years, women have been told",
+            "accent_text": "that losing desire after 45 is just “part of getting older.”"
+          }
+        },
+        "subtitle_J6QgnC": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p>And eventually, many women begin to believe: <strong>“This is just my new normal.”</strong></p>"
+          }
+        },
         "subtitle_LjgwEz": {
           "type": "subtitle",
           "settings": {
@@ -191,6 +183,8 @@
         }
       },
       "block_order": [
+        "title_6k7zw7",
+        "subtitle_J6QgnC",
         "subtitle_LjgwEz"
       ],
       "name": "Rich Text",
@@ -198,18 +192,18 @@
         "use_theme_colors": true,
         "text_alignment": "center",
         "mobile_text_alignment": "center",
-        "padding_top": 60,
+        "padding_top": 0,
         "padding_bottom": 60,
         "padding_horizontal": 20,
-        "title_font_size": 36,
-        "title_font_size_mobile": 28,
+        "title_font_size": 26,
+        "title_font_size_mobile": 22,
         "title_line_height": 1.3,
         "title_margin_bottom": 20,
-        "title_color": "#000000",
-        "use_accent_gradient": false,
+        "title_color": "#3B3B3B",
+        "use_accent_gradient": true,
         "accent_color": "#ef4a65",
-        "accent_gradient_start": "#ef4a65",
-        "accent_gradient_end": "#ff6b35",
+        "accent_gradient_start": "#794054",
+        "accent_gradient_end": "#A9617A",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 16,
@@ -240,7 +234,7 @@
         "enable_bottom_border": true,
         "bottom_border_width": 1,
         "bottom_border_style": "solid",
-        "bottom_border_color": "#CECECE"
+        "bottom_border_color": "#cecece"
       }
     },
     "gut_harmony_feature_AEPXCy": {
@@ -268,7 +262,7 @@
         "testimonial_text": "<p><strong>Because desire doesn’t exist in isolation.</strong></p><p><strong>It depends on how your whole body feels.</strong></p>",
         "testimonial_size": 18,
         "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#A9617A",
+        "testimonial_color": "#a9617a",
         "button_text": "",
         "button_link": "",
         "button_show_arrow": true,
@@ -304,7 +298,7 @@
         "testimonial_text": "<p><strong>This doesn’t mean something is “wrong” with you.</strong></p><p><strong>It may simply mean your body needs support in a new way.</strong></p>",
         "testimonial_size": 18,
         "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#A9617A",
+        "testimonial_color": "#a9617a",
         "button_text": "",
         "button_link": "",
         "button_show_arrow": false,
@@ -340,7 +334,7 @@
         "testimonial_text": "<p><strong>That’s why supporting metabolism after 45 isn’t just about appearance.</strong></p><p><strong>It’s about helping your body feel supported from the inside.</strong></p>",
         "testimonial_size": 18,
         "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#A9617A",
+        "testimonial_color": "#a9617a",
         "button_text": "",
         "button_link": "shopify://products/gut-harmony-gummies",
         "button_show_arrow": true,
@@ -596,16 +590,16 @@
         "feature_spacing": 30,
         "divider_spacing_top": 20,
         "divider_spacing_bottom": 20,
-        "background_color": "#F4F2F1",
+        "background_color": "#f4f2f1",
         "use_gradient": false,
-        "gradient_start_color": "#EF4A65",
+        "gradient_start_color": "#ef4a65",
         "gradient_end_color": "#990000",
         "gradient_angle": 90,
-        "heading_color": "#A9617A",
-        "subheading_color": "#DDDDDD",
-        "feature_title_color": "#3B3B3B",
-        "description_color": "#3B3B3B",
-        "divider_color": "#32477A",
+        "heading_color": "#a9617a",
+        "subheading_color": "#dddddd",
+        "feature_title_color": "#3b3b3b",
+        "description_color": "#3b3b3b",
+        "divider_color": "#32477a",
         "override_global_accent": false,
         "accent_color": "#794054",
         "use_accent_gradient": false,
@@ -616,7 +610,7 @@
         "icon_size": 70,
         "icon_image_size": 35,
         "icon_background_enabled": true,
-        "icon_background_color": "#FFFFFF",
+        "icon_background_color": "#ffffff",
         "icon_color": "#000000",
         "icon_object_fit": "contain",
         "icon_border_radius": 50,
@@ -690,11 +684,11 @@
         "slides_per_view_mobile": 1,
         "background_color": "#ffffff",
         "card_bg": "#ffffff",
-        "card_border_color": "#32477A",
+        "card_border_color": "#32477a",
         "card_radius": 20,
         "card_padding": 16,
         "image_radius": 0,
-        "star_color": "#A9617A",
+        "star_color": "#a9617a",
         "star_empty_color": "#e0e0e0",
         "text_color": "#3b3b3b",
         "title_size": 16,
@@ -759,19 +753,19 @@
         "padding_bottom_mobile": 32,
         "content_gap": 40,
         "feature_gap": 16,
-        "background_color": "#F4F2F1",
+        "background_color": "#f4f2f1",
         "title": "Why Women Choose Metabolic Flow 45+",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
         "text_size": 16,
         "text_color": "#3b3b3b",
-        "icon_color": "#32477A",
+        "icon_color": "#32477a",
         "button_text": "START TO FEEL MORE BALANCED →",
         "button_url": "",
         "button_font_size": 24,
         "button_radius": 32,
-        "button_bg": "#A9617A",
+        "button_bg": "#a9617a",
         "button_text_color": "#ffffff",
         "button_hover_bg": "#794054"
       }
@@ -921,7 +915,7 @@
         "position": "top",
         "hide_on_first": true,
         "after_end": "hide",
-        "bg_color": "#32477A",
+        "bg_color": "#32477a",
         "text_color": "#ffffff"
       }
     }
@@ -933,7 +927,6 @@
     "gut_harmony_benefits_6bQW6X",
     "content_sidebar_YqGF9T",
     "gut_harmony_story_WcWnBY",
-    "gut_harmony_band_J4x4Lt",
     "rich_text_BR7tJa",
     "gut_harmony_feature_AEPXCy",
     "gut_harmony_feature_ncw9RV",
