@@ -425,14 +425,14 @@
         "rt_title": {
           "type": "title",
           "settings": {
-            "title": "Choose Your Pack",
-            "accent_text": ""
+            "title": "Meet",
+            "accent_text": "Metabolic Flow"
           }
         },
         "rt_sub": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>Pick the supply that fits your routine. Free shipping on 2+ jars.</p>"
+            "subtitle": "<p>Daily metabolic support for women 45+ who want to feel more like themselves again</p>"
           }
         }
       },
@@ -444,18 +444,18 @@
         "use_theme_colors": true,
         "text_alignment": "center",
         "mobile_text_alignment": "center",
-        "padding_top": 40,
-        "padding_bottom": 10,
+        "padding_top": 25,
+        "padding_bottom": 0,
         "padding_horizontal": 20,
         "title_font_size": 36,
         "title_font_size_mobile": 28,
         "title_line_height": 1.3,
         "title_margin_bottom": 20,
         "title_color": "#000000",
-        "use_accent_gradient": false,
-        "accent_color": "#ef4a65",
+        "use_accent_gradient": true,
+        "accent_color": "#794054",
         "accent_gradient_start": "#ef4a65",
-        "accent_gradient_end": "#ff6b35",
+        "accent_gradient_end": "#A9617A",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 16,
@@ -501,6 +501,7 @@
         },
         "title_EEBYtC": {
           "type": "title",
+          "disabled": true,
           "settings": {
             "heading": "METABOLIC SUPPORT"
           }
