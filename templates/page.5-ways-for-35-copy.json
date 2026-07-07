@@ -88,7 +88,7 @@
         "button_radius": 32,
         "button_width": 384,
         "button_bg_color": "#3b3b3b",
-        "button_text_color": "#F1EEEF",
+        "button_text_color": "#f1eeef",
         "button_hover_bg_color": "#6f6f6f"
       }
     },
@@ -939,7 +939,7 @@
         "font_size_preset": "medium",
         "use_theme_colors": false,
         "disable_scroll_animation": true,
-        "section_background_color": "#f2f9f2",
+        "section_background_color": "#000000",
         "section_text_color": "#3b3b3b",
         "container_padding_horizontal": 20,
         "mobile_container_padding": 20
