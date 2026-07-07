@@ -899,7 +899,7 @@
           "type": "listicle-sticky-atc",
           "name": "Sticky Add to Cart",
           "settings": {
-            "button_text": "🔥 Try Metabolic Flow Now",
+            "button_text": "Try Metabolic Flow Now",
             "button_link": "/products/feel-balanced-after-45",
             "button_bg": "#32477a",
             "button_text_color": "#ffffff",
