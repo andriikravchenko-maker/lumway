@@ -199,11 +199,11 @@
         "title_font_size_mobile": 22,
         "title_line_height": 1.3,
         "title_margin_bottom": 20,
-        "title_color": "#3B3B3B",
+        "title_color": "#3b3b3b",
         "use_accent_gradient": true,
         "accent_color": "#ef4a65",
         "accent_gradient_start": "#794054",
-        "accent_gradient_end": "#A9617A",
+        "accent_gradient_end": "#a9617a",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 16,
@@ -254,7 +254,7 @@
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/feel-balanced-after-45-1561596.png",
+        "image": "shopify://shop_images/image_1.webp",
         "image_border_radius": 0,
         "body_text": "<p>After 45, your body can begin to process energy differently.</p><p>😬 Meals that used to feel satisfying may now leave you tired.</p><p>🍫 Cravings may feel harder to control.</p><p>💤 Energy may dip earlier in the day.</p><p>And when <strong>your body</strong> is constantly trying to <strong>manage unstable energy, digestion, appetite, and metabolic changes</strong>, it can affect more than your routine.</p><p>It can <strong>affect how present, confident, and connected you feel.</strong></p>",
         "text_size": 16,
@@ -290,7 +290,7 @@
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/hf_20260513_023604_82f68e04-96b5-45aa-966d-6de05944b431.webp",
+        "image": "shopify://shop_images/4471183.webp",
         "image_border_radius": 0,
         "body_text": "<p><strong>Healthy circulation helps deliver oxygen and nutrients throughout the body.</strong></p><p>That includes your brain, muscles, and the tissues involved in normal physical response.</p><p>While hormones play an important role, healthy blood flow is also part of the bigger picture of women’s vitality.</p><p>When<strong> circulation, metabolism, and energy production are not supported</strong> many women may feel:</p><ul><li>Less physically responsive</li><li>More tired by the end of the day</li><li>Less motivated</li><li>Less connected to their body</li><li>Less like themselves</li></ul>",
         "text_size": 15,
@@ -417,393 +417,6 @@
         "button_bg_color": "#23a02a",
         "button_text_color": "#ffffff",
         "button_hover_bg_color": "#1d8a23"
-      }
-    },
-    "alternating_features_ktLx6Y": {
-      "type": "alternating-features",
-      "blocks": {
-        "feature_abhmyb": {
-          "type": "feature",
-          "settings": {
-            "title": "Quality First",
-            "description": "We prioritize quality in everything we do. Our products are built to last and exceed industry standards.",
-            "feature_image": "shopify://shop_images/781c69c0b64b9dab2b9164839c042fd7dd3bb00b.png"
-          }
-        },
-        "feature_U7bqkz": {
-          "type": "feature",
-          "settings": {
-            "title": "Customer Support",
-            "description": "Our dedicated support team is available to help you with any questions or concerns you may have.",
-            "feature_image": "shopify://shop_images/b81aa23d1caa5df312e1321283f370652f40addb.png"
-          }
-        },
-        "feature_49r4WG": {
-          "type": "feature",
-          "settings": {
-            "title": "Easy to Use",
-            "description": "Designed with simplicity in mind, our products are intuitive and user-friendly for everyone.",
-            "feature_image": "shopify://shop_images/754fd87701b9eff663c26561568d11b97f37246b.png"
-          }
-        },
-        "feature_cY7CE9": {
-          "type": "feature",
-          "settings": {
-            "title": "Fast Delivery",
-            "description": "We ship quickly and efficiently to ensure you receive your order as soon as possible.",
-            "feature_image": "shopify://shop_images/ddc3654acd27c1173b2d690d080820f8b575cf5a.png"
-          }
-        }
-      },
-      "block_order": [
-        "feature_abhmyb",
-        "feature_U7bqkz",
-        "feature_49r4WG",
-        "feature_cY7CE9"
-      ],
-      "name": "Alternating Features",
-      "settings": {
-        "use_theme_colors": false,
-        "title": "Clean Formula",
-        "title_accent": "Works Differently",
-        "subheading": "",
-        "hide_main_image": false,
-        "side_heading_layout": false,
-        "heading_alignment_mobile": "center",
-        "heading_alignment_desktop": "center",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "section_border_radius": 0,
-        "feature_spacing": 30,
-        "divider_spacing_top": 20,
-        "divider_spacing_bottom": 20,
-        "background_color": "#f4f2f1",
-        "use_gradient": false,
-        "gradient_start_color": "#ef4a65",
-        "gradient_end_color": "#990000",
-        "gradient_angle": 90,
-        "heading_color": "#a9617a",
-        "subheading_color": "#dddddd",
-        "feature_title_color": "#3b3b3b",
-        "description_color": "#3b3b3b",
-        "divider_color": "#32477a",
-        "override_global_accent": false,
-        "accent_color": "#794054",
-        "use_accent_gradient": false,
-        "accent_text_gradient": "linear-gradient(45deg, rgba(239, 74, 101, 1), rgba(255, 107, 157, 1) 100%)",
-        "accent_font_family": "inherit",
-        "accent_font_style": "normal",
-        "accent_font_weight": "inherit",
-        "icon_size": 70,
-        "icon_image_size": 35,
-        "icon_background_enabled": true,
-        "icon_background_color": "#ffffff",
-        "icon_color": "#000000",
-        "icon_object_fit": "contain",
-        "icon_border_radius": 50,
-        "image_border_radius": 8,
-        "feature_image_object_fit": "contain",
-        "bold_feature_title": false,
-        "section_title_size_desktop": 34,
-        "section_title_size_mobile": 28,
-        "heading_line_height_desktop": 1.2,
-        "heading_line_height_mobile": 1.2,
-        "subheading_line_height_desktop": 1.5,
-        "subheading_line_height_mobile": 1.5,
-        "feature_title_size_mobile": 16,
-        "feature_title_size_desktop": 16,
-        "description_size_mobile": 16,
-        "description_size_desktop": 14
-      }
-    },
-    "gut_harmony_reviews_RY8qtC": {
-      "type": "gut-harmony-reviews",
-      "blocks": {
-        "review_8h3ftx": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/image_104.webp",
-            "rating": 5,
-            "title": "Love it!!",
-            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
-            "name": "— Linda M."
-          }
-        },
-        "review_fiaiPe": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Image_Container.png",
-            "rating": 5,
-            "title": "Huge difference after meals",
-            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
-            "name": "— Linda M."
-          }
-        },
-        "review_MM7nQf": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
-            "rating": 5,
-            "title": "It actually made meals feel easier",
-            "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
-            "name": "— Linda M."
-          }
-        }
-      },
-      "block_order": [
-        "review_8h3ftx",
-        "review_fiaiPe",
-        "review_MM7nQf"
-      ],
-      "name": "Gut Harmony Reviews",
-      "settings": {
-        "use_theme_colors": false,
-        "heading": "One Product. Big Impact.",
-        "heading_size": 40,
-        "heading_size_mobile": 28,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "card_gap": 32,
-        "enable_slider": true,
-        "slides_per_view": 3,
-        "slides_per_view_mobile": 1,
-        "background_color": "#ffffff",
-        "card_bg": "#ffffff",
-        "card_border_color": "#32477a",
-        "card_radius": 20,
-        "card_padding": 16,
-        "image_radius": 0,
-        "star_color": "#a9617a",
-        "star_empty_color": "#e0e0e0",
-        "text_color": "#3b3b3b",
-        "title_size": 16,
-        "text_size": 14,
-        "name_size": 16
-      }
-    },
-    "gut_harmony_cta_Tt37Cp": {
-      "type": "gut-harmony-cta",
-      "blocks": {
-        "feature_DaABtJ": {
-          "type": "feature",
-          "settings": {
-            "text": "Better Appetite Control"
-          }
-        },
-        "feature_kPEdGG": {
-          "type": "feature",
-          "settings": {
-            "text": "Fewer Cravings"
-          }
-        },
-        "feature_8Rjrwe": {
-          "type": "feature",
-          "settings": {
-            "text": "More Stable Daily Energy"
-          }
-        },
-        "feature_PPWHz3": {
-          "type": "feature",
-          "settings": {
-            "text": "Healthy Blood Sugar Support"
-          }
-        },
-        "feature_Nd3aMx": {
-          "type": "feature",
-          "settings": {
-            "text": "Designed To Support Digestion & Post-Meal Comfort*"
-          }
-        },
-        "feature_Mr3peF": {
-          "type": "feature",
-          "settings": {
-            "text": "30-Day Risk Free & Money back Guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "feature_DaABtJ",
-        "feature_kPEdGG",
-        "feature_8Rjrwe",
-        "feature_PPWHz3",
-        "feature_Nd3aMx",
-        "feature_Mr3peF"
-      ],
-      "name": "Gut Harmony CTA",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 32,
-        "content_gap": 40,
-        "feature_gap": 16,
-        "background_color": "#f4f2f1",
-        "title": "Why Women Choose Metabolic Flow 45+",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#3b3b3b",
-        "text_size": 16,
-        "text_color": "#3b3b3b",
-        "icon_color": "#32477a",
-        "button_text": "START TO FEEL MORE BALANCED →",
-        "button_url": "#product-details-lum",
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg": "#a9617a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg": "#794054"
-      }
-    },
-    "gut_harmony_cta_banner_Mjc8aE": {
-      "type": "gut-harmony-cta-banner",
-      "disabled": true,
-      "name": "Gut Harmony CTA Banner",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 32,
-        "content_gap": 40,
-        "background_color": "#f2f9f2",
-        "header": "Click Below to Begin Your Transformation",
-        "header_size": 44,
-        "header_size_mobile": 26,
-        "header_color": "#333333",
-        "button_text": "GET GUT HARMONY NOW →",
-        "button_url": "shopify://products/gut-harmony-gummies",
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg": "#00724d",
-        "button_text_color": "#ffffff",
-        "button_hover_bg": "#088f63",
-        "subheader": "Your future self will thank you for finally taking control of your digestion today.",
-        "subheader_size": 32,
-        "subheader_size_mobile": 18,
-        "subheader_color": "#333333"
-      }
-    },
-    "social_proof_pop": {
-      "type": "social-proof-pop",
-      "blocks": {
-        "spp_purchase": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/4471173.webp",
-            "name": "Jennifer",
-            "location": "California",
-            "product": "2 Jars of Metabolic Flow",
-            "stock_text": "Only 8 left"
-          }
-        },
-        "spp_viewed": {
-          "type": "stat",
-          "settings": {
-            "icon": "eye",
-            "text": "150 people viewed this today",
-            "subtext": "",
-            "show_verified": false
-          }
-        },
-        "spp_orders": {
-          "type": "stat",
-          "settings": {
-            "icon": "cart",
-            "text": "32 orders today",
-            "subtext": "",
-            "show_verified": true
-          }
-        },
-        "spp_jessica": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/4471174.webp",
-            "name": "Jessica",
-            "location": "Texas",
-            "product": "3 Jars of Metabolic Flow",
-            "stock_text": "Only 7 left"
-          }
-        },
-        "spp_emily": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/4471173.webp",
-            "name": "Emily",
-            "location": "New York",
-            "product": "2 Jars of Metabolic Flow",
-            "stock_text": "Only 6 left"
-          }
-        },
-        "spp_sarah": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/4471174.webp",
-            "name": "Sarah",
-            "location": "Florida",
-            "product": "3 Jars of Metabolic Flow",
-            "stock_text": "Only 5 left"
-          }
-        },
-        "spp_amanda": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/4471173.webp",
-            "name": "Amanda",
-            "location": "Ohio",
-            "product": "2 Jars of Metabolic Flow",
-            "stock_text": "Only 4 left"
-          }
-        },
-        "spp_megan": {
-          "type": "purchase",
-          "settings": {
-            "image": "shopify://shop_images/4471174.webp",
-            "name": "Megan",
-            "location": "Arizona",
-            "product": "3 Jars of Metabolic Flow",
-            "stock_text": "Only 3 left"
-          }
-        }
-      },
-      "block_order": [
-        "spp_purchase",
-        "spp_viewed",
-        "spp_orders",
-        "spp_jessica",
-        "spp_emily",
-        "spp_sarah",
-        "spp_amanda",
-        "spp_megan"
-      ],
-      "settings": {
-        "position": "left",
-        "bg_color": "#ffffff",
-        "text_color": "#794054",
-        "vertical": "top",
-        "bottom_offset": 44,
-        "verified_text": "Verified by Lumway",
-        "show_times": "3,8.5,15,30,60,80,105,160",
-        "start_delay": 6,
-        "show_secs": 5,
-        "gap_secs": 8,
-        "loop": true,
-        "remember_close": true
-      }
-    },
-    "sticky_countdown": {
-      "type": "sticky-countdown-banner",
-      "settings": {
-        "text": "🔥 LIMITED TIME OFFER ENDS IN",
-        "hours": 2,
-        "sync_lts": true,
-        "position": "top",
-        "hide_on_first": true,
-        "after_end": "hide",
-        "bg_color": "#32477a",
-        "text_color": "#ffffff"
       }
     },
     "pdl_heading_divider": {
@@ -1092,6 +705,273 @@
         "product": "feel-balanced-after-45"
       }
     },
+    "alternating_features_ktLx6Y": {
+      "type": "alternating-features",
+      "blocks": {
+        "feature_abhmyb": {
+          "type": "feature",
+          "settings": {
+            "title": "Quality First",
+            "description": "We prioritize quality in everything we do. Our products are built to last and exceed industry standards.",
+            "feature_image": "shopify://shop_images/781c69c0b64b9dab2b9164839c042fd7dd3bb00b.png"
+          }
+        },
+        "feature_U7bqkz": {
+          "type": "feature",
+          "settings": {
+            "title": "Customer Support",
+            "description": "Our dedicated support team is available to help you with any questions or concerns you may have.",
+            "feature_image": "shopify://shop_images/b81aa23d1caa5df312e1321283f370652f40addb.png"
+          }
+        },
+        "feature_49r4WG": {
+          "type": "feature",
+          "settings": {
+            "title": "Easy to Use",
+            "description": "Designed with simplicity in mind, our products are intuitive and user-friendly for everyone.",
+            "feature_image": "shopify://shop_images/754fd87701b9eff663c26561568d11b97f37246b.png"
+          }
+        },
+        "feature_cY7CE9": {
+          "type": "feature",
+          "settings": {
+            "title": "Fast Delivery",
+            "description": "We ship quickly and efficiently to ensure you receive your order as soon as possible.",
+            "feature_image": "shopify://shop_images/ddc3654acd27c1173b2d690d080820f8b575cf5a.png"
+          }
+        }
+      },
+      "block_order": [
+        "feature_abhmyb",
+        "feature_U7bqkz",
+        "feature_49r4WG",
+        "feature_cY7CE9"
+      ],
+      "name": "Alternating Features",
+      "settings": {
+        "use_theme_colors": false,
+        "title": "Clean Formula",
+        "title_accent": "Works Differently",
+        "subheading": "",
+        "hide_main_image": false,
+        "side_heading_layout": false,
+        "heading_alignment_mobile": "center",
+        "heading_alignment_desktop": "center",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "section_border_radius": 0,
+        "feature_spacing": 30,
+        "divider_spacing_top": 20,
+        "divider_spacing_bottom": 20,
+        "background_color": "#f4f2f1",
+        "use_gradient": false,
+        "gradient_start_color": "#ef4a65",
+        "gradient_end_color": "#990000",
+        "gradient_angle": 90,
+        "heading_color": "#a9617a",
+        "subheading_color": "#dddddd",
+        "feature_title_color": "#3b3b3b",
+        "description_color": "#3b3b3b",
+        "divider_color": "#32477a",
+        "override_global_accent": false,
+        "accent_color": "#794054",
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(239, 74, 101, 1), rgba(255, 107, 157, 1) 100%)",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "icon_size": 70,
+        "icon_image_size": 35,
+        "icon_background_enabled": true,
+        "icon_background_color": "#ffffff",
+        "icon_color": "#000000",
+        "icon_object_fit": "contain",
+        "icon_border_radius": 50,
+        "image_border_radius": 8,
+        "feature_image_object_fit": "contain",
+        "bold_feature_title": false,
+        "section_title_size_desktop": 34,
+        "section_title_size_mobile": 28,
+        "heading_line_height_desktop": 1.2,
+        "heading_line_height_mobile": 1.2,
+        "subheading_line_height_desktop": 1.5,
+        "subheading_line_height_mobile": 1.5,
+        "feature_title_size_mobile": 16,
+        "feature_title_size_desktop": 16,
+        "description_size_mobile": 16,
+        "description_size_desktop": 14
+      }
+    },
+    "gut_harmony_reviews_RY8qtC": {
+      "type": "gut-harmony-reviews",
+      "blocks": {
+        "review_8h3ftx": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_104.webp",
+            "rating": 5,
+            "title": "Love it!!",
+            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_fiaiPe": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Image_Container.png",
+            "rating": 5,
+            "title": "Huge difference after meals",
+            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_MM7nQf": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
+            "rating": 5,
+            "title": "It actually made meals feel easier",
+            "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
+            "name": "— Linda M."
+          }
+        }
+      },
+      "block_order": [
+        "review_8h3ftx",
+        "review_fiaiPe",
+        "review_MM7nQf"
+      ],
+      "name": "Gut Harmony Reviews",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "One Product. Big Impact.",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "card_gap": 32,
+        "enable_slider": true,
+        "slides_per_view": 3,
+        "slides_per_view_mobile": 1,
+        "background_color": "#ffffff",
+        "card_bg": "#ffffff",
+        "card_border_color": "#32477a",
+        "card_radius": 20,
+        "card_padding": 16,
+        "image_radius": 0,
+        "star_color": "#a9617a",
+        "star_empty_color": "#e0e0e0",
+        "text_color": "#3b3b3b",
+        "title_size": 16,
+        "text_size": 14,
+        "name_size": 16
+      }
+    },
+    "gut_harmony_cta_Tt37Cp": {
+      "type": "gut-harmony-cta",
+      "blocks": {
+        "feature_DaABtJ": {
+          "type": "feature",
+          "settings": {
+            "text": "Better Appetite Control"
+          }
+        },
+        "feature_kPEdGG": {
+          "type": "feature",
+          "settings": {
+            "text": "Fewer Cravings"
+          }
+        },
+        "feature_8Rjrwe": {
+          "type": "feature",
+          "settings": {
+            "text": "More Stable Daily Energy"
+          }
+        },
+        "feature_PPWHz3": {
+          "type": "feature",
+          "settings": {
+            "text": "Healthy Blood Sugar Support"
+          }
+        },
+        "feature_Nd3aMx": {
+          "type": "feature",
+          "settings": {
+            "text": "Designed To Support Digestion & Post-Meal Comfort*"
+          }
+        },
+        "feature_Mr3peF": {
+          "type": "feature",
+          "settings": {
+            "text": "30-Day Risk Free & Money back Guarantee"
+          }
+        }
+      },
+      "block_order": [
+        "feature_DaABtJ",
+        "feature_kPEdGG",
+        "feature_8Rjrwe",
+        "feature_PPWHz3",
+        "feature_Nd3aMx",
+        "feature_Mr3peF"
+      ],
+      "name": "Gut Harmony CTA",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "content_gap": 40,
+        "feature_gap": 16,
+        "background_color": "#f4f2f1",
+        "title": "Why Women Choose Metabolic Flow 45+",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#3b3b3b",
+        "text_size": 16,
+        "text_color": "#3b3b3b",
+        "icon_color": "#32477a",
+        "button_text": "START TO FEEL MORE BALANCED →",
+        "button_url": "#product-details-lum",
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg": "#a9617a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#794054"
+      }
+    },
+    "gut_harmony_cta_banner_Mjc8aE": {
+      "type": "gut-harmony-cta-banner",
+      "disabled": true,
+      "name": "Gut Harmony CTA Banner",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 32,
+        "content_gap": 40,
+        "background_color": "#f2f9f2",
+        "header": "Click Below to Begin Your Transformation",
+        "header_size": 44,
+        "header_size_mobile": 26,
+        "header_color": "#333333",
+        "button_text": "GET GUT HARMONY NOW →",
+        "button_url": "shopify://products/gut-harmony-gummies",
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg": "#00724d",
+        "button_text_color": "#ffffff",
+        "button_hover_bg": "#088f63",
+        "subheader": "Your future self will thank you for finally taking control of your digestion today.",
+        "subheader_size": 32,
+        "subheader_size_mobile": 18,
+        "subheader_color": "#333333"
+      }
+    },
     "listicle_sticky_only": {
       "type": "listicle",
       "blocks": {
@@ -1101,7 +981,7 @@
           "settings": {
             "button_text": "Try Metabolic Flow Now",
             "button_link": "/products/feel-balanced-after-45",
-            "button_bg": "#A9617A",
+            "button_bg": "#a9617a",
             "button_text_color": "#ffffff",
             "enable_heartbeat": true,
             "button_font_size": 18,
@@ -1143,6 +1023,126 @@
         "section_text_color": "#3b3b3b",
         "container_padding_horizontal": 20,
         "mobile_container_padding": 20
+      }
+    },
+    "social_proof_pop": {
+      "type": "social-proof-pop",
+      "blocks": {
+        "spp_purchase": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/4471173.webp",
+            "name": "Jennifer",
+            "location": "California",
+            "product": "2 Jars of Metabolic Flow",
+            "stock_text": "Only 8 left"
+          }
+        },
+        "spp_viewed": {
+          "type": "stat",
+          "settings": {
+            "icon": "eye",
+            "text": "150 people viewed this today",
+            "subtext": "",
+            "show_verified": false
+          }
+        },
+        "spp_orders": {
+          "type": "stat",
+          "settings": {
+            "icon": "cart",
+            "text": "32 orders today",
+            "subtext": "",
+            "show_verified": true
+          }
+        },
+        "spp_jessica": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/4471174.webp",
+            "name": "Jessica",
+            "location": "Texas",
+            "product": "3 Jars of Metabolic Flow",
+            "stock_text": "Only 7 left"
+          }
+        },
+        "spp_emily": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/4471173.webp",
+            "name": "Emily",
+            "location": "New York",
+            "product": "2 Jars of Metabolic Flow",
+            "stock_text": "Only 6 left"
+          }
+        },
+        "spp_sarah": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/4471174.webp",
+            "name": "Sarah",
+            "location": "Florida",
+            "product": "3 Jars of Metabolic Flow",
+            "stock_text": "Only 5 left"
+          }
+        },
+        "spp_amanda": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/4471173.webp",
+            "name": "Amanda",
+            "location": "Ohio",
+            "product": "2 Jars of Metabolic Flow",
+            "stock_text": "Only 4 left"
+          }
+        },
+        "spp_megan": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/4471174.webp",
+            "name": "Megan",
+            "location": "Arizona",
+            "product": "3 Jars of Metabolic Flow",
+            "stock_text": "Only 3 left"
+          }
+        }
+      },
+      "block_order": [
+        "spp_purchase",
+        "spp_viewed",
+        "spp_orders",
+        "spp_jessica",
+        "spp_emily",
+        "spp_sarah",
+        "spp_amanda",
+        "spp_megan"
+      ],
+      "settings": {
+        "position": "left",
+        "bg_color": "#ffffff",
+        "text_color": "#794054",
+        "vertical": "top",
+        "bottom_offset": 44,
+        "verified_text": "Verified by Lumway",
+        "show_times": "3,8.5,15,30,60,80,105,160",
+        "start_delay": 6,
+        "show_secs": 5,
+        "gap_secs": 8,
+        "loop": true,
+        "remember_close": true
+      }
+    },
+    "sticky_countdown": {
+      "type": "sticky-countdown-banner",
+      "settings": {
+        "text": "🔥 LIMITED TIME OFFER ENDS IN",
+        "hours": 2,
+        "sync_lts": true,
+        "position": "top",
+        "hide_on_first": true,
+        "after_end": "hide",
+        "bg_color": "#32477a",
+        "text_color": "#ffffff"
       }
     }
   },
