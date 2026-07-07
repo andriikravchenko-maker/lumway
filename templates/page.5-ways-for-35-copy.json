@@ -181,11 +181,10 @@
             "subtitle": "<p>And eventually, many women begin to believe: <strong>“This is just my new normal.”</strong></p>"
           }
         },
-        "title_6xVypX": {
-          "type": "title",
+        "subtitle_cKcC7L": {
+          "type": "subtitle",
           "settings": {
-            "title": "But what if that explanation is incomplete?",
-            "accent_text": ""
+            "subtitle": "<p><strong>But what if that explanation is incomplete?</strong></p>"
           }
         },
         "subtitle_LjgwEz": {
@@ -199,7 +198,7 @@
         "title_6k7zw7",
         "subtitle_PirNe8",
         "subtitle_J6QgnC",
-        "title_6xVypX",
+        "subtitle_cKcC7L",
         "subtitle_LjgwEz"
       ],
       "name": "Rich Text",
