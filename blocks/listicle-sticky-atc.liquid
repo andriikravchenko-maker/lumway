@@ -7,12 +7,14 @@
   <div class="sticky-atc-container">
     <a href="{{ block.settings.button_link }}" class="sticky-atc-button">
       <span class="button-text">{{ block.settings.button_text }}</span>
+      {% unless block.settings.show_arrow == false %}
       <span class="button-arrow">
         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
       </span>
+      {% endunless %}
     </a>
     
     {% if block.settings.show_subtext %}
@@ -397,6 +399,12 @@
       "id": "button_text",
       "label": "Button Text",
       "default": "YES, GET 58% OFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show arrow",
+      "default": true
     },
     {
       "type": "url",
