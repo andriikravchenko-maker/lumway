@@ -169,22 +169,37 @@
             "accent_text": "that losing desire after 45 is just “part of getting older.”"
           }
         },
+        "subtitle_PirNe8": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p><em>✓ Hormones change</em></p><p><em>✓ Energy drops</em></p><p><em>✓ Your body feels different</em></p>"
+          }
+        },
         "subtitle_J6QgnC": {
           "type": "subtitle",
           "settings": {
             "subtitle": "<p>And eventually, many women begin to believe: <strong>“This is just my new normal.”</strong></p>"
           }
         },
+        "title_6xVypX": {
+          "type": "title",
+          "settings": {
+            "title": "",
+            "accent_text": "But what if that explanation is incomplete?"
+          }
+        },
         "subtitle_LjgwEz": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p><strong>But what if that explanation is incomplete?</strong></p><p>What if feeling less connected, less energized, and less like yourself isn’t only about hormones — but also about the systems that help your body create energy, maintain healthy circulation, and respond to daily life?</p><p>That’s where the conversation is starting to change.</p>"
+            "subtitle": "<p>What if feeling less connected, less energized, and less like yourself <strong>isn’t only about hormones</strong> — but also about the systems that help your body create energy, maintain healthy circulation, and respond to daily life?</p><p>That’s where the conversation is starting to change.</p>"
           }
         }
       },
       "block_order": [
         "title_6k7zw7",
+        "subtitle_PirNe8",
         "subtitle_J6QgnC",
+        "title_6xVypX",
         "subtitle_LjgwEz"
       ],
       "name": "Rich Text",
@@ -201,8 +216,8 @@
         "title_margin_bottom": 20,
         "title_color": "#3b3b3b",
         "use_accent_gradient": true,
-        "accent_color": "#ef4a65",
-        "accent_gradient_start": "#794054",
+        "accent_color": "#794054",
+        "accent_gradient_start": "#EF4A65",
         "accent_gradient_end": "#a9617a",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
