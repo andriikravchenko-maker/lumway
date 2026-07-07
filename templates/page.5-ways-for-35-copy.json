@@ -692,6 +692,59 @@
         "product": "feel-balanced-after-45"
       }
     },
+    "listicle_sticky_only": {
+      "type": "listicle",
+      "blocks": {
+        "listicle_sticky_atc_8EwYPV": {
+          "type": "listicle-sticky-atc",
+          "name": "Sticky Add to Cart",
+          "settings": {
+            "button_text": "Try Metabolic Flow Now",
+            "button_link": "/products/feel-balanced-after-45",
+            "button_bg": "#32477a",
+            "button_text_color": "#ffffff",
+            "enable_heartbeat": true,
+            "button_font_size": 18,
+            "button_font_size_mobile": 14,
+            "button_padding_y": 20,
+            "button_padding_x": 40,
+            "button_border_radius": 8,
+            "show_subtext": false,
+            "subtext": "",
+            "subtext_color": "#25282a",
+            "subtext_font_size": 12,
+            "sticky": true,
+            "mobile_only": false,
+            "container_bg": "#f1eeef",
+            "max_width": 500,
+            "border_radius": 12,
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "listicle_sticky_atc_8EwYPV"
+      ],
+      "settings": {
+        "section_max_width": 900,
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "gap": 30,
+        "use_custom_font": false,
+        "section_font_family": "assistant_n4",
+        "heading_letter_spacing": 0,
+        "body_letter_spacing": 0,
+        "font_size_preset": "medium",
+        "use_theme_colors": false,
+        "disable_scroll_animation": true,
+        "section_background_color": "#FFFFFF",
+        "section_text_color": "#3b3b3b",
+        "container_padding_horizontal": 20,
+        "mobile_container_padding": 20
+      }
+    },
     "alternating_features_ktLx6Y": {
       "type": "alternating-features",
       "blocks": {
@@ -892,59 +945,6 @@
         "subheader_color": "#333333"
       }
     },
-    "listicle_sticky_only": {
-      "type": "listicle",
-      "blocks": {
-        "listicle_sticky_atc_8EwYPV": {
-          "type": "listicle-sticky-atc",
-          "name": "Sticky Add to Cart",
-          "settings": {
-            "button_text": "Try Metabolic Flow Now",
-            "button_link": "/products/feel-balanced-after-45",
-            "button_bg": "#32477a",
-            "button_text_color": "#ffffff",
-            "enable_heartbeat": true,
-            "button_font_size": 18,
-            "button_font_size_mobile": 14,
-            "button_padding_y": 20,
-            "button_padding_x": 40,
-            "button_border_radius": 8,
-            "show_subtext": false,
-            "subtext": "",
-            "subtext_color": "#25282a",
-            "subtext_font_size": 12,
-            "sticky": true,
-            "mobile_only": false,
-            "container_bg": "#f1eeef",
-            "max_width": 500,
-            "border_radius": 12,
-            "margin_top": 20,
-            "margin_bottom": 20
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "listicle_sticky_atc_8EwYPV"
-      ],
-      "settings": {
-        "section_max_width": 900,
-        "padding_top": 30,
-        "padding_bottom": 0,
-        "gap": 30,
-        "use_custom_font": false,
-        "section_font_family": "assistant_n4",
-        "heading_letter_spacing": 0,
-        "body_letter_spacing": 0,
-        "font_size_preset": "medium",
-        "use_theme_colors": false,
-        "disable_scroll_animation": true,
-        "section_background_color": "#000000",
-        "section_text_color": "#3b3b3b",
-        "container_padding_horizontal": 20,
-        "mobile_container_padding": 20
-      }
-    },
     "social_proof_pop": {
       "type": "social-proof-pop",
       "blocks": {
@@ -1079,10 +1079,10 @@
     "gut_harmony_reviews_RY8qtC",
     "pdl_heading_divider",
     "product_details_lum",
+    "listicle_sticky_only",
     "alternating_features_ktLx6Y",
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
-    "listicle_sticky_only",
     "social_proof_pop",
     "sticky_countdown"
   ]
