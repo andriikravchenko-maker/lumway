@@ -995,7 +995,7 @@
             "subtext_font_size": 12,
             "sticky": true,
             "mobile_only": false,
-            "container_bg": "#f2f9f2",
+            "container_bg": "#F1EEEF",
             "max_width": 500,
             "border_radius": 12,
             "margin_top": 20,
