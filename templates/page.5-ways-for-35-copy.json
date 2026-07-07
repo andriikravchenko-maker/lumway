@@ -338,6 +338,73 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
+    "gut_harmony_reviews_RY8qtC": {
+      "type": "gut-harmony-reviews",
+      "blocks": {
+        "review_fiaiPe": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Image_Container.png",
+            "rating": 5,
+            "title": "Huge difference after meals",
+            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_8h3ftx": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_104.webp",
+            "rating": 5,
+            "title": "Love it!!",
+            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_MM7nQf": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
+            "rating": 5,
+            "title": "It actually made meals feel easier",
+            "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
+            "name": "— Linda M."
+          }
+        }
+      },
+      "block_order": [
+        "review_fiaiPe",
+        "review_8h3ftx",
+        "review_MM7nQf"
+      ],
+      "name": "Gut Harmony Reviews",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "One Product. Big Impact.",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "card_gap": 32,
+        "enable_slider": true,
+        "slides_per_view": 3,
+        "slides_per_view_mobile": 1,
+        "background_color": "#ffffff",
+        "card_bg": "#ffffff",
+        "card_border_color": "#32477a",
+        "card_radius": 20,
+        "card_padding": 16,
+        "image_radius": 0,
+        "star_color": "#a9617a",
+        "star_empty_color": "#e0e0e0",
+        "text_color": "#3b3b3b",
+        "title_size": 16,
+        "text_size": 14,
+        "name_size": 16
+      }
+    },
     "pdl_heading_divider": {
       "type": "rich-text",
       "blocks": {
@@ -722,73 +789,6 @@
         "description_size_desktop": 14
       }
     },
-    "gut_harmony_reviews_RY8qtC": {
-      "type": "gut-harmony-reviews",
-      "blocks": {
-        "review_fiaiPe": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Image_Container.png",
-            "rating": 5,
-            "title": "Huge difference after meals",
-            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
-            "name": "— Linda M."
-          }
-        },
-        "review_8h3ftx": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/image_104.webp",
-            "rating": 5,
-            "title": "Love it!!",
-            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
-            "name": "— Linda M."
-          }
-        },
-        "review_MM7nQf": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
-            "rating": 5,
-            "title": "It actually made meals feel easier",
-            "text": "“I honestly thought feeling heavy after dinner was just part of getting older. I was constantly uncomfortable after eating and always thinking about my stomach. About a month into Gut Harmony, meals started feeling so much easier on me. I even stopped taking it for a few weeks and noticed the heaviness slowly coming back. I ordered another bundle right away.”",
-            "name": "— Linda M."
-          }
-        }
-      },
-      "block_order": [
-        "review_fiaiPe",
-        "review_8h3ftx",
-        "review_MM7nQf"
-      ],
-      "name": "Gut Harmony Reviews",
-      "settings": {
-        "use_theme_colors": false,
-        "heading": "One Product. Big Impact.",
-        "heading_size": 40,
-        "heading_size_mobile": 28,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "card_gap": 32,
-        "enable_slider": true,
-        "slides_per_view": 3,
-        "slides_per_view_mobile": 1,
-        "background_color": "#ffffff",
-        "card_bg": "#ffffff",
-        "card_border_color": "#32477a",
-        "card_radius": 20,
-        "card_padding": 16,
-        "image_radius": 0,
-        "star_color": "#a9617a",
-        "star_empty_color": "#e0e0e0",
-        "text_color": "#3b3b3b",
-        "title_size": 16,
-        "text_size": 14,
-        "name_size": 16
-      }
-    },
     "gut_harmony_cta_Tt37Cp": {
       "type": "gut-harmony-cta",
       "blocks": {
@@ -899,9 +899,9 @@
           "type": "listicle-sticky-atc",
           "name": "Sticky Add to Cart",
           "settings": {
-            "button_text": "Try Metabolic Flow Now",
+            "button_text": "🔥 Try Metabolic Flow Now",
             "button_link": "/products/feel-balanced-after-45",
-            "button_bg": "#a9617a",
+            "button_bg": "#32477A",
             "button_text_color": "#ffffff",
             "enable_heartbeat": true,
             "button_font_size": 18,
@@ -1076,10 +1076,10 @@
     "gut_harmony_feature_AEPXCy",
     "gut_harmony_feature_ncw9RV",
     "gut_harmony_feature_6gkhMK",
+    "gut_harmony_reviews_RY8qtC",
     "pdl_heading_divider",
     "product_details_lum",
     "alternating_features_ktLx6Y",
-    "gut_harmony_reviews_RY8qtC",
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
     "listicle_sticky_only",
