@@ -719,7 +719,8 @@
             "max_width": 500,
             "border_radius": 12,
             "margin_top": 20,
-            "margin_bottom": 20
+            "margin_bottom": 20,
+            "show_arrow": false
           },
           "blocks": {}
         }
