@@ -727,32 +727,32 @@
         "feature_abhmyb": {
           "type": "feature",
           "settings": {
-            "title": "Quality First",
-            "description": "We prioritize quality in everything we do. Our products are built to last and exceed industry standards.",
+            "title": "Berberine HCL",
+            "description": "Supports metabolic wellness & daily balance. Reduces post-meal heaviness.*",
             "feature_image": "shopify://shop_images/781c69c0b64b9dab2b9164839c042fd7dd3bb00b.png"
           }
         },
         "feature_U7bqkz": {
           "type": "feature",
           "settings": {
-            "title": "Customer Support",
-            "description": "Our dedicated support team is available to help you with any questions or concerns you may have.",
+            "title": "Chromium",
+            "description": "Supports healthy metabolism & steady energy. Supports balanced energy.*",
             "feature_image": "shopify://shop_images/b81aa23d1caa5df312e1321283f370652f40addb.png"
           }
         },
         "feature_49r4WG": {
           "type": "feature",
           "settings": {
-            "title": "Easy to Use",
-            "description": "Designed with simplicity in mind, our products are intuitive and user-friendly for everyone.",
+            "title": "Chicory Root Fiber",
+            "description": "Supports digestive wellness & fullness. Supports digestive comfort.*",
             "feature_image": "shopify://shop_images/754fd87701b9eff663c26561568d11b97f37246b.png"
           }
         },
         "feature_cY7CE9": {
           "type": "feature",
           "settings": {
-            "title": "Fast Delivery",
-            "description": "We ship quickly and efficiently to ensure you receive your order as soon as possible.",
+            "title": "Cinnamon Bark",
+            "description": "Supports metabolic balance & daily wellness. Supports daily balance.*",
             "feature_image": "shopify://shop_images/ddc3654acd27c1173b2d690d080820f8b575cf5a.png"
           }
         }
@@ -921,7 +921,7 @@
         "feature_Mr3peF": {
           "type": "feature",
           "settings": {
-            "text": "30-Day Risk Free & Money back Guarantee"
+            "text": "30-Day Risk Free & Money Back Guarantee"
           }
         }
       },
