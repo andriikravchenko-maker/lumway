@@ -821,16 +821,6 @@
     "gut_harmony_reviews_RY8qtC": {
       "type": "gut-harmony-reviews",
       "blocks": {
-        "review_8h3ftx": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/image_104.webp",
-            "rating": 5,
-            "title": "Love it!!",
-            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
-            "name": "— Linda M."
-          }
-        },
         "review_fiaiPe": {
           "type": "review",
           "settings": {
@@ -838,6 +828,16 @@
             "rating": 5,
             "title": "Huge difference after meals",
             "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months on Gut Harmony and things are honestly so much better. I feel comfortable eating again.”",
+            "name": "— Linda M."
+          }
+        },
+        "review_8h3ftx": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_104.webp",
+            "rating": 5,
+            "title": "Love it!!",
+            "text": "“Huge difference in how I feel after eating. Less bloating, less heaviness, and my stomach just feels more normal overall. I wasn't expecting much but I'm genuinely impressed.”",
             "name": "— Linda M."
           }
         },
@@ -853,8 +853,8 @@
         }
       },
       "block_order": [
-        "review_8h3ftx",
         "review_fiaiPe",
+        "review_8h3ftx",
         "review_MM7nQf"
       ],
       "name": "Gut Harmony Reviews",

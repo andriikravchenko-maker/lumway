@@ -558,6 +558,11 @@
         "type": "shopify://apps/urgency-all-in-one-fomo-app/blocks/app-embed/9f1fd920-d273-490f-83fe-0f8188671817",
         "disabled": false,
         "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
