@@ -193,7 +193,7 @@
         "text_alignment": "center",
         "mobile_text_alignment": "center",
         "padding_top": 0,
-        "padding_bottom": 60,
+        "padding_bottom": 20,
         "padding_horizontal": 20,
         "title_font_size": 26,
         "title_font_size_mobile": 22,
@@ -909,7 +909,7 @@
     "sticky_countdown": {
       "type": "sticky-countdown-banner",
       "settings": {
-        "text": "LIMITED TIME OFFER ENDS IN",
+        "text": "🔥 LIMITED TIME OFFER ENDS IN",
         "hours": 2,
         "sync_lts": true,
         "position": "top",
