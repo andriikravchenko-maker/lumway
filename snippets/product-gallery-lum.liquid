@@ -15,6 +15,45 @@
 
 {%- if gallery_count > 0 -%}
   <div class="lpg" data-lpg>
+    {%- comment -%} Styles first, before the markup, so the gallery never paints unstyled. This block
+      used to sit after the markup: on a slow connection the main image rendered at its 1200px width
+      attribute and the thumbnail rail unstyled, then snapped when this parsed = the desktop CLS on the
+      PDP (Lighthouse blamed .lpg__rail / the stage image). Global .lpg* selectors, no liquid vars. {%- endcomment -%}
+    {%- style -%}
+    .lpg{display:flex;flex-direction:column;gap:8px;padding:16px 16px 0;}
+    .lpg__stage{position:relative;width:100%;}
+    /* mobile: horizontal swipe slider (scroll-snap). the track is the rounded window; slides snap one-per-view. */
+    .lpg__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;border-radius:16px;background:#f4f4f2;}
+    .lpg__track::-webkit-scrollbar{display:none;}
+    .lpg__slide{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;}
+    /* container hugs the uploaded photo: no fixed aspect, height follows the image (no grey letterboxing) */
+    .lpg__stage-img{display:block;width:100%;height:auto;}
+    .lpg__rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
+    .lpg__rail::-webkit-scrollbar{display:none;}
+    /* exactly 5 thumbs in view (each = 1/5 of the row minus the 4 gaps); the rest scroll */
+    .lpg__item{flex:0 0 calc((100% - 8px) / 5);min-width:0;aspect-ratio:1/1;position:relative;padding:0;margin:0;border:1px solid rgba(17,59,52,.1);overflow:hidden;background:#f4f4f2;cursor:pointer;}
+    /* theme rounds <button> via its global button radius; beat it (specificity + !important) — Figma thumb r8 */
+    .lpg .lpg__item{border-radius:8px !important;}
+    .lpg__item.is-active{border-color:#113b34;}
+    .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+    .lpg__arrow{position:absolute !important;top:50% !important;transform:translateY(-50%) !important;z-index:2 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;width:auto !important;min-width:0 !important;min-height:0 !important;height:48px !important;padding:0 12px !important;margin:0 !important;background:rgba(242,242,242,.85) !important;background-image:none !important;box-shadow:none !important;text-shadow:none !important;border:0 !important;border-radius:28px !important;color:#113b34 !important;cursor:pointer;-webkit-appearance:none;appearance:none;}
+    .lpg__arrow::before,.lpg__arrow::after{display:none !important;}
+    .lpg__arrow--prev{left:calc(50% - 50vw) !important;right:auto !important;border-radius:0 28px 28px 0 !important;}
+    .lpg__arrow--next{right:calc(50% - 50vw) !important;left:auto !important;border-radius:28px 0 0 28px !important;}
+    .lpg__arrow.is-disabled{opacity:.5;cursor:default;pointer-events:none;}
+    .lpg__arrow svg{display:block !important;width:18px !important;height:14px !important;}
+    .lpg__arrow--prev svg{transform:rotate(180deg) !important;}
+    @media (min-width:990px){
+      .lpg{padding:0;}
+      /* desktop: same 1-up slider as mobile, but the arrows rest against the photo edges (not the screen) */
+      .lpg__track{border-radius:28px;}
+      .lpg__rail{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;}
+      .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:pointer;}
+      .lpg__item--first{display:none;}
+      .lpg__arrow--prev{left:0 !important;}
+      .lpg__arrow--next{right:0 !important;}
+    }
+    {%- endstyle -%}
     <div class="lpg__stage">
       <div class="lpg__track" data-lpg-track>
         {%- for media in gallery_media -%}
@@ -60,42 +99,6 @@
       </div>
     {%- endif -%}
   </div>
-
-  {%- style -%}
-    .lpg{display:flex;flex-direction:column;gap:8px;padding:16px 16px 0;}
-    .lpg__stage{position:relative;width:100%;}
-    /* mobile: horizontal swipe slider (scroll-snap). the track is the rounded window; slides snap one-per-view. */
-    .lpg__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;border-radius:16px;background:#f4f4f2;}
-    .lpg__track::-webkit-scrollbar{display:none;}
-    .lpg__slide{flex:0 0 100%;scroll-snap-align:start;scroll-snap-stop:always;}
-    /* container hugs the uploaded photo: no fixed aspect, height follows the image (no grey letterboxing) */
-    .lpg__stage-img{display:block;width:100%;height:auto;}
-    .lpg__rail{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;}
-    .lpg__rail::-webkit-scrollbar{display:none;}
-    /* exactly 5 thumbs in view (each = 1/5 of the row minus the 4 gaps); the rest scroll */
-    .lpg__item{flex:0 0 calc((100% - 8px) / 5);min-width:0;aspect-ratio:1/1;position:relative;padding:0;margin:0;border:1px solid rgba(17,59,52,.1);overflow:hidden;background:#f4f4f2;cursor:pointer;}
-    /* theme rounds <button> via its global button radius; beat it (specificity + !important) — Figma thumb r8 */
-    .lpg .lpg__item{border-radius:8px !important;}
-    .lpg__item.is-active{border-color:#113b34;}
-    .lpg__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-    .lpg__arrow{position:absolute !important;top:50% !important;transform:translateY(-50%) !important;z-index:2 !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;width:auto !important;min-width:0 !important;min-height:0 !important;height:48px !important;padding:0 12px !important;margin:0 !important;background:rgba(242,242,242,.85) !important;background-image:none !important;box-shadow:none !important;text-shadow:none !important;border:0 !important;border-radius:28px !important;color:#113b34 !important;cursor:pointer;-webkit-appearance:none;appearance:none;}
-    .lpg__arrow::before,.lpg__arrow::after{display:none !important;}
-    .lpg__arrow--prev{left:calc(50% - 50vw) !important;right:auto !important;border-radius:0 28px 28px 0 !important;}
-    .lpg__arrow--next{right:calc(50% - 50vw) !important;left:auto !important;border-radius:28px 0 0 28px !important;}
-    .lpg__arrow.is-disabled{opacity:.5;cursor:default;pointer-events:none;}
-    .lpg__arrow svg{display:block !important;width:18px !important;height:14px !important;}
-    .lpg__arrow--prev svg{transform:rotate(180deg) !important;}
-    @media (min-width:990px){
-      .lpg{padding:0;}
-      /* desktop: same 1-up slider as mobile, but the arrows rest against the photo edges (not the screen) */
-      .lpg__track{border-radius:28px;}
-      .lpg__rail{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:visible;}
-      .lpg .lpg__item{aspect-ratio:1/1;border:0;border-radius:28px !important;cursor:pointer;}
-      .lpg__item--first{display:none;}
-      .lpg__arrow--prev{left:0 !important;}
-      .lpg__arrow--next{right:0 !important;}
-    }
-  {%- endstyle -%}
 
   <script>
     (function(){
