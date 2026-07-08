@@ -13,7 +13,8 @@
       "type": "lum-template-font",
       "settings": {
         "pdp_benefit_overrides": false,
-        "enable_rum": false
+        "enable_rum": false,
+        "enable_events": true
       }
     },
     "main": {
@@ -346,9 +347,9 @@
           "settings": {
             "image": "shopify://shop_images/Image_Container.png",
             "rating": 5,
-            "title": "Huge difference after meals",
-            "text": "“I used to sit around after dinner feeling miserable for hours. Tight stomach, bloating, heaviness — all of it. Two months and things are honestly so much better. I feel comfortable eating again.”",
-            "name": "— Linda M."
+            "title": "My Husband Noticed Before I Did",
+            "text": "\"I've always worked out and eaten well, so I knew something else had changed. A few weeks after starting Metabolic Flow, I felt more like myself again. I had steadier energy, a better mood, and I found myself being more present with my husband. He even said, 'It's nice to have you back.'\"",
+            "name": "— Michelle, 56"
           }
         },
         "review_8h3ftx": {
@@ -392,7 +393,7 @@
         "slides_per_view": 3,
         "slides_per_view_mobile": 1,
         "background_color": "#ffffff",
-        "card_bg": "#ffffff",
+        "card_bg": "#F1EEEF",
         "card_border_color": "#32477a",
         "card_radius": 20,
         "card_padding": 16,
@@ -700,6 +701,7 @@
           "name": "Sticky Add to Cart",
           "settings": {
             "button_text": "🔥 Try Metabolic Flow Now",
+            "show_arrow": false,
             "button_link": "/products/feel-balanced-after-45",
             "button_bg": "#32477a",
             "button_text_color": "#ffffff",
@@ -719,8 +721,7 @@
             "max_width": 500,
             "border_radius": 12,
             "margin_top": 20,
-            "margin_bottom": 20,
-            "show_arrow": false
+            "margin_bottom": 20
           },
           "blocks": {}
         }
