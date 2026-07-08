@@ -22,6 +22,70 @@
   {%- endif -%}
 {%- else -%}
 <section id="product-details-lum" class="pdl section-{{ section.id }}">
+  {%- comment -%} Section CSS lives at the TOP, before the markup, so nothing paints unstyled. It used
+    to sit after </section>: on slow mobile the browser painted the markup with theme defaults first
+    (Figma icons blown to full column width, the h1 at the theme's 40px, .pdl__info with no padding,
+    fallback font) and snapped when this finally parsed. Parsing it first removes that whole flash.
+    Only references section.id / section.settings / template — safe anywhere in the section. {%- endcomment -%}
+  {%- style -%}
+    @font-face{ font-family:'Inter Tight'; font-style:normal; font-weight:400 700; font-display:swap; src:url({{ 'lum-inter-tight.woff2' | asset_url }}) format('woff2'); }
+
+    {% if template.name == 'product' %}
+    /* This whole PDP is Inter Tight. On product templates the section re-fonts the entire page
+       (header / footer / reused blocks) via the theme's font variables. On landings the page keeps
+       its own fonts (the section text itself is Inter Tight via --pdl-font either way). */
+    :root{
+      --font-body-family: 'Inter Tight', system-ui, sans-serif !important;
+      --font-heading-family: 'Inter Tight', system-ui, sans-serif !important;
+      --font-accent-family: 'Inter Tight', system-ui, sans-serif !important;
+    }
+    {% endif %}
+
+    .section-{{ section.id }}{
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      --pdl-font: 'Inter Tight', system-ui, sans-serif;
+      --pdl-ink: #113b34;
+    }
+    .section-{{ section.id }}.pdl{ display:flex; flex-direction:column; }
+    .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
+
+    /* Rating */
+    .section-{{ section.id }} .pdl-rating{ display:flex; align-items:center; gap:12px; }
+    .section-{{ section.id }} .pdl-rating__stars{ display:inline-flex; align-items:center; }
+    .section-{{ section.id }} .pdl-rating__star{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; }
+    .section-{{ section.id }} .pdl-rating__star svg{ display:block; width:16.67px; height:15.83px; }
+    .section-{{ section.id }} .pdl-rating__text{ display:inline-flex; align-items:center; min-height:20px; font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1; letter-spacing:-0.28px; color:var(--pdl-ink); }
+
+    /* Title */
+    .section-{{ section.id }} .pdl-title{ margin:0; font-family:var(--pdl-font); font-weight:700; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--pdl-ink); text-transform:capitalize; }
+
+    /* Subtitle (8px under the title per Figma, 16px from neighbours) */
+    .section-{{ section.id }} .pdl-subtitle{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); }
+    .section-{{ section.id }} .pdl-subtitle p{ margin:0; }
+    .section-{{ section.id }} .pdl-title + .pdl-subtitle{ margin-top:-8px; }
+
+    /* Benefit chips */
+    .section-{{ section.id }} .pdl-labels{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+    .section-{{ section.id }} .pdl-chip{ display:inline-flex; align-items:center; gap:4px; height:32px; padding:0 12px; background:#f4f4f2; border-radius:28px; box-sizing:border-box; }
+    .section-{{ section.id }} .pdl-chip__icon{ display:inline-flex; width:12px; height:12px; flex:0 0 12px; }
+    .section-{{ section.id }} .pdl-chip__icon svg{ display:block; width:100%; height:100%; }
+    .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); white-space:nowrap; }
+
+    /* Theme re-fonts these text nodes with its own font; force Inter Tight (beats the theme rules) */
+    .section-{{ section.id }} .pdl-rating__text,
+    .section-{{ section.id }} .pdl-title,
+    .section-{{ section.id }} .pdl-subtitle,
+    .section-{{ section.id }} .pdl-subtitle p,
+    .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font) !important; }
+
+    @media (min-width:990px){
+      .section-{{ section.id }}.pdl{ flex-direction:row; align-items:flex-start; gap:28px; max-width:1440px; margin:0 auto; padding:40px 48px; box-sizing:border-box; }
+      .section-{{ section.id }} .pdl__media{ flex:1 1 0; min-width:0; }
+      .section-{{ section.id }} .pdl__info{ flex:1 1 0; min-width:0; padding:0; gap:24px; }
+      .section-{{ section.id }} .pdl-title{ font-size:36px; letter-spacing:-0.72px; }
+    }
+  {%- endstyle -%}
   <div class="pdl__media">
     {%- render 'product-gallery-lum', product: pdl_product -%}
   </div>
@@ -83,66 +147,6 @@
     {%- endfor -%}
   </div>
 </section>
-
-{%- style -%}
-  @font-face{ font-family:'Inter Tight'; font-style:normal; font-weight:400 700; font-display:swap; src:url({{ 'lum-inter-tight.woff2' | asset_url }}) format('woff2'); }
-
-  {% if template.name == 'product' %}
-  /* This whole PDP is Inter Tight. On product templates the section re-fonts the entire page
-     (header / footer / reused blocks) via the theme's font variables. On landings the page keeps
-     its own fonts (the section text itself is Inter Tight via --pdl-font either way). */
-  :root{
-    --font-body-family: 'Inter Tight', system-ui, sans-serif !important;
-    --font-heading-family: 'Inter Tight', system-ui, sans-serif !important;
-    --font-accent-family: 'Inter Tight', system-ui, sans-serif !important;
-  }
-  {% endif %}
-
-  .section-{{ section.id }}{
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    --pdl-font: 'Inter Tight', system-ui, sans-serif;
-    --pdl-ink: #113b34;
-  }
-  .section-{{ section.id }}.pdl{ display:flex; flex-direction:column; }
-  .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
-
-  /* Rating */
-  .section-{{ section.id }} .pdl-rating{ display:flex; align-items:center; gap:12px; }
-  .section-{{ section.id }} .pdl-rating__stars{ display:inline-flex; align-items:center; }
-  .section-{{ section.id }} .pdl-rating__star{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; }
-  .section-{{ section.id }} .pdl-rating__star svg{ display:block; width:16.67px; height:15.83px; }
-  .section-{{ section.id }} .pdl-rating__text{ display:inline-flex; align-items:center; min-height:20px; font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1; letter-spacing:-0.28px; color:var(--pdl-ink); }
-
-  /* Title */
-  .section-{{ section.id }} .pdl-title{ margin:0; font-family:var(--pdl-font); font-weight:700; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--pdl-ink); text-transform:capitalize; }
-
-  /* Subtitle (8px under the title per Figma, 16px from neighbours) */
-  .section-{{ section.id }} .pdl-subtitle{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); }
-  .section-{{ section.id }} .pdl-subtitle p{ margin:0; }
-  .section-{{ section.id }} .pdl-title + .pdl-subtitle{ margin-top:-8px; }
-
-  /* Benefit chips */
-  .section-{{ section.id }} .pdl-labels{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
-  .section-{{ section.id }} .pdl-chip{ display:inline-flex; align-items:center; gap:4px; height:32px; padding:0 12px; background:#f4f4f2; border-radius:28px; box-sizing:border-box; }
-  .section-{{ section.id }} .pdl-chip__icon{ display:inline-flex; width:12px; height:12px; flex:0 0 12px; }
-  .section-{{ section.id }} .pdl-chip__icon svg{ display:block; width:100%; height:100%; }
-  .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); white-space:nowrap; }
-
-  /* Theme re-fonts these text nodes with its own font; force Inter Tight (beats the theme rules) */
-  .section-{{ section.id }} .pdl-rating__text,
-  .section-{{ section.id }} .pdl-title,
-  .section-{{ section.id }} .pdl-subtitle,
-  .section-{{ section.id }} .pdl-subtitle p,
-  .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font) !important; }
-
-  @media (min-width:990px){
-    .section-{{ section.id }}.pdl{ flex-direction:row; align-items:flex-start; gap:28px; max-width:1440px; margin:0 auto; padding:40px 48px; box-sizing:border-box; }
-    .section-{{ section.id }} .pdl__media{ flex:1 1 0; min-width:0; }
-    .section-{{ section.id }} .pdl__info{ flex:1 1 0; min-width:0; padding:0; gap:24px; }
-    .section-{{ section.id }} .pdl-title{ font-size:36px; letter-spacing:-0.72px; }
-  }
-{%- endstyle -%}
 {%- endif -%}
 
 {% schema %}

@@ -20,13 +20,18 @@
   {% endif %}
 >
   <head>
-    {% render 'shogun-optimizer' %}
-
-  {% render 'elevateab' %}
+    {% comment %} charset + viewport MUST come before any app script. shogun-optimizer and elevateab
+      inject ~50KB of inline JS; if the viewport meta sits after them the browser lays out at its
+      default 980px width and paints a zoomed-out frame for ~0.8s on mobile, then snaps to
+      device-width once the meta is finally parsed. That snap is the mobile "flicker" on first load.
+      Keep these four metas first; the app snippets run immediately after, order between them unchanged. {% endcomment %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
+
+    {% render 'shogun-optimizer' %}
+    {% render 'elevateab' %}
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- if settings.favicon != blank -%}
