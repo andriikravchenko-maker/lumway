@@ -55,6 +55,11 @@
       {% render 'loop-widget-style', product: product %}
     {% endif %}
 
+    {% comment %} Advertorial/landing analytics (ESGLD_61); the snippet self-limits to four page handles. {% endcomment %}
+    {% if template.name == 'page' %}
+      {% render 'lum-amplitude-events-landing', page: page %}
+    {% endif %}
+
     {% comment %} Loaders: jQuery/Swiper on demand – no defer so sections can call before body parses {% endcomment %}
     <script src="{{ 'theme-loaders.js' | asset_url }}"></script>
 

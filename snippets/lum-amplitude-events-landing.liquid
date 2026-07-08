@@ -1,0 +1,93 @@
+{%- comment -%}
+  lum-amplitude-events-landing — advertorial/landing analytics events per the ESGLD_61 map
+  (advetoril/landing section): page_view + cta_button_clicked. scroll_depth is already covered
+  store-wide by amplitude-scroll-depth.js and is not duplicated here.
+  Scoped by page HANDLE to the four agreed landings; every other page renders nothing.
+  Same dispatch seam as the PDP tracker: Amplitude + a 'lum:analytics' DOM CustomEvent for the
+  planned future move to a custom pipeline. Per the map, the Buy now button on /pages/metabolic
+  is excluded from cta_button_clicked.
+  Usage: {% render 'lum-amplitude-events-landing', page: page %}
+{%- endcomment -%}
+{%- assign lum_landing_handles = 'copy-of-lumway,lumway2,listicle-2,metabolic' | split: ',' -%}
+{%- if page != blank and lum_landing_handles contains page.handle -%}
+<script>
+  (function () {
+    if (window.__lumLandingEventsBound) return;
+    window.__lumLandingEventsBound = true;
+
+    var PAGE_HANDLE = {{ page.handle | json }};
+    var EXCLUDE_BUY_NOW = {% if page.handle == 'metabolic' %}true{% else %}false{% endif %};
+
+    var queue = [];
+    function ampFn() {
+      var amp = window.amplitude;
+      if (!amp) return null;
+      if (typeof amp.track === 'function') return amp.track.bind(amp);
+      if (amp.default && typeof amp.default.track === 'function') return amp.default.track.bind(amp.default);
+      if (typeof amp.getInstance === 'function') {
+        try {
+          var inst = amp.getInstance();
+          if (inst && typeof inst.logEvent === 'function') return function (n, p) { inst.logEvent(n, p); };
+        } catch (e) {}
+      }
+      return null;
+    }
+    function track(name, props) {
+      try {
+        var payload = Object.assign({ page_title: document.title }, props || {});
+        document.dispatchEvent(new CustomEvent('lum:analytics', { detail: { event: name, properties: payload } }));
+        var fn = ampFn();
+        if (fn) fn(name, payload); else queue.push([name, payload]);
+      } catch (e) {}
+    }
+    var tries = 0;
+    var flusher = setInterval(function () {
+      var fn = ampFn();
+      if (fn) { queue.splice(0).forEach(function (ev) { fn(ev[0], ev[1]); }); clearInterval(flusher); }
+      else if (++tries > 40) { clearInterval(flusher); }
+    }, 1000);
+
+    // ---- page_view ---------------------------------------------------------
+    track('page_view', { page_type: 'advertorial', page_url: location.origin + location.pathname, referrer: document.referrer || '' });
+
+    // ---- cta_button_clicked --------------------------------------------------
+    function clean(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+    function productHandleFrom(href) {
+      if (!href) return '';
+      var m = String(href).split('/products/')[1];
+      return m ? m.split('?')[0].split('#')[0].split('/')[0] : '';
+    }
+    function placementFor(el) {
+      // the fixed footer button reports itself; content buttons report the heading right above them
+      if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) {
+        return clean(el.textContent).slice(0, 100);
+      }
+      var heads = document.querySelectorAll('h1, h2, h3');
+      var last = '';
+      for (var i = 0; i < heads.length; i++) {
+        var pos = heads[i].compareDocumentPosition(el);
+        if (pos & Node.DOCUMENT_POSITION_FOLLOWING) last = clean(heads[i].textContent);
+        else break;
+      }
+      return last.slice(0, 100);
+    }
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('a, button');
+      if (!el) return;
+      // header / drawers / cart / form controls are not content CTAs
+      if (el.closest('header, .header, header-drawer, cart-drawer, .footer__content-bottom, .menu-drawer')) return;
+      var cls = String(el.className || '');
+      var isCta = /(button|btn|cta)/i.test(cls) || el.closest('.simple-sticky-btn-wrapper, [id^="simpleStickyBtn"]');
+      if (!isCta) return;
+      var name = clean(el.textContent).slice(0, 80);
+      if (!name) return;
+      if (EXCLUDE_BUY_NOW && /buy\s*now/i.test(name)) return;
+      track('cta_button_clicked', {
+        button_name: name,
+        product_id: productHandleFrom(el.getAttribute && el.getAttribute('href')),
+        placement: placementFor(el)
+      });
+    }, true);
+  })();
+</script>
+{%- endif -%}
