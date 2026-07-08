@@ -563,6 +563,11 @@
         "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
         "disabled": false,
         "settings": {}
+      },
+      "12168986436008309812": {
+        "type": "shopify://apps/parkour-tiktok-pixel/blocks/threasury_pixel/6c589340-c893-4a7c-ad89-703f18722d60",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
