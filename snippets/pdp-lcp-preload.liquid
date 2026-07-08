@@ -11,6 +11,14 @@
   template is added, add its suffix to the test below, otherwise it gets no preload (safe, just slower).
 {%- endcomment -%}
 {%- if template.suffix == 'lum-template-3' or template.suffix == 'lum-template-4' or template.suffix == 'lum-template-5' -%}
+  {%- comment -%} Preload the PDP webfont. product-details-lum declares @font-face 'Inter Tight'
+    (src: lum-inter-tight.woff2, font-display:swap). Without this the file is only discovered when
+    that CSS parses and loads seconds late on mobile, so text renders in the fallback then swaps
+    weight/metrics = a visible flash. Preloading it here (head, high priority) shrinks the swap to
+    near-nothing. crossorigin is required even same-origin: font fetches are always CORS. {%- endcomment -%}
+  {% comment %}theme-check-disable AssetPreload{% endcomment %}
+  <link rel="preload" as="font" type="font/woff2" href="{{ 'lum-inter-tight.woff2' | asset_url }}" crossorigin>
+  {% comment %}theme-check-enable AssetPreload{% endcomment %}
   {%- assign lcp_media = product.media | where: 'media_type', 'image' | first -%}
   {%- if lcp_media -%}
     {% comment %}theme-check-disable AssetPreload{% endcomment %}
