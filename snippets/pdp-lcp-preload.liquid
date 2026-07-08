@@ -10,7 +10,7 @@
   Scope: only the templates that render product-details-lum (the lum gallery). If a new lum PDP
   template is added, add its suffix to the test below, otherwise it gets no preload (safe, just slower).
 {%- endcomment -%}
-{%- if template.suffix == 'lum-template-3' or template.suffix == 'lum-template-4' -%}
+{%- if template.suffix == 'lum-template-3' or template.suffix == 'lum-template-4' or template.suffix == 'lum-template-5' -%}
   {%- assign lcp_media = product.media | where: 'media_type', 'image' | first -%}
   {%- if lcp_media -%}
     {% comment %}theme-check-disable AssetPreload{% endcomment %}

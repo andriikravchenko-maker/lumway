@@ -252,6 +252,15 @@
     {{ 'accent-typography.css' | asset_url | stylesheet_tag }}
     {{ 'selective-heading-fonts.css' | asset_url | stylesheet_tag }}
     {{ 'custom.css' | asset_url | stylesheet_tag }}
+    {% comment %} Critical closed-state for the cart drawer. Its full stylesheets load async below
+      (media=print swap); without this the unstyled <cart-drawer> paints IN FLOW at the top of <body>
+      (~560px tall), pushes the whole page down, then snaps up when the CSS lands = the 0.9 CLS spike
+      our RUM records on the lum PDPs. Mirrors component-cart-drawer.css exactly: closed drawer is
+      fixed + hidden; .active (stylesheet 0-2-0 beats this 0-0-1) still opens it. {% endcomment %}
+    <style>
+      cart-drawer{position:fixed;top:0;right:0;left:auto;width:100vw;height:100%;visibility:hidden;z-index:1000;}
+      cart-drawer.active{visibility:visible;}
+    </style>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {% comment %} Conditional Assets {% endcomment %}
