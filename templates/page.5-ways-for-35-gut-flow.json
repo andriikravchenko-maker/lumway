@@ -68,7 +68,7 @@
         "column_gap": 24,
         "content_gap": 24,
         "background_color": "#F4F2F3",
-        "image": "shopify://shop_images/image_32.webp",
+        "image": "shopify://shop_images/4471194.webp",
         "image_border_radius": 40,
         "heading_before": "The",
         "heading_accent": "Hidden Triggers",
@@ -261,7 +261,7 @@
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/4471191.webp",
+        "image": "shopify://shop_images/4471202.webp",
         "image_border_radius": 0,
         "body_text": "<p>Your digestive system notices changes long before you do. It <strong>notices</strong> when your <strong>daily routine disappears.</strong></p><ul><li>When stress replaces sleep.</li><li>When sitting replaces walking.</li><li>When airport meals replace home cooking.</li><li>When weight-loss diets leave little room for fiber.</li><li>When GLP-1 medications naturally slow digestion </li></ul><p>None of these are unusual.</p><p>In fact...</p>",
         "text_size": 16,
@@ -286,6 +286,7 @@
         "ingredient_DCzr4r": {
           "type": "ingredient",
           "settings": {
+            "image": "shopify://shop_images/4471198.webp",
             "image_shape": "square",
             "title": "You finally committed to losing weight",
             "description": "<p>✅ You're eating less.</p><p>✅ Avoiding snacks.</p><p>✅ Counting calories.</p><p><em>Maybe you're using a GLP-1 medication as part of your plan.</em></p><p>The number on the scale is moving.</p><p><strong>But suddenly...</strong></p><p><strong>constipation </strong>becomes the <strong>unexpected side effect</strong> nobody warned you about.</p>"
@@ -294,6 +295,7 @@
         "ingredient_yiiWVA": {
           "type": "ingredient",
           "settings": {
+            "image": "shopify://shop_images/4471196.webp",
             "image_shape": "square",
             "title": "You're on vacation",
             "description": "<p>Finally relaxing but after two days...</p><p>❌ Your stomach feels swollen.</p><p>❌ You haven't gone to the bathroom.</p><p>❌ Your clothes feel tighter than when you packed them.</p>"
@@ -302,6 +304,7 @@
         "ingredient_BBHtfg": {
           "type": "ingredient",
           "settings": {
+            "image": "shopify://shop_images/4471197.webp",
             "image_shape": "square",
             "title": "You're working 10-hour days",
             "description": "<ul><li>Coffee for breakfast.</li><li>Lunch between Zoom calls.</li><li>Dinner in front of your laptop.</li><li>You barely stand up all day.</li></ul><p><strong>By Friday...</strong></p><p>your <strong>digestion </strong>feels completely <strong>off.</strong></p>"
@@ -310,6 +313,7 @@
         "ingredient_KkxKka": {
           "type": "ingredient",
           "settings": {
+            "image": "shopify://shop_images/4471199.webp",
             "image_shape": "square",
             "title": "You just got off a long flight",
             "description": "<ul><li>Different meals.</li><li>Less water.</li><li>Hours of sitting.</li><li>Jet lag.</li></ul><p>Your <strong>body adjusts</strong> to a new time zone.</p><p>Your <strong>gut doesn't</strong>.</p>"
