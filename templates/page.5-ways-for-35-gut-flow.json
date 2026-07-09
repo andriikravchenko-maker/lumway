@@ -401,7 +401,7 @@
           "type": "title",
           "settings": {
             "title": "Different stories.",
-            "accent_text": "Same feeling."
+            "accent_text": "Same feelings."
           }
         },
         "subtitle_7xGykG": {
@@ -478,19 +478,19 @@
         "column_gap": 24,
         "content_gap": 24,
         "background_color": "#ffffff",
-        "title": "Why Circulation Matters",
+        "title": "It's Usually Not Just One Thing",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
         "image": "shopify://shop_images/4471183.webp",
         "image_border_radius": 0,
-        "body_text": "<p><strong>Healthy circulation helps deliver oxygen and nutrients throughout the body.</strong></p><p>That includes your brain, muscles, and the tissues involved in normal physical response.</p><p>While hormones play an important role, healthy blood flow is also part of the bigger picture of women’s vitality.</p><p>When<strong> circulation, metabolism, and energy production are not supported</strong> many women may feel:</p><ul><li>Less physically responsive</li><li>More tired by the end of the day</li><li>Less motivated</li><li>Less connected to their body</li><li>Less like themselves</li></ul>",
+        "body_text": "<p>People often search for a single cause. But digestion doesn't work that way. <strong>Occasional constipation</strong> is often the result of several <strong>small changes happening at once</strong>.</p><ul><li>Less movement.</li><li>Less water.</li><li>More stress.</li><li>Different foods.</li><li>Less fiber.</li></ul><p>Individually, <strong>each change seems harmless.</strong></p>",
         "text_size": 15,
         "text_color": "#3b3b3b",
-        "testimonial_text": "<p><strong>❌ This doesn’t mean something is “wrong” with you.</strong></p><p><strong>✅ It may simply mean your body needs support in a new way.</strong></p>",
+        "testimonial_text": "<p>Together...</p><p>they can completely change how your digestive system feels.</p>",
         "testimonial_size": 18,
         "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#a9617a",
+        "testimonial_color": "#99364C",
         "button_text": "",
         "button_link": "",
         "button_show_arrow": false,
