@@ -612,7 +612,7 @@
             "row_1_text": "All of our products are shipped from USA",
             "row_2_show": true,
             "row_2_icon": "shield",
-            "row_2_bg": "#f7f0f3",
+            "row_2_bg": "#FFF9BD",
             "row_2_title": "30-day money-back guarantee",
             "row_2_text": "Feel the difference or get refunded",
             "row_3_show": false,
