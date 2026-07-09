@@ -1024,6 +1024,7 @@
         "feature_49r4WG",
         "feature_cY7CE9"
       ],
+      "disabled": true,
       "name": "Alternating Features",
       "settings": {
         "use_theme_colors": false,
@@ -1137,7 +1138,7 @@
         "content_gap": 40,
         "feature_gap": 16,
         "background_color": "#ffffff",
-        "title": "Why Women Choose Metabolic Flow 45+",
+        "title": "Think of Fiber Like Packing an Umbrella",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
