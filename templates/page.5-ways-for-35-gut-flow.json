@@ -283,6 +283,14 @@
     "scrollable_ingredients_final_v2_iEWzjL": {
       "type": "scrollable-ingredients-final-v2",
       "blocks": {
+        "ingredient_DCzr4r": {
+          "type": "ingredient",
+          "settings": {
+            "image_shape": "square",
+            "title": "You finally committed to losing weight",
+            "description": "<p>✅ You're eating less.</p><p>✅ Avoiding snacks.</p><p>✅ Counting calories.</p><p><em>Maybe you're using a GLP-1 medication as part of your plan.</em></p><p>The number on the scale is moving.</p><p><strong>But suddenly...</strong></p><p><strong>constipation </strong>becomes the <strong>unexpected side effect</strong> nobody warned you about.</p>"
+          }
+        },
         "ingredient_yiiWVA": {
           "type": "ingredient",
           "settings": {
@@ -299,20 +307,12 @@
             "description": "<ul><li>Coffee for breakfast.</li><li>Lunch between Zoom calls.</li><li>Dinner in front of your laptop.</li><li>You barely stand up all day.</li></ul><p><strong>By Friday...</strong></p><p>your <strong>digestion </strong>feels completely <strong>off.</strong></p>"
           }
         },
-        "ingredient_DCzr4r": {
-          "type": "ingredient",
-          "settings": {
-            "image_shape": "circle",
-            "title": "Ingredient Name",
-            "description": "<p>Brief description of the ingredient and its benefits.</p>"
-          }
-        },
         "ingredient_KkxKka": {
           "type": "ingredient",
           "settings": {
-            "image_shape": "circle",
-            "title": "Ingredient Name",
-            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+            "image_shape": "square",
+            "title": "You just got off a long flight",
+            "description": "<ul><li>Different meals.</li><li>Less water.</li><li>Hours of sitting.</li><li>Jet lag.</li></ul><p>Your <strong>body adjusts</strong> to a new time zone.</p><p>Your <strong>gut doesn't</strong>.</p>"
           }
         },
         "ingredient_ggYgAX": {
@@ -325,9 +325,9 @@
         }
       },
       "block_order": [
+        "ingredient_DCzr4r",
         "ingredient_yiiWVA",
         "ingredient_BBHtfg",
-        "ingredient_DCzr4r",
         "ingredient_KkxKka",
         "ingredient_ggYgAX"
       ],
