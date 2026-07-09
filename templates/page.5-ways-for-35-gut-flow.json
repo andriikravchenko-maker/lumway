@@ -287,8 +287,8 @@
           "type": "ingredient",
           "settings": {
             "image_shape": "square",
-            "title": "Ingredient Name",
-            "description": "<p>You're finally relaxing.</p><p>But after two days...</p><p>❌ Your stomach feels swollen.</p><p>❌ You haven't gone to the bathroom.</p><p>❌ Your clothes feel tighter than when you packed them.</p>"
+            "title": "You're on vacation",
+            "description": "<p>Finally relaxing but after two days...</p><p>❌ Your stomach feels swollen.</p><p>❌ You haven't gone to the bathroom.</p><p>❌ Your clothes feel tighter than when you packed them.</p>"
           }
         },
         "ingredient_BBHtfg": {
