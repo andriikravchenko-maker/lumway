@@ -537,6 +537,42 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
+    "gut_harmony_feature_K7MA6t": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 28,
+        "title_gap": 16,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "Why More People Are Choosing Daily Fiber Support",
+        "title_size": 40,
+        "title_size_mobile": 24,
+        "title_color": "#3b3b3b",
+        "image": "shopify://shop_images/4471193-3.webp",
+        "image_border_radius": 0,
+        "body_text": "<p>For years, many people treated constipation like an emergency. Wait until things become uncomfortable.</p><p><em>Then look for a quick fix.</em></p><p>But <strong>nutrition experts</strong> increasingly <strong>recommend a different mindset.</strong></p>",
+        "text_size": 16,
+        "text_color": "#3b3b3b",
+        "testimonial_text": "<p><strong>💬 Support </strong>your <strong>digestive system before it starts struggling.</strong> That begins with <strong>consistently</strong> meeting your <strong>daily fiber needs.</strong></p>",
+        "testimonial_size": 18,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#99364C",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
     "gut_harmony_reviews_RY8qtC": {
       "type": "gut-harmony-reviews",
       "blocks": {
@@ -576,6 +612,7 @@
         "review_8h3ftx",
         "review_MM7nQf"
       ],
+      "disabled": true,
       "name": "Gut Harmony Reviews",
       "settings": {
         "use_theme_colors": false,
@@ -610,14 +647,14 @@
         "rt_title": {
           "type": "title",
           "settings": {
-            "title": "Meet",
-            "accent_text": "Gut Flow"
+            "title": "Where",
+            "accent_text": "Gut Flow Fits In"
           }
         },
         "rt_sub": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>Daily metabolic support for women 45+ who want to feel more like themselves again</p>"
+            "subtitle": "<p>Designed around an easy way to get enough prebiotic fiber every single day</p>"
           }
         }
       },
@@ -638,9 +675,9 @@
         "title_margin_bottom": 12,
         "title_color": "#3b3b3b",
         "use_accent_gradient": true,
-        "accent_color": "#794054",
+        "accent_color": "#99364C",
         "accent_gradient_start": "#ef4a65",
-        "accent_gradient_end": "#a9617a",
+        "accent_gradient_end": "#99364C",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 16,
@@ -1278,6 +1315,7 @@
     "rich_text_cNhqwK",
     "gut_harmony_feature_ncw9RV",
     "gut_harmony_feature_6gkhMK",
+    "gut_harmony_feature_K7MA6t",
     "gut_harmony_reviews_RY8qtC",
     "pdl_heading_divider",
     "product_details_lum",
