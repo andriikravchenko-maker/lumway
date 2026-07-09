@@ -67,7 +67,7 @@
         "padding_bottom_mobile": 40,
         "column_gap": 24,
         "content_gap": 24,
-        "background_color": "#f0f0f0",
+        "background_color": "#F9F9F9",
         "image": "shopify://shop_images/image_32.webp",
         "image_border_radius": 40,
         "heading_before": "The",
@@ -77,8 +77,8 @@
         "heading_size_mobile": 26,
         "heading_line_height": 1.1,
         "heading_color": "#3b3b3b",
-        "heading_accent_color": "#5e1424",
-        "subheading": "<p><em>It’s not always about hormones. </em></p><p><em>New research suggests </em><em><strong>your metabolism, circulation and daily energy may play a bigger role</strong></em><em> than many women realize.</em></p>",
+        "heading_accent_color": "#99364C",
+        "subheading": "<p></p><p></p>",
         "subheading_size": 22,
         "subheading_size_mobile": 16,
         "subheading_color": "#6b6b6b",
@@ -117,6 +117,7 @@
       "block_order": [
         "author_YQhdhE"
       ],
+      "disabled": true,
       "name": "Advertorial Section",
       "settings": {
         "use_theme_colors": true,
@@ -145,32 +146,45 @@
         "title_6k7zw7": {
           "type": "title",
           "settings": {
-            "title": "For years, women have been told",
-            "accent_text": "that losing desire after 45 is just “part of getting older.”"
+            "title": "Have you ever noticed how",
+            "accent_text": "it never happens at a convenient time?"
           }
         },
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p><em>✓ Hormones change</em></p><p><em>✓ Energy drops</em></p><p><em>✓ Your body feels different</em></p>"
+            "subtitle": "<p>🏝️ It happens on vacation</p><p>📆 Right before an important meeting</p><p>✈️ After a 10-hour flight</p><p>🥊 Halfway through your weight-loss journey</p><p>📌 Or during one of those weeks when you're glued to your desk from morning until night</p>"
           }
         },
         "subtitle_J6QgnC": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>And eventually, many women begin to believe: </p><p><em><strong>💬 “This is just my new normal.”</strong></em></p><p><em><strong>💬 \"I just don't feel my body wanting him anymore because of my hormones.\"</strong></em></p>"
+            "subtitle": "<p>One day, everything feels normal.</p><p><strong>Then suddenly...</strong></p>"
           }
         },
         "subtitle_cKcC7L": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p><strong>But what if that explanation is incomplete?</strong></p>"
+            "subtitle": "<p><em><strong>... your jeans don't button as easily</strong></em></p><p><em><strong>... your stomach feels heavy after every meal</strong></em></p><p><em><strong>... you wake up bloated</strong></em></p><p><em><strong>... you don't feel like yourself</strong></em></p>"
           }
         },
         "subtitle_LjgwEz": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>What if feeling less connected, less energized, and less like yourself <strong>isn’t only about hormones</strong> — but also about the systems that help your body create energy, maintain healthy circulation, and respond to daily life?</p><p>That’s where the conversation is starting to change.</p>"
+            "subtitle": "<p>And somewhere in the back of your mind, a <strong>question appears:</strong></p>"
+          }
+        },
+        "title_qJeyff": {
+          "type": "title",
+          "settings": {
+            "title": "💬 \"When was the last time",
+            "accent_text": "I actually had a normal bowel movement?\""
+          }
+        },
+        "subtitle_Gned7P": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p>Most people immediately blame the food.</p><p>But what if <strong>food isn't the whole story?</strong></p>"
           }
         }
       },
@@ -179,14 +193,16 @@
         "subtitle_PirNe8",
         "subtitle_J6QgnC",
         "subtitle_cKcC7L",
-        "subtitle_LjgwEz"
+        "subtitle_LjgwEz",
+        "title_qJeyff",
+        "subtitle_Gned7P"
       ],
       "name": "Rich Text",
       "settings": {
         "use_theme_colors": true,
         "text_alignment": "center",
         "mobile_text_alignment": "center",
-        "padding_top": 0,
+        "padding_top": 20,
         "padding_bottom": 20,
         "padding_horizontal": 20,
         "title_font_size": 26,
@@ -195,9 +211,9 @@
         "title_margin_bottom": 20,
         "title_color": "#3b3b3b",
         "use_accent_gradient": true,
-        "accent_color": "#794054",
+        "accent_color": "#5E1424",
         "accent_gradient_start": "#ef4a65",
-        "accent_gradient_end": "#a9617a",
+        "accent_gradient_end": "#5E1424",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 16,
@@ -523,7 +539,7 @@
             "option_2_free": 0,
             "option_2_save": "Save $12",
             "option_2_badge": "Best Seller",
-            "option_2_badge_bg": "#5E1424",
+            "option_2_badge_bg": "#32477a",
             "option_2_badge_text": "#ffffff",
             "option_3_show": true,
             "option_3_selected": false,
@@ -534,7 +550,7 @@
             "option_3_free": 0,
             "option_3_save": "Save $12",
             "option_3_badge": "Best Deal",
-            "option_3_badge_bg": "#113B34",
+            "option_3_badge_bg": "#a9617a",
             "option_3_badge_text": "#ffffff",
             "option_4_show": false,
             "option_4_selected": false,
@@ -595,8 +611,8 @@
             "show_price_in_button": true,
             "show_compare_in_button": true,
             "cart_icon": "none",
-            "button_bg": "#5E1424",
-            "button_hover_bg": "#5E1424",
+            "button_bg": "#32477a",
+            "button_hover_bg": "#202e4f",
             "button_text_color": "#ffffff",
             "show_sticky": false,
             "sticky_label": "Try it Now"
@@ -612,7 +628,7 @@
             "row_1_text": "All of our products are shipped from USA",
             "row_2_show": true,
             "row_2_icon": "shield",
-            "row_2_bg": "#FFF9BD",
+            "row_2_bg": "#f7f0f3",
             "row_2_title": "30-day money-back guarantee",
             "row_2_text": "Feel the difference or get refunded",
             "row_3_show": false,
@@ -703,7 +719,7 @@
             "button_text": "🔥 Try Gut Flow Now",
             "show_arrow": false,
             "button_link": "/products/gut-flow-gummies",
-            "button_bg": "#5e1424",
+            "button_bg": "#5E1424",
             "button_text_color": "#ffffff",
             "enable_heartbeat": true,
             "button_font_size": 18,
@@ -1063,7 +1079,7 @@
         "position": "top",
         "hide_on_first": true,
         "after_end": "hide",
-        "bg_color": "#5e1424",
+        "bg_color": "#5E1424",
         "text_color": "#ffffff"
       }
     }
