@@ -643,10 +643,14 @@ function removeFreeProduct(cartDrawer, callbackFn) {
       if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle("is-empty", cartItemsCount === 0);
 
       cartSectionsToRenderList.forEach((section) => {
+        // Same guarded resolution as in updateQuantity: no generic ".shopify-section" document-wide
+        // fallback (it grabs the cart drawer section and destroys it); missing target = skip.
         const elementToReplace =
           document.getElementById(section.id) ||
-          document.querySelector(section.selector) ||
-          document.getElementById(section.id);
+          (section.selector && section.selector !== ".shopify-section"
+            ? document.querySelector(section.selector)
+            : null);
+        if (!elementToReplace) return;
 
         if (section.section === "cart-drawer") {
           const cartDrawerContainer = elementToReplace;
@@ -1198,10 +1202,18 @@ class CartItems extends HTMLElement {
           if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle("is-empty", parsedState.item_count === 0);
 
           this.getSectionsToRender().forEach((section) => {
+            // Resolve the target by id, else by a SPECIFIC selector. Never fall back to the generic
+            // ".shopify-section" document-wide: the first .shopify-section on the page is the cart
+            // drawer section, so when a target was missing (cart-icon-bubble: the live lhead header
+            // has no #cart-icon-bubble) every quantity change overwrote the drawer with the icon
+            // markup and the drawer vanished mid-interaction. A missing target now skips that
+            // section, exactly like renderContents in cart-drawer.js already does.
             const elementToReplace =
               document.getElementById(section.id) ||
-              document.querySelector(section.selector) ||
-              document.getElementById(section.id);
+              (section.selector && section.selector !== ".shopify-section"
+                ? document.querySelector(section.selector)
+                : null);
+            if (!elementToReplace) return;
 
             if (section.section == "cart-drawer") {
               const cartDrawerContainer = elementToReplace;
