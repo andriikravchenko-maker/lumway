@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "lum_template_font": {
@@ -61,14 +70,14 @@
         "background_color": "#f0f0f0",
         "image": "shopify://shop_images/image_32.webp",
         "image_border_radius": 40,
-        "heading_before": "Why Do So Many Women",
-        "heading_accent": "Lose Their Desire",
-        "heading_after": "After 45?",
+        "heading_before": "The",
+        "heading_accent": "Hidden Triggers",
+        "heading_after": "Behind Sudden Constipation",
         "heading_size": 50,
         "heading_size_mobile": 26,
         "heading_line_height": 1.1,
         "heading_color": "#3b3b3b",
-        "heading_accent_color": "#a9617a",
+        "heading_accent_color": "#5E1424",
         "subheading": "<p><em>It’s not always about hormones. </em></p><p><em>New research suggests </em><em><strong>your metabolism, circulation and daily energy may play a bigger role</strong></em><em> than many women realize.</em></p>",
         "subheading_size": 22,
         "subheading_size_mobile": 16,
@@ -694,7 +703,7 @@
             "button_text": "🔥 Try Gut Flow Now",
             "show_arrow": false,
             "button_link": "/products/gut-flow-gummies",
-            "button_bg": "#32477a",
+            "button_bg": "#5E1424",
             "button_text_color": "#ffffff",
             "enable_heartbeat": true,
             "button_font_size": 18,
@@ -1054,7 +1063,7 @@
         "position": "top",
         "hide_on_first": true,
         "after_end": "hide",
-        "bg_color": "#a9617a",
+        "bg_color": "#5E1424",
         "text_color": "#ffffff"
       }
     }
