@@ -67,7 +67,7 @@
         "padding_bottom_mobile": 40,
         "column_gap": 24,
         "content_gap": 24,
-        "background_color": "#EFDDE1",
+        "background_color": "#F4F2F3",
         "image": "shopify://shop_images/image_32.webp",
         "image_border_radius": 40,
         "heading_before": "The",
