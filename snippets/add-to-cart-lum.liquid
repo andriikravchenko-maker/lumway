@@ -212,9 +212,14 @@
     var atcForm = root.querySelector('form[action*="/cart/add"]');
     if (atcForm && !atcForm.classList.contains('drawer-initialized')) {
       atcForm.classList.add('drawer-initialized');
+      // Whether this page has a cart drawer is decided ONCE, at bind time. We must not gate on the
+      // drawer being present at click time: after the shopper empties the cart from the drawer, the
+      // free-gift / progress-bar app removes <cart-drawer> from the DOM, so a submit-time lookup found
+      // nothing, bailed without preventDefault, and the buy box add silently stopped working (button
+      // looked dead). Now we always AJAX-add and re-materialise the drawer if it went missing.
+      var pageHasDrawer = !!document.querySelector('cart-drawer');
       atcForm.addEventListener('submit', function (e) {
-        var cartDrawer = document.querySelector('cart-drawer');
-        if (!cartDrawer || typeof cartDrawer.renderContents !== 'function') return; // no drawer -> normal POST to /cart
+        if (!pageHasDrawer) return; // page genuinely has no drawer -> let the native POST to /cart happen
         e.preventDefault();
         if (mainBtn) { mainBtn.classList.add('loading'); mainBtn.setAttribute('aria-disabled', 'true'); }
         var fd = new FormData(atcForm);
@@ -226,7 +231,19 @@
           .then(function (r) { return r.json(); })
           .then(function (data) {
             if (data && data.status) { window.alert(data.description || 'Could not add to cart'); return; }
-            cartDrawer.renderContents(data); // refreshes the drawer contents and opens it
+            var drawer = document.querySelector('cart-drawer');
+            if (drawer && typeof drawer.renderContents === 'function') { drawer.renderContents(data); return; }
+            // Drawer was removed (cart had been emptied from it). Rebuild the section from the HTML the
+            // add just returned — the cart now has the item, so <cart-drawer> is back in that markup —
+            // then open the fresh element. Reload only if that is somehow unavailable.
+            var host = document.getElementById('shopify-section-cart-drawer');
+            var html = data.sections && data.sections['cart-drawer'];
+            if (host && html) {
+              host.innerHTML = html;
+              var fresh = document.querySelector('cart-drawer');
+              if (fresh && typeof fresh.renderContents === 'function') { fresh.renderContents(data); return; }
+            }
+            window.location.reload();
           })
           .catch(function () { atcForm.submit(); })
           .finally(function () { if (mainBtn) { mainBtn.classList.remove('loading'); mainBtn.removeAttribute('aria-disabled'); } });
