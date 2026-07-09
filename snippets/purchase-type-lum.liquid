@@ -143,7 +143,9 @@
     function setCompare(el, cents, vs) { if (!el) return; if (cents && cents > vs) { el.textContent = fmt(cents); el.style.display = ''; } else { el.textContent = ''; el.style.display = 'none'; } }
     function variantIndex(v) { for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(v.id)) return i; } return 0; }
     function currentVariant() {
-      var input = document.querySelector('input[name="id"]');
+      // Scope to the buy box's own form (see bundle-selector-lum): landing pages have a second
+      // product form (free-gift / cart progress-bar) whose name="id" would otherwise be read here.
+      var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
       var id = input && input.value;
       for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(id)) return variants[i]; }
       return variants[0] || null;
