@@ -168,7 +168,12 @@
     try { variants = JSON.parse(root.querySelector('.bsl-variants').textContent) || []; } catch (e) { variants = []; }
     function variantById(id) { for (var k = 0; k < variants.length; k++) { if (String(variants[k].id) === String(id)) return variants[k]; } return null; }
     function variantInput() {
-      return document.querySelector('product-form input[name="id"]')
+      // Target the buy box's OWN form. On landing pages other product forms exist (the theme's
+      // free-gift / cart progress-bar renders a hidden free-product-form with its own name="id");
+      // a document-wide lookup wrote the variant into THAT form, so the buy box submitted a stale
+      // variant (picking 3 jars added the initial 1). The buy box form always carries .product-buy-form-pdp.
+      return document.querySelector('.product-buy-form-pdp input[name="id"]')
+          || document.querySelector('product-form input[name="id"]')
           || document.querySelector('form[action*="/cart/add"] input[name="id"]')
           || document.querySelector('input[name="id"]');
     }
