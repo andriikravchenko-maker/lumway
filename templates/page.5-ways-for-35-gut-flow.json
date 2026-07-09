@@ -96,14 +96,16 @@
     "content_sidebar_YqGF9T": {
       "type": "content-sidebar-lum",
       "blocks": {
-        "text_fCMxG6": {
-          "type": "text",
+        "rating_hjKi4C": {
+          "type": "rating",
           "settings": {
+            "rating": 5,
+            "star_size": 1,
+            "star_color": "rgba(0,0,0,0)",
+            "empty_star_color": "#e0e0e0",
             "text": "",
-            "highlighted_texts": "",
-            "hightlight_texts_color": "#19bdff",
-            "custom_size": false,
-            "text_size": 16,
+            "custom_size": true,
+            "text_size": 1,
             "text_color": "",
             "padding_top": 0,
             "padding_bottom": 0,
@@ -113,7 +115,7 @@
         }
       },
       "block_order": [
-        "text_fCMxG6"
+        "rating_hjKi4C"
       ],
       "name": "Advertorial Section",
       "settings": {
