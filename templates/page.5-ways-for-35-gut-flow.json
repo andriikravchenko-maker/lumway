@@ -294,9 +294,9 @@
         "ingredient_BBHtfg": {
           "type": "ingredient",
           "settings": {
-            "image_shape": "circle",
-            "title": "Ingredient Name",
-            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+            "image_shape": "square",
+            "title": "You're working 10-hour days",
+            "description": "<ul><li>Coffee for breakfast.</li><li>Lunch between Zoom calls.</li><li>Dinner in front of your laptop.</li><li>You barely stand up all day.</li></ul><p><strong>By Friday...</strong></p><p>your <strong>digestion </strong>feels completely <strong>off.</strong></p>"
           }
         },
         "ingredient_DCzr4r": {
