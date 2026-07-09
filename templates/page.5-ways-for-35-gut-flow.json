@@ -67,7 +67,7 @@
         "padding_bottom_mobile": 40,
         "column_gap": 24,
         "content_gap": 24,
-        "background_color": "#F9F9F9",
+        "background_color": "#EFDDE1",
         "image": "shopify://shop_images/image_32.webp",
         "image_border_radius": 40,
         "heading_before": "The",
@@ -96,17 +96,15 @@
     "content_sidebar_YqGF9T": {
       "type": "content-sidebar-lum",
       "blocks": {
-        "author_YQhdhE": {
-          "type": "author",
+        "text_fCMxG6": {
+          "type": "text",
           "settings": {
-            "author_image": "shopify://shop_images/Lauren_K._4b506774-8428-4c31-b287-f795bdcbf0c1.png",
-            "author_name": "<strong>Dr. Sarah Collins</strong>",
-            "badge": true,
-            "date": "Certified Menopause Specialist · 20+ years in practice",
-            "text_size": 14,
-            "star_color": "#f1c40f",
-            "empty_star_color": "#e0e0e0",
-            "badge_color": "#19bdff",
+            "text": "",
+            "highlighted_texts": "",
+            "hightlight_texts_color": "#19bdff",
+            "custom_size": false,
+            "text_size": 16,
+            "text_color": "",
             "padding_top": 0,
             "padding_bottom": 0,
             "padding_left": 0,
@@ -115,9 +113,8 @@
         }
       },
       "block_order": [
-        "author_YQhdhE"
+        "text_fCMxG6"
       ],
-      "disabled": true,
       "name": "Advertorial Section",
       "settings": {
         "use_theme_colors": true,
