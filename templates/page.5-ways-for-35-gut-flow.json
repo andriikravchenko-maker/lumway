@@ -280,6 +280,129 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
+    "scrollable_ingredients_final_v2_iEWzjL": {
+      "type": "scrollable-ingredients-final-v2",
+      "blocks": {
+        "ingredient_yiiWVA": {
+          "type": "ingredient",
+          "settings": {
+            "image_shape": "circle",
+            "title": "Ingredient Name",
+            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+          }
+        },
+        "ingredient_BBHtfg": {
+          "type": "ingredient",
+          "settings": {
+            "image_shape": "circle",
+            "title": "Ingredient Name",
+            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+          }
+        },
+        "ingredient_DCzr4r": {
+          "type": "ingredient",
+          "settings": {
+            "image_shape": "circle",
+            "title": "Ingredient Name",
+            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+          }
+        },
+        "ingredient_KkxKka": {
+          "type": "ingredient",
+          "settings": {
+            "image_shape": "circle",
+            "title": "Ingredient Name",
+            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+          }
+        },
+        "ingredient_ggYgAX": {
+          "type": "ingredient",
+          "settings": {
+            "image_shape": "circle",
+            "title": "Ingredient Name",
+            "description": "<p>Brief description of the ingredient and its benefits.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_yiiWVA",
+        "ingredient_BBHtfg",
+        "ingredient_DCzr4r",
+        "ingredient_KkxKka",
+        "ingredient_ggYgAX"
+      ],
+      "name": "Scrollable Ingredients",
+      "settings": {
+        "section_bg_color": "#F2F2F2",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "section_padding_left_mobile": 18,
+        "section_padding_right_mobile": 0,
+        "container_width": "container",
+        "custom_width_value": 1200,
+        "body_font": "inter_n4",
+        "heading_font": "inter_n4",
+        "accent_font": "inter_n4",
+        "show_heading": true,
+        "heading": "<p>Key Ingredients</p>",
+        "heading_color": "#181818",
+        "heading_size": 42,
+        "heading_size_mobile": 27,
+        "heading_weight": 700,
+        "heading_letter_spacing": -0.5,
+        "heading_line_height": 1.2,
+        "accent_text": "<p>Inside</p>",
+        "accent_color": "#19bdff",
+        "accent_use_gradient": false,
+        "accent_gradient": "linear-gradient(45deg, rgba(25, 189, 255, 1), rgba(110, 228, 255, 1) 100%)",
+        "accent_weight": 700,
+        "accent_letter_spacing": 0,
+        "subheading": "",
+        "subheading_color": "#666666",
+        "subheading_size": 16,
+        "subheading_size_mobile": 14,
+        "subheading_weight": 400,
+        "subheading_letter_spacing": 0,
+        "subheading_line_height": 1.5,
+        "gap_heading_to_subheading": 8,
+        "gap_header_to_slider": 40,
+        "gap_image_to_title": 20,
+        "gap_title_to_desc": 8,
+        "gap_heading_to_subheading_mobile": 6,
+        "gap_header_to_slider_mobile": 30,
+        "gap_image_to_title_mobile": 24,
+        "gap_title_to_desc_mobile": 12,
+        "nav_shape": "circle",
+        "nav_size": 44,
+        "nav_bg": "#DFDFDF",
+        "nav_icon_color": "#181818",
+        "nav_hover_bg": "#C0C0C0",
+        "nav_hover_icon_color": "#181818",
+        "nav_hover_grow": true,
+        "nav_hover_grow_amount": 15,
+        "slides_desktop": 4,
+        "slides_mobile": 1.2,
+        "slides_gap": 20,
+        "slides_gap_mobile": 20,
+        "card_bg_color": "#ffffff",
+        "card_padding_tb": 24,
+        "card_padding_lr": 24,
+        "card_padding_tb_mobile": 24,
+        "card_padding_lr_mobile": 24,
+        "card_title_color": "#181818",
+        "card_title_size": 19,
+        "card_title_size_mobile": 20,
+        "card_title_weight": 700,
+        "card_title_letter_spacing": -0.3,
+        "card_title_line_height": 1.2,
+        "card_desc_color": "#181818",
+        "card_desc_size": 14,
+        "card_desc_size_mobile": 14,
+        "card_desc_weight": 400,
+        "card_desc_letter_spacing": -0.3,
+        "card_desc_line_height": 1.5
+      }
+    },
     "gut_harmony_feature_ncw9RV": {
       "type": "gut-harmony-feature",
       "name": "Gut Harmony Feature",
@@ -1089,6 +1212,7 @@
     "content_sidebar_YqGF9T",
     "rich_text_BR7tJa",
     "gut_harmony_feature_AEPXCy",
+    "scrollable_ingredients_final_v2_iEWzjL",
     "gut_harmony_feature_ncw9RV",
     "gut_harmony_feature_6gkhMK",
     "gut_harmony_reviews_RY8qtC",
