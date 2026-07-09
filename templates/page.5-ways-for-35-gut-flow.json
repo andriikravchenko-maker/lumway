@@ -333,7 +333,7 @@
       ],
       "name": "Scrollable Ingredients",
       "settings": {
-        "section_bg_color": "#F2F2F2",
+        "section_bg_color": "#F4F2F3",
         "padding_top": 60,
         "padding_bottom": 60,
         "section_padding_left_mobile": 18,
