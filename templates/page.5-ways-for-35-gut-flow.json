@@ -314,28 +314,19 @@
             "title": "You just got off a long flight",
             "description": "<ul><li>Different meals.</li><li>Less water.</li><li>Hours of sitting.</li><li>Jet lag.</li></ul><p>Your <strong>body adjusts</strong> to a new time zone.</p><p>Your <strong>gut doesn't</strong>.</p>"
           }
-        },
-        "ingredient_ggYgAX": {
-          "type": "ingredient",
-          "settings": {
-            "image_shape": "circle",
-            "title": "Ingredient Name",
-            "description": "<p>Brief description of the ingredient and its benefits.</p>"
-          }
         }
       },
       "block_order": [
         "ingredient_DCzr4r",
         "ingredient_yiiWVA",
         "ingredient_BBHtfg",
-        "ingredient_KkxKka",
-        "ingredient_ggYgAX"
+        "ingredient_KkxKka"
       ],
       "name": "Scrollable Ingredients",
       "settings": {
         "section_bg_color": "#F4F2F3",
         "padding_top": 60,
-        "padding_bottom": 60,
+        "padding_bottom": 0,
         "section_padding_left_mobile": 18,
         "section_padding_right_mobile": 0,
         "container_width": "container",
@@ -401,6 +392,77 @@
         "card_desc_weight": 400,
         "card_desc_letter_spacing": -0.3,
         "card_desc_line_height": 1.5
+      }
+    },
+    "rich_text_cNhqwK": {
+      "type": "rich-text",
+      "blocks": {
+        "title_ArX8qD": {
+          "type": "title",
+          "settings": {
+            "title": "Different stories.",
+            "accent_text": "Same feeling."
+          }
+        },
+        "subtitle_7xGykG": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p><strong>Heavy.</strong></p><p><strong>Bloated.</strong></p><p><strong>Uncomfortable.</strong></p><p><em>Like your body simply stopped cooperating.</em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "title_ArX8qD",
+        "subtitle_7xGykG"
+      ],
+      "name": "Rich Text",
+      "settings": {
+        "use_theme_colors": true,
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "padding_horizontal": 20,
+        "title_font_size": 26,
+        "title_font_size_mobile": 22,
+        "title_line_height": 1.3,
+        "title_margin_bottom": 20,
+        "title_color": "#3b3b3b",
+        "use_accent_gradient": true,
+        "accent_color": "#5E1424",
+        "accent_gradient_start": "#ef4a65",
+        "accent_gradient_end": "#5E1424",
+        "accent_gradient_angle": 45,
+        "subtitle_font_size": 18,
+        "subtitle_font_size_mobile": 16,
+        "subtitle_line_height": 1.6,
+        "subtitle_margin_bottom": 32,
+        "subtitle_max_width": 700,
+        "subtitle_color": "#666666",
+        "bold_font_weight": "700",
+        "use_global_button_styling": true,
+        "button_font_size": 16,
+        "button_font_size_mobile": 14,
+        "button_padding_vertical": 14,
+        "button_padding_horizontal": 28,
+        "button_border_radius": 4,
+        "button_border_width": 0,
+        "button_margin_top": 24,
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#000000",
+        "button_hover_bg_color": "#333333",
+        "button_hover_text_color": "#ffffff",
+        "section_bg_color": "#F4F2F3",
+        "section_border_radius": 0,
+        "enable_top_border": false,
+        "top_border_width": 1,
+        "top_border_style": "solid",
+        "top_border_color": "#e0e0e0",
+        "enable_bottom_border": false,
+        "bottom_border_width": 1,
+        "bottom_border_style": "solid",
+        "bottom_border_color": "#cecece"
       }
     },
     "gut_harmony_feature_ncw9RV": {
@@ -1213,6 +1275,7 @@
     "rich_text_BR7tJa",
     "gut_harmony_feature_AEPXCy",
     "scrollable_ingredients_final_v2_iEWzjL",
+    "rich_text_cNhqwK",
     "gut_harmony_feature_ncw9RV",
     "gut_harmony_feature_6gkhMK",
     "gut_harmony_reviews_RY8qtC",

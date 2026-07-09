@@ -13,7 +13,7 @@
     "logo": "shopify://shop_images/logolumway.png",
     "logo_width": 90,
     "favicon": "shopify://shop_images/fav.png",
-    "global_section_background_color": "#fdffff",
+    "global_section_background_color": "#F4F2F3",
     "global_section_text_color": "#202329",
     "global_section_use_gradient_background": true,
     "global_section_gradient_background": "linear-gradient(180deg, rgba(253, 255, 255, 1), rgba(248, 253, 255, 1) 100%)",
