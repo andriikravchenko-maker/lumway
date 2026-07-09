@@ -78,7 +78,7 @@
         "heading_line_height": 1.1,
         "heading_color": "#3b3b3b",
         "heading_accent_color": "#99364C",
-        "subheading": "<p></p><p></p>",
+        "subheading": "<p>From vacations to GLP-1 medications, discover the everyday habits and life changes that may quietly disrupt your digestion.</p>",
         "subheading_size": 22,
         "subheading_size_mobile": 16,
         "subheading_color": "#6b6b6b",
@@ -915,6 +915,42 @@
         "mobile_container_padding": 20
       }
     },
+    "gut_harmony_feature_Bt7apM": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 28,
+        "title_gap": 16,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "Think of Fiber Like Packing an Umbrella",
+        "title_size": 40,
+        "title_size_mobile": 24,
+        "title_color": "#3b3b3b",
+        "image": "shopify://shop_images/4471204.webp",
+        "image_border_radius": 0,
+        "body_text": "<p>You don't wait until you're already soaked before bringing one. You bring it because you know the weather can change.</p><p>Your digestive system works much the same way.</p><p>Life will always surprise you.</p><ul><li>Vacations.</li><li>Deadlines.</li><li>Flights.</li><li>Stress.</li><li>New routines.</li><li>Weight-loss.</li></ul><p>You can't control every change.</p><p>But you <strong>can support your gut</strong> through them.</p><p>Sometimes,<strong> feeling lighter isn't about eating less.</strong> It's about<strong> giving your digestive system</strong> the support it quietly <strong>needs every single day.</strong></p>",
+        "text_size": 16,
+        "text_color": "#3b3b3b",
+        "testimonial_text": "<p>That's exactly where Gut Flow belongs.</p>",
+        "testimonial_size": 18,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#99364C",
+        "button_text": "START YOUR EVETY DAY LIGHTER",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 17,
+        "button_radius": 32,
+        "button_bg_color": "#195D52",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1F8372"
+      }
+    },
     "alternating_features_ktLx6Y": {
       "type": "alternating-features",
       "blocks": {
@@ -1061,6 +1097,7 @@
         "feature_Nd3aMx",
         "feature_Mr3peF"
       ],
+      "disabled": true,
       "name": "Gut Harmony CTA",
       "settings": {
         "use_theme_colors": false,
@@ -1253,6 +1290,7 @@
     "pdl_heading_divider",
     "product_details_lum",
     "listicle_sticky_only",
+    "gut_harmony_feature_Bt7apM",
     "alternating_features_ktLx6Y",
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
