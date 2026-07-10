@@ -388,6 +388,9 @@
     .si-container-{{ section.id }} {
       padding-left: {{ section.settings.section_padding_left_mobile }}px !important;
       padding-right: {{ section.settings.section_padding_right_mobile }}px !important;
+      /* room at the bottom for the arrows, which move BELOW the slider on mobile (see .si-nav) */
+      position: relative;
+      padding-bottom: calc({{ section.settings.nav_size }}px + 32px) !important;
     }
     .si-header-{{ section.id }} {
       flex-direction: column;
@@ -397,7 +400,13 @@
       margin-bottom: {{ section.settings.gap_header_to_slider_mobile }}px !important;
     }
     .si-nav-{{ section.id }} {
-      display: flex; /* show the prev/next arrows on mobile too (desktop keeps them) */
+      /* arrows on mobile, pinned BELOW the slider (out of the header flow, at the container bottom) */
+      display: flex;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 12px;
+      justify-content: center;
     }
     .section-id-{{ section.id }} .si-subheading-{{ section.id }} {
       font-size: {{ section.settings.subheading_size_mobile | default: 14 }}px !important;
