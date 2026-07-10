@@ -263,6 +263,7 @@
     var firstSec = null;
     var ltoCards = null;
     var pdlEl = null;
+    var featureBtns = null;
 
     function findFirstSection() {
       // the hero (gut-harmony-benefits) is the explicit gate when present: the button pops in
@@ -307,7 +308,16 @@
         var zoneBottom = (atcBtn || pdlEl).getBoundingClientRect().bottom;
         onPdl = zoneTop < window.innerHeight && zoneBottom > 0;
       }
-      stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards || onCta || onPdl);
+      // Gut Harmony Feature sections carry their own CTA to the buy box; the sticky yields while one
+      // of those buttons is on screen, same principle as the gut-harmony-cta section (hide near the
+      // button, not for the whole tall section).
+      var onFeature = false;
+      if (featureBtns) {
+        for (var f = 0; f < featureBtns.length; f++) {
+          if (inView(featureBtns[f])) { onFeature = true; break; }
+        }
+      }
+      stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards || onCta || onPdl || onFeature);
     }
 
     // This theme scrolls the document root with `overflow: clip`, so window
@@ -338,6 +348,8 @@
         var atcBtnObs = pdlEl.querySelector('[data-atc-button]');
         if (atcBtnObs) io.observe(atcBtnObs);
       }
+      featureBtns = document.querySelectorAll('.gut-harmony-feature__button');
+      if (io) { for (var f2 = 0; f2 < featureBtns.length; f2++) io.observe(featureBtns[f2]); }
       update();
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
