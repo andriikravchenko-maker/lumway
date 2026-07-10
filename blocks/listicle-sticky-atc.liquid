@@ -3,7 +3,7 @@
   Matches the image provided with a large button and discount subtext.
 {% endcomment %}
 
-<div class="listicle-sticky-atc listicle-sticky-atc-{{ block.id }} {% if block.settings.sticky %} is-sticky{% endif %} {% if block.settings.mobile_only %} mobile-only{% endif %}" {{ block.shopify_attributes }}>
+<div class="listicle-sticky-atc listicle-sticky-atc-{{ block.id }} {% if block.settings.sticky %} is-sticky is-lto-hidden{% endif %} {% if block.settings.mobile_only %} mobile-only{% endif %}" {{ block.shopify_attributes }}>
   <div class="sticky-atc-container">
     <a href="{{ block.settings.button_link }}" class="sticky-atc-button">
       <span class="button-text">{{ block.settings.button_text }}</span>
