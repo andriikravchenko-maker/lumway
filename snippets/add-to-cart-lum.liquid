@@ -209,6 +209,51 @@
     // Add to cart via AJAX + open the cart drawer. The theme's global shop-cart-button-handler.js is only
     // loaded by the theme's own product section (not on this custom one), so we mirror it here. The
     // 'drawer-initialized' guard matches that script, so neither double-binds if both ever run.
+    // Render/open the cart drawer from a server payload; rebuild the section if the drawer element was
+    // removed (see the empty-cart note below), reload only as a last resort.
+    function openDrawerWith(data) {
+      var drawer = document.querySelector('cart-drawer');
+      if (drawer && typeof drawer.renderContents === 'function') { drawer.renderContents(data); return; }
+      var host = document.getElementById('shopify-section-cart-drawer');
+      var html = data && data.sections && data.sections['cart-drawer'];
+      if (host && html) {
+        host.innerHTML = html;
+        var fresh = document.querySelector('cart-drawer');
+        if (fresh && typeof fresh.renderContents === 'function') { fresh.renderContents(data); return; }
+      }
+      window.location.reload();
+    }
+
+    // Free usage guide. The store configures it in the cart Progress bar block; the built-in adder does
+    // NOT fire for this custom buy box (renderContents path) and is not rendered on product templates at
+    // all, so we add it here. Reads the configured variant from .free_product_progress_bar_variant (in
+    // the cart drawer on every page) and the $ threshold from [data-treshold-product]. Adds ONE, only if
+    // the paid subtotal clears the threshold and the gift is not already in the cart, and always as a
+    // one-time line (no selling_plan) so Recharge never recurs it. Returns the add payload (fresh
+    // sections incl. the gift) or null when nothing was added.
+    function ensureFreeGift() {
+      var giftEl = document.querySelector('.free_product_progress_bar_variant');
+      var giftId = giftEl && (giftEl.value || giftEl.getAttribute('value'));
+      if (!giftId || giftId === '0') return Promise.resolve(null);
+      var thEl = document.querySelector('[data-treshold-product]');
+      var threshold = thEl ? (parseInt(thEl.getAttribute('data-treshold-product'), 10) || 0) : 0;
+      return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          var hasGift = false, paid = 0;
+          (cart.items || []).forEach(function (i) {
+            if (String(i.variant_id) === String(giftId)) { hasGift = true; } else { paid += i.line_price; }
+          });
+          if (hasGift || !cart.item_count || paid < threshold) return null;
+          return fetch(((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js', {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: [{ id: Number(giftId), quantity: 1 }], sections: 'cart-drawer,cart-icon-bubble', sections_url: window.location.pathname })
+          }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+        })
+        .catch(function () { return null; });
+    }
+
     var atcForm = root.querySelector('form[action*="/cart/add"]');
     if (atcForm && !atcForm.classList.contains('drawer-initialized')) {
       atcForm.classList.add('drawer-initialized');
@@ -231,19 +276,9 @@
           .then(function (r) { return r.json(); })
           .then(function (data) {
             if (data && data.status) { window.alert(data.description || 'Could not add to cart'); return; }
-            var drawer = document.querySelector('cart-drawer');
-            if (drawer && typeof drawer.renderContents === 'function') { drawer.renderContents(data); return; }
-            // Drawer was removed (cart had been emptied from it). Rebuild the section from the HTML the
-            // add just returned — the cart now has the item, so <cart-drawer> is back in that markup —
-            // then open the fresh element. Reload only if that is somehow unavailable.
-            var host = document.getElementById('shopify-section-cart-drawer');
-            var html = data.sections && data.sections['cart-drawer'];
-            if (host && html) {
-              host.innerHTML = html;
-              var fresh = document.querySelector('cart-drawer');
-              if (fresh && typeof fresh.renderContents === 'function') { fresh.renderContents(data); return; }
-            }
-            window.location.reload();
+            // Add the free guide if the cart now qualifies, then open the drawer with the freshest
+            // payload (the gift add returns sections that already include the product + the gift).
+            return ensureFreeGift().then(function (giftData) { openDrawerWith(giftData || data); });
           })
           .catch(function () { atcForm.submit(); })
           .finally(function () { if (mainBtn) { mainBtn.classList.remove('loading'); mainBtn.removeAttribute('aria-disabled'); } });
