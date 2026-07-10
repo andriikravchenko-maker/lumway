@@ -354,6 +354,7 @@
           },
           "cart_progress_bar_yRGpcf": {
             "type": "cart_progress_bar",
+            "disabled": true,
             "settings": {
               "progress_bar_free_product": "test-gift",
               "shipping_away_text": "You're [missingAmount] away from Free Shipping",
