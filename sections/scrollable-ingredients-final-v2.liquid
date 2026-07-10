@@ -261,7 +261,10 @@
     gap: {{ section.settings.slides_gap }}px;
     padding-bottom: 20px;
     scrollbar-width: none;
-    touch-action: pan-x;
+    /* pan-x pan-y, not pan-x: pan-x alone told the browser this block only pans horizontally, so a
+       vertical swipe that began on it was swallowed and the page could not scroll down on mobile.
+       Both axes let the slider scroll sideways while a vertical gesture scrolls the page. */
+    touch-action: pan-x pan-y;
     -ms-overflow-style: none;
     -webkit-user-select: none;
     user-select: none;
@@ -435,7 +438,9 @@
     .si-slider-{{ section.id }} {
       gap: {{ section.settings.slides_gap_mobile }}px;
       scroll-snap-type: x proximity;
-      touch-action: pan-x;
+      /* mobile override of the base rule — this is the one that actually jammed vertical page scroll
+         on phones. Must stay pan-x pan-y so a downward swipe scrolls the page. */
+      touch-action: pan-x pan-y;
       cursor: grab;
     }
     .si-slider-{{ section.id }}:active {
