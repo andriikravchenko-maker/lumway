@@ -397,7 +397,7 @@
       margin-bottom: {{ section.settings.gap_header_to_slider_mobile }}px !important;
     }
     .si-nav-{{ section.id }} {
-      display: none;
+      display: flex; /* show the prev/next arrows on mobile too (desktop keeps them) */
     }
     .section-id-{{ section.id }} .si-subheading-{{ section.id }} {
       font-size: {{ section.settings.subheading_size_mobile | default: 14 }}px !important;
