@@ -690,6 +690,14 @@
         const scrollLeft = slider.scrollLeft;
         const maxScroll = slider.scrollWidth - slider.clientWidth;
 
+        // Desktop: if every card fits (nothing to scroll), hide the arrows entirely. Mobile keeps them.
+        var nav = document.querySelector('.si-nav-{{ section.id }}');
+        if (nav) {
+          var hasOverflow = slider.scrollWidth > slider.clientWidth + 2;
+          var isDesktop = window.matchMedia('(min-width: 769px)').matches;
+          nav.style.display = (isDesktop && !hasOverflow) ? 'none' : '';
+        }
+
         if (scrollLeft <= 0) {
           prevBtn.classList.add('si-nav-disabled');
         } else {
@@ -716,6 +724,8 @@
       };
 
       slider.addEventListener('scroll', updateButtonStates);
+      window.addEventListener('resize', updateButtonStates);
+      window.addEventListener('load', updateButtonStates);
       updateButtonStates();
 
       /* --- Smooth drag / swipe engine --- */
