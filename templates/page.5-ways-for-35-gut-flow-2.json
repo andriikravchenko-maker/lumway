@@ -911,7 +911,7 @@
         "heading_size_mobile": 28,
         "padding_top": 40,
         "padding_bottom": 80,
-        "padding_top_mobile": 20,
+        "padding_top_mobile": 0,
         "padding_bottom_mobile": 40,
         "card_gap": 32,
         "enable_slider": true,
