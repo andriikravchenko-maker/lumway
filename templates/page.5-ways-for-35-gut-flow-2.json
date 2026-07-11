@@ -142,59 +142,30 @@
     "rich_text_BR7tJa": {
       "type": "rich-text",
       "blocks": {
-        "title_6k7zw7": {
-          "type": "title",
-          "settings": {
-            "title": "Have you ever noticed how",
-            "accent_text": "it never happens at a convenient time?"
-          }
-        },
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>🏝️ It happens on vacation</p><p>📆 Right before an important meeting</p><p>✈️ After a 10-hour flight</p><p>🥊 Halfway through your weight-loss journey</p><p>📌 Or during one of those weeks when you're glued to your desk from morning until night</p>"
+            "subtitle": "<p>For many people, <strong>healthy living feels like a choice.</strong> Either you enjoy pizza, burgers, pasta, and dessert...</p><p><strong>Or you work toward a flatter stomach</strong> and your weight-loss goals.</p>"
+          }
+        },
+        "title_6k7zw7": {
+          "type": "title",
+          "settings": {
+            "title": "But nutrition experts increasingly agree that sustainable results don't come",
+            "accent_text": "from avoiding your favorite foods forever."
           }
         },
         "subtitle_J6QgnC": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>One day, everything feels normal.</p><p><strong>Then suddenly...</strong></p>"
-          }
-        },
-        "subtitle_cKcC7L": {
-          "type": "subtitle",
-          "settings": {
-            "subtitle": "<p><em><strong>... your jeans don't button as easily</strong></em></p><p><em><strong>... your stomach feels heavy after every meal</strong></em></p><p><em><strong>... you wake up bloated</strong></em></p><p><em><strong>... you don't feel like yourself</strong></em></p>"
-          }
-        },
-        "subtitle_LjgwEz": {
-          "type": "subtitle",
-          "settings": {
-            "subtitle": "<p>And somewhere in the back of your mind, a <strong>question appears:</strong></p>"
-          }
-        },
-        "title_qJeyff": {
-          "type": "title",
-          "settings": {
-            "title": "🤔 \"When was the last time",
-            "accent_text": "I actually had a normal bowel movement?\""
-          }
-        },
-        "subtitle_Gned7P": {
-          "type": "subtitle",
-          "settings": {
-            "subtitle": "<p>Most people immediately blame the food.</p><p>But what if <strong>food isn't the whole story?</strong></p>"
+            "subtitle": "<p>They come from building habits you can actually maintain.</p><p>Here's what that looks like.</p>"
           }
         }
       },
       "block_order": [
-        "title_6k7zw7",
         "subtitle_PirNe8",
-        "subtitle_J6QgnC",
-        "subtitle_cKcC7L",
-        "subtitle_LjgwEz",
-        "title_qJeyff",
-        "subtitle_Gned7P"
+        "title_6k7zw7",
+        "subtitle_J6QgnC"
       ],
       "name": "Rich Text",
       "settings": {
