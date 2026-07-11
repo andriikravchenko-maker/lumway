@@ -874,7 +874,7 @@
             "rating": 5,
             "title": "I Stopped Feeling Like Every Treat Ruined My Progress",
             "text": "\"For years I thought healthy living meant saying no to pizza, burgers, and dessert. Every time I treated myself, I'd wake up bloated and feel like I'd undone all my progress. After adding Gut Flow to my routine, I noticed I felt much lighter after meals and my digestion became much more regular. Now I actually enjoy date nights without the guilt.\"",
-            "name": "— Jessica M., 38"
+            "name": "— Jessica, 38"
           }
         },
         "review_fiaiPe": {
@@ -882,9 +882,9 @@
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_58_40_PM_1_4400337d-0598-4326-970c-2e80410ec167.webp",
             "rating": 5,
-            "title": "My Husband Noticed Before I Did",
-            "text": "\"I've always worked out and eaten well, so I knew something else had changed. A few weeks after starting Metabolic Flow, I felt more like myself again. I had steadier energy, a better mood, and I found myself being more present with my husband. He even said, 'It's nice to have you back.'\"",
-            "name": "— Michelle, 57"
+            "title": "My Jeans Fit Better – Even Before the Scale Changed",
+            "text": "\"The first thing I noticed wasn't weight loss. It was how much less bloated I felt. My jeans stopped feeling tight by the end of the day, and I wasn't constantly uncomfortable after dinner anymore. Eating enough fiber every day with Gut Flow has become one of the easiest healthy habits I've ever stuck with.\"",
+            "name": "— Emily, 57"
           }
         },
         "review_8h3ftx": {
@@ -892,27 +892,16 @@
           "settings": {
             "image": "shopify://shop_images/image_86.webp",
             "rating": 5,
-            "title": "Everybody Asking What I Changed",
-            "text": "\"I've always taken care of myself, but after 50 I still looked tired most days. A few weeks into Metabolic Flow, I felt more energized, my mood improved, and somehow I just looked healthier. It wasn't dramatic – it was like I finally looked the way I felt. My husband also felt it ❤️.\"",
-            "name": "— Amanda, 54"
-          }
-        },
-        "review_MM7nQf": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/image-81.webp",
-            "rating": 5,
-            "title": "My Body Finally Started Responding Again",
-            "text": "\"I've always exercised and eaten well, but after 45 my progress completely stalled. A few weeks into Metabolic Flow, I noticed I wasn't constantly craving snacks anymore, and I had more energy all-day. Even my husband can't seem to keep his hands off me lately.\"",
-            "name": "— Diane, 48"
+            "title": "Finally, Something That Fits In My Life",
+            "text": "\"I'm not giving up pizza with my friends or birthday cake just because I'm trying to lose weight. Gut Flow helped me focus on building better daily habits instead of chasing the perfect diet. I feel lighter, my digestion is more predictable, and I'm much less tempted to snack because I stay satisfied longer.\"",
+            "name": "— Rachel, 35"
           }
         }
       },
       "block_order": [
         "review_3kxmkH",
         "review_fiaiPe",
-        "review_8h3ftx",
-        "review_MM7nQf"
+        "review_8h3ftx"
       ],
       "name": "Gut Harmony Reviews",
       "settings": {
