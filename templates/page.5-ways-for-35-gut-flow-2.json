@@ -398,7 +398,7 @@
         "title_color": "#3b3b3b",
         "image": "shopify://shop_images/4471210.webp",
         "image_border_radius": 0,
-        "body_text": "<p>Successful weight management isn't about eliminating every food you enjoy.</p><p>It's about creating a calorie balance you can realistically maintain.</p><p>Small, sustainable habits matter:</p><ul><li>Eat enough protein.</li><li>Include fiber every day.</li><li>Stay hydrated.</li><li>Move your body regularly.</li><li>Sleep well.</li><li>Enjoy treats in moderation instead of avoiding them completely.</li></ul>",
+        "body_text": "<p>Successful weight management isn't about eliminating every food you enjoy.</p><p>It's about creating a calorie balance you can realistically maintain.</p><p>Small, sustainable habits matter:</p><ul><li>Eat enough protein</li><li>Include fiber every day</li><li>Stay hydrated</li><li>Move your body regularly</li><li>Sleep well</li><li>Enjoy treats in moderation instead of avoiding them completely</li></ul>",
         "text_size": 16,
         "text_color": "#3b3b3b",
         "testimonial_text": "<p>The goal isn't perfection.</p><p>It's consistency.</p>",
