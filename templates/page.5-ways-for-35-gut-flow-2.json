@@ -536,7 +536,7 @@
         "rt_sub": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>It isn't a weight-loss product.</p><p>It's a daily digestive support designed to help you build the habits that often accompany successful long-term weight management.</p>"
+            "subtitle": "<p>It's not a weight-loss product.</p><p>It's a <strong>daily digestive support</strong> designed to <strong>help you build the habits</strong> that often accompany <strong>successful long-term weight management.</strong></p>"
           }
         }
       },
@@ -566,7 +566,7 @@
         "subtitle_line_height": 1.6,
         "subtitle_margin_bottom": 32,
         "subtitle_max_width": 700,
-        "subtitle_color": "#666666",
+        "subtitle_color": "#3B3B3B",
         "bold_font_weight": "700",
         "use_global_button_styling": true,
         "button_font_size": 16,
@@ -944,15 +944,16 @@
         "column_gap": 24,
         "content_gap": 24,
         "background_color": "#ffffff",
-        "title": "Think of Fiber Like Packing an Umbrella",
+        "title": "You Don't Need to Fear Pizza",
         "title_size": 40,
         "title_size_mobile": 24,
         "title_color": "#3b3b3b",
+        "image": "shopify://shop_images/4471206.webp",
         "image_border_radius": 0,
-        "body_text": "<p>You don't wait until you're already soaked before bringing one. You bring it because you know the weather can change.</p><p>Your digestive system works much the same way.</p><p>Life will always surprise you.</p><ul><li>Vacations.</li><li>Deadlines.</li><li>Flights.</li><li>Stress.</li><li>New routines.</li><li>Weight-loss.</li></ul><p>You can't control every change.</p><p>But you <strong>can support your gut</strong> through them.</p><p>Sometimes,<strong> feeling lighter isn't about eating less.</strong> It's about<strong> giving your digestive system</strong> the support it quietly <strong>needs every single day.</strong></p>",
+        "body_text": "<p>Real life includes birthdays.</p><ul><li>Weekend dinners.</li><li>Vacations.</li><li>Date nights.</li><li>Pizza nights.</li></ul><p><strong>Healthy living</strong> isn't about <strong>avoiding those moments.</strong></p><p>It's about <strong>building a routine that supports your body</strong> before and after them.</p><p>Because<strong> lasting results don't come from saying \"no\" </strong>to every slice.</p>",
         "text_size": 16,
         "text_color": "#3b3b3b",
-        "testimonial_text": "<p>That's exactly where Gut Flow belongs.</p>",
+        "testimonial_text": "<p>They come from saying \"yes\" to better daily habits.</p>",
         "testimonial_size": 18,
         "testimonial_paragraph_spacing": 12,
         "testimonial_color": "#99364c",
