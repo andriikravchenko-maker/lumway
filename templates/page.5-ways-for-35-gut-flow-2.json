@@ -929,7 +929,7 @@
         "slides_per_view": 3,
         "slides_per_view_mobile": 1,
         "background_color": "#ffffff",
-        "card_bg": "#f1eeef",
+        "card_bg": "#F4F2F3",
         "card_border_color": "#99364C",
         "card_radius": 20,
         "card_padding": 16,
