@@ -379,6 +379,42 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
+    "gut_harmony_feature_K7MA6t": {
+      "type": "gut-harmony-feature",
+      "name": "Gut Harmony Feature",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 28,
+        "title_gap": 16,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#ffffff",
+        "title": "Weight Loss Starts With Consistency – Not Restriction",
+        "title_size": 40,
+        "title_size_mobile": 24,
+        "title_color": "#3b3b3b",
+        "image": "shopify://shop_images/4471210.webp",
+        "image_border_radius": 0,
+        "body_text": "<p>Successful weight management isn't about eliminating every food you enjoy.</p><p>It's about creating a calorie balance you can realistically maintain.</p><p>Small, sustainable habits matter:</p><ul><li>Eat enough protein.</li><li>Include fiber every day.</li><li>Stay hydrated.</li><li>Move your body regularly.</li><li>Sleep well.</li><li>Enjoy treats in moderation instead of avoiding them completely.</li></ul>",
+        "text_size": 16,
+        "text_color": "#3b3b3b",
+        "testimonial_text": "<p>The goal isn't perfection.</p><p>It's consistency.</p>",
+        "testimonial_size": 18,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#99364c",
+        "button_text": "",
+        "button_link": "shopify://products/gut-harmony-gummies",
+        "button_show_arrow": true,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
     "gut_harmony_feature_ncw9RV": {
       "type": "gut-harmony-feature",
       "name": "Gut Harmony Feature",
@@ -451,7 +487,7 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "gut_harmony_feature_K7MA6t": {
+    "gut_harmony_feature_RJLNVa": {
       "type": "gut-harmony-feature",
       "name": "Gut Harmony Feature",
       "settings": {
@@ -464,16 +500,16 @@
         "column_gap": 24,
         "content_gap": 24,
         "background_color": "#ffffff",
-        "title": "Weight Loss Starts With Consistency – Not Restriction",
+        "title": "Feeling Lighter Makes Healthy Choices Easier",
         "title_size": 40,
-        "title_size_mobile": 24,
+        "title_size_mobile": 26,
         "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/4471210.webp",
+        "image": "shopify://shop_images/4471212.webp",
         "image_border_radius": 0,
-        "body_text": "<p>Successful weight management isn't about eliminating every food you enjoy.</p><p>It's about creating a calorie balance you can realistically maintain.</p><p>Small, sustainable habits matter:</p><ul><li>Eat enough protein.</li><li>Include fiber every day.</li><li>Stay hydrated.</li><li>Move your body regularly.</li><li>Sleep well.</li><li>Enjoy treats in moderation instead of avoiding them completely.</li></ul>",
+        "body_text": "<p><strong>Supporting healthy digestion</strong> may help you <strong>feel lighter and more comfortable</strong>, making it easier to stick with the habits that <strong>support long-term wellness.</strong></p><p>Many people find that when <strong>digestion feels better, everything else becomes easier</strong>—from making healthier food choices to staying active.</p>",
         "text_size": 16,
         "text_color": "#3b3b3b",
-        "testimonial_text": "<p>The goal isn't perfection.</p><p>It's consistency.</p>",
+        "testimonial_text": "",
         "testimonial_size": 18,
         "testimonial_paragraph_spacing": 12,
         "testimonial_color": "#99364c",
@@ -493,14 +529,14 @@
         "rt_title": {
           "type": "title",
           "settings": {
-            "title": "Where",
-            "accent_text": "Gut Flow Fits In"
+            "title": "Gut Flow Supports Your",
+            "accent_text": "Weight-Loss Journey"
           }
         },
         "rt_sub": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>Designed around an easy way to get enough prebiotic fiber every single day</p>"
+            "subtitle": "<p>It isn't a weight-loss product.</p><p>It's a daily digestive support designed to help you build the habits that often accompany successful long-term weight management.</p>"
           }
         }
       },
@@ -1265,6 +1301,7 @@
     "gut_harmony_feature_K7MA6t",
     "gut_harmony_feature_ncw9RV",
     "gut_harmony_feature_6gkhMK",
+    "gut_harmony_feature_RJLNVa",
     "pdl_heading_divider",
     "product_details_lum",
     "listicle_sticky_only",
