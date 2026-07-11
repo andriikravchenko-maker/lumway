@@ -148,10 +148,16 @@
             "subtitle": "<p>For many people, <strong>healthy living feels like a choice.</strong> Either you enjoy pizza, burgers, pasta, and dessert...</p><p><strong>Or you work toward a flatter stomach</strong> and your weight-loss goals.</p>"
           }
         },
+        "subtitle_GP3jrT": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p>But <strong>nutrition experts</strong> increasingly <strong>agree</strong> that <strong>sustainable results don't come</strong></p>"
+          }
+        },
         "title_6k7zw7": {
           "type": "title",
           "settings": {
-            "title": "But nutrition experts increasingly agree that sustainable results don't come",
+            "title": "",
             "accent_text": "from avoiding your favorite foods forever."
           }
         },
@@ -164,6 +170,7 @@
       },
       "block_order": [
         "subtitle_PirNe8",
+        "subtitle_GP3jrT",
         "title_6k7zw7",
         "subtitle_J6QgnC"
       ],
