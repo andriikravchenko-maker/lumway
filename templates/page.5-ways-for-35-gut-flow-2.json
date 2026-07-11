@@ -96,17 +96,16 @@
     "content_sidebar_YqGF9T": {
       "type": "content-sidebar-lum",
       "blocks": {
-        "rating_hjKi4C": {
-          "type": "rating",
+        "author_L9zeKm": {
+          "type": "author",
           "settings": {
-            "rating": 5,
-            "star_size": 1,
-            "star_color": "rgba(0,0,0,0)",
+            "author_name": "By John Doe",
+            "badge": true,
+            "date": "January 1, 2025",
+            "text_size": 16,
+            "star_color": "#f1c40f",
             "empty_star_color": "#e0e0e0",
-            "text": "",
-            "custom_size": true,
-            "text_size": 1,
-            "text_color": "",
+            "badge_color": "#19bdff",
             "padding_top": 0,
             "padding_bottom": 0,
             "padding_left": 0,
@@ -115,7 +114,7 @@
         }
       },
       "block_order": [
-        "rating_hjKi4C"
+        "author_L9zeKm"
       ],
       "name": "Advertorial Section",
       "settings": {
@@ -566,7 +565,7 @@
         "subtitle_line_height": 1.6,
         "subtitle_margin_bottom": 32,
         "subtitle_max_width": 700,
-        "subtitle_color": "#3B3B3B",
+        "subtitle_color": "#3b3b3b",
         "bold_font_weight": "700",
         "use_global_button_styling": true,
         "button_font_size": 16,
