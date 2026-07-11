@@ -867,10 +867,20 @@
     "gut_harmony_reviews_RY8qtC": {
       "type": "gut-harmony-reviews",
       "blocks": {
+        "review_3kxmkH": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Image_Container_16b34b3f-6729-442d-a233-78f06b33f2a4.webp",
+            "rating": 5,
+            "title": "Review title",
+            "text": "",
+            "name": "— Name"
+          }
+        },
         "review_fiaiPe": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Image_Container.png",
+            "image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_58_40_PM_1_4400337d-0598-4326-970c-2e80410ec167.webp",
             "rating": 5,
             "title": "My Husband Noticed Before I Did",
             "text": "\"I've always worked out and eaten well, so I knew something else had changed. A few weeks after starting Metabolic Flow, I felt more like myself again. I had steadier energy, a better mood, and I found myself being more present with my husband. He even said, 'It's nice to have you back.'\"",
@@ -880,7 +890,7 @@
         "review_8h3ftx": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/image_104.webp",
+            "image": "shopify://shop_images/image_86.webp",
             "rating": 5,
             "title": "Everybody Asking What I Changed",
             "text": "\"I've always taken care of myself, but after 50 I still looked tired most days. A few weeks into Metabolic Flow, I felt more energized, my mood improved, and somehow I just looked healthier. It wasn't dramatic – it was like I finally looked the way I felt. My husband also felt it ❤️.\"",
@@ -890,7 +900,7 @@
         "review_MM7nQf": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
+            "image": "shopify://shop_images/image-81.webp",
             "rating": 5,
             "title": "My Body Finally Started Responding Again",
             "text": "\"I've always exercised and eaten well, but after 45 my progress completely stalled. A few weeks into Metabolic Flow, I noticed I wasn't constantly craving snacks anymore, and I had more energy all-day. Even my husband can't seem to keep his hands off me lately.\"",
@@ -899,6 +909,7 @@
         }
       },
       "block_order": [
+        "review_3kxmkH",
         "review_fiaiPe",
         "review_8h3ftx",
         "review_MM7nQf"
@@ -909,9 +920,9 @@
         "heading": "One Product. Big Impact.",
         "heading_size": 40,
         "heading_size_mobile": 28,
-        "padding_top": 80,
+        "padding_top": 40,
         "padding_bottom": 80,
-        "padding_top_mobile": 40,
+        "padding_top_mobile": 20,
         "padding_bottom_mobile": 40,
         "card_gap": 32,
         "enable_slider": true,
@@ -919,11 +930,11 @@
         "slides_per_view_mobile": 1,
         "background_color": "#ffffff",
         "card_bg": "#f1eeef",
-        "card_border_color": "#32477a",
+        "card_border_color": "#99364C",
         "card_radius": 20,
         "card_padding": 16,
         "image_radius": 0,
-        "star_color": "#a9617a",
+        "star_color": "#195D52",
         "star_empty_color": "#e0e0e0",
         "text_color": "#3b3b3b",
         "title_size": 16,
