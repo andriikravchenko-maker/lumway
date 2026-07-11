@@ -139,6 +139,125 @@
         "hide_sidebar_mobile": false
       }
     },
+    "scrollable_ingredients_final_v2_iEWzjL": {
+      "type": "scrollable-ingredients-final-v2",
+      "blocks": {
+        "ingredient_DCzr4r": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/4471198.webp",
+            "image_shape": "square",
+            "title": "You finally committed to losing weight",
+            "description": "<p>✅ You're eating less.</p><p>✅ Avoiding snacks.</p><p>✅ Counting calories.</p><p><em>Maybe you're using a GLP-1 medication as part of your plan.</em></p><p>The number on the scale is moving.</p><p><strong>But suddenly...</strong></p><p><strong>constipation </strong>becomes the <strong>unexpected side effect</strong> nobody warned you about.</p>"
+          }
+        },
+        "ingredient_yiiWVA": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/4471196.webp",
+            "image_shape": "square",
+            "title": "You're on vacation",
+            "description": "<p>Finally relaxing but after two days...</p><p>❌ Your stomach feels swollen.</p><p>❌ You haven't gone to the bathroom.</p><p>❌ Your clothes feel tighter than when you packed them.</p>"
+          }
+        },
+        "ingredient_BBHtfg": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/4471197.webp",
+            "image_shape": "square",
+            "title": "You're working 10-hour days",
+            "description": "<ul><li>Coffee for breakfast.</li><li>Lunch between Zoom calls.</li><li>Dinner in front of your laptop.</li><li>You barely stand up all day.</li></ul><p><strong>By Friday...</strong></p><p>your <strong>digestion </strong>feels completely <strong>off.</strong></p>"
+          }
+        },
+        "ingredient_KkxKka": {
+          "type": "ingredient",
+          "settings": {
+            "image": "shopify://shop_images/4471199.webp",
+            "image_shape": "square",
+            "title": "You just got off a long flight",
+            "description": "<ul><li>Different meals.</li><li>Less water.</li><li>Hours of sitting.</li><li>Jet lag.</li></ul><p>Your <strong>body adjusts</strong> to a new time zone.</p><p>Your <strong>gut doesn't</strong>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "ingredient_DCzr4r",
+        "ingredient_yiiWVA",
+        "ingredient_BBHtfg",
+        "ingredient_KkxKka"
+      ],
+      "disabled": true,
+      "name": "Scrollable Ingredients",
+      "settings": {
+        "section_bg_color": "#f4f2f3",
+        "padding_top": 60,
+        "padding_bottom": 0,
+        "section_padding_left_mobile": 18,
+        "section_padding_right_mobile": 0,
+        "container_width": "container",
+        "custom_width_value": 1200,
+        "body_font": "inter_n4",
+        "heading_font": "inter_n8",
+        "accent_font": "inter_n8",
+        "show_heading": true,
+        "heading": "<p>Different Life.</p>",
+        "heading_color": "#3b3b3b",
+        "heading_size": 40,
+        "heading_size_mobile": 23,
+        "heading_weight": 700,
+        "heading_letter_spacing": -0.5,
+        "heading_line_height": 1.2,
+        "accent_text": "<p>Same Frustration.</p>",
+        "accent_color": "#19bdff",
+        "accent_use_gradient": true,
+        "accent_gradient": "linear-gradient(45deg, rgba(153, 54, 76, 1) 18%, rgba(239, 74, 101, 1) 57%, rgba(239, 221, 225, 1) 100%)",
+        "accent_weight": 700,
+        "accent_letter_spacing": 0,
+        "subheading": "Heavy. Bloated. Uncomfortable.",
+        "subheading_color": "#3b3b3b",
+        "subheading_size": 16,
+        "subheading_size_mobile": 16,
+        "subheading_weight": 400,
+        "subheading_letter_spacing": 0,
+        "subheading_line_height": 1.5,
+        "gap_heading_to_subheading": 8,
+        "gap_header_to_slider": 40,
+        "gap_image_to_title": 20,
+        "gap_title_to_desc": 8,
+        "gap_heading_to_subheading_mobile": 6,
+        "gap_header_to_slider_mobile": 30,
+        "gap_image_to_title_mobile": 24,
+        "gap_title_to_desc_mobile": 12,
+        "nav_shape": "circle",
+        "nav_size": 44,
+        "nav_bg": "#dfdfdf",
+        "nav_icon_color": "#181818",
+        "nav_hover_bg": "#c0c0c0",
+        "nav_hover_icon_color": "#181818",
+        "nav_hover_grow": true,
+        "nav_hover_grow_amount": 15,
+        "slides_desktop": 4,
+        "slides_mobile": 1.2,
+        "slides_gap": 20,
+        "slides_gap_mobile": 20,
+        "card_bg_color": "#ffffff",
+        "card_padding_tb": 24,
+        "card_padding_lr": 24,
+        "card_padding_tb_mobile": 24,
+        "card_padding_lr_mobile": 24,
+        "card_title_color": "#3b3b3b",
+        "card_title_size": 19,
+        "card_title_size_mobile": 20,
+        "card_title_weight": 700,
+        "card_title_letter_spacing": -0.3,
+        "card_title_line_height": 1.2,
+        "card_desc_color": "#3b3b3b",
+        "card_desc_size": 14,
+        "card_desc_size_mobile": 14,
+        "card_desc_weight": 400,
+        "card_desc_letter_spacing": -0.3,
+        "card_desc_line_height": 1.5
+      }
+    },
     "rich_text_BR7tJa": {
       "type": "rich-text",
       "blocks": {
@@ -260,124 +379,6 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "scrollable_ingredients_final_v2_iEWzjL": {
-      "type": "scrollable-ingredients-final-v2",
-      "blocks": {
-        "ingredient_DCzr4r": {
-          "type": "ingredient",
-          "settings": {
-            "image": "shopify://shop_images/4471198.webp",
-            "image_shape": "square",
-            "title": "You finally committed to losing weight",
-            "description": "<p>✅ You're eating less.</p><p>✅ Avoiding snacks.</p><p>✅ Counting calories.</p><p><em>Maybe you're using a GLP-1 medication as part of your plan.</em></p><p>The number on the scale is moving.</p><p><strong>But suddenly...</strong></p><p><strong>constipation </strong>becomes the <strong>unexpected side effect</strong> nobody warned you about.</p>"
-          }
-        },
-        "ingredient_yiiWVA": {
-          "type": "ingredient",
-          "settings": {
-            "image": "shopify://shop_images/4471196.webp",
-            "image_shape": "square",
-            "title": "You're on vacation",
-            "description": "<p>Finally relaxing but after two days...</p><p>❌ Your stomach feels swollen.</p><p>❌ You haven't gone to the bathroom.</p><p>❌ Your clothes feel tighter than when you packed them.</p>"
-          }
-        },
-        "ingredient_BBHtfg": {
-          "type": "ingredient",
-          "settings": {
-            "image": "shopify://shop_images/4471197.webp",
-            "image_shape": "square",
-            "title": "You're working 10-hour days",
-            "description": "<ul><li>Coffee for breakfast.</li><li>Lunch between Zoom calls.</li><li>Dinner in front of your laptop.</li><li>You barely stand up all day.</li></ul><p><strong>By Friday...</strong></p><p>your <strong>digestion </strong>feels completely <strong>off.</strong></p>"
-          }
-        },
-        "ingredient_KkxKka": {
-          "type": "ingredient",
-          "settings": {
-            "image": "shopify://shop_images/4471199.webp",
-            "image_shape": "square",
-            "title": "You just got off a long flight",
-            "description": "<ul><li>Different meals.</li><li>Less water.</li><li>Hours of sitting.</li><li>Jet lag.</li></ul><p>Your <strong>body adjusts</strong> to a new time zone.</p><p>Your <strong>gut doesn't</strong>.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "ingredient_DCzr4r",
-        "ingredient_yiiWVA",
-        "ingredient_BBHtfg",
-        "ingredient_KkxKka"
-      ],
-      "name": "Scrollable Ingredients",
-      "settings": {
-        "section_bg_color": "#f4f2f3",
-        "padding_top": 60,
-        "padding_bottom": 0,
-        "section_padding_left_mobile": 18,
-        "section_padding_right_mobile": 0,
-        "container_width": "container",
-        "custom_width_value": 1200,
-        "body_font": "inter_n4",
-        "heading_font": "inter_n8",
-        "accent_font": "inter_n8",
-        "show_heading": true,
-        "heading": "<p>Different Life.</p>",
-        "heading_color": "#3b3b3b",
-        "heading_size": 40,
-        "heading_size_mobile": 23,
-        "heading_weight": 700,
-        "heading_letter_spacing": -0.5,
-        "heading_line_height": 1.2,
-        "accent_text": "<p>Same Frustration.</p>",
-        "accent_color": "#19bdff",
-        "accent_use_gradient": true,
-        "accent_gradient": "linear-gradient(45deg, rgba(153, 54, 76, 1) 18%, rgba(239, 74, 101, 1) 57%, rgba(239, 221, 225, 1) 100%)",
-        "accent_weight": 700,
-        "accent_letter_spacing": 0,
-        "subheading": "Heavy. Bloated. Uncomfortable.",
-        "subheading_color": "#3b3b3b",
-        "subheading_size": 16,
-        "subheading_size_mobile": 16,
-        "subheading_weight": 400,
-        "subheading_letter_spacing": 0,
-        "subheading_line_height": 1.5,
-        "gap_heading_to_subheading": 8,
-        "gap_header_to_slider": 40,
-        "gap_image_to_title": 20,
-        "gap_title_to_desc": 8,
-        "gap_heading_to_subheading_mobile": 6,
-        "gap_header_to_slider_mobile": 30,
-        "gap_image_to_title_mobile": 24,
-        "gap_title_to_desc_mobile": 12,
-        "nav_shape": "circle",
-        "nav_size": 44,
-        "nav_bg": "#dfdfdf",
-        "nav_icon_color": "#181818",
-        "nav_hover_bg": "#c0c0c0",
-        "nav_hover_icon_color": "#181818",
-        "nav_hover_grow": true,
-        "nav_hover_grow_amount": 15,
-        "slides_desktop": 4,
-        "slides_mobile": 1.2,
-        "slides_gap": 20,
-        "slides_gap_mobile": 20,
-        "card_bg_color": "#ffffff",
-        "card_padding_tb": 24,
-        "card_padding_lr": 24,
-        "card_padding_tb_mobile": 24,
-        "card_padding_lr_mobile": 24,
-        "card_title_color": "#3b3b3b",
-        "card_title_size": 19,
-        "card_title_size_mobile": 20,
-        "card_title_weight": 700,
-        "card_title_letter_spacing": -0.3,
-        "card_title_line_height": 1.2,
-        "card_desc_color": "#3b3b3b",
-        "card_desc_size": 14,
-        "card_desc_size_mobile": 14,
-        "card_desc_weight": 400,
-        "card_desc_letter_spacing": -0.3,
-        "card_desc_line_height": 1.5
-      }
-    },
     "gut_harmony_feature_ncw9RV": {
       "type": "gut-harmony-feature",
       "name": "Gut Harmony Feature",
@@ -391,11 +392,11 @@
         "column_gap": 24,
         "content_gap": 24,
         "background_color": "#ffffff",
-        "title": "It's Usually Not Just One Thing",
+        "title": "Make Fiber Part of Every Day",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/4471195.webp",
+        "image": "shopify://shop_images/4471208.webp",
         "image_border_radius": 0,
         "body_text": "<p>People often search for a single cause. But digestion doesn't work that way. <strong>Occasional constipation</strong> is often the result of several <strong>small changes happening at once</strong>.</p><ul><li>Less movement.</li><li>Less water.</li><li>More stress.</li><li>Different foods.</li><li>Less fiber.</li></ul><p>Individually, <strong>each change seems harmless.</strong></p>",
         "text_size": 15,
@@ -484,74 +485,6 @@
         "button_bg_color": "#23a02a",
         "button_text_color": "#ffffff",
         "button_hover_bg_color": "#1d8a23"
-      }
-    },
-    "gut_harmony_reviews_RY8qtC": {
-      "type": "gut-harmony-reviews",
-      "blocks": {
-        "review_fiaiPe": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Image_Container.png",
-            "rating": 5,
-            "title": "My Husband Noticed Before I Did",
-            "text": "\"I've always worked out and eaten well, so I knew something else had changed. A few weeks after starting Metabolic Flow, I felt more like myself again. I had steadier energy, a better mood, and I found myself being more present with my husband. He even said, 'It's nice to have you back.'\"",
-            "name": "— Michelle, 57"
-          }
-        },
-        "review_8h3ftx": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/image_104.webp",
-            "rating": 5,
-            "title": "Everybody Asking What I Changed",
-            "text": "\"I've always taken care of myself, but after 50 I still looked tired most days. A few weeks into Metabolic Flow, I felt more energized, my mood improved, and somehow I just looked healthier. It wasn't dramatic – it was like I finally looked the way I felt. My husband also felt it ❤️.\"",
-            "name": "— Amanda, 54"
-          }
-        },
-        "review_MM7nQf": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
-            "rating": 5,
-            "title": "My Body Finally Started Responding Again",
-            "text": "\"I've always exercised and eaten well, but after 45 my progress completely stalled. A few weeks into Metabolic Flow, I noticed I wasn't constantly craving snacks anymore, and I had more energy all-day. Even my husband can't seem to keep his hands off me lately.\"",
-            "name": "— Diane, 48"
-          }
-        }
-      },
-      "block_order": [
-        "review_fiaiPe",
-        "review_8h3ftx",
-        "review_MM7nQf"
-      ],
-      "disabled": true,
-      "name": "Gut Harmony Reviews",
-      "settings": {
-        "use_theme_colors": false,
-        "heading": "One Product. Big Impact.",
-        "heading_size": 40,
-        "heading_size_mobile": 28,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "card_gap": 32,
-        "enable_slider": true,
-        "slides_per_view": 3,
-        "slides_per_view_mobile": 1,
-        "background_color": "#ffffff",
-        "card_bg": "#f1eeef",
-        "card_border_color": "#32477a",
-        "card_radius": 20,
-        "card_padding": 16,
-        "image_radius": 0,
-        "star_color": "#a9617a",
-        "star_empty_color": "#e0e0e0",
-        "text_color": "#3b3b3b",
-        "title_size": 16,
-        "text_size": 14,
-        "name_size": 16
       }
     },
     "pdl_heading_divider": {
@@ -893,6 +826,73 @@
         "section_text_color": "#3b3b3b",
         "container_padding_horizontal": 20,
         "mobile_container_padding": 20
+      }
+    },
+    "gut_harmony_reviews_RY8qtC": {
+      "type": "gut-harmony-reviews",
+      "blocks": {
+        "review_fiaiPe": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Image_Container.png",
+            "rating": 5,
+            "title": "My Husband Noticed Before I Did",
+            "text": "\"I've always worked out and eaten well, so I knew something else had changed. A few weeks after starting Metabolic Flow, I felt more like myself again. I had steadier energy, a better mood, and I found myself being more present with my husband. He even said, 'It's nice to have you back.'\"",
+            "name": "— Michelle, 57"
+          }
+        },
+        "review_8h3ftx": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/image_104.webp",
+            "rating": 5,
+            "title": "Everybody Asking What I Changed",
+            "text": "\"I've always taken care of myself, but after 50 I still looked tired most days. A few weeks into Metabolic Flow, I felt more energized, my mood improved, and somehow I just looked healthier. It wasn't dramatic – it was like I finally looked the way I felt. My husband also felt it ❤️.\"",
+            "name": "— Amanda, 54"
+          }
+        },
+        "review_MM7nQf": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/be3d7faa331a35f47f18297e46aa5262c855f5da.png",
+            "rating": 5,
+            "title": "My Body Finally Started Responding Again",
+            "text": "\"I've always exercised and eaten well, but after 45 my progress completely stalled. A few weeks into Metabolic Flow, I noticed I wasn't constantly craving snacks anymore, and I had more energy all-day. Even my husband can't seem to keep his hands off me lately.\"",
+            "name": "— Diane, 48"
+          }
+        }
+      },
+      "block_order": [
+        "review_fiaiPe",
+        "review_8h3ftx",
+        "review_MM7nQf"
+      ],
+      "name": "Gut Harmony Reviews",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "One Product. Big Impact.",
+        "heading_size": 40,
+        "heading_size_mobile": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "card_gap": 32,
+        "enable_slider": true,
+        "slides_per_view": 3,
+        "slides_per_view_mobile": 1,
+        "background_color": "#ffffff",
+        "card_bg": "#f1eeef",
+        "card_border_color": "#32477a",
+        "card_radius": 20,
+        "card_padding": 16,
+        "image_radius": 0,
+        "star_color": "#a9617a",
+        "star_empty_color": "#e0e0e0",
+        "text_color": "#3b3b3b",
+        "title_size": 16,
+        "text_size": 14,
+        "name_size": 16
       }
     },
     "gut_harmony_feature_Bt7apM": {
@@ -1259,16 +1259,16 @@
     "announcement_bar_FaiKFR",
     "gut_harmony_benefits_6bQW6X",
     "content_sidebar_YqGF9T",
+    "scrollable_ingredients_final_v2_iEWzjL",
     "rich_text_BR7tJa",
     "gut_harmony_feature_AEPXCy",
-    "scrollable_ingredients_final_v2_iEWzjL",
     "gut_harmony_feature_ncw9RV",
     "gut_harmony_feature_6gkhMK",
     "gut_harmony_feature_K7MA6t",
-    "gut_harmony_reviews_RY8qtC",
     "pdl_heading_divider",
     "product_details_lum",
     "listicle_sticky_only",
+    "gut_harmony_reviews_RY8qtC",
     "gut_harmony_feature_Bt7apM",
     "alternating_features_ktLx6Y",
     "gut_harmony_cta_Tt37Cp",
