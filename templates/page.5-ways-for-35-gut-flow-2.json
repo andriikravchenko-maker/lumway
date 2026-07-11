@@ -99,9 +99,10 @@
         "author_L9zeKm": {
           "type": "author",
           "settings": {
-            "author_name": "By John Doe",
+            "author_image": "shopify://shop_images/Lauren_K..png",
+            "author_name": "By Emily Carter",
             "badge": true,
-            "date": "January 1, 2025",
+            "date": "Health & Nutrition Writer",
             "text_size": 16,
             "star_color": "#f1c40f",
             "empty_star_color": "#e0e0e0",
