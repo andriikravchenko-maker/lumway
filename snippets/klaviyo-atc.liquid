@@ -1,0 +1,49 @@
+<script>
+(function () {
+  function trackAddedToCart(item) {
+    fetch(window.location.origin + '/cart.js')
+      .then(function (res) { return res.json(); })
+      .then(function (cart) {
+        klaviyo.track('Added to Cart', {
+          $value: cart.total_price / 100,
+          AddedItemProductName: item.product_title || item.title,
+          AddedItemProductID: item.product_id,
+          AddedItemSKU: item.sku,
+          AddedItemPrice: item.price / 100,
+          AddedItemQuantity: item.quantity,
+          AddedItemURL: window.location.origin + item.url,
+          AddedItemImageURL: item.image,
+          ItemNames: cart.items.map(function (i) { return i.product_title; }),
+          CheckoutURL: window.location.origin + '/cart',
+          Items: cart.items.map(function (i) {
+            return {
+              ProductID: i.product_id,
+              SKU: i.sku,
+              ProductName: i.product_title,
+              Quantity: i.quantity,
+              ItemPrice: i.price / 100,
+              RowTotal: i.line_price / 100,
+              ProductURL: window.location.origin + i.url,
+              ImageURL: i.image
+            };
+          })
+        });
+      });
+  }
+
+  // Intercept ALL add-to-cart calls (PDP form, quick-add, cart drawer)
+  var origFetch = window.fetch;
+  window.fetch = function () {
+    var url = arguments[0] instanceof Request ? arguments[0].url : arguments[0];
+    var p = origFetch.apply(this, arguments);
+    if (typeof url === 'string' && url.indexOf('/cart/add') !== -1) {
+      p.then(function (res) {
+        if (res.ok) res.clone().json().then(function (data) {
+          trackAddedToCart(data.items ? data.items[0] : data);
+        }).catch(function () {});
+      });
+    }
+    return p;
+  };
+})();
+</script>
