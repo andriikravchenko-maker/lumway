@@ -4,7 +4,6 @@
     fetch(window.location.origin + '/cart.js')
       .then(function (res) { return res.json(); })
       .then(function (cart) {
-        console.log('cart loaded:', cart);
         klaviyo.track('Added to Cart', {
           $value: cart.total_price / 100,
           AddedItemProductName: item.product_title || item.title,
@@ -38,7 +37,6 @@
     var url = arguments[0] instanceof Request ? arguments[0].url : arguments[0];
     var p = origFetch.apply(this, arguments);
     if (typeof url === 'string' && url.indexOf('/cart/add') !== -1) {
-        console.log('ATC intercepted:', url);
       p.then(function (res) {
         if (res.ok) res.clone().json().then(function (data) {
           trackAddedToCart(data.items ? data.items[0] : data);
