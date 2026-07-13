@@ -566,7 +566,7 @@
       },
       "7539343560218715217": {
         "type": "shopify://apps/lucky-orange-heatmaps-replay/blocks/lucky_orange_tracking/019b2899-e426-7dbd-b9e7-ff9f0bb0d0f3",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     }
