@@ -529,11 +529,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "7539343560218715217": {
-        "type": "shopify://apps/lucky-orange-heatmaps-replay/blocks/lucky_orange_tracking/019b2899-e426-7dbd-b9e7-ff9f0bb0d0f3",
-        "disabled": false,
-        "settings": {}
-      },
       "9752555012629308362": {
         "type": "shopify://apps/parkour-facebook-pixel/blocks/threasury_pixel/f23b2ffe-4c53-446e-ad3a-7976ffbee5c2",
         "disabled": false,
@@ -567,6 +562,11 @@
       "12168986436008309812": {
         "type": "shopify://apps/parkour-tiktok-pixel/blocks/threasury_pixel/6c589340-c893-4a7c-ad89-703f18722d60",
         "disabled": false,
+        "settings": {}
+      },
+      "7539343560218715217": {
+        "type": "shopify://apps/lucky-orange-heatmaps-replay/blocks/lucky_orange_tracking/019b2899-e426-7dbd-b9e7-ff9f0bb0d0f3",
+        "disabled": true,
         "settings": {}
       }
     }
