@@ -190,16 +190,27 @@
     }, true);
 
     // ---- gallery swipe -----------------------------------------------------
-    var lpgTrack = document.querySelector('[data-lpg-track]');
+    // galleryIndex/totalImages re-query the DOM on each call: the tracker runs before the gallery is
+    // parsed, so a reference cached at script time is null and every index reads 0 (that also skewed
+    // pp_image_thumbnail_click's from_index).
     function galleryIndex() {
-      if (!lpgTrack || !lpgTrack.clientWidth) return 0;
-      return Math.round(lpgTrack.scrollLeft / lpgTrack.clientWidth);
+      var t = document.querySelector('[data-lpg-track]');
+      if (!t || !t.clientWidth) return 0;
+      return Math.round(t.scrollLeft / t.clientWidth);
     }
     function totalImages() {
       return document.querySelectorAll('[data-lpg-slide]').length;
     }
-    if (lpgTrack) {
-      var lastIdx = 0, swipeTimer = null;
+    // The swipe listener has to bind to the track element, which does not exist yet at script time, so
+    // defer element-bound setups until the DOM is parsed.
+    function whenReady(fn) {
+      if (document.readyState !== 'loading') fn();
+      else document.addEventListener('DOMContentLoaded', fn);
+    }
+    whenReady(function () {
+      var lpgTrack = document.querySelector('[data-lpg-track]');
+      if (!lpgTrack) return;
+      var lastIdx = galleryIndex(), swipeTimer = null;
       window.addEventListener('load', function () { lastIdx = galleryIndex(); });
       lpgTrack.addEventListener('scroll', function () {
         clearTimeout(swipeTimer);
@@ -213,35 +224,48 @@
           lastIdx = idx;
         }, 200);
       }, { passive: true });
-    }
+    });
 
-    // ---- reviews carousel --------------------------------------------------
-    var revSection = document.querySelector('[id*="customer_reviews_carousel"]:not([style*="display: none"])');
-    if (revSection) {
-      var revLastClick = 0;
-      revSection.addEventListener('click', function (e) {
-        if (e.target.closest('button, [data-scroll-amount], .carousel-arrow, [class*="arrow"]')) revLastClick = Date.now();
-      }, true);
-      var revTimer = null, revLast = 0;
-      revSection.addEventListener('scroll', function (e) {
-        var sc = e.target;
-        if (!sc || typeof sc.scrollLeft !== 'number') return;
-        clearTimeout(revTimer);
-        revTimer = setTimeout(function () {
-          var slide = revSection.querySelector('.swiper-slide');
-          var w = slide ? slide.offsetWidth : sc.clientWidth;
-          if (!w) return;
-          var idx = Math.round(sc.scrollLeft / w);
-          if (idx === revLast) return;
-          track('reviews_carousel', {
-            interaction_type: (Date.now() - revLastClick < 900) ? 'click' : 'swipe',
-            photo_index: idx + 1,
-            direction: idx > revLast ? 'next' : 'prev'
-          });
-          revLast = idx;
-        }, 250);
-      }, true);
-    }
+    // ---- reviews carousel (Swiper) -----------------------------------------
+    // The reviews carousel is a Swiper (transform-based, initialised client-side), so the old
+    // scroll/scrollLeft listener never fired. Hook Swiper's slideChange via the instance on .swiper,
+    // with a swiper-slide-active MutationObserver fallback. Only user-driven changes are tracked (a
+    // recent touch/drag gates out autoplay advances).
+    whenReady(function () {
+      var revSection = document.querySelector('[id*="customer_reviews_carousel"]:not([style*="display: none"])');
+      if (!revSection) return;
+      var revTouched = 0;
+      ['touchstart', 'pointerdown'].forEach(function (ev) {
+        revSection.addEventListener(ev, function () { revTouched = Date.now(); }, { passive: true, capture: true });
+      });
+      var revLast = -1;
+      function revFire(idx) {
+        if (idx < 0 || idx === revLast) { revLast = idx; return; }
+        if (Date.now() - revTouched < 1500) {
+          track('reviews_carousel', { interaction_type: 'swipe', photo_index: idx + 1, direction: revLast > -1 && idx < revLast ? 'prev' : 'next' });
+        }
+        revLast = idx;
+      }
+      var revTries = 0;
+      var revPoll = setInterval(function () {
+        var sw = revSection.querySelector('.swiper');
+        var inst = sw && sw.swiper;
+        if (inst && typeof inst.on === 'function') {
+          clearInterval(revPoll);
+          revLast = inst.realIndex;
+          inst.on('slideChange', function () { revFire(inst.realIndex); });
+        } else if (++revTries > 20) {
+          clearInterval(revPoll);
+          var wrap = revSection.querySelector('.swiper-wrapper');
+          if (wrap) {
+            new MutationObserver(function () {
+              var slides = [].slice.call(revSection.querySelectorAll('.swiper-slide'));
+              revFire(slides.indexOf(revSection.querySelector('.swiper-slide-active')));
+            }).observe(wrap, { attributes: true, subtree: true, attributeFilter: ['class'] });
+          }
+        }
+      }, 500);
+    });
 
     // ---- cart_view (drawer opens) ------------------------------------------
     var drawer = document.querySelector('cart-drawer');
