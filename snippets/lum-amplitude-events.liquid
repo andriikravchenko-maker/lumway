@@ -105,14 +105,15 @@
       var atc = el.closest('[data-atc-button]');
       if (atc) { track('add_to_cart', { purchase_type: state.purchase_type, bundle_type: state.bundle_type }); return; }
 
-      var nav = el.closest('.header__inline-menu a, header-drawer nav a, header-drawer .menu-drawer__menu a');
-      if (nav) { track('nav_click', { nav_item: h(nav.textContent) }); return; }
-
-      var logo = el.closest('.header__heading-link, .header__heading-logo-wrapper');
+      // Store uses the custom lhead header, not Dawn's .header__*; match lhead first (Dawn kept as a fallback).
+      var logo = el.closest('.lhead__logo, .lhead__desk-logo, .header__heading-link, .header__heading-logo-wrapper');
       if (logo) { track('logo_clicked', {}); return; }
 
-      var cartIcon = el.closest('.header__icon--cart');
+      var cartIcon = el.closest('[data-lhead-cart], .lhead__cart, .lhead__desk-cart, .header__icon--cart');
       if (cartIcon) { track('cart_clicked', {}); return; }
+
+      var nav = el.closest('.lhead__desk-link, .lhead__sublink, .lhead__item, .lhead__desk-mega a, .header__inline-menu a, header-drawer nav a, header-drawer .menu-drawer__menu a');
+      if (nav) { track('nav_click', { nav_item: h(nav.textContent) }); return; }
 
       var tab = el.closest('.ptab [data-tab], [data-tab]');
       if (tab && el.closest('.ptab')) {
@@ -253,12 +254,18 @@
       }).observe(drawer, { attributes: true, attributeFilter: ['class'] });
     }
 
-    // ---- footer newsletter ---------------------------------------------------
+    // ---- footer / email subscribe --------------------------------------------
+    // The footer subscribe is a Klaviyo form injected client-side (there is no native <form> in the
+    // theme footer), so a submit listener never sees it. Klaviyo fires a 'klaviyoForms' window event
+    // on submit — that is the reliable hook. Native listener kept as a fallback for any real form.
     document.addEventListener('submit', function (e) {
-      if (e.target && e.target.closest('#ContactFooter, .footer .newsletter-form, footer .newsletter-form')) {
+      if (e.target && e.target.closest('#ContactFooter, .footer .newsletter-form, footer .newsletter-form, .klaviyo-form')) {
         track('footer_email_subscribe', {});
       }
     }, true);
+    window.addEventListener('klaviyoForms', function (e) {
+      if (e && e.detail && e.detail.type === 'submit') track('footer_email_subscribe', {});
+    });
   })();
 </script>
 {%- endif -%}
