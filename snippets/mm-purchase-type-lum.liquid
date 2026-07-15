@@ -119,26 +119,54 @@
             ></span>
           </span>
           <span class="ptl__divider"></span>
-           
-{%- if block.settings.benefits_show -%}
-<ul class="ptl__benefits">
-{%- for i in (1..6) -%}
-{%- assign bshow = 'benefit_' | append: i | append: '_show' -%}
-{%- assign btext = 'benefit_' | append: i | append: '_text' -%}
-{%- assign bmulti = 'benefit_' | append: i | append: '_multi_only' -%}
-{%- assign bicon = 'benefit_' | append: i | append: '_icon' -%}
-{%- if block.settings[bshow] and block.settings[btext] != blank -%}
-{%- assign bicon_img = block.settings[bicon] -%}
-<li{% if block.settings[bmulti] %} data-multi-only{% endif %}><span class="ptl__check">{%- if bicon_img -%}<img src="{{ bicon_img | image_url: width: 36 }}" alt="{{ block.settings[btext] | escape }}" width="12" height="12" loading="lazy">{%- else -%}{{ 'lum-icon-tick.svg' | inline_asset_content }}{%- endif -%}</span><span>{{ block.settings[btext] | escape }}</span></li>
-{%- endif -%}
-{%- endfor -%}
-{%- comment -%} Gift mini-card as the last list item. Renders only if a title or image is set. {%- endcomment -%}
-{%- if block.settings.gc_title != blank or block.settings.gc_image != blank -%}
-<li class="ptl__benefit-card">{%- render 'gift-card-lum', uid: block.id, image: block.settings.gc_image, title: block.settings.gc_title, text: block.settings.gc_text, badge: block.settings.gc_badge, badge_bg: block.settings.gc_badge_bg, badge_text_color: block.settings.gc_badge_text_color, compare_price: block.settings.gc_compare_price -%}</li>
-{%- endif -%}
-</ul>
-{%- endif -%}
-    
+
+          {%- if block.settings.benefits_show -%}
+            <ul class="ptl__benefits">
+              {%- for i in (1..6) -%}
+                {%- assign bshow = 'benefit_' | append: i | append: '_show' -%}
+                {%- assign btext = 'benefit_' | append: i | append: '_text' -%}
+                {%- assign bmulti = 'benefit_' | append: i | append: '_multi_only' -%}
+                {%- assign bicon = 'benefit_' | append: i | append: '_icon' -%}
+                {%- if block.settings[bshow] and block.settings[btext] != blank -%}
+                  {%- assign bicon_img = block.settings[bicon] -%}
+                  <li
+                    {% if block.settings[bmulti] %}
+                      data-multi-only
+                    {% endif %}
+                  >
+                    <span class="ptl__check">
+                      {%- if bicon_img -%}
+                        <img
+                          src="{{ bicon_img | image_url: width: 36 }}"
+                          alt="{{ block.settings[btext] | escape }}"
+                          width="12"
+                          height="12"
+                          loading="lazy"
+                        >
+                      {%- else -%}
+                        {{ 'lum-icon-tick.svg' | inline_asset_content }}
+                      {%- endif -%}</span
+                    ><span>{{ block.settings[btext] | escape }}</span>
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+              {%- comment -%} Gift mini-card as the last list item. Renders only if a title or image is set. {%- endcomment -%}
+              {%- if block.settings.gc_title != blank or block.settings.gc_image != blank -%}
+                <li class="ptl__benefit-card">
+                  {%- render 'gift-card-lum',
+                    uid: block.id,
+                    image: block.settings.gc_image,
+                    title: block.settings.gc_title,
+                    text: block.settings.gc_text,
+                    badge: block.settings.gc_badge,
+                    badge_bg: block.settings.gc_badge_bg,
+                    badge_text_color: block.settings.gc_badge_text_color,
+                    compare_price: block.settings.gc_compare_price
+                  -%}
+                </li>
+              {%- endif -%}
+            </ul>
+          {%- endif -%}
         </label>
       {%- endif -%}
 
