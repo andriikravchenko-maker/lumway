@@ -10,6 +10,13 @@
   assign subscribe_cta_frequency_select_color = section.settings.subscribe_cta_frequency_select_color | default: '#000000'
 %}
 {% style %}
+
+.cart-item[data-variant-id="54101274689855"] .cart-item__link,
+.cart-item[data-variant-id="54101274689855"] .cart-item__name,
+.cart-item[data-variant-id="54101269741887"] .cart-item__link,
+.cart-item[data-variant-id="54101269741887"] .cart-item__name{ pointer-events:none; cursor:default; }
+
+
   {% if enable_subscribe_cta %}
     p.product-option {
       margin-bottom: 5px;
