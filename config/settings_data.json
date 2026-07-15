@@ -408,7 +408,7 @@
             "type": "cart_money_back_guarantee",
             "settings": {
               "show_money_back_guarantee": true,
-              "money_back_guarantee_text": "60-Day Money Back Guarantee",
+              "money_back_guarantee_text": "30-Day Money Back Guarantee",
               "money_back_guarantee_icon": "seal-check",
               "money_back_guarantee_color": "#000000"
             }
