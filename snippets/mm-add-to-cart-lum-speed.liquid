@@ -1,0 +1,562 @@
+{%- comment -%}
+Add to Cart — Lumway PDP. Renders the product form (the new section has none) + a custom button.
+Creates name="id" + name="selling_plan" that bundle-selector-lum / purchase-type-lum depend on.
+Button: Figma 557:2691 (bg #00724d, radius 30, "Add to Cart – $price" + struck "$compare", no icon).
+Price = Elixir_GetDisplayPrice (subscribe-discounted when a plan is active). Struck = single-jar
+compare-at x total jars in the pack (paid+free, from window.__lumBundlePack set by the bundle).
+Usage: {% render 'mm-add-to-cart-lum', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+assign uid = block.id
+assign cur = product.selected_or_first_available_variant
+assign btn_label = block.settings.button_label | default: 'Add to Cart'
+assign form_id = 'product-form-lum-' | append: uid
+comment
+Sticky bar shows the per-jar SUBSCRIBE price of the pack selected in the bundle selector, computed in JS
+below as (variant subscribe price / total jars in the pack). The server values here are the initial
+paint (1 jar by subscription) before JS runs / before the shopper changes the selection.
+endcomment
+assign one_jar = product.variants.first
+assign sub_alloc = one_jar.selling_plan_allocations.first
+assign sticky_price = one_jar.price
+if sub_alloc
+assign sticky_price = sub_alloc.price
+endif
+assign sticky_compare = one_jar.compare_at_price | default: one_jar.price
+-%}
+
+{%- if product != null and product.variants.size > 0 -%}
+{% style %}
+.patc-{{ uid }}{
+--patc-bg: {{ block.settings.button_bg | default: '#00724d' }};
+--patc-fg: {{ block.settings.button_text_color | default: '#ffffff' }};
+--patc-font:'Inter Tight', system-ui, sans-serif;
+width:100%;
+}
+.patc-{{ uid }} .patc__btn{ position:relative; display:flex !important; align-items:center; justify-content:center; gap:8px; width:100%; min-height:48px !important; height:auto !important; padding:12px 24px !important; margin:0 !important; border:0 !important; border-radius:30px !important; background:var(--patc-bg) !important; background-image:none !important; box-shadow:none !important; text-shadow:none !important; color:var(--patc-fg) !important; text-transform:none !important; cursor:pointer; font-family:var(--patc-font) !important; -webkit-appearance:none; appearance:none; }
+.patc-{{ uid }} .patc__btn::before,
+.patc-{{ uid }} .patc__btn::after{ display:none !important; }
+.patc-{{ uid }} .patc__btn:hover{ background:{{ block.settings.button_hover_bg | default: '#005e3f' }} !important; }
+.patc-{{ uid }} .patc__btn[disabled]{ opacity:.55; cursor:not-allowed; }
+.patc-{{ uid }} .patc__content{ display:inline-flex; align-items:center; gap:8px; }
+.patc-{{ uid }} .patc__icon{ display:inline-flex; width:20px; height:20px; flex:0 0 20px; }
+.patc-{{ uid }} .patc__icon svg{ display:block; width:100%; height:100%; }
+.patc-{{ uid }} .patc__line{ display:inline-flex; align-items:center; font-family:var(--patc-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; }
+.patc-{{ uid }} .patc__line *{ font-family:var(--patc-font) !important; }
+.patc-{{ uid }} .patc__compare{ font-family:var(--patc-font) !important; font-weight:400 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--patc-fg); opacity:.3; text-decoration:line-through; }
+.patc-{{ uid }} .patc__btn.loading .patc__content,
+.patc-{{ uid }} .patc__btn.is-loading .patc__content{ visibility:hidden; }
+.patc-{{ uid }} .patc__spinner{ position:absolute; inset:0; margin:auto; width:20px; height:20px; display:none; }
+.patc-{{ uid }} .patc__btn.loading .patc__spinner,
+.patc-{{ uid }} .patc__btn.is-loading .patc__spinner{ display:block; }
+.patc-{{ uid }} .patc__spinner svg{ width:100%; height:100%; animation:patc-spin .8s linear infinite; }
+@keyframes patc-spin{ to{ transform:rotate(360deg); } }
+/* Sticky add-to-cart (mobile): mirrors the main button, slides up when the main button scrolls out of view */
+.patc-{{ uid }} .patc__sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 16px; padding-bottom:calc(10px + env(safe-area-inset-bottom)); background:#fff; box-shadow:0 -2px 16px rgba(17,59,52,.10); transform:translateY(130%); transition:transform .28s ease; box-sizing:border-box; }
+.patc-{{ uid }} .patc__sticky.is-visible{ transform:translateY(0); }
+/* sticky "Try it Now" lands at the top of the buy-box selection (header is not sticky, so a small gap is enough) */
+.bsl, .ptl{ scroll-margin-top:24px; }
+/* hide the sticky bar while the mobile menu drawer is open (header sets body.lhead-drawer-open) */
+body.lhead-drawer-open .patc-{{ uid }} .patc__sticky{ transform:translateY(130%) !important; }
+@media (min-width:990px){ .patc-{{ uid }} .patc__sticky{ display:none !important; } }
+{% endstyle %}
+
+<div class="patc patc-{{ uid }}" {{ block.shopify_attributes }}>
+<script type="application/json" class="patc-variants">
+{{ product.variants | json }}
+</script>
+{%- comment -%} LUM GIFT: variant ids of the subscription gifts (custom.gift_variant, a variant LIST). Empty -> no tag -> no gift. {%- endcomment -%}
+{%- assign pdl_gifts = product.metafields.custom.gift_variant.value -%}
+{%- if pdl_gifts and pdl_gifts.count > 0 -%}
+<script type="application/json" class="patc-gift">
+{{ pdl_gifts | map: 'id' | json }}
+</script>
+{%- endif -%}
+<product-form class="product-form" data-section-id="{{ uid }}">
+{%- form 'product',
+product,
+id: form_id,
+class: 'product-buy-form-pdp product-buy-form--lum',
+novalidate: 'novalidate'
+-%}
+<input
+type="hidden"
+name="id"
+value="{{ cur.id }}"
+class="product-variant-id"
+{% unless cur.available %}
+disabled
+{% endunless %}
+>
+<input type="hidden" name="selling_plan" value="">
+<button
+type="submit"
+name="add"
+class="patc__btn disable-global-button-styling"
+{% unless cur.available %}
+disabled
+{% endunless %}
+data-atc-button
+>
+<span class="patc__content">
+{%- if block.settings.cart_icon == 'cart' -%}
+<span class="patc__icon">{{ 'lum-icon-cart.svg' | inline_asset_content }}</span>
+{%- endif -%}
+<span class="patc__line"
+><span data-role="atc-label">
+{%- if cur.available -%}
+{{- btn_label | escape -}}
+{%- else -%}
+{{- 'products.product.sold_out' | t | default: 'Sold out' -}}
+{%- endif -%}
+</span>
+{%- if block.settings.show_price_in_button -%}
+<span class="patc__price" data-role="atc-price"></span>
+{%- endif -%}
+</span>
+{%- if block.settings.show_compare_in_button -%}
+<span class="patc__compare" data-role="atc-compare"></span>
+{%- endif -%}
+</span>
+<span class="patc__spinner" aria-hidden="true">
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="40 60"/>
+</svg>
+</span>
+</button>
+{%- endform -%}
+</product-form>
+
+{%- unless block.settings.show_sticky == false -%}
+<div class="patc__sticky" data-patc-sticky aria-hidden="true">
+<button type="button" class="patc__btn disable-global-button-styling" data-patc-sticky-btn>
+<span class="patc__content">
+<span class="patc__line"
+><span>{{ block.settings.sticky_label | default: 'Try it Now' | escape }}</span
+><span class="patc__price" data-role="sticky-price"> – {{ sticky_price | money }}/pack</span></span
+>
+<span
+class="patc__compare"
+data-role="sticky-compare"
+{% if sticky_compare <= sticky_price %}
+style="display:none"
+{% endif %}
+>
+{{- sticky_compare | money -}}
+</span>
+</span>
+</button>
+</div>
+{%- endunless -%}
+</div>
+
+<script>
+(function () {
+var root = document.querySelector('.patc-{{ uid }}');
+if (!root || root.__patcBound) return;
+root.__patcBound = true;
+var variants = [];
+try { variants = JSON.parse(root.querySelector('.patc-variants').textContent) || []; } catch (e) { variants = []; }
+var moneyFormat = {{ shop.money_format | json }};
+var priceEl = root.querySelector('[data-role="atc-price"]');
+var compareEl = root.querySelector('[data-role="atc-compare"]');
+var stickyPriceEl = root.querySelector('[data-role="sticky-price"]');
+var stickyCompareEl = root.querySelector('[data-role="sticky-compare"]');
+var mainBtn = root.querySelector('[data-atc-button]');
+var stickyBar = root.querySelector('[data-patc-sticky]');
+var stickyBtn = root.querySelector('[data-patc-sticky-btn]');
+
+function fmt(c) {
+if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, moneyFormat);
+return String(moneyFormat).replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
+}
+function currentVariant() {
+var input = root.querySelector('input[name="id"]') || document.querySelector('input[name="id"]');
+var id = input && input.value;
+for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(id)) return variants[i]; }
+return variants[0] || null;
+}
+function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
+function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
+var override = null; // {price, compare} pushed by purchase-type-lum via 'lum:atc-price'
+function render() {
+renderSticky();
+var v = currentVariant();
+if (!v) return;
+var price = (override && override.price != null) ? override.price : v.price;
+// struck = single-jar compare-at price x total jars in the pack (paid + free)
+var compare = (override && override.compare != null) ? override.compare : (baseCompare() * packTotal(v));
+if (priceEl) priceEl.textContent = price ? (' – ' + fmt(price)) : '';
+if (compareEl) {
+if (compare && compare > price) { compareEl.textContent = fmt(compare); compareEl.style.display = ''; }
+else { compareEl.textContent = ''; compareEl.style.display = 'none'; }
+}
+}
+// Sticky "Try it Now": per-jar SUBSCRIBE price of the SELECTED pack = (variant subscribe price / total jars),
+// so 1 jar shows the 1-jar subscribe price, the 2-pack shows its per-jar price, etc. Struck = per-jar regular.
+function renderSticky() {
+if (!stickyPriceEl) return;
+var v = currentVariant();
+if (!v) return;
+var total = packTotal(v) || 1; if (total < 1) total = 1;
+var a = v.selling_plan_allocations && v.selling_plan_allocations[0];
+var perSub = Math.round((a ? a.price : v.price) / total);
+var perReg = v.compare_at_price || Math.round(v.price / total);
+stickyPriceEl.textContent = perSub ? (' – ' + fmt(perSub) + '/pack') : '';
+if (stickyCompareEl) {
+if (perReg && perReg > perSub) { stickyCompareEl.textContent = fmt(perReg); stickyCompareEl.style.display = ''; }
+else { stickyCompareEl.textContent = ''; stickyCompareEl.style.display = 'none'; }
+}
+}
+document.addEventListener('lum:atc-price', function (e) { override = (e && e.detail) || null; render(); });
+['variant:change', 'simple-variant-picker:variantChange'].forEach(function (ev) {
+document.addEventListener(ev, function () { setTimeout(render, 0); });
+});
+document.addEventListener('change', function (e) { if (e.target && e.target.name === 'id') setTimeout(render, 0); });
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', render); } else { render(); }
+[150, 600, 1500].forEach(function (d) { setTimeout(render, d); });
+document.addEventListener('shopify:section:load', function () { setTimeout(render, 60); });
+
+// Sticky bar (mobile): tap scrolls to the pack selector / buy box; bar shows when the main button is out of view.
+if (stickyBtn) {
+stickyBtn.addEventListener('click', function () {
+// land at the TOP of the buy-box selection area (purchase type / pack selector), whichever sits highest
+var sel = ['.ptl', '.bsl'].map(function (s) { return document.querySelector(s); }).filter(Boolean);
+var target = sel.sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; })[0] || mainBtn;
+if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+}
+if (stickyBar && mainBtn && 'IntersectionObserver' in window) {
+// On landings the bar also yields to any section whose id contains "cta" (they carry their own
+// buttons). Product templates keep the original rule: hide only while the main button is visible.
+var HIDE_AT_CTA = {% if template.name == 'product' %}false{% else %}true{% endif %};
+var ctaEls = HIDE_AT_CTA ? [].slice.call(document.querySelectorAll('[id^="shopify-section-"][id*="cta"]')) : [];
+var mainVisible = false;
+var firstSec = null;
+function findFirstSection() {
+var secs = document.querySelectorAll('#MainContent .shopify-section');
+for (var k = 0; k < secs.length; k++) { if (secs[k].offsetHeight > 50) return secs[k]; }
+return null;
+}
+function onFirstScreen() {
+if (!HIDE_AT_CTA) return false;
+if (!firstSec) firstSec = findFirstSection();
+return firstSec ? firstSec.getBoundingClientRect().bottom > 0 : false;
+}
+function ctaInView() {
+for (var i = 0; i < ctaEls.length; i++) {
+var r = ctaEls[i].getBoundingClientRect();
+if (r.bottom > 0 && r.top < window.innerHeight) return true;
+}
+return false;
+}
+function syncBar() { stickyBar.classList.toggle('is-visible', !mainVisible && !ctaInView() && !onFirstScreen()); }
+var io = new IntersectionObserver(function (entries) {
+entries.forEach(function (en) { if (en.target === mainBtn) mainVisible = en.isIntersecting; });
+syncBar();
+}, { threshold: 0 });
+io.observe(mainBtn);
+ctaEls.forEach(function (el) { io.observe(el); });
+if (HIDE_AT_CTA) {
+firstSec = findFirstSection();
+if (firstSec) io.observe(firstSec);
+window.addEventListener('scroll', syncBar, { passive: true });
+window.addEventListener('resize', syncBar);
+}
+}
+
+// Add to cart via AJAX + open the cart drawer. The theme's global shop-cart-button-handler.js is only
+// loaded by the theme's own product section (not on this custom one), so we mirror it here. The
+// 'drawer-initialized' guard matches that script, so neither double-binds if both ever run.
+// Render/open the cart drawer from a server payload; rebuild the section if the drawer element was
+// removed (see the empty-cart note below), reload only as a last resort.
+function openDrawerWith(data) {
+var drawer = document.querySelector('cart-drawer');
+if (drawer && typeof drawer.renderContents === 'function') { drawer.renderContents(data); return; }
+var host = document.getElementById('shopify-section-cart-drawer');
+var html = data && data.sections && data.sections['cart-drawer'];
+if (host && html) {
+host.innerHTML = html;
+var fresh = document.querySelector('cart-drawer');
+if (fresh && typeof fresh.renderContents === 'function') { fresh.renderContents(data); return; }
+}
+window.location.reload();
+}
+
+// Free usage guide. The store configures it in the cart Progress bar block; the built-in adder does
+// NOT fire for this custom buy box (renderContents path) and is not rendered on product templates at
+// all, so we add it here. Reads the configured variant from .free_product_progress_bar_variant (in
+// the cart drawer on every page) and the $ threshold from [data-treshold-product]. Adds ONE, only if
+// the paid subtotal clears the threshold and the gift is not already in the cart, and always as a
+// one-time line (no selling_plan) so Recharge never recurs it. Returns the add payload (fresh
+// sections incl. the gift) or null when nothing was added.
+function ensureFreeGift() {
+var giftEl = document.querySelector('.free_product_progress_bar_variant');
+var giftId = giftEl && (giftEl.value || giftEl.getAttribute('value'));
+if (!giftId || giftId === '0') return Promise.resolve(null);
+var thEl = document.querySelector('[data-treshold-product]');
+var threshold = thEl ? (parseInt(thEl.getAttribute('data-treshold-product'), 10) || 0) : 0;
+return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+.then(function (r) { return r.json(); })
+.then(function (cart) {
+var hasGift = false, paid = 0;
+(cart.items || []).forEach(function (i) {
+if (String(i.variant_id) === String(giftId)) { hasGift = true; } else { paid += i.line_price; }
+});
+if (hasGift || !cart.item_count || paid < threshold) return null;
+return fetch(((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js', {
+method: 'POST',
+headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+body: JSON.stringify({ items: [{ id: Number(giftId), quantity: 1 }], sections: 'cart-drawer,cart-icon-bubble', sections_url: window.location.pathname })
+}).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+})
+.catch(function () { return null; });
+}
+
+var atcForm = root.querySelector('form[action*="/cart/add"]');
+
+// ---- LUM GIFT: per-product subscription gift (custom.gift_variant) ----
+// Separate mechanism from ensureFreeGift above (that one is the store-wide progress-bar gift and
+// stays untouched). This one: id comes from THIS product's metafield, added only when subscription
+// is selected, always qty 1, always one-time line (no selling_plan) so Recharge never recurs it.
+// The gift line carries hidden properties: _lum_gift (marker) + _lum_gift_owner (the OWNER variant id
+// it was added for). That owner link lets us (a) remove it when the shopper switches to one-time and
+// (b) auto-remove it when its owner product is removed from the cart, even with several gifts at once.
+var LUM_SECTIONS = 'cart-drawer,cart-icon-bubble';
+function lumGiftIds() {
+var el = root.querySelector('.patc-gift');
+if (!el) return [];
+try {
+var v = JSON.parse(el.textContent);
+if (Array.isArray(v)) return v.map(Number).filter(Boolean);
+return v ? [Number(v)] : []; // tolerate a single number too (back-compat)
+} catch (e) { return []; }
+}
+function lumIsSubscribe() {
+var sp = root.querySelector('input[name="selling_plan"]');
+return !!(sp && sp.value); // non-empty selling_plan => subscription chosen
+}
+function lumOwnerId() {
+var input = root.querySelector('input[name="id"]') || document.querySelector('input[name="id"]');
+return input && input.value ? String(input.value) : null;
+}
+function lumGetCart() {
+return fetch('/cart.js', { headers: { 'Accept': 'application/json' } }).then(function (r) { return r.json(); });
+}
+function lumChangeByKey(key, qty) {
+return fetch(((window.routes && window.routes.cart_change_url) || '/cart/change') + '.js', {
+method: 'POST',
+headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+body: JSON.stringify({ id: key, quantity: qty, sections: LUM_SECTIONS, sections_url: window.location.pathname })
+}).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+}
+// Remove several line items in ONE request (/cart/update accepts a {key: qty} map). Dropping all
+// orphan gifts at once means the drawer re-renders a single time -> no per-item flicker.
+function lumRemoveKeys(keys) {
+if (!keys || !keys.length) return Promise.resolve(null);
+var updates = {}; keys.forEach(function (k) { updates[k] = 0; });
+return fetch(((window.routes && window.routes.cart_update_url) || '/cart/update') + '.js', {
+method: 'POST',
+headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+body: JSON.stringify({ updates: updates, sections: LUM_SECTIONS, sections_url: window.location.pathname })
+}).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+}
+function lumIsGiftLine(i) { return !!(i && i.properties && (i.properties._lum_gift || i.properties['_lum_gift'])); }
+// Add gifts if: gifts configured, subscription chosen. Adds every gift in the list that this owner
+// doesn't already have, in ONE /cart/add (Shopify accepts an items array). Each line carries its own
+// _lum_gift_owner. Always qty 1 per gift, always one-time (no selling_plan).
+function ensureSubGift() {
+var giftIds = lumGiftIds();
+if (!giftIds.length || !lumIsSubscribe()) return Promise.resolve(null);
+var owner = lumOwnerId();
+window.__lumGiftBusy = true; // guard: our own add must not trigger the orphan watcher
+return lumGetCart().then(function (cart) {
+var have = {};
+(cart.items || []).forEach(function (i) {
+if (lumIsGiftLine(i) && String(i.properties._lum_gift_owner) === String(owner)) have[String(i.variant_id)] = true;
+});
+var toAdd = giftIds.filter(function (id) { return !have[String(id)]; })
+.map(function (id) { return { id: id, quantity: 1, properties: { _lum_gift: 'true', _lum_gift_owner: owner } }; });
+if (!toAdd.length) return null;
+return fetch(((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js', {
+method: 'POST',
+headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+body: JSON.stringify({ items: toAdd, sections: LUM_SECTIONS, sections_url: window.location.pathname })
+}).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+}).catch(function () { return null; }).finally(function () { window.__lumGiftBusy = false; });
+}
+// Remove THIS product's gifts (used when the shopper switches to one-time). Removes every gift line
+// owned by this product, by line-item key, one change each.
+function removeSubGift() {
+var giftIds = lumGiftIds();
+if (!giftIds.length) return Promise.resolve(null);
+var owner = lumOwnerId();
+var idSet = {}; giftIds.forEach(function (id) { idSet[String(id)] = true; });
+return lumGetCart().then(function (cart) {
+var lines = (cart.items || []).filter(function (i) {
+return lumIsGiftLine(i) && idSet[String(i.variant_id)] && String(i.properties._lum_gift_owner) === String(owner);
+});
+if (!lines.length) return null;
+return lumRemoveKeys(lines.map(function (ln) { return ln.key; }));
+}).catch(function () { return null; });
+}
+// Given a cart object, return the LUM gift lines whose owner variant is no longer present.
+function orphanGiftsIn(cart) {
+var items = (cart && cart.items) || [];
+var ownerPresent = {};
+items.forEach(function (i) { if (!lumIsGiftLine(i)) ownerPresent[String(i.variant_id)] = true; });
+return items.filter(function (i) {
+var o = lumIsGiftLine(i) && i.properties._lum_gift_owner;
+return o && !ownerPresent[String(o)];
+});
+}
+// Live sync: purchase-type-lum emits 'lum:atc-price' with detail.type on every toggle. Switch to
+// one-time -> pull this product's gift out. Only touches the cart when there is something to remove.
+document.addEventListener('lum:atc-price', function (e) {
+var type = e && e.detail && e.detail.type;
+if (type === 'one_time') { window.__lumGiftBusy = true; removeSubGift().then(function (data) { if (data) openDrawerWith(data); }).finally(function () { window.__lumGiftBusy = false; }); }
+});
+// Universal cart watcher + optimistic hide. Wrap fetch so any cart mutation is followed by an orphan
+// check. Two race guards are essential:
+// 1. window.__lumGiftBusy — set true while WE are mid-operation (ATC add of product+gift, or a
+// deliberate gift add/remove). While busy, the watcher does NOT sweep, so it can never delete a
+// gift that is being added in the same breath (the bug where the 2nd subscription add "lost" its
+// gift). ensureSubGift/removeSubGift/the ATC chain set and clear this flag.
+// 2. reconciling — set true while the watcher's own /cart/change removals run, so they don't
+// re-trigger the watcher into a loop.
+// Optimistic hide: an orphan gift row is hidden in the DOM immediately (by variant id), then removed
+// on the server; HIDING is cleared per variant once its line is gone so a NEW gift with the same
+// variant later is never hidden.
+(function () {
+if (window.__lumGiftWatch) return; // bind once per page
+window.__lumGiftWatch = true;
+
+var HIDING = {}; // variantId -> true while optimistically hiding that gift row
+var styleEl = document.createElement('style');
+document.head.appendChild(styleEl);
+// LUM GIFT ORDER (CSS-only, no requests): push this product's gift rows below the main product.
+// tbody must be flex for `order` to apply; rows become flex so their <td> layout is preserved.
+var ORDER_ON = true; // set false to disable, or wire to a setting
+function paintOrder() {
+if (!ORDER_ON) return '';
+var giftIds = (typeof lumGiftIds === 'function') ? lumGiftIds() : [];
+if (!giftIds.length) return '';
+var sel = giftIds.map(function (id) { return '.cart-items tbody .cart-item[data-variant-id="' + id + '"]'; }).join(',');
+return '.cart-items tbody{display:flex;flex-direction:column;}'
++ '.cart-items tbody .cart-item{display:flex;width:100%;order:0;}'
++ sel + '{order:1;}';
+}
+function paintHide() {
+var ids = Object.keys(HIDING);
+var hideCss = ids.length
+? ids.map(function (id) { return '.cart-item[data-variant-id="' + id + '"]{display:none !important;}'; }).join('')
+: '';
+styleEl.textContent = paintOrder() + hideCss;
+}
+var mo = new MutationObserver(function () { paintHide(); });
+try { mo.observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+
+var nativeFetch = window.fetch;
+var reconciling = false;
+function isMutation(url) { return /\/cart\/(add|change|update|clear)(\.js)?(\?|$)/.test(url); }
+function isOurRead(url) { return /\/cart\.js/.test(url); }
+
+// Remove ALL current orphans in ONE /cart/update, then clear the hide for each and refresh once.
+// One request + one re-render = the second gift no longer flickers back in mid-sequence.
+function reconcile(orphans) {
+var keys = orphans.map(function (o) { return o.key; });
+return lumRemoveKeys(keys).then(function (data) {
+orphans.forEach(function (o) { delete HIDING[String(o.variant_id)]; });
+paintHide();
+return data;
+});
+}
+
+window.fetch = function (input, init) {
+var url = (typeof input === 'string') ? input : (input && input.url) || '';
+var p = nativeFetch.apply(this, arguments);
+if (isMutation(url) && !isOurRead(url) && !reconciling && !window.__lumGiftBusy) {
+p.then(function (res) {
+// If WE became busy between the request and its response (an ATC/gift op just started),
+// skip: that operation will settle the cart itself. Prevents deleting a gift mid-add.
+if (window.__lumGiftBusy) return;
+var clone; try { clone = res.clone(); } catch (e) { clone = null; }
+var readCart = clone ? clone.json().then(function (b) { return (b && b.items) ? b : lumGetCart(); }).catch(function () { return lumGetCart(); }) : lumGetCart();
+return readCart.then(function (cart) {
+if (window.__lumGiftBusy) return; // re-check after the async read
+var orphans = orphanGiftsIn(cart);
+if (!orphans.length) return;
+orphans.forEach(function (o) { HIDING[String(o.variant_id)] = true; });
+paintHide();
+reconciling = true;
+return reconcile(orphans).then(function (data) { if (data) openDrawerWith(data); }).finally(function () { reconciling = false; });
+});
+}).catch(function () {});
+}
+return p;
+};
+})();
+// ---- /LUM GIFT ----
+
+if (atcForm && !atcForm.classList.contains('drawer-initialized')) {
+atcForm.classList.add('drawer-initialized');
+// Whether this page has a cart drawer is decided ONCE, at bind time. We must not gate on the
+// drawer being present at click time: after the shopper empties the cart from the drawer, the
+// free-gift / progress-bar app removes <cart-drawer> from the DOM, so a submit-time lookup found
+// nothing, bailed without preventDefault, and the buy box add silently stopped working (button
+// looked dead). Now we always AJAX-add and re-materialise the drawer if it went missing.
+var pageHasDrawer = !!document.querySelector('cart-drawer');
+atcForm.addEventListener('submit', function (e) {
+if (!pageHasDrawer) return; // page genuinely has no drawer -> let the native POST to /cart happen
+e.preventDefault();
+if (mainBtn) { mainBtn.classList.add('loading'); mainBtn.setAttribute('aria-disabled', 'true'); }
+window.__lumGiftBusy = true; // guard the whole add sequence: watcher must not sweep mid-add
+
+// Speed: add the main line AND our subscription gifts in ONE /cart/add (we already know the gift
+// list from the metafield and the purchase type from the form at click time). This removes a second
+// /cart/add round-trip plus the /cart.js read ensureSubGift used to make. sections are requested
+// only on this single request (it's the one that opens the drawer).
+var fd = new FormData(atcForm);
+var mainItem = { id: null, quantity: 1 };
+var mainProps = {};
+fd.forEach(function (val, key) {
+if (key === 'id') mainItem.id = val;
+else if (key === 'quantity') mainItem.quantity = parseInt(val, 10) || 1;
+else if (key === 'selling_plan') { if (val) mainItem.selling_plan = val; }
+else if (key.indexOf('properties[') === 0) { mainProps[key.slice(11, -1)] = val; }
+});
+if (Object.keys(mainProps).length) mainItem.properties = mainProps;
+
+var items = [mainItem];
+if (lumIsSubscribe()) {
+var owner = String(mainItem.id);
+lumGiftIds().forEach(function (id) {
+items.push({ id: id, quantity: 1, properties: { _lum_gift: 'true', _lum_gift_owner: owner } });
+});
+}
+
+fetch(((window.routes && window.routes.cart_add_url) || '/cart/add') + '.js', {
+method: 'POST',
+headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+body: JSON.stringify({ items: items, sections: 'cart-drawer,cart-icon-bubble', sections_url: window.location.pathname })
+})
+.then(function (r) { return r.json(); })
+.then(function (data) {
+if (data && data.status) { window.alert(data.description || 'Could not add to cart'); return; }
+// Main + gifts are already in. Only the threshold-gated progress-bar guide may still need adding;
+// open the drawer with its payload if it fired, otherwise with our combined-add payload.
+return ensureFreeGift().then(function (freeData) {
+openDrawerWith((freeData && freeData.sections) ? freeData : data);
+});
+})
+.catch(function () { atcForm.submit(); })
+.finally(function () {
+if (mainBtn) { mainBtn.classList.remove('loading'); mainBtn.removeAttribute('aria-disabled'); }
+window.__lumGiftBusy = false; // release only after product + gifts are settled
+});
+});
+}
+})();
+</script>
+{%- endif -%}
