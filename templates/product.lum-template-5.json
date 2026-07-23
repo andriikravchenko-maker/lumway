@@ -13,7 +13,8 @@
       "type": "lum-template-font",
       "settings": {
         "pdp_benefit_overrides": true,
-        "enable_rum": true
+        "enable_rum": true,
+        "enable_events": true
       }
     },
     "product_details_lum_DcMDgT": {
@@ -129,6 +130,7 @@
             "save_badge_text_color": "#113b34",
             "show_per_pack": true,
             "per_pack_suffix": "/pack",
+            "benefits_show": true,
             "benefit_1_show": true,
             "benefit_1_text": "Free Shipping",
             "benefit_1_multi_only": true,
@@ -146,7 +148,13 @@
             "benefit_5_multi_only": false,
             "benefit_6_show": false,
             "benefit_6_text": "",
-            "benefit_6_multi_only": false
+            "benefit_6_multi_only": false,
+            "gc_title": "",
+            "gc_text": "",
+            "gc_badge": "",
+            "gc_badge_bg": "#fa6c56",
+            "gc_badge_text_color": "#ffffff",
+            "gc_compare_price": ""
           }
         },
         "recharge_subscriptions_subscription_widget_v2_XTwRV8": {
@@ -295,7 +303,8 @@
       "name": "Product Details Lum",
       "settings": {
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "product": ""
       }
     },
     "scrolling_features_bar_AhP6EL": {
@@ -1198,7 +1207,7 @@
         "faq_item_9AD6VG": {
           "type": "faq_item",
           "settings": {
-            "question": "What does the guarantee include?",
+            "question": "What does the 30-day guarantee include?",
             "answer": "<p>If you’re not satisfied with your experience, contact our support team within the guarantee period for assistance.</p>"
           }
         },
