@@ -29,7 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
-
+{% render 'lum-amplitude-attribution' %}
     {% render 'shogun-optimizer' %}
     {% render 'elevateab' %}
     <link rel="canonical" href="{{ canonical_url }}">
@@ -61,9 +61,9 @@
     {% endif %}
 
     {% comment %} Advertorial/landing analytics (ESGLD_61); the snippet self-limits to four page handles. {% endcomment %}
-    {% if template.name == 'page' %}
+    {% comment %} {% if template.name == 'page' %}
       {% render 'lum-amplitude-events-landing', page: page %}
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     {% comment %} Loaders: jQuery/Swiper on demand – no defer so sections can call before body parses {% endcomment %}
     <script src="{{ 'theme-loaders.js' | asset_url }}"></script>
@@ -431,7 +431,7 @@
     {% render 'external-scripts' %}
 
     {% comment %} Amplitude custom: scroll depth (percent + page path); waits for app-injected window.amplitude {% endcomment %}
-    <script src="{{ 'amplitude-scroll-depth.js' | asset_url }}" defer></script>
+    {% comment %} <script src="{{ 'amplitude-scroll-depth.js' | asset_url }}" defer></script> {% endcomment %}
 
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
@@ -525,5 +525,6 @@
     </script>
     {% endif %}
      {% render 'klaviyo-atc' %}
+     {% render 'lum-analytics' %}
   </body>
 </html>
