@@ -1,0 +1,41 @@
+{%- comment -%}
+  lum-amplitude-attribution — captures first-touch traffic attribution once per session.
+  Render ONCE in theme.liquid <head>, before any analytics snippet:
+      {% render 'lum-amplitude-attribution' %}
+  Stores traffic_source + utm_* in sessionStorage so PDP / other pages can read them
+  even though the utm params only exist in the URL on the landing page.
+{%- endcomment -%}
+<script>
+(function () {
+  var KEY = '__lum_attr';
+  if (sessionStorage.getItem(KEY)) return; // already captured this session
+
+  var q = new URLSearchParams(location.search);
+  var ref = document.referrer || '';
+
+  function source() {
+    var s = (q.get('utm_source') || '').toLowerCase();
+    if (s) {
+      if (/facebook|fb|meta|instagram/.test(s)) return 'Meta';
+      if (/google/.test(s))   return 'Google';
+      if (/tiktok/.test(s))   return 'Tiktok';
+      if (/applovin/.test(s)) return 'AppLovin';
+      if (/email|klaviyo/.test(s)) return 'Email';
+      return s; // fallback: raw utm_source
+    }
+    if (!ref) return 'Direct';
+    if (/google\./.test(ref))           return 'Organic';
+    if (/facebook|instagram/.test(ref)) return 'Meta';
+    if (/tiktok/.test(ref))             return 'Tiktok';
+    return 'Organic';
+  }
+
+  sessionStorage.setItem(KEY, JSON.stringify({
+    traffic_source: source(),
+    utm_source:   q.get('utm_source')   || null,
+    utm_medium:   q.get('utm_medium')   || null,
+    utm_campaign: q.get('utm_campaign') || null,
+    referrer:     ref || null
+  }));
+})();
+</script>
