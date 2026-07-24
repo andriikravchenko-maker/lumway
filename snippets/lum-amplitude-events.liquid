@@ -54,7 +54,7 @@
     }, 1000);
 
     // ---- page_view -------------------------------------------------------
-    track('page_view', { page_type: 'product', referrer: document.referrer || '' });
+    {% comment %} track('page_view', { page_type: 'product', referrer: document.referrer || '' }); {% endcomment %}
 
     // ---- initial buy-box state (no events, just remember the preselection)
     function packIndexOf(input) {
@@ -98,22 +98,21 @@
     }, true);
 
     // ---- clicks (one delegate) -------------------------------------------
-    var lastThumbClick = 0;
+    {% comment %} var lastThumbClick = 0;
     document.addEventListener('click', function (e) {
       var el = e.target;
 
       var atc = el.closest('[data-atc-button]');
       if (atc) { track('add_to_cart', { purchase_type: state.purchase_type, bundle_type: state.bundle_type }); return; }
 
-      // Store uses the custom lhead header, not Dawn's .header__*; match lhead first (Dawn kept as a fallback).
-      var logo = el.closest('.lhead__logo, .lhead__desk-logo, .header__heading-link, .header__heading-logo-wrapper');
+      var nav = el.closest('.header__inline-menu a, header-drawer nav a, header-drawer .menu-drawer__menu a');
+      if (nav) { track('nav_click', { nav_item: h(nav.textContent) }); return; }
+
+      var logo = el.closest('.header__heading-link, .header__heading-logo-wrapper');
       if (logo) { track('logo_clicked', {}); return; }
 
-      var cartIcon = el.closest('[data-lhead-cart], .lhead__cart, .lhead__desk-cart, .header__icon--cart');
+      var cartIcon = el.closest('.header__icon--cart');
       if (cartIcon) { track('cart_clicked', {}); return; }
-
-      var nav = el.closest('.lhead__desk-link, .lhead__sublink, .lhead__item, .lhead__desk-mega a, .header__inline-menu a, header-drawer nav a, header-drawer .menu-drawer__menu a');
-      if (nav) { track('nav_click', { nav_item: h(nav.textContent) }); return; }
 
       var tab = el.closest('.ptab [data-tab], [data-tab]');
       if (tab && el.closest('.ptab')) {
@@ -187,30 +186,19 @@
         track('cart_quantity_change', { prev_quantity: prev, new_quantity: next });
         return;
       }
-    }, true);
-
+    }, true); {% endcomment %}
+{% comment %} 
     // ---- gallery swipe -----------------------------------------------------
-    // galleryIndex/totalImages re-query the DOM on each call: the tracker runs before the gallery is
-    // parsed, so a reference cached at script time is null and every index reads 0 (that also skewed
-    // pp_image_thumbnail_click's from_index).
+    var lpgTrack = document.querySelector('[data-lpg-track]');
     function galleryIndex() {
-      var t = document.querySelector('[data-lpg-track]');
-      if (!t || !t.clientWidth) return 0;
-      return Math.round(t.scrollLeft / t.clientWidth);
+      if (!lpgTrack || !lpgTrack.clientWidth) return 0;
+      return Math.round(lpgTrack.scrollLeft / lpgTrack.clientWidth);
     }
     function totalImages() {
       return document.querySelectorAll('[data-lpg-slide]').length;
     }
-    // The swipe listener has to bind to the track element, which does not exist yet at script time, so
-    // defer element-bound setups until the DOM is parsed.
-    function whenReady(fn) {
-      if (document.readyState !== 'loading') fn();
-      else document.addEventListener('DOMContentLoaded', fn);
-    }
-    whenReady(function () {
-      var lpgTrack = document.querySelector('[data-lpg-track]');
-      if (!lpgTrack) return;
-      var lastIdx = galleryIndex(), swipeTimer = null;
+    if (lpgTrack) {
+      var lastIdx = 0, swipeTimer = null;
       window.addEventListener('load', function () { lastIdx = galleryIndex(); });
       lpgTrack.addEventListener('scroll', function () {
         clearTimeout(swipeTimer);
@@ -224,51 +212,38 @@
           lastIdx = idx;
         }, 200);
       }, { passive: true });
-    });
+    }
 
-    // ---- reviews carousel (Swiper) -----------------------------------------
-    // The reviews carousel is a Swiper (transform-based, initialised client-side), so the old
-    // scroll/scrollLeft listener never fired. Hook Swiper's slideChange via the instance on .swiper,
-    // with a swiper-slide-active MutationObserver fallback. Only user-driven changes are tracked (a
-    // recent touch/drag gates out autoplay advances).
-    whenReady(function () {
-      var revSection = document.querySelector('[id*="customer_reviews_carousel"]:not([style*="display: none"])');
-      if (!revSection) return;
-      var revTouched = 0;
-      ['touchstart', 'pointerdown'].forEach(function (ev) {
-        revSection.addEventListener(ev, function () { revTouched = Date.now(); }, { passive: true, capture: true });
-      });
-      var revLast = -1;
-      function revFire(idx) {
-        if (idx < 0 || idx === revLast) { revLast = idx; return; }
-        if (Date.now() - revTouched < 1500) {
-          track('reviews_carousel', { interaction_type: 'swipe', photo_index: idx + 1, direction: revLast > -1 && idx < revLast ? 'prev' : 'next' });
-        }
-        revLast = idx;
-      }
-      var revTries = 0;
-      var revPoll = setInterval(function () {
-        var sw = revSection.querySelector('.swiper');
-        var inst = sw && sw.swiper;
-        if (inst && typeof inst.on === 'function') {
-          clearInterval(revPoll);
-          revLast = inst.realIndex;
-          inst.on('slideChange', function () { revFire(inst.realIndex); });
-        } else if (++revTries > 20) {
-          clearInterval(revPoll);
-          var wrap = revSection.querySelector('.swiper-wrapper');
-          if (wrap) {
-            new MutationObserver(function () {
-              var slides = [].slice.call(revSection.querySelectorAll('.swiper-slide'));
-              revFire(slides.indexOf(revSection.querySelector('.swiper-slide-active')));
-            }).observe(wrap, { attributes: true, subtree: true, attributeFilter: ['class'] });
-          }
-        }
-      }, 500);
-    });
+    // ---- reviews carousel --------------------------------------------------
+    var revSection = document.querySelector('[id*="customer_reviews_carousel"]:not([style*="display: none"])');
+    if (revSection) {
+      var revLastClick = 0;
+      revSection.addEventListener('click', function (e) {
+        if (e.target.closest('button, [data-scroll-amount], .carousel-arrow, [class*="arrow"]')) revLastClick = Date.now();
+      }, true);
+      var revTimer = null, revLast = 0;
+      revSection.addEventListener('scroll', function (e) {
+        var sc = e.target;
+        if (!sc || typeof sc.scrollLeft !== 'number') return;
+        clearTimeout(revTimer);
+        revTimer = setTimeout(function () {
+          var slide = revSection.querySelector('.swiper-slide');
+          var w = slide ? slide.offsetWidth : sc.clientWidth;
+          if (!w) return;
+          var idx = Math.round(sc.scrollLeft / w);
+          if (idx === revLast) return;
+          track('reviews_carousel', {
+            interaction_type: (Date.now() - revLastClick < 900) ? 'click' : 'swipe',
+            photo_index: idx + 1,
+            direction: idx > revLast ? 'next' : 'prev'
+          });
+          revLast = idx;
+        }, 250);
+      }, true);
+    } {% endcomment %}
 
     // ---- cart_view (drawer opens) ------------------------------------------
-    var drawer = document.querySelector('cart-drawer');
+    {% comment %} var drawer = document.querySelector('cart-drawer');
     if (drawer && 'MutationObserver' in window) {
       var wasOpen = false;
       new MutationObserver(function () {
@@ -276,20 +251,14 @@
         if (open && !wasOpen) track('cart_view', {});
         wasOpen = open;
       }).observe(drawer, { attributes: true, attributeFilter: ['class'] });
-    }
+    } {% endcomment %}
 
-    // ---- footer / email subscribe --------------------------------------------
-    // The footer subscribe is a Klaviyo form injected client-side (there is no native <form> in the
-    // theme footer), so a submit listener never sees it. Klaviyo fires a 'klaviyoForms' window event
-    // on submit — that is the reliable hook. Native listener kept as a fallback for any real form.
+    // ---- footer newsletter ---------------------------------------------------
     document.addEventListener('submit', function (e) {
-      if (e.target && e.target.closest('#ContactFooter, .footer .newsletter-form, footer .newsletter-form, .klaviyo-form')) {
+      if (e.target && e.target.closest('#ContactFooter, .footer .newsletter-form, footer .newsletter-form')) {
         track('footer_email_subscribe', {});
       }
     }, true);
-    window.addEventListener('klaviyoForms', function (e) {
-      if (e && e.detail && e.detail.type === 'submit') track('footer_email_subscribe', {});
-    });
   })();
 </script>
 {%- endif -%}
