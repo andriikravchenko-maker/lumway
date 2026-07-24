@@ -1,0 +1,752 @@
+{%- comment -%}
+  lum-analytics — new unified analytics tracker (replaces lum-amplitude-events*).
+  Migration in progress: old snippets are commented out; events are ported here one by one.
+  ---------------------------------------------------------------------------
+  page_viewed fires on ALL pages. page_type is resolved from Liquid to one of the
+  allowed values: advertorial, landing, pdp, best-sellers, home, faq, reviews, contact.
+  Needs 'lum-amplitude-attribution' rendered once in theme.liquid <head> for traffic_source/utm.
+  Usage (put once in theme.liquid, before </body>):
+      {% render 'lum-analytics' %}
+  ---------------------------------------------------------------------------
+  Ported so far:
+    [x] page_viewed   (was: page_view — now site-wide)
+    [ ] product_added_to_cart      (was: add_to_cart)
+    [ ] product_removed_from_cart  (was: cart_item_remove_click)
+    [ ] cart_viewed                (was: cart_view)
+    [ ] ... (see checklist)
+{%- endcomment -%}
+
+{%- liquid
+  assign lum_landing_handles = 'copy-of-lumway,lumway2,listicle-2,metabolic' | split: ','
+
+  assign lum_page_type = ''
+
+  case template.name
+    when 'product'
+      assign lum_page_type = 'pdp'
+    when 'index'
+      assign lum_page_type = 'home'
+    when 'collection'
+      assign lum_page_type = 'best-sellers'
+      when 'cart'
+      assign lum_page_type = 'cart'
+    when 'page'
+      if lum_landing_handles contains page.handle
+        assign lum_page_type = 'advertorial'
+      elsif page.handle contains 'contact'
+        assign lum_page_type = 'contact'
+      elsif page.handle contains 'faq'
+        assign lum_page_type = 'faq'
+      elsif page.handle contains 'review'
+        assign lum_page_type = 'reviews'
+      else
+        assign lum_page_type = 'landing'
+      endif
+  endcase
+-%}
+
+{%- if lum_page_type != '' -%}
+<script>
+  (function () {
+    if (window.__lumAnalyticsBound) return;
+    window.__lumAnalyticsBound = true;
+
+    var PAGE_TYPE = {{ lum_page_type | json }};
+
+    // ---- Amplitude dispatch (same seam as old trackers) ------------------
+    var queue = [];
+    function ampFn() {
+      var amp = window.amplitude;
+      if (!amp) return null;
+      if (typeof amp.track === 'function') return amp.track.bind(amp);
+      if (amp.default && typeof amp.default.track === 'function') return amp.default.track.bind(amp.default);
+      if (typeof amp.getInstance === 'function') {
+        try {
+          var inst = amp.getInstance();
+          if (inst && typeof inst.logEvent === 'function') return function (n, p) { inst.logEvent(n, p); };
+        } catch (e) {}
+      }
+      return null;
+    }
+    function track(name, props) {
+      try {
+        var payload = Object.assign({}, props || {});
+        document.dispatchEvent(new CustomEvent('lum:analytics', { detail: { event: name, properties: payload } }));
+        var fn = ampFn();
+        if (fn) fn(name, payload); else queue.push([name, payload]);
+      } catch (e) {}
+    }
+    var tries = 0;
+    var flusher = setInterval(function () {
+      var fn = ampFn();
+      if (fn) { queue.splice(0).forEach(function (ev) { fn(ev[0], ev[1]); }); clearInterval(flusher); }
+      else if (++tries > 40) { clearInterval(flusher); }
+    }, 1000);
+
+    // ---- attribution helper (from lum-amplitude-attribution snippet) -----
+    function attribution() {
+      try { return JSON.parse(sessionStorage.getItem('__lum_attr')) || {}; } catch (e) { return {}; }
+    }
+
+    // =====================================================================
+    // page_viewed  (all pages)
+    // =====================================================================
+    (function () {
+      var attr = attribution();
+      var isEntry = !sessionStorage.getItem('__lum_entered');
+      if (isEntry) sessionStorage.setItem('__lum_entered', '1');
+
+      var props = {
+        page_type:      PAGE_TYPE,
+        page_name:      document.title,
+        is_entry:       isEntry,
+        traffic_source: attr.traffic_source || 'Direct',
+        utm_source:     attr.utm_source   || undefined,
+        utm_medium:     attr.utm_medium   || undefined,
+        utm_campaign:   attr.utm_campaign || undefined,
+        referrer:       attr.referrer     || undefined
+      };
+      Object.keys(props).forEach(function (k) { if (props[k] === undefined) delete props[k]; });
+
+      track('page_viewed', props);
+    })();
+
+
+    // =====================================================================
+    // cta_clicked  (advertorials/landings — was: cta_button_clicked)
+    // =====================================================================
+    (function () {
+      var CTA_PAGE_TYPES = { advertorial: 1, landing: 1, home: 1, faq: 1, reviews: 1, contact: 1 };
+      if (!CTA_PAGE_TYPES[PAGE_TYPE]) return;
+
+      var EXCLUDE_BUY_NOW = {% if page.handle == 'metabolic' %}true{% else %}false{% endif %};
+
+      function clean(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+
+      // cta_position: top / reasons / bottom
+      function positionFor(el) {
+        if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) {
+          return 'bottom';
+        }
+        var rect = el.getBoundingClientRect();
+        var y = rect.top + window.scrollY;
+        var docH = document.documentElement.scrollHeight || 1;
+        var ratio = y / docH;
+        if (ratio < 0.33) return 'top';
+        if (ratio > 0.66) return 'bottom';
+        return 'reasons';
+      }
+
+      // cta_action: scroll_to_product / scroll_to_info / navigate_to_pdp
+      function actionFor(el, href) {
+        // 1) leads to a product page → PDP navigation
+        if (href && /\/products\//.test(href)) return 'navigate_to_pdp';
+
+        // 2) sticky "buy" button OR anchor pointing at the buy-box → scroll to product
+        if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) {
+          return 'scroll_to_product';
+        }
+        var anchor = '';
+        if (href && href.charAt(0) === '#') anchor = href.slice(1);
+        else { var hi = (href || '').indexOf('#'); if (hi > -1) anchor = href.slice(hi + 1); }
+        if (anchor) {
+          var target = document.getElementById(anchor);
+          // anchor lands on/near a buy-box → product; otherwise it's an info section
+          if (target && (target.querySelector('.bsl, .patc, [data-product-id]') || target.closest('.bsl, .patc, [data-product-id]'))) {
+            return 'scroll_to_product';
+          }
+          return 'scroll_to_info';
+        }
+
+        // 3) no href/anchor but a JS button that scrolls to buy-box (theme sticky pattern)
+        return 'scroll_to_product';
+      }
+
+      document.addEventListener('click', function (e) {
+        var el = e.target.closest('a, button');
+        if (!el) return;
+        if (el.closest('header, .header, header-drawer, cart-drawer, .footer__content-bottom, .menu-drawer')) return;
+        var cls = String(el.className || '');
+        var isCta = /(button|btn|cta)/i.test(cls) || el.closest('.simple-sticky-btn-wrapper, [id^="simpleStickyBtn"]');
+        if (!isCta) return;
+        var text = clean(el.textContent).slice(0, 80);
+        if (!text) return;
+        if (EXCLUDE_BUY_NOW && /buy\s*now/i.test(text)) return;
+
+        var href = (el.getAttribute && el.getAttribute('href')) || '';
+        var destination = '';
+        try { destination = href ? new URL(href, location.origin).pathname : ''; } catch (x) { destination = href; }
+        // keep the anchor in destination for advertorials (schema: "anchor links for advertorials")
+        if (href && href.indexOf('#') > -1) {
+          try { destination = new URL(href, location.origin).pathname + new URL(href, location.origin).hash; } catch (x) {}
+        }
+
+        track('cta_clicked', {
+          page_type:    PAGE_TYPE,
+          cta_text:     text,
+          cta_position: positionFor(el),
+          cta_action:   actionFor(el, href),
+          destination:  destination || undefined
+        });
+      }, true);
+    })();
+
+   // =====================================================================
+    // page_scrolled  (all pages — was: amplitude-scroll-depth.js)
+    // Fires once per threshold (25/50/75/100) per page load.
+    // =====================================================================
+    (function () {
+      var THRESHOLDS = [25, 50, 75, 100];
+      var fired = {};              // remember which thresholds already sent
+      var ticking = false;
+
+      // scroll_type: 'auto' briefly after a button-triggered programmatic scroll, else 'user'
+      var autoUntil = 0;
+      // buttons that scroll the page automatically (sticky ATC, anchor CTAs)
+      document.addEventListener('click', function (e) {
+        var el = e.target.closest('a, button');
+        if (!el) return;
+        var href = (el.getAttribute && el.getAttribute('href')) || '';
+        var isScroller =
+          el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button, [data-patc-sticky-btn]') ||
+          (href && href.charAt(0) === '#') ||
+          (href && href.indexOf('#') > -1 && href.indexOf(location.pathname) > -1);
+        if (isScroller) autoUntil = Date.now() + 1200; // programmatic scroll window
+      }, true);
+
+      function scrollType() { return Date.now() < autoUntil ? 'auto' : 'user'; }
+
+      function pct() {
+        var doc = document.documentElement;
+        var body = document.body;
+        var scrollTop = window.scrollY || doc.scrollTop || 0;
+        var winH = window.innerHeight || doc.clientHeight;
+        var docH = Math.max(
+          body.scrollHeight, doc.scrollHeight,
+          body.offsetHeight, doc.offsetHeight,
+          body.clientHeight, doc.clientHeight
+        );
+        var scrollable = docH - winH;
+        if (scrollable <= 0) return 100;               // short page: fully seen
+        return Math.min(100, Math.round((scrollTop / scrollable) * 100));
+      }
+
+      function check() {
+        ticking = false;
+        var p = pct();
+        for (var i = 0; i < THRESHOLDS.length; i++) {
+          var t = THRESHOLDS[i];
+          if (p >= t && !fired[t]) {
+            fired[t] = true;
+            track('page_scrolled', {
+              page_type:        PAGE_TYPE,
+              page_name:        document.title,
+              scroll_type:      scrollType(),
+              percent_scrolled: t
+            });
+          }
+        }
+        // all thresholds done → stop listening
+        if (fired[100]) window.removeEventListener('scroll', onScroll);
+      }
+
+      function onScroll() {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(check); }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      // in case the page loads already scrolled (refresh mid-page) or is short
+      check();
+    })();
+
+
+
+   // =====================================================================
+    // product_viewed  (fires when the product buy-box is SEEN — works on
+    // PDP *and* advertorials with an embedded buy-box)
+    // =====================================================================
+    (function () {
+      var seen = {};
+      var roots = [];
+      document.querySelectorAll('[data-product-id]').forEach(function (el) {
+        var id = el.getAttribute('data-product-id');
+        if (id && !seen[id] && el.querySelector('.bsl-variants, .patc-variants')) { seen[id] = 1; roots.push(el); }
+      });
+      if (!roots.length) return;
+
+      function variantsOf(root) {
+        var node = root.querySelector('.bsl-variants') || root.querySelector('.patc-variants')
+                || document.querySelector('.patc-variants');
+        try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+      }
+
+      function selectedVariantId(root) {
+        var checked = root.querySelector('.bsl__input:checked');
+        if (checked && checked.value) return checked.value;
+        var idInput = root.querySelector('input[name="id"]') || document.querySelector('.product-buy-form-pdp input[name="id"]');
+        return idInput ? idInput.value : null;
+      }
+
+      function packLabel(root) {
+        var card = root.querySelector('.bsl__card.is-selected') || root.querySelector('.bsl__input:checked');
+        if (card && card.classList && !card.classList.contains('bsl__card')) card = card.closest('.bsl__card');
+        var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+        if (!n) {
+          var checked = root.querySelector('.bsl__input:checked');
+          var cards = [].slice.call(root.querySelectorAll('.bsl__card'));
+          var i = checked ? cards.indexOf(checked.closest('.bsl__card')) : -1;
+          n = i > -1 ? i + 1 : 1;
+        }
+        return n + (n === 1 ? '-jar' : '-jars');
+      }
+
+      function fireFor(root) {
+        var variants = variantsOf(root);
+        var vid = selectedVariantId(root);
+        var v = null;
+        for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(vid)) { v = variants[i]; break; } }
+        if (!v) v = variants[0];
+        if (!v) return;
+
+        var sku = v.sku || (variants[0] && variants[0].sku) || null;
+
+        track('product_viewed', {
+          product_id:   sku || undefined,
+          variant_id:   packLabel(root),
+          page_type:    PAGE_TYPE,
+          product_name: (v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined,
+          price:        Math.round(v.price) / 100,
+          currency:     (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+          parent_page:  (PAGE_TYPE !== 'pdp' ? location.pathname : (function () {
+                           try { if (document.referrer) { var r = new URL(document.referrer); if (r.origin === location.origin) return r.pathname; } } catch (e) {}
+                           return undefined;
+                         })())
+        });
+      }
+
+      if (!('IntersectionObserver' in window)) { roots.forEach(fireFor); return; }
+
+      var firedSet = {};
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var root = en.target;
+          var id = root.getAttribute('data-product-id');
+          if (firedSet[id]) { io.unobserve(root); return; }
+          firedSet[id] = 1;
+          fireFor(root);
+          io.unobserve(root);
+        });
+      }, { threshold: 0.5 });
+
+      roots.forEach(function (r) { io.observe(r); });
+    })();
+    
+
+    // =====================================================================
+    // product_added_to_cart  (works on PDP + advertorials with buy-box)
+    // =====================================================================
+    (function () {
+      function root() {
+        return document.querySelector('.patc') || document.querySelector('[data-product-id]');
+      }
+
+      function variants() {
+        var node = document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
+        try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+      }
+
+      function plans() {
+        var node = document.querySelector('.ptl-plans');
+        try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+      }
+
+      function selectedVariant() {
+        var input = document.querySelector('.product-buy-form-pdp input[name="id"]')
+                 || document.querySelector('input[name="id"]');
+        var id = input && input.value;
+        var vs = variants();
+        for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
+        return vs[0] || null;
+      }
+
+      function packLabel() {
+        var card = document.querySelector('.bsl__card.is-selected')
+                || (document.querySelector('.bsl__input:checked') || {}).closest
+                   && document.querySelector('.bsl__input:checked').closest('.bsl__card');
+        var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+        if (!n) n = 1;
+        return n + (n === 1 ? '-jar' : '-jars');
+      }
+
+      function purchaseType() {
+        var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]')
+              || document.querySelector('input[name="selling_plan"]');
+        // a non-empty selling_plan means subscription is active (matches the buy-box's own logic)
+        if (sp && sp.value) return 'subscription';
+        var checked = document.querySelector('.ptl__input:checked');
+        if (checked && (checked.value === 'subscribe')) return 'subscription';
+        return 'one_time';
+      }
+
+      // subscription_type: read the selling_plan id → find its plan → "Order Frequency and Unit"
+      function subscriptionType() {
+        var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]')
+              || document.querySelector('input[name="selling_plan"]');
+        var planId = sp && sp.value;
+        if (!planId) return undefined;
+        var groups = plans();
+        for (var g = 0; g < groups.length; g++) {
+          var sps = groups[g].selling_plans || [];
+          for (var i = 0; i < sps.length; i++) {
+            if (String(sps[i].id) === String(planId)) {
+              var opts = sps[i].options || [];
+              for (var o = 0; o < opts.length; o++) {
+                if (/frequency|order frequency|unit/i.test(opts[o].name || '')) {
+                  return opts[o].value; // already "1-month" / "2-month" / "3-month"
+                }
+              }
+            }
+          }
+        }
+        return undefined;
+      }
+
+      function priceOf(v, isSub) {
+        if (isSub && v.selling_plan_allocations && v.selling_plan_allocations.length) {
+          // match the active plan's allocation, else take the first
+          var sp = document.querySelector('input[name="selling_plan"]');
+          var pid = sp && sp.value;
+          var allocs = v.selling_plan_allocations;
+          for (var i = 0; i < allocs.length; i++) {
+            if (String(allocs[i].selling_plan_id) === String(pid)) return Math.round(allocs[i].price) / 100;
+          }
+          return Math.round(allocs[0].price) / 100;
+        }
+        return Math.round(v.price) / 100;
+      }
+
+      function fire() {
+        var v = selectedVariant();
+        if (!v) return;
+        var vs = variants();
+        var sku = v.sku || (vs[0] && vs[0].sku) || null;
+        var pt = purchaseType();
+
+        var props = {
+          product_id:    sku || undefined,
+          product_name:  (v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined,
+          variant_id:    packLabel(),
+          price:         priceOf(v, pt === 'subscription'),
+          quantity:      1,
+          currency:      (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+          purchase_type: pt
+        };
+        if (pt === 'subscription') {
+          var st = subscriptionType();
+          if (st) props.subscription_type = st;
+        }
+        track('product_added_to_cart', props);
+      }
+
+      // capture-phase click on the ATC button (mirrors the old tracker's hook)
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-atc-button]')) fire();
+      }, true);
+    })();
+
+
+    // =====================================================================
+    // product_removed_from_cart  (cart drawer — was: cart_item_remove_click)
+    // =====================================================================
+    (function () {
+      // map a Shopify cart line → schema props. Uses /cart.js data, not DOM scraping,
+      // so variant_id / purchase_type / price are exact.
+      function packLabelFromLine(line) {
+        // options like ["2 Jars"] or title "... - 2 Jars" → "2-jars"
+        var raw = '';
+        if (line.options_with_values && line.options_with_values.length) raw = line.options_with_values[0].value;
+        else if (line.variant_title) raw = line.variant_title;
+        else raw = line.title || '';
+        var m = String(raw).match(/(\d+)\s*jar/i);
+        var n = m ? parseInt(m[1], 10) : 1;
+        return n + (n === 1 ? '-jar' : '-jars');
+      }
+
+      function subTypeFromLine(line) {
+        // selling_plan_allocation.selling_plan.name usually holds "... 1 month ..."
+        var sp = line.selling_plan_allocation && line.selling_plan_allocation.selling_plan;
+        if (!sp) return undefined;
+        var hay = (sp.name || '') + ' ' + (sp.description || '');
+        var m = hay.match(/([123])\s*[-\s]?\s*month/i);
+        if (m) return m[1] + '-month';
+        return undefined;
+      }
+
+      function propsFromLine(line) {
+        var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
+        var props = {
+          product_id:    line.sku || String(line.product_id) || undefined,
+          product_name:  (line.product_title || line.title || '').replace(/\s*-\s*\d+\s*jars?$/i, '') || undefined,
+          variant_id:    packLabelFromLine(line),
+          price:         Math.round(line.final_price != null ? line.final_price : line.price) / 100,
+          quantity:      line.quantity || 1,
+          currency:      (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+          purchase_type: isSub ? 'subscription' : 'one_time'
+        };
+        var st = subTypeFromLine(line);
+        if (isSub && st) props.subscription_type = st;
+        return props;
+      }
+
+      // find which cart line a clicked remove-button belongs to
+      function lineKeyFor(el) {
+        var row = el.closest('[data-variant-id], .cart-item, [id^="CartItem-"], tr');
+        if (!row) return null;
+        // prefer variant id from the row; fall back to line index
+        var vid = row.getAttribute && row.getAttribute('data-variant-id');
+        var idx = null;
+        var m = (row.id || '').match(/CartItem-(\d+)/);
+        if (m) idx = parseInt(m[1], 10); // 1-based line index (Dawn convention)
+        return { variantId: vid || null, index: idx };
+      }
+
+      function matchLine(cart, ref) {
+        if (!cart || !cart.items) return null;
+        if (ref.index && cart.items[ref.index - 1]) return cart.items[ref.index - 1];
+        if (ref.variantId) {
+          for (var i = 0; i < cart.items.length; i++) {
+            if (String(cart.items[i].variant_id) === String(ref.variantId)) return cart.items[i];
+          }
+        }
+        return null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('cart-remove-button, [data-cart-remove], a[href*="/cart/change"], .cart-remove');
+        if (!btn) return;
+        var ref = lineKeyFor(btn);
+        if (!ref) return;
+
+        // read the cart BEFORE removal, resolve the line, then fire
+        fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+          .then(function (r) { return r.json(); })
+          .then(function (cart) {
+            var line = matchLine(cart, ref);
+            // skip LUM gift lines (auto-managed, not a user removal of a product)
+            if (line && line.properties && (line.properties._lum_gift || line.properties['_lum_gift'])) return;
+            if (line) track('product_removed_from_cart', propsFromLine(line));
+          })
+          .catch(function () {});
+      }, true);
+    })();
+
+
+    // =====================================================================
+    // cart_viewed  (cart drawer opens — was: cart_view, now with aggregates)
+    // =====================================================================
+    (function () {
+      function collect(cart) {
+        var ids = [], names = [], hasSub = false;
+        (cart.items || []).forEach(function (line) {
+          // skip auto-managed LUM gift lines
+          if (line.properties && (line.properties._lum_gift || line.properties['_lum_gift'])) return;
+          if (line.selling_plan_allocation && line.selling_plan_allocation.selling_plan) hasSub = true;
+          ids.push(line.sku || String(line.product_id));
+          names.push(line.handle || line.product_title || line.title);
+        });
+        return {
+          cart_value:      Math.round(cart.items_subtotal_price != null ? cart.items_subtotal_price : cart.total_price) / 100,
+          currency:        cart.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+          items_number:    cart.item_count || 0,
+          has_subscription: hasSub,
+          product_ids:     ids,
+          product_names:   names
+        };
+      }
+
+      function fire() {
+        fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+          .then(function (r) { return r.json(); })
+          .then(function (cart) { track('cart_viewed', collect(cart)); })
+          .catch(function () {});
+      }
+
+      // drawer open → same detection as the old cart_view
+      var drawer = document.querySelector('cart-drawer');
+      if (drawer && 'MutationObserver' in window) {
+        var wasOpen = false;
+        new MutationObserver(function () {
+          var open = drawer.classList.contains('active') || drawer.classList.contains('animate');
+          if (open && !wasOpen) fire();
+          wasOpen = open;
+        }).observe(drawer, { attributes: true, attributeFilter: ['class'] });
+      }
+
+      // also fire on the standalone /cart page (no drawer there)
+      if (PAGE_TYPE === 'cart') fire();
+    })();
+
+
+    // =====================================================================
+    // buy-box: bundle_selected + purchase_type_selected (PDP)
+    // =====================================================================
+    (function () {
+      if (PAGE_TYPE !== 'pdp') return;
+      var PACKS = ['1_jar', '2_jars', '3_jars', '4_jars'];
+
+      function packIndexOf(input) {
+        var card = input.closest('.bsl__card');
+        if (!card) return -1;
+        var cards = [].slice.call(card.closest('.bsl__grid').querySelectorAll('.bsl__card'));
+        return cards.indexOf(card);
+      }
+      function bundlePrice(variantId) {
+        try {
+          var node = document.querySelector('.bsl-variants');
+          var vs = node ? JSON.parse(node.textContent) : [];
+          for (var i = 0; i < vs.length; i++) {
+            if (String(vs[i].id) === String(variantId)) return Math.round(vs[i].price) / 100;
+          }
+        } catch (e) {}
+        return null;
+      }
+
+      document.addEventListener('change', function (e) {
+        var t = e.target;
+        if (t.classList && t.classList.contains('bsl__input')) {
+          var i = packIndexOf(t);
+          if (i > -1) track('bundle_selected', { bundle_type: PACKS[i] || String(i + 1), bundle_price: bundlePrice(t.value) });
+        }
+        if (t.classList && t.classList.contains('ptl__input')) {
+          track('purchase_type_selected', { purchase_type: t.value === 'subscribe' ? 'subscription' : 'one_time' });
+        }
+      }, true);
+    })();
+
+    // =====================================================================
+    // pp_image_thumbnail_click + pp_image_swipe (PDP gallery)
+    // =====================================================================
+    (function () {
+      var root = document.querySelector('[data-lpg]');
+      if (!root) return;
+      var lpgTrack = root.querySelector('[data-lpg-track]');
+      if (!lpgTrack) return;
+
+      var slides = [].slice.call(root.querySelectorAll('[data-lpg-slide]'));
+      var items  = [].slice.call(root.querySelectorAll('[data-lpg-item]'));
+
+      function productId() {
+        var el = document.querySelector('[data-product-id]');
+        return el ? el.getAttribute('data-product-id') : undefined;
+      }
+      function totalImages() { return slides.length; }
+      function galleryIndex() {
+        var w = lpgTrack.clientWidth || 1;
+        return Math.round(lpgTrack.scrollLeft / w);
+      }
+
+      var lastIdx = galleryIndex();
+      var swipeTimer = null;
+      var lastProgrammatic = 0;
+
+      function resync() { lastIdx = galleryIndex(); }
+      window.addEventListener('load', resync);
+      [300, 800, 1500].forEach(function (d) { setTimeout(resync, d); });
+
+      // ---- thumbnail / arrow click -------------------------------------
+      root.addEventListener('click', function (e) {
+        var thumb = e.target.closest('[data-lpg-item]');
+        var arrow = e.target.closest('[data-lpg-prev], [data-lpg-next]');
+        if (!thumb && !arrow) return;
+
+        lastProgrammatic = Date.now();
+
+        var from = galleryIndex();
+        var to = from;
+        if (thumb) to = items.indexOf(thumb);
+        else if (arrow) to = e.target.closest('[data-lpg-next]') ? from + 1 : from - 1;
+
+        var total = totalImages();
+        if (to < 0) to = 0;
+        if (to > total - 1) to = total - 1;
+
+        track('pp_image_thumbnail_click', {
+          product_id:   productId(),
+          from_index:   from + 1,
+          to_index:     to + 1,
+          total_images: total
+        });
+      }, true);
+
+      // ---- swipe (real scroll, not click-driven) -----------------------
+      lpgTrack.addEventListener('scroll', function () {
+        clearTimeout(swipeTimer);
+        swipeTimer = setTimeout(function () {
+          var idx = galleryIndex();
+          if (idx === lastIdx) return;
+          if (Date.now() - lastProgrammatic > 900) {
+            track('pp_image_swipe', {
+              product_id:   productId(),
+              from_index:   lastIdx + 1,
+              to_index:     idx + 1,
+              total_images: totalImages()
+            });
+          }
+          lastIdx = idx;
+        }, 250);
+      }, { passive: true });
+    })();
+
+
+
+    // =====================================================================
+    // reviews_carousel
+    // =====================================================================
+    (function () {
+      var revSection = document.querySelector('[id*="customer_reviews_carousel"]:not([style*="display: none"])');
+      if (!revSection) return;
+      var revLastClick = 0;
+      revSection.addEventListener('click', function (e) {
+        if (e.target.closest('button, [data-scroll-amount], .carousel-arrow, [class*="arrow"]')) revLastClick = Date.now();
+      }, true);
+      var revTimer = null, revLast = 0;
+      revSection.addEventListener('scroll', function (e) {
+        var sc = e.target;
+        if (!sc || typeof sc.scrollLeft !== 'number') return;
+        clearTimeout(revTimer);
+        revTimer = setTimeout(function () {
+          var slide = revSection.querySelector('.swiper-slide');
+          var w = slide ? slide.offsetWidth : sc.clientWidth;
+          if (!w) return;
+          var idx = Math.round(sc.scrollLeft / w);
+          if (idx === revLast) return;
+          track('reviews_carousel', {
+            interaction_type: (Date.now() - revLastClick < 900) ? 'click' : 'swipe',
+            photo_index: idx + 1,
+            direction: idx > revLast ? 'next' : 'prev'
+          });
+          revLast = idx;
+        }, 250);
+      }, true);
+    })();
+
+    // =====================================================================
+    // footer_email_subscribe (all pages)
+    // =====================================================================
+    (function () {
+      document.addEventListener('submit', function (e) {
+        if (e.target && e.target.closest('#ContactFooter, .footer .newsletter-form, footer .newsletter-form')) {
+          track('footer_email_subscribe', {});
+        }
+      }, true);
+    })();
+
+    // =====================================================================
+    // NEXT EVENTS GO HERE — port one at a time from the old snippets.
+    // Keep each in its own (function(){ ... })() block for clarity.
+    // =====================================================================
+
+  })();
+</script>
+{%- endif -%}
