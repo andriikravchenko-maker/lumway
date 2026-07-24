@@ -71,7 +71,7 @@
     }
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', readInitial); } else { readInitial(); }
 
-    // ---- buy box ---------------------------------------------------------
+    {% comment %} // ---- buy box ---------------------------------------------------------
     var bslVariants = null;
     function bundlePrice(variantId) {
       try {
@@ -95,7 +95,7 @@
         state.purchase_type = t.value === 'subscribe' ? 'subscription' : 'one_time';
         track('purchase_type_selected', { purchase_type: state.purchase_type });
       }
-    }, true);
+    }, true); {% endcomment %}
 
     // ---- clicks (one delegate) -------------------------------------------
     {% comment %} var lastThumbClick = 0;
