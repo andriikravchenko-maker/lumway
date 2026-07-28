@@ -198,7 +198,7 @@
       // Shopify wraps each section as id="shopify-section-<something>".
       // For template sections that's "shopify-section-template--123__block_name"
       // → we extract "block_name". For static/named sections it's the id after
-      // "shopify-section-". Stable across layout changes (unlike top/reasons/bottom).
+      // "shopify-section-". Stable across layout changes (unlike top/middle/bottom).
       function sectionName(el) {
         var sec = el.closest('[id^="shopify-section-"]');
         if (!sec) return undefined;
@@ -226,7 +226,7 @@
         var ratio = y / docH;
         if (ratio < 0.33) return 'top';
         if (ratio > 0.66) return 'bottom';
-        return 'reasons';
+        return 'middle';
       }
 
       function actionFor(el, href) {
@@ -264,7 +264,7 @@
         track('cta_clicked', {
           page_type:     PAGE_TYPE,
           cta_text:      text,
-          cta_position:  positionFor(el),      // legacy top/reasons/bottom
+          cta_position:  positionFor(el),      // legacy top/middle/bottom
           section_name:  sectionName(el),      // NEW: block/section the CTA sits in
           button_id:     buttonId(el),         // NEW: element id if any
           cta_action:    actionFor(el, href),
