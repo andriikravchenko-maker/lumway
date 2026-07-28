@@ -46,7 +46,10 @@
 -%}
 
 {%- if lum_page_type != '' -%}
-<script>
+  {%- if customer -%}
+    <script>window.__lumCustomerId = {{ customer.email | json }};</script>
+  {%- endif -%}
+  <script>
   (function () {
     if (window.__lumAnalyticsBound) return;
     window.__lumAnalyticsBound = true;
@@ -87,6 +90,55 @@
     function attribution() {
       try { return JSON.parse(sessionStorage.getItem('__lum_attr')) || {}; } catch (e) { return {}; }
     }
+
+// ---- ensure Amplitude user_id is set for logged-in customers ----------
+    (function () {
+      function userId() {
+        try {
+          // Liquid-injected customer email (most reliable, matches checkout)
+          if (window.__lumCustomerId) return String(window.__lumCustomerId);
+          // ShopifyAnalytics customer id
+          var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
+          if (m && m.customerId) return String(m.customerId);
+          // __st.cid (present even when t=prospect, if actually logged in)
+          if (window.__st && window.__st.cid) return String(window.__st.cid);
+        } catch (e) {}
+        return null;
+      }
+      var n = 0, t = setInterval(function () {
+        var amp = window.amplitude;
+        var uid = userId();
+        if (amp && amp.setUserId && uid) {
+          if (!amp.getUserId || amp.getUserId() !== uid) amp.setUserId(uid);
+          clearInterval(t);
+        } else if (++n > 40) clearInterval(t);
+      }, 500);
+    })();
+
+    // ---- stitch device_id + user_id (Shopify customer email) into the cart -
+    (function () {
+      function did() {
+        try { if (window.amplitude && window.amplitude.getDeviceId) return window.amplitude.getDeviceId(); } catch (e) {}
+        return null;
+      }
+      var uid = window.__lumCustomerId ? String(window.__lumCustomerId) : null;
+
+      function save(id) {
+        if (!id) return;
+        var key = id + '|' + (uid || '');
+        if (sessionStorage.getItem('__lum_ids_saved') === key) return;
+        var attrs = { amp_device_id: id };
+        if (uid) attrs.amp_user_id = uid;
+        fetch('/cart/update.js', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ attributes: attrs })
+        }).then(function () { sessionStorage.setItem('__lum_ids_saved', key); }).catch(function () {});
+      }
+      var n = 0, t = setInterval(function () {
+        var id = did();
+        if (id) { save(id); clearInterval(t); } else if (++n > 40) clearInterval(t);
+      }, 500);
+    })();
 
     // ---- stitch Amplitude device_id into the cart (survives checkout domain) ---
     (function () {
