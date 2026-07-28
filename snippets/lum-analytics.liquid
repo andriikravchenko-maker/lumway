@@ -88,6 +88,25 @@
       try { return JSON.parse(sessionStorage.getItem('__lum_attr')) || {}; } catch (e) { return {}; }
     }
 
+    // ---- stitch Amplitude device_id into the cart (survives checkout domain) ---
+    (function () {
+      function did() {
+        try { if (window.amplitude && window.amplitude.getDeviceId) return window.amplitude.getDeviceId(); } catch (e) {}
+        return null;
+      }
+      function save(id) {
+        if (!id || sessionStorage.getItem('__lum_did_saved') === id) return;
+        fetch('/cart/update.js', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ attributes: { amp_device_id: id } })
+        }).then(function () { sessionStorage.setItem('__lum_did_saved', id); }).catch(function () {});
+      }
+      var n = 0, t = setInterval(function () {
+        var id = did();
+        if (id) { save(id); clearInterval(t); } else if (++n > 40) clearInterval(t);
+      }, 500);
+    })();
+
     // =====================================================================
     // page_viewed  (all pages)
     // =====================================================================
@@ -119,15 +138,36 @@
       var CTA_PAGE_TYPES = { advertorial: 1, landing: 1, home: 1, faq: 1, reviews: 1, contact: 1 };
       if (!CTA_PAGE_TYPES[PAGE_TYPE]) return;
 
-      var EXCLUDE_BUY_NOW = {% if page.handle == 'metabolic' %}true{% else %}false{% endif %};
+      var EXCLUDE_BUY_NOW = {% if page != blank and page.handle == 'metabolic' %}true{% else %}false{% endif %};
 
       function clean(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
 
-      // cta_position: top / reasons / bottom
+      // section_name: the theme section block that contains the CTA.
+      // Shopify wraps each section as id="shopify-section-<something>".
+      // For template sections that's "shopify-section-template--123__block_name"
+      // → we extract "block_name". For static/named sections it's the id after
+      // "shopify-section-". Stable across layout changes (unlike top/reasons/bottom).
+      function sectionName(el) {
+        var sec = el.closest('[id^="shopify-section-"]');
+        if (!sec) return undefined;
+        var id = sec.id.replace(/^shopify-section-/, '');
+        // template section: "template--27015166525759__product_details_lum"
+        var m = id.match(/__(.+)$/);
+        return m ? m[1] : id;
+      }
+
+      // button_id: element id if present (Tetiana's alternative)
+      function buttonId(el) {
+        var withId = el.id ? el : el.closest('[id]');
+        var id = withId ? withId.id : '';
+        // ignore shopify-section wrappers
+        if (/^shopify-section-/.test(id)) return undefined;
+        return id || undefined;
+      }
+
+      // legacy fallback position (kept until Tetiana confirms section_name is enough)
       function positionFor(el) {
-        if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) {
-          return 'bottom';
-        }
+        if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) return 'bottom';
         var rect = el.getBoundingClientRect();
         var y = rect.top + window.scrollY;
         var docH = document.documentElement.scrollHeight || 1;
@@ -137,28 +177,17 @@
         return 'reasons';
       }
 
-      // cta_action: scroll_to_product / scroll_to_info / navigate_to_pdp
       function actionFor(el, href) {
-        // 1) leads to a product page → PDP navigation
         if (href && /\/products\//.test(href)) return 'navigate_to_pdp';
-
-        // 2) sticky "buy" button OR anchor pointing at the buy-box → scroll to product
-        if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) {
-          return 'scroll_to_product';
-        }
+        if (el.closest('[id^="simpleStickyBtn"], .simple-sticky-btn-wrapper, .listicle-sticky-atc, .sticky-atc-button')) return 'scroll_to_product';
         var anchor = '';
         if (href && href.charAt(0) === '#') anchor = href.slice(1);
         else { var hi = (href || '').indexOf('#'); if (hi > -1) anchor = href.slice(hi + 1); }
         if (anchor) {
           var target = document.getElementById(anchor);
-          // anchor lands on/near a buy-box → product; otherwise it's an info section
-          if (target && (target.querySelector('.bsl, .patc, [data-product-id]') || target.closest('.bsl, .patc, [data-product-id]'))) {
-            return 'scroll_to_product';
-          }
+          if (target && (target.querySelector('.bsl, .patc, [data-product-id]') || target.closest('.bsl, .patc, [data-product-id]'))) return 'scroll_to_product';
           return 'scroll_to_info';
         }
-
-        // 3) no href/anchor but a JS button that scrolls to buy-box (theme sticky pattern)
         return 'scroll_to_product';
       }
 
@@ -176,17 +205,18 @@
         var href = (el.getAttribute && el.getAttribute('href')) || '';
         var destination = '';
         try { destination = href ? new URL(href, location.origin).pathname : ''; } catch (x) { destination = href; }
-        // keep the anchor in destination for advertorials (schema: "anchor links for advertorials")
         if (href && href.indexOf('#') > -1) {
           try { destination = new URL(href, location.origin).pathname + new URL(href, location.origin).hash; } catch (x) {}
         }
 
         track('cta_clicked', {
-          page_type:    PAGE_TYPE,
-          cta_text:     text,
-          cta_position: positionFor(el),
-          cta_action:   actionFor(el, href),
-          destination:  destination || undefined
+          page_type:     PAGE_TYPE,
+          cta_text:      text,
+          cta_position:  positionFor(el),      // legacy top/reasons/bottom
+          section_name:  sectionName(el),      // NEW: block/section the CTA sits in
+          button_id:     buttonId(el),         // NEW: element id if any
+          cta_action:    actionFor(el, href),
+          destination:   destination || undefined
         });
       }, true);
     })();
