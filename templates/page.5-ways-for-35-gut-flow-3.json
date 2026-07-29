@@ -968,12 +968,38 @@
             "line_height": 1.4,
             "margin_bottom": 16
           }
+        },
+        "text_erkzPh": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>My digestion felt more predictable</li><li>I stopped carrying the same uncomfortable heaviness</li><li>My stomach didn’t feel as dramatically different by evening</li></ul>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_TPBWit": {
+          "type": "text",
+          "settings": {
+            "text": "<p>And one day, I put on my jeans without immediately wondering when I would need to unbutton them.<br/>That small moment gave me more confidence than another restrictive diet I ever had.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 0
+          }
         }
       },
       "block_order": [
         "heading_yR93An",
         "text_Vrhyqh",
-        "text_jjhkHP"
+        "text_jjhkHP",
+        "text_erkzPh",
+        "text_TPBWit"
       ],
       "name": "The First Change Wasn’t Weight Loss",
       "settings": {
