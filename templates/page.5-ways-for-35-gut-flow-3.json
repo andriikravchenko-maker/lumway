@@ -381,12 +381,12 @@
           "type": "list",
           "settings": {
             "items": "I wasn’t having comfortable, regular bowel movements.\nMy stomach felt heavy after normal meals.\nMy waistband became uncomfortable as the day went on.\nI often felt “full” even when I wasn’t hungry.\nMy body rarely felt completely light or settled.",
-            "background_color": "#F9F9F9",
-            "border_color": "#C2C2C2",
+            "background_color": "#f9f9f9",
+            "border_color": "#c2c2c2",
             "border_width": 1,
             "border_radius": 16,
             "text_color": "#111111",
-            "bullet_color": "#5B0D1E",
+            "bullet_color": "#5b0d1e",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "500",
@@ -423,8 +423,113 @@
       "name": "Gut Harmony Feature V2",
       "settings": {
         "use_theme_colors": false,
-        "padding_top": 80,
-        "padding_bottom": 80,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 24,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "My Body Wasn’t Changing Overnight",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/My_Body_Wasn_t_Changing_Overnight.webp",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_nQrn9R": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_P6pBLJ": {
+          "type": "heading",
+          "settings": {
+            "text": "My Body Wasn’t Changing Overnight",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 10
+          }
+        },
+        "text_xALnGM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body fat doesn’t suddenly appear between breakfast and dinner.<br/><br/>Looking back, the signs were obvious:</p>",
+            "color": "#333333",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "list_BFaGeT": {
+          "type": "list",
+          "settings": {
+            "items": "I wasn’t having comfortable, regular bowel movements.\nMy stomach felt heavy after normal meals.\nMy waistband became uncomfortable as the day went on.\nI often felt “full” even when I wasn’t hungry.\nMy body rarely felt completely light or settled.",
+            "background_color": "#f9f9f9",
+            "border_color": "#c2c2c2",
+            "border_width": 1,
+            "border_radius": 16,
+            "text_color": "#111111",
+            "bullet_color": "#5b0d1e",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.4,
+            "bullet_size": 8,
+            "bullet_gap": 16,
+            "item_gap": 6,
+            "padding_vertical": 18,
+            "padding_horizontal": 14,
+            "padding_vertical_mobile": 14,
+            "padding_horizontal_mobile": 14,
+            "margin_bottom": 24
+          }
+        },
+        "text_HjYXyW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I had been measuring everything except the one routine that had quietly changed:</p><p><strong>My digestion.</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "heading_P6pBLJ",
+        "text_xALnGM",
+        "list_BFaGeT",
+        "text_HjYXyW"
+      ],
+      "name": "Gut Harmony Feature V2",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 0,
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 40,
         "title_gap": 0,
@@ -1554,6 +1659,7 @@
     "content_sidebar_YqGF9T",
     "rich_text_BR7tJa",
     "get_harmony_feature_v2_9AzqaE",
+    "get_harmony_feature_v2_nQrn9R",
     "gut_harmony_feature_AEPXCy",
     "gut_harmony_feature_K7MA6t",
     "gut_harmony_feature_ncw9RV",
