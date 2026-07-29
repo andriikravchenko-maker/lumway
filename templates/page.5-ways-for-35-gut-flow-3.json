@@ -1172,42 +1172,7 @@
         "text_KYVE8X": {
           "type": "text",
           "settings": {
-            "text": "<p>Gut Flow isn’t designed to burn fat or replace a balanced diet. Its role is more foundational.<br/><br/>Its prebiotic inulin fiber helps support:</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1,
-            "margin_bottom": 24
-          }
-        },
-        "highlight_checklist_G6nr8E": {
-          "type": "highlight_checklist",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "items": "Daily fiber intake\nHealthy bowel regularity\nBeneficial gut bacteria\nDigestive comfort\nA feeling of fullness as part of a balanced diet\nA routine that may feel easier to maintain consistently",
-            "background_color": "#f8e3e8",
-            "border_radius": 20,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.2,
-            "icon_size": 24,
-            "icon_size_mobile": 20,
-            "icon_gap": 8,
-            "row_gap": 4,
-            "padding_vertical": 16,
-            "padding_horizontal": 16,
-            "padding_vertical_mobile": 16,
-            "padding_horizontal_mobile": 16,
-            "margin_bottom": 24
-          }
-        },
-        "text_7YQi9B": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.<br/>That doesn’t make Gut Flow a shortcut to weight loss.<br/>It makes it a practical part of a healthier routine – especially for people who struggle to get enough fiber consistently.</p>",
+            "text": "<p><strong>I still enjoy dinner out. I still eat dessert. My meals aren’t perfect every day.</strong><br/>But I no longer respond to every bloated evening by punishing myself with another restrictive diet.<br/><br/>I understand the difference between gaining body fat and temporarily feeling heavy because my digestion is off. And I know that <strong>feeling better</strong> in my clothes <strong>isn’t always about becoming smaller. </strong><br/><br/>Sometimes it begins with supporting the body you already have.</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -1219,9 +1184,7 @@
       },
       "block_order": [
         "heading_yFMGAf",
-        "text_KYVE8X",
-        "highlight_checklist_G6nr8E",
-        "text_7YQi9B"
+        "text_KYVE8X"
       ],
       "name": "My Jeans Didn’t Need a Smaller Body. I Needed to Feel Comfortable in Mine.",
       "settings": {
