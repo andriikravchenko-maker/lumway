@@ -265,7 +265,7 @@
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p> I had almost stopped wearing jeans. Not because they didn’t fit.They did – in the morning. But by lunchtime, the waistband would start pressing into my stomach.<br/><br/>By dinner, I wanted to unbutton them.<br/><br/>And by the end of the evening, I felt like my body had somehow changed an entire size in just a few hours.<br/><br/>So, I tried eating smaller portions. Avoiding bread. Skipping dessert. Starting another “clean eating” week.<br/><br/>But the same thing kept happening.<br/><br/>That was when I realized I needed to look deeper instead of just blaming my weight.</p>"
+            "subtitle": "<p> I had almost stopped wearing jeans. Not because they didn’t fit.<br/>They did – in the morning. But by lunchtime, the waistband would start pressing into my stomach.<br/><br/>By dinner, I wanted to unbutton them.<br/><br/>And by the end of the evening, I felt like my body had somehow changed an entire size in just a few hours.<br/><br/>So, I tried eating smaller portions. Avoiding bread. Skipping dessert. Starting another “clean eating” week.<br/><br/>But the same thing kept happening.<br/><br/>That was when I realized I needed to look deeper instead of just blaming my weight.</p>"
           }
         },
         "subtitle_GP3jrT": {
@@ -319,8 +319,8 @@
         "subtitle_font_size_mobile": 16,
         "subtitle_line_height": 1.6,
         "subtitle_margin_bottom": 32,
-        "subtitle_max_width": 700,
-        "subtitle_color": "#666666",
+        "subtitle_max_width": 1000,
+        "subtitle_color": "#111111",
         "bold_font_weight": "700",
         "use_global_button_styling": true,
         "button_font_size": 16,
