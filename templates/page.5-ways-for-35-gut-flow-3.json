@@ -557,7 +557,7 @@
         "padding_top_mobile": 20,
         "padding_bottom_mobile": 40,
         "title_gap": 0,
-        "column_gap": 24,
+        "column_gap": 0,
         "content_gap": 0,
         "background_color": "#ffffff",
         "title": "The “Healthy” Diet Mistake",
