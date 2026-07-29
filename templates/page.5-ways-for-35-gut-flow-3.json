@@ -482,30 +482,6 @@
             "margin_bottom": 16
           }
         },
-        "list_BFaGeT": {
-          "type": "list",
-          "settings": {
-            "items": "I wasn’t having comfortable, regular bowel movements.\nMy stomach felt heavy after normal meals.\nMy waistband became uncomfortable as the day went on.\nI often felt “full” even when I wasn’t hungry.\nMy body rarely felt completely light or settled.",
-            "background_color": "#f9f9f9",
-            "border_color": "#c2c2c2",
-            "border_width": 1,
-            "border_radius": 16,
-            "text_color": "#111111",
-            "bullet_color": "#5b0d1e",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
-            "bullet_size": 8,
-            "bullet_gap": 16,
-            "item_gap": 6,
-            "padding_vertical": 18,
-            "padding_horizontal": 14,
-            "padding_vertical_mobile": 14,
-            "padding_horizontal_mobile": 14,
-            "margin_bottom": 24
-          }
-        },
         "text_HjYXyW": {
           "type": "text",
           "settings": {
@@ -522,7 +498,6 @@
       "block_order": [
         "heading_P6pBLJ",
         "text_xALnGM",
-        "list_BFaGeT",
         "text_HjYXyW"
       ],
       "name": "The “Healthy” Diet Mistake",

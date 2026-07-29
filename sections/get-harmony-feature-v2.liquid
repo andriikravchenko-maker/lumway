@@ -201,6 +201,15 @@
 }
 
   @media screen and (max-width: 600px) {
+    .section-{{ section.id }} .gut-harmony-feature__icon-list-item {
+  font-size: var(--icon-list-font-size-mobile);
+}
+
+.section-{{ section.id }} .gut-harmony-feature__icon-list-icon {
+  width: var(--icon-list-icon-size-mobile);
+  height: var(--icon-list-icon-size-mobile);
+  flex-basis: var(--icon-list-icon-size-mobile);
+}
 
       #mm-gut-harmony-feature .gut-harmony-feature__title{
   display: flex;
@@ -569,6 +578,37 @@ padding-bottom: 24px;
   height: var(--spacer-height);
 }
 
+/* Icon list item */
+
+.section-{{ section.id }} .gut-harmony-feature__icon-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--icon-list-gap);
+
+  margin-bottom: var(--block-margin-bottom);
+
+  color: var(--icon-list-text-color);
+  font-family: var(--ghf-font-body) !important;
+  font-size: var(--icon-list-font-size);
+  font-weight: var(--icon-list-font-weight) !important;
+  line-height: var(--icon-list-line-height);
+}
+
+.section-{{ section.id }} .gut-harmony-feature__icon-list-icon {
+  display: block;
+
+  width: var(--icon-list-icon-size);
+  height: var(--icon-list-icon-size);
+  flex: 0 0 var(--icon-list-icon-size);
+
+  object-fit: contain;
+}
+
+.section-{{ section.id }} .gut-harmony-feature__icon-list-text {
+  flex: 1;
+  min-width: 0;
+}
+
 {% endstyle %}
 
 <section id="mm-gut-harmony-feature"  class="gut-harmony-feature section-{{ section.id }}" data-section-id="{{ section.id }}">
@@ -740,6 +780,42 @@ padding-bottom: 24px;
               </div>
             </div>
           {%- endif -%}
+
+          {%- when 'icon_list_item' -%}
+  {%- if block.settings.text != blank -%}
+    <div
+      class="gut-harmony-feature__icon-list-item"
+      style="
+        --icon-list-icon-size: {{ block.settings.icon_size }}px;
+        --icon-list-icon-size-mobile: {{ block.settings.icon_size_mobile }}px;
+
+        --icon-list-text-color: {{ block.settings.text_color }};
+        --icon-list-font-size: {{ block.settings.font_size }}px;
+        --icon-list-font-size-mobile: {{ block.settings.font_size_mobile }}px;
+        --icon-list-font-weight: {{ block.settings.font_weight }};
+        --icon-list-line-height: {{ block.settings.line_height }};
+
+        --icon-list-gap: {{ block.settings.gap }}px;
+        --block-margin-bottom: {{ block.settings.margin_bottom }}px;
+      "
+      {{ block.shopify_attributes }}
+    >
+      {%- if block.settings.icon != blank -%}
+        {{
+          block.settings.icon
+          | image_url: width: 120
+          | image_tag:
+            loading: 'lazy',
+            widths: '32, 48, 64, 96, 120',
+            class: 'gut-harmony-feature__icon-list-icon'
+        }}
+      {%- endif -%}
+
+      <div class="gut-harmony-feature__icon-list-text">
+        {{ block.settings.text }}
+      </div>
+    </div>
+  {%- endif -%}
 
         {%- when 'numbered_item' -%}
           <div
@@ -1657,6 +1733,122 @@ padding-bottom: 24px;
       }
     ]
   },
+  {
+  "type": "icon_list_item",
+  "name": "Icon list item",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Protein at every meal"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size desktop",
+      "min": 12,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Icon size mobile",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size desktop",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Font size mobile",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between icon and text",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    }
+  ]
+},
   {
     "type": "numbered_item",
     "name": "Numbered item",
