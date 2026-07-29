@@ -1632,109 +1632,6 @@
         "mobile_container_padding": 20
       }
     },
-    "gut_harmony_reviews_RY8qtC": {
-      "type": "gut-harmony-reviews",
-      "blocks": {
-        "review_3kxmkH": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Image_Container_16b34b3f-6729-442d-a233-78f06b33f2a4.webp",
-            "rating": 5,
-            "title": "I Stopped Feeling Like Every Treat Ruined My Progress",
-            "text": "\"For years I thought healthy living meant saying no to pizza, burgers, and dessert. Every time I treated myself, I'd wake up bloated and feel like I'd undone all my progress. After adding Gut Flow to my routine, I noticed I felt much lighter after meals and my digestion became much more regular. Now I actually enjoy date nights without the guilt.\"",
-            "name": "— Jessica, 38"
-          }
-        },
-        "review_fiaiPe": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_58_40_PM_1_4400337d-0598-4326-970c-2e80410ec167.webp",
-            "rating": 5,
-            "title": "My Jeans Fit Better – Even Before the Scale Changed",
-            "text": "\"The first thing I noticed wasn't weight loss. It was how much less bloated I felt. My jeans stopped feeling tight by the end of the day, and I wasn't constantly uncomfortable after dinner anymore. Eating enough fiber every day with Gut Flow has become one of the easiest healthy habits I've ever stuck with.\"",
-            "name": "— Emily, 57"
-          }
-        },
-        "review_8h3ftx": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/image_86.webp",
-            "rating": 5,
-            "title": "Finally, Something That Fits In My Life",
-            "text": "\"I'm not giving up pizza with my friends or birthday cake just because I'm trying to lose weight. Gut Flow helped me focus on building better daily habits instead of chasing the perfect diet. I feel lighter, my digestion is more predictable, and I'm much less tempted to snack because I stay satisfied longer.\"",
-            "name": "— Rachel, 35"
-          }
-        }
-      },
-      "block_order": [
-        "review_3kxmkH",
-        "review_fiaiPe",
-        "review_8h3ftx"
-      ],
-      "name": "Gut Harmony Reviews",
-      "settings": {
-        "use_theme_colors": false,
-        "heading": "More Comfort. Less Guilt.",
-        "heading_size": 40,
-        "heading_size_mobile": 28,
-        "padding_top": 40,
-        "padding_bottom": 80,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 40,
-        "card_gap": 32,
-        "enable_slider": true,
-        "slides_per_view": 3,
-        "slides_per_view_mobile": 1,
-        "background_color": "#ffffff",
-        "card_bg": "#f4f2f3",
-        "card_border_color": "#99364c",
-        "card_radius": 20,
-        "card_padding": 16,
-        "image_radius": 0,
-        "star_color": "#195d52",
-        "star_empty_color": "#e0e0e0",
-        "text_color": "#3b3b3b",
-        "title_size": 16,
-        "text_size": 14,
-        "name_size": 16
-      }
-    },
-    "gut_harmony_feature_Bt7apM": {
-      "type": "gut-harmony-feature",
-      "name": "Gut Harmony Feature",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 28,
-        "title_gap": 16,
-        "column_gap": 24,
-        "content_gap": 24,
-        "background_color": "#ffffff",
-        "title": "You Don't Need to Fear Pizza",
-        "title_size": 40,
-        "title_size_mobile": 24,
-        "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/4471206.webp",
-        "image_border_radius": 0,
-        "body_text": "<p>Real life includes birthdays.</p><ul><li>Weekend dinners.</li><li>Vacations.</li><li>Date nights.</li><li>Pizza nights.</li></ul><p><strong>Healthy living</strong> isn't about <strong>avoiding those moments.</strong></p><p>It's about <strong>building a routine that supports your body</strong> before and after them.</p><p>Because<strong> lasting results don't come from saying \"no\" </strong>to every slice.</p>",
-        "text_size": 16,
-        "text_color": "#3b3b3b",
-        "testimonial_text": "<p>They come from saying \"yes\" to better daily habits.</p>",
-        "testimonial_size": 18,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#99364c",
-        "button_text": "START YOUR EVERY DAY LIGHTER",
-        "button_link": "#product-details-lum",
-        "button_show_arrow": true,
-        "button_font_size": 17,
-        "button_radius": 32,
-        "button_bg_color": "#195d52",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1f8372"
-      }
-    },
     "alternating_features_ktLx6Y": {
       "type": "alternating-features",
       "blocks": {
@@ -2198,8 +2095,6 @@
     "mm_heading_banner_lum_H3xaWF",
     "mm_product_details_lum_hTEa6b",
     "listicle_sticky_only",
-    "gut_harmony_reviews_RY8qtC",
-    "gut_harmony_feature_Bt7apM",
     "alternating_features_ktLx6Y",
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
