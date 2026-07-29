@@ -723,6 +723,59 @@ padding-bottom: 24px;
   }
 }
 
+/* Quote Callout */
+
+.section-{{ section.id }} .gut-harmony-feature__quote-callout {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-bottom: var(--block-margin-bottom);
+  padding:
+    var(--quote-padding-y)
+    var(--quote-padding-x);
+
+  background: var(--quote-bg);
+
+  border-left:
+    var(--quote-border-width)
+    solid
+    var(--quote-border-color);
+
+  color: var(--quote-color);
+
+  font-family: var(--ghf-font-quote) !important;
+  font-size: var(--quote-size);
+  font-weight: var(--quote-weight) !important;
+  font-style: italic;
+  line-height: var(--quote-line-height);
+}
+
+.section-{{ section.id }} .gut-harmony-feature__quote-callout-text {
+  color: inherit;
+  font: inherit !important;
+}
+
+.section-{{ section.id }} .gut-harmony-feature__quote-callout-text p {
+  margin: 0;
+  color: inherit !important;
+  font: inherit !important;
+}
+
+.section-{{ section.id }} .gut-harmony-feature__quote-callout-text strong,
+.section-{{ section.id }} .gut-harmony-feature__quote-callout-text b {
+  font-weight: 700 !important;
+}
+
+@media screen and (max-width: 600px) {
+  .section-{{ section.id }} .gut-harmony-feature__quote-callout {
+    padding:
+      var(--quote-padding-y-mobile)
+      var(--quote-padding-x-mobile);
+
+    font-size: var(--quote-size-mobile);
+  }
+}
+
 {% endstyle %}
 
 <section id="mm-gut-harmony-feature"  class="gut-harmony-feature section-{{ section.id }}" data-section-id="{{ section.id }}">
@@ -1089,7 +1142,39 @@ padding-bottom: 24px;
               {{ block.settings.text }}
             </div>
           {%- endif -%}
+          
+          {%- when 'quote_callout' -%}
+  {%- if block.settings.text != blank -%}
+    <div
+      class="gut-harmony-feature__quote-callout"
+      style="
+        --quote-bg: {{ block.settings.background_color }};
+        --quote-color: {{ block.settings.text_color }};
+        --quote-border-color: {{ block.settings.border_color }};
+        --quote-border-width: {{ block.settings.border_width }}px;
 
+        --quote-size: {{ block.settings.font_size }}px;
+        --quote-size-mobile: {{ block.settings.font_size_mobile }}px;
+        --quote-weight: {{ block.settings.font_weight }};
+        --quote-line-height: {{ block.settings.line_height }};
+
+        --quote-padding-y: {{ block.settings.padding_vertical }}px;
+        --quote-padding-x: {{ block.settings.padding_horizontal }}px;
+
+        --quote-padding-y-mobile: {{ block.settings.padding_vertical_mobile }}px;
+        --quote-padding-x-mobile: {{ block.settings.padding_horizontal_mobile }}px;
+
+        --block-margin-bottom: {{ block.settings.margin_bottom }}px;
+      "
+      {{ block.shopify_attributes }}
+    >
+      <div class="gut-harmony-feature__quote-callout-text rte">
+        {{ block.settings.text }}
+      </div>
+    </div>
+  {%- endif -%}
+       
+       
         {%- when 'spacer' -%}
           <div
             class="gut-harmony-feature__spacer"
@@ -2556,6 +2641,150 @@ padding-bottom: 24px;
       }
     ]
   },
+
+  {
+  "type": "quote_callout",
+  "name": "Quote callout",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p><strong>It simply made consistent fiber support easier – even on busy days when my meals weren’t perfect.</strong></p>"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#70172a"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Left border color",
+      "default": "#70172a"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Left border width",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size desktop",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Font size mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding desktop",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding desktop",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical_mobile",
+      "label": "Vertical padding mobile",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Horizontal padding mobile",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    }
+  ]
+},
   {
     "type": "spacer",
     "name": "Spacer",
