@@ -1541,9 +1541,9 @@
         "product_tabs_QGhRww"
       ],
       "custom_css": [
-        "#product-details-lum{background: white;}",
-        " .mm-section-product-details-lum .ptab__check-icon svg path{fill: #5B0D1E; }",
-        " .mm-section-product-details-lum .ptab__tab-icon svg path {fill: #111111; }"
+        "#product-details-lum {background: white;}",
+        "#product-details-lum .mm-section-product-details-lum .ptab__check-icon svg path {fill: #5b0d1e;}",
+        "#product-details-lum .mm-section-product-details-lum .ptab__tab-icon svg path {fill: #111111;}"
       ],
       "name": "Product Details Lum",
       "settings": {
