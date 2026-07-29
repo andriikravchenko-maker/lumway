@@ -561,6 +561,22 @@
             "line_height": 1.4,
             "margin_bottom": 24
           }
+        },
+        "highlight_XL3RWU": {
+          "type": "highlight",
+          "settings": {
+            "text": "<p>💡 Enough fiber a day supports stool bulk, bowel regularity, digestive function, and the beneficial bacteria living in the gut. When daily fiber intake falls short you <strong>start to feel that your waist increases and you've gained weight almost through the day. </strong></p>",
+            "background_color": "#F8E3E8",
+            "text_color": "#111111",
+            "font_size": 16,
+            "font_size_mobile": 16,
+            "icon_size": 20,
+            "icon_gap": 10,
+            "border_radius": 16,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "margin_bottom": 0
+          }
         }
       },
       "block_order": [
@@ -570,7 +586,8 @@
         "icon_list_item_MVhwFN",
         "icon_list_item_W8JGTf",
         "icon_list_item_PLi4x3",
-        "text_HjYXyW"
+        "text_HjYXyW",
+        "highlight_XL3RWU"
       ],
       "name": "The “Healthy” Diet Mistake",
       "settings": {
