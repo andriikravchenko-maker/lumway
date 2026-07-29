@@ -53,6 +53,14 @@
     --ghf-btn-text: {{ section.settings.button_text_color }};
     --ghf-btn-size: {{ section.settings.button_font_size }}px;
     --ghf-btn-radius: {{ section.settings.button_radius }}px;
+    --ghf-media-width: {{ section.settings.image_width }}px;
+--ghf-media-height: {{ section.settings.image_height }}px;
+
+--ghf-media-width-mobile: {{ section.settings.image_width_mobile }}px;
+--ghf-media-height-mobile: {{ section.settings.image_height_mobile }}px;
+
+--ghf-image-fit: {{ section.settings.image_fit }};
+--ghf-image-position: {{ section.settings.image_position }};
   }
 
   .section-{{ section.id }} {
@@ -88,18 +96,26 @@
     gap: var(--ghf-column-gap);
   }
 
-  .section-{{ section.id }} .gut-harmony-feature__media {
-    width: 100%;
-    max-width: 486px;
-    flex-shrink: 0;
-  }
+.section-{{ section.id }} .gut-harmony-feature__media {
+  width: min(100%, var(--ghf-media-width-mobile));
+  height: var(--ghf-media-height-mobile);
+  flex-shrink: 0;
 
-  .section-{{ section.id }} .gut-harmony-feature__img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: var(--ghf-image-radius);
-  }
+  overflow: hidden;
+  border-radius: var(--ghf-image-radius);
+}
+
+.section-{{ section.id }} .gut-harmony-feature__img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: var(--ghf-image-fit);
+  object-position: var(--ghf-image-position);
+
+  border-radius: inherit;
+}
 
   .section-{{ section.id }} .gut-harmony-feature__img--placeholder {
     background-color: #eef0f1;
@@ -315,9 +331,17 @@ padding-bottom: 24px;
       gap: var(--ghf-column-gap);
     }
 
-    .section-{{ section.id }} .gut-harmony-feature__media {
-      flex: 0 0 486px;
-    }
+   .section-{{ section.id }} .gut-harmony-feature__media {
+
+    width: var(--ghf-media-width);
+
+    height: var(--ghf-media-height);
+
+    max-width: none;
+
+    flex: 0 0 var(--ghf-media-width);
+
+  }
 
     .section-{{ section.id }} .gut-harmony-feature__content {
       flex: 0 0 694px;
@@ -609,6 +633,83 @@ padding-bottom: 24px;
   min-width: 0;
 }
 
+/* Numbered Highlight Box */
+
+.section-{{ section.id }} .gut-harmony-feature__numbered-highlight {
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--nh-row-gap);
+
+  margin-bottom: var(--block-margin-bottom);
+  padding: var(--nh-padding-y) var(--nh-padding-x);
+
+  background: var(--nh-bg);
+  border-radius: var(--nh-radius);
+
+  font-family: var(--ghf-font-body) !important;
+}
+
+.section-{{ section.id }} .gut-harmony-feature__numbered-highlight-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--nh-description-gap);
+}
+
+.section-{{ section.id }} .gut-harmony-feature__numbered-highlight-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--nh-number-gap);
+}
+
+.section-{{ section.id }} .gut-harmony-feature__numbered-highlight-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--nh-number-size);
+  height: var(--nh-number-size);
+  flex: 0 0 var(--nh-number-size);
+
+  border-radius: 50%;
+  background: var(--nh-number-bg);
+  color: var(--nh-number-color);
+
+  font-size: calc(var(--nh-number-size) * 0.55);
+  font-weight: 500 !important;
+  line-height: 1;
+}
+
+.section-{{ section.id }} .gut-harmony-feature__numbered-highlight-title {
+  color: var(--nh-title-color);
+
+  font-family: var(--ghf-font-body) !important;
+  font-size: var(--nh-title-size);
+  font-weight: 700 !important;
+  line-height: 1.2;
+}
+
+.section-{{ section.id }} .gut-harmony-feature__numbered-highlight-text {
+  color: var(--nh-text-color);
+
+  font-family: var(--ghf-font-body) !important;
+  font-size: var(--nh-text-size);
+  font-weight: 400 !important;
+  line-height: 1.35;
+}
+
+@media screen and (max-width: 600px) {
+  .section-{{ section.id }} .gut-harmony-feature__numbered-highlight-title {
+    font-size: var(--nh-title-size-mobile);
+  }
+
+  .section-{{ section.id }} .gut-harmony-feature__numbered-highlight-text {
+    font-size: var(--nh-text-size-mobile);
+  }
+}
+
 {% endstyle %}
 
 <section id="mm-gut-harmony-feature"  class="gut-harmony-feature section-{{ section.id }}" data-section-id="{{ section.id }}">
@@ -892,7 +993,72 @@ padding-bottom: 24px;
               </div>
             </div>
           {%- endif -%}
+          
+          {%- when 'numbered_highlight' -%}
+  {%- if block.settings.items != blank -%}
+    {%- assign numbered_items = block.settings.items | newline_to_br | split: '<br />' -%}
 
+    <div
+      class="gut-harmony-feature__numbered-highlight"
+      style="
+        --nh-bg: {{ block.settings.background_color }};
+        --nh-radius: {{ block.settings.border_radius }}px;
+
+        --nh-number-bg: {{ block.settings.number_background }};
+        --nh-number-color: {{ block.settings.number_color }};
+        --nh-number-size: {{ block.settings.number_size }}px;
+
+        --nh-title-color: {{ block.settings.title_color }};
+        --nh-text-color: {{ block.settings.text_color }};
+
+        --nh-title-size: {{ block.settings.title_font_size }}px;
+        --nh-title-size-mobile: {{ block.settings.title_font_size_mobile }}px;
+
+        --nh-text-size: {{ block.settings.text_font_size }}px;
+        --nh-text-size-mobile: {{ block.settings.text_font_size_mobile }}px;
+
+        --nh-row-gap: {{ block.settings.row_gap }}px;
+        --nh-number-gap: {{ block.settings.number_gap }}px;
+        --nh-description-gap: {{ block.settings.description_gap }}px;
+
+        --nh-padding-y: {{ block.settings.padding_vertical }}px;
+        --nh-padding-x: {{ block.settings.padding_horizontal }}px;
+
+        --block-margin-bottom: {{ block.settings.margin_bottom }}px;
+      "
+      {{ block.shopify_attributes }}
+    >
+      {%- for item in numbered_items -%}
+        {%- assign item_data = item | strip | split: '|' -%}
+
+        {%- assign item_number = item_data[0] | strip -%}
+        {%- assign item_title = item_data[1] | strip -%}
+        {%- assign item_text = item_data[2] | strip -%}
+
+        {%- if item_title != blank -%}
+          <div class="gut-harmony-feature__numbered-highlight-item">
+            <div class="gut-harmony-feature__numbered-highlight-heading">
+              <span class="gut-harmony-feature__numbered-highlight-number">
+                {{ item_number }}
+              </span>
+
+              <div class="gut-harmony-feature__numbered-highlight-title">
+                {{ item_title }}
+              </div>
+            </div>
+
+            {%- if item_text != blank -%}
+              <div class="gut-harmony-feature__numbered-highlight-text">
+                {{ item_text }}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+        
+        
         {%- when 'emphasis' -%}
           {%- if block.settings.text != blank -%}
             <div
@@ -1090,25 +1256,108 @@ padding-bottom: 24px;
       "default": "#0a430d"
     },
     {
-      "type": "header",
-      "content": "Graphic image"
+  "type": "header",
+  "content": "Graphic image"
+},
+{
+  "type": "image_picker",
+  "id": "image",
+  "label": "Graphic image"
+},
+{
+  "type": "range",
+  "id": "image_width",
+  "label": "Image width desktop",
+  "min": 400,
+  "max": 600,
+  "step": 2,
+  "unit": "px",
+  "default": 486
+},
+{
+  "type": "range",
+  "id": "image_height",
+  "label": "Image height desktop",
+  "min": 250,
+  "max": 450,
+  "step": 2,
+  "unit": "px",
+  "default": 364
+},
+{
+  "type": "range",
+  "id": "image_width_mobile",
+  "label": "Image width mobile",
+  "min": 250,
+  "max": 450,
+  "step": 2,
+  "unit": "px",
+  "default": 360
+},
+{
+  "type": "range",
+  "id": "image_height_mobile",
+  "label": "Image height mobile",
+  "min": 180,
+  "max": 380,
+  "step": 2,
+  "unit": "px",
+  "default": 270
+},
+{
+  "type": "select",
+  "id": "image_fit",
+  "label": "Image fit",
+  "options": [
+    {
+      "value": "cover",
+      "label": "Cover"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Graphic image",
-      "info": "Export the graphic from Figma and upload it here. Recommended a square image (~486 x 486)."
+      "value": "contain",
+      "label": "Contain"
+    }
+  ],
+  "default": "cover"
+},
+{
+  "type": "select",
+  "id": "image_position",
+  "label": "Image position",
+  "options": [
+    {
+      "value": "center center",
+      "label": "Center"
     },
     {
-      "type": "range",
-      "id": "image_border_radius",
-      "label": "Image corner radius",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "default": 0
+      "value": "center top",
+      "label": "Top"
     },
+    {
+      "value": "center bottom",
+      "label": "Bottom"
+    },
+    {
+      "value": "left center",
+      "label": "Left"
+    },
+    {
+      "value": "right center",
+      "label": "Right"
+    }
+  ],
+  "default": "center center"
+},
+{
+  "type": "range",
+  "id": "image_border_radius",
+  "label": "Image corner radius",
+  "min": 0,
+  "max": 40,
+  "step": 2,
+  "unit": "px",
+  "default": 0
+},
     {
       "type": "header",
       "content": "Body text"
@@ -2056,6 +2305,169 @@ padding-bottom: 24px;
       }
     ]
   },
+  {
+  "type": "numbered_highlight",
+  "name": "Numbered highlight box",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "items",
+      "label": "Items",
+      "info": "One item per line. Format: Number | Title | Description",
+      "default": "1 | I stopped skipping meals | Regular, balanced meals helped me build a more predictable daily rhythm.\n2 | I added more fiber-rich foods | I included more vegetables, berries, oats, seeds, legumes, and whole-food carbohydrates.\n3 | I drank more water | Increasing fiber without enough fluids can make digestive discomfort worse, so hydration became part of the routine."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#f8e3e7"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "number_background",
+      "label": "Number background",
+      "default": "#78152b"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "label": "Number circle size",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title size desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title size mobile",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Description color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Description size desktop",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_mobile",
+      "label": "Description size mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Gap between items",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "number_gap",
+      "label": "Gap between number and title",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_gap",
+      "label": "Gap between title and description",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    }
+  ]
+},
   {
     "type": "emphasis",
     "name": "Emphasis text",
