@@ -196,7 +196,18 @@
     outline-offset: 3px;
   }
 
+  #mm-gut-harmony-feature .gut-harmony-feature__title{
+  display: none;
+}
+
   @media screen and (max-width: 600px) {
+
+      #mm-gut-harmony-feature .gut-harmony-feature__title{
+  display: flex;
+}
+      #mm-gut-harmony-feature .gut-harmony-feature__block-heading{
+  display: none;
+}
      .section-{{ section.id }} .gut-harmony-feature__block-heading,
 
   .section-{{ section.id }} .gut-harmony-feature__block-text,
@@ -549,9 +560,7 @@
 .section-{{ section.id }} .gut-harmony-feature__spacer {
   height: var(--spacer-height);
 }
-#mm-gut-harmony-feature .gut-harmony-feature__title{
-  display: none;
-}
+
 {% endstyle %}
 
 <section id="mm-gut-harmony-feature"  class="gut-harmony-feature section-{{ section.id }}" data-section-id="{{ section.id }}">
