@@ -1246,6 +1246,22 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
+    "mm_heading_banner_lum_H3xaWF": {
+      "type": "mm-heading-banner-lum",
+      "name": "Heading banner Lum",
+      "settings": {
+        "accent_text": "Feel Better in Your Jeans",
+        "heading": "– Without Starting Another Punishing Diet",
+        "background_color": "#F8E3E8",
+        "accent_color": "#5B0D1E",
+        "text_color": "#111111",
+        "max_width": 1440,
+        "font_size": 40,
+        "font_size_mobile": 28,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
     "mm_product_details_lum_hTEa6b": {
       "type": "mm-product-details-lum",
       "blocks": {
@@ -1547,22 +1563,6 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "product": "gut-flow-gummies"
-      }
-    },
-    "mm_heading_banner_lum_H3xaWF": {
-      "type": "mm-heading-banner-lum",
-      "name": "Heading banner Lum",
-      "settings": {
-        "accent_text": "Feel Better in Your Jeans",
-        "heading": "– Without Starting Another Punishing Diet",
-        "background_color": "#F8E3E8",
-        "accent_color": "#5B0D1E",
-        "text_color": "#111111",
-        "max_width": 1440,
-        "font_size": 40,
-        "font_size_mobile": 28,
-        "padding_top": 44,
-        "padding_bottom": 44
       }
     },
     "listicle_sticky_only": {
@@ -2195,8 +2195,8 @@
     "get_harmony_feature_v2_WwW9hw",
     "get_harmony_feature_v2_hVXahQ",
     "get_harmony_feature_v2_QcAKNJ",
-    "mm_product_details_lum_hTEa6b",
     "mm_heading_banner_lum_H3xaWF",
+    "mm_product_details_lum_hTEa6b",
     "listicle_sticky_only",
     "gut_harmony_reviews_RY8qtC",
     "gut_harmony_feature_Bt7apM",
