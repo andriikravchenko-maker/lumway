@@ -1180,11 +1180,31 @@
             "line_height": 1.4,
             "margin_bottom": 24
           }
+        },
+        "quote_callout_789Kmg": {
+          "type": "quote_callout",
+          "settings": {
+            "text": "<p><strong>That’s why Gut Flow became part of my daily routine – not as a weight-loss shortcut, but as simple support for a gut that had been asking for more fiber all along.</strong></p>",
+            "background_color": "#F9F9F9",
+            "text_color": "#5B0D1E",
+            "border_color": "#5B0D1E",
+            "border_width": 2,
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.5,
+            "padding_vertical": 4,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 4,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 0
+          }
         }
       },
       "block_order": [
         "heading_yFMGAf",
-        "text_KYVE8X"
+        "text_KYVE8X",
+        "quote_callout_789Kmg"
       ],
       "name": "My Jeans Didn’t Need a Smaller Body. I Needed to Feel Comfortable in Mine.",
       "settings": {
