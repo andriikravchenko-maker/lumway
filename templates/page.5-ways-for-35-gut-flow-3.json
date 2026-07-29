@@ -684,6 +684,7 @@
             "save_badge_text_color": "#113b34",
             "show_per_pack": true,
             "per_pack_suffix": "/pack",
+            "benefits_show": true,
             "benefit_1_show": true,
             "benefit_1_text": "Free Shipping",
             "benefit_1_multi_only": true,
@@ -701,7 +702,13 @@
             "benefit_5_multi_only": false,
             "benefit_6_show": false,
             "benefit_6_text": "",
-            "benefit_6_multi_only": false
+            "benefit_6_multi_only": false,
+            "gc_title": "",
+            "gc_text": "",
+            "gc_badge": "",
+            "gc_badge_bg": "#fa6c56",
+            "gc_badge_text_color": "#ffffff",
+            "gc_compare_price": ""
           }
         },
         "add_to_cart_qyiqCe": {
@@ -805,6 +812,21 @@
         "product_tabs_mig"
       ],
       "settings": {
+        "gifts_heading": "Limited Time Free Welcome Gifts",
+        "gifts_save_prefix": "Save",
+        "gifts_divider_color": "#c2c2c2",
+        "gifts_heading_color": "#6f1020",
+        "gifts_title_color": "#111111",
+        "gifts_card_bg": "#f9f9f9",
+        "gifts_card_active_bg": "#ffffff",
+        "gifts_lock_color": "#858585",
+        "gifts_save_bg": "#ffd34e",
+        "gifts_save_color": "#111111",
+        "gifts_header_bottom": 16,
+        "gifts_margin_top": 0,
+        "gifts_margin_bottom": 24,
+        "gifts_margin_top_mobile": 5,
+        "gifts_margin_bottom_mobile": 15,
         "padding_top": 0,
         "padding_bottom": 0,
         "product": "gut-flow-gummies"
@@ -1288,6 +1310,128 @@
         "bg_color": "#5e1424",
         "text_color": "#ffffff"
       }
+    },
+    "store_faq_73Kxey": {
+      "type": "store-faq",
+      "blocks": {
+        "faq_item_9tx39V": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I place an order?",
+            "answer": "<p>To place an order, simply browse our products, add items to your cart, and proceed to checkout. You can review your order before finalizing your purchase.</p>"
+          }
+        },
+        "faq_item_xbJe4L": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "<p>We accept major credit cards, PayPal, Shop Pay, and Apple Pay for your convenience and security.</p>"
+          }
+        },
+        "faq_item_VLKFKE": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does shipping take?",
+            "answer": "<p>Standard shipping typically takes 3-5 business days within the continental US. International shipping times vary by location.</p>"
+          }
+        },
+        "faq_item_b6kmPh": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day return policy. If you're not satisfied with your purchase, you can return it within 30 days for a full refund or exchange.</p>"
+          }
+        },
+        "faq_item_EAbEA3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day return policy. If you're not satisfied with your purchase, you can return it within 30 days for a full refund or exchange.</p>"
+          }
+        },
+        "faq_item_ymA8aC": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day return policy. If you're not satisfied with your purchase, you can return it within 30 days for a full refund or exchange.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_9tx39V",
+        "faq_item_xbJe4L",
+        "faq_item_VLKFKE",
+        "faq_item_b6kmPh",
+        "faq_item_EAbEA3",
+        "faq_item_ymA8aC"
+      ],
+      "custom_css": [
+        ".store-faq-section {background-color: #f9f9f9 !important;}"
+      ],
+      "name": "Store FAQ",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "Frequently Asked Questions",
+        "subtitle": "<p>Find answers to common questions about our products, shipping, returns, and more.</p>",
+        "heading_color": "#000000",
+        "subtitle_color": "#111111",
+        "section_padding": 30,
+        "container_padding_mobile": 15,
+        "container_padding_desktop": 15,
+        "section_bg_color": "#FFFFFF",
+        "border_radius": 8,
+        "border_color": "#e5e5e5",
+        "divider_color": "#e5e5e5",
+        "border_style": "full",
+        "border_width": 1,
+        "question_color": "#000000",
+        "question_bg_color": "#FFFFFF",
+        "answer_color": "#000000",
+        "answer_bg_color": "#FFFFFF",
+        "accordion_mode": true,
+        "image_border_radius": 8,
+        "image_full_height": false,
+        "full_height_min_height": 600,
+        "use_background_image": false,
+        "background_image_size": "cover",
+        "background_image_position": "center center",
+        "background_image_attachment": "scroll",
+        "background_overlay_enable": false,
+        "background_overlay_color": "rgba(0,0,0,0.3)",
+        "background_overlay_opacity": 30,
+        "center_when_no_image": true,
+        "center_max_width": 1000,
+        "two_column_desktop": true,
+        "column_gap": 15,
+        "faq_item_spacing": 0,
+        "individual_item_borders": true,
+        "question_padding_top": 15,
+        "question_padding_bottom": 15,
+        "question_padding_left": 20,
+        "question_padding_right": 20,
+        "answer_padding_top": 15,
+        "answer_padding_bottom": 15,
+        "answer_padding_left": 20,
+        "answer_padding_right": 20,
+        "heading_font_size": 36,
+        "heading_font_size_mobile": 30,
+        "heading_line_height": 1.2,
+        "subtitle_font_size": 16,
+        "subtitle_font_size_mobile": 14,
+        "subtitle_line_height": 1.5,
+        "question_font_size": 16,
+        "question_font_size_mobile": 14,
+        "answer_font_size": 14,
+        "answer_font_size_mobile": 13,
+        "enable_section_top_border": false,
+        "section_top_border_width": 1,
+        "section_top_border_style": "solid",
+        "section_top_border_color": "#E5E5E5",
+        "enable_section_bottom_border": false,
+        "section_bottom_border_width": 1,
+        "section_bottom_border_style": "solid",
+        "section_bottom_border_color": "#E5E5E5"
+      }
     }
   },
   "order": [
@@ -1312,6 +1456,7 @@
     "gut_harmony_cta_Tt37Cp",
     "gut_harmony_cta_banner_Mjc8aE",
     "social_proof_pop",
-    "sticky_countdown"
+    "sticky_countdown",
+    "store_faq_73Kxey"
   ]
 }
