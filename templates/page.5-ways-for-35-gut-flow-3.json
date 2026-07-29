@@ -860,6 +860,25 @@
             "line_height": 1.1,
             "margin_bottom": 24
           }
+        },
+        "quote_callout_jNynXL": {
+          "type": "quote_callout",
+          "settings": {
+            "text": "<p><strong>It simply made consistent fiber support easier – even on busy days when my meals weren’t perfect.</strong></p>",
+            "background_color": "#F9F9F9",
+            "text_color": "#5B0D1E",
+            "border_color": "#5B0D1E",
+            "border_width": 2,
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.4,
+            "padding_vertical": 4,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 4,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 0
+          }
         }
       },
       "block_order": [
@@ -867,7 +886,8 @@
         "numbered_highlight_kNr4KH",
         "icon_text_83FVtJ",
         "icon_text_U4N9wm",
-        "icon_text_aebBnV"
+        "icon_text_aebBnV",
+        "quote_callout_jNynXL"
       ],
       "name": "I Changed My Daily Routine Completely",
       "settings": {
