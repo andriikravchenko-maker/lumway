@@ -398,6 +398,18 @@
             "padding_horizontal": 14,
             "padding_vertical_mobile": 14,
             "padding_horizontal_mobile": 14,
+            "margin_bottom": 24
+          }
+        },
+        "text_6gDaij": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I had been measuring everything except the one routine that had quietly changed:</p><p><strong>My digestion.</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
             "margin_bottom": 16
           }
         }
@@ -405,7 +417,8 @@
       "block_order": [
         "heading_DPnxJp",
         "text_U6Ria4",
-        "list_kyXRfb"
+        "list_kyXRfb",
+        "text_6gDaij"
       ],
       "name": "Gut Harmony Feature V2",
       "settings": {
