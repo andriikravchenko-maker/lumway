@@ -1378,7 +1378,7 @@
         "section_padding": 30,
         "container_padding_mobile": 15,
         "container_padding_desktop": 15,
-        "section_bg_color": "#FFFFFF",
+        "section_bg_color": "#F9F9F9",
         "border_radius": 8,
         "border_color": "#e5e5e5",
         "divider_color": "#e5e5e5",
