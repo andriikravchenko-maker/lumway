@@ -215,8 +215,14 @@
   #mm-gut-harmony-feature .gut-harmony-feature__title{
   display: none;
 }
+ #mm-gut-harmony-feature .gut-harmony-feature__row{
+  gap: 24px;
+ }
 
   @media screen and (max-width: 600px) {
+    #mm-gut-harmony-feature .gut-harmony-feature__row{
+  gap: 0;
+ }
     .section-{{ section.id }} .gut-harmony-feature__icon-list-item {
   font-size: var(--icon-list-font-size-mobile);
 }
