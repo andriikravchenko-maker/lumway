@@ -826,12 +826,48 @@
             "line_height": 1.1,
             "margin_bottom": 8
           }
+        },
+        "icon_text_U4N9wm": {
+          "type": "icon_text",
+          "name": "It wasn’t a laxative-style emergency fix.",
+          "settings": {
+            "icon": "shopify://shop_images/icon-close.png",
+            "text": "<p>It wasn’t a laxative-style emergency fix.</p>",
+            "icon_size": 20,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 14,
+            "font_weight": "500",
+            "line_height": 1.1,
+            "margin_bottom": 8
+          }
+        },
+        "icon_text_aebBnV": {
+          "type": "icon_text",
+          "name": "It wasn’t something I used to “cancel out” food.",
+          "settings": {
+            "icon": "shopify://shop_images/icon-close.png",
+            "text": "<p>It wasn’t something I used to “cancel out” food.</p>",
+            "icon_size": 20,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 14,
+            "font_weight": "500",
+            "line_height": 1.1,
+            "margin_bottom": 24
+          }
         }
       },
       "block_order": [
         "heading_yR93An",
         "numbered_highlight_kNr4KH",
-        "icon_text_83FVtJ"
+        "icon_text_83FVtJ",
+        "icon_text_U4N9wm",
+        "icon_text_aebBnV"
       ],
       "name": "I Changed My Daily Routine Completely",
       "settings": {
