@@ -1069,11 +1069,29 @@
             "line_height": 1.4,
             "margin_bottom": 24
           }
+        },
+        "highlight_KAaiWi": {
+          "type": "highlight",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "<p>Daily fiber intake </p>",
+            "background_color": "#F8E3E8",
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "icon_size": 24,
+            "icon_gap": 8,
+            "border_radius": 20,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "margin_bottom": 16
+          }
         }
       },
       "block_order": [
         "heading_yR93An",
-        "text_yVTyiA"
+        "text_yVTyiA",
+        "highlight_KAaiWi"
       ],
       "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
       "settings": {
