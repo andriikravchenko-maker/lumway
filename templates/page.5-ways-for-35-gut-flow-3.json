@@ -186,18 +186,18 @@
         "padding_bottom_mobile": 40,
         "column_gap": 24,
         "content_gap": 24,
-        "background_color": "#f4f2f3",
-        "image": "shopify://shop_images/4471205.webp",
+        "background_color": "#F9F9F9",
+        "image": "shopify://shop_images/Finally_My_Jeans_Fit_Looser_And_I_Feel_More_Confident_Than_Ever..webp",
         "image_border_radius": 40,
-        "heading_before": "You Shouldn't Have to Choose Between",
-        "heading_accent": "Pizza and a Flat Stomach",
-        "heading_after": "",
+        "heading_before": "\"Finally My",
+        "heading_accent": "eans Fit Looser And I Feel More Confident",
+        "heading_after": "Than Ever.\"",
         "heading_size": 50,
         "heading_size_mobile": 26,
         "heading_line_height": 1.1,
-        "heading_color": "#3b3b3b",
-        "heading_accent_color": "#99364c",
-        "subheading": "<p><strong>Enjoy your favorite meals</strong> without constantly <strong>worrying about bloating and heaviness</strong>. Discover how better gut support can help you <strong>feel lighter</strong> while supporting a <strong>natural weight-loss</strong> journey.</p>",
+        "heading_color": "#111111",
+        "heading_accent_color": "#5B0D1E",
+        "subheading": "<p>The first change wasn’t on the scale. It was feeling less heavy, more <br/>regular, and comfortable in my clothes from morning to night. </p>",
         "subheading_size": 22,
         "subheading_size_mobile": 16,
         "subheading_color": "#6b6b6b",
@@ -207,9 +207,9 @@
         "button_font_size_mobile": 16,
         "button_radius": 32,
         "button_width": 384,
-        "button_bg_color": "#3b3b3b",
-        "button_text_color": "#f1eeef",
-        "button_hover_bg_color": "#6f6f6f"
+        "button_bg_color": "#5B0D1E",
+        "button_text_color": "#FFFFFF",
+        "button_hover_bg_color": "#111111"
       }
     },
     "content_sidebar_YqGF9T": {
@@ -1352,8 +1352,8 @@
         "faq_item_ymA8aC": {
           "type": "faq_item",
           "settings": {
-            "question": "What is your return policy?",
-            "answer": "<p>We offer a 30-day return policy. If you're not satisfied with your purchase, you can return it within 30 days for a full refund or exchange.</p>"
+            "question": "Where are these made?",
+            "answer": "<p>Gut Harmony Gummies are made in the USA in a cGMP- and NSF-certified facility. Every batch is tested for:Microbiological safetyHeavy metals So you can feel confident about what you’re taking daily.</p>"
           }
         }
       },
