@@ -1701,6 +1701,7 @@
         },
         "cross_sell_E43cGX": {
           "type": "cross_sell",
+          "disabled": true,
           "settings": {
             "heading": "Thousands of customers also buy",
             "heading_color": "#113b34",
