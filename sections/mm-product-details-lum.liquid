@@ -49,12 +49,15 @@
   background-color: {{ section.settings.section_background }};
 }
 
-      .section-{{ section.id }}{
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
-        --pdl-font: 'Inter Tight', system-ui, sans-serif;
-        --pdl-ink: #113b34;
-      }
+     .section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+
+  background-color: {{ section.settings.content_background }};
+
+  --pdl-font: 'Inter Tight', system-ui, sans-serif;
+  --pdl-ink: #113b34;
+}
       .section-{{ section.id }}.pdl{ display:flex; flex-direction:column; }
       .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
 
