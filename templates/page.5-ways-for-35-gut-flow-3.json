@@ -351,6 +351,24 @@
     },
     "get_harmony_feature_v2_9AzqaE": {
       "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_DPnxJp": {
+          "type": "heading",
+          "settings": {
+            "text": "My Body Wasn’t Changing Overnight",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "heading_DPnxJp"
+      ],
       "name": "Gut Harmony Feature V2",
       "settings": {
         "use_theme_colors": false,
