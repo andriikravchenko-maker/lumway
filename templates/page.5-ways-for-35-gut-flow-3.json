@@ -596,7 +596,7 @@
         "text_nLH6Qb": {
           "type": "text",
           "settings": {
-            "text": "<p>I thought I was eating well.</p>",
+            "text": "<p>I had been searching for ways to lose weight and started to feel lighter inside:</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -605,99 +605,63 @@
             "margin_bottom": 16
           }
         },
-        "icon_list_item_XBi9WV": {
-          "type": "icon_list_item",
-          "name": "Protein at every meal",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "text": "Protein at every meal",
-            "icon_size": 28,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 12,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_kk4TRa": {
-          "type": "icon_list_item",
-          "name": "Smaller portions",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "text": "Smaller portions",
-            "icon_size": 28,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 12,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_TDGhNH": {
-          "type": "icon_list_item",
-          "name": "Fewer snacks",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "text": "Fewer snacks",
-            "icon_size": 28,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 12,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_AGxde6": {
-          "type": "icon_list_item",
-          "name": "Lower-calorie options",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "text": "Lower-calorie options",
-            "icon_size": 28,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 12,
-            "margin_bottom": 10
-          }
-        },
         "text_EJjYT8": {
           "type": "text",
           "settings": {
-            "text": "<p>But in trying to eat less, I had also started eating less fiber. There were fewer whole grains. Smaller portions of fruit. More quick, protein-focused meals that looked healthy but didn’t always give my gut what it needed.</p>",
+            "text": "<p>Less food.<br/>Fewer carbs.<br/>No dessert.<br/>No restaurant meals</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
             "line_height": 1.4,
-            "margin_bottom": 24
+            "margin_bottom": 16
           }
         },
-        "highlight_iGK9FK": {
-          "type": "highlight",
+        "text_Hn966E": {
+          "type": "text",
           "settings": {
-            "text": "<p>💡 Enough fiber a day supports stool bulk, bowel regularity, digestive function, and the beneficial bacteria living in the gut. When daily fiber intake falls short you <strong>start to feel that your waist increases and you've gained weight almost through the day. </strong></p>",
-            "background_color": "#f8e3e8",
-            "text_color": "#111111",
-            "font_size": 16,
+            "text": "<p><strong>But restriction wasn’t solving the reason I felt uncomfortable.<br/></strong>In fact, eating less sometimes made it harder to get enough fiber and maintain a consistent digestive routine.</p>",
+            "color": "#111111",
+            "font_size": 18,
             "font_size_mobile": 16,
-            "icon_size": 20,
-            "icon_gap": 10,
-            "border_radius": 16,
-            "padding_vertical": 16,
-            "padding_horizontal": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_TENrPq": {
+          "type": "text",
+          "settings": {
+            "text": "<p>So instead of asking:<br/><strong>“What else should I stop eating?”</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 10
+          }
+        },
+        "text_jjDNDE": {
+          "type": "text",
+          "settings": {
+            "text": "<p>So instead of asking:<br/><strong>“What is my gut missing?”</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_PV4Prk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>That shift changed everything.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
             "margin_bottom": 0
           }
         }
@@ -705,12 +669,11 @@
       "block_order": [
         "heading_yR93An",
         "text_nLH6Qb",
-        "icon_list_item_XBi9WV",
-        "icon_list_item_kk4TRa",
-        "icon_list_item_TDGhNH",
-        "icon_list_item_AGxde6",
         "text_EJjYT8",
-        "highlight_iGK9FK"
+        "text_Hn966E",
+        "text_TENrPq",
+        "text_jjDNDE",
+        "text_PV4Prk"
       ],
       "name": "Why Restricting More Doesn’t Work",
       "settings": {
