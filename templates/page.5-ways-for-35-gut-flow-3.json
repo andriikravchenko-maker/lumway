@@ -627,144 +627,6 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "get_harmony_feature_v2_hVXahQ": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_yR93An": {
-          "type": "heading",
-          "settings": {
-            "text": "Why Restricting More Doesn’t Work",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 10
-          }
-        },
-        "text_nLH6Qb": {
-          "type": "text",
-          "settings": {
-            "text": "<p>I had been searching for ways to lose weight and started to feel lighter inside:</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.2,
-            "margin_bottom": 16
-          }
-        },
-        "text_EJjYT8": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Less food.<br/>Fewer carbs.<br/>No dessert.<br/>No restaurant meals</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "text_Hn966E": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>But restriction wasn’t solving the reason I felt uncomfortable.<br/></strong>In fact, eating less sometimes made it harder to get enough fiber and maintain a consistent digestive routine.</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "text_TENrPq": {
-          "type": "text",
-          "settings": {
-            "text": "<p>So instead of asking:<br/><strong>“What else should I stop eating?”</strong></p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 10
-          }
-        },
-        "text_jjDNDE": {
-          "type": "text",
-          "settings": {
-            "text": "<p>So instead of asking:<br/><strong>“What is my gut missing?”</strong></p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "text_PV4Prk": {
-          "type": "text",
-          "settings": {
-            "text": "<p>That shift changed everything.</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 0
-          }
-        }
-      },
-      "block_order": [
-        "heading_yR93An",
-        "text_nLH6Qb",
-        "text_EJjYT8",
-        "text_Hn966E",
-        "text_TENrPq",
-        "text_jjDNDE",
-        "text_PV4Prk"
-      ],
-      "name": "I Changed My Daily Routine Completely",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20,
-        "title_gap": 0,
-        "column_gap": 0,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "I Changed My Daily Routine Completely",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#111111",
-        "image": "shopify://shop_images/I_Changed_My_Daily_Routine_Completely.webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#111111",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
-      }
-    },
     "get_harmony_feature_v2_7yt7ni": {
       "type": "get-harmony-feature-v2",
       "blocks": {
@@ -879,6 +741,103 @@
         "title_size_mobile": 26,
         "title_color": "#111111",
         "image": "shopify://shop_images/Why_Restricting_More_Doesn_t_Work.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_hVXahQ": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_yR93An": {
+          "type": "heading",
+          "settings": {
+            "text": "I Changed My Daily Routine Completely",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 10
+          }
+        },
+        "numbered_highlight_kNr4KH": {
+          "type": "numbered_highlight",
+          "settings": {
+            "items": "1 | I stopped skipping meals | Regular, balanced meals helped me build a more predictable daily rhythm.\n2 | I added more fiber-rich foods | I included more vegetables, berries, oats, seeds, legumes, and whole-food carbohydrates.\n3 | I drank more water | Increasing fiber without enough fluids can make digestive discomfort worse, so hydration became part of the routine.\n4 | I walked after meals| Even a short walk helped me feel less sedentary and more comfortable after eating.\n5 | I added Gut Flow to my daily routine | Gut Flow contains prebiotic inulin fiber designed to help increase daily fiber intake while nourishing beneficial gut bacteria.",
+            "background_color": "#F8E3E8",
+            "border_radius": 20,
+            "number_background": "#5B0D1E",
+            "number_color": "#ffffff",
+            "number_size": 20,
+            "title_color": "#111111",
+            "title_font_size": 16,
+            "title_font_size_mobile": 14,
+            "text_color": "#111111",
+            "text_font_size": 14,
+            "text_font_size_mobile": 14,
+            "row_gap": 8,
+            "number_gap": 8,
+            "description_gap": 4,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "margin_bottom": 16
+          }
+        },
+        "text_PV4Prk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>That shift changed everything.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_yR93An",
+        "numbered_highlight_kNr4KH",
+        "text_PV4Prk"
+      ],
+      "name": "I Changed My Daily Routine Completely",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20,
+        "title_gap": 0,
+        "column_gap": 0,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "I Changed My Daily Routine Completely",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/I_Changed_My_Daily_Routine_Completely.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -1933,8 +1892,8 @@
     "rich_text_BR7tJa",
     "get_harmony_feature_v2_9AzqaE",
     "get_harmony_feature_v2_nQrn9R",
-    "get_harmony_feature_v2_hVXahQ",
     "get_harmony_feature_v2_7yt7ni",
+    "get_harmony_feature_v2_hVXahQ",
     "gut_harmony_feature_AEPXCy",
     "gut_harmony_feature_6gkhMK",
     "gut_harmony_feature_RJLNVa",
