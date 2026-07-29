@@ -547,19 +547,19 @@
             "font_weight": "400",
             "line_height": 1.4,
             "gap": 12,
-            "margin_bottom": 0
+            "margin_bottom": 10
           }
         },
         "text_HjYXyW": {
           "type": "text",
           "settings": {
-            "text": "<p>I had been measuring everything except the one routine that had quietly changed:</p><p><strong>My digestion.</strong></p>",
+            "text": "<p>But in trying to eat less, I had also started eating less fiber. There were fewer whole grains. Smaller portions of fruit. More quick, protein-focused meals that looked healthy but didn’t always give my gut what it needed.</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
             "line_height": 1.4,
-            "margin_bottom": 16
+            "margin_bottom": 24
           }
         }
       },
