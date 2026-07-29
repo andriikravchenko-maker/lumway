@@ -1262,6 +1262,23 @@
             "heading": "PREBIOTIC FIBER GUMMIES"
           }
         },
+        "labels_hTKNk9": {
+          "type": "labels",
+          "settings": {
+            "chip_1_show": true,
+            "chip_1_text": "Reduce Cravings",
+            "chip_2_show": true,
+            "chip_2_text": "Feel Lighter Daily",
+            "chip_3_show": true,
+            "chip_3_text": "Fat Loss",
+            "chip_4_show": true,
+            "chip_4_text": "Drug-free",
+            "chip_5_show": false,
+            "chip_5_text": "",
+            "chip_6_show": false,
+            "chip_6_text": ""
+          }
+        },
         "bundle_BLEyFB": {
           "type": "bundle",
           "settings": {
@@ -1332,7 +1349,7 @@
             "save_badge_show": false,
             "save_badge_text": "Save $12",
             "save_badge_auto": false,
-            "save_badge_bg": "#fad356",
+            "save_badge_bg": "#F8E3E8",
             "save_badge_text_color": "#113b34",
             "show_per_pack": true,
             "per_pack_suffix": "/pack",
@@ -1457,6 +1474,7 @@
       "block_order": [
         "rating_yAxVBj",
         "title_EEBYtC",
+        "labels_hTKNk9",
         "bundle_BLEyFB",
         "purchase_type_zrrNbf",
         "add_to_cart_qyiqCe",

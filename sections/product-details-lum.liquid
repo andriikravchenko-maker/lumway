@@ -64,6 +64,31 @@
       /* Title */
       .section-{{ section.id }} .pdl-title{ margin:0; font-family:var(--pdl-font); font-weight:700; font-size:32px; line-height:1.1; letter-spacing:-0.64px; color:var(--pdl-ink); text-transform:capitalize; }
 
+/* Title description */
+.section-{{ section.id }} .pdl-title-description {
+  margin: 0;
+
+  font-family: var(--pdl-font) !important;
+  font-weight: var(--pdl-desc-weight) !important;
+  font-size: var(--pdl-desc-size);
+  line-height: var(--pdl-desc-line-height);
+  letter-spacing: var(--pdl-desc-letter-spacing);
+
+  color: var(--pdl-desc-color);
+}
+
+.section-{{ section.id }} .pdl-title-description p {
+  margin: 0;
+  font: inherit !important;
+  color: inherit !important;
+}
+
+@media (max-width: 989px) {
+  .section-{{ section.id }} .pdl-title-description {
+    font-size: var(--pdl-desc-size-mobile);
+    line-height: var(--pdl-desc-line-height-mobile);
+  }
+}
       /* Subtitle (8px under the title per Figma, 16px from neighbours) */
       .section-{{ section.id }} .pdl-subtitle{ font-family:var(--pdl-font); font-weight:400; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--pdl-ink); }
       .section-{{ section.id }} .pdl-subtitle p{ margin:0; }
@@ -115,6 +140,28 @@
             {%- assign pdl_heading = block.settings.heading | default: pdl_product.title -%}
             <h1 class="pdl-title" {{ block.shopify_attributes }}>{{ pdl_heading | escape }}</h1>
 
+            {%- when 'title_description' -%}
+  {%- if block.settings.text != blank -%}
+    <div
+      class="pdl-title-description"
+      style="
+        --pdl-desc-color: {{ block.settings.text_color }};
+        --pdl-desc-size: {{ block.settings.font_size }}px;
+        --pdl-desc-size-mobile: {{ block.settings.font_size_mobile }}px;
+        --pdl-desc-weight: {{ block.settings.font_weight }};
+        --pdl-desc-line-height: {{ block.settings.line_height }};
+        --pdl-desc-line-height-mobile: {{ block.settings.line_height_mobile }};
+        --pdl-desc-letter-spacing: {{ block.settings.letter_spacing | divided_by: 100.0 }}em;
+
+        margin-top: {{ block.settings.margin_top }}px;
+        margin-bottom: {{ block.settings.margin_bottom }}px;
+      "
+      {{ block.shopify_attributes }}
+    >
+      {{ block.settings.text }}
+    </div>
+  {%- endif -%}
+
           {%- when 'subtitle' -%}
             {%- if block.settings.text != blank -%}
               <div class="pdl-subtitle" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
@@ -134,6 +181,7 @@
               {%- endfor -%}
             </ul>
 
+
           {%- when 'bundle' -%}
             {%- render 'bundle-selector-lum', block: block, product: pdl_product -%}
 
@@ -145,14 +193,14 @@
 
           {%- when 'info_cards' -%}
             {%- render 'info-cards-lum', block: block -%}
-
-            {% comment %} {% render 'subscription-welcome-gifts',
+            {% render 'subscription-welcome-gifts',
                     product: product,
                     block: block
-            %} {% endcomment %}
+            %}
 
           {%- when 'cross_sell' -%}
             {%- render 'pdl-cross-sell', block: block -%}
+
 
           {%- when 'product_tabs' -%}
             {%- render 'pdl-tabs', block: block -%}
@@ -358,6 +406,117 @@
 "info": "Leave blank to use the product title."
 }
 ]
+},
+{
+  "type": "title_description",
+  "name": "Title description",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size desktop",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "label": "Font size mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "Font weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "line_height",
+      "label": "Line height desktop",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "line_height_mobile",
+      "label": "Line height mobile",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "default": 1.4
+    },
+    {
+      "type": "range",
+      "id": "letter_spacing",
+      "label": "Letter spacing",
+      "min": -5,
+      "max": 10,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    }
+  ]
 },
 {
 "type": "subtitle",
