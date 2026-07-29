@@ -16,6 +16,26 @@
       </span>
       {% endunless %}
     </a>
+   {% if block.settings.show_guarantee %}
+  <div class="sticky-atc-guarantee">
+    {% if block.settings.guarantee_icon != blank %}
+      {{
+        block.settings.guarantee_icon
+        | image_url: width: 80
+        | image_tag:
+          loading: 'lazy',
+          widths: '24, 32, 40, 48, 64, 80',
+          class: 'sticky-atc-guarantee__icon'
+      }}
+    {% endif %}
+
+    {% if block.settings.guarantee_text != blank %}
+      <span class="sticky-atc-guarantee__text">
+        {{ block.settings.guarantee_text }}
+      </span>
+    {% endif %}
+  </div>
+{% endif %}
     
     {% if block.settings.show_subtext %}
       <div class="sticky-atc-subtext">
@@ -37,6 +57,48 @@
 </div>
 
 <style>
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: {{ block.settings.guarantee_gap }}px;
+
+  margin-top: {{ block.settings.guarantee_margin_top }}px;
+
+  color: {{ block.settings.guarantee_text_color }};
+  font-size: {{ block.settings.guarantee_font_size }}px;
+  font-weight: {{ block.settings.guarantee_font_weight }} !important;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
+  display: block;
+
+  width: {{ block.settings.guarantee_icon_size }}px;
+  height: {{ block.settings.guarantee_icon_size }}px;
+  flex: 0 0 {{ block.settings.guarantee_icon_size }}px;
+
+  object-fit: contain;
+}
+
+.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__text {
+  line-height: inherit;
+}
+
+@media (max-width: 768px) {
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
+    gap: {{ block.settings.guarantee_gap_mobile }}px;
+    margin-top: {{ block.settings.guarantee_margin_top_mobile }}px;
+    font-size: {{ block.settings.guarantee_font_size_mobile }}px;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
+    width: {{ block.settings.guarantee_icon_size_mobile }}px;
+    height: {{ block.settings.guarantee_icon_size_mobile }}px;
+    flex-basis: {{ block.settings.guarantee_icon_size_mobile }}px;
+  }
+}
   .listicle-sticky-atc-{{ block.id }} {
     margin-top: {{ block.settings.margin_top }}px;
     margin-bottom: {{ block.settings.margin_bottom }}px;
@@ -492,6 +554,137 @@
       "label": "Button Border Radius",
       "default": 8
     },
+    {
+  "type": "header",
+  "content": "Guarantee Settings"
+},
+{
+  "type": "checkbox",
+  "id": "show_guarantee",
+  "label": "Show guarantee block",
+  "default": false
+},
+{
+  "type": "image_picker",
+  "id": "guarantee_icon",
+  "label": "Guarantee icon"
+},
+{
+  "type": "text",
+  "id": "guarantee_text",
+  "label": "Guarantee text",
+  "default": "30-day money-back guarantee"
+},
+{
+  "type": "color",
+  "id": "guarantee_text_color",
+  "label": "Guarantee text color",
+  "default": "#111111"
+},
+{
+  "type": "range",
+  "id": "guarantee_font_size",
+  "label": "Guarantee font size desktop",
+  "min": 12,
+  "max": 32,
+  "step": 1,
+  "unit": "px",
+  "default": 18
+},
+{
+  "type": "range",
+  "id": "guarantee_font_size_mobile",
+  "label": "Guarantee font size mobile",
+  "min": 10,
+  "max": 24,
+  "step": 1,
+  "unit": "px",
+  "default": 16
+},
+{
+  "type": "select",
+  "id": "guarantee_font_weight",
+  "label": "Guarantee font weight",
+  "options": [
+    {
+      "value": "400",
+      "label": "Regular"
+    },
+    {
+      "value": "500",
+      "label": "Medium"
+    },
+    {
+      "value": "600",
+      "label": "Semibold"
+    },
+    {
+      "value": "700",
+      "label": "Bold"
+    }
+  ],
+  "default": "700"
+},
+{
+  "type": "range",
+  "id": "guarantee_icon_size",
+  "label": "Guarantee icon size desktop",
+  "min": 12,
+  "max": 60,
+  "step": 1,
+  "unit": "px",
+  "default": 26
+},
+{
+  "type": "range",
+  "id": "guarantee_icon_size_mobile",
+  "label": "Guarantee icon size mobile",
+  "min": 12,
+  "max": 50,
+  "step": 1,
+  "unit": "px",
+  "default": 22
+},
+{
+  "type": "range",
+  "id": "guarantee_gap",
+  "label": "Gap desktop",
+  "min": 0,
+  "max": 30,
+  "step": 1,
+  "unit": "px",
+  "default": 10
+},
+{
+  "type": "range",
+  "id": "guarantee_gap_mobile",
+  "label": "Gap mobile",
+  "min": 0,
+  "max": 30,
+  "step": 1,
+  "unit": "px",
+  "default": 8
+},
+{
+  "type": "range",
+  "id": "guarantee_margin_top",
+  "label": "Top spacing desktop",
+  "min": 0,
+  "max": 60,
+  "step": 2,
+  "unit": "px",
+  "default": 16
+},
+{
+  "type": "range",
+  "id": "guarantee_margin_top_mobile",
+  "label": "Top spacing mobile",
+  "min": 0,
+  "max": 40,
+  "step": 2,
+  "unit": "px",
+  "default": 12
+},
     {
       "type": "header",
       "content": "Subtext Settings"
