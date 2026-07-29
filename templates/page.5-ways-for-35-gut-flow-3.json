@@ -362,12 +362,50 @@
             "font_size_mobile": 26,
             "font_weight": "700",
             "line_height": 1.2,
+            "margin_bottom": 10
+          }
+        },
+        "text_U6Ria4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body fat doesn’t suddenly appear between breakfast and dinner.<br/><br/>Looking back, the signs were obvious:</p>",
+            "color": "#333333",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "list_kyXRfb": {
+          "type": "list",
+          "settings": {
+            "items": "I wasn’t having comfortable, regular bowel movements.\nMy stomach felt heavy after normal meals.\nMy waistband became uncomfortable as the day went on.\nI often felt “full” even when I wasn’t hungry.\nMy body rarely felt completely light or settled.",
+            "background_color": "#F9F9F9",
+            "border_color": "#C2C2C2",
+            "border_width": 1,
+            "border_radius": 16,
+            "text_color": "#111111",
+            "bullet_color": "#5B0D1E",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.4,
+            "bullet_size": 8,
+            "bullet_gap": 16,
+            "item_gap": 6,
+            "padding_vertical": 18,
+            "padding_horizontal": 14,
+            "padding_vertical_mobile": 14,
+            "padding_horizontal_mobile": 14,
             "margin_bottom": 16
           }
         }
       },
       "block_order": [
-        "heading_DPnxJp"
+        "heading_DPnxJp",
+        "text_U6Ria4",
+        "list_kyXRfb"
       ],
       "name": "Gut Harmony Feature V2",
       "settings": {
