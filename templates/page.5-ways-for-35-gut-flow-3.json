@@ -1665,8 +1665,8 @@
             "show_price_in_button": true,
             "show_compare_in_button": true,
             "cart_icon": "none",
-            "button_bg": "#00724d",
-            "button_hover_bg": "#005e3f",
+            "button_bg": "#5B0D1E",
+            "button_hover_bg": "#111111",
             "button_text_color": "#ffffff",
             "show_sticky": true,
             "sticky_label": "Try it Now"
