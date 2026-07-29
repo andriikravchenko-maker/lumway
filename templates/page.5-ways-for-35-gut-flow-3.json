@@ -297,7 +297,7 @@
         "subtitle_J6QgnC"
       ],
       "custom_css": [
-        ".rich-text-title{color: #5B0D1E !important;}"
+        ".rich-text-title {color: #5b0d1e !important;}"
       ],
       "name": "Rich Text",
       "settings": {
@@ -308,7 +308,7 @@
         "padding_bottom": 20,
         "padding_horizontal": 20,
         "title_font_size": 20,
-        "title_font_size_mobile": 22,
+        "title_font_size_mobile": 16,
         "title_line_height": 1.3,
         "title_margin_bottom": 24,
         "title_color": "#5B0D1E",
@@ -320,7 +320,7 @@
         "subtitle_font_size": 18,
         "subtitle_font_size_mobile": 16,
         "subtitle_line_height": 1.6,
-        "subtitle_margin_bottom": 32,
+        "subtitle_margin_bottom": 16,
         "subtitle_max_width": 1000,
         "subtitle_color": "#111111",
         "bold_font_weight": "700",
