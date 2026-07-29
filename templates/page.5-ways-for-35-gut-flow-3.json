@@ -236,6 +236,7 @@
       "block_order": [
         "author_L9zeKm"
       ],
+      "disabled": true,
       "name": "Advertorial Section",
       "settings": {
         "use_theme_colors": true,
@@ -264,17 +265,19 @@
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>For many people, <strong>healthy living feels like a choice.</strong> Either you enjoy pizza, burgers, pasta, and dessert...</p><p><strong>Or you work toward a flatter stomach</strong> and your weight-loss goals.</p>"
+            "subtitle": "<p> I had almost stopped wearing jeans. Not because they didn’t fit.They did – in the morning. But by lunchtime, the waistband would start pressing into my stomach.<br/><br/>By dinner, I wanted to unbutton them.<br/><br/>And by the end of the evening, I felt like my body had somehow changed an entire size in just a few hours.<br/><br/>So, I tried eating smaller portions. Avoiding bread. Skipping dessert. Starting another “clean eating” week.<br/><br/>But the same thing kept happening.<br/><br/>That was when I realized I needed to look deeper instead of just blaming my weight.</p>"
           }
         },
         "subtitle_GP3jrT": {
           "type": "subtitle",
+          "disabled": true,
           "settings": {
-            "subtitle": "<p>But <strong>nutrition experts</strong> increasingly <strong>agree</strong> that <strong>sustainable results don't come </strong>from avoiding...</p>"
+            "subtitle": "<p>By dinner, I wanted to unbutton them.</p>"
           }
         },
         "title_6k7zw7": {
           "type": "title",
+          "disabled": true,
           "settings": {
             "title": "",
             "accent_text": "your favorite foods forever!"
@@ -282,6 +285,7 @@
         },
         "subtitle_J6QgnC": {
           "type": "subtitle",
+          "disabled": true,
           "settings": {
             "subtitle": "<p>They come from building habits you can actually maintain.</p><p>Here's what that looks like.</p>"
           }
