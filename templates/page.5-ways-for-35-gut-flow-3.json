@@ -482,6 +482,57 @@
             "margin_bottom": 16
           }
         },
+        "icon_list_item_JxKtLz": {
+          "type": "icon_list_item",
+          "name": "Protein at every meal",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Protein at every meal",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
+        "icon_list_item_MVhwFN": {
+          "type": "icon_list_item",
+          "name": "Smaller portions",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Smaller portions",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
+        "icon_list_item_W8JGTf": {
+          "type": "icon_list_item",
+          "name": "Fewer snacks",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Fewer snacks",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
         "text_HjYXyW": {
           "type": "text",
           "settings": {
@@ -498,6 +549,9 @@
       "block_order": [
         "heading_P6pBLJ",
         "text_xALnGM",
+        "icon_list_item_JxKtLz",
+        "icon_list_item_MVhwFN",
+        "icon_list_item_W8JGTf",
         "text_HjYXyW"
       ],
       "name": "The “Healthy” Diet Mistake",
