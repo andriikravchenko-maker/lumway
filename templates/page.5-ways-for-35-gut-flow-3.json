@@ -944,12 +944,38 @@
             "line_height": 1.2,
             "margin_bottom": 24
           }
+        },
+        "text_Vrhyqh": {
+          "type": "text",
+          "settings": {
+            "text": "<p> I didn’t wake up with a completely different body and the scale didn’t suddenly drop.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_jjhkHP": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Instead, I noticed smaller, more believable changes first:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
         }
       },
       "block_order": [
-        "heading_yR93An"
+        "heading_yR93An",
+        "text_Vrhyqh",
+        "text_jjhkHP"
       ],
-      "name": "I Changed My Daily Routine Completely",
+      "name": "The First Change Wasn’t Weight Loss",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 0,
@@ -960,7 +986,7 @@
         "column_gap": 20,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "I Changed My Daily Routine Completely",
+        "title": "The First Change Wasn’t Weight Loss",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
