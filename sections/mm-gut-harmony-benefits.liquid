@@ -56,6 +56,14 @@
     --ghb-padding-bottom: {{ section.settings.padding_bottom }}px;
     --ghb-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
     --ghb-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+    --ghb-media-width: {{ section.settings.image_width }}px;
+--ghb-media-height: {{ section.settings.image_height }}px;
+
+--ghb-media-width-mobile: {{ section.settings.image_width_mobile }}px;
+--ghb-media-height-mobile: {{ section.settings.image_height_mobile }}px;
+
+--ghb-image-fit: {{ section.settings.image_fit }};
+--ghb-image-position: {{ section.settings.image_position }};
   }
 
   .section-{{ section.id }} {
@@ -75,18 +83,26 @@
     box-sizing: border-box;
   }
 
-  .section-{{ section.id }} .gut-harmony-benefits__media {
-    width: 100%;
-    max-width: 486px;
-    flex-shrink: 0;
-  }
+.section-{{ section.id }} .gut-harmony-benefits__media {
+  width: min(100%, var(--ghb-media-width-mobile));
+  height: var(--ghb-media-height-mobile);
+  flex-shrink: 0;
 
-  .section-{{ section.id }} .gut-harmony-benefits__image {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: var(--ghb-image-radius);
-  }
+  overflow: hidden;
+  border-radius: var(--ghb-image-radius);
+}
+
+.section-{{ section.id }} .gut-harmony-benefits__image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: var(--ghb-image-fit);
+  object-position: var(--ghb-image-position);
+
+  border-radius: inherit;
+}
 
   .section-{{ section.id }} .gut-harmony-benefits__image--placeholder {
     background-color: #eef0f1;
@@ -181,9 +197,13 @@
       padding-inline: 0;
     }
 
-    .section-{{ section.id }} .gut-harmony-benefits__media {
-      flex: 0 0 486px;
-    }
+.section-{{ section.id }} .gut-harmony-benefits__media {
+  width: var(--ghb-media-width);
+  height: var(--ghb-media-height);
+
+  max-width: none;
+  flex: 0 0 var(--ghb-media-width);
+}
 
     .section-{{ section.id }} .gut-harmony-benefits__content {
       flex: 0 0 687px;
@@ -209,6 +229,13 @@
   }
 
    @media screen and (max-width: 600px) {
+     .section-{{ section.id }} .gut-harmony-benefits__media {
+
+    width: 100%;
+
+    height: var(--ghb-media-height-mobile);
+
+  }
 #mm-gut-harmony-benefits .gut-harmony-benefits__heading{
         text-align: left;
 }
@@ -356,25 +383,109 @@
       "default": "#f9f9f9"
     },
     {
-      "type": "header",
-      "content": "Product image"
+  "type": "header",
+  "content": "Product image"
+},
+{
+  "type": "image_picker",
+  "id": "image",
+  "label": "Product image",
+  "info": "Composite image with the benefit badges built in."
+},
+{
+  "type": "range",
+  "id": "image_width",
+  "label": "Image width desktop",
+  "min": 402,
+  "max": 702,
+  "step": 4,
+  "unit": "px",
+  "default": 486
+},
+{
+  "type": "range",
+  "id": "image_height",
+  "label": "Image height desktop",
+  "min": 250,
+  "max": 598,
+  "step": 4,
+  "unit": "px",
+  "default": 402
+},
+{
+  "type": "range",
+  "id": "image_width_mobile",
+  "label": "Image width mobile",
+  "min": 250,
+  "max": 450,
+  "step": 2,
+  "unit": "px",
+  "default": 360
+},
+{
+  "type": "range",
+  "id": "image_height_mobile",
+  "label": "Image height mobile",
+  "min": 180,
+  "max": 380,
+  "step": 2,
+  "unit": "px",
+  "default": 270
+},
+{
+  "type": "select",
+  "id": "image_fit",
+  "label": "Image fit",
+  "options": [
+    {
+      "value": "cover",
+      "label": "Cover"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Product image",
-      "info": "Composite image with the benefit badges built in. Recommended ratio ~486 x 401."
+      "value": "contain",
+      "label": "Contain"
+    }
+  ],
+  "default": "cover"
+},
+{
+  "type": "select",
+  "id": "image_position",
+  "label": "Image position",
+  "options": [
+    {
+      "value": "center center",
+      "label": "Center"
     },
     {
-      "type": "range",
-      "id": "image_border_radius",
-      "label": "Image corner radius",
-      "min": 0,
-      "max": 40,
-      "step": 2,
-      "unit": "px",
-      "default": 0
+      "value": "center top",
+      "label": "Top"
     },
+    {
+      "value": "center bottom",
+      "label": "Bottom"
+    },
+    {
+      "value": "left center",
+      "label": "Left"
+    },
+    {
+      "value": "right center",
+      "label": "Right"
+    }
+  ],
+  "default": "center center"
+},
+{
+  "type": "range",
+  "id": "image_border_radius",
+  "label": "Image corner radius",
+  "min": 0,
+  "max": 40,
+  "step": 2,
+  "unit": "px",
+  "default": 0
+},
     {
       "type": "header",
       "content": "Heading"
