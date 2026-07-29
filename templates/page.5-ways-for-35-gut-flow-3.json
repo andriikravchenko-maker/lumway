@@ -460,7 +460,7 @@
         "heading_P6pBLJ": {
           "type": "heading",
           "settings": {
-            "text": "My Body Wasn’t Changing Overnight",
+            "text": "The “Healthy” Diet Mistake",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -473,12 +473,12 @@
         "text_xALnGM": {
           "type": "text",
           "settings": {
-            "text": "<p>Body fat doesn’t suddenly appear between breakfast and dinner.<br/><br/>Looking back, the signs were obvious:</p>",
-            "color": "#333333",
+            "text": "<p>I thought I was eating well.</p>",
+            "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
+            "font_weight": "400",
+            "line_height": 1.2,
             "margin_bottom": 16
           }
         },
