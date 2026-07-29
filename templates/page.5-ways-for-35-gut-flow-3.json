@@ -533,6 +533,23 @@
             "margin_bottom": 0
           }
         },
+        "icon_list_item_PLi4x3": {
+          "type": "icon_list_item",
+          "name": "Lower-calorie options",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Lower-calorie options",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
         "text_HjYXyW": {
           "type": "text",
           "settings": {
@@ -552,6 +569,7 @@
         "icon_list_item_JxKtLz",
         "icon_list_item_MVhwFN",
         "icon_list_item_W8JGTf",
+        "icon_list_item_PLi4x3",
         "text_HjYXyW"
       ],
       "name": "The “Healthy” Diet Mistake",
