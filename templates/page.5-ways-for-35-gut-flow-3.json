@@ -1070,28 +1070,34 @@
             "margin_bottom": 24
           }
         },
-        "highlight_KAaiWi": {
-          "type": "highlight",
+        "highlight_checklist_GLQmfP": {
+          "type": "highlight_checklist",
           "settings": {
             "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "text": "<p>Daily fiber intake </p>",
+            "items": "Daily fiber intake\nHealthy bowel regularity\nBeneficial gut bacteria\nDigestive comfort\nA feeling of fullness as part of a balanced diet\nA routine that may feel easier to maintain consistently",
             "background_color": "#F8E3E8",
+            "border_radius": 20,
             "text_color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.2,
             "icon_size": 24,
+            "icon_size_mobile": 20,
             "icon_gap": 8,
-            "border_radius": 20,
+            "row_gap": 4,
             "padding_vertical": 16,
             "padding_horizontal": 16,
-            "margin_bottom": 16
+            "padding_vertical_mobile": 16,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 24
           }
         }
       },
       "block_order": [
         "heading_yR93An",
         "text_yVTyiA",
-        "highlight_KAaiWi"
+        "highlight_checklist_GLQmfP"
       ],
       "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
       "settings": {
