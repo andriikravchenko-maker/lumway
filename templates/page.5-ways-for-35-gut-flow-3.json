@@ -1058,7 +1058,7 @@
             "margin_bottom": 24
           }
         },
-        "text_yVTyiA": {
+        "text_rDbwUJ": {
           "type": "text",
           "settings": {
             "text": "<p>Gut Flow isn’t designed to burn fat or replace a balanced diet. Its role is more foundational.<br/><br/>Its prebiotic inulin fiber helps support:</p>",
@@ -1075,7 +1075,7 @@
           "settings": {
             "icon": "shopify://shop_images/lets-icons_check-fill.png",
             "items": "Daily fiber intake\nHealthy bowel regularity\nBeneficial gut bacteria\nDigestive comfort\nA feeling of fullness as part of a balanced diet\nA routine that may feel easier to maintain consistently",
-            "background_color": "#F8E3E8",
+            "background_color": "#f8e3e8",
             "border_radius": 20,
             "text_color": "#111111",
             "font_size": 18,
@@ -1092,12 +1092,25 @@
             "padding_horizontal_mobile": 16,
             "margin_bottom": 24
           }
+        },
+        "text_yVTyiA": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.<br/>That doesn’t make Gut Flow a shortcut to weight loss.It makes it a practical part of a healthier routine – especially for people who struggle to get enough fiber consistently.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 24
+          }
         }
       },
       "block_order": [
         "heading_yR93An",
-        "text_yVTyiA",
-        "highlight_checklist_GLQmfP"
+        "text_rDbwUJ",
+        "highlight_checklist_GLQmfP",
+        "text_yVTyiA"
       ],
       "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
       "settings": {
