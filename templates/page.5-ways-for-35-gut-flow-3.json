@@ -1152,111 +1152,115 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "gut_harmony_feature_RJLNVa": {
-      "type": "gut-harmony-feature",
-      "name": "Gut Harmony Feature",
+    "get_harmony_feature_v2_QcAKNJ": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_yFMGAf": {
+          "type": "heading",
+          "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+          "settings": {
+            "text": "My Jeans Didn’t Need a Smaller Body.I Needed to Feel Comfortable in Mine.",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
+          }
+        },
+        "text_KYVE8X": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Gut Flow isn’t designed to burn fat or replace a balanced diet. Its role is more foundational.<br/><br/>Its prebiotic inulin fiber helps support:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1,
+            "margin_bottom": 24
+          }
+        },
+        "highlight_checklist_G6nr8E": {
+          "type": "highlight_checklist",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "items": "Daily fiber intake\nHealthy bowel regularity\nBeneficial gut bacteria\nDigestive comfort\nA feeling of fullness as part of a balanced diet\nA routine that may feel easier to maintain consistently",
+            "background_color": "#f8e3e8",
+            "border_radius": 20,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.2,
+            "icon_size": 24,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "row_gap": 4,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 16,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 24
+          }
+        },
+        "text_7YQi9B": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.<br/>That doesn’t make Gut Flow a shortcut to weight loss.<br/>It makes it a practical part of a healthier routine – especially for people who struggle to get enough fiber consistently.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 24
+          }
+        }
+      },
+      "block_order": [
+        "heading_yFMGAf",
+        "text_KYVE8X",
+        "highlight_checklist_G6nr8E",
+        "text_7YQi9B"
+      ],
+      "name": "My Jeans Didn’t Need a Smaller Body. I Needed to Feel Comfortable in Mine.",
       "settings": {
         "use_theme_colors": false,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 28,
-        "title_gap": 16,
-        "column_gap": 24,
-        "content_gap": 24,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 20,
+        "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "Feeling Lighter Makes Healthy Choices Easier",
+        "title": "My Jeans Didn’t Need a Smaller Body.I Needed to Feel Comfortable in Mine.",
         "title_size": 40,
         "title_size_mobile": 26,
-        "title_color": "#3b3b3b",
-        "image": "shopify://shop_images/4471212.webp",
+        "title_color": "#111111",
+        "image": "shopify://shop_images/My_Jeans_Didn_t_Need_a_Smaller_Body._I_Needed_to_Feel_Comfortable_in_Mine..webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
         "image_border_radius": 0,
-        "body_text": "<p>When you're <strong>constantly bloated</strong> or uncomfortable after meals, it's <strong>harder to stay motivated.</strong></p><p><strong>Supporting healthy digestion</strong> make it easier to stick with the habits that <strong>support long-term wellness.</strong></p><p>Many people find that when <strong>digestion feels better, everything else becomes easier – </strong>from making healthier food choices to staying active.</p>",
-        "text_size": 16,
-        "text_color": "#3b3b3b",
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
         "testimonial_text": "",
-        "testimonial_size": 18,
+        "testimonial_size": 16,
         "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#99364c",
+        "testimonial_color": "#333333",
         "button_text": "",
-        "button_link": "shopify://products/gut-harmony-gummies",
-        "button_show_arrow": true,
+        "button_link": "",
+        "button_show_arrow": false,
         "button_font_size": 24,
         "button_radius": 32,
         "button_bg_color": "#23a02a",
         "button_text_color": "#ffffff",
         "button_hover_bg_color": "#1d8a23"
-      }
-    },
-    "pdl_heading_divider": {
-      "type": "rich-text",
-      "blocks": {
-        "rt_title": {
-          "type": "title",
-          "settings": {
-            "title": "Gut Flow Supports Your",
-            "accent_text": "Weight-Loss Journey"
-          }
-        },
-        "rt_sub": {
-          "type": "subtitle",
-          "settings": {
-            "subtitle": "<p>It's not a weight-loss product.</p><p>It's a <strong>daily digestive support</strong> designed to <strong>help you build the habits</strong> that often accompany <strong>successful long-term weight management.</strong></p>"
-          }
-        }
-      },
-      "block_order": [
-        "rt_title",
-        "rt_sub"
-      ],
-      "settings": {
-        "anchor_id": "",
-        "use_theme_colors": false,
-        "text_alignment": "center",
-        "mobile_text_alignment": "center",
-        "padding_top": 25,
-        "padding_bottom": 0,
-        "padding_horizontal": 20,
-        "title_font_size": 36,
-        "title_font_size_mobile": 28,
-        "title_line_height": 1.3,
-        "title_margin_bottom": 12,
-        "title_color": "#3b3b3b",
-        "use_accent_gradient": true,
-        "accent_color": "#99364c",
-        "accent_gradient_start": "#ef4a65",
-        "accent_gradient_end": "#99364c",
-        "accent_gradient_angle": 45,
-        "subtitle_font_size": 18,
-        "subtitle_font_size_mobile": 16,
-        "subtitle_line_height": 1.6,
-        "subtitle_margin_bottom": 32,
-        "subtitle_max_width": 700,
-        "subtitle_color": "#3b3b3b",
-        "bold_font_weight": "700",
-        "use_global_button_styling": true,
-        "button_font_size": 16,
-        "button_font_size_mobile": 14,
-        "button_padding_vertical": 14,
-        "button_padding_horizontal": 28,
-        "button_border_radius": 4,
-        "button_border_width": 0,
-        "button_margin_top": 24,
-        "button_bg_color": "#000000",
-        "button_text_color": "#ffffff",
-        "button_border_color": "#000000",
-        "button_hover_bg_color": "#333333",
-        "button_hover_text_color": "#ffffff",
-        "section_bg_color": "#ffffff",
-        "section_border_radius": 0,
-        "enable_top_border": false,
-        "top_border_width": 1,
-        "top_border_style": "solid",
-        "top_border_color": "#e0e0e0",
-        "enable_bottom_border": false,
-        "bottom_border_width": 1,
-        "bottom_border_style": "solid",
-        "bottom_border_color": "#e0e0e0"
       }
     },
     "product_details_lum": {
@@ -2126,8 +2130,7 @@
     "get_harmony_feature_v2_AkDTnE",
     "get_harmony_feature_v2_WwW9hw",
     "get_harmony_feature_v2_hVXahQ",
-    "gut_harmony_feature_RJLNVa",
-    "pdl_heading_divider",
+    "get_harmony_feature_v2_QcAKNJ",
     "product_details_lum",
     "listicle_sticky_only",
     "gut_harmony_reviews_RY8qtC",
