@@ -272,15 +272,14 @@
           "type": "subtitle",
           "disabled": true,
           "settings": {
-            "subtitle": "<p>By dinner, I wanted to unbutton them.</p>"
+            "subtitle": "<p>🤔 What if the real issue was something happening inside my body that I hadn’t been paying attention to?</p>"
           }
         },
         "title_6k7zw7": {
           "type": "title",
-          "disabled": true,
           "settings": {
-            "title": "",
-            "accent_text": "your favorite foods forever!"
+            "title": "🤔 What if the real issue was something happening inside my body that I hadn’t been paying attention to?",
+            "accent_text": ""
           }
         },
         "subtitle_J6QgnC": {
@@ -308,11 +307,11 @@
         "title_font_size": 20,
         "title_font_size_mobile": 22,
         "title_line_height": 1.3,
-        "title_margin_bottom": 20,
-        "title_color": "#3b3b3b",
+        "title_margin_bottom": 24,
+        "title_color": "#5B0D1E",
         "use_accent_gradient": true,
         "accent_color": "#5e1424",
-        "accent_gradient_start": "#ef4a65",
+        "accent_gradient_start": "#5B0D1E",
         "accent_gradient_end": "#5e1424",
         "accent_gradient_angle": 45,
         "subtitle_font_size": 18,
