@@ -1445,6 +1445,7 @@
         },
         "cross_sell_WWLLUc": {
           "type": "cross_sell",
+          "disabled": true,
           "settings": {
             "heading": "Thousands of customers also buy",
             "heading_color": "#113b34",
@@ -1483,8 +1484,8 @@
             "tab_1_title": "Benefits",
             "tab_1_icon": "star",
             "tab_1_layout": "checklist",
-            "tab_1_row_1_label": "",
-            "tab_1_row_1_text": "",
+            "tab_1_row_1_label": "Balanced Appetite",
+            "tab_1_row_1_text": "Feel satisfied for longer with fewer everyday cravings.",
             "tab_1_row_2_label": "",
             "tab_1_row_2_text": "",
             "tab_1_row_3_label": "",
