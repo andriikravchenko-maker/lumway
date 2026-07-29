@@ -784,7 +784,7 @@
             "font_size_mobile": 26,
             "font_weight": "700",
             "line_height": 1.2,
-            "margin_bottom": 10
+            "margin_bottom": 24
           }
         },
         "numbered_highlight_kNr4KH": {
@@ -810,23 +810,28 @@
             "margin_bottom": 16
           }
         },
-        "text_PV4Prk": {
-          "type": "text",
+        "icon_text_83FVtJ": {
+          "type": "icon_text",
+          "name": "It wasn’t a cleanse.",
           "settings": {
-            "text": "<p>That shift changed everything.</p>",
+            "icon": "shopify://shop_images/icon-close.png",
+            "text": "<p>It wasn’t a cleanse.</p>",
+            "icon_size": 20,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
             "color": "#111111",
             "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 0
+            "font_size_mobile": 14,
+            "font_weight": "500",
+            "line_height": 1.1,
+            "margin_bottom": 8
           }
         }
       },
       "block_order": [
         "heading_yR93An",
         "numbered_highlight_kNr4KH",
-        "text_PV4Prk"
+        "icon_text_83FVtJ"
       ],
       "name": "I Changed My Daily Routine Completely",
       "settings": {
@@ -834,9 +839,9 @@
         "padding_top": 0,
         "padding_bottom": 72,
         "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20,
+        "padding_bottom_mobile": 40,
         "title_gap": 0,
-        "column_gap": 0,
+        "column_gap": 20,
         "content_gap": 0,
         "background_color": "#ffffff",
         "title": "I Changed My Daily Routine Completely",
