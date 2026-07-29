@@ -296,6 +296,9 @@
         "title_6k7zw7",
         "subtitle_J6QgnC"
       ],
+      "custom_css": [
+        ".rich-text-title{color: #5B0D1E !important;}"
+      ],
       "name": "Rich Text",
       "settings": {
         "use_theme_colors": true,
