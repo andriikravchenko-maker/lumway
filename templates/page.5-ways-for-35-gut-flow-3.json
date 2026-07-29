@@ -1096,7 +1096,7 @@
         "text_yVTyiA": {
           "type": "text",
           "settings": {
-            "text": "<p>Fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.<br/>That doesn’t make Gut Flow a shortcut to weight loss.It makes it a practical part of a healthier routine – especially for people who struggle to get enough fiber consistently.</p>",
+            "text": "<p>Fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.<br/>That doesn’t make Gut Flow a shortcut to weight loss.<br/>It makes it a practical part of a healthier routine – especially for people who struggle to get enough fiber consistently.</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
