@@ -253,7 +253,12 @@
   }
 {%- endstyle -%}
 
-<div class="rich-text-section-{{ section.id }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-up{% endif %}">
+<div
+  {% if section.settings.anchor_id != blank %}
+    id="{{ section.settings.anchor_id | handleize }}"
+  {% endif %}
+  class="rich-text-section-{{ section.id }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-up{% endif %}"
+>
   {% assign text_alignment = section.settings.text_alignment %}
   {% assign mobile_text_alignment = section.settings.mobile_text_alignment %}
 
@@ -336,6 +341,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+  "type": "text",
+  "id": "anchor_id",
+  "label": "Anchor ID",
+  "info": "Enter ID without #. Example: adventorial"
+},
     {
       "type": "checkbox",
       "id": "use_theme_colors",
