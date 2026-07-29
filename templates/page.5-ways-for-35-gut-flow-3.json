@@ -929,118 +929,6 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "get_harmony_feature_v2_hVXahQ": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_yR93An": {
-          "type": "heading",
-          "settings": {
-            "text": "The First Change Wasn’t Weight Loss",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 24
-          }
-        },
-        "text_Vrhyqh": {
-          "type": "text",
-          "settings": {
-            "text": "<p> I didn’t wake up with a completely different body and the scale didn’t suddenly drop.</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "text_jjhkHP": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Instead, I noticed smaller, more believable changes first:</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "text_erkzPh": {
-          "type": "text",
-          "settings": {
-            "text": "<ul><li>My digestion felt more predictable</li><li>I stopped carrying the same uncomfortable heaviness</li><li>My stomach didn’t feel as dramatically different by evening</li></ul>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "text_TPBWit": {
-          "type": "text",
-          "settings": {
-            "text": "<p>And one day, I put on my jeans without immediately wondering when I would need to unbutton them.<br/>That small moment gave me more confidence than another restrictive diet I ever had.</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 0
-          }
-        }
-      },
-      "block_order": [
-        "heading_yR93An",
-        "text_Vrhyqh",
-        "text_jjhkHP",
-        "text_erkzPh",
-        "text_TPBWit"
-      ],
-      "name": "The First Change Wasn’t Weight Loss",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 40,
-        "title_gap": 0,
-        "column_gap": 20,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "The First Change Wasn’t Weight Loss",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#111111",
-        "image": "shopify://shop_images/The_First_Change_Wasn_t_Weight_Loss.webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#111111",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
-      }
-    },
     "get_harmony_feature_v2_WwW9hw": {
       "type": "get-harmony-feature-v2",
       "blocks": {
@@ -1125,6 +1013,67 @@
         "content_gap": 0,
         "background_color": "#ffffff",
         "title": "The First Change Wasn’t Weight Loss",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/The_First_Change_Wasn_t_Weight_Loss.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_hVXahQ": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_yR93An": {
+          "type": "heading",
+          "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+          "settings": {
+            "text": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
+          }
+        }
+      },
+      "block_order": [
+        "heading_yR93An"
+      ],
+      "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 20,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
@@ -2125,8 +2074,8 @@
     "get_harmony_feature_v2_nQrn9R",
     "get_harmony_feature_v2_7yt7ni",
     "get_harmony_feature_v2_AkDTnE",
-    "get_harmony_feature_v2_hVXahQ",
     "get_harmony_feature_v2_WwW9hw",
+    "get_harmony_feature_v2_hVXahQ",
     "gut_harmony_feature_RJLNVa",
     "pdl_heading_divider",
     "product_details_lum",
