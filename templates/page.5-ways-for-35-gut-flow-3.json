@@ -1057,10 +1057,23 @@
             "line_height": 1.2,
             "margin_bottom": 24
           }
+        },
+        "text_yVTyiA": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Gut Flow isn’t designed to burn fat or replace a balanced diet. Its role is more foundational.<br/><br/>Its prebiotic inulin fiber helps support:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 24
+          }
         }
       },
       "block_order": [
-        "heading_yR93An"
+        "heading_yR93An",
+        "text_yVTyiA"
       ],
       "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
       "settings": {
