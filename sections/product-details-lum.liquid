@@ -146,6 +146,11 @@
           {%- when 'info_cards' -%}
             {%- render 'info-cards-lum', block: block -%}
 
+            {% render 'subscription-welcome-gifts',
+                    product: product,
+                    block: block
+            %}
+
           {%- when 'cross_sell' -%}
             {%- render 'pdl-cross-sell', block: block -%}
 
@@ -166,6 +171,131 @@
 "tag": "section",
 "class": "section-product-details-lum",
 "settings": [
+
+  {
+    "type": "header",
+    "content": "Welcome gifts — Content"
+  },
+  {
+    "type": "text",
+    "id": "gifts_heading",
+    "label": "Heading",
+    "default": "Limited Time Free Welcome Gifts"
+  },
+  {
+    "type": "text",
+    "id": "gifts_save_prefix",
+    "label": "Save label",
+    "default": "Save"
+  },
+
+  {
+    "type": "header",
+    "content": "Welcome gifts — Colors"
+  },
+  {
+    "type": "color",
+    "id": "gifts_divider_color",
+    "label": "Divider color",
+    "default": "#C2C2C2"
+  },
+  {
+    "type": "color",
+    "id": "gifts_heading_color",
+    "label": "Heading color",
+    "default": "#6F1020"
+  },
+  {
+    "type": "color",
+    "id": "gifts_title_color",
+    "label": "Product title color",
+    "default": "#111111"
+  },
+  {
+    "type": "color",
+    "id": "gifts_card_bg",
+    "label": "Locked card background",
+    "default": "#F9F9F9"
+  },
+  {
+    "type": "color",
+    "id": "gifts_card_active_bg",
+    "label": "Unlocked card background",
+    "default": "#FFFFFF"
+  },
+  {
+    "type": "color",
+    "id": "gifts_lock_color",
+    "label": "Lock color",
+    "default": "#858585"
+  },
+  {
+    "type": "color",
+    "id": "gifts_save_bg",
+    "label": "Save background",
+    "default": "#FFD34E"
+  },
+  {
+    "type": "color",
+    "id": "gifts_save_color",
+    "label": "Save text color",
+    "default": "#111111"
+  },
+
+  {
+    "type": "header",
+    "content": "Welcome gifts — Spacing"
+  },
+  {
+    "type": "range",
+    "id": "gifts_header_bottom",
+    "label": "Heading bottom spacing",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "default": 16
+  },
+  {
+    "type": "range",
+    "id": "gifts_margin_top",
+    "label": "Top spacing — desktop",
+    "min": 0,
+    "max": 80,
+    "step": 1,
+    "unit": "px",
+    "default": 0
+  },
+  {
+    "type": "range",
+    "id": "gifts_margin_bottom",
+    "label": "Bottom spacing — desktop",
+    "min": 0,
+    "max": 80,
+    "step": 1,
+    "unit": "px",
+    "default": 24
+  },
+  {
+    "type": "range",
+    "id": "gifts_margin_top_mobile",
+    "label": "Top spacing — mobile",
+    "min": 0,
+    "max": 60,
+    "step": 1,
+    "unit": "px",
+    "default": 5
+  },
+  {
+    "type": "range",
+    "id": "gifts_margin_bottom_mobile",
+    "label": "Bottom spacing — mobile",
+    "min": 0,
+    "max": 60,
+    "step": 1,
+    "unit": "px",
+    "default": 15
+  },
 {
 "type": "range",
 "id": "padding_top",
