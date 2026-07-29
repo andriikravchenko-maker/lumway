@@ -394,7 +394,7 @@
         "image_height": 450,
         "image_width_mobile": 360,
         "image_height_mobile": 270,
-        "image_fit": "cover",
+        "image_fit": "contain",
         "image_position": "center center",
         "image_border_radius": 0,
         "body_text": "",
