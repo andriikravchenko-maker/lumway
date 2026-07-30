@@ -2328,7 +2328,9 @@
         "benefit_UcKaPd",
         "benefit_8bC9fx"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "#mm-ustom-benefits-section-wrapper{background: white !important;}"
+      ],
       "name": "Product Benefits",
       "settings": {
         "padding_top": 50,
@@ -2359,7 +2361,7 @@
         "list_background": "linear-gradient(180deg, rgba(255, 255, 255, 1) 100%, rgba(240, 240, 240, 1) 100%)",
         "list_border_radius": 8,
         "benefits_list_max_width": 800,
-        "border_color": "#FFFFFF",
+        "border_color": "#ffffff",
         "heading_accent": "Gut Flow*",
         "heading_regular": "Why People Love",
         "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.",
@@ -2393,7 +2395,7 @@
         "background_focal_point_y": 50,
         "background_image_attachment": "scroll",
         "background_overlay_enable": false,
-        "background_overlay_color": "rgba(0,0,0,0.3)",
+        "background_overlay_color": "#0000004d",
         "background_overlay_opacity": 30,
         "enable_top_border": false,
         "top_border_width": 1,
