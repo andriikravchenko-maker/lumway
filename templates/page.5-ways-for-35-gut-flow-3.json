@@ -1586,10 +1586,10 @@
         },
         "mention_ghGcUh": {
           "type": "mention",
-          "name": "Cosmopolitan",
+          "name": "Womens Health",
           "settings": {
             "logo": "shopify://shop_images/Cosmopolitan.webp",
-            "logo_text": "Cosmopolitan",
+            "logo_text": "Womens Health",
             "logo_width": 280,
             "logo_height": 70,
             "logo_text_size": 26,
