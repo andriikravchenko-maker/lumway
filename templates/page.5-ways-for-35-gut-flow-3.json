@@ -2330,7 +2330,7 @@
       ],
       "custom_css": [
         "#mm-ustom-benefits-section-wrapper {background: white !important;}",
-        ".product-benefits-heading{text-align: left;}",
+        ".product-benefits-heading {text-align: left;}",
         ".custom-subtitle {text-align: left;}"
       ],
       "name": "Product Benefits",
