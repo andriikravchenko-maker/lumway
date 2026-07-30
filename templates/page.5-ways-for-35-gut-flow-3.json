@@ -2328,9 +2328,7 @@
         "benefit_UcKaPd",
         "benefit_8bC9fx"
       ],
-      "custom_css": [
-        ".custom-benefits-section{background: white !important;}"
-      ],
+      "custom_css": [],
       "name": "Product Benefits",
       "settings": {
         "padding_top": 50,
