@@ -1539,7 +1539,7 @@
           "settings": {
             "statistic_number": 92,
             "statistic_suffix": "%",
-            "circle_percentage": 96,
+            "circle_percentage": 89,
             "description": "<p>of users reported feeling more regular.*</p>"
           }
         },
@@ -1548,7 +1548,7 @@
           "settings": {
             "statistic_number": 86,
             "statistic_suffix": "%",
-            "circle_percentage": 90,
+            "circle_percentage": 85,
             "description": "<p>said they experienced less digestive heaviness.*</p>"
           }
         },
@@ -1557,7 +1557,7 @@
           "settings": {
             "statistic_number": 79,
             "statistic_suffix": "%",
-            "circle_percentage": 83,
+            "circle_percentage": 77,
             "description": "<p>would recommend Gut Flow to a friend.*</p>"
           }
         }
