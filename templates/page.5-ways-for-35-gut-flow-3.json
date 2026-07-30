@@ -1610,14 +1610,14 @@
         },
         "mention_iGyMBa": {
           "type": "mention",
-          "name": "Cosmopolitan",
+          "name": "Who What Wear",
           "settings": {
-            "logo": "shopify://shop_images/Cosmopolitan.webp",
-            "logo_text": "Cosmopolitan",
+            "logo": "shopify://shop_images/Who_What_Wear.webp",
+            "logo_text": "Who What Wear",
             "logo_width": 280,
             "logo_height": 70,
             "logo_text_size": 26,
-            "quote": "<p>“My jeans stopped feeling like they belonged to a different body after dinner.”</p>"
+            "quote": "<p>“The real win was not having to think about my bathroom routine all day.”<br/></p>"
           }
         }
       },
