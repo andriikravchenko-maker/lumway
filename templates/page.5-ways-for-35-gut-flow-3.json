@@ -2181,16 +2181,6 @@
             "bullet_icon_size": 16
           }
         },
-        "roadmap_step_CghXX3": {
-          "type": "roadmap_step",
-          "settings": {
-            "badge_text": "Phase 3",
-            "title": "REACHING MILESTONES",
-            "description": "<p>Achieve significant progress markers. Unlock premium features, optimize your workflow, and experience measurable improvements.</p>",
-            "custom_icon": "",
-            "bullet_icon_size": 16
-          }
-        },
         "roadmap_step_qfhAE6": {
           "type": "roadmap_step",
           "settings": {
@@ -2205,7 +2195,6 @@
       "block_order": [
         "roadmap_step_3dwmAQ",
         "roadmap_step_VDMJAT",
-        "roadmap_step_CghXX3",
         "roadmap_step_qfhAE6"
       ],
       "custom_css": [
