@@ -193,10 +193,10 @@
 
           {%- when 'info_cards' -%}
             {%- render 'info-cards-lum', block: block -%}
-            {% render 'subscription-welcome-gifts',
+            {% comment %} {% render 'subscription-welcome-gifts',
                     product: product,
                     block: block
-            %}
+            %} {% endcomment %}
 
           {%- when 'cross_sell' -%}
             {%- render 'pdl-cross-sell', block: block -%}
