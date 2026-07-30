@@ -126,32 +126,35 @@
     scroll-snap-stop: always;
   }
 
-  .section-{{ section.id }} .research-mentions__card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.section-{{ section.id }} .research-mentions__card {
+  display: grid;
+  grid-template-rows:
+    minmax(74px, auto)
+    minmax(58px, auto);
+  align-content: center;
+  justify-items: center;
+  row-gap: 10px;
 
-    min-height: 201px;
-    padding: 36px 28px;
-    box-sizing: border-box;
+  min-height: 201px;
+  padding: 28px;
+  box-sizing: border-box;
 
-    background: var(--rm-card-background);
-    border: 1px solid var(--rm-card-border-color);
-    border-radius: var(--rm-card-radius);
+  background: var(--rm-card-background);
+  border: 1px solid var(--rm-card-border-color);
+  border-radius: var(--rm-card-radius);
 
-    text-align: center;
-  }
+  text-align: center;
+}
 
-  .section-{{ section.id }} .research-mentions__logo-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.section-{{ section.id }} .research-mentions__logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 100%;
-    min-height: 74px;
-    margin-bottom: 10px;
-  }
+  width: 100%;
+  height: 74px;
+  margin: 0;
+}
 
   .section-{{ section.id }} .research-mentions__logo {
     display: block;
@@ -171,24 +174,33 @@
     text-transform: uppercase;
   }
 
-  .section-{{ section.id }} .research-mentions__quote {
-    margin: 0;
-    max-width: 320px;
-     padding-left: 0;
+.section-{{ section.id }} .research-mentions__quote {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 
-    color: var(--rm-card-text-color);
-    font-family: 'Inter Tight', system-ui, sans-serif !important;
-    font-size: var(--rm-card-text-size-mobile);
-    font-weight: 400 !important;
-    line-height: 1.35;
-    letter-spacing: -0.025em;
-  }
+  width: 100%;
+  max-width: 320px;
+  min-height: 58px;
+  margin: 0;
+  padding: 0;
 
-  .section-{{ section.id }} .research-mentions__quote p {
-    margin: 0;
-    color: inherit !important;
-    font: inherit !important;
-  }
+  color: var(--rm-card-text-color);
+  font-family: 'Inter Tight', system-ui, sans-serif !important;
+  font-size: var(--rm-card-text-size-mobile);
+  font-weight: 400 !important;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+.section-{{ section.id }} .research-mentions__quote p {
+  width: 100%;
+  margin: 0;
+
+  color: inherit !important;
+  font: inherit !important;
+}
 
   .section-{{ section.id }} .research-mentions__dots {
     display: flex;
@@ -232,16 +244,24 @@
  
   }
 
-   @media screen and (max-width: 600px) {
- .research-mentions__card{
-    min-height: 170px !important;
-   }
-     .section-{{ section.id }} .research-mentions__header {
-  
-    margin: 0 auto 24px;
- 
+ @media screen and (max-width: 600px) {
+  .section-{{ section.id }} .research-mentions__card {
+    min-height: 170px;
+    padding: 24px 20px;
+
+    grid-template-rows:
+      64px
+      minmax(58px, auto);
   }
-   }
+
+  .section-{{ section.id }} .research-mentions__logo-wrap {
+    height: 64px;
+  }
+
+  .section-{{ section.id }} .research-mentions__header {
+    margin: 0 auto 24px;
+  }
+}
 
   @media screen and (min-width: 990px) {
    
@@ -282,11 +302,17 @@
     }
 
     .section-{{ section.id }} .research-mentions__card {
-      min-height: {{ section.settings.card_height }}px;
-      padding:
-        {{ section.settings.card_padding_vertical }}px
-        {{ section.settings.card_padding_horizontal }}px;
-    }
+  height: {{ section.settings.card_height }}px;
+  min-height: 0;
+
+  grid-template-rows:
+    minmax(74px, auto)
+    minmax(58px, 1fr);
+
+  padding:
+    {{ section.settings.card_padding_vertical }}px
+    {{ section.settings.card_padding_horizontal }}px;
+}
 
     .section-{{ section.id }} .research-mentions__quote {
       font-size: var(--rm-card-text-size);
