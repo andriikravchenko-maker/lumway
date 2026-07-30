@@ -2432,7 +2432,7 @@
         "placeholder_min_height_desktop": 600,
         "enable_placeholder_space_mobile": false,
         "placeholder_height_mobile": 300,
-        "section_background": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "section_background": "linear-gradient(135deg, rgba(249, 249, 249, 1), rgba(248, 248, 248, 1) 100%)",
         "heading_color": "#121212",
         "subheading_color": "#121212",
         "step_title_color": "#121212",
