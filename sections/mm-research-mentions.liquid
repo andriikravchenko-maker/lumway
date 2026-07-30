@@ -1,0 +1,850 @@
+{% comment %}
+  Section: Research Mentions
+
+  Desktop:
+  - Heading and subtitle
+  - Cards displayed in a grid
+
+  Mobile:
+  - One card per slide
+  - Native CSS scroll snap
+  - Navigation dots
+{% endcomment %}
+
+{%- liquid
+  assign section_heading = section.settings.heading
+  assign section_subheading = section.settings.subheading
+-%}
+
+{% style %}
+  .section-{{ section.id }} {
+    --rm-background: {{ section.settings.background_color }};
+    --rm-heading-color: {{ section.settings.heading_color }};
+    --rm-subheading-color: {{ section.settings.subheading_color }};
+    --rm-card-background: {{ section.settings.card_background }};
+    --rm-card-text-color: {{ section.settings.card_text_color }};
+    --rm-card-border-color: {{ section.settings.card_border_color }};
+    --rm-dot-color: {{ section.settings.dot_color }};
+    --rm-dot-active-color: {{ section.settings.dot_active_color }};
+
+    --rm-heading-size: {{ section.settings.heading_size }}px;
+    --rm-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+
+    --rm-subheading-size: {{ section.settings.subheading_size }}px;
+    --rm-subheading-size-mobile: {{ section.settings.subheading_size_mobile }}px;
+
+    --rm-card-text-size: {{ section.settings.card_text_size }}px;
+    --rm-card-text-size-mobile: {{ section.settings.card_text_size_mobile }}px;
+
+    --rm-card-radius: {{ section.settings.card_radius }}px;
+    --rm-card-gap: {{ section.settings.card_gap }}px;
+    --rm-content-width: {{ section.settings.content_width }}px;
+
+    --rm-padding-top: {{ section.settings.padding_top }}px;
+    --rm-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --rm-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --rm-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .section-{{ section.id }} {
+    overflow: hidden;
+    padding-block:
+      var(--rm-padding-top-mobile)
+      var(--rm-padding-bottom-mobile);
+    background: var(--rm-background);
+  }
+
+  .section-{{ section.id }} .research-mentions__inner {
+    width: min(100%, var(--rm-content-width));
+    margin-inline: auto;
+    padding-inline: 24px;
+    box-sizing: border-box;
+  }
+
+  .section-{{ section.id }} .research-mentions__header {
+    max-width: auto;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .research-mentions__heading {
+    margin: 0;
+
+    color: var(--rm-heading-color) !important;
+    font-family: 'Inter Tight', system-ui, sans-serif !important;
+    font-size: var(--rm-heading-size-mobile);
+    font-weight: 700 !important;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .section-{{ section.id }} .research-mentions__subheading {
+    margin-top: 12px;
+
+    color: var(--rm-subheading-color);
+    font-family: 'Inter Tight', system-ui, sans-serif !important;
+    font-size: var(--rm-subheading-size-mobile);
+    font-weight: 600 !important;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+
+  .section-{{ section.id }} .research-mentions__subheading p {
+    margin: 0;
+    color: inherit !important;
+    font: inherit !important;
+  }
+
+  .section-{{ section.id }} .research-mentions__viewport {
+    width: 100%;
+  }
+
+  .section-{{ section.id }} .research-mentions__track {
+    display: flex;
+    gap: 16px;
+
+    margin: 0;
+    padding: 0;
+
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    list-style: none;
+  }
+
+  .section-{{ section.id }} .research-mentions__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-{{ section.id }} .research-mentions__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  .section-{{ section.id }} .research-mentions__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 201px;
+    padding: 36px 28px;
+    box-sizing: border-box;
+
+    background: var(--rm-card-background);
+    border: 1px solid var(--rm-card-border-color);
+    border-radius: var(--rm-card-radius);
+
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .research-mentions__logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 74px;
+    margin-bottom: 10px;
+  }
+
+  .section-{{ section.id }} .research-mentions__logo {
+    display: block;
+    width: auto;
+    max-width: min(100%, var(--rm-logo-width));
+    max-height: var(--rm-logo-height);
+    object-fit: contain;
+  }
+
+  .section-{{ section.id }} .research-mentions__logo-text {
+    color: var(--rm-card-text-color) !important;
+    font-family: 'Inter Tight', system-ui, sans-serif !important;
+    font-size: var(--rm-logo-text-size);
+    font-weight: 800 !important;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+  }
+
+  .section-{{ section.id }} .research-mentions__quote {
+    margin: 0;
+    max-width: 320px;
+     padding-left: 0;
+
+    color: var(--rm-card-text-color);
+    font-family: 'Inter Tight', system-ui, sans-serif !important;
+    font-size: var(--rm-card-text-size-mobile);
+    font-weight: 400 !important;
+    line-height: 1.35;
+    letter-spacing: -0.025em;
+  }
+
+  .section-{{ section.id }} .research-mentions__quote p {
+    margin: 0;
+    color: inherit !important;
+    font: inherit !important;
+  }
+
+  .section-{{ section.id }} .research-mentions__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    margin-top: 24px;
+  }
+
+  .section-{{ section.id }} .research-mentions__dot {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+    background: var(--rm-dot-color);
+
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .section-{{ section.id }} .research-mentions__dot.is-active {
+    background: var(--rm-dot-active-color);
+    transform: scale(1.08);
+  }
+
+  .section-{{ section.id }} .research-mentions__dot:focus-visible {
+    outline: 2px solid var(--rm-dot-active-color);
+    outline-offset: 4px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} .research-mentions__slide {
+      flex-basis: calc((100% - var(--rm-card-gap)) / 2);
+    }
+  
+ 
+  }
+
+   @media screen and (max-width: 600px) {
+ .research-mentions__card{
+    min-height: 170px !important;
+   }
+     .section-{{ section.id }} .research-mentions__header {
+  
+    margin: 0 auto 24px;
+ 
+  }
+   }
+
+  @media screen and (min-width: 990px) {
+   
+    .section-{{ section.id }} {
+      padding-block:
+        var(--rm-padding-top)
+        var(--rm-padding-bottom);
+    }
+
+    .section-{{ section.id }} .research-mentions__inner {
+      padding-inline: 40px;
+    }
+
+  
+
+    .section-{{ section.id }} .research-mentions__heading {
+      font-size: var(--rm-heading-size);
+    }
+
+    .section-{{ section.id }} .research-mentions__subheading {
+      font-size: var(--rm-subheading-size);
+    }
+
+    .section-{{ section.id }} .research-mentions__track {
+      display: grid;
+      grid-template-columns: repeat(
+        var(--rm-desktop-columns),
+        minmax(0, 1fr)
+      );
+      gap: var(--rm-card-gap);
+
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+
+    .section-{{ section.id }} .research-mentions__slide {
+      min-width: 0;
+    }
+
+    .section-{{ section.id }} .research-mentions__card {
+      min-height: {{ section.settings.card_height }}px;
+      padding:
+        {{ section.settings.card_padding_vertical }}px
+        {{ section.settings.card_padding_horizontal }}px;
+    }
+
+    .section-{{ section.id }} .research-mentions__quote {
+      font-size: var(--rm-card-text-size);
+    }
+
+    .section-{{ section.id }} .research-mentions__dots {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} .research-mentions__track {
+      scroll-behavior: auto;
+    }
+
+    .section-{{ section.id }} .research-mentions__dot {
+      transition: none;
+    }
+  }
+{% endstyle %}
+
+<section
+  id="research-mentions-{{ section.id }}"
+  class="research-mentions section-{{ section.id }}"
+  data-research-mentions
+>
+  <div class="research-mentions__inner">
+    {%- if section_heading != blank or section_subheading != blank -%}
+      <header class="research-mentions__header">
+        {%- if section_heading != blank -%}
+          <h2 class="research-mentions__heading">
+            {{ section_heading | escape }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section_subheading != blank -%}
+          <div class="research-mentions__subheading">
+            {{ section_subheading }}
+          </div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="research-mentions__viewport">
+        <ul
+          class="research-mentions__track"
+          data-research-track
+          style="--rm-desktop-columns: {{ section.settings.desktop_columns }};"
+        >
+          {%- for block in section.blocks -%}
+            <li
+              class="research-mentions__slide"
+              data-research-slide
+              {{ block.shopify_attributes }}
+            >
+              <article
+                class="research-mentions__card"
+                style="
+                  --rm-logo-width: {{ block.settings.logo_width }}px;
+                  --rm-logo-height: {{ block.settings.logo_height }}px;
+                  --rm-logo-text-size: {{ block.settings.logo_text_size }}px;
+                "
+              >
+                {%- if block.settings.logo != blank or block.settings.logo_text != blank -%}
+                  <div class="research-mentions__logo-wrap">
+                    {%- if block.settings.logo != blank -%}
+                      {{
+                        block.settings.logo
+                        | image_url: width: 600
+                        | image_tag:
+                          loading: 'lazy',
+                          widths: '160, 240, 320, 480, 600',
+                          class: 'research-mentions__logo',
+                          alt: block.settings.logo.alt
+                      }}
+                    {%- else -%}
+                      <span class="research-mentions__logo-text">
+                        {{ block.settings.logo_text | escape }}
+                      </span>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+
+                {%- if block.settings.quote != blank -%}
+                  <blockquote class="research-mentions__quote">
+                    {{ block.settings.quote }}
+                  </blockquote>
+                {%- endif -%}
+              </article>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      {%- if section.blocks.size > 1 -%}
+        <div
+          class="research-mentions__dots"
+          data-research-dots
+          aria-label="Slider navigation"
+        >
+          {%- for block in section.blocks -%}
+            <button
+              type="button"
+              class="research-mentions__dot{% if forloop.first %} is-active{% endif %}"
+              data-research-dot
+              data-slide-index="{{ forloop.index0 }}"
+              aria-label="Show slide {{ forloop.index }}"
+              aria-current="{% if forloop.first %}true{% else %}false{% endif %}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const section = document.querySelector(
+      '#research-mentions-{{ section.id }}'
+    );
+
+    if (!section || section.dataset.sliderInitialized === 'true') return;
+
+    const track = section.querySelector('[data-research-track]');
+    const slides = Array.from(
+      section.querySelectorAll('[data-research-slide]')
+    );
+    const dots = Array.from(
+      section.querySelectorAll('[data-research-dot]')
+    );
+
+    if (!track || slides.length < 2 || dots.length === 0) return;
+
+    section.dataset.sliderInitialized = 'true';
+
+    const setActiveDot = (index) => {
+      dots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === index;
+
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+    };
+
+    const getClosestSlideIndex = () => {
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      slides.forEach((slide, index) => {
+        const slideRect = slide.getBoundingClientRect();
+        const slideCenter = slideRect.left + slideRect.width / 2;
+        const distance = Math.abs(slideCenter - trackCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      return closestIndex;
+    };
+
+    let scrollFrame = null;
+
+    track.addEventListener(
+      'scroll',
+      () => {
+        if (scrollFrame) {
+          cancelAnimationFrame(scrollFrame);
+        }
+
+        scrollFrame = requestAnimationFrame(() => {
+          setActiveDot(getClosestSlideIndex());
+        });
+      },
+      { passive: true }
+    );
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = Number(dot.dataset.slideIndex);
+        const slide = slides[index];
+
+        if (!slide) return;
+
+        slide.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+
+        setActiveDot(index);
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Research mentions",
+  "tag": "section",
+  "class": "mm-section-research-mentions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Prebiotic Fiber Ingredient Backed by Nutritional Research"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>As discussed in research and educational resources from:</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 columns"
+        },
+        {
+          "value": "3",
+          "label": "3 columns"
+        },
+        {
+          "value": "4",
+          "label": "4 columns"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content max width",
+      "min": 1000,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1320
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card minimum height desktop",
+      "min": 180,
+      "max": 400,
+      "step": 4,
+      "unit": "px",
+      "default": 216
+    },
+    {
+      "type": "range",
+      "id": "card_padding_vertical",
+      "label": "Card vertical padding",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal",
+      "label": "Card horizontal padding",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size desktop",
+      "min": 24,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size mobile",
+      "min": 20,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size desktop",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "subheading_size_mobile",
+      "label": "Subheading size mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "card_text_size",
+      "label": "Quote size desktop",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_text_size_mobile",
+      "label": "Quote size mobile",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border color",
+      "default": "#d2d2d2"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Inactive dot color",
+      "default": "#f2dfe4"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Active dot color",
+      "default": "#78152b"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 44
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mention",
+      "name": "Publication card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Publication logo"
+        },
+        {
+          "type": "text",
+          "id": "logo_text",
+          "label": "Fallback logo text",
+          "info": "Used only when no logo image is selected."
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "label": "Logo max width",
+          "min": 100,
+          "max": 360,
+          "step": 4,
+          "unit": "px",
+          "default": 240
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "label": "Logo max height",
+          "min": 30,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "default": 70
+        },
+        {
+          "type": "range",
+          "id": "logo_text_size",
+          "label": "Fallback logo text size",
+          "min": 20,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 36
+        },
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>“Add publication quote here.”</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Research mentions",
+      "blocks": [
+        {
+          "type": "mention",
+          "settings": {
+            "logo_text": "Cosmopolitan",
+            "quote": "<p>“My jeans stopped feeling like they belonged to a different body after dinner.”</p>"
+          }
+        },
+        {
+          "type": "mention",
+          "settings": {
+            "logo_text": "Women's Health",
+            "quote": "<p>“I finally stopped responding to every bloated day by starting another diet.”</p>"
+          }
+        },
+        {
+          "type": "mention",
+          "settings": {
+            "logo_text": "USA Today",
+            "quote": "<p>“It tastes like a treat, but it has become one of the most consistent parts of my wellness routine.”</p>"
+          }
+        },
+        {
+          "type": "mention",
+          "settings": {
+            "logo_text": "Who What Wear",
+            "quote": "<p>“The real win was not having to think about my bathroom routine all day.”</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
