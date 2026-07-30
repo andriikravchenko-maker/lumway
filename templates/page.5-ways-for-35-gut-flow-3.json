@@ -1543,6 +1543,7 @@
       ],
       "custom_css": [
         "#product-details-lum {background: white;}",
+        ".section-product-details-lum{background: white;}",
         "#product-details-lum .ptab__check-icon svg path {fill: #5b0d1e;}",
         "#product-details-lum .ptab__tab-icon svg path {fill: #111111;}"
       ],
