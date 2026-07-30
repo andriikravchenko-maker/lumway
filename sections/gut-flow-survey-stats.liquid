@@ -1,0 +1,1087 @@
+{% comment %}
+  Section: Gut Flow Survey Stats
+
+  Features:
+  - Configurable statistic cards
+  - SVG circular progress with rounded ends
+  - Animated percentage counter
+  - Animation restarts whenever section enters viewport
+  - Responsive mobile and desktop layouts
+{% endcomment %}
+
+{% style %}
+  .section-{{ section.id }} {
+    --gfs-background: {{ section.settings.background_color }};
+    --gfs-heading-color: {{ section.settings.heading_color }};
+
+    --gfs-card-background: {{ section.settings.card_background }};
+    --gfs-card-text-color: {{ section.settings.card_text_color }};
+
+    --gfs-progress-track: {{ section.settings.progress_track_color }};
+    --gfs-progress-color: {{ section.settings.progress_color }};
+
+    --gfs-footnote-color: {{ section.settings.footnote_color }};
+
+    --gfs-heading-size: {{ section.settings.heading_size }}px;
+    --gfs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+
+    --gfs-percentage-size: {{ section.settings.percentage_size }}px;
+    --gfs-percentage-size-mobile: {{ section.settings.percentage_size_mobile }}px;
+
+    --gfs-description-size: {{ section.settings.description_size }}px;
+    --gfs-description-size-mobile: {{ section.settings.description_size_mobile }}px;
+
+    --gfs-circle-size: {{ section.settings.circle_size }}px;
+    --gfs-circle-size-mobile: {{ section.settings.circle_size_mobile }}px;
+    --gfs-circle-thickness: {{ section.settings.circle_thickness }};
+
+    --gfs-card-radius: {{ section.settings.card_radius }}px;
+    --gfs-card-gap: {{ section.settings.card_gap }}px;
+
+    --gfs-content-width: {{ section.settings.content_width }}px;
+
+    --gfs-padding-top: {{ section.settings.padding_top }}px;
+    --gfs-padding-bottom: {{ section.settings.padding_bottom }}px;
+
+    --gfs-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+    --gfs-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+
+    overflow: hidden;
+    padding-block:
+      var(--gfs-padding-top-mobile)
+      var(--gfs-padding-bottom-mobile);
+    background: var(--gfs-background);
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__inner {
+    width: min(100%, var(--gfs-content-width));
+    margin-inline: auto;
+    padding-inline: 18px;
+    box-sizing: border-box;
+  }
+
+  /* Heading */
+
+  .section-{{ section.id }} .gut-flow-stats__heading {
+    max-width: 390px;
+    margin: 0 auto 38px;
+
+    color: var(--gfs-heading-color) !important;
+    font-family:
+      'Inter Tight',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif !important;
+    font-size: var(--gfs-heading-size-mobile);
+    font-weight: 700 !important;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+    text-align: center;
+  }
+
+  /* Cards */
+
+  .section-{{ section.id }} .gut-flow-stats__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--gfs-card-gap);
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__card {
+    display: grid;
+    grid-template-columns:
+      var(--gfs-circle-size-mobile)
+      minmax(0, 1fr);
+    align-items: center;
+    column-gap: 18px;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 164px;
+    padding: 24px 18px;
+    box-sizing: border-box;
+
+    overflow: hidden;
+    background: var(--gfs-card-background);
+    border-radius: var(--gfs-card-radius);
+  }
+
+  /* SVG progress */
+
+  .section-{{ section.id }} .gut-flow-stats__progress {
+    display: block;
+    width: var(--gfs-circle-size-mobile);
+    height: var(--gfs-circle-size-mobile);
+    min-width: 0;
+    flex: 0 0 var(--gfs-circle-size-mobile);
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__progress-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__progress-track,
+  .section-{{ section.id }} .gut-flow-stats__progress-value {
+    fill: none;
+    stroke-width: var(--gfs-circle-thickness);
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__progress-track {
+    stroke: var(--gfs-progress-track);
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__progress-value {
+    stroke: var(--gfs-progress-color);
+    stroke-linecap: round;
+    stroke-dasharray: 0 100;
+    stroke-dashoffset: 0;
+  }
+
+  /* Card text */
+
+  .section-{{ section.id }} .gut-flow-stats__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__percentage {
+    margin: 0;
+
+    color: var(--gfs-card-text-color) !important;
+    font-family:
+      'Inter Tight',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif !important;
+    font-size: var(--gfs-percentage-size-mobile);
+    font-weight: 700 !important;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    white-space: nowrap;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__description {
+    width: 100%;
+    max-width: 220px;
+    margin-top: 18px;
+
+    color: var(--gfs-card-text-color);
+    font-family:
+      'Inter Tight',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif !important;
+    font-size: var(--gfs-description-size-mobile);
+    font-weight: 400 !important;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    text-align: left;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__description p {
+    margin: 0;
+    color: inherit !important;
+    font: inherit !important;
+  }
+
+  /* Footnote */
+
+  .section-{{ section.id }} .gut-flow-stats__footnote {
+    max-width: 380px;
+    margin: 40px auto 0;
+
+    color: var(--gfs-footnote-color);
+    font-family:
+      'Inter Tight',
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      sans-serif !important;
+    font-size: {{ section.settings.footnote_size_mobile }}px;
+    font-weight: 400 !important;
+    line-height: 1.3;
+    letter-spacing: -0.025em;
+    text-align: center;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__footnote p {
+    margin: 0;
+    color: inherit !important;
+    font: inherit !important;
+  }
+
+  /* Small mobile */
+
+  @media screen and (max-width: 390px) {
+    .section-{{ section.id }} .gut-flow-stats__inner {
+      padding-inline: 14px;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__heading {
+      margin-bottom: 32px;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__card {
+      grid-template-columns:
+        var(--gfs-circle-size-mobile)
+        minmax(0, 1fr);
+      column-gap: 14px;
+
+      min-height: 156px;
+      padding: 20px 14px;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__description {
+      margin-top: 14px;
+    }
+  }
+
+  /* Tablet */
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .section-{{ section.id }} .gut-flow-stats__inner {
+      padding-inline: 30px;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__heading {
+      max-width: 760px;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__card {
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      row-gap: 20px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__content {
+      align-items: center;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__description {
+      max-width: 260px;
+      text-align: center;
+    }
+  }
+
+  /* Desktop */
+
+  @media screen and (min-width: 990px) {
+    .section-{{ section.id }} {
+      padding-block:
+        var(--gfs-padding-top)
+        var(--gfs-padding-bottom);
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__inner {
+      padding-inline: 40px;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__heading {
+      max-width: 900px;
+      margin-bottom: 34px;
+      font-size: var(--gfs-heading-size);
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__card {
+      grid-template-columns:
+        var(--gfs-circle-size)
+        minmax(0, 1fr);
+      justify-items: initial;
+      align-items: center;
+      column-gap: 18px;
+
+      min-height: {{ section.settings.card_height }}px;
+      padding:
+        {{ section.settings.card_padding_vertical }}px
+        {{ section.settings.card_padding_horizontal }}px;
+
+      text-align: left;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__progress {
+      width: var(--gfs-circle-size);
+      height: var(--gfs-circle-size);
+      flex-basis: var(--gfs-circle-size);
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__content {
+      align-items: flex-start;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__percentage {
+      font-size: var(--gfs-percentage-size);
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__description {
+      max-width: 230px;
+      margin-top: 10px;
+      font-size: var(--gfs-description-size);
+      text-align: left;
+    }
+
+    .section-{{ section.id }} .gut-flow-stats__footnote {
+      max-width: none;
+      margin-top: 30px;
+      font-size: {{ section.settings.footnote_size }}px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-{{ section.id }} *,
+    .section-{{ section.id }} *::before,
+    .section-{{ section.id }} *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+{% endstyle %}
+
+<section
+  id="gut-flow-stats-{{ section.id }}"
+  class="gut-flow-stats section-{{ section.id }}"
+  data-gut-flow-stats
+  data-animation-duration="{{ section.settings.animation_duration }}"
+>
+  <div class="gut-flow-stats__inner">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="gut-flow-stats__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="gut-flow-stats__grid">
+        {%- for block in section.blocks -%}
+          {%- assign percentage = block.settings.percentage
+            | at_least: 0
+            | at_most: 100
+          -%}
+
+          <article
+            class="gut-flow-stats__card"
+            data-gfs-card
+            data-percentage="{{ percentage }}"
+            {{ block.shopify_attributes }}
+          >
+            <div
+              class="gut-flow-stats__progress"
+              data-gfs-progress
+              role="img"
+              aria-label="{{ percentage }} percent"
+            >
+              <svg
+                class="gut-flow-stats__progress-svg"
+                viewBox="0 0 100 100"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  class="gut-flow-stats__progress-track"
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  pathLength="100"
+                ></circle>
+
+                <circle
+                  class="gut-flow-stats__progress-value"
+                  data-gfs-progress-value
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  pathLength="100"
+                ></circle>
+              </svg>
+            </div>
+
+            <div class="gut-flow-stats__content">
+              <div
+                class="gut-flow-stats__percentage"
+                data-gfs-counter
+                aria-label="{{ percentage }} percent"
+              >
+                0%
+              </div>
+
+              {%- if block.settings.description != blank -%}
+                <div class="gut-flow-stats__description">
+                  {{ block.settings.description }}
+                </div>
+              {%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.footnote != blank -%}
+      <div class="gut-flow-stats__footnote">
+        {{ section.settings.footnote }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<script>
+  (() => {
+    const sectionId = 'gut-flow-stats-{{ section.id }}';
+
+    const initGutFlowStats = () => {
+      const section = document.getElementById(sectionId);
+
+      if (
+        !section ||
+        section.dataset.gfsInitialized === 'true'
+      ) {
+        return;
+      }
+
+      section.dataset.gfsInitialized = 'true';
+
+      const cards = Array.from(
+        section.querySelectorAll('[data-gfs-card]')
+      );
+
+      if (!cards.length) {
+        return;
+      }
+
+      const motionQuery = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      );
+
+      const configuredDuration = Number(
+        section.dataset.animationDuration
+      );
+
+      const duration = Number.isFinite(configuredDuration)
+        ? Math.max(200, configuredDuration)
+        : 1200;
+
+      let observer = null;
+      let animationFrameId = null;
+      let animationRunId = 0;
+      let isInsideViewport = false;
+
+      const clampPercentage = (value) => {
+        const parsedValue = Number(value);
+
+        if (!Number.isFinite(parsedValue)) {
+          return 0;
+        }
+
+        return Math.min(100, Math.max(0, parsedValue));
+      };
+
+      const updateCard = (card, value) => {
+        const progressWrapper = card.querySelector(
+          '[data-gfs-progress]'
+        );
+
+        const progressCircle = card.querySelector(
+          '[data-gfs-progress-value]'
+        );
+
+        const counter = card.querySelector(
+          '[data-gfs-counter]'
+        );
+
+        const safeValue = clampPercentage(value);
+        const roundedValue = Math.round(safeValue);
+        const remainingValue = Math.max(
+          0,
+          100 - safeValue
+        );
+
+        if (progressCircle) {
+          progressCircle.style.strokeDasharray =
+            `${safeValue.toFixed(3)} ${remainingValue.toFixed(3)}`;
+        }
+
+        if (progressWrapper) {
+          progressWrapper.setAttribute(
+            'aria-label',
+            `${roundedValue} percent`
+          );
+        }
+
+        if (counter) {
+          counter.textContent = `${roundedValue}%`;
+          counter.setAttribute(
+            'aria-label',
+            `${roundedValue} percent`
+          );
+        }
+      };
+
+      const cancelAnimation = () => {
+        animationRunId += 1;
+
+        if (animationFrameId !== null) {
+          window.cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+      };
+
+      const resetCards = () => {
+        cancelAnimation();
+
+        cards.forEach((card) => {
+          updateCard(card, 0);
+        });
+      };
+
+      const setFinalValues = () => {
+        cancelAnimation();
+
+        cards.forEach((card) => {
+          updateCard(
+            card,
+            clampPercentage(card.dataset.percentage)
+          );
+        });
+      };
+
+      const animateCards = () => {
+        cancelAnimation();
+
+        if (motionQuery.matches) {
+          setFinalValues();
+          return;
+        }
+
+        const currentAnimationRun = animationRunId;
+        const startTime = performance.now();
+
+        cards.forEach((card) => {
+          updateCard(card, 0);
+        });
+
+        const renderFrame = (currentTime) => {
+          if (
+            currentAnimationRun !== animationRunId ||
+            !isInsideViewport
+          ) {
+            return;
+          }
+
+          const elapsedTime = currentTime - startTime;
+          const linearProgress = Math.min(
+            elapsedTime / duration,
+            1
+          );
+
+          const easedProgress =
+            1 - Math.pow(1 - linearProgress, 3);
+
+          cards.forEach((card) => {
+            const targetPercentage = clampPercentage(
+              card.dataset.percentage
+            );
+
+            updateCard(
+              card,
+              targetPercentage * easedProgress
+            );
+          });
+
+          if (linearProgress < 1) {
+            animationFrameId =
+              window.requestAnimationFrame(renderFrame);
+
+            return;
+          }
+
+          animationFrameId = null;
+
+          cards.forEach((card) => {
+            updateCard(
+              card,
+              clampPercentage(card.dataset.percentage)
+            );
+          });
+        };
+
+        animationFrameId =
+          window.requestAnimationFrame(renderFrame);
+      };
+
+      resetCards();
+
+      if (!('IntersectionObserver' in window)) {
+        isInsideViewport = true;
+        setFinalValues();
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.target !== section) {
+              return;
+            }
+
+            if (entry.isIntersecting) {
+              if (!isInsideViewport) {
+                isInsideViewport = true;
+                animateCards();
+              }
+
+              return;
+            }
+
+            if (isInsideViewport) {
+              isInsideViewport = false;
+              resetCards();
+            }
+          });
+        },
+        {
+          threshold: 0.2,
+          rootMargin: '0px 0px -5% 0px'
+        }
+      );
+
+      observer.observe(section);
+
+      section.gfsDestroy = () => {
+        isInsideViewport = false;
+        cancelAnimation();
+
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+
+        delete section.dataset.gfsInitialized;
+        delete section.gfsDestroy;
+      };
+    };
+
+    initGutFlowStats();
+
+    document.addEventListener(
+      'shopify:section:load',
+      (event) => {
+        if (
+          event.target &&
+          event.target.querySelector(`#${sectionId}`)
+        ) {
+          initGutFlowStats();
+        }
+      }
+    );
+
+    document.addEventListener(
+      'shopify:section:unload',
+      (event) => {
+        const section = document.getElementById(sectionId);
+
+        if (
+          section &&
+          event.target &&
+          event.target.contains(section) &&
+          typeof section.gfsDestroy === 'function'
+        ) {
+          section.gfsDestroy();
+        }
+      }
+    );
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Gut Flow Survey Stats",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For"
+    },
+    {
+      "type": "richtext",
+      "id": "footnote",
+      "label": "Footnote",
+      "default": "<p>*Based on an internal quantitative survey of Gut Flow users.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#F8E6EB"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#7A0B27"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "progress_track_color",
+      "label": "Progress track color",
+      "default": "#B53655"
+    },
+    {
+      "type": "color",
+      "id": "progress_color",
+      "label": "Progress color",
+      "default": "#FCE5EB"
+    },
+    {
+      "type": "color",
+      "id": "footnote_color",
+      "label": "Footnote color",
+      "default": "#8A8A8A"
+    },
+    {
+      "type": "header",
+      "content": "Heading typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size desktop",
+      "min": 24,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size mobile",
+      "min": 20,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Card typography"
+    },
+    {
+      "type": "range",
+      "id": "percentage_size",
+      "label": "Percentage size desktop",
+      "min": 32,
+      "max": 90,
+      "step": 1,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "percentage_size_mobile",
+      "label": "Percentage size mobile",
+      "min": 28,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 58
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size desktop",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "description_size_mobile",
+      "label": "Description size mobile",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "footnote_size",
+      "label": "Footnote size desktop",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "footnote_size_mobile",
+      "label": "Footnote size mobile",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Circle"
+    },
+    {
+      "type": "range",
+      "id": "circle_size",
+      "label": "Circle size desktop",
+      "min": 60,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "circle_size_mobile",
+      "label": "Circle size mobile",
+      "min": 60,
+      "max": 150,
+      "step": 2,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "circle_thickness",
+      "label": "Circle thickness",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card minimum height desktop",
+      "min": 140,
+      "max": 300,
+      "step": 2,
+      "unit": "px",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "card_padding_vertical",
+      "label": "Card vertical padding desktop",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_horizontal",
+      "label": "Card horizontal padding desktop",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Gap between cards",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "animation_duration",
+      "label": "Animation duration",
+      "min": 400,
+      "max": 2400,
+      "step": 100,
+      "unit": "ms",
+      "default": 1200
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content maximum width",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1280
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistic",
+      "settings": [
+        {
+          "type": "range",
+          "id": "percentage",
+          "label": "Percentage",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 92
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>of users reported feeling more regular.*</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Gut Flow Survey Stats",
+      "category": "Custom Content",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "percentage": 92,
+            "description": "<p>of users reported feeling more regular.*</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "percentage": 86,
+            "description": "<p>said they experienced less digestive heaviness.*</p>"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "percentage": 79,
+            "description": "<p>would recommend Gut Flow to a friend.*</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
