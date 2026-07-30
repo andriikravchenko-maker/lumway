@@ -2329,7 +2329,8 @@
         "benefit_8bC9fx"
       ],
       "custom_css": [
-        "#mm-ustom-benefits-section-wrapper{background: white !important;}"
+        "#mm-ustom-benefits-section-wrapper {background: white !important;}",
+        ".custom-subtitle{text-align: left;}"
       ],
       "name": "Product Benefits",
       "settings": {
