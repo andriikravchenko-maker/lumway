@@ -2329,8 +2329,7 @@
         "benefit_8bC9fx"
       ],
       "custom_css": [
-        ".custom-benefits-section .custom-benefits-list,.custom-benefits-section-wrapper .custom-benefits-list {border-radius: 10px !important;}",
-        ".custom-benefits-section .global-accent-text,.custom-benefits-section-wrapper .global-accent-text {background: linear-gradient(90deg, #23a02a, #23a02a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-left: 0px !important;}"
+        ".custom-benefits-section{background: white !important;}"
       ],
       "name": "Product Benefits",
       "settings": {
