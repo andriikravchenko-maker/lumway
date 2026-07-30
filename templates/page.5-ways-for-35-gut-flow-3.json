@@ -2347,7 +2347,8 @@
         "#mm-ustom-benefits-section-wrapper {background: white !important;}",
         ".product-benefits-heading {text-align: left;}",
         ".custom-subtitle {text-align: left;}",
-        ".custom-benefits-list {padding-left: 0 !important;}"
+        ".custom-benefits-list {padding-left: 0 !important;}",
+        " @media screen and (max-width: 600px) {.product-benefits-heading{text-align: center; } .custom-subtitle{text-align: center; } .custom-benefits-list{padding: 0 !important; } .custom-section-image-container{margin: 0 !important; } }"
       ],
       "name": "Product Benefits",
       "settings": {
