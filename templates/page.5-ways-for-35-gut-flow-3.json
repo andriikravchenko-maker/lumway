@@ -2163,6 +2163,7 @@
       "blocks": {
         "review_qaF9CY": {
           "type": "review",
+          "name": "Megan L.,",
           "settings": {
             "review_image": "shopify://shop_images/Review_by_Megan_L..webp",
             "image_position": "center center",
@@ -2183,14 +2184,15 @@
         },
         "review_7yT4ch": {
           "type": "review",
+          "name": "Rachel S.",
           "settings": {
             "review_image": "shopify://shop_images/Review_by_Megan_L..webp",
             "image_position": "center center",
             "wrap_image": true,
-            "rating": 4,
-            "review_text": "“I have a sensitive stomach, so I was hesitant — but this felt really gentle. No weird side effects, just gradual improvement.”",
-            "reviewer_name": "Megan L.,",
-            "reviewer_age": "37",
+            "rating": 5,
+            "review_text": "“After about a week, I realized I wasn’t thinking about my stomach as much. That alone made it worth it.”",
+            "reviewer_name": "Rachel S.,",
+            "reviewer_age": "35",
             "show_verified_badge": false,
             "show_purchased_product": false,
             "product_reference": "",
