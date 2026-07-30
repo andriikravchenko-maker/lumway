@@ -381,22 +381,25 @@
     {%- if section.blocks.size > 0 -%}
       <div class="gut-flow-stats__grid">
         {%- for block in section.blocks -%}
-          {%- assign percentage = block.settings.percentage
-            | at_least: 0
-            | at_most: 100
-          -%}
+          {%- assign statistic_number = block.settings.statistic_number | default: 92 -%}
+
+          {%- assign circle_percentage = block.settings.circle_percentage | default: 92 | at_least: 0 | at_most: 100 -%}
+
+          {%- assign statistic_suffix = block.settings.statistic_suffix | default: '%' -%}
 
           <article
             class="gut-flow-stats__card"
             data-gfs-card
-            data-percentage="{{ percentage }}"
+            data-statistic-number="{{ statistic_number }}"
+            data-statistic-suffix="{{ statistic_suffix | escape }}"
+            data-circle-percentage="{{ circle_percentage }}"
             {{ block.shopify_attributes }}
           >
             <div
               class="gut-flow-stats__progress"
               data-gfs-progress
               role="img"
-              aria-label="{{ percentage }} percent"
+              aria-label="{{ circle_percentage }} percent"
             >
               <svg
                 class="gut-flow-stats__progress-svg"
@@ -427,9 +430,9 @@
               <div
                 class="gut-flow-stats__percentage"
                 data-gfs-counter
-                aria-label="{{ percentage }} percent"
+                aria-label="{{ statistic_number }}{{ statistic_suffix }}"
               >
-                0%
+                0{{ statistic_suffix }}
               </div>
 
               {%- if block.settings.description != blank -%}
@@ -458,88 +461,80 @@
     const initGutFlowStats = () => {
       const section = document.getElementById(sectionId);
 
-      if (
-        !section ||
-        section.dataset.gfsInitialized === 'true'
-      ) {
+      if (!section || section.dataset.gfsInitialized === 'true') {
         return;
       }
 
       section.dataset.gfsInitialized = 'true';
 
-      const cards = Array.from(
-        section.querySelectorAll('[data-gfs-card]')
-      );
+      const cards = Array.from(section.querySelectorAll('[data-gfs-card]'));
 
       if (!cards.length) {
         return;
       }
 
-      const motionQuery = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      );
+      const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      const configuredDuration = Number(
-        section.dataset.animationDuration
-      );
+      const configuredDuration = Number(section.dataset.animationDuration);
 
-      const duration = Number.isFinite(configuredDuration)
-        ? Math.max(200, configuredDuration)
-        : 1200;
+      const duration = Number.isFinite(configuredDuration) ? Math.max(200, configuredDuration) : 1200;
 
       let observer = null;
       let animationFrameId = null;
       let animationRunId = 0;
       let isInsideViewport = false;
 
-      const clampPercentage = (value) => {
+      const clamp = (value, min, max) => {
         const parsedValue = Number(value);
 
         if (!Number.isFinite(parsedValue)) {
-          return 0;
+          return min;
         }
 
-        return Math.min(100, Math.max(0, parsedValue));
+        return Math.min(max, Math.max(min, parsedValue));
       };
 
-      const updateCard = (card, value) => {
-        const progressWrapper = card.querySelector(
-          '[data-gfs-progress]'
-        );
+      const getCardValues = (card) => {
+        return {
+          statisticNumber: clamp(card.dataset.statisticNumber, 0, 999999),
 
-        const progressCircle = card.querySelector(
-          '[data-gfs-progress-value]'
-        );
+          circlePercentage: clamp(card.dataset.circlePercentage, 0, 100),
 
-        const counter = card.querySelector(
-          '[data-gfs-counter]'
-        );
+          suffix: card.dataset.statisticSuffix || '',
+        };
+      };
 
-        const safeValue = clampPercentage(value);
-        const roundedValue = Math.round(safeValue);
-        const remainingValue = Math.max(
-          0,
-          100 - safeValue
-        );
+      const updateCard = (card, currentNumber, currentCirclePercentage) => {
+        const progressWrapper = card.querySelector('[data-gfs-progress]');
+
+        const progressCircle = card.querySelector('[data-gfs-progress-value]');
+
+        const counter = card.querySelector('[data-gfs-counter]');
+
+        const cardValues = getCardValues(card);
+
+        const safeNumber = clamp(currentNumber, 0, 999999);
+
+        const safeCirclePercentage = clamp(currentCirclePercentage, 0, 100);
+
+        const roundedNumber = Math.round(safeNumber);
+
+        const remainingCircle = Math.max(0, 100 - safeCirclePercentage);
 
         if (progressCircle) {
-          progressCircle.style.strokeDasharray =
-            `${safeValue.toFixed(3)} ${remainingValue.toFixed(3)}`;
+          progressCircle.style.strokeDasharray = `${safeCirclePercentage.toFixed(3)} ${remainingCircle.toFixed(3)}`;
         }
 
         if (progressWrapper) {
-          progressWrapper.setAttribute(
-            'aria-label',
-            `${roundedValue} percent`
-          );
+          progressWrapper.setAttribute('aria-label', `${Math.round(safeCirclePercentage)} percent`);
         }
 
         if (counter) {
-          counter.textContent = `${roundedValue}%`;
-          counter.setAttribute(
-            'aria-label',
-            `${roundedValue} percent`
-          );
+          const displayedValue = `${roundedNumber}${cardValues.suffix}`;
+
+          counter.textContent = displayedValue;
+
+          counter.setAttribute('aria-label', displayedValue);
         }
       };
 
@@ -548,6 +543,7 @@
 
         if (animationFrameId !== null) {
           window.cancelAnimationFrame(animationFrameId);
+
           animationFrameId = null;
         }
       };
@@ -556,7 +552,7 @@
         cancelAnimation();
 
         cards.forEach((card) => {
-          updateCard(card, 0);
+          updateCard(card, 0, 0);
         });
       };
 
@@ -564,10 +560,9 @@
         cancelAnimation();
 
         cards.forEach((card) => {
-          updateCard(
-            card,
-            clampPercentage(card.dataset.percentage)
-          );
+          const { statisticNumber, circlePercentage } = getCardValues(card);
+
+          updateCard(card, statisticNumber, circlePercentage);
         });
       };
 
@@ -583,40 +578,28 @@
         const startTime = performance.now();
 
         cards.forEach((card) => {
-          updateCard(card, 0);
+          updateCard(card, 0, 0);
         });
 
         const renderFrame = (currentTime) => {
-          if (
-            currentAnimationRun !== animationRunId ||
-            !isInsideViewport
-          ) {
+          if (currentAnimationRun !== animationRunId || !isInsideViewport) {
             return;
           }
 
           const elapsedTime = currentTime - startTime;
-          const linearProgress = Math.min(
-            elapsedTime / duration,
-            1
-          );
 
-          const easedProgress =
-            1 - Math.pow(1 - linearProgress, 3);
+          const linearProgress = Math.min(elapsedTime / duration, 1);
+
+          const easedProgress = 1 - Math.pow(1 - linearProgress, 3);
 
           cards.forEach((card) => {
-            const targetPercentage = clampPercentage(
-              card.dataset.percentage
-            );
+            const { statisticNumber, circlePercentage } = getCardValues(card);
 
-            updateCard(
-              card,
-              targetPercentage * easedProgress
-            );
+            updateCard(card, statisticNumber * easedProgress, circlePercentage * easedProgress);
           });
 
           if (linearProgress < 1) {
-            animationFrameId =
-              window.requestAnimationFrame(renderFrame);
+            animationFrameId = window.requestAnimationFrame(renderFrame);
 
             return;
           }
@@ -624,15 +607,13 @@
           animationFrameId = null;
 
           cards.forEach((card) => {
-            updateCard(
-              card,
-              clampPercentage(card.dataset.percentage)
-            );
+            const { statisticNumber, circlePercentage } = getCardValues(card);
+
+            updateCard(card, statisticNumber, circlePercentage);
           });
         };
 
-        animationFrameId =
-          window.requestAnimationFrame(renderFrame);
+        animationFrameId = window.requestAnimationFrame(renderFrame);
       };
 
       resetCards();
@@ -667,7 +648,7 @@
         },
         {
           threshold: 0.2,
-          rootMargin: '0px 0px -5% 0px'
+          rootMargin: '0px 0px -5% 0px',
         }
       );
 
@@ -675,6 +656,7 @@
 
       section.gfsDestroy = () => {
         isInsideViewport = false;
+
         cancelAnimation();
 
         if (observer) {
@@ -689,33 +671,19 @@
 
     initGutFlowStats();
 
-    document.addEventListener(
-      'shopify:section:load',
-      (event) => {
-        if (
-          event.target &&
-          event.target.querySelector(`#${sectionId}`)
-        ) {
-          initGutFlowStats();
-        }
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.target && event.target.querySelector(`#${sectionId}`)) {
+        initGutFlowStats();
       }
-    );
+    });
 
-    document.addEventListener(
-      'shopify:section:unload',
-      (event) => {
-        const section = document.getElementById(sectionId);
+    document.addEventListener('shopify:section:unload', (event) => {
+      const section = document.getElementById(sectionId);
 
-        if (
-          section &&
-          event.target &&
-          event.target.contains(section) &&
-          typeof section.gfsDestroy === 'function'
-        ) {
-          section.gfsDestroy();
-        }
+      if (section && event.target && event.target.contains(section) && typeof section.gfsDestroy === 'function') {
+        section.gfsDestroy();
       }
-    );
+    });
   })();
 </script>
 
@@ -1035,14 +1003,29 @@
       "name": "Statistic",
       "settings": [
         {
+          "type": "number",
+          "id": "statistic_number",
+          "label": "Statistic number",
+          "default": 92,
+          "info": "Number displayed as the large statistic."
+        },
+        {
+          "type": "text",
+          "id": "statistic_suffix",
+          "label": "Statistic suffix",
+          "default": "%",
+          "info": "Examples: %, K+, x. Leave blank for no suffix."
+        },
+        {
           "type": "range",
-          "id": "percentage",
-          "label": "Percentage",
+          "id": "circle_percentage",
+          "label": "Circle percentage",
           "min": 0,
           "max": 100,
           "step": 1,
           "unit": "%",
-          "default": 92
+          "default": 92,
+          "info": "Controls only the visual filling of the circle."
         },
         {
           "type": "richtext",
@@ -1062,21 +1045,27 @@
         {
           "type": "stat",
           "settings": {
-            "percentage": 92,
+            "statistic_number": 92,
+            "statistic_suffix": "%",
+            "circle_percentage": 96,
             "description": "<p>of users reported feeling more regular.*</p>"
           }
         },
         {
           "type": "stat",
           "settings": {
-            "percentage": 86,
+            "statistic_number": 86,
+            "statistic_suffix": "%",
+            "circle_percentage": 90,
             "description": "<p>said they experienced less digestive heaviness.*</p>"
           }
         },
         {
           "type": "stat",
           "settings": {
-            "percentage": 79,
+            "statistic_number": 79,
+            "statistic_suffix": "%",
+            "circle_percentage": 83,
             "description": "<p>would recommend Gut Flow to a friend.*</p>"
           }
         }
