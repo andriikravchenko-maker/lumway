@@ -2038,110 +2038,6 @@
         "description_size_desktop": 14
       }
     },
-    "gut_harmony_cta_Tt37Cp": {
-      "type": "gut-harmony-cta",
-      "blocks": {
-        "feature_DaABtJ": {
-          "type": "feature",
-          "settings": {
-            "text": "Better Appetite Control"
-          }
-        },
-        "feature_kPEdGG": {
-          "type": "feature",
-          "settings": {
-            "text": "Fewer Cravings"
-          }
-        },
-        "feature_8Rjrwe": {
-          "type": "feature",
-          "settings": {
-            "text": "More Stable Daily Energy"
-          }
-        },
-        "feature_PPWHz3": {
-          "type": "feature",
-          "settings": {
-            "text": "Healthy Blood Sugar Support"
-          }
-        },
-        "feature_Nd3aMx": {
-          "type": "feature",
-          "settings": {
-            "text": "Designed To Support Digestion & Post-Meal Comfort*"
-          }
-        },
-        "feature_Mr3peF": {
-          "type": "feature",
-          "settings": {
-            "text": "30-Day Risk Free & Money Back Guarantee"
-          }
-        }
-      },
-      "block_order": [
-        "feature_DaABtJ",
-        "feature_kPEdGG",
-        "feature_8Rjrwe",
-        "feature_PPWHz3",
-        "feature_Nd3aMx",
-        "feature_Mr3peF"
-      ],
-      "disabled": true,
-      "name": "Gut Harmony CTA",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 32,
-        "content_gap": 40,
-        "feature_gap": 16,
-        "background_color": "#ffffff",
-        "title": "Think of Fiber Like Packing an Umbrella",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#3b3b3b",
-        "text_size": 16,
-        "text_color": "#3b3b3b",
-        "icon_color": "#32477a",
-        "button_text": "START TO FEEL MORE BALANCED →",
-        "button_url": "#product-details-lum",
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg": "#a9617a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg": "#794054"
-      }
-    },
-    "gut_harmony_cta_banner_Mjc8aE": {
-      "type": "gut-harmony-cta-banner",
-      "disabled": true,
-      "name": "Gut Harmony CTA Banner",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 44,
-        "padding_bottom": 44,
-        "padding_top_mobile": 32,
-        "padding_bottom_mobile": 32,
-        "content_gap": 40,
-        "background_color": "#f2f9f2",
-        "header": "Click Below to Begin Your Transformation",
-        "header_size": 44,
-        "header_size_mobile": 26,
-        "header_color": "#333333",
-        "button_text": "GET GUT HARMONY NOW →",
-        "button_url": "shopify://products/gut-harmony-gummies",
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg": "#00724d",
-        "button_text_color": "#ffffff",
-        "button_hover_bg": "#088f63",
-        "subheader": "Your future self will thank you for finally taking control of your digestion today.",
-        "subheader_size": 32,
-        "subheader_size_mobile": 18,
-        "subheader_color": "#333333"
-      }
-    },
     "social_proof_pop": {
       "type": "social-proof-pop",
       "blocks": {
@@ -2262,6 +2158,150 @@
         "text_color": "#ffffff"
       }
     },
+    "roadmap_MGJAcC": {
+      "type": "roadmap",
+      "blocks": {
+        "roadmap_step_3dwmAQ": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "Phase 1",
+            "title": "GETTING STARTED",
+            "description": "<p>Begin your journey with our comprehensive onboarding process. Set up your account, explore key features, and get familiar with the platform.</p>",
+            "custom_icon": "",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_VDMJAT": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "Phase 2",
+            "title": "BUILDING MOMENTUM",
+            "description": "<p>Start implementing what you've learned. Access advanced features, customize your experience, and begin seeing initial results.</p>",
+            "custom_icon": "",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_CghXX3": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "Phase 3",
+            "title": "REACHING MILESTONES",
+            "description": "<p>Achieve significant progress markers. Unlock premium features, optimize your workflow, and experience measurable improvements.</p>",
+            "custom_icon": "",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_qfhAE6": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "Phase 4",
+            "title": "MASTERING SUCCESS",
+            "description": "<p>Reach your full potential with expert-level capabilities. Enjoy all benefits, share your achievements, and inspire others on their journey.</p>",
+            "custom_icon": "",
+            "bullet_icon_size": 16
+          }
+        }
+      },
+      "block_order": [
+        "roadmap_step_3dwmAQ",
+        "roadmap_step_VDMJAT",
+        "roadmap_step_CghXX3",
+        "roadmap_step_qfhAE6"
+      ],
+      "name": "Roadmap",
+      "settings": {
+        "use_theme_colors": false,
+        "contained_section": true,
+        "max_container_width": 600,
+        "max_section_width": 1200,
+        "enable_background_image": false,
+        "background_size_desktop": "cover",
+        "background_position_desktop": "center center",
+        "background_size_mobile": "cover",
+        "background_position_mobile": "center center",
+        "enable_background_overlay": false,
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 50,
+        "heading": "Your Journey",
+        "subheading": "<p>Follow your progress and see what's ahead on your path to success</p>",
+        "heading_size": 36,
+        "heading_line_height": 1.3,
+        "heading_size_mobile": 24,
+        "heading_line_height_mobile": 1.3,
+        "subheading_size": 16,
+        "subheading_size_mobile": 14,
+        "step_title_size": 20,
+        "step_title_letter_spacing": "heading",
+        "step_title_size_mobile": 18,
+        "step_description_size": 14,
+        "step_description_size_mobile": 12,
+        "accent_text": "Ahead",
+        "override_global_accent": false,
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "accent_color": "#007bff",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": 700,
+        "image_position": "right",
+        "image_column_width": 40,
+        "image_column_full_height": false,
+        "full_height_min_height": 600,
+        "mobile_image_above_timeline": false,
+        "text_column_width": 50,
+        "image_border_radius": 8,
+        "timeline_width": 2,
+        "timeline_border_radius": 2,
+        "timeline_max_width": 100,
+        "show_badges": true,
+        "desktop_badge_font_size": 12,
+        "badge_font_size_mobile": 11,
+        "badge_font_weight": "600",
+        "badge_border_radius": 50,
+        "badge_border_width": 1,
+        "badge_border_style": "solid",
+        "badge_border_color": "#4CAF50",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "roadmap_item_spacing_desktop": 40,
+        "roadmap_item_spacing_mobile": 30,
+        "enable_spacing": true,
+        "section_spacing_top_desktop": 72,
+        "section_spacing_bottom_desktop": 72,
+        "section_spacing_left_desktop": 80,
+        "section_spacing_right_desktop": 80,
+        "section_spacing_top_mobile": 36,
+        "section_spacing_bottom_mobile": 36,
+        "section_spacing_left_mobile": 24,
+        "section_spacing_right_mobile": 24,
+        "enable_placeholder_space_desktop": false,
+        "placeholder_min_height_desktop": 600,
+        "enable_placeholder_space_mobile": false,
+        "placeholder_height_mobile": 300,
+        "section_background": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "heading_color": "#121212",
+        "subheading_color": "#121212",
+        "step_title_color": "#121212",
+        "step_description_color": "#666666",
+        "timeline_color": "#e0e0e0",
+        "active_timeline_color": "#4CAF50",
+        "circle_color": "#4CAF50",
+        "circle_icon_color": "#ffffff",
+        "badge_background": "#4CAF50",
+        "badge_text_color": "#ffffff",
+        "show_button": false,
+        "button_text": "GET STARTED",
+        "button_action_type": "scroll_top",
+        "redirect_product": "",
+        "custom_url": "",
+        "use_global_button_style": true,
+        "button_border_radius": 8,
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#ffffff",
+        "button_hover_text_color": "#000000"
+      }
+    },
     "product_benefits_4DmPcz": {
       "type": "product-benefits",
       "blocks": {
@@ -2348,7 +2388,7 @@
         ".product-benefits-heading {text-align: left;}",
         ".custom-subtitle {text-align: left;}",
         ".custom-benefits-list {padding-left: 0 !important;}",
-        "@media screen and (max-width: 600px) {.product-benefits-heading {text-align: center; } .custom-subtitle {text-align: center; } .custom-benefits-list {padding: 0 !important; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-section-wrapper{padding-top: 20px; }}"
+        "@media screen and (max-width: 600px) {.product-benefits-heading {text-align: center; } .custom-subtitle {text-align: center; } .custom-benefits-list {padding: 0 !important; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-section-wrapper {padding-top: 20px; }}"
       ],
       "name": "Product Benefits",
       "settings": {
@@ -2569,10 +2609,9 @@
     "mm_product_details_lum_hTEa6b",
     "listicle_sticky_only",
     "alternating_features_ktLx6Y",
-    "gut_harmony_cta_Tt37Cp",
-    "gut_harmony_cta_banner_Mjc8aE",
     "social_proof_pop",
     "sticky_countdown",
+    "roadmap_MGJAcC",
     "product_benefits_4DmPcz",
     "store_faq_73Kxey"
   ]
