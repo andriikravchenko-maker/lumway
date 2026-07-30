@@ -1569,6 +1569,87 @@
         "product": "gut-flow-gummies"
       }
     },
+    "mm_research_mentions_GeBLp4": {
+      "type": "mm-research-mentions",
+      "blocks": {
+        "mention_F8AiyT": {
+          "type": "mention",
+          "settings": {
+            "logo_text": "Cosmopolitan",
+            "logo_width": 240,
+            "logo_height": 70,
+            "logo_text_size": 36,
+            "quote": "<p>“My jeans stopped feeling like they belonged to a different body after dinner.”</p>"
+          }
+        },
+        "mention_cJfy7z": {
+          "type": "mention",
+          "settings": {
+            "logo_text": "Women's Health",
+            "logo_width": 240,
+            "logo_height": 70,
+            "logo_text_size": 36,
+            "quote": "<p>“I finally stopped responding to every bloated day by starting another diet.”</p>"
+          }
+        },
+        "mention_jCfkKt": {
+          "type": "mention",
+          "settings": {
+            "logo_text": "USA Today",
+            "logo_width": 240,
+            "logo_height": 70,
+            "logo_text_size": 36,
+            "quote": "<p>“It tastes like a treat, but it has become one of the most consistent parts of my wellness routine.”</p>"
+          }
+        },
+        "mention_6LqRjg": {
+          "type": "mention",
+          "settings": {
+            "logo_text": "Who What Wear",
+            "logo_width": 240,
+            "logo_height": 70,
+            "logo_text_size": 36,
+            "quote": "<p>“The real win was not having to think about my bathroom routine all day.”</p>"
+          }
+        }
+      },
+      "block_order": [
+        "mention_F8AiyT",
+        "mention_cJfy7z",
+        "mention_jCfkKt",
+        "mention_6LqRjg"
+      ],
+      "name": "Research mentions",
+      "settings": {
+        "heading": "Prebiotic Fiber Ingredient Backed by Nutritional Research",
+        "subheading": "<p>As discussed in research and educational resources from:</p>",
+        "desktop_columns": "4",
+        "content_width": 1440,
+        "card_gap": 16,
+        "card_height": 200,
+        "card_padding_vertical": 16,
+        "card_padding_horizontal": 16,
+        "card_radius": 12,
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "subheading_size": 24,
+        "subheading_size_mobile": 16,
+        "card_text_size": 16,
+        "card_text_size_mobile": 16,
+        "background_color": "#FFFFFF",
+        "heading_color": "#111111",
+        "subheading_color": "#111111",
+        "card_background": "#F9F9F9",
+        "card_text_color": "#111111",
+        "card_border_color": "#C2C2C2",
+        "dot_color": "#F8E3E8",
+        "dot_active_color": "#5B0D1E",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
     "listicle_sticky_only": {
       "type": "listicle",
       "blocks": {
@@ -2484,6 +2565,7 @@
     "get_harmony_feature_v2_QcAKNJ",
     "mm_heading_banner_lum_H3xaWF",
     "product_details_lum_WFPgrJ",
+    "mm_research_mentions_GeBLp4",
     "listicle_sticky_only",
     "alternating_features_ktLx6Y",
     "social_proof_pop",
