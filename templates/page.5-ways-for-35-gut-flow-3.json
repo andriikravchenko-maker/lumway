@@ -1543,7 +1543,7 @@
       ],
       "custom_css": [
         "#product-details-lum {background: white;}",
-        ".section-product-details-lum{background: white;}",
+        ".section-product-details-lum {background: white;}",
         "#product-details-lum .ptab__check-icon svg path {fill: #5b0d1e;}",
         "#product-details-lum .ptab__tab-icon svg path {fill: #111111;}"
       ],
@@ -2262,6 +2262,152 @@
         "text_color": "#ffffff"
       }
     },
+    "product_benefits_4DmPcz": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_cgRtRf": {
+          "type": "benefit",
+          "settings": {
+            "title": "High Quality Materials",
+            "description": "Made with premium materials that are built to last and deliver exceptional performance.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "check",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_aM3QGX": {
+          "type": "benefit",
+          "settings": {
+            "title": "Easy to Use Design",
+            "description": "Intuitive design makes this product simple to use, saving you valuable time and effort.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "clock",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\"></path></svg>"
+          }
+        },
+        "benefit_UcKaPd": {
+          "type": "benefit",
+          "settings": {
+            "title": "Multiple Configuration Options",
+            "description": "Customize your experience with various settings to meet your specific needs.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "sparkle",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\"></path></svg>"
+          }
+        },
+        "benefit_8bC9fx": {
+          "type": "benefit",
+          "settings": {
+            "title": "Long-Term Value",
+            "description": "A smart investment that pays for itself over time with its durability and efficiency.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "heart",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_cgRtRf",
+        "benefit_aM3QGX",
+        "benefit_UcKaPd",
+        "benefit_8bC9fx"
+      ],
+      "custom_css": [
+        ".custom-benefits-section .custom-benefits-list,.custom-benefits-section-wrapper .custom-benefits-list {border-radius: 10px !important;}",
+        ".custom-benefits-section .global-accent-text,.custom-benefits-section-wrapper .global-accent-text {background: linear-gradient(90deg, #23a02a, #23a02a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-left: 0px !important;}"
+      ],
+      "name": "Product Benefits",
+      "settings": {
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "padding_left": 25,
+        "padding_right": 25,
+        "image_position_desktop": "right",
+        "heading_size_mobile": 34,
+        "heading_size_desktop": 40,
+        "heading_line_height_mobile": 1.1,
+        "heading_line_height_desktop": 1.1,
+        "subtitle_size_mobile": 13,
+        "subtitle_size_desktop": 18,
+        "benefit_title_size_mobile": 14,
+        "benefit_title_size_desktop": 16,
+        "benefit_description_size_mobile": 13,
+        "benefit_description_size_desktop": 14,
+        "accent_color": "#FFFFFF",
+        "use_theme_colors": false,
+        "title_below_icon": false,
+        "override_global_accent": false,
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "use_accent_gradient": true,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(68, 15, 26, 1), rgba(68, 18, 20, 1) 100%, rgba(255, 107, 157, 1) 100%)",
+        "accent_text_margin_left": 0,
+        "list_background": "linear-gradient(180deg, rgba(17, 17, 17, 1) 100%, rgba(240, 240, 240, 1) 100%)",
+        "list_border_radius": 8,
+        "benefits_list_max_width": 800,
+        "border_color": "#e0e0e0",
+        "heading_accent": "Gut Flow*",
+        "heading_regular": "Why People Love",
+        "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.",
+        "show_image": true,
+        "media_type": "image",
+        "feature_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_03_26_47_PM_1.webp",
+        "image_alt": "Feature product image",
+        "video_autoplay": true,
+        "video_muted": true,
+        "video_loop": true,
+        "video_controls": false,
+        "mobile_image_full_width": false,
+        "hide_media_on_desktop": false,
+        "image_column_full_height": false,
+        "image_margin_top": 0,
+        "image_margin_bottom": 20,
+        "enable_image_border": false,
+        "image_border_width": 1,
+        "image_border_style": "solid",
+        "image_border_color": "#000000",
+        "image_border_radius": 8,
+        "heading_color": "#111111",
+        "subtitle_color": "#111111",
+        "description_color": "#111111",
+        "section_background": "linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "use_background_image": false,
+        "background_image_size": "cover",
+        "background_image_position_mode": "preset",
+        "background_image_position": "center center",
+        "background_focal_point_x": 50,
+        "background_focal_point_y": 50,
+        "background_image_attachment": "scroll",
+        "background_overlay_enable": false,
+        "background_overlay_color": "rgba(0,0,0,0.3)",
+        "background_overlay_opacity": 30,
+        "enable_top_border": false,
+        "top_border_width": 1,
+        "top_border_style": "solid",
+        "top_border_color": "#e5e5e5",
+        "enable_bottom_border": false,
+        "bottom_border_width": 1,
+        "bottom_border_style": "solid",
+        "bottom_border_color": "#e5e5e5"
+      }
+    },
     "store_faq_73Kxey": {
       "type": "store-faq",
       "blocks": {
@@ -2409,6 +2555,7 @@
     "gut_harmony_cta_banner_Mjc8aE",
     "social_proof_pop",
     "sticky_countdown",
+    "product_benefits_4DmPcz",
     "store_faq_73Kxey"
   ]
 }
