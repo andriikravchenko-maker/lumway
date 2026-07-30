@@ -2164,19 +2164,20 @@
         "review_qaF9CY": {
           "type": "review",
           "settings": {
+            "review_image": "shopify://shop_images/Review_by_Megan_L..webp",
             "image_position": "center center",
-            "wrap_image": false,
-            "rating": 5,
-            "review_text": "The product has completely transformed my routine. I'm seeing amazing results and couldn't be happier with my purchase.",
-            "reviewer_name": "Sarah",
-            "reviewer_age": "28",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“I have a sensitive stomach, so I was hesitant — but this felt really gentle. No weird side effects, just gradual improvement.”",
+            "reviewer_name": "Megan L.,",
+            "reviewer_age": "37",
             "show_verified_badge": false,
             "show_purchased_product": false,
             "product_reference": "",
             "product_title": "Product Name",
             "product_price": "$29.99",
             "product_compare_price": "$39.99",
-            "show_purchase_date": true,
+            "show_purchase_date": false,
             "purchase_date": "March 14th, 2025"
           }
         },
