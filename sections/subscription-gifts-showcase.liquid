@@ -1,0 +1,1810 @@
+{%- comment -%}
+Subscription Gifts Showcase
+
+Select the main subscription product in the section settings.
+Gift cards are generated from:
+product.metafields.custom.subscription_gifts
+
+Each metaobject is matched to the product selling plan by:
+gift.selling_plan_id == selling_plan.id
+
+All visible marketing text can be overridden in section settings.
+Per-card title/button/free-label overrides fall back to Recharge/product data when left blank.
+{%- endcomment -%}
+
+{%- liquid
+  assign selected_product = section.settings.product
+  assign subscription_gifts = selected_product.metafields.custom.subscription_gifts.value
+
+  assign heading = section.settings.heading | default: 'Free Gifts With Subscription'
+  assign button_label = section.settings.button_label | default: 'Choose the plan'
+  assign free_label = section.settings.free_label | default: 'Free'
+  assign featured_badge_label = section.settings.featured_badge | default: 'Most popular'
+
+  assign featured_position = section.settings.featured_position | default: '2' | plus: 0
+
+  assign base_compare = selected_product.variants.first.compare_at_price
+  if base_compare == blank or base_compare <= 0
+    assign base_compare = selected_product.variants.first.price
+  endif
+-%}
+
+{%- if selected_product != blank and subscription_gifts != blank -%}
+  <section
+          id="SubscriptionGiftsShowcase-{{ section.id }}"
+          class="subscription-showcase"
+          style="
+                  --sgs-section-bg: {{ section.settings.section_bg }};
+                  --sgs-heading-color: {{ section.settings.heading_color }};
+                  --sgs-plan-title-color: {{ section.settings.plan_title_color }};
+                  --sgs-text-color: {{ section.settings.text_color }};
+                  --sgs-card-bg: {{ section.settings.card_bg }};
+                  --sgs-featured-bg: {{ section.settings.featured_card_bg }};
+                  --sgs-button-bg: {{ section.settings.button_bg }};
+                  --sgs-button-color: {{ section.settings.button_color }};
+                  --sgs-button-secondary-bg: {{ section.settings.button_secondary_bg }};
+                  --sgs-button-secondary-color: {{ section.settings.button_secondary_color }};
+
+                  --sgs-button-secondary-hover-bg: {{ section.settings.button_secondary_hover_bg }};
+                  --sgs-button-secondary-hover-color: {{ section.settings.button_secondary_hover_color }};
+
+                  --sgs-button-hover-bg: {{ section.settings.button_hover_bg }};
+                  --sgs-button-hover-color: {{ section.settings.button_hover_color }};
+
+                  --sgs-price-bg: {{ section.settings.price_badge_bg }};
+                  --sgs-price-color: {{ section.settings.price_badge_color }};
+                  --sgs-badge-bg: {{ section.settings.featured_badge_bg }};
+                  --sgs-badge-color: {{ section.settings.featured_badge_color }};
+
+                  --sgs-heading-size: {{ section.settings.heading_size }}px;
+                  --sgs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+                  --sgs-heading-line-height: {{ section.settings.heading_line_height }}%;
+                  --sgs-heading-max-width: {{ section.settings.heading_max_width }}px;
+
+                  --sgs-grid-gap: {{ section.settings.grid_gap }}px;
+                  --sgs-grid-gap-mobile: {{ section.settings.grid_gap_mobile }}px;
+
+                  --sgs-card-min-height: {{ section.settings.card_min_height }}px;
+                  --sgs-card-min-height-mobile: {{ section.settings.card_min_height_mobile }}px;
+                  --sgs-card-radius: {{ section.settings.card_radius }}px;
+                  --sgs-card-radius-mobile: {{ section.settings.card_radius_mobile }}px;
+
+                  --sgs-card-padding-top: {{ section.settings.card_padding_top }}px;
+                  --sgs-card-padding-x: {{ section.settings.card_padding_x }}px;
+                  --sgs-card-padding-bottom: {{ section.settings.card_padding_bottom }}px;
+
+                  --sgs-card-padding-top-mobile: {{ section.settings.card_padding_top_mobile }}px;
+                  --sgs-card-padding-x-mobile: {{ section.settings.card_padding_x_mobile }}px;
+                  --sgs-card-padding-bottom-mobile: {{ section.settings.card_padding_bottom_mobile }}px;
+
+                  --sgs-featured-badge-top: {{ section.settings.featured_badge_top }}px;
+                  --sgs-featured-badge-font-size: {{ section.settings.featured_badge_font_size }}px;
+                  --sgs-featured-badge-padding-y: {{ section.settings.featured_badge_padding_y }}px;
+                  --sgs-featured-badge-padding-x: {{ section.settings.featured_badge_padding_x }}px;
+
+                  --sgs-plan-title-size: {{ section.settings.plan_title_size }}px;
+                  --sgs-plan-title-size-mobile: {{ section.settings.plan_title_size_mobile }}px;
+                  --sgs-plan-title-line-height: {{ section.settings.plan_title_line_height }}%;
+                  --sgs-plan-title-bottom: {{ section.settings.plan_title_bottom_spacing }}px;
+
+                  --sgs-gift-title-size: {{ section.settings.gift_title_size }}px;
+                  --sgs-gift-title-size-mobile: {{ section.settings.gift_title_size_mobile }}px;
+                  --sgs-gift-title-line-height: {{ section.settings.gift_title_line_height }}%;
+
+                  --sgs-value-top: {{ section.settings.value_top_spacing }}px;
+                  --sgs-value-font-size: {{ section.settings.value_font_size }}px;
+                  --sgs-value-font-size-mobile: {{ section.settings.value_font_size_mobile }}px;
+                  --sgs-value-gap: {{ section.settings.value_gap }}px;
+                  --sgs-value-padding-y: {{ section.settings.value_padding_y }}px;
+                  --sgs-value-padding-x: {{ section.settings.value_padding_x }}px;
+
+                  --sgs-media-min-height: {{ section.settings.media_min_height }}px;
+                  --sgs-media-min-height-mobile: {{ section.settings.media_min_height_mobile }}px;
+                  --sgs-media-padding-top: {{ section.settings.media_padding_top }}px;
+                  --sgs-media-padding-bottom: {{ section.settings.media_padding_bottom }}px;
+
+                  --sgs-image-max-height: {{ section.settings.image_max_height }}px;
+                  --sgs-image-max-height-mobile: {{ section.settings.image_max_height_mobile }}px;
+
+                  --sgs-button-min-height: {{ section.settings.button_min_height }}px;
+                  --sgs-button-font-size: {{ section.settings.button_font_size }}px;
+                  --sgs-button-font-size-mobile: {{ section.settings.button_font_size_mobile }}px;
+                  --sgs-button-gap: {{ section.settings.button_gap }}px;
+                  --sgs-button-padding-y: {{ section.settings.button_padding_y }}px;
+                  --sgs-button-padding-x: {{ section.settings.button_padding_x }}px;
+                  --sgs-button-radius: {{ section.settings.button_radius }}px;
+                  --sgs-button-arrow-size: {{ section.settings.button_arrow_size }}px;
+
+                  --sgs-featured-price-bg: {{ section.settings.featured_price_badge_bg }};
+                  --sgs-featured-price-bg-opacity: {{ section.settings.featured_price_badge_bg_opacity }}%;
+                  --sgs-featured-price-color: {{ section.settings.featured_price_badge_color }};
+                  --sgs-price-text-color: {{ section.settings.price_text_color }};
+                  --sgs-free-text-color: {{ section.settings.free_text_color }};
+
+                  --sgs-featured-price-text-color: {{ section.settings.featured_price_text_color }};
+                  --sgs-featured-free-text-color: {{ section.settings.featured_free_text_color }};
+                  "
+  >
+    <div class="subscription-showcase__container">
+      {%- if heading != blank -%}
+        <h2 class="subscription-showcase__heading">
+          {{ heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      <div class="subscription-showcase__grid">
+        {%- for gift in subscription_gifts -%}
+          {%- liquid
+            assign gift_product = gift.gift_product.value
+            assign gift_variant = gift_product.selected_or_first_available_variant
+            assign gift_image = gift_product.featured_image
+            assign target_selling_plan_id = gift.selling_plan_id.value | append: ''
+
+            assign matched_selling_plan = nil
+
+            for selling_plan_group in selected_product.selling_plan_groups
+              for selling_plan in selling_plan_group.selling_plans
+                assign current_selling_plan_id = selling_plan.id | append: ''
+
+                if current_selling_plan_id == target_selling_plan_id
+                  assign matched_selling_plan = selling_plan
+                  break
+                endif
+              endfor
+
+              if matched_selling_plan != nil
+                break
+              endif
+            endfor
+
+            assign main_variant = selected_product.variants[forloop.index0]
+
+            assign gift_value = gift_variant.compare_at_price
+
+            if gift_value == blank or gift_value <= 0
+              assign gift_value = gift_variant.price
+            endif
+
+            assign is_featured = false
+
+            if forloop.index == featured_position
+              assign is_featured = true
+            endif
+
+            assign custom_plan_title = blank
+            assign custom_gift_title = blank
+            assign custom_free_label = blank
+            assign custom_button_label = blank
+            assign custom_value_override = blank
+            assign pack_total = forloop.index
+
+            case forloop.index
+              when 1
+                assign custom_plan_title = section.settings.card_1_plan_title
+                assign custom_gift_title = section.settings.card_1_gift_title
+                assign custom_free_label = section.settings.card_1_free_label
+                assign custom_button_label = section.settings.card_1_button_label
+                assign custom_value_override = section.settings.card_1_value_override
+                assign pack_total = section.settings.card_1_pack_total | default: 1
+              when 2
+                assign custom_plan_title = section.settings.card_2_plan_title
+                assign custom_gift_title = section.settings.card_2_gift_title
+                assign custom_free_label = section.settings.card_2_free_label
+                assign custom_button_label = section.settings.card_2_button_label
+                assign custom_value_override = section.settings.card_2_value_override
+                assign pack_total = section.settings.card_2_pack_total | default: 2
+              when 3
+                assign custom_plan_title = section.settings.card_3_plan_title
+                assign custom_gift_title = section.settings.card_3_gift_title
+                assign custom_free_label = section.settings.card_3_free_label
+                assign custom_button_label = section.settings.card_3_button_label
+                assign custom_value_override = section.settings.card_3_value_override
+                assign pack_total = section.settings.card_3_pack_total | default: 3
+            endcase
+
+            if custom_plan_title == blank
+              assign custom_plan_title = matched_selling_plan.name
+            endif
+
+            if custom_gift_title == blank
+              assign custom_gift_title = gift_product.title
+            endif
+
+            if custom_free_label == blank
+              assign custom_free_label = free_label
+            endif
+
+            if custom_button_label == blank
+              assign custom_button_label = button_label
+            endif
+
+            assign subscription_price = main_variant.price
+
+            if main_variant != blank and matched_selling_plan != nil
+              for allocation in main_variant.selling_plan_allocations
+                assign allocation_plan_id = allocation.selling_plan.id | append: ''
+
+                if allocation_plan_id == target_selling_plan_id
+                  assign subscription_price = allocation.price
+                  break
+                endif
+              endfor
+            endif
+
+            assign compare_total = base_compare | times: pack_total
+            assign bsl_save = compare_total | minus: subscription_price
+
+            if bsl_save < 0
+              assign bsl_save = 0
+            endif
+
+            assign calculated_value = gift_value | plus: bsl_save
+
+            assign rounded_calculated_value = calculated_value | plus: 99 | divided_by: 100 | times: 100
+          -%}
+
+          {%- if gift_product != blank and matched_selling_plan != nil -%}
+            <article
+                    class="subscription-showcase__card{% if is_featured %} is-featured{% endif %}"
+                    data-subscription-card
+                    data-selling-plan-id="{{ matched_selling_plan.id }}"
+                    data-bundle-index="{{ forloop.index0 }}"
+                    data-main-variant-id="{{ main_variant.id }}"
+                    data-pack-total="{{ pack_total }}"
+                    data-base-compare="{{ base_compare }}"
+                    data-subscription-price="{{ subscription_price }}"
+                    data-bsl-save="{{ bsl_save }}"
+                    data-gift-value="{{ gift_value }}"
+                    data-calculated-value="{{ calculated_value }}"
+            >
+              {%- if is_featured and section.settings.featured_badge != blank -%}
+                <span class="subscription-showcase__featured-badge">
+{{ featured_badge_label | escape }}
+</span>
+              {%- endif -%}
+
+              <div class="subscription-showcase__content">
+                <h3 class="subscription-showcase__plan-title">
+                  {{ custom_plan_title | escape }}
+                </h3>
+
+                <p class="subscription-showcase__gift-title">
+                  {{ custom_gift_title | escape }}
+                </p>
+
+                <div class="subscription-showcase__value">
+                  {%- if custom_value_override != blank -%}
+                    <s>{{ custom_value_override | escape }}</s>
+                  {%- elsif rounded_calculated_value > 0 -%}
+                    <s>{{ rounded_calculated_value | money_without_trailing_zeros }}</s>
+                  {%- endif -%}
+
+                  <strong>{{ custom_free_label | escape }}</strong>
+                </div>
+              </div>
+
+              <div class="subscription-showcase__media">
+                {%- if gift_image != blank -%}
+                  {{
+                  gift_image
+                  | image_url: width: 800
+                  | image_tag:
+                  loading: 'lazy',
+                  widths: '240, 360, 480, 640, 800',
+                  sizes: '(max-width: 749px) 85vw, 30vw',
+                  class: 'subscription-showcase__image',
+                  alt: gift_product.title
+                  }}
+                {%- endif -%}
+              </div>
+
+              <a
+                      class="subscription-showcase__button"
+                      href="#product-details-lum"
+                      data-choose-subscription-plan
+                      data-bundle-index="{{ forloop.index0 }}"
+                      data-selling-plan-id="{{ matched_selling_plan.id }}"
+                      aria-label="{{ custom_button_label | escape }} — {{ custom_plan_title | escape }}"
+              >
+                <span>{{ custom_button_label | escape }}</span>
+
+                <span
+                        class="subscription-showcase__button-arrow"
+                        aria-hidden="true"
+                >
+→
+</span>
+              </a>
+            </article>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+
+  <script>
+    (function () {
+      var section = document.getElementById(
+              'SubscriptionGiftsShowcase-{{ section.id }}'
+      );
+
+      if (!section || section.__subscriptionPlanNavigationBound) {
+        return;
+      }
+
+      section.__subscriptionPlanNavigationBound = true;
+
+      function getProductDetails() {
+        return document.getElementById('product-details-lum');
+      }
+
+      function getBundleRoot() {
+        var productDetails = getProductDetails();
+
+        if (!productDetails) {
+          return null;
+        }
+
+        return productDetails.querySelector('.bsl');
+      }
+
+      function getTargetBundleInput(bundleIndex) {
+        var bundleRoot = getBundleRoot();
+
+        if (!bundleRoot) {
+          return null;
+        }
+
+
+        var inputs = bundleRoot.querySelectorAll('.bsl__input');
+
+        return inputs[bundleIndex] || null;
+      }
+
+      function selectBundle(bundleIndex) {
+        var targetInput = getTargetBundleInput(bundleIndex);
+
+        if (!targetInput) {
+          return false;
+        }
+
+        targetInput.click();
+
+        return true;
+      }
+
+      function scrollToSelectedBundle() {
+        var bundleRoot = getBundleRoot();
+        var productDetails = getProductDetails();
+        var target = bundleRoot || productDetails;
+
+        if (!target) {
+          return;
+        }
+
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+
+      function focusSelectedBundle(bundleIndex) {
+        var targetInput = getTargetBundleInput(bundleIndex);
+
+        if (!targetInput) {
+          return;
+        }
+
+        try {
+          targetInput.focus({
+            preventScroll: true
+          });
+        } catch (error) {
+          targetInput.focus();
+        }
+      }
+
+      section.addEventListener('click', function (event) {
+        var button = event.target.closest(
+                '[data-choose-subscription-plan]'
+        );
+
+        if (!button || !section.contains(button)) {
+          return;
+        }
+
+        var bundleIndex = parseInt(
+                button.getAttribute('data-bundle-index'),
+                10
+        );
+
+        if (Number.isNaN(bundleIndex)) {
+          return;
+        }
+
+        var productDetails = getProductDetails();
+
+        if (!productDetails) {
+          var sellingPlanId =
+                  button.getAttribute('data-selling-plan-id') || '';
+
+          button.href =
+                  {{ selected_product.url | json }} +
+                          '?selling_plan=' +
+                  encodeURIComponent(sellingPlanId) +
+                  '#product-details-lum';
+
+          return;
+        }
+
+        event.preventDefault();
+
+        var wasSelected = selectBundle(bundleIndex);
+
+        scrollToSelectedBundle();
+
+        if (wasSelected) {
+          window.setTimeout(function () {
+            focusSelectedBundle(bundleIndex);
+          }, 450);
+        }
+      });
+    })();
+  </script>
+
+  <style>
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured
+    .subscription-showcase__value {
+      background: color-mix(
+              in srgb,
+              var(--sgs-featured-price-bg) var(--sgs-featured-price-bg-opacity),
+              transparent
+      );
+
+      color: var(--sgs-featured-price-color);
+    }
+    #SubscriptionGiftsShowcase-{{ section.id }} {
+      padding:
+              {{ section.settings.padding_top }}px
+              0
+{{ section.settings.padding_bottom }}px;
+
+      background: var(--sgs-section-bg);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__container {
+      width: min(100% - 32px, {{ section.settings.container_width }}px);
+      margin-inline: auto;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__heading {
+      max-width: var(--sgs-heading-max-width);
+
+      margin:
+              0
+              0
+{{ section.settings.heading_bottom_spacing }}px;
+
+      font-size: var(--sgs-heading-size);
+      font-weight: 700;
+      line-height: var(--sgs-heading-line-height);
+      letter-spacing: -0.04em;
+
+      color: var(--sgs-heading-color) !important;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      gap: var(--sgs-grid-gap);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      min-width: 0;
+      min-height: var(--sgs-card-min-height);
+
+      padding:
+              var(--sgs-card-padding-top)
+              var(--sgs-card-padding-x)
+              var(--sgs-card-padding-bottom);
+
+      overflow: hidden;
+
+      border-radius: var(--sgs-card-radius);
+      background: var(--sgs-card-bg);
+
+      text-align: center;
+      color: var(--sgs-text-color);
+
+      box-sizing: border-box;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured {
+      background: var(--sgs-featured-bg);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__featured-badge {
+      position: absolute;
+
+      top: var(--sgs-featured-badge-top);
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      padding:
+              var(--sgs-featured-badge-padding-y)
+              var(--sgs-featured-badge-padding-x);
+
+      border-radius: 999px;
+
+      background: var(--sgs-badge-bg);
+      color: var(--sgs-badge-color);
+
+      font-size: var(--sgs-featured-badge-font-size);
+      font-weight: 500;
+      line-height: 1;
+
+      white-space: nowrap;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__content {
+      position: relative;
+      z-index: 2;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__plan-title {
+      margin:
+              0
+              0
+              var(--sgs-plan-title-bottom);
+
+      font-size: var(--sgs-plan-title-size);
+      font-weight: 700;
+      line-height: var(--sgs-plan-title-line-height);
+      letter-spacing: -0.03em;
+
+      color: var(--sgs-plan-title-color) !important;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__gift-title {
+      margin: 0;
+
+      font-size: var(--sgs-gift-title-size);
+      font-weight: 600;
+      line-height: var(--sgs-gift-title-line-height);
+
+      color: var(--sgs-text-color);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__value {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: var(--sgs-value-gap);
+
+      margin-top: var(--sgs-value-top);
+
+      padding:
+              var(--sgs-value-padding-y)
+              var(--sgs-value-padding-x);
+
+      border-radius: 999px;
+      background: var(--sgs-price-bg);
+      font-size: var(--sgs-value-font-size);
+      line-height: 1;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__value s {
+      color: var(--sgs-price-text-color);
+      opacity: 1;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__value strong {
+      color: var(--sgs-free-text-color);
+      font-weight: 700;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured
+    .subscription-showcase__value {
+      background: color-mix(
+              in srgb,
+              var(--sgs-featured-price-bg) var(--sgs-featured-price-bg-opacity),
+              transparent
+      );
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured
+    .subscription-showcase__value s {
+      color: var(--sgs-featured-price-text-color);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured
+    .subscription-showcase__value strong {
+      color: var(--sgs-featured-free-text-color);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__value s {
+      opacity: 0.6;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__value strong {
+      font-weight: 700;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__media {
+      display: flex;
+      flex: 1;
+
+      align-items: center;
+      justify-content: center;
+
+      min-height: var(--sgs-media-min-height);
+
+      padding:
+              var(--sgs-media-padding-top)
+              0
+              var(--sgs-media-padding-bottom);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__image {
+      display: block;
+
+      width: auto;
+      max-width: 100%;
+      max-height: var(--sgs-image-max-height);
+
+      object-fit: contain;
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__button {
+      align-self: center;
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: var(--sgs-button-gap);
+
+      min-height: var(--sgs-button-min-height);
+
+      padding:
+              var(--sgs-button-padding-y)
+              var(--sgs-button-padding-x);
+
+      border-radius: var(--sgs-button-radius);
+
+      background: var(--sgs-button-secondary-bg);
+      color: var(--sgs-button-secondary-color);
+
+      text-decoration: none;
+
+      font-size: var(--sgs-button-font-size);
+      font-weight: 600;
+      line-height: 1;
+
+      transition:
+              transform 0.2s ease,
+              opacity 0.2s ease;
+    }
+
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__button {
+        background: var(--sgs-button-secondary-bg);
+        color: var(--sgs-button-secondary-color);
+
+        transition:
+                background-color 0.25s ease,
+                color 0.25s ease,
+                transform 0.25s ease;
+    }
+
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__button:hover {
+        background: var(--sgs-button-secondary-hover-bg);
+        color: var(--sgs-button-secondary-hover-color);
+
+        transform: translateY(-1px);
+    }
+
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured
+    .subscription-showcase__button {
+        background: var(--sgs-button-bg);
+        color: var(--sgs-button-color);
+    }
+
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__card.is-featured
+    .subscription-showcase__button:hover {
+        background: var(--sgs-button-hover-bg);
+        color: var(--sgs-button-hover-color);
+    }
+
+    #SubscriptionGiftsShowcase-{{ section.id }}
+    .subscription-showcase__button-arrow {
+      font-size: var(--sgs-button-arrow-size);
+      line-height: 1;
+    }
+
+
+    #product-details-lum .bsl {
+      scroll-margin-top: {{ section.settings.plan_scroll_offset }}px;
+    }
+
+    @media screen and (max-width: 749px) {
+      #SubscriptionGiftsShowcase-{{ section.id }} {
+        padding:
+                {{ section.settings.padding_top_mobile }}px
+                0
+{{ section.settings.padding_bottom_mobile }}px;
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__container {
+        width: min(100% - 24px, {{ section.settings.container_width }}px);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__heading {
+        margin-bottom:
+                {{ section.settings.heading_bottom_spacing_mobile }}px;
+
+        font-size: var(--sgs-heading-size-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__grid {
+        grid-template-columns: 1fr;
+
+        gap: var(--sgs-grid-gap-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__card {
+        min-height: var(--sgs-card-min-height-mobile);
+
+        padding:
+                var(--sgs-card-padding-top-mobile)
+                var(--sgs-card-padding-x-mobile)
+                var(--sgs-card-padding-bottom-mobile);
+
+        border-radius: var(--sgs-card-radius-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__plan-title {
+        font-size: var(--sgs-plan-title-size-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__gift-title {
+        font-size: var(--sgs-gift-title-size-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__value {
+        font-size: var(--sgs-value-font-size-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__media {
+        min-height: var(--sgs-media-min-height-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__image {
+        max-height: var(--sgs-image-max-height-mobile);
+      }
+
+      #SubscriptionGiftsShowcase-{{ section.id }}
+      .subscription-showcase__button {
+        font-size: var(--sgs-button-font-size-mobile);
+      }
+    }
+  </style>
+{%- elsif request.design_mode -%}
+  <div style="padding:24px;text-align:center;border:1px dashed #ccc;">
+    Select a subscription product with
+    <code>custom.subscription_gifts</code>
+    configured.
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Subscription gifts",
+  "tag": "section",
+  "class": "section-subscription-gifts-showcase",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Subscription product"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Free Gifts With Subscription"
+    },
+    {
+      "type": "text",
+      "id": "free_label",
+      "label": "Free label",
+      "default": "Free"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Choose the plan"
+    },
+
+    {
+      "type": "header",
+      "content": "Featured card"
+    },
+    {
+      "type": "select",
+      "id": "featured_position",
+      "label": "Featured card",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "First"
+        },
+        {
+          "value": "2",
+          "label": "Second"
+        },
+        {
+          "value": "3",
+          "label": "Third"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "featured_badge",
+      "label": "Featured badge",
+      "default": "Most popular"
+    },
+
+    {
+      "type": "header",
+      "content": "Card 1 — Text overrides"
+    },
+    {
+      "type": "text",
+      "id": "card_1_plan_title",
+      "label": "Plan title",
+      "info": "Leave blank to use the Recharge selling plan name."
+    },
+    {
+      "type": "text",
+      "id": "card_1_gift_title",
+      "label": "Gift title",
+      "info": "Leave blank to use the linked welcome gift product title."
+    },
+    {
+      "type": "text",
+      "id": "card_1_free_label",
+      "label": "Free label",
+      "info": "Leave blank to use the global Free label."
+    },
+    {
+      "type": "text",
+      "id": "card_1_button_label",
+      "label": "Button label",
+      "info": "Leave blank to use the global button label."
+    },
+    {
+      "type": "range",
+      "id": "card_1_pack_total",
+      "label": "Bundle total quantity",
+      "info": "Set the same total quantity used by the matching bundle-selector-lum option.",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "text",
+      "id": "card_1_value_override",
+      "label": "Value override",
+      "info": "Optional. Example: $79. Leave blank to calculate gift compare-at + BSL save automatically."
+    },
+
+    {
+      "type": "header",
+      "content": "Card 2 — Text overrides"
+    },
+    {
+      "type": "text",
+      "id": "card_2_plan_title",
+      "label": "Plan title",
+      "info": "Leave blank to use the Recharge selling plan name."
+    },
+    {
+      "type": "text",
+      "id": "card_2_gift_title",
+      "label": "Gift title",
+      "info": "Leave blank to use the linked welcome gift product title."
+    },
+    {
+      "type": "text",
+      "id": "card_2_free_label",
+      "label": "Free label",
+      "info": "Leave blank to use the global Free label."
+    },
+    {
+      "type": "text",
+      "id": "card_2_button_label",
+      "label": "Button label",
+      "info": "Leave blank to use the global button label."
+    },
+    {
+      "type": "range",
+      "id": "card_2_pack_total",
+      "label": "Bundle total quantity",
+      "info": "Set the same total quantity used by the matching bundle-selector-lum option.",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "text",
+      "id": "card_2_value_override",
+      "label": "Value override",
+      "info": "Optional. Example: $99. Leave blank to calculate gift compare-at + BSL save automatically."
+    },
+
+    {
+      "type": "header",
+      "content": "Card 3 — Text overrides"
+    },
+    {
+      "type": "text",
+      "id": "card_3_plan_title",
+      "label": "Plan title",
+      "info": "Leave blank to use the Recharge selling plan name."
+    },
+    {
+      "type": "text",
+      "id": "card_3_gift_title",
+      "label": "Gift title",
+      "info": "Leave blank to use the linked welcome gift product title."
+    },
+    {
+      "type": "text",
+      "id": "card_3_free_label",
+      "label": "Free label",
+      "info": "Leave blank to use the global Free label."
+    },
+    {
+      "type": "text",
+      "id": "card_3_button_label",
+      "label": "Button label",
+      "info": "Leave blank to use the global button label."
+    },
+    {
+      "type": "range",
+      "id": "card_3_pack_total",
+      "label": "Bundle total quantity",
+      "info": "Set the same total quantity used by the matching bundle-selector-lum option.",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "card_3_value_override",
+      "label": "Value override",
+      "info": "Optional. Example: $129. Leave blank to calculate gift compare-at + BSL save automatically."
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Section heading color",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "plan_title_color",
+      "label": "Plan title color",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Gift title color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#F8F8F8"
+    },
+    {
+      "type": "color",
+      "id": "featured_card_bg",
+      "label": "Featured card background",
+      "default": "#FFD34E"
+    },
+    {
+      "type": "color",
+      "id": "price_text_color",
+      "label": "Price text color",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "free_text_color",
+      "label": "Free text color",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "featured_price_text_color",
+      "label": "Featured price text color",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "featured_free_text_color",
+      "label": "Featured Free text color",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "price_badge_bg",
+      "label": "Free badge background",
+      "default": "#FFD34E"
+    },
+    {
+      "type": "color",
+      "id": "price_badge_color",
+      "label": "Free badge text",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "featured_price_badge_bg",
+      "label": "Featured free badge background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "featured_price_badge_color",
+      "label": "Featured free badge text",
+      "default": "#6F1020"
+    },
+    {
+      "type": "range",
+      "id": "featured_price_badge_bg_opacity",
+      "label": "Featured free badge background opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "featured_badge_bg",
+      "label": "Featured badge background",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "featured_badge_color",
+      "label": "Featured badge text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Featured button background",
+      "default": "#B32647"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Featured button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Featured button hover background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_color",
+      "label": "Featured button hover text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_bg",
+      "label": "Button background",
+      "default": "#FBE4E8"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_color",
+      "label": "Button text",
+      "default": "#6F1020"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_bg",
+      "label": "Button hover background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "button_secondary_hover_color",
+      "label": "Button hover text",
+      "default": "#FFFFFF"
+    },
+
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container max width",
+      "min": 900,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1380
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Cards gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "grid_gap_mobile",
+      "label": "Cards gap mobile",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_min_height",
+      "label": "Card minimum height",
+      "min": 350,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "card_min_height_mobile",
+      "label": "Card minimum height mobile",
+      "min": 300,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 480
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "card_radius_mobile",
+      "label": "Card radius mobile",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+
+    {
+      "type": "header",
+      "content": "Section heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 90,
+      "step": 1,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading size mobile",
+      "min": 20,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 80,
+      "max": 150,
+      "step": 1,
+      "unit": "%",
+      "default": 98
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Heading max width",
+      "min": 280,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 520
+    },
+    {
+      "type": "range",
+      "id": "heading_bottom_spacing",
+      "label": "Heading bottom spacing",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "heading_bottom_spacing_mobile",
+      "label": "Heading bottom spacing mobile",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "Card spacing"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "label": "Card top padding",
+      "min": 20,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 68
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x",
+      "label": "Card horizontal padding",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "label": "Card bottom padding",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top_mobile",
+      "label": "Card top padding mobile",
+      "min": 20,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 62
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_mobile",
+      "label": "Card horizontal padding mobile",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom_mobile",
+      "label": "Card bottom padding mobile",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+
+    {
+      "type": "header",
+      "content": "Plan title"
+    },
+    {
+      "type": "range",
+      "id": "plan_title_size",
+      "label": "Plan title size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 31
+    },
+    {
+      "type": "range",
+      "id": "plan_title_size_mobile",
+      "label": "Plan title size mobile",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "plan_title_line_height",
+      "label": "Plan title line height",
+      "min": 90,
+      "max": 160,
+      "step": 1,
+      "unit": "%",
+      "default": 105
+    },
+    {
+      "type": "range",
+      "id": "plan_title_bottom_spacing",
+      "label": "Space below plan title",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+
+    {
+      "type": "header",
+      "content": "Gift title"
+    },
+    {
+      "type": "range",
+      "id": "gift_title_size",
+      "label": "Gift title size",
+      "min": 10,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "gift_title_size_mobile",
+      "label": "Gift title size mobile",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "gift_title_line_height",
+      "label": "Gift title line height",
+      "min": 100,
+      "max": 180,
+      "step": 1,
+      "unit": "%",
+      "default": 130
+    },
+
+    {
+      "type": "header",
+      "content": "Free value badge"
+    },
+    {
+      "type": "range",
+      "id": "value_top_spacing",
+      "label": "Space above badge",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "value_font_size",
+      "label": "Badge font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "value_font_size_mobile",
+      "label": "Badge font size mobile",
+      "min": 10,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "value_gap",
+      "label": "Price / Free gap",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "value_padding_y",
+      "label": "Badge vertical padding",
+      "min": 2,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "value_padding_x",
+      "label": "Badge horizontal padding",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+
+    {
+      "type": "header",
+      "content": "Featured badge"
+    },
+    {
+      "type": "range",
+      "id": "featured_badge_top",
+      "label": "Badge top position",
+      "min": 5,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "featured_badge_font_size",
+      "label": "Badge font size",
+      "min": 9,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "featured_badge_padding_y",
+      "label": "Badge vertical padding",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "featured_badge_padding_x",
+      "label": "Badge horizontal padding",
+      "min": 4,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+
+    {
+      "type": "header",
+      "content": "Product image"
+    },
+    {
+      "type": "range",
+      "id": "media_min_height",
+      "label": "Media minimum height",
+      "min": 100,
+      "max": 450,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "media_min_height_mobile",
+      "label": "Media minimum height mobile",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 220
+    },
+    {
+      "type": "range",
+      "id": "media_padding_top",
+      "label": "Space above image",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "media_padding_bottom",
+      "label": "Space below image",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "image_max_height",
+      "label": "Image max height",
+      "min": 80,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "image_max_height_mobile",
+      "label": "Image max height mobile",
+      "min": 80,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "default": 210
+    },
+
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "label": "Button font size mobile",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_min_height",
+      "label": "Button minimum height",
+      "min": 32,
+      "max": 70,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "button_gap",
+      "label": "Text / arrow gap",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y",
+      "label": "Button vertical padding",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x",
+      "label": "Button horizontal padding",
+      "min": 10,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "button_arrow_size",
+      "label": "Arrow size",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "plan_scroll_offset",
+      "label": "Plan scroll offset",
+      "info": "Extra top space for sticky headers when scrolling to the bundle selector.",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Subscription gifts"
+    }
+  ]
+}
+{% endschema %}
