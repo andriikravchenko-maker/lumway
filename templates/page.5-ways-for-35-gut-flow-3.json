@@ -1008,9 +1008,9 @@
       "blocks": {
         "heading_yR93An": {
           "type": "heading",
-          "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+          "name": "How Gut Flow Supports Healthy Weight Loss",
           "settings": {
-            "text": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+            "text": "How Gut Flow Supports Healthy Weight Loss",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -1571,12 +1571,12 @@
       "settings": {
         "heading": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For",
         "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users.</p>",
-        "background_color": "#F8E6EB",
+        "background_color": "#f8e6eb",
         "heading_color": "#111111",
-        "card_background": "#5B0D1E",
-        "card_text_color": "#FFFFFF",
-        "progress_track_color": "#8D2B40",
-        "progress_color": "#FCE5EB",
+        "card_background": "#5b0d1e",
+        "card_text_color": "#ffffff",
+        "progress_track_color": "#8d2b40",
+        "progress_color": "#fce5eb",
         "footnote_color": "#858585",
         "heading_size": 40,
         "heading_size_mobile": 26,
