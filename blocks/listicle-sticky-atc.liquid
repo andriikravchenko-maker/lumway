@@ -109,6 +109,10 @@
   text-align: left;
 }
 
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee{
+   line-height: initial;
+  }
+
 @media (max-width: 768px) {
   .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
     align-items: center;
@@ -119,7 +123,7 @@
     padding-inline: 4px;
 
     font-size: {{ block.settings.guarantee_font_size_mobile }}px;
-    line-height: initial;
+    line-height: 1.2;
   }
 
   .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
