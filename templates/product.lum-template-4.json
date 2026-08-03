@@ -328,7 +328,6 @@
     },
     "subscription_gifts_showcase_9qFpeT": {
       "type": "subscription-gifts-showcase",
-      "disabled": true,
       "name": "Subscription gifts",
       "settings": {
         "product": "gut-flow-gummies",
