@@ -237,7 +237,7 @@
         "show_stars": true,
         "review_text": "15K+ Positive Reviews",
         "review_font_size": 18,
-        "mobile_review_font_size": 24,
+        "mobile_review_font_size": 14,
         "review_font_weight": "400",
         "review_line_height": 15,
         "star_size": 18,
