@@ -2031,15 +2031,15 @@
             "visual_mode": "full_image",
             "icon": "shopify://shop_images/non-gmo.webp",
             "custom_svg": "",
-            "circle_background": "#6F1020",
-            "circle_border_color": "#6F1020",
+            "circle_background": "#6f1020",
+            "circle_border_color": "#6f1020",
             "icon_size_desktop": 62,
             "icon_size_mobile": 62,
             "full_image_width_desktop": 120,
             "full_image_width_mobile": 92,
             "full_image_radius": 0,
             "title": "Non\nGMO",
-            "text_color": "#6F1020"
+            "text_color": "#6f1020"
           }
         },
         "item_epbhiX": {
@@ -2049,31 +2049,33 @@
             "visual_mode": "full_image",
             "icon": "shopify://shop_images/no-sugar.webp",
             "custom_svg": "",
-            "circle_background": "#6F1020",
-            "circle_border_color": "#6F1020",
+            "circle_background": "#6f1020",
+            "circle_border_color": "#6f1020",
             "icon_size_desktop": 62,
             "icon_size_mobile": 62,
             "full_image_width_desktop": 120,
             "full_image_width_mobile": 92,
             "full_image_radius": 0,
             "title": "No\nsugar",
-            "text_color": "#6F1020"
+            "text_color": "#6f1020"
           }
         },
         "item_FCLdg7": {
           "type": "item",
+          "name": "Vegetarian friendly",
           "settings": {
             "visual_mode": "full_image",
+            "icon": "shopify://shop_images/Vegetarian_friendly.webp",
             "custom_svg": "",
-            "circle_background": "#6F1020",
-            "circle_border_color": "#6F1020",
+            "circle_background": "#6f1020",
+            "circle_border_color": "#6f1020",
             "icon_size_desktop": 62,
             "icon_size_mobile": 62,
             "full_image_width_desktop": 120,
             "full_image_width_mobile": 92,
             "full_image_radius": 0,
             "title": "Vegetarian\nfriendly",
-            "text_color": "#6F1020"
+            "text_color": "#6f1020"
           }
         },
         "item_BD8njD": {
@@ -2081,15 +2083,15 @@
           "settings": {
             "visual_mode": "full_image",
             "custom_svg": "",
-            "circle_background": "#6F1020",
-            "circle_border_color": "#6F1020",
+            "circle_background": "#6f1020",
+            "circle_border_color": "#6f1020",
             "icon_size_desktop": 62,
             "icon_size_mobile": 62,
             "full_image_width_desktop": 120,
             "full_image_width_mobile": 92,
             "full_image_radius": 0,
             "title": "Gluten\nfree",
-            "text_color": "#6F1020"
+            "text_color": "#6f1020"
           }
         },
         "item_drQtbT": {
@@ -2097,15 +2099,15 @@
           "settings": {
             "visual_mode": "full_image",
             "custom_svg": "",
-            "circle_background": "#6F1020",
-            "circle_border_color": "#6F1020",
+            "circle_background": "#6f1020",
+            "circle_border_color": "#6f1020",
             "icon_size_desktop": 62,
             "icon_size_mobile": 62,
             "full_image_width_desktop": 120,
             "full_image_width_mobile": 92,
             "full_image_radius": 0,
             "title": "Free from\nallergens",
-            "text_color": "#6F1020"
+            "text_color": "#6f1020"
           }
         },
         "item_Fz6dfz": {
@@ -2113,15 +2115,15 @@
           "settings": {
             "visual_mode": "full_image",
             "custom_svg": "",
-            "circle_background": "#6F1020",
-            "circle_border_color": "#6F1020",
+            "circle_background": "#6f1020",
+            "circle_border_color": "#6f1020",
             "icon_size_desktop": 62,
             "icon_size_mobile": 62,
             "full_image_width_desktop": 120,
             "full_image_width_mobile": 92,
             "full_image_radius": 0,
             "title": "cGMP\nCertified",
-            "text_color": "#6F1020"
+            "text_color": "#6f1020"
           }
         }
       },
