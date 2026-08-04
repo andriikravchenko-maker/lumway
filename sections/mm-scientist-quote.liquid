@@ -1,0 +1,353 @@
+{% comment %}
+Section: MM Scientist Quote Card
+{% endcomment %}
+
+{%- liquid
+    assign section_class = 'mm-scientist-quote-' | append: section.id
+-%}
+
+{%- if section.settings.show_section -%}
+    <section class="{{ section_class }} mm-scientist-quote" data-section-id="{{ section.id }}">
+        <div class="mm-scientist-quote__outer">
+            <div class="mm-scientist-quote__card">
+                <div class="mm-scientist-quote__content">
+                    <div class="mm-scientist-quote__identity">
+                        {%- if section.settings.image != blank -%}
+                            <div class="mm-scientist-quote__mobile-image">
+                                {{
+                                section.settings.image
+                                | image_url: width: 400
+                                | image_tag:
+                                loading: 'lazy',
+                                class: 'mm-scientist-quote__portrait-image',
+                                widths: '100, 140, 180, 220, 300, 400',
+                                sizes: '90px',
+                                alt: section.settings.name
+                                }}
+                            </div>
+                        {%- endif -%}
+
+                        <div class="mm-scientist-quote__identity-text">
+                            {%- if section.settings.name != blank -%}
+                            <{{ section.settings.name_tag }} class="mm-scientist-quote__name">{{ section.settings.name }}</{{ section.settings.name_tag }}>
+                        {%- endif -%}
+
+                        {%- if section.settings.role != blank -%}
+                            <div class="mm-scientist-quote__role">{{ section.settings.role }}</div>
+                        {%- endif -%}
+                    </div>
+                </div>
+
+                {%- if section.settings.show_divider -%}
+                    <div class="mm-scientist-quote__divider" aria-hidden="true"></div>
+                {%- endif -%}
+
+                {%- if section.settings.quote != blank -%}
+                    <blockquote class="mm-scientist-quote__quote">{{ section.settings.quote }}</blockquote>
+                {%- endif -%}
+            </div>
+
+            {%- if section.settings.image != blank -%}
+                <div class="mm-scientist-quote__desktop-image">
+                    {{
+                    section.settings.image
+                    | image_url: width: 900
+                    | image_tag:
+                    loading: 'lazy',
+                    class: 'mm-scientist-quote__portrait-image',
+                    widths: '300, 400, 500, 600, 700, 800, 900',
+                    sizes: '400px',
+                    alt: section.settings.name
+                    }}
+                </div>
+            {%- endif -%}
+        </div>
+        </div>
+    </section>
+{%- endif -%}
+
+{% style %}
+    .{{ section_class }}{
+    background:{{ section.settings.section_background }} !important;
+    background-color:{{ section.settings.section_background }} !important;
+    padding:{{ section.settings.padding_top_desktop }}px {{ section.settings.padding_right_desktop }}px {{ section.settings.padding_bottom_desktop }}px {{ section.settings.padding_left_desktop }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__outer{
+    width:100%;
+    max-width:{{ section.settings.max_width }}px;
+    margin:0 auto;
+    position:relative;
+    }
+
+    /*
+    DESKTOP LAYOUT:
+    The card deliberately stops before the right edge of the portrait.
+    Only the configured "portrait overlap" enters the pink card.
+    This prevents the pink background from appearing behind the portrait
+    on its right side and matches the reference composition.
+    */
+    .{{ section_class }} .mm-scientist-quote__card{
+    position:relative;
+    width:calc(100% - ({{ section.settings.image_size_desktop }}px - {{ section.settings.image_overlap_desktop }}px));
+    min-height:{{ section.settings.card_min_height_desktop }}px;
+    padding:{{ section.settings.card_padding_top_desktop }}px {{ section.settings.card_padding_right_desktop }}px {{ section.settings.card_padding_bottom_desktop }}px {{ section.settings.card_padding_left_desktop }}px;
+    background:{{ section.settings.card_background }} !important;
+    background-color:{{ section.settings.card_background }} !important;
+    border-radius:{{ section.settings.card_radius_desktop }}px;
+    box-sizing:border-box;
+    overflow:visible;
+    }
+
+    .{{ section_class }} .mm-scientist-quote__content{
+    width:100%;
+    max-width:{{ section.settings.content_max_width_desktop }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__identity{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    }
+    .{{ section_class }} .mm-scientist-quote__name{
+    margin:0 0 {{ section.settings.name_margin_bottom_desktop }}px !important;
+    padding:0 !important;
+    color:{{ section.settings.name_color }} !important;
+    -webkit-text-fill-color:{{ section.settings.name_color }} !important;
+    font-size:{{ section.settings.name_size_desktop }}px;
+    font-weight:{{ section.settings.name_weight }};
+    line-height:{{ section.settings.name_line_height }};
+    letter-spacing:{{ section.settings.name_letter_spacing }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__role{
+    margin:0 !important;
+    padding:0 !important;
+    color:{{ section.settings.role_color }} !important;
+    -webkit-text-fill-color:{{ section.settings.role_color }} !important;
+    font-size:{{ section.settings.role_size_desktop }}px;
+    font-weight:{{ section.settings.role_weight }};
+    line-height:{{ section.settings.role_line_height }};
+    }
+    .{{ section_class }} .mm-scientist-quote__divider{
+    display:block !important;
+    width:100% !important;
+    height:0 !important;
+    min-height:0 !important;
+    margin:{{ section.settings.divider_margin_top_desktop }}px 0 {{ section.settings.divider_margin_bottom_desktop }}px !important;
+    padding:0 !important;
+    border:0 !important;
+    border-top:{{ section.settings.divider_height }}px solid {{ section.settings.divider_color }} !important;
+    border-top-color:{{ section.settings.divider_color }} !important;
+    background:none !important;
+    box-sizing:border-box !important;
+    flex:0 0 auto !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    }
+    .{{ section_class }} .mm-scientist-quote__quote{
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    color:{{ section.settings.quote_color }} !important;
+    -webkit-text-fill-color:{{ section.settings.quote_color }} !important;
+    font-size:{{ section.settings.quote_size_desktop }}px;
+    font-weight:{{ section.settings.quote_weight }};
+    font-style:{% if section.settings.quote_italic %}italic{% else %}normal{% endif %};
+    line-height:{{ section.settings.quote_line_height }};
+    }
+
+    /* COLOR SAFETY
+    Some Shopify themes apply colors to headings, divs, blockquotes and nested text
+    with higher-specificity selectors or !important. Force section settings to win. */
+    .{{ section_class }} .mm-scientist-quote__name,
+    .{{ section_class }} .mm-scientist-quote__name *{
+    background-image:none !important;
+    background-clip:border-box !important;
+    -webkit-background-clip:border-box !important;
+    color:{{ section.settings.name_color }} !important;
+    -webkit-text-fill-color:{{ section.settings.name_color }} !important;
+    }
+
+    .{{ section_class }} .mm-scientist-quote__role,
+    .{{ section_class }} .mm-scientist-quote__role *{
+    background-image:none !important;
+    background-clip:border-box !important;
+    -webkit-background-clip:border-box !important;
+    color:{{ section.settings.role_color }} !important;
+    -webkit-text-fill-color:{{ section.settings.role_color }} !important;
+    }
+
+    .{{ section_class }} .mm-scientist-quote__quote,
+    .{{ section_class }} .mm-scientist-quote__quote *{
+    background-image:none !important;
+    background-clip:border-box !important;
+    -webkit-background-clip:border-box !important;
+    color:{{ section.settings.quote_color }} !important;
+    -webkit-text-fill-color:{{ section.settings.quote_color }} !important;
+    }
+
+    .{{ section_class }} .mm-scientist-quote__divider{
+    border-color:{{ section.settings.divider_color }} !important;
+    }
+
+    .{{ section_class }} .mm-scientist-quote__desktop-image{
+    position:absolute;
+    width:{{ section.settings.image_size_desktop }}px;
+    height:{{ section.settings.image_size_desktop }}px;
+    left:calc(100% - {{ section.settings.image_overlap_desktop }}px);
+    top:50%;
+    transform:translateY(-50%);
+    border-radius:50%;
+    overflow:hidden;
+    z-index:2;
+    background:transparent;
+    }
+    .{{ section_class }} .mm-scientist-quote__portrait-image{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:{{ section.settings.image_fit }};
+    object-position:{{ section.settings.image_position }};
+    }
+    .{{ section_class }} .mm-scientist-quote__mobile-image{display:none;}
+
+    @media(max-width:749px){
+    .{{ section_class }}{
+    padding:{{ section.settings.padding_top_mobile }}px {{ section.settings.padding_right_mobile }}px {{ section.settings.padding_bottom_mobile }}px {{ section.settings.padding_left_mobile }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__card{
+    width:100%;
+    min-height:0;
+    padding:{{ section.settings.card_padding_top_mobile }}px {{ section.settings.card_padding_right_mobile }}px {{ section.settings.card_padding_bottom_mobile }}px {{ section.settings.card_padding_left_mobile }}px;
+    border-radius:{{ section.settings.card_radius_mobile }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__content{
+    width:100%;
+    max-width:none;
+    }
+    .{{ section_class }} .mm-scientist-quote__desktop-image{display:none;}
+    .{{ section_class }} .mm-scientist-quote__mobile-image{
+    display:block;
+    flex:0 0 {{ section.settings.image_size_mobile }}px;
+    width:{{ section.settings.image_size_mobile }}px;
+    height:{{ section.settings.image_size_mobile }}px;
+    border-radius:50%;
+    overflow:hidden;
+    }
+    .{{ section_class }} .mm-scientist-quote__identity{
+    gap:{{ section.settings.identity_gap_mobile }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__name{
+    margin-bottom:{{ section.settings.name_margin_bottom_mobile }}px;
+    font-size:{{ section.settings.name_size_mobile }}px;
+    line-height:{{ section.settings.name_line_height_mobile }};
+    }
+    .{{ section_class }} .mm-scientist-quote__role{
+    font-size:{{ section.settings.role_size_mobile }}px;
+    line-height:{{ section.settings.role_line_height_mobile }};
+    }
+    .{{ section_class }} .mm-scientist-quote__divider{
+    margin:{{ section.settings.divider_margin_top_mobile }}px 0 {{ section.settings.divider_margin_bottom_mobile }}px;
+    }
+    .{{ section_class }} .mm-scientist-quote__quote{
+    font-size:{{ section.settings.quote_size_mobile }}px;
+    line-height:{{ section.settings.quote_line_height_mobile }};
+    }
+    }
+{% endstyle %}
+
+{% schema %}
+{
+  "name":"MM Scientist Quote",
+  "settings":[
+    {"type":"checkbox","id":"show_section","label":"Show section","default":true},
+    {"type":"header","content":"Content"},
+    {"type":"text","id":"name","label":"Name","default":"Emily Carter"},
+    {"type":"select","id":"name_tag","label":"Name HTML tag","options":[{"value":"h2","label":"H2"},{"value":"h3","label":"H3"},{"value":"div","label":"DIV"}],"default":"h2"},
+    {"type":"text","id":"role","label":"Role / subtitle","default":"Lumway Chief Nutritional Scientist"},
+    {"type":"textarea","id":"quote","label":"Quote","default":"“We’re on a Mission To Help More Women Feel Comfortable, Regular and Confident in Their Bodies”"},
+    {"type":"image_picker","id":"image","label":"Portrait image"},
+
+    {"type":"header","content":"Colors"},
+    {"type":"color","id":"section_background","label":"Section background","default":"#FFFFFF"},
+    {"type":"color","id":"card_background","label":"Card background","default":"#FBF1F4"},
+    {"type":"color","id":"name_color","label":"Name color","default":"#6F1020"},
+    {"type":"color","id":"role_color","label":"Role color","default":"#111111"},
+    {"type":"color","id":"quote_color","label":"Quote color","default":"#6F1020"},
+    {"type":"color","id":"divider_color","label":"Divider color","default":"#C8BCC0"},
+
+    {"type":"header","content":"Desktop layout"},
+    {"type":"range","id":"max_width","label":"Max width","min":800,"max":1800,"step":20,"unit":"px","default":1440},
+    {"type":"range","id":"card_min_height_desktop","label":"Card minimum height","min":220,"max":520,"step":10,"unit":"px","default":320},
+    {"type":"range","id":"content_max_width_desktop","label":"Content max width","min":500,"max":1200,"step":10,"unit":"px","default":980},
+    {"type":"range","id":"card_radius_desktop","label":"Card radius","min":0,"max":60,"step":1,"unit":"px","default":20},
+
+    {"type":"header","content":"Desktop card padding"},
+    {"type":"range","id":"card_padding_top_desktop","label":"Top","min":0,"max":120,"step":4,"unit":"px","default":52},
+    {"type":"range","id":"card_padding_right_desktop","label":"Right","min":0,"max":300,"step":4,"unit":"px","default":40},
+    {"type":"range","id":"card_padding_bottom_desktop","label":"Bottom","min":0,"max":120,"step":4,"unit":"px","default":44},
+    {"type":"range","id":"card_padding_left_desktop","label":"Left","min":0,"max":120,"step":4,"unit":"px","default":40},
+
+    {"type":"header","content":"Portrait"},
+    {"type":"range","id":"image_size_desktop","label":"Portrait size desktop","min":200,"max":520,"step":4,"unit":"px","default":400},
+    {"type":"range","id":"image_overlap_desktop","label":"Portrait overlap into card","min":40,"max":200,"step":4,"unit":"px","default":100},
+    {"type":"range","id":"image_size_mobile","label":"Portrait size mobile","min":50,"max":140,"step":2,"unit":"px","default":84},
+    {"type":"select","id":"image_fit","label":"Image fit","options":[{"value":"cover","label":"Cover"},{"value":"contain","label":"Contain"}],"default":"cover"},
+    {"type":"select","id":"image_position","label":"Image position","options":[{"value":"center","label":"Center"},{"value":"top","label":"Top"},{"value":"bottom","label":"Bottom"},{"value":"left","label":"Left"},{"value":"right","label":"Right"}],"default":"center"},
+
+    {"type":"header","content":"Name typography"},
+    {"type":"range","id":"name_size_desktop","label":"Name size desktop","min":20,"max":60,"step":1,"unit":"px","default":40},
+    {"type":"range","id":"name_size_mobile","label":"Name size mobile","min":16,"max":40,"step":1,"unit":"px","default":24},
+    {"type":"select","id":"name_weight","label":"Name weight","options":[{"value":"400","label":"400"},{"value":"500","label":"500"},{"value":"600","label":"600"},{"value":"700","label":"700"},{"value":"800","label":"800"}],"default":"700"},
+    {"type":"range","id":"name_line_height","label":"Name line height desktop","min":0.8,"max":2,"step":0.1,"default":1.1},
+    {"type":"range","id":"name_line_height_mobile","label":"Name line height mobile","min":0.8,"max":2,"step":0.1,"default":1.1},
+    {"type":"range","id":"name_letter_spacing","label":"Name letter spacing","min":-3,"max":3,"step":0.1,"unit":"px","default":-0.5},
+    {"type":"range","id":"name_margin_bottom_desktop","label":"Name bottom gap desktop","min":0,"max":30,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"name_margin_bottom_mobile","label":"Name bottom gap mobile","min":0,"max":20,"step":1,"unit":"px","default":6},
+
+    {"type":"header","content":"Role typography"},
+    {"type":"range","id":"role_size_desktop","label":"Role size desktop","min":14,"max":36,"step":1,"unit":"px","default":24},
+    {"type":"range","id":"role_size_mobile","label":"Role size mobile","min":12,"max":24,"step":1,"unit":"px","default":14},
+    {"type":"select","id":"role_weight","label":"Role weight","options":[{"value":"400","label":"400"},{"value":"500","label":"500"},{"value":"600","label":"600"}],"default":"400"},
+    {"type":"range","id":"role_line_height","label":"Role line height desktop","min":0.8,"max":2,"step":0.1,"default":1.2},
+    {"type":"range","id":"role_line_height_mobile","label":"Role line height mobile","min":0.8,"max":2,"step":0.1,"default":1.2},
+
+    {"type":"header","content":"Quote typography"},
+    {"type":"range","id":"quote_size_desktop","label":"Quote size desktop","min":18,"max":44,"step":1,"unit":"px","default":28},
+    {"type":"range","id":"quote_size_mobile","label":"Quote size mobile","min":14,"max":28,"step":1,"unit":"px","default":18},
+    {"type":"select","id":"quote_weight","label":"Quote weight","options":[{"value":"400","label":"400"},{"value":"500","label":"500"},{"value":"600","label":"600"},{"value":"700","label":"700"}],"default":"600"},
+    {"type":"checkbox","id":"quote_italic","label":"Italic quote","default":true},
+    {"type":"range","id":"quote_line_height","label":"Quote line height desktop","min":0.8,"max":2,"step":0.1,"default":1.2},
+    {"type":"range","id":"quote_line_height_mobile","label":"Quote line height mobile","min":0.8,"max":2,"step":0.1,"default":1.2},
+
+    {"type":"header","content":"Divider"},
+    {"type":"checkbox","id":"show_divider","label":"Show divider","default":true},
+    {"type":"range","id":"divider_height","label":"Divider height","min":1,"max":4,"step":1,"unit":"px","default":1},
+    {"type":"range","id":"divider_margin_top_desktop","label":"Divider top gap desktop","min":0,"max":60,"step":2,"unit":"px","default":18},
+    {"type":"range","id":"divider_margin_bottom_desktop","label":"Divider bottom gap desktop","min":0,"max":60,"step":2,"unit":"px","default":40},
+    {"type":"range","id":"divider_margin_top_mobile","label":"Divider top gap mobile","min":0,"max":40,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"divider_margin_bottom_mobile","label":"Divider bottom gap mobile","min":0,"max":40,"step":2,"unit":"px","default":20},
+
+    {"type":"header","content":"Mobile layout"},
+    {"type":"range","id":"identity_gap_mobile","label":"Portrait to text gap","min":4,"max":30,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"card_radius_mobile","label":"Card radius mobile","min":0,"max":40,"step":1,"unit":"px","default":16},
+
+    {"type":"header","content":"Mobile card padding"},
+    {"type":"range","id":"card_padding_top_mobile","label":"Top","min":0,"max":60,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"card_padding_right_mobile","label":"Right","min":0,"max":60,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"card_padding_bottom_mobile","label":"Bottom","min":0,"max":60,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"card_padding_left_mobile","label":"Left","min":0,"max":60,"step":2,"unit":"px","default":16},
+
+    {"type":"header","content":"Section spacing desktop"},
+    {"type":"range","id":"padding_top_desktop","label":"Top","min":0,"max":160,"step":4,"unit":"px","default":60},
+    {"type":"range","id":"padding_right_desktop","label":"Right","min":0,"max":160,"step":4,"unit":"px","default":24},
+    {"type":"range","id":"padding_bottom_desktop","label":"Bottom","min":0,"max":160,"step":4,"unit":"px","default":60},
+    {"type":"range","id":"padding_left_desktop","label":"Left","min":0,"max":160,"step":4,"unit":"px","default":24},
+
+    {"type":"header","content":"Section spacing mobile"},
+    {"type":"range","id":"padding_top_mobile","label":"Top","min":0,"max":100,"step":2,"unit":"px","default":32},
+    {"type":"range","id":"padding_right_mobile","label":"Right","min":0,"max":60,"step":2,"unit":"px","default":16},
+    {"type":"range","id":"padding_bottom_mobile","label":"Bottom","min":0,"max":100,"step":2,"unit":"px","default":32},
+    {"type":"range","id":"padding_left_mobile","label":"Left","min":0,"max":60,"step":2,"unit":"px","default":16}
+  ],
+  "presets":[{"name":"MM Scientist Quote"}]
+}
+{% endschema %}
