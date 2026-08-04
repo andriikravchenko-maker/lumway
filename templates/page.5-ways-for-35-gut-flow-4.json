@@ -1895,9 +1895,8 @@
       "custom_css": [
         "#mm-ustom-benefits-section-wrapper {background: white !important;}",
         ".custom-benefits-container {align-items: flex-start !important;}",
-        ".custom-subtitle {text-align: left;}",
         ".custom-benefits-list {padding-left: 0 !important;}",
-        "@media screen and (max-width: 600px) {.product-benefits-heading {text-align: center; } .custom-subtitle {text-align: center; } .custom-benefits-list {padding: 0 !important; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-section-wrapper {padding-top: 20px; }}"
+        "@media screen and (max-width: 600px) {.custom-benefits-list {padding: 0 !important; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-section-wrapper {padding-top: 20px; }}"
       ],
       "name": "Product Benefits",
       "settings": {
