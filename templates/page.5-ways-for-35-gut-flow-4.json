@@ -2384,7 +2384,7 @@
       "settings": {
         "use_theme_colors": false,
         "anchor_id": "reviews",
-        "section_width": 1000,
+        "section_width": 950,
         "center_cards_desktop": true,
         "center_cards_mobile": false,
         "section_background": "#f9f9f9",
