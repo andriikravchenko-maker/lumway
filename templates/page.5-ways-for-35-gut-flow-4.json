@@ -2080,8 +2080,10 @@
         },
         "item_BD8njD": {
           "type": "item",
+          "name": "Gluten free",
           "settings": {
             "visual_mode": "full_image",
+            "icon": "shopify://shop_images/Gluten_free.webp",
             "custom_svg": "",
             "circle_background": "#6f1020",
             "circle_border_color": "#6f1020",
