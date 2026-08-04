@@ -1305,211 +1305,6 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "get_harmony_feature_v2_hVXahQ": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_yR93An": {
-          "type": "heading",
-          "name": "How Gut Flow Supports Healthy Weight Loss",
-          "settings": {
-            "text": "How Gut Flow Supports Healthy Weight Loss",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 24
-          }
-        },
-        "text_rDbwUJ": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Gut Flow isn’t designed to burn fat or replace a balanced diet. Its role is more foundational.<br/><br/>Its prebiotic inulin fiber helps support:</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1,
-            "margin_bottom": 24
-          }
-        },
-        "highlight_checklist_GLQmfP": {
-          "type": "highlight_checklist",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "items": "Daily fiber intake\nHealthy bowel regularity\nBeneficial gut bacteria\nDigestive comfort\nA feeling of fullness as part of a balanced diet\nA routine that may feel easier to maintain consistently",
-            "background_color": "#f8e3e8",
-            "border_radius": 20,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.2,
-            "icon_size": 24,
-            "icon_size_mobile": 20,
-            "icon_gap": 8,
-            "row_gap": 4,
-            "padding_vertical": 16,
-            "padding_horizontal": 16,
-            "padding_vertical_mobile": 16,
-            "padding_horizontal_mobile": 16,
-            "margin_bottom": 24
-          }
-        },
-        "text_yVTyiA": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.<br/>That doesn’t make Gut Flow a shortcut to weight loss.<br/>It makes it a practical part of a healthier routine – especially for people who struggle to get enough fiber consistently.</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 24
-          }
-        }
-      },
-      "block_order": [
-        "heading_yR93An",
-        "text_rDbwUJ",
-        "highlight_checklist_GLQmfP",
-        "text_yVTyiA"
-      ],
-      "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 40,
-        "title_gap": 0,
-        "column_gap": 20,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "How Gut Flow Supports Healthy Weight Loss",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#111111",
-        "image": "shopify://shop_images/Why_Gut_Flow_Fits_Perfect_Into_a_Healthy_Weight-Loss_Journey.webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#111111",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
-      }
-    },
-    "get_harmony_feature_v2_QcAKNJ": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_yFMGAf": {
-          "type": "heading",
-          "name": "My Jeans Didn’t Need a Smaller Body – I Needed to Feel Comfortable in Mine",
-          "settings": {
-            "text": "My Jeans Didn’t Need a Smaller Body – I Needed to Feel Comfortable in Mine",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 24
-          }
-        },
-        "text_KYVE8X": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>I still enjoy dinner out. I still eat dessert. My meals aren’t perfect every day.</strong><br/>But I no longer respond to every bloated evening by punishing myself with another restrictive diet.<br/><br/>I understand the difference between gaining body fat and temporarily feeling heavy because my digestion is off. And I know that <strong>feeling better</strong> in my clothes <strong>isn’t always about becoming smaller. </strong><br/><br/>Sometimes it begins with supporting the body you already have.</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 24
-          }
-        },
-        "quote_callout_789Kmg": {
-          "type": "quote_callout",
-          "settings": {
-            "text": "<p><strong>That’s why Gut Flow became part of my daily routine – not as a weight-loss shortcut, but as simple support for a gut that had been asking for more fiber all along.</strong></p>",
-            "background_color": "#f9f9f9",
-            "text_color": "#5b0d1e",
-            "border_color": "#5b0d1e",
-            "border_width": 2,
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "700",
-            "line_height": 1.5,
-            "padding_vertical": 4,
-            "padding_horizontal": 16,
-            "padding_vertical_mobile": 4,
-            "padding_horizontal_mobile": 16,
-            "margin_bottom": 0
-          }
-        }
-      },
-      "block_order": [
-        "heading_yFMGAf",
-        "text_KYVE8X",
-        "quote_callout_789Kmg"
-      ],
-      "name": "My Jeans Didn’t Need a Smaller Body. I Needed to Feel Comfortable in Mine.",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 40,
-        "title_gap": 0,
-        "column_gap": 20,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "My Jeans Didn’t Need a Smaller Body – I Needed to Feel Comfortable in Mine",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#111111",
-        "image": "shopify://shop_images/My_Jeans_Didn_t_Need_a_Smaller_Body._I_Needed_to_Feel_Comfortable_in_Mine..webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#111111",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
-      }
-    },
     "mm_heading_banner_lum_H3xaWF": {
       "type": "mm-heading-banner-lum",
       "name": "Heading banner Lum",
@@ -2721,6 +2516,76 @@
         "rating_summary_border_radius": 50
       }
     },
+    "mm_scientist_quote_GnW77f": {
+      "type": "mm-scientist-quote",
+      "name": "MM Scientist Quote",
+      "settings": {
+        "show_section": true,
+        "name": "Emily Carter",
+        "name_tag": "h2",
+        "role": "Lumway Chief Nutritional Scientist",
+        "quote": "“We’re on a Mission To Help More Women Feel Comfortable, Regular and Confident in Their Bodies”",
+        "image": "shopify://shop_images/Emily_Carter.webp",
+        "section_background": "#FFFFFF",
+        "card_background": "#FBF1F4",
+        "name_color": "#6F1020",
+        "role_color": "#111111",
+        "quote_color": "#6F1020",
+        "divider_color": "#C8BCC0",
+        "max_width": 1620,
+        "card_min_height_desktop": 320,
+        "content_max_width_desktop": 980,
+        "card_radius_desktop": 20,
+        "card_padding_top_desktop": 52,
+        "card_padding_right_desktop": 40,
+        "card_padding_bottom_desktop": 44,
+        "card_padding_left_desktop": 40,
+        "image_size_desktop": 400,
+        "image_overlap_desktop": 100,
+        "image_size_mobile": 84,
+        "image_fit": "cover",
+        "image_position": "center",
+        "name_size_desktop": 40,
+        "name_size_mobile": 24,
+        "name_weight": "700",
+        "name_line_height": 1.1,
+        "name_line_height_mobile": 1.1,
+        "name_letter_spacing": -0.5,
+        "name_margin_bottom_desktop": 12,
+        "name_margin_bottom_mobile": 6,
+        "role_size_desktop": 24,
+        "role_size_mobile": 14,
+        "role_weight": "400",
+        "role_line_height": 1.2,
+        "role_line_height_mobile": 1.2,
+        "quote_size_desktop": 28,
+        "quote_size_mobile": 18,
+        "quote_weight": "600",
+        "quote_italic": true,
+        "quote_line_height": 1.2,
+        "quote_line_height_mobile": 1.2,
+        "show_divider": true,
+        "divider_height": 1,
+        "divider_margin_top_desktop": 18,
+        "divider_margin_bottom_desktop": 40,
+        "divider_margin_top_mobile": 16,
+        "divider_margin_bottom_mobile": 20,
+        "identity_gap_mobile": 12,
+        "card_radius_mobile": 16,
+        "card_padding_top_mobile": 16,
+        "card_padding_right_mobile": 16,
+        "card_padding_bottom_mobile": 16,
+        "card_padding_left_mobile": 16,
+        "padding_top_desktop": 60,
+        "padding_right_desktop": 24,
+        "padding_bottom_desktop": 60,
+        "padding_left_desktop": 24,
+        "padding_top_mobile": 32,
+        "padding_right_mobile": 16,
+        "padding_bottom_mobile": 32,
+        "padding_left_mobile": 16
+      }
+    },
     "store_faq_73Kxey": {
       "type": "store-faq",
       "blocks": {
@@ -2866,8 +2731,6 @@
     "get_harmony_feature_v2_7yt7ni",
     "get_harmony_feature_v2_AkDTnE",
     "get_harmony_feature_v2_WwW9hw",
-    "get_harmony_feature_v2_hVXahQ",
-    "get_harmony_feature_v2_QcAKNJ",
     "mm_heading_banner_lum_H3xaWF",
     "listicle_sticky_only",
     "alternating_features_ktLx6Y",
@@ -2877,6 +2740,7 @@
     "mm_certifications_icons_kaJnmf",
     "product_details_lum_WFPgrJ",
     "customer_reviews_carousel_6W7Cht",
+    "mm_scientist_quote_GnW77f",
     "store_faq_73Kxey"
   ]
 }
