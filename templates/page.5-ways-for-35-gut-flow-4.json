@@ -2098,8 +2098,10 @@
         },
         "item_drQtbT": {
           "type": "item",
+          "name": "Free from allergens",
           "settings": {
             "visual_mode": "full_image",
+            "icon": "shopify://shop_images/Free_from_allergens.webp",
             "custom_svg": "",
             "circle_background": "#6f1020",
             "circle_border_color": "#6f1020",
