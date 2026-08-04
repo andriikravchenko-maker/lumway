@@ -2026,8 +2026,10 @@
       "blocks": {
         "item_7F8zdJ": {
           "type": "item",
+          "name": "Non GMO",
           "settings": {
             "visual_mode": "full_image",
+            "icon": "shopify://shop_images/non-gmo.webp",
             "custom_svg": "",
             "circle_background": "#6F1020",
             "circle_border_color": "#6F1020",
@@ -2042,8 +2044,10 @@
         },
         "item_epbhiX": {
           "type": "item",
+          "name": "No sugar",
           "settings": {
             "visual_mode": "full_image",
+            "icon": "shopify://shop_images/no-sugar.webp",
             "custom_svg": "",
             "circle_background": "#6F1020",
             "circle_border_color": "#6F1020",
