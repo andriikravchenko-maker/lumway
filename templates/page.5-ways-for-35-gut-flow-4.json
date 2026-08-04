@@ -421,9 +421,9 @@
       ],
       "name": "Gut Flow Survey Stats",
       "settings": {
-        "heading_accent": "",
-        "heading": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For",
-        "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users.</p>",
+        "heading_accent": "The Debloating, Regularity-Supporting",
+        "heading": "Daily Gummy Your Gut Has Been Waiting For",
+        "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users. Individual experiences may vary.</p>",
         "background_color": "#f8e6eb",
         "heading_color": "#111111",
         "heading_accent_color": "#6f1020",
