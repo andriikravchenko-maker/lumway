@@ -2380,6 +2380,9 @@
         "review_Cz3cP8",
         "review_LmYwag"
       ],
+      "custom_css": [
+        ".rating-summary-wrapper{display: none;}"
+      ],
       "name": "Customer Reviews",
       "settings": {
         "use_theme_colors": false,
