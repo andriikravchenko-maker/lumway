@@ -296,19 +296,19 @@
         "trust_font_weight": "400",
         "trust_line_height": 10,
         "trust_gap": 8,
-        "background_color": "#F9F9F9",
-        "content_background_color": "#F9F9F9",
+        "background_color": "#f9f9f9",
+        "content_background_color": "#f9f9f9",
         "heading_color": "#111111",
-        "heading_accent_color": "#5B0D1E",
+        "heading_accent_color": "#5b0d1e",
         "text_color": "#111111",
         "review_text_color": "#111111",
-        "review_stars_color": "#38B573",
-        "button_background": "#8D2B40",
+        "review_stars_color": "#38b573",
+        "button_background": "#8d2b40",
         "button_background_hover": "#111111",
         "button_text_color": "#ffffff",
         "button_border_color": "#982b47",
         "trust_text_color": "#111111",
-        "trust_icon_color": "#5B0D1E",
+        "trust_icon_color": "#5b0d1e",
         "padding_top": 0,
         "padding_bottom": 0,
         "content_padding_horizontal": 60,
@@ -381,6 +381,77 @@
         "button_letter_spacing": 0,
         "button_text_transform": "uppercase",
         "trust_font_family": "inherit"
+      }
+    },
+    "gut_flow_survey_stats_KBgexA": {
+      "type": "gut-flow-survey-stats",
+      "blocks": {
+        "stat_YVAbnh": {
+          "type": "stat",
+          "settings": {
+            "statistic_number": 92,
+            "statistic_suffix": "%",
+            "circle_percentage": 89,
+            "description": "<p>of users reported feeling more regular.*</p>"
+          }
+        },
+        "stat_84LCax": {
+          "type": "stat",
+          "settings": {
+            "statistic_number": 86,
+            "statistic_suffix": "%",
+            "circle_percentage": 85,
+            "description": "<p>said they experienced less digestive heaviness.*</p>"
+          }
+        },
+        "stat_6dtGqr": {
+          "type": "stat",
+          "settings": {
+            "statistic_number": 79,
+            "statistic_suffix": "%",
+            "circle_percentage": 77,
+            "description": "<p>would recommend Gut Flow to a friend.*</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_YVAbnh",
+        "stat_84LCax",
+        "stat_6dtGqr"
+      ],
+      "name": "Gut Flow Survey Stats",
+      "settings": {
+        "heading": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For",
+        "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users.</p>",
+        "background_color": "#f8e6eb",
+        "heading_color": "#111111",
+        "card_background": "#5b0d1e",
+        "card_text_color": "#ffffff",
+        "progress_track_color": "#8d2b40",
+        "progress_color": "#fce5eb",
+        "footnote_color": "#858585",
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "percentage_size": 58,
+        "percentage_size_mobile": 64,
+        "description_size": 16,
+        "description_size_mobile": 16,
+        "footnote_size": 16,
+        "footnote_size_mobile": 16,
+        "circle_size": 120,
+        "circle_size_mobile": 100,
+        "circle_thickness": 15,
+        "card_height": 180,
+        "card_padding_vertical": 20,
+        "card_padding_horizontal": 24,
+        "card_radius": 16,
+        "card_gap": 16,
+        "animation_duration": 1200,
+        "content_width": 1440,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
       }
     },
     "get_harmony_feature_v2_AkDTnE": {
@@ -1183,77 +1254,6 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "product": "gut-flow-gummies"
-      }
-    },
-    "gut_flow_survey_stats_KBgexA": {
-      "type": "gut-flow-survey-stats",
-      "blocks": {
-        "stat_YVAbnh": {
-          "type": "stat",
-          "settings": {
-            "statistic_number": 92,
-            "statistic_suffix": "%",
-            "circle_percentage": 89,
-            "description": "<p>of users reported feeling more regular.*</p>"
-          }
-        },
-        "stat_84LCax": {
-          "type": "stat",
-          "settings": {
-            "statistic_number": 86,
-            "statistic_suffix": "%",
-            "circle_percentage": 85,
-            "description": "<p>said they experienced less digestive heaviness.*</p>"
-          }
-        },
-        "stat_6dtGqr": {
-          "type": "stat",
-          "settings": {
-            "statistic_number": 79,
-            "statistic_suffix": "%",
-            "circle_percentage": 77,
-            "description": "<p>would recommend Gut Flow to a friend.*</p>"
-          }
-        }
-      },
-      "block_order": [
-        "stat_YVAbnh",
-        "stat_84LCax",
-        "stat_6dtGqr"
-      ],
-      "name": "Gut Flow Survey Stats",
-      "settings": {
-        "heading": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For",
-        "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users.</p>",
-        "background_color": "#f8e6eb",
-        "heading_color": "#111111",
-        "card_background": "#5b0d1e",
-        "card_text_color": "#ffffff",
-        "progress_track_color": "#8d2b40",
-        "progress_color": "#fce5eb",
-        "footnote_color": "#858585",
-        "heading_size": 40,
-        "heading_size_mobile": 26,
-        "percentage_size": 58,
-        "percentage_size_mobile": 64,
-        "description_size": 16,
-        "description_size_mobile": 16,
-        "footnote_size": 16,
-        "footnote_size_mobile": 16,
-        "circle_size": 120,
-        "circle_size_mobile": 100,
-        "circle_thickness": 15,
-        "card_height": 180,
-        "card_padding_vertical": 20,
-        "card_padding_horizontal": 24,
-        "card_radius": 16,
-        "card_gap": 16,
-        "animation_duration": 1200,
-        "content_width": 1440,
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40
       }
     },
     "mm_research_mentions_GeBLp4": {
@@ -2274,13 +2274,13 @@
     "scrollable_ingredients_final_v2_iEWzjL",
     "announcement_bar_FaiKFR",
     "mm_gut_flow_hero_63WFiE",
+    "gut_flow_survey_stats_KBgexA",
     "get_harmony_feature_v2_AkDTnE",
     "get_harmony_feature_v2_WwW9hw",
     "get_harmony_feature_v2_hVXahQ",
     "get_harmony_feature_v2_QcAKNJ",
     "mm_heading_banner_lum_H3xaWF",
     "product_details_lum_WFPgrJ",
-    "gut_flow_survey_stats_KBgexA",
     "mm_research_mentions_GeBLp4",
     "listicle_sticky_only",
     "alternating_features_ktLx6Y",
