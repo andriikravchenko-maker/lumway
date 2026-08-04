@@ -1996,7 +1996,7 @@
         "image_border_width": 1,
         "image_border_style": "solid",
         "image_border_color": "#000000",
-        "image_border_radius": 8,
+        "image_border_radius": 20,
         "heading_color": "#111111",
         "subtitle_color": "#111111",
         "description_color": "#111111",
