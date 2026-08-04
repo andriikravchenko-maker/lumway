@@ -1914,7 +1914,7 @@
         "benefit_hpw3DM"
       ],
       "custom_css": [
-        "#mm-ustom-benefits-section-wrapper {background: white !important;}",
+        "#mm-ustom-benefits-section-wrapper {background: #F9F9F9 !important;}",
         ".custom-benefits-container {align-items: flex-start !important;}",
         ".custom-benefits-list {padding-left: 0 !important;}",
         "@media screen and (max-width: 600px) {.custom-benefits-list {padding: 0 !important; } .custom-image-column {width: 100%; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-container {flex-direction: column-reverse; }}"
@@ -2000,7 +2000,7 @@
         "heading_color": "#111111",
         "subtitle_color": "#111111",
         "description_color": "#111111",
-        "section_background": "linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "section_background": "linear-gradient(90deg, rgba(248, 248, 248, 1), rgba(249, 249, 249, 1) 100%)",
         "use_background_image": false,
         "background_image_size": "cover",
         "background_image_position_mode": "preset",
