@@ -1,380 +1,413 @@
 {% comment %}
-  Section: Gut Flow Survey Stats
+Section: Gut Flow Survey Stats
 
-  Features:
-  - Configurable statistic cards
-  - SVG circular progress with rounded ends
-  - Animated percentage counter
-  - Animation restarts whenever section enters viewport
-  - Responsive mobile and desktop layouts
+Features:
+- Configurable statistic cards
+- SVG circular progress with rounded ends
+- Animated percentage counter
+- Animation restarts whenever section enters viewport
+- Responsive mobile and desktop layouts
 {% endcomment %}
 
 {% style %}
   .section-{{ section.id }} {
-    --gfs-background: {{ section.settings.background_color }};
-    --gfs-heading-color: {{ section.settings.heading_color }};
+  --gfs-background: {{ section.settings.background_color }};
+  --gfs-heading-color: {{ section.settings.heading_color }};
 
-    --gfs-card-background: {{ section.settings.card_background }};
-    --gfs-card-text-color: {{ section.settings.card_text_color }};
+  --gfs-card-background: {{ section.settings.card_background }};
+  --gfs-card-text-color: {{ section.settings.card_text_color }};
 
-    --gfs-progress-track: {{ section.settings.progress_track_color }};
-    --gfs-progress-color: {{ section.settings.progress_color }};
+  --gfs-progress-track: {{ section.settings.progress_track_color }};
+  --gfs-progress-color: {{ section.settings.progress_color }};
 
-    --gfs-footnote-color: {{ section.settings.footnote_color }};
+  --gfs-footnote-color: {{ section.settings.footnote_color }};
 
-    --gfs-heading-size: {{ section.settings.heading_size }}px;
-    --gfs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+  --gfs-heading-size: {{ section.settings.heading_size }}px;
+  --gfs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
 
-    --gfs-percentage-size: {{ section.settings.percentage_size }}px;
-    --gfs-percentage-size-mobile: {{ section.settings.percentage_size_mobile }}px;
+  --gfs-percentage-size: {{ section.settings.percentage_size }}px;
+  --gfs-percentage-size-mobile: {{ section.settings.percentage_size_mobile }}px;
 
-    --gfs-description-size: {{ section.settings.description_size }}px;
-    --gfs-description-size-mobile: {{ section.settings.description_size_mobile }}px;
+  --gfs-description-size: {{ section.settings.description_size }}px;
+  --gfs-description-size-mobile: {{ section.settings.description_size_mobile }}px;
 
-    --gfs-circle-size: {{ section.settings.circle_size }}px;
-    --gfs-circle-size-mobile: {{ section.settings.circle_size_mobile }}px;
-    --gfs-circle-thickness: {{ section.settings.circle_thickness }};
+  --gfs-circle-size: {{ section.settings.circle_size }}px;
+  --gfs-circle-size-mobile: {{ section.settings.circle_size_mobile }}px;
+  --gfs-circle-thickness: {{ section.settings.circle_thickness }};
 
-    --gfs-card-radius: {{ section.settings.card_radius }}px;
-    --gfs-card-gap: {{ section.settings.card_gap }}px;
+  --gfs-card-radius: {{ section.settings.card_radius }}px;
+  --gfs-card-gap: {{ section.settings.card_gap }}px;
 
-    --gfs-content-width: {{ section.settings.content_width }}px;
+  --gfs-content-width: {{ section.settings.content_width }}px;
 
-    --gfs-padding-top: {{ section.settings.padding_top }}px;
-    --gfs-padding-bottom: {{ section.settings.padding_bottom }}px;
+  --gfs-padding-top: {{ section.settings.padding_top }}px;
+  --gfs-padding-bottom: {{ section.settings.padding_bottom }}px;
 
-    --gfs-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
-    --gfs-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
+  --gfs-padding-top-mobile: {{ section.settings.padding_top_mobile }}px;
+  --gfs-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;
 
-    overflow: hidden;
-    padding-block:
-      var(--gfs-padding-top-mobile)
-      var(--gfs-padding-bottom-mobile);
-    background: var(--gfs-background);
+  overflow: hidden;
+  padding-block:
+  var(--gfs-padding-top-mobile)
+  var(--gfs-padding-bottom-mobile);
+  background: var(--gfs-background);
   }
 
   .section-{{ section.id }} .gut-flow-stats__inner {
-    width: min(100%, var(--gfs-content-width));
-    margin-inline: auto;
-    padding-inline: 18px;
-    box-sizing: border-box;
+  width: min(100%, var(--gfs-content-width));
+  margin-inline: auto;
+  padding-inline: 18px;
+  box-sizing: border-box;
   }
 
   /* Heading */
 
   .section-{{ section.id }} .gut-flow-stats__heading {
-    max-width: 390px;
-    margin: 0 auto 38px;
+  max-width: {{ section.settings.heading_max_width_mobile }}px;
+  margin: {{ section.settings.heading_margin_top_mobile }}px auto {{ section.settings.heading_margin_bottom_mobile }}px;
+  font-family:
+  'Inter Tight',
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif !important;
+  text-align: {{ section.settings.heading_alignment }};
+  }
 
-    color: var(--gfs-heading-color) !important;
-    font-family:
-      'Inter Tight',
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      sans-serif !important;
-    font-size: var(--gfs-heading-size-mobile);
-    font-weight: 700 !important;
-    line-height: 1.08;
-    letter-spacing: -0.045em;
-    text-align: center;
+  .section-{{ section.id }} .gut-flow-stats__heading-line {
+  display: block;
+  margin: 0;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__heading-line--accent {
+  color: {{ section.settings.heading_accent_color }} !important;
+  font-size: {{ section.settings.heading_accent_size_mobile }}px;
+  font-weight: {{ section.settings.heading_accent_weight }} !important;
+  line-height: {{ section.settings.heading_accent_line_height | divided_by: 10.0 }};
+  letter-spacing: {{ section.settings.heading_accent_letter_spacing | divided_by: 100.0 }}em;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__heading-line--main {
+  color: {{ section.settings.heading_color }} !important;
+  font-size: var(--gfs-heading-size-mobile);
+  font-weight: {{ section.settings.heading_weight }} !important;
+  line-height: {{ section.settings.heading_line_height | divided_by: 10.0 }};
+  letter-spacing: {{ section.settings.heading_letter_spacing | divided_by: 100.0 }}em;
+  margin-top: {{ section.settings.heading_lines_gap_mobile }}px;
   }
 
   /* Cards */
 
   .section-{{ section.id }} .gut-flow-stats__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--gfs-card-gap);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gfs-card-gap);
   }
 
   .section-{{ section.id }} .gut-flow-stats__card {
-    display: grid;
-    grid-template-columns:
-      var(--gfs-circle-size-mobile)
-      minmax(0, 1fr);
-    align-items: center;
-    column-gap: 18px;
+  display: grid;
+  grid-template-columns:
+  var(--gfs-circle-size-mobile)
+  minmax(0, 1fr);
+  align-items: center;
+  column-gap: 18px;
 
-    width: 100%;
-    min-width: 0;
-    min-height: 164px;
-    padding: 24px 18px;
-    box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 164px;
+  padding: 24px 18px;
+  box-sizing: border-box;
 
-    overflow: hidden;
-    background: var(--gfs-card-background);
-    border-radius: var(--gfs-card-radius);
+  overflow: hidden;
+  background: var(--gfs-card-background);
+  border-radius: var(--gfs-card-radius);
   }
 
   /* SVG progress */
 
   .section-{{ section.id }} .gut-flow-stats__progress {
-    display: block;
-    width: var(--gfs-circle-size-mobile);
-    height: var(--gfs-circle-size-mobile);
-    min-width: 0;
-    flex: 0 0 var(--gfs-circle-size-mobile);
+  display: block;
+  width: var(--gfs-circle-size-mobile);
+  height: var(--gfs-circle-size-mobile);
+  min-width: 0;
+  flex: 0 0 var(--gfs-circle-size-mobile);
   }
 
   .section-{{ section.id }} .gut-flow-stats__progress-svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
   }
 
   .section-{{ section.id }} .gut-flow-stats__progress-track,
   .section-{{ section.id }} .gut-flow-stats__progress-value {
-    fill: none;
-    stroke-width: var(--gfs-circle-thickness);
+  fill: none;
+  stroke-width: var(--gfs-circle-thickness);
   }
 
   .section-{{ section.id }} .gut-flow-stats__progress-track {
-    stroke: var(--gfs-progress-track);
+  stroke: var(--gfs-progress-track);
   }
 
   .section-{{ section.id }} .gut-flow-stats__progress-value {
-    stroke: var(--gfs-progress-color);
-    stroke-linecap: round;
-    stroke-dasharray: 0 100;
-    stroke-dashoffset: 0;
+  stroke: var(--gfs-progress-color);
+  stroke-linecap: round;
+  stroke-dasharray: 0 100;
+  stroke-dashoffset: 0;
   }
 
   /* Card text */
 
   .section-{{ section.id }} .gut-flow-stats__content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 
-    width: 100%;
-    min-width: 0;
+  width: 100%;
+  min-width: 0;
   }
 
   .section-{{ section.id }} .gut-flow-stats__percentage {
-    margin: 0;
+  margin: 0;
 
-    color: var(--gfs-card-text-color) !important;
-    font-family:
-      'Inter Tight',
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      sans-serif !important;
-    font-size: var(--gfs-percentage-size-mobile);
-    font-weight: 700 !important;
-    line-height: 0.9;
-    letter-spacing: -0.06em;
-    white-space: nowrap;
+  color: var(--gfs-card-text-color) !important;
+  font-family:
+  'Inter Tight',
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif !important;
+  font-size: var(--gfs-percentage-size-mobile);
+  font-weight: 700 !important;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+  white-space: nowrap;
   }
 
   .section-{{ section.id }} .gut-flow-stats__description {
-    width: 100%;
-    max-width: 220px;
-    margin-top: 18px;
+  width: 100%;
+  max-width: 220px;
+  margin-top: 18px;
 
-    color: var(--gfs-card-text-color);
-    font-family:
-      'Inter Tight',
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      sans-serif !important;
-    font-size: var(--gfs-description-size-mobile);
-    font-weight: 400 !important;
-    line-height: 1.25;
-    letter-spacing: -0.025em;
-    text-align: left;
+  color: var(--gfs-card-text-color);
+  font-family:
+  'Inter Tight',
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif !important;
+  font-size: var(--gfs-description-size-mobile);
+  font-weight: 400 !important;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  text-align: left;
   }
 
   .section-{{ section.id }} .gut-flow-stats__description p {
-    margin: 0;
-    color: inherit !important;
-    font: inherit !important;
+  margin: 0;
+  color: inherit !important;
+  font: inherit !important;
   }
 
   /* Footnote */
 
   .section-{{ section.id }} .gut-flow-stats__footnote {
-    max-width: 380px;
-    margin: 40px auto 0;
+  max-width: 380px;
+  margin: 40px auto 0;
 
-    color: var(--gfs-footnote-color);
-    font-family:
-      'Inter Tight',
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      sans-serif !important;
-    font-size: {{ section.settings.footnote_size_mobile }}px;
-    font-weight: 400 !important;
-    line-height: 1.3;
-    letter-spacing: -0.025em;
-    text-align: center;
+  color: var(--gfs-footnote-color);
+  font-family:
+  'Inter Tight',
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  sans-serif !important;
+  font-size: {{ section.settings.footnote_size_mobile }}px;
+  font-weight: 400 !important;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  text-align: center;
   }
 
   .section-{{ section.id }} .gut-flow-stats__footnote p {
-    margin: 0;
-    color: inherit !important;
-    font: inherit !important;
+  margin: 0;
+  color: inherit !important;
+  font: inherit !important;
   }
 
   /* Small mobile */
 
   @media screen and (max-width: 390px) {
-    .section-{{ section.id }} .gut-flow-stats__inner {
-      padding-inline: 14px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__inner {
+  padding-inline: 14px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__heading {
-      margin-bottom: 32px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__heading {
+  max-width: {{ section.settings.heading_max_width_mobile }}px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__card {
-      grid-template-columns:
-        var(--gfs-circle-size-mobile)
-        minmax(0, 1fr);
-      column-gap: 14px;
+  .section-{{ section.id }} .gut-flow-stats__card {
+  grid-template-columns:
+  var(--gfs-circle-size-mobile)
+  minmax(0, 1fr);
+  column-gap: 14px;
 
-      min-height: 156px;
-      padding: 20px 14px;
-    }
+  min-height: 156px;
+  padding: 20px 14px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__description {
-      margin-top: 14px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__description {
+  margin-top: 14px;
+  }
   }
 
   /* Tablet */
 
   @media screen and (min-width: 750px) and (max-width: 989px) {
-    .section-{{ section.id }} .gut-flow-stats__inner {
-      padding-inline: 30px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__inner {
+  padding-inline: 30px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__heading {
-      max-width: 760px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__heading {
+  max-width: 760px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  .section-{{ section.id }} .gut-flow-stats__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__card {
-      grid-template-columns: minmax(0, 1fr);
-      justify-items: center;
-      row-gap: 20px;
-      padding: 24px 16px;
-      text-align: center;
-    }
+  .section-{{ section.id }} .gut-flow-stats__card {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  row-gap: 20px;
+  padding: 24px 16px;
+  text-align: center;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__content {
-      align-items: center;
-    }
+  .section-{{ section.id }} .gut-flow-stats__content {
+  align-items: center;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__description {
-      max-width: 260px;
-      text-align: center;
-    }
+  .section-{{ section.id }} .gut-flow-stats__description {
+  max-width: 260px;
+  text-align: center;
+  }
   }
 
   /* Desktop */
 
   @media screen and (min-width: 990px) {
-    .section-{{ section.id }} {
-      padding-block:
-        var(--gfs-padding-top)
-        var(--gfs-padding-bottom);
-    }
+  .section-{{ section.id }} {
+  padding-block:
+  var(--gfs-padding-top)
+  var(--gfs-padding-bottom);
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__inner {
-      padding-inline: 40px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__inner {
+  padding-inline: 40px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__heading {
-      max-width: 900px;
-      margin-bottom: 34px;
-      font-size: var(--gfs-heading-size);
-    }
+  .section-{{ section.id }} .gut-flow-stats__heading {
+  max-width: {{ section.settings.heading_max_width }}px;
+  margin: {{ section.settings.heading_margin_top }}px auto {{ section.settings.heading_margin_bottom }}px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  .section-{{ section.id }} .gut-flow-stats__heading-line--accent {
+  font-size: {{ section.settings.heading_accent_size }}px;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__card {
-      grid-template-columns:
-        var(--gfs-circle-size)
-        minmax(0, 1fr);
-      justify-items: initial;
-      align-items: center;
-      column-gap: 18px;
+  .section-{{ section.id }} .gut-flow-stats__heading-line--main {
+  font-size: var(--gfs-heading-size);
+  margin-top: {{ section.settings.heading_lines_gap }}px;
+  }
 
-      min-height: {{ section.settings.card_height }}px;
-      padding:
-        {{ section.settings.card_padding_vertical }}px
-        {{ section.settings.card_padding_horizontal }}px;
+  .section-{{ section.id }} .gut-flow-stats__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 
-      text-align: left;
-    }
+  .section-{{ section.id }} .gut-flow-stats__card {
+  grid-template-columns:
+  var(--gfs-circle-size)
+  minmax(0, 1fr);
+  justify-items: initial;
+  align-items: center;
+  column-gap: 18px;
 
-    .section-{{ section.id }} .gut-flow-stats__progress {
-      width: var(--gfs-circle-size);
-      height: var(--gfs-circle-size);
-      flex-basis: var(--gfs-circle-size);
-    }
+  min-height: {{ section.settings.card_height }}px;
+  padding:
+  {{ section.settings.card_padding_vertical }}px
+  {{ section.settings.card_padding_horizontal }}px;
 
-    .section-{{ section.id }} .gut-flow-stats__content {
-      align-items: flex-start;
-    }
+  text-align: left;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__percentage {
-      font-size: var(--gfs-percentage-size);
-    }
+  .section-{{ section.id }} .gut-flow-stats__progress {
+  width: var(--gfs-circle-size);
+  height: var(--gfs-circle-size);
+  flex-basis: var(--gfs-circle-size);
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__description {
-      max-width: 230px;
-      margin-top: 10px;
-      font-size: var(--gfs-description-size);
-      text-align: left;
-    }
+  .section-{{ section.id }} .gut-flow-stats__content {
+  align-items: flex-start;
+  }
 
-    .section-{{ section.id }} .gut-flow-stats__footnote {
-      max-width: none;
-      margin-top: 30px;
-      font-size: {{ section.settings.footnote_size }}px;
-    }
+  .section-{{ section.id }} .gut-flow-stats__percentage {
+  font-size: var(--gfs-percentage-size);
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__description {
+  max-width: 230px;
+  margin-top: 10px;
+  font-size: var(--gfs-description-size);
+  text-align: left;
+  }
+
+  .section-{{ section.id }} .gut-flow-stats__footnote {
+  max-width: none;
+  margin-top: 30px;
+  font-size: {{ section.settings.footnote_size }}px;
+  }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .section-{{ section.id }} *,
-    .section-{{ section.id }} *::before,
-    .section-{{ section.id }} *::after {
-      transition-duration: 0.01ms !important;
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-    }
+  .section-{{ section.id }} *,
+  .section-{{ section.id }} *::before,
+  .section-{{ section.id }} *::after {
+  transition-duration: 0.01ms !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  }
   }
 {% endstyle %}
 
 <section
-  id="gut-flow-stats-{{ section.id }}"
-  class="gut-flow-stats section-{{ section.id }}"
-  data-gut-flow-stats
-  data-animation-duration="{{ section.settings.animation_duration }}"
+        id="gut-flow-stats-{{ section.id }}"
+        class="gut-flow-stats section-{{ section.id }}"
+        data-gut-flow-stats
+        data-animation-duration="{{ section.settings.animation_duration }}"
 >
   <div class="gut-flow-stats__inner">
-    {%- if section.settings.heading != blank -%}
+    {%- if section.settings.heading_accent != blank or section.settings.heading != blank -%}
       <h2 class="gut-flow-stats__heading">
-        {{ section.settings.heading }}
+        {%- if section.settings.heading_accent != blank -%}
+          <span class="gut-flow-stats__heading-line gut-flow-stats__heading-line--accent">
+{{ section.settings.heading_accent }}
+</span>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <span class="gut-flow-stats__heading-line gut-flow-stats__heading-line--main">
+{{ section.settings.heading }}
+</span>
+        {%- endif -%}
       </h2>
     {%- endif -%}
 
@@ -388,49 +421,49 @@
           {%- assign statistic_suffix = block.settings.statistic_suffix | default: '%' -%}
 
           <article
-            class="gut-flow-stats__card"
-            data-gfs-card
-            data-statistic-number="{{ statistic_number }}"
-            data-statistic-suffix="{{ statistic_suffix | escape }}"
-            data-circle-percentage="{{ circle_percentage }}"
-            {{ block.shopify_attributes }}
+                  class="gut-flow-stats__card"
+                  data-gfs-card
+                  data-statistic-number="{{ statistic_number }}"
+                  data-statistic-suffix="{{ statistic_suffix | escape }}"
+                  data-circle-percentage="{{ circle_percentage }}"
+                  {{ block.shopify_attributes }}
           >
             <div
-              class="gut-flow-stats__progress"
-              data-gfs-progress
-              role="img"
-              aria-label="{{ circle_percentage }} percent"
+                    class="gut-flow-stats__progress"
+                    data-gfs-progress
+                    role="img"
+                    aria-label="{{ circle_percentage }} percent"
             >
               <svg
-                class="gut-flow-stats__progress-svg"
-                viewBox="0 0 100 100"
-                aria-hidden="true"
-                focusable="false"
+                      class="gut-flow-stats__progress-svg"
+                      viewBox="0 0 100 100"
+                      aria-hidden="true"
+                      focusable="false"
               >
                 <circle
-                  class="gut-flow-stats__progress-track"
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  pathLength="100"
+                        class="gut-flow-stats__progress-track"
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        pathLength="100"
                 ></circle>
 
                 <circle
-                  class="gut-flow-stats__progress-value"
-                  data-gfs-progress-value
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  pathLength="100"
+                        class="gut-flow-stats__progress-value"
+                        data-gfs-progress-value
+                        cx="50"
+                        cy="50"
+                        r="42"
+                        pathLength="100"
                 ></circle>
               </svg>
             </div>
 
             <div class="gut-flow-stats__content">
               <div
-                class="gut-flow-stats__percentage"
-                data-gfs-counter
-                aria-label="{{ statistic_number }}{{ statistic_suffix }}"
+                      class="gut-flow-stats__percentage"
+                      data-gfs-counter
+                      aria-label="{{ statistic_number }}{{ statistic_suffix }}"
               >
                 0{{ statistic_suffix }}
               </div>
@@ -625,31 +658,31 @@
       }
 
       observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.target !== section) {
-              return;
-            }
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.target !== section) {
+                    return;
+                  }
 
-            if (entry.isIntersecting) {
-              if (!isInsideViewport) {
-                isInsideViewport = true;
-                animateCards();
+                  if (entry.isIntersecting) {
+                    if (!isInsideViewport) {
+                      isInsideViewport = true;
+                      animateCards();
+                    }
+
+                    return;
+                  }
+
+                  if (isInsideViewport) {
+                    isInsideViewport = false;
+                    resetCards();
+                  }
+                });
+              },
+              {
+                threshold: 0.2,
+                rootMargin: '0px 0px -5% 0px',
               }
-
-              return;
-            }
-
-            if (isInsideViewport) {
-              isInsideViewport = false;
-              resetCards();
-            }
-          });
-        },
-        {
-          threshold: 0.2,
-          rootMargin: '0px 0px -5% 0px',
-        }
       );
 
       observer.observe(section);
@@ -697,9 +730,15 @@
     },
     {
       "type": "text",
+      "id": "heading_accent",
+      "label": "Heading accent line",
+      "default": "The Debloating, Regularity-Supporting"
+    },
+    {
+      "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For"
+      "label": "Heading main line",
+      "default": "Daily Gummy Your Gut Has Been Waiting For"
     },
     {
       "type": "richtext",
@@ -720,8 +759,14 @@
     {
       "type": "color",
       "id": "heading_color",
-      "label": "Heading color",
+      "label": "Heading main color",
       "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "heading_accent_color",
+      "label": "Heading accent color",
+      "default": "#6F1020"
     },
     {
       "type": "color",
@@ -758,9 +803,92 @@
       "content": "Heading typography"
     },
     {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "center", "label": "Center"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Heading max width desktop",
+      "min": 400,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width_mobile",
+      "label": "Heading max width mobile",
+      "min": 280,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 390
+    },
+    {
+      "type": "range",
+      "id": "heading_accent_size",
+      "label": "Accent line size desktop",
+      "min": 20,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 38
+    },
+    {
+      "type": "range",
+      "id": "heading_accent_size_mobile",
+      "label": "Accent line size mobile",
+      "min": 18,
+      "max": 44,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "heading_accent_weight",
+      "label": "Accent line weight",
+      "options": [
+        {"value": "400", "label": "Regular"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi bold"},
+        {"value": "700", "label": "Bold"},
+        {"value": "800", "label": "Extra bold"},
+        {"value": "900", "label": "Black"}
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "heading_accent_line_height",
+      "label": "Accent line height",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_accent_letter_spacing",
+      "label": "Accent letter spacing",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "default": -4
+    },
+    {
       "type": "range",
       "id": "heading_size",
-      "label": "Heading size desktop",
+      "label": "Main line size desktop",
       "min": 24,
       "max": 64,
       "step": 1,
@@ -770,12 +898,104 @@
     {
       "type": "range",
       "id": "heading_size_mobile",
-      "label": "Heading size mobile",
+      "label": "Main line size mobile",
       "min": 20,
       "max": 44,
       "step": 1,
       "unit": "px",
       "default": 30
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Main line weight",
+      "options": [
+        {"value": "400", "label": "Regular"},
+        {"value": "500", "label": "Medium"},
+        {"value": "600", "label": "Semi bold"},
+        {"value": "700", "label": "Bold"},
+        {"value": "800", "label": "Extra bold"},
+        {"value": "900", "label": "Black"}
+      ],
+      "default": "700"
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Main line height",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Main letter spacing",
+      "min": -10,
+      "max": 10,
+      "step": 1,
+      "default": -4
+    },
+    {
+      "type": "range",
+      "id": "heading_lines_gap",
+      "label": "Gap between title lines desktop",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_lines_gap_mobile",
+      "label": "Gap between title lines mobile",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top",
+      "label": "Heading margin top desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "label": "Heading margin bottom desktop",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_top_mobile",
+      "label": "Heading margin top mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "label": "Heading margin bottom mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 38
     },
     {
       "type": "header",
