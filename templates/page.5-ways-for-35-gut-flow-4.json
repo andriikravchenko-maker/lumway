@@ -1972,7 +1972,7 @@
         "use_accent_gradient": true,
         "accent_text_gradient": "linear-gradient(45deg, rgba(68, 15, 26, 1), rgba(68, 18, 20, 1) 100%, rgba(255, 107, 157, 1) 100%)",
         "accent_text_margin_left": 0,
-        "list_background": "linear-gradient(180deg, rgba(255, 255, 255, 1) 100%, rgba(240, 240, 240, 1) 100%)",
+        "list_background": "linear-gradient(180deg, rgba(249, 249, 249, 1) 100%, rgba(240, 240, 240, 1) 100%)",
         "list_border_radius": 8,
         "benefits_list_max_width": 800,
         "border_color": "#ffffff",
