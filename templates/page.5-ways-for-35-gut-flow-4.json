@@ -1914,7 +1914,7 @@
         "benefit_hpw3DM"
       ],
       "custom_css": [
-        "#mm-ustom-benefits-section-wrapper {background: #F9F9F9 !important;}",
+        "#mm-ustom-benefits-section-wrapper {background: #f9f9f9 !important;}",
         ".custom-benefits-container {align-items: flex-start !important;}",
         ".custom-benefits-list {padding-left: 0 !important;}",
         "@media screen and (max-width: 600px) {.custom-benefits-list {padding: 0 !important; } .custom-image-column {width: 100%; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-container {flex-direction: column-reverse; }}"
@@ -2019,6 +2019,166 @@
         "bottom_border_width": 1,
         "bottom_border_style": "solid",
         "bottom_border_color": "#e5e5e5"
+      }
+    },
+    "mm_certifications_icons_kaJnmf": {
+      "type": "mm-certifications-icons",
+      "blocks": {
+        "item_7F8zdJ": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "full_image",
+            "custom_svg": "",
+            "circle_background": "#6F1020",
+            "circle_border_color": "#6F1020",
+            "icon_size_desktop": 62,
+            "icon_size_mobile": 62,
+            "full_image_width_desktop": 120,
+            "full_image_width_mobile": 92,
+            "full_image_radius": 0,
+            "title": "Non\nGMO",
+            "text_color": "#6F1020"
+          }
+        },
+        "item_epbhiX": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "full_image",
+            "custom_svg": "",
+            "circle_background": "#6F1020",
+            "circle_border_color": "#6F1020",
+            "icon_size_desktop": 62,
+            "icon_size_mobile": 62,
+            "full_image_width_desktop": 120,
+            "full_image_width_mobile": 92,
+            "full_image_radius": 0,
+            "title": "No\nsugar",
+            "text_color": "#6F1020"
+          }
+        },
+        "item_FCLdg7": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "full_image",
+            "custom_svg": "",
+            "circle_background": "#6F1020",
+            "circle_border_color": "#6F1020",
+            "icon_size_desktop": 62,
+            "icon_size_mobile": 62,
+            "full_image_width_desktop": 120,
+            "full_image_width_mobile": 92,
+            "full_image_radius": 0,
+            "title": "Vegetarian\nfriendly",
+            "text_color": "#6F1020"
+          }
+        },
+        "item_BD8njD": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "full_image",
+            "custom_svg": "",
+            "circle_background": "#6F1020",
+            "circle_border_color": "#6F1020",
+            "icon_size_desktop": 62,
+            "icon_size_mobile": 62,
+            "full_image_width_desktop": 120,
+            "full_image_width_mobile": 92,
+            "full_image_radius": 0,
+            "title": "Gluten\nfree",
+            "text_color": "#6F1020"
+          }
+        },
+        "item_drQtbT": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "full_image",
+            "custom_svg": "",
+            "circle_background": "#6F1020",
+            "circle_border_color": "#6F1020",
+            "icon_size_desktop": 62,
+            "icon_size_mobile": 62,
+            "full_image_width_desktop": 120,
+            "full_image_width_mobile": 92,
+            "full_image_radius": 0,
+            "title": "Free from\nallergens",
+            "text_color": "#6F1020"
+          }
+        },
+        "item_Fz6dfz": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "full_image",
+            "custom_svg": "",
+            "circle_background": "#6F1020",
+            "circle_border_color": "#6F1020",
+            "icon_size_desktop": 62,
+            "icon_size_mobile": 62,
+            "full_image_width_desktop": 120,
+            "full_image_width_mobile": 92,
+            "full_image_radius": 0,
+            "title": "cGMP\nCertified",
+            "text_color": "#6F1020"
+          }
+        }
+      },
+      "block_order": [
+        "item_7F8zdJ",
+        "item_epbhiX",
+        "item_FCLdg7",
+        "item_BD8njD",
+        "item_drQtbT",
+        "item_Fz6dfz"
+      ],
+      "name": "MM Certifications Icons",
+      "settings": {
+        "show_heading": true,
+        "heading": "Try Our Prebiotic Fiber Gummy Today",
+        "heading_color": "#111111",
+        "heading_alignment": "center",
+        "heading_size_desktop": 36,
+        "heading_size_mobile": 28,
+        "heading_weight": "700",
+        "heading_line_height": 1.1,
+        "heading_line_height_mobile": 1.1,
+        "heading_letter_spacing": -0.5,
+        "heading_letter_spacing_mobile": -0.3,
+        "heading_max_width": 900,
+        "heading_max_width_mobile": 360,
+        "heading_margin_top_desktop": 0,
+        "heading_margin_bottom_desktop": 40,
+        "heading_margin_top_mobile": 0,
+        "heading_margin_bottom_mobile": 28,
+        "max_width": 1440,
+        "columns_desktop": 6,
+        "columns_mobile": 3,
+        "column_gap_desktop": 32,
+        "row_gap_desktop": 32,
+        "column_gap_mobile": 16,
+        "row_gap_mobile": 24,
+        "circle_size_desktop": 120,
+        "circle_size_mobile": 92,
+        "circle_radius": 50,
+        "circle_border_width": 0,
+        "item_inner_gap_desktop": 12,
+        "item_inner_gap_mobile": 10,
+        "label_size_desktop": 18,
+        "label_size_mobile": 14,
+        "label_weight": "600",
+        "label_line_height": 1.2,
+        "label_line_height_mobile": 1.2,
+        "label_letter_spacing": 0,
+        "label_letter_spacing_mobile": 0,
+        "label_max_width_desktop": 140,
+        "label_max_width_mobile": 100,
+        "background_color": "#FFFFFF",
+        "padding_top_desktop": 60,
+        "padding_bottom_desktop": 72,
+        "padding_left_desktop": 40,
+        "padding_right_desktop": 40,
+        "padding_top_mobile": 36,
+        "padding_bottom_mobile": 40,
+        "padding_left_mobile": 16,
+        "padding_right_mobile": 16
       }
     },
     "product_details_lum_WFPgrJ": {
@@ -2702,6 +2862,7 @@
     "social_proof_pop",
     "sticky_countdown",
     "product_benefits_4DmPcz",
+    "mm_certifications_icons_kaJnmf",
     "product_details_lum_WFPgrJ",
     "customer_reviews_carousel_6W7Cht",
     "store_faq_73Kxey"
