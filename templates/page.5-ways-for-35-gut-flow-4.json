@@ -1816,9 +1816,10 @@
       "blocks": {
         "benefit_cgRtRf": {
           "type": "benefit",
+          "name": "Love the way your clothes feel again",
           "settings": {
-            "title": "4g of Prebiotic Fiber",
-            "description": "Delivers a meaningful amount of prebiotic fiber to help nourish beneficial gut bacteria.",
+            "title": "Love the way your clothes feel again",
+            "description": "Feel more comfortable in fitted clothes from morning through evening.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -1830,9 +1831,10 @@
         },
         "benefit_j3eYym": {
           "type": "benefit",
+          "name": "Support bowel regularity",
           "settings": {
-            "title": "Supports Digestive Regularity",
-            "description": "Helps maintain a healthy digestive rhythm and everyday gut comfort.",
+            "title": "Support bowel regularity",
+            "description": "Help your digestive routine feel more consistent with daily prebiotic fiber.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -1960,7 +1962,7 @@
         "subtitle": "",
         "show_image": true,
         "media_type": "image",
-        "feature_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_03_26_47_PM_1.webp",
+        "feature_image": "shopify://shop_images/works-for-woomen.webp",
         "image_alt": "Feature product image",
         "video_autoplay": true,
         "video_muted": true,
