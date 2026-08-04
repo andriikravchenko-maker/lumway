@@ -478,6 +478,95 @@
         "padding_bottom_mobile": 40
       }
     },
+    "mm_research_mentions_GeBLp4": {
+      "type": "mm-research-mentions",
+      "blocks": {
+        "mention_F8AiyT": {
+          "type": "mention",
+          "name": "Cosmopolitan",
+          "settings": {
+            "logo": "shopify://shop_images/Cosmopolitan-1.webp",
+            "logo_text": "Cosmopolitan",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“My jeans stopped feeling like they belonged to a different body after dinner.”</p>"
+          }
+        },
+        "mention_ghGcUh": {
+          "type": "mention",
+          "name": "Womens Health",
+          "settings": {
+            "logo": "shopify://shop_images/Womens_Health-1.webp",
+            "logo_text": "Womens Health",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“I finally stopped responding to every bloated day by starting another diet.”</p>"
+          }
+        },
+        "mention_rBP6Vi": {
+          "type": "mention",
+          "name": "Usa Today",
+          "settings": {
+            "logo": "shopify://shop_images/Usa_Today.webp",
+            "logo_text": "Usa Today",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“It tastes like a treat, but it has become one of the most consistent parts of my wellness routine.”</p>"
+          }
+        },
+        "mention_iGyMBa": {
+          "type": "mention",
+          "name": "Who What Wear",
+          "settings": {
+            "logo": "shopify://shop_images/Who_What_Wear.webp",
+            "logo_text": "Who What Wear",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“The real win was not having to think about my bathroom routine all day.”<br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "mention_F8AiyT",
+        "mention_ghGcUh",
+        "mention_rBP6Vi",
+        "mention_iGyMBa"
+      ],
+      "name": "Research mentions",
+      "settings": {
+        "heading": "Prebiotic Fiber Ingredient Backed by Nutritional Research",
+        "subheading": "<p>As discussed in research and educational resources from:</p>",
+        "desktop_columns": "4",
+        "content_width": 1440,
+        "card_gap": 16,
+        "card_height": 200,
+        "card_padding_vertical": 16,
+        "card_padding_horizontal": 16,
+        "card_radius": 12,
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "subheading_size": 24,
+        "subheading_size_mobile": 16,
+        "card_text_size": 16,
+        "card_text_size_mobile": 16,
+        "background_color": "#ffffff",
+        "heading_color": "#111111",
+        "subheading_color": "#111111",
+        "card_background": "#f9f9f9",
+        "card_text_color": "#111111",
+        "card_border_color": "#c2c2c2",
+        "dot_color": "#f8e3e8",
+        "dot_active_color": "#5b0d1e",
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
     "mm_gut_harmony_benefits_gKxehV": {
       "type": "mm-gut-harmony-benefits",
       "disabled": true,
@@ -1748,95 +1837,6 @@
         "product": "gut-flow-gummies"
       }
     },
-    "mm_research_mentions_GeBLp4": {
-      "type": "mm-research-mentions",
-      "blocks": {
-        "mention_F8AiyT": {
-          "type": "mention",
-          "name": "Cosmopolitan",
-          "settings": {
-            "logo": "shopify://shop_images/Cosmopolitan-1.webp",
-            "logo_text": "Cosmopolitan",
-            "logo_width": 280,
-            "logo_height": 70,
-            "logo_text_size": 26,
-            "quote": "<p>“My jeans stopped feeling like they belonged to a different body after dinner.”</p>"
-          }
-        },
-        "mention_ghGcUh": {
-          "type": "mention",
-          "name": "Womens Health",
-          "settings": {
-            "logo": "shopify://shop_images/Womens_Health-1.webp",
-            "logo_text": "Womens Health",
-            "logo_width": 280,
-            "logo_height": 70,
-            "logo_text_size": 26,
-            "quote": "<p>“I finally stopped responding to every bloated day by starting another diet.”</p>"
-          }
-        },
-        "mention_rBP6Vi": {
-          "type": "mention",
-          "name": "Usa Today",
-          "settings": {
-            "logo": "shopify://shop_images/Usa_Today.webp",
-            "logo_text": "Usa Today",
-            "logo_width": 280,
-            "logo_height": 70,
-            "logo_text_size": 26,
-            "quote": "<p>“It tastes like a treat, but it has become one of the most consistent parts of my wellness routine.”</p>"
-          }
-        },
-        "mention_iGyMBa": {
-          "type": "mention",
-          "name": "Who What Wear",
-          "settings": {
-            "logo": "shopify://shop_images/Who_What_Wear.webp",
-            "logo_text": "Who What Wear",
-            "logo_width": 280,
-            "logo_height": 70,
-            "logo_text_size": 26,
-            "quote": "<p>“The real win was not having to think about my bathroom routine all day.”<br/></p>"
-          }
-        }
-      },
-      "block_order": [
-        "mention_F8AiyT",
-        "mention_ghGcUh",
-        "mention_rBP6Vi",
-        "mention_iGyMBa"
-      ],
-      "name": "Research mentions",
-      "settings": {
-        "heading": "Prebiotic Fiber Ingredient Backed by Nutritional Research",
-        "subheading": "<p>As discussed in research and educational resources from:</p>",
-        "desktop_columns": "4",
-        "content_width": 1440,
-        "card_gap": 16,
-        "card_height": 200,
-        "card_padding_vertical": 16,
-        "card_padding_horizontal": 16,
-        "card_radius": 12,
-        "heading_size": 40,
-        "heading_size_mobile": 26,
-        "subheading_size": 24,
-        "subheading_size_mobile": 16,
-        "card_text_size": 16,
-        "card_text_size_mobile": 16,
-        "background_color": "#ffffff",
-        "heading_color": "#111111",
-        "subheading_color": "#111111",
-        "card_background": "#f9f9f9",
-        "card_text_color": "#111111",
-        "card_border_color": "#c2c2c2",
-        "dot_color": "#f8e3e8",
-        "dot_active_color": "#5b0d1e",
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 20
-      }
-    },
     "listicle_sticky_only": {
       "type": "listicle",
       "blocks": {
@@ -2767,6 +2767,7 @@
     "announcement_bar_FaiKFR",
     "mm_gut_flow_hero_yKmymX",
     "gut_flow_survey_stats_KBgexA",
+    "mm_research_mentions_GeBLp4",
     "mm_gut_harmony_benefits_gKxehV",
     "get_harmony_feature_v2_9AzqaE",
     "get_harmony_feature_v2_nQrn9R",
@@ -2777,7 +2778,6 @@
     "get_harmony_feature_v2_QcAKNJ",
     "mm_heading_banner_lum_H3xaWF",
     "product_details_lum_WFPgrJ",
-    "mm_research_mentions_GeBLp4",
     "listicle_sticky_only",
     "alternating_features_ktLx6Y",
     "social_proof_pop",
