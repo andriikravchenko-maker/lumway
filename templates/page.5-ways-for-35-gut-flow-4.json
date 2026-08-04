@@ -266,7 +266,7 @@
         "description_margin_bottom": 28,
         "mobile_description_margin_bottom": 24,
         "button_label": "TRY GUT FLOW NOW",
-        "button_link": "",
+        "button_link": "#advertorial-section",
         "button_full_width": true,
         "mobile_button_full_width": true,
         "button_min_width": 400,
