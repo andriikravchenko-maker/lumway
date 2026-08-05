@@ -1,400 +1,456 @@
 {% comment %}
-  Section: MM Feeling Heavy Story
+Section: MM Feeling Heavy Story
 
-  Blocks:
-  - Heading
-  - Image + bullet card
-  - Rich text
-  - Bullet box
+Blocks:
+- Heading
+- Image + bullet card
+- Rich text
+- Bullet box
 
-  Desktop/mobile order and styling are independently configurable per block.
+Desktop/mobile order and styling are independently configurable per block.
 {% endcomment %}
 
 {%- liquid
-    assign section_class = 'mm-feeling-heavy-' | append: section.id
+assign section_class = 'mm-feeling-heavy-' | append: section.id
 -%}
 
 <section id="mm-feeling-heavy-{{ section.id }}" class="{{ section_class }} mm-feeling-heavy" data-section-id="{{ section.id }}">
-    <div class="mm-feeling-heavy__inner">
-        {%- for block in section.blocks -%}
-        {%- case block.type -%}
+<div class="mm-feeling-heavy__inner">
+{%- for block in section.blocks -%}
+{%- case block.type -%}
 
-        {%- when 'heading' -%}
-        <div class="mm-feeling-heavy__heading" style="
-                --order-desktop: {{ block.settings.order_desktop }};
-                --order-mobile: {{ block.settings.order_mobile }};
-                --max-width-desktop: {{ block.settings.max_width_desktop }}px;
-                --max-width-mobile: {{ block.settings.max_width_mobile }}px;
-                --align-desktop: {{ block.settings.alignment_desktop }};
-                --align-mobile: {{ block.settings.alignment_mobile }};
-                --title-color: {{ block.settings.title_color }};
-                --accent-color: {{ block.settings.accent_color }};
-                --title-size-desktop: {{ block.settings.title_size_desktop }}px;
-                --title-size-mobile: {{ block.settings.title_size_mobile }}px;
-                --title-weight: {{ block.settings.title_weight }};
-                --title-lh-desktop: {{ block.settings.title_line_height_desktop }};
-                --title-lh-mobile: {{ block.settings.title_line_height_mobile }};
-                --subtitle-color: {{ block.settings.subtitle_color }};
-                --subtitle-size-desktop: {{ block.settings.subtitle_size_desktop }}px;
-                --subtitle-size-mobile: {{ block.settings.subtitle_size_mobile }}px;
-                --subtitle-weight: {{ block.settings.subtitle_weight }};
-                --subtitle-lh-desktop: {{ block.settings.subtitle_line_height_desktop }};
-                --subtitle-lh-mobile: {{ block.settings.subtitle_line_height_mobile }};
-                --subtitle-gap-desktop: {{ block.settings.subtitle_gap_desktop }}px;
-                --subtitle-gap-mobile: {{ block.settings.subtitle_gap_mobile }}px;
-                --mb-desktop: {{ block.settings.margin_bottom_desktop }}px;
-                --mb-mobile: {{ block.settings.margin_bottom_mobile }}px;
-                " {{ block.shopify_attributes }}>
-            <div class="mm-feeling-heavy__heading-inner">
-                {%- if block.settings.title != blank -%}
-                <{{ block.settings.title_tag }} class="mm-feeling-heavy__title">
-                {%- if block.settings.accent_text != blank and block.settings.title contains block.settings.accent_text -%}
-                    {%- capture accent_markup -%}<span class="mm-feeling-heavy__title-accent">{{ block.settings.accent_text }}</span>{%- endcapture -%}
-                    {{ block.settings.title | replace: block.settings.accent_text, accent_markup }}
-                {%- else -%}
-                    {{ block.settings.title }}
-                {%- endif -%}
-            </{{ block.settings.title_tag }}>
-            {%- endif -%}
+{%- when 'heading' -%}
+<div class="mm-feeling-heavy__heading" style="
+--order-desktop: {{ block.settings.order_desktop }};
+--order-mobile: {{ block.settings.order_mobile }};
+--max-width-desktop: {{ block.settings.max_width_desktop }}px;
+--max-width-mobile: {{ block.settings.max_width_mobile }}px;
+--align-desktop: {{ block.settings.alignment_desktop }};
+--align-mobile: {{ block.settings.alignment_mobile }};
+--title-color: {{ block.settings.title_color }};
+--accent-color: {{ block.settings.accent_color }};
+--title-size-desktop: {{ block.settings.title_size_desktop }}px;
+--title-size-mobile: {{ block.settings.title_size_mobile }}px;
+--title-weight: {{ block.settings.title_weight }};
+--title-lh-desktop: {{ block.settings.title_line_height_desktop }};
+--title-lh-mobile: {{ block.settings.title_line_height_mobile }};
+--subtitle-color: {{ block.settings.subtitle_color }};
+--subtitle-size-desktop: {{ block.settings.subtitle_size_desktop }}px;
+--subtitle-size-mobile: {{ block.settings.subtitle_size_mobile }}px;
+--subtitle-weight: {{ block.settings.subtitle_weight }};
+--subtitle-lh-desktop: {{ block.settings.subtitle_line_height_desktop }};
+--subtitle-lh-mobile: {{ block.settings.subtitle_line_height_mobile }};
+--subtitle-gap-desktop: {{ block.settings.subtitle_gap_desktop }}px;
+--subtitle-gap-mobile: {{ block.settings.subtitle_gap_mobile }}px;
+--mb-desktop: {{ block.settings.margin_bottom_desktop }}px;
+--mb-mobile: {{ block.settings.margin_bottom_mobile }}px;
+" {{ block.shopify_attributes }}>
+<div class="mm-feeling-heavy__heading-inner">
+{%- if block.settings.title != blank -%}
+<{{ block.settings.title_tag }} class="mm-feeling-heavy__title">
+{%- if block.settings.accent_text != blank and block.settings.title contains block.settings.accent_text -%}
+{%- capture accent_markup -%}<span class="mm-feeling-heavy__title-accent">{{ block.settings.accent_text }}</span>{%- endcapture -%}
+{{ block.settings.title | replace: block.settings.accent_text, accent_markup }}
+{%- else -%}
+{{ block.settings.title }}
+{%- endif -%}
+</{{ block.settings.title_tag }}>
+{%- endif -%}
 
-            {%- if block.settings.subtitle != blank -%}
-                <div class="mm-feeling-heavy__subtitle">{{ block.settings.subtitle }}</div>
-            {%- endif -%}
-        </div>
-    </div>
+{%- if block.settings.subtitle != blank -%}
+<div class="mm-feeling-heavy__subtitle">{{ block.settings.subtitle }}</div>
+{%- endif -%}
+</div>
+</div>
 
-    {%- when 'intro_card' -%}
-        <div class="mm-feeling-heavy__intro-card" style="
-                --order-desktop: {{ block.settings.order_desktop }};
-                --order-mobile: {{ block.settings.order_mobile }};
-                --card-bg: {{ block.settings.background }};
-                --border-color: {{ block.settings.border_color }};
-                --border-width: {{ block.settings.border_width }}px;
-                --radius-desktop: {{ block.settings.radius_desktop }}px;
-                --radius-mobile: {{ block.settings.radius_mobile }}px;
-                --padding-desktop: {{ block.settings.padding_desktop }}px;
-                --padding-mobile: {{ block.settings.padding_mobile }}px;
-                --gap-desktop: {{ block.settings.gap_desktop }}px;
-                --gap-mobile: {{ block.settings.gap_mobile }}px;
-                --image-width-desktop: {{ block.settings.image_width_desktop }}%;
-                --image-width-mobile: {{ block.settings.image_width_mobile }}%;
-                --image-radius-desktop: {{ block.settings.image_radius_desktop }}px;
-                --image-radius-mobile: {{ block.settings.image_radius_mobile }}px;
-                --text-color: {{ block.settings.text_color }};
-                --text-size-desktop: {{ block.settings.text_size_desktop }}px;
-                --text-size-mobile: {{ block.settings.text_size_mobile }}px;
-                --text-lh-desktop: {{ block.settings.text_line_height_desktop }};
-                --text-lh-mobile: {{ block.settings.text_line_height_mobile }};
-                --bullet-color: {{ block.settings.bullet_color }};
-                --list-gap-desktop: {{ block.settings.list_gap_desktop }}px;
-                --list-gap-mobile: {{ block.settings.list_gap_mobile }}px;
-                " {{ block.shopify_attributes }}>
-            <div class="mm-feeling-heavy__intro-media">
-                {%- if block.settings.image != blank -%}
-                    {{ block.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', class: 'mm-feeling-heavy__intro-image', widths: '360,540,720,900,1200,1600', sizes: '(min-width: 990px) 50vw, 100vw', alt: block.settings.image_alt }}
-                {%- endif -%}
-            </div>
+{%- when 'intro_card' -%}
+<div class="mm-feeling-heavy__intro-card" style="
+--order-desktop: {{ block.settings.order_desktop }};
+--order-mobile: {{ block.settings.order_mobile }};
+--card-bg: {{ block.settings.background }};
+--border-color: {{ block.settings.border_color }};
+--border-width: {{ block.settings.border_width }}px;
+--radius-desktop: {{ block.settings.radius_desktop }}px;
+--radius-mobile: {{ block.settings.radius_mobile }}px;
+--padding-desktop: {{ block.settings.padding_desktop }}px;
+--padding-mobile: {{ block.settings.padding_mobile }}px;
+--gap-desktop: {{ block.settings.gap_desktop }}px;
+--gap-mobile: {{ block.settings.gap_mobile }}px;
+--image-width-desktop: {{ block.settings.image_width_desktop }}%;
+--image-width-mobile: {{ block.settings.image_width_mobile }}%;
+--image-radius-desktop: {{ block.settings.image_radius_desktop }}px;
+--image-radius-mobile: {{ block.settings.image_radius_mobile }}px;
+--text-color: {{ block.settings.text_color }};
+--text-size-desktop: {{ block.settings.text_size_desktop }}px;
+--text-size-mobile: {{ block.settings.text_size_mobile }}px;
+--text-lh-desktop: {{ block.settings.text_line_height_desktop }};
+--text-lh-mobile: {{ block.settings.text_line_height_mobile }};
+--bullet-color: {{ block.settings.bullet_color }};
+--list-gap-desktop: {{ block.settings.list_gap_desktop }}px;
+--list-gap-mobile: {{ block.settings.list_gap_mobile }}px;
+" {{ block.shopify_attributes }}>
+<div class="mm-feeling-heavy__intro-media">
+{%- if block.settings.image != blank -%}
+{%- liquid
+  assign image_loading = 'lazy'
+  assign image_fetchpriority = 'auto'
 
-            <div class="mm-feeling-heavy__intro-content">
-                {%- if block.settings.text != blank -%}
-                    <div class="mm-feeling-heavy__intro-text">{{ block.settings.text }}</div>
-                {%- endif -%}
+  if block.settings.image_loading == 'eager'
+    assign image_loading = 'eager'
+    assign image_fetchpriority = 'high'
+  elsif block.settings.image_loading == 'auto'
+    if section.index != blank and section.index <= 2
+      assign image_loading = 'eager'
+      assign image_fetchpriority = 'high'
+    endif
+  endif
 
-                {%- assign intro_items = block.settings.list | newline_to_br | split: '<br />' -%}
-                <ul class="mm-feeling-heavy__intro-list">
-                    {%- for item in intro_items -%}
-                        {%- assign clean_item = item | strip -%}
-                        {%- if clean_item != blank -%}<li>{{ clean_item }}</li>{%- endif -%}
-                    {%- endfor -%}
-                </ul>
-            </div>
-        </div>
+  assign desktop_container_width = section.settings.max_width
+  assign desktop_inner_width = desktop_container_width | minus: block.settings.padding_desktop | minus: block.settings.padding_desktop
+  assign desktop_image_width_px = desktop_inner_width | times: block.settings.image_width_desktop | divided_by: 100
 
-    {%- when 'rich_text' -%}
-        <div class="mm-feeling-heavy__richtext" style="
-                --order-desktop: {{ block.settings.order_desktop }};
-                --order-mobile: {{ block.settings.order_mobile }};
-                --color: {{ block.settings.color }};
-                --size-desktop: {{ block.settings.size_desktop }}px;
-                --size-mobile: {{ block.settings.size_mobile }}px;
-                --lh-desktop: {{ block.settings.line_height_desktop }};
-                --lh-mobile: {{ block.settings.line_height_mobile }};
-                --max-width-desktop: {{ block.settings.max_width_desktop }}px;
-                --max-width-mobile: {{ block.settings.max_width_mobile }}px;
-                --align-desktop: {{ block.settings.alignment_desktop }};
-                --align-mobile: {{ block.settings.alignment_mobile }};
-                --mt-desktop: {{ block.settings.margin_top_desktop }}px;
-                --mb-desktop: {{ block.settings.margin_bottom_desktop }}px;
-                --mt-mobile: {{ block.settings.margin_top_mobile }}px;
-                --mb-mobile: {{ block.settings.margin_bottom_mobile }}px;
-                " {{ block.shopify_attributes }}>
-            {{ block.settings.content }}
-        </div>
+  assign desktop_breakpoint_width = section.settings.max_width | plus: section.settings.padding_horizontal_desktop | plus: section.settings.padding_horizontal_desktop
 
-    {%- when 'bullet_box' -%}
-        <div class="mm-feeling-heavy__bullet-box" style="
-                --order-desktop: {{ block.settings.order_desktop }};
-                --order-mobile: {{ block.settings.order_mobile }};
-                --box-bg: {{ block.settings.background }};
-                --border-color: {{ block.settings.border_color }};
-                --border-width: {{ block.settings.border_width }}px;
-                --radius-desktop: {{ block.settings.radius_desktop }}px;
-                --radius-mobile: {{ block.settings.radius_mobile }}px;
-                --padding-desktop: {{ block.settings.padding_desktop }}px;
-                --padding-mobile: {{ block.settings.padding_mobile }}px;
-                --text-color: {{ block.settings.text_color }};
-                --text-size-desktop: {{ block.settings.text_size_desktop }}px;
-                --text-size-mobile: {{ block.settings.text_size_mobile }}px;
-                --lh-desktop: {{ block.settings.line_height_desktop }};
-                --lh-mobile: {{ block.settings.line_height_mobile }};
-                --bullet-color: {{ block.settings.bullet_color }};
-                --item-gap-desktop: {{ block.settings.item_gap_desktop }}px;
-                --item-gap-mobile: {{ block.settings.item_gap_mobile }}px;
-                --mt-desktop: {{ block.settings.margin_top_desktop }}px;
-                --mb-desktop: {{ block.settings.margin_bottom_desktop }}px;
-                --mt-mobile: {{ block.settings.margin_top_mobile }}px;
-                --mb-mobile: {{ block.settings.margin_bottom_mobile }}px;
-                " {{ block.shopify_attributes }}>
-            {%- assign items = block.settings.list | newline_to_br | split: '<br />' -%}
-            <ul>
-                {%- for item in items -%}
-                    {%- assign clean_item = item | strip -%}
-                    {%- if clean_item != blank -%}<li>{{ clean_item }}</li>{%- endif -%}
-                {%- endfor -%}
-            </ul>
-        </div>
+  assign desktop_outer_padding = section.settings.padding_horizontal_desktop | times: 2
+  assign desktop_card_padding = block.settings.padding_desktop | times: 2
+  assign desktop_total_padding = desktop_outer_padding | plus: desktop_card_padding
 
-    {%- endcase -%}
-    {%- endfor -%}
-    </div>
+  assign mobile_outer_padding = section.settings.padding_horizontal_mobile | times: 2
+  assign mobile_card_padding = block.settings.padding_mobile | times: 2
+  assign mobile_total_padding = mobile_outer_padding | plus: mobile_card_padding
+
+  capture responsive_sizes
+    echo '(min-width: '
+    echo desktop_breakpoint_width
+    echo 'px) '
+    echo desktop_image_width_px
+    echo 'px, (min-width: 990px) calc((100vw - '
+    echo desktop_total_padding
+    echo 'px) * '
+    echo block.settings.image_width_desktop
+    echo ' / 100), calc((100vw - '
+    echo mobile_total_padding
+    echo 'px) * '
+    echo block.settings.image_width_mobile
+    echo ' / 100)'
+  endcapture
+-%}
+
+{{
+  block.settings.image
+  | image_url: width: 1200
+  | image_tag:
+    loading: image_loading,
+    fetchpriority: image_fetchpriority,
+    class: 'mm-feeling-heavy__intro-image',
+    widths: '320,360,420,480,540,600,640,720,800,900,1080,1200',
+    sizes: responsive_sizes,
+    alt: block.settings.image_alt
+}}
+{%- endif -%}
+</div>
+
+<div class="mm-feeling-heavy__intro-content">
+{%- if block.settings.text != blank -%}
+<div class="mm-feeling-heavy__intro-text">{{ block.settings.text }}</div>
+{%- endif -%}
+
+{%- assign intro_items = block.settings.list | newline_to_br | split: '<br />' -%}
+<ul class="mm-feeling-heavy__intro-list">
+{%- for item in intro_items -%}
+{%- assign clean_item = item | strip -%}
+{%- if clean_item != blank -%}<li>{{ clean_item }}</li>{%- endif -%}
+{%- endfor -%}
+</ul>
+</div>
+</div>
+
+{%- when 'rich_text' -%}
+<div class="mm-feeling-heavy__richtext" style="
+--order-desktop: {{ block.settings.order_desktop }};
+--order-mobile: {{ block.settings.order_mobile }};
+--color: {{ block.settings.color }};
+--size-desktop: {{ block.settings.size_desktop }}px;
+--size-mobile: {{ block.settings.size_mobile }}px;
+--lh-desktop: {{ block.settings.line_height_desktop }};
+--lh-mobile: {{ block.settings.line_height_mobile }};
+--max-width-desktop: {{ block.settings.max_width_desktop }}px;
+--max-width-mobile: {{ block.settings.max_width_mobile }}px;
+--align-desktop: {{ block.settings.alignment_desktop }};
+--align-mobile: {{ block.settings.alignment_mobile }};
+--mt-desktop: {{ block.settings.margin_top_desktop }}px;
+--mb-desktop: {{ block.settings.margin_bottom_desktop }}px;
+--mt-mobile: {{ block.settings.margin_top_mobile }}px;
+--mb-mobile: {{ block.settings.margin_bottom_mobile }}px;
+" {{ block.shopify_attributes }}>
+{{ block.settings.content }}
+</div>
+
+{%- when 'bullet_box' -%}
+<div class="mm-feeling-heavy__bullet-box" style="
+--order-desktop: {{ block.settings.order_desktop }};
+--order-mobile: {{ block.settings.order_mobile }};
+--box-bg: {{ block.settings.background }};
+--border-color: {{ block.settings.border_color }};
+--border-width: {{ block.settings.border_width }}px;
+--radius-desktop: {{ block.settings.radius_desktop }}px;
+--radius-mobile: {{ block.settings.radius_mobile }}px;
+--padding-desktop: {{ block.settings.padding_desktop }}px;
+--padding-mobile: {{ block.settings.padding_mobile }}px;
+--text-color: {{ block.settings.text_color }};
+--text-size-desktop: {{ block.settings.text_size_desktop }}px;
+--text-size-mobile: {{ block.settings.text_size_mobile }}px;
+--lh-desktop: {{ block.settings.line_height_desktop }};
+--lh-mobile: {{ block.settings.line_height_mobile }};
+--bullet-color: {{ block.settings.bullet_color }};
+--item-gap-desktop: {{ block.settings.item_gap_desktop }}px;
+--item-gap-mobile: {{ block.settings.item_gap_mobile }}px;
+--mt-desktop: {{ block.settings.margin_top_desktop }}px;
+--mb-desktop: {{ block.settings.margin_bottom_desktop }}px;
+--mt-mobile: {{ block.settings.margin_top_mobile }}px;
+--mb-mobile: {{ block.settings.margin_bottom_mobile }}px;
+" {{ block.shopify_attributes }}>
+{%- assign items = block.settings.list | newline_to_br | split: '<br />' -%}
+<ul>
+{%- for item in items -%}
+{%- assign clean_item = item | strip -%}
+{%- if clean_item != blank -%}<li>{{ clean_item }}</li>{%- endif -%}
+{%- endfor -%}
+</ul>
+</div>
+
+{%- endcase -%}
+{%- endfor -%}
+</div>
 </section>
 
 {% style %}
-    .{{ section_class }} {
-    background: {{ section.settings.background }} !important;
-    padding: {{ section.settings.padding_top_desktop }}px {{ section.settings.padding_horizontal_desktop }}px {{ section.settings.padding_bottom_desktop }}px;
-    }
-    .{{ section_class }} .mm-feeling-heavy__inner { display:flex; flex-direction:column; width:100%; max-width:{{ section.settings.max_width }}px; margin:0 auto; }
+.{{ section_class }} {
+background: {{ section.settings.background }} !important;
+padding: {{ section.settings.padding_top_desktop }}px {{ section.settings.padding_horizontal_desktop }}px {{ section.settings.padding_bottom_desktop }}px;
+}
+.{{ section_class }} .mm-feeling-heavy__inner { display:flex; flex-direction:column; width:100%; max-width:{{ section.settings.max_width }}px; margin:0 auto; }
 
-    .{{ section_class }} .mm-feeling-heavy__heading { order:var(--order-desktop); width:100%; margin-bottom:var(--mb-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__heading-inner { max-width:var(--max-width-desktop); margin:0 auto; text-align:var(--align-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__title { margin:0 !important; color:var(--title-color) !important; -webkit-text-fill-color:var(--title-color) !important; font-size:var(--title-size-desktop) !important; font-weight:var(--title-weight) !important; line-height:var(--title-lh-desktop) !important; letter-spacing:-.5px !important; text-wrap:balance; }
-    .{{ section_class }} .mm-feeling-heavy__title-accent { color:var(--accent-color) !important; -webkit-text-fill-color:var(--accent-color) !important; }
-    .{{ section_class }} .mm-feeling-heavy__subtitle, .{{ section_class }} .mm-feeling-heavy__subtitle * { margin:var(--subtitle-gap-desktop) 0 0 !important; color:var(--subtitle-color) !important; -webkit-text-fill-color:var(--subtitle-color) !important; font-size:var(--subtitle-size-desktop) !important; font-weight:var(--subtitle-weight) !important; line-height:var(--subtitle-lh-desktop) !important; text-wrap:balance; }
+.{{ section_class }} .mm-feeling-heavy__heading { order:var(--order-desktop); width:100%; margin-bottom:var(--mb-desktop); }
+.{{ section_class }} .mm-feeling-heavy__heading-inner { max-width:var(--max-width-desktop); margin:0 auto; text-align:var(--align-desktop); }
+.{{ section_class }} .mm-feeling-heavy__title { margin:0 !important; color:var(--title-color) !important; -webkit-text-fill-color:var(--title-color) !important; font-size:var(--title-size-desktop) !important; font-weight:var(--title-weight) !important; line-height:var(--title-lh-desktop) !important; letter-spacing:-.5px !important; text-wrap:balance; }
+.{{ section_class }} .mm-feeling-heavy__title-accent { color:var(--accent-color) !important; -webkit-text-fill-color:var(--accent-color) !important; }
+.{{ section_class }} .mm-feeling-heavy__subtitle, .{{ section_class }} .mm-feeling-heavy__subtitle * { margin:var(--subtitle-gap-desktop) 0 0 !important; color:var(--subtitle-color) !important; -webkit-text-fill-color:var(--subtitle-color) !important; font-size:var(--subtitle-size-desktop) !important; font-weight:var(--subtitle-weight) !important; line-height:var(--subtitle-lh-desktop) !important; text-wrap:balance; }
 
-    .{{ section_class }} .mm-feeling-heavy__intro-card { order:var(--order-desktop); display:flex; align-items:center; gap:var(--gap-desktop); width:100%; box-sizing:border-box; background:var(--card-bg); border:var(--border-width) solid var(--border-color); border-radius:var(--radius-desktop); padding:var(--padding-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__intro-media { flex:0 0 var(--image-width-desktop); width:var(--image-width-desktop); overflow:hidden; border-radius:var(--image-radius-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__intro-image { display:block; width:100%; height:auto; border-radius:inherit; }
-    .{{ section_class }} .mm-feeling-heavy__intro-content { flex:1 1 auto; min-width:0; }
-    .{{ section_class }} .mm-feeling-heavy__intro-text, .{{ section_class }} .mm-feeling-heavy__intro-text * { margin:0 !important; color:var(--text-color) !important; -webkit-text-fill-color:var(--text-color) !important; font-size:var(--text-size-desktop) !important; line-height:var(--text-lh-desktop) !important; }
-    .{{ section_class }} .mm-feeling-heavy__intro-list { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:var(--list-gap-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__intro-list li { position:relative; padding-left:14px; color:var(--text-color); font-size:var(--text-size-desktop); line-height:var(--text-lh-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__intro-list li::before { content:""; position:absolute; left:0; top:.65em; width:6px; height:6px; border-radius:50%; transform:translateY(-50%); background:var(--bullet-color); }
+.{{ section_class }} .mm-feeling-heavy__intro-card { order:var(--order-desktop); display:flex; align-items:center; gap:var(--gap-desktop); width:100%; box-sizing:border-box; background:var(--card-bg); border:var(--border-width) solid var(--border-color); border-radius:var(--radius-desktop); padding:var(--padding-desktop); }
+.{{ section_class }} .mm-feeling-heavy__intro-media { flex:0 0 var(--image-width-desktop); width:var(--image-width-desktop); min-width:0; overflow:hidden; border-radius:var(--image-radius-desktop); }
+.{{ section_class }} .mm-feeling-heavy__intro-image { display:block; width:100%; height:auto; max-width:100%; border-radius:inherit; }
+.{{ section_class }} .mm-feeling-heavy__intro-content { flex:1 1 auto; min-width:0; }
+.{{ section_class }} .mm-feeling-heavy__intro-text, .{{ section_class }} .mm-feeling-heavy__intro-text * { margin:0 !important; color:var(--text-color) !important; -webkit-text-fill-color:var(--text-color) !important; font-size:var(--text-size-desktop) !important; line-height:var(--text-lh-desktop) !important; }
+.{{ section_class }} .mm-feeling-heavy__intro-list { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:var(--list-gap-desktop); }
+.{{ section_class }} .mm-feeling-heavy__intro-list li { position:relative; padding-left:14px; color:var(--text-color); font-size:var(--text-size-desktop); line-height:var(--text-lh-desktop); }
+.{{ section_class }} .mm-feeling-heavy__intro-list li::before { content:""; position:absolute; left:0; top:.65em; width:6px; height:6px; border-radius:50%; transform:translateY(-50%); background:var(--bullet-color); }
 
-    .{{ section_class }} .mm-feeling-heavy__richtext { order:var(--order-desktop); width:100%; max-width:var(--max-width-desktop); margin:var(--mt-desktop) auto var(--mb-desktop); text-align:var(--align-desktop); color:var(--color) !important; }
-    .{{ section_class }} .mm-feeling-heavy__richtext, .{{ section_class }} .mm-feeling-heavy__richtext * { font-size:var(--size-desktop) !important; line-height:var(--lh-desktop) !important; color:var(--color) !important; -webkit-text-fill-color:var(--color) !important; }
-    .{{ section_class }} .mm-feeling-heavy__richtext p { margin:0 0 14px !important; }
-    .{{ section_class }} .mm-feeling-heavy__richtext p:last-child { margin-bottom:0 !important; }
+.{{ section_class }} .mm-feeling-heavy__richtext { order:var(--order-desktop); width:100%; max-width:var(--max-width-desktop); margin:var(--mt-desktop) auto var(--mb-desktop); text-align:var(--align-desktop); color:var(--color) !important; }
+.{{ section_class }} .mm-feeling-heavy__richtext, .{{ section_class }} .mm-feeling-heavy__richtext * { font-size:var(--size-desktop) !important; line-height:var(--lh-desktop) !important; color:var(--color) !important; -webkit-text-fill-color:var(--color) !important; }
+.{{ section_class }} .mm-feeling-heavy__richtext p { margin:0 0 14px !important; }
+.{{ section_class }} .mm-feeling-heavy__richtext p:last-child { margin-bottom:0 !important; }
 
-    .{{ section_class }} .mm-feeling-heavy__bullet-box { order:var(--order-desktop); box-sizing:border-box; width:100%; margin:var(--mt-desktop) 0 var(--mb-desktop); padding:var(--padding-desktop); background:var(--box-bg); border:var(--border-width) solid var(--border-color); border-radius:var(--radius-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__bullet-box ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--item-gap-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__bullet-box li { position:relative; padding-left:16px; color:var(--text-color); font-size:var(--text-size-desktop); line-height:var(--lh-desktop); }
-    .{{ section_class }} .mm-feeling-heavy__bullet-box li::before { content:""; position:absolute; left:0; top:.65em; width:6px; height:6px; border-radius:50%; transform:translateY(-50%); background:var(--bullet-color); }
+.{{ section_class }} .mm-feeling-heavy__bullet-box { order:var(--order-desktop); box-sizing:border-box; width:100%; margin:var(--mt-desktop) 0 var(--mb-desktop); padding:var(--padding-desktop); background:var(--box-bg); border:var(--border-width) solid var(--border-color); border-radius:var(--radius-desktop); }
+.{{ section_class }} .mm-feeling-heavy__bullet-box ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--item-gap-desktop); }
+.{{ section_class }} .mm-feeling-heavy__bullet-box li { position:relative; padding-left:16px; color:var(--text-color); font-size:var(--text-size-desktop); line-height:var(--lh-desktop); }
+.{{ section_class }} .mm-feeling-heavy__bullet-box li::before { content:""; position:absolute; left:0; top:.65em; width:6px; height:6px; border-radius:50%; transform:translateY(-50%); background:var(--bullet-color); }
 
-    @media (max-width:989px) {
-    .{{ section_class }} { padding:{{ section.settings.padding_top_mobile }}px {{ section.settings.padding_horizontal_mobile }}px {{ section.settings.padding_bottom_mobile }}px; }
-    .{{ section_class }} .mm-feeling-heavy__heading { order:var(--order-mobile); margin-bottom:var(--mb-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__heading-inner { max-width:var(--max-width-mobile); text-align:var(--align-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__title { font-size:var(--title-size-mobile) !important; line-height:var(--title-lh-mobile) !important; }
-    .{{ section_class }} .mm-feeling-heavy__subtitle, .{{ section_class }} .mm-feeling-heavy__subtitle * { margin-top:var(--subtitle-gap-mobile) !important; font-size:var(--subtitle-size-mobile) !important; line-height:var(--subtitle-lh-mobile) !important; }
+@media (max-width:989px) {
+.{{ section_class }} { padding:{{ section.settings.padding_top_mobile }}px {{ section.settings.padding_horizontal_mobile }}px {{ section.settings.padding_bottom_mobile }}px; }
+.{{ section_class }} .mm-feeling-heavy__heading { order:var(--order-mobile); margin-bottom:var(--mb-mobile); }
+.{{ section_class }} .mm-feeling-heavy__heading-inner { max-width:var(--max-width-mobile); text-align:var(--align-mobile); }
+.{{ section_class }} .mm-feeling-heavy__title { font-size:var(--title-size-mobile) !important; line-height:var(--title-lh-mobile) !important; }
+.{{ section_class }} .mm-feeling-heavy__subtitle, .{{ section_class }} .mm-feeling-heavy__subtitle * { margin-top:var(--subtitle-gap-mobile) !important; font-size:var(--subtitle-size-mobile) !important; line-height:var(--subtitle-lh-mobile) !important; }
 
-    .{{ section_class }} .mm-feeling-heavy__intro-card { order:var(--order-mobile); flex-direction:column; align-items:stretch; gap:var(--gap-mobile); border-radius:var(--radius-mobile); padding:var(--padding-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__intro-media { flex:none; width:var(--image-width-mobile); border-radius:var(--image-radius-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__intro-text, .{{ section_class }} .mm-feeling-heavy__intro-text * { font-size:var(--text-size-mobile) !important; line-height:var(--text-lh-mobile) !important; }
-    .{{ section_class }} .mm-feeling-heavy__intro-list { gap:var(--list-gap-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__intro-list li { font-size:var(--text-size-mobile); line-height:var(--text-lh-mobile); }
+.{{ section_class }} .mm-feeling-heavy__intro-card { order:var(--order-mobile); flex-direction:column; align-items:stretch; gap:var(--gap-mobile); border-radius:var(--radius-mobile); padding:var(--padding-mobile); }
+.{{ section_class }} .mm-feeling-heavy__intro-media { flex:none; width:var(--image-width-mobile); border-radius:var(--image-radius-mobile); }
+.{{ section_class }} .mm-feeling-heavy__intro-text, .{{ section_class }} .mm-feeling-heavy__intro-text * { font-size:var(--text-size-mobile) !important; line-height:var(--text-lh-mobile) !important; }
+.{{ section_class }} .mm-feeling-heavy__intro-list { gap:var(--list-gap-mobile); }
+.{{ section_class }} .mm-feeling-heavy__intro-list li { font-size:var(--text-size-mobile); line-height:var(--text-lh-mobile); }
 
-    .{{ section_class }} .mm-feeling-heavy__richtext { order:var(--order-mobile); max-width:var(--max-width-mobile); margin:var(--mt-mobile) auto var(--mb-mobile); text-align:var(--align-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__richtext, .{{ section_class }} .mm-feeling-heavy__richtext * { font-size:var(--size-mobile) !important; line-height:var(--lh-mobile) !important; }
+.{{ section_class }} .mm-feeling-heavy__richtext { order:var(--order-mobile); max-width:var(--max-width-mobile); margin:var(--mt-mobile) auto var(--mb-mobile); text-align:var(--align-mobile); }
+.{{ section_class }} .mm-feeling-heavy__richtext, .{{ section_class }} .mm-feeling-heavy__richtext * { font-size:var(--size-mobile) !important; line-height:var(--lh-mobile) !important; }
 
-    .{{ section_class }} .mm-feeling-heavy__bullet-box { order:var(--order-mobile); margin:var(--mt-mobile) 0 var(--mb-mobile); padding:var(--padding-mobile); border-radius:var(--radius-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__bullet-box ul { gap:var(--item-gap-mobile); }
-    .{{ section_class }} .mm-feeling-heavy__bullet-box li { font-size:var(--text-size-mobile); line-height:var(--lh-mobile); }
-    }
+.{{ section_class }} .mm-feeling-heavy__bullet-box { order:var(--order-mobile); margin:var(--mt-mobile) 0 var(--mb-mobile); padding:var(--padding-mobile); border-radius:var(--radius-mobile); }
+.{{ section_class }} .mm-feeling-heavy__bullet-box ul { gap:var(--item-gap-mobile); }
+.{{ section_class }} .mm-feeling-heavy__bullet-box li { font-size:var(--text-size-mobile); line-height:var(--lh-mobile); }
+}
 {% endstyle %}
 
 {% schema %}
 {
-  "name": "MM Feeling Heavy Story",
-  "settings": [
-    { "type": "header", "content": "Section" },
-    { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
-    { "type": "range", "id": "max_width", "label": "Content max width", "min": 700, "max": 1400, "step": 10, "unit": "px", "default": 760 },
-    { "type": "header", "content": "Desktop spacing" },
-    { "type": "range", "id": "padding_top_desktop", "label": "Top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
-    { "type": "range", "id": "padding_horizontal_desktop", "label": "Left / right", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
-    { "type": "range", "id": "padding_bottom_desktop", "label": "Bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
-    { "type": "header", "content": "Mobile spacing" },
-    { "type": "range", "id": "padding_top_mobile", "label": "Top", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 36 },
-    { "type": "range", "id": "padding_horizontal_mobile", "label": "Left / right", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
-    { "type": "range", "id": "padding_bottom_mobile", "label": "Bottom", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 36 }
-  ],
-  "blocks": [
-    {
-      "type": "heading",
-      "name": "Heading",
-      "limit": 1,
-      "settings": [
-        { "type": "textarea", "id": "title", "label": "Title", "default": "Feeling Heavy Is One of the Most Frustrating Problems Women Mistake for Weight Gain" },
-        { "type": "text", "id": "accent_text", "label": "Accent text", "default": "Feeling Heavy" },
-        { "type": "select", "id": "title_tag", "label": "Title tag", "options": [{"value":"h2","label":"H2"},{"value":"h3","label":"H3"},{"value":"div","label":"DIV"}], "default": "h2" },
-        { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Why Doesn't Eating Less Always Make Your Stomach Feel Better?" },
-        { "type": "header", "content": "Order" },
-        { "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "1" },
-        { "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "1" },
-        { "type": "header", "content": "Layout" },
-        { "type": "range", "id": "max_width_desktop", "label": "Max width desktop", "min": 400, "max": 1100, "step": 10, "unit": "px", "default": 760 },
-        { "type": "range", "id": "max_width_mobile", "label": "Max width mobile", "min": 220, "max": 420, "step": 10, "unit": "px", "default": 360 },
-        { "type": "select", "id": "alignment_desktop", "label": "Alignment desktop", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "center" },
-        { "type": "select", "id": "alignment_mobile", "label": "Alignment mobile", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "center" },
-        { "type": "header", "content": "Title" },
-        { "type": "color", "id": "title_color", "label": "Color", "default": "#111111" },
-        { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#6F1020" },
-        { "type": "range", "id": "title_size_desktop", "label": "Size desktop", "min": 24, "max": 60, "step": 1, "unit": "px", "default": 34 },
-        { "type": "range", "id": "title_size_mobile", "label": "Size mobile", "min": 22, "max": 40, "step": 1, "unit": "px", "default": 28 },
-        { "type": "select", "id": "title_weight", "label": "Weight", "options": [{"value":"500","label":"500"},{"value":"600","label":"600"},{"value":"700","label":"700"},{"value":"800","label":"800"}], "default": "700" },
-        { "type": "range", "id": "title_line_height_desktop", "label": "Line height desktop", "min": 0.8, "max": 1.6, "step": 0.1, "default": 1.1 },
-        { "type": "range", "id": "title_line_height_mobile", "label": "Line height mobile", "min": 0.8, "max": 1.6, "step": 0.1, "default": 1.1 },
-        { "type": "header", "content": "Subtitle" },
-        { "type": "color", "id": "subtitle_color", "label": "Color", "default": "#111111" },
-        { "type": "range", "id": "subtitle_size_desktop", "label": "Size desktop", "min": 14, "max": 28, "step": 1, "unit": "px", "default": 18 },
-        { "type": "range", "id": "subtitle_size_mobile", "label": "Size mobile", "min": 14, "max": 24, "step": 1, "unit": "px", "default": 16 },
-        { "type": "select", "id": "subtitle_weight", "label": "Weight", "options": [{"value":"400","label":"400"},{"value":"500","label":"500"},{"value":"600","label":"600"},{"value":"700","label":"700"}], "default": "600" },
-        { "type": "range", "id": "subtitle_line_height_desktop", "label": "Line height desktop", "min": 0.8, "max": 1.8, "step": 0.1, "default": 1.2 },
-        { "type": "range", "id": "subtitle_line_height_mobile", "label": "Line height mobile", "min": 0.8, "max": 1.8, "step": 0.1, "default": 1.2 },
-        { "type": "range", "id": "subtitle_gap_desktop", "label": "Title to subtitle desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 26 },
-        { "type": "range", "id": "subtitle_gap_mobile", "label": "Title to subtitle mobile", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 18 },
-        { "type": "range", "id": "margin_bottom_desktop", "label": "Bottom spacing desktop", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 34 },
-        { "type": "range", "id": "margin_bottom_mobile", "label": "Bottom spacing mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 28 }
-      ]
-    },
-    {
-      "type": "intro_card",
-      "name": "Image + bullet card",
-      "limit": 1,
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "image_alt", "label": "Image alt text" },
-        { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>When your jeans suddenly feel tighter, the natural reaction is often:</p>" },
-        { "type": "textarea", "id": "list", "label": "Bullet items — one per line", "default": "Reduce portions\nCut carbohydrates\nSkip breakfast\nAvoid dessert\nStart another “clean” diet" },
-        { "type": "header", "content": "Order" },
-        { "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "2" },
-        { "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "2" },
-        { "type": "header", "content": "Card" },
-        { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
-        { "type": "color", "id": "border_color", "label": "Border color", "default": "#D8D8D8" },
-        { "type": "range", "id": "border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
-        { "type": "range", "id": "radius_desktop", "label": "Radius desktop", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 22 },
-        { "type": "range", "id": "radius_mobile", "label": "Radius mobile", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 28 },
-        { "type": "range", "id": "padding_desktop", "label": "Padding desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 18 },
-        { "type": "range", "id": "padding_mobile", "label": "Padding mobile", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 14 },
-        { "type": "range", "id": "gap_desktop", "label": "Image / text gap desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 20 },
-        { "type": "range", "id": "gap_mobile", "label": "Image / text gap mobile", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 18 },
-        { "type": "header", "content": "Image" },
-        { "type": "range", "id": "image_width_desktop", "label": "Width desktop", "min": 30, "max": 70, "step": 1, "unit": "%", "default": 55 },
-        { "type": "range", "id": "image_width_mobile", "label": "Width mobile", "min": 70, "max": 100, "step": 1, "unit": "%", "default": 100 },
-        { "type": "range", "id": "image_radius_desktop", "label": "Radius desktop", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 12 },
-        { "type": "range", "id": "image_radius_mobile", "label": "Radius mobile", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 16 },
-        { "type": "header", "content": "Text" },
-        { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
-        { "type": "range", "id": "text_size_desktop", "label": "Size desktop", "min": 13, "max": 24, "step": 1, "unit": "px", "default": 15 },
-        { "type": "range", "id": "text_size_mobile", "label": "Size mobile", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 16 },
-        { "type": "range", "id": "text_line_height_desktop", "label": "Line height desktop", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
-        { "type": "range", "id": "text_line_height_mobile", "label": "Line height mobile", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
-        { "type": "color", "id": "bullet_color", "label": "Bullet color", "default": "#7C1225" },
-        { "type": "range", "id": "list_gap_desktop", "label": "List gap desktop", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 8 },
-        { "type": "range", "id": "list_gap_mobile", "label": "List gap mobile", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 8 }
-      ]
-    },
-    {
-      "type": "rich_text",
-      "name": "Rich text",
-      "settings": [
-        { "type": "richtext", "id": "content", "label": "Content", "default": "<p><strong>Eating less does not automatically mean eating better.</strong></p><p>In fact, many popular <strong>weight-loss routines unintentionally reduce</strong> some of the <strong>foods that contribute fiber.</strong><br>You may consume <strong>fewer calories</strong> while also consuming <strong>less fiber.</strong></p><p>That can leave digestion feeling slower and bowel movements less predictable.<br><strong>And when your digestive routine is off, you may notice:</strong></p>" },
-        { "type": "header", "content": "Order" },
-        { "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "3" },
-        { "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "3" },
-        { "type": "header", "content": "Typography" },
-        { "type": "color", "id": "color", "label": "Color", "default": "#111111" },
-        { "type": "range", "id": "size_desktop", "label": "Size desktop", "min": 13, "max": 24, "step": 1, "unit": "px", "default": 15 },
-        { "type": "range", "id": "size_mobile", "label": "Size mobile", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 16 },
-        { "type": "range", "id": "line_height_desktop", "label": "Line height desktop", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
-        { "type": "range", "id": "line_height_mobile", "label": "Line height mobile", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
-        { "type": "header", "content": "Layout" },
-        { "type": "range", "id": "max_width_desktop", "label": "Max width desktop", "min": 400, "max": 1000, "step": 10, "unit": "px", "default": 760 },
-        { "type": "range", "id": "max_width_mobile", "label": "Max width mobile", "min": 220, "max": 420, "step": 10, "unit": "px", "default": 360 },
-        { "type": "select", "id": "alignment_desktop", "label": "Alignment desktop", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "left" },
-        { "type": "select", "id": "alignment_mobile", "label": "Alignment mobile", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "left" },
-        { "type": "header", "content": "Spacing" },
-        { "type": "range", "id": "margin_top_desktop", "label": "Top desktop", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 30 },
-        { "type": "range", "id": "margin_bottom_desktop", "label": "Bottom desktop", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 0 },
-        { "type": "range", "id": "margin_top_mobile", "label": "Top mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 26 },
-        { "type": "range", "id": "margin_bottom_mobile", "label": "Bottom mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 0 }
-      ]
-    },
-    {
-      "type": "bullet_box",
-      "name": "Bullet box",
-      "settings": [
-        { "type": "textarea", "id": "list", "label": "Bullet items — one per line", "default": "A stomach that changes throughout the day\nPressure around your waistband\nPost-meal heaviness\nIrregular or incomplete bowel movements\nClothes that feel tighter by evening" },
-        { "type": "header", "content": "Order" },
-        { "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "4" },
-        { "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "4" },
-        { "type": "header", "content": "Box" },
-        { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
-        { "type": "color", "id": "border_color", "label": "Border color", "default": "#D8D8D8" },
-        { "type": "range", "id": "border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
-        { "type": "range", "id": "radius_desktop", "label": "Radius desktop", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 16 },
-        { "type": "range", "id": "radius_mobile", "label": "Radius mobile", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 18 },
-        { "type": "range", "id": "padding_desktop", "label": "Padding desktop", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 14 },
-        { "type": "range", "id": "padding_mobile", "label": "Padding mobile", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 16 },
-        { "type": "header", "content": "Text" },
-        { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
-        { "type": "color", "id": "bullet_color", "label": "Bullet color", "default": "#7C1225" },
-        { "type": "range", "id": "text_size_desktop", "label": "Size desktop", "min": 13, "max": 22, "step": 1, "unit": "px", "default": 15 },
-        { "type": "range", "id": "text_size_mobile", "label": "Size mobile", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 16 },
-        { "type": "range", "id": "line_height_desktop", "label": "Line height desktop", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
-        { "type": "range", "id": "line_height_mobile", "label": "Line height mobile", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
-        { "type": "range", "id": "item_gap_desktop", "label": "Item gap desktop", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 6 },
-        { "type": "range", "id": "item_gap_mobile", "label": "Item gap mobile", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 6 },
-        { "type": "header", "content": "Spacing" },
-        { "type": "range", "id": "margin_top_desktop", "label": "Top desktop", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 8 },
-        { "type": "range", "id": "margin_bottom_desktop", "label": "Bottom desktop", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 10 },
-        { "type": "range", "id": "margin_top_mobile", "label": "Top mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 10 },
-        { "type": "range", "id": "margin_bottom_mobile", "label": "Bottom mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 14 }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "MM Feeling Heavy Story",
-      "blocks": [
-        { "type": "heading" },
-        { "type": "intro_card" },
-        { "type": "rich_text" },
-        { "type": "bullet_box" },
-        {
-          "type": "rich_text",
-          "settings": {
-            "order_desktop": "5",
-            "order_mobile": "5",
-            "margin_top_desktop": 0,
-            "margin_top_mobile": 0,
-            "content": "<p>Body fat does not suddenly appear between breakfast and dinner.<br><strong>But bloating and digestive irregularity may change how your waist looks and feels within the same day.</strong></p>"
-          }
-        }
-      ]
-    }
-  ]
+"name": "MM Feeling Heavy Story",
+"settings": [
+{ "type": "header", "content": "Section" },
+{ "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+{ "type": "range", "id": "max_width", "label": "Content max width", "min": 700, "max": 1400, "step": 10, "unit": "px", "default": 760 },
+{ "type": "header", "content": "Desktop spacing" },
+{ "type": "range", "id": "padding_top_desktop", "label": "Top", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+{ "type": "range", "id": "padding_horizontal_desktop", "label": "Left / right", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+{ "type": "range", "id": "padding_bottom_desktop", "label": "Bottom", "min": 0, "max": 160, "step": 4, "unit": "px", "default": 64 },
+{ "type": "header", "content": "Mobile spacing" },
+{ "type": "range", "id": "padding_top_mobile", "label": "Top", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 36 },
+{ "type": "range", "id": "padding_horizontal_mobile", "label": "Left / right", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 16 },
+{ "type": "range", "id": "padding_bottom_mobile", "label": "Bottom", "min": 0, "max": 100, "step": 2, "unit": "px", "default": 36 }
+],
+"blocks": [
+{
+"type": "heading",
+"name": "Heading",
+"limit": 1,
+"settings": [
+{ "type": "textarea", "id": "title", "label": "Title", "default": "Feeling Heavy Is One of the Most Frustrating Problems Women Mistake for Weight Gain" },
+{ "type": "text", "id": "accent_text", "label": "Accent text", "default": "Feeling Heavy" },
+{ "type": "select", "id": "title_tag", "label": "Title tag", "options": [{"value":"h2","label":"H2"},{"value":"h3","label":"H3"},{"value":"div","label":"DIV"}], "default": "h2" },
+{ "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Why Doesn't Eating Less Always Make Your Stomach Feel Better?" },
+{ "type": "header", "content": "Order" },
+{ "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "1" },
+{ "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "1" },
+{ "type": "header", "content": "Layout" },
+{ "type": "range", "id": "max_width_desktop", "label": "Max width desktop", "min": 400, "max": 1100, "step": 10, "unit": "px", "default": 760 },
+{ "type": "range", "id": "max_width_mobile", "label": "Max width mobile", "min": 220, "max": 420, "step": 10, "unit": "px", "default": 360 },
+{ "type": "select", "id": "alignment_desktop", "label": "Alignment desktop", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "center" },
+{ "type": "select", "id": "alignment_mobile", "label": "Alignment mobile", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "center" },
+{ "type": "header", "content": "Title" },
+{ "type": "color", "id": "title_color", "label": "Color", "default": "#111111" },
+{ "type": "color", "id": "accent_color", "label": "Accent color", "default": "#6F1020" },
+{ "type": "range", "id": "title_size_desktop", "label": "Size desktop", "min": 24, "max": 60, "step": 1, "unit": "px", "default": 34 },
+{ "type": "range", "id": "title_size_mobile", "label": "Size mobile", "min": 22, "max": 40, "step": 1, "unit": "px", "default": 28 },
+{ "type": "select", "id": "title_weight", "label": "Weight", "options": [{"value":"500","label":"500"},{"value":"600","label":"600"},{"value":"700","label":"700"},{"value":"800","label":"800"}], "default": "700" },
+{ "type": "range", "id": "title_line_height_desktop", "label": "Line height desktop", "min": 0.8, "max": 1.6, "step": 0.1, "default": 1.1 },
+{ "type": "range", "id": "title_line_height_mobile", "label": "Line height mobile", "min": 0.8, "max": 1.6, "step": 0.1, "default": 1.1 },
+{ "type": "header", "content": "Subtitle" },
+{ "type": "color", "id": "subtitle_color", "label": "Color", "default": "#111111" },
+{ "type": "range", "id": "subtitle_size_desktop", "label": "Size desktop", "min": 14, "max": 28, "step": 1, "unit": "px", "default": 18 },
+{ "type": "range", "id": "subtitle_size_mobile", "label": "Size mobile", "min": 14, "max": 24, "step": 1, "unit": "px", "default": 16 },
+{ "type": "select", "id": "subtitle_weight", "label": "Weight", "options": [{"value":"400","label":"400"},{"value":"500","label":"500"},{"value":"600","label":"600"},{"value":"700","label":"700"}], "default": "600" },
+{ "type": "range", "id": "subtitle_line_height_desktop", "label": "Line height desktop", "min": 0.8, "max": 1.8, "step": 0.1, "default": 1.2 },
+{ "type": "range", "id": "subtitle_line_height_mobile", "label": "Line height mobile", "min": 0.8, "max": 1.8, "step": 0.1, "default": 1.2 },
+{ "type": "range", "id": "subtitle_gap_desktop", "label": "Title to subtitle desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 26 },
+{ "type": "range", "id": "subtitle_gap_mobile", "label": "Title to subtitle mobile", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 18 },
+{ "type": "range", "id": "margin_bottom_desktop", "label": "Bottom spacing desktop", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 34 },
+{ "type": "range", "id": "margin_bottom_mobile", "label": "Bottom spacing mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 28 }
+]
+},
+{
+"type": "intro_card",
+"name": "Image + bullet card",
+"limit": 1,
+"settings": [
+{ "type": "image_picker", "id": "image", "label": "Image" },
+{ "type": "text", "id": "image_alt", "label": "Image alt text" },
+{ "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>When your jeans suddenly feel tighter, the natural reaction is often:</p>" },
+{ "type": "textarea", "id": "list", "label": "Bullet items — one per line", "default": "Reduce portions\nCut carbohydrates\nSkip breakfast\nAvoid dessert\nStart another “clean” diet" },
+{ "type": "header", "content": "Order" },
+{ "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "2" },
+{ "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "2" },
+{ "type": "header", "content": "Card" },
+{ "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+{ "type": "color", "id": "border_color", "label": "Border color", "default": "#D8D8D8" },
+{ "type": "range", "id": "border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
+{ "type": "range", "id": "radius_desktop", "label": "Radius desktop", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 22 },
+{ "type": "range", "id": "radius_mobile", "label": "Radius mobile", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 28 },
+{ "type": "range", "id": "padding_desktop", "label": "Padding desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 18 },
+{ "type": "range", "id": "padding_mobile", "label": "Padding mobile", "min": 0, "max": 30, "step": 2, "unit": "px", "default": 14 },
+{ "type": "range", "id": "gap_desktop", "label": "Image / text gap desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "default": 20 },
+{ "type": "range", "id": "gap_mobile", "label": "Image / text gap mobile", "min": 0, "max": 40, "step": 2, "unit": "px", "default": 18 },
+{ "type": "header", "content": "Image" },
+{ "type": "select", "id": "image_loading", "label": "Image loading priority", "options": [{"value":"auto","label":"Auto (recommended)"},{"value":"lazy","label":"Lazy"},{"value":"eager","label":"Eager / high priority"}], "default": "auto", "info": "Auto makes the image eager only when the section is near the top of the page; otherwise it stays lazy." },
+{ "type": "range", "id": "image_width_desktop", "label": "Width desktop", "min": 30, "max": 70, "step": 1, "unit": "%", "default": 55 },
+{ "type": "range", "id": "image_width_mobile", "label": "Width mobile", "min": 70, "max": 100, "step": 1, "unit": "%", "default": 100 },
+{ "type": "range", "id": "image_radius_desktop", "label": "Radius desktop", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 12 },
+{ "type": "range", "id": "image_radius_mobile", "label": "Radius mobile", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 16 },
+{ "type": "header", "content": "Text" },
+{ "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+{ "type": "range", "id": "text_size_desktop", "label": "Size desktop", "min": 13, "max": 24, "step": 1, "unit": "px", "default": 15 },
+{ "type": "range", "id": "text_size_mobile", "label": "Size mobile", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 16 },
+{ "type": "range", "id": "text_line_height_desktop", "label": "Line height desktop", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
+{ "type": "range", "id": "text_line_height_mobile", "label": "Line height mobile", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
+{ "type": "color", "id": "bullet_color", "label": "Bullet color", "default": "#7C1225" },
+{ "type": "range", "id": "list_gap_desktop", "label": "List gap desktop", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 8 },
+{ "type": "range", "id": "list_gap_mobile", "label": "List gap mobile", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 8 }
+]
+},
+{
+"type": "rich_text",
+"name": "Rich text",
+"settings": [
+{ "type": "richtext", "id": "content", "label": "Content", "default": "<p><strong>Eating less does not automatically mean eating better.</strong></p><p>In fact, many popular <strong>weight-loss routines unintentionally reduce</strong> some of the <strong>foods that contribute fiber.</strong><br>You may consume <strong>fewer calories</strong> while also consuming <strong>less fiber.</strong></p><p>That can leave digestion feeling slower and bowel movements less predictable.<br><strong>And when your digestive routine is off, you may notice:</strong></p>" },
+{ "type": "header", "content": "Order" },
+{ "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "3" },
+{ "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "3" },
+{ "type": "header", "content": "Typography" },
+{ "type": "color", "id": "color", "label": "Color", "default": "#111111" },
+{ "type": "range", "id": "size_desktop", "label": "Size desktop", "min": 13, "max": 24, "step": 1, "unit": "px", "default": 15 },
+{ "type": "range", "id": "size_mobile", "label": "Size mobile", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 16 },
+{ "type": "range", "id": "line_height_desktop", "label": "Line height desktop", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
+{ "type": "range", "id": "line_height_mobile", "label": "Line height mobile", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
+{ "type": "header", "content": "Layout" },
+{ "type": "range", "id": "max_width_desktop", "label": "Max width desktop", "min": 400, "max": 1000, "step": 10, "unit": "px", "default": 760 },
+{ "type": "range", "id": "max_width_mobile", "label": "Max width mobile", "min": 220, "max": 420, "step": 10, "unit": "px", "default": 360 },
+{ "type": "select", "id": "alignment_desktop", "label": "Alignment desktop", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "left" },
+{ "type": "select", "id": "alignment_mobile", "label": "Alignment mobile", "options": [{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}], "default": "left" },
+{ "type": "header", "content": "Spacing" },
+{ "type": "range", "id": "margin_top_desktop", "label": "Top desktop", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 30 },
+{ "type": "range", "id": "margin_bottom_desktop", "label": "Bottom desktop", "min": 0, "max": 80, "step": 2, "unit": "px", "default": 0 },
+{ "type": "range", "id": "margin_top_mobile", "label": "Top mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 26 },
+{ "type": "range", "id": "margin_bottom_mobile", "label": "Bottom mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 0 }
+]
+},
+{
+"type": "bullet_box",
+"name": "Bullet box",
+"settings": [
+{ "type": "textarea", "id": "list", "label": "Bullet items — one per line", "default": "A stomach that changes throughout the day\nPressure around your waistband\nPost-meal heaviness\nIrregular or incomplete bowel movements\nClothes that feel tighter by evening" },
+{ "type": "header", "content": "Order" },
+{ "type": "select", "id": "order_desktop", "label": "Desktop order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "4" },
+{ "type": "select", "id": "order_mobile", "label": "Mobile order", "options": [{"value":"1","label":"1"},{"value":"2","label":"2"},{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}], "default": "4" },
+{ "type": "header", "content": "Box" },
+{ "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+{ "type": "color", "id": "border_color", "label": "Border color", "default": "#D8D8D8" },
+{ "type": "range", "id": "border_width", "label": "Border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
+{ "type": "range", "id": "radius_desktop", "label": "Radius desktop", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 16 },
+{ "type": "range", "id": "radius_mobile", "label": "Radius mobile", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 18 },
+{ "type": "range", "id": "padding_desktop", "label": "Padding desktop", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 14 },
+{ "type": "range", "id": "padding_mobile", "label": "Padding mobile", "min": 8, "max": 40, "step": 2, "unit": "px", "default": 16 },
+{ "type": "header", "content": "Text" },
+{ "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+{ "type": "color", "id": "bullet_color", "label": "Bullet color", "default": "#7C1225" },
+{ "type": "range", "id": "text_size_desktop", "label": "Size desktop", "min": 13, "max": 22, "step": 1, "unit": "px", "default": 15 },
+{ "type": "range", "id": "text_size_mobile", "label": "Size mobile", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 16 },
+{ "type": "range", "id": "line_height_desktop", "label": "Line height desktop", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
+{ "type": "range", "id": "line_height_mobile", "label": "Line height mobile", "min": 1, "max": 2, "step": 0.1, "default": 1.4 },
+{ "type": "range", "id": "item_gap_desktop", "label": "Item gap desktop", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 6 },
+{ "type": "range", "id": "item_gap_mobile", "label": "Item gap mobile", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 6 },
+{ "type": "header", "content": "Spacing" },
+{ "type": "range", "id": "margin_top_desktop", "label": "Top desktop", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 8 },
+{ "type": "range", "id": "margin_bottom_desktop", "label": "Bottom desktop", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 10 },
+{ "type": "range", "id": "margin_top_mobile", "label": "Top mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 10 },
+{ "type": "range", "id": "margin_bottom_mobile", "label": "Bottom mobile", "min": 0, "max": 60, "step": 2, "unit": "px", "default": 14 }
+]
+}
+],
+"presets": [
+{
+"name": "MM Feeling Heavy Story",
+"blocks": [
+{ "type": "heading" },
+{ "type": "intro_card" },
+{ "type": "rich_text" },
+{ "type": "bullet_box" },
+{
+"type": "rich_text",
+"settings": {
+"order_desktop": "5",
+"order_mobile": "5",
+"margin_top_desktop": 0,
+"margin_top_mobile": 0,
+"content": "<p>Body fat does not suddenly appear between breakfast and dinner.<br><strong>But bloating and digestive irregularity may change how your waist looks and feels within the same day.</strong></p>"
+}
+}
+]
+}
+]
 }
 {% endschema %}
