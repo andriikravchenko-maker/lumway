@@ -39,12 +39,7 @@
     {%- endif -%}
 
     {% comment %} Core Scripts {% endcomment %}
-    {% comment %} <script src="{{ 'product-form-controller.js' | asset_url }}"></script>  <!-- Not deferred because it's used immediately --> {% endcomment %}
-
-{% if template.name == 'product' %}
-  <script src="{{ 'product-form-controller.js' | asset_url }}" defer></script>
-{% endif %}
-
+    <script src="{{ 'product-form-controller.js' | asset_url }}"></script>  <!-- Not deferred because it's used immediately -->
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
