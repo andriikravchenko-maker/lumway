@@ -1305,22 +1305,6 @@
         "button_hover_bg_color": "#1d8a23"
       }
     },
-    "mm_heading_banner_lum_H3xaWF": {
-      "type": "mm-heading-banner-lum",
-      "name": "Heading banner Lum",
-      "settings": {
-        "accent_text": "Feel Better in Your Jeans",
-        "heading": "– Without Starting Another Punishing Diet",
-        "background_color": "#f8e3e8",
-        "accent_color": "#5b0d1e",
-        "text_color": "#111111",
-        "max_width": 1440,
-        "font_size": 40,
-        "font_size_mobile": 26,
-        "padding_top": 44,
-        "padding_bottom": 44
-      }
-    },
     "listicle_sticky_only": {
       "type": "listicle",
       "blocks": {
@@ -1988,6 +1972,22 @@
         "padding_right_mobile": 16
       }
     },
+    "mm_heading_banner_lum_H3xaWF": {
+      "type": "mm-heading-banner-lum",
+      "name": "Heading banner Lum",
+      "settings": {
+        "accent_text": "FREE Shipping For 2 & 3 Jars",
+        "heading": "",
+        "background_color": "#f8e3e8",
+        "accent_color": "#5b0d1e",
+        "text_color": "#111111",
+        "max_width": 1440,
+        "font_size": 56,
+        "font_size_mobile": 26,
+        "padding_top": 44,
+        "padding_bottom": 44
+      }
+    },
     "product_details_lum_WFPgrJ": {
       "type": "product-details-lum",
       "blocks": {
@@ -2527,12 +2527,12 @@
         "role": "Lumway Chief Nutritional Scientist",
         "quote": "“We’re on a Mission To Help More Women Feel Comfortable, Regular and Confident in Their Bodies”",
         "image": "shopify://shop_images/Emily_Carter.webp",
-        "section_background": "#FFFFFF",
-        "card_background": "#FCF4F6",
-        "name_color": "#5B0D1E",
+        "section_background": "#ffffff",
+        "card_background": "#fcf4f6",
+        "name_color": "#5b0d1e",
         "role_color": "#111111",
-        "quote_color": "#5B0D1E",
-        "divider_color": "#C2C2C2",
+        "quote_color": "#5b0d1e",
+        "divider_color": "#c2c2c2",
         "max_width": 1620,
         "card_min_height_desktop": 320,
         "content_max_width_desktop": 1200,
@@ -2732,13 +2732,13 @@
     "get_harmony_feature_v2_7yt7ni",
     "get_harmony_feature_v2_AkDTnE",
     "get_harmony_feature_v2_WwW9hw",
-    "mm_heading_banner_lum_H3xaWF",
     "listicle_sticky_only",
     "alternating_features_ktLx6Y",
     "social_proof_pop",
     "sticky_countdown",
     "product_benefits_4DmPcz",
     "mm_certifications_icons_kaJnmf",
+    "mm_heading_banner_lum_H3xaWF",
     "product_details_lum_WFPgrJ",
     "customer_reviews_carousel_6W7Cht",
     "mm_scientist_quote_GnW77f",
