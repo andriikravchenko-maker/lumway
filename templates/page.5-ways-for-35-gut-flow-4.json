@@ -799,8 +799,8 @@
             "list": "Reduce portions\nCut carbohydrates\nSkip breakfast\nAvoid dessert\nStart another “clean” diet",
             "order_desktop": "2",
             "order_mobile": "2",
-            "background": "#F9F9F9",
-            "border_color": "#C2C2C2",
+            "background": "#f9f9f9",
+            "border_color": "#c2c2c2",
             "border_width": 1,
             "radius_desktop": 32,
             "radius_mobile": 28,
@@ -817,7 +817,7 @@
             "text_size_mobile": 16,
             "text_line_height_desktop": 1.4,
             "text_line_height_mobile": 1.4,
-            "bullet_color": "#5B0D1E",
+            "bullet_color": "#5b0d1e",
             "list_gap_desktop": 4,
             "list_gap_mobile": 4
           }
@@ -849,15 +849,15 @@
             "list": "A stomach that changes throughout the day\nPressure around your waistband\nPost-meal heaviness\nIrregular or incomplete bowel movements\nClothes that feel tighter by evening",
             "order_desktop": "4",
             "order_mobile": "4",
-            "background": "#F9F9F9",
-            "border_color": "#C2C2C2",
+            "background": "#f9f9f9",
+            "border_color": "#c2c2c2",
             "border_width": 1,
             "radius_desktop": 20,
             "radius_mobile": 20,
             "padding_desktop": 16,
             "padding_mobile": 16,
             "text_color": "#111111",
-            "bullet_color": "#5B0D1E",
+            "bullet_color": "#5b0d1e",
             "text_size_desktop": 18,
             "text_size_mobile": 16,
             "line_height_desktop": 1.4,
@@ -909,117 +909,6 @@
         "padding_top_mobile": 40,
         "padding_horizontal_mobile": 16,
         "padding_bottom_mobile": 40
-      }
-    },
-    "get_harmony_feature_v2_9AzqaE": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_DPnxJp": {
-          "type": "heading",
-          "settings": {
-            "text": "My Body Wasn’t Changing Overnight",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 10
-          }
-        },
-        "text_U6Ria4": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Body fat doesn’t suddenly appear between breakfast and dinner.<br/><br/>Looking back, the signs were obvious:</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "list_kyXRfb": {
-          "type": "list",
-          "settings": {
-            "items": "I wasn’t having comfortable, regular bowel movements.\nMy stomach felt heavy after normal meals.\nMy waistband became uncomfortable as the day went on.\nI often felt “full” even when I wasn’t hungry.\nMy body rarely felt completely light or settled.",
-            "background_color": "#f9f9f9",
-            "border_color": "#c2c2c2",
-            "border_width": 1,
-            "border_radius": 16,
-            "text_color": "#111111",
-            "bullet_color": "#5b0d1e",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
-            "bullet_size": 8,
-            "bullet_gap": 16,
-            "item_gap": 6,
-            "padding_vertical": 18,
-            "padding_horizontal": 14,
-            "padding_vertical_mobile": 14,
-            "padding_horizontal_mobile": 14,
-            "margin_bottom": 24
-          }
-        },
-        "text_6gDaij": {
-          "type": "text",
-          "settings": {
-            "text": "<p>I had been measuring everything except the one routine that had quietly changed:</p><p><strong>My digestion.</strong></p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        }
-      },
-      "block_order": [
-        "heading_DPnxJp",
-        "text_U6Ria4",
-        "list_kyXRfb",
-        "text_6gDaij"
-      ],
-      "name": "My Body Wasn’t Changing Overnight",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 72,
-        "padding_bottom": 72,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 20,
-        "title_gap": 0,
-        "column_gap": 0,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "My Body Wasn’t Changing Overnight",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#0a430d",
-        "image": "shopify://shop_images/My_Body_Wasn_t_Changing_Overnight.webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#333333",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
       }
     },
     "get_harmony_feature_v2_nQrn9R": {
@@ -3038,7 +2927,6 @@
     "mm_research_mentions_GeBLp4",
     "mm_testimonials_grid_GbLjb3",
     "mm_feeling_heavy_story_yDhrei",
-    "get_harmony_feature_v2_9AzqaE",
     "get_harmony_feature_v2_nQrn9R",
     "get_harmony_feature_v2_7yt7ni",
     "get_harmony_feature_v2_AkDTnE",
