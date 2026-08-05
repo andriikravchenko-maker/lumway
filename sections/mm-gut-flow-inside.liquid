@@ -1,0 +1,994 @@
+{% comment %}
+  Section: MM Gut Flow Inside — Clean Blocks
+
+  SECTION settings:
+  - background
+  - max width
+  - gap between images desktop/mobile
+  - section paddings desktop/mobile
+
+  BLOCKS:
+  1. Heading
+     - all title/subtitle content + typography + spacing
+  2. Image
+     - image
+     - Desktop image order: First / Second
+     - Mobile image order: First / Second
+     - background / radius / fit / position
+     - width / fixed height / spacing desktop & mobile
+
+  Heading always stays above the image area.
+{% endcomment %}
+
+{%- liquid
+    assign section_class = 'mm-gut-flow-inside-' | append: section.id
+-%}
+
+<section
+        id="mm-gut-flow-inside-{{ section.id }}"
+        class="{{ section_class }} mm-gut-flow-inside"
+        data-section-id="{{ section.id }}"
+>
+    <div class="mm-gut-flow-inside__inner">
+
+        {%- for block in section.blocks -%}
+        {%- if block.type == 'heading' -%}
+        <div
+                class="mm-gut-flow-inside__heading-block"
+                data-block-id="{{ block.id }}"
+                style="
+                        --heading-max-width-desktop: {{ block.settings.max_width_desktop }}px;
+                        --heading-max-width-mobile: {{ block.settings.max_width_mobile }}px;
+                        --heading-align-desktop: {{ block.settings.alignment_desktop }};
+                        --heading-align-mobile: {{ block.settings.alignment_mobile }};
+
+                        --heading-margin-top-desktop: {{ block.settings.margin_top_desktop }}px;
+                        --heading-margin-bottom-desktop: {{ block.settings.margin_bottom_desktop }}px;
+                        --heading-margin-top-mobile: {{ block.settings.margin_top_mobile }}px;
+                        --heading-margin-bottom-mobile: {{ block.settings.margin_bottom_mobile }}px;
+
+                        --title-color: {{ block.settings.title_color }};
+                        --title-size-desktop: {{ block.settings.title_size_desktop }}px;
+                        --title-size-mobile: {{ block.settings.title_size_mobile }}px;
+                        --title-weight: {{ block.settings.title_weight }};
+                        --title-line-height-desktop: {{ block.settings.title_line_height_desktop }};
+                        --title-line-height-mobile: {{ block.settings.title_line_height_mobile }};
+                        --title-letter-spacing: {{ block.settings.title_letter_spacing }}px;
+
+                        --subtitle-color: {{ block.settings.subtitle_color }};
+                        --subtitle-size-desktop: {{ block.settings.subtitle_size_desktop }}px;
+                        --subtitle-size-mobile: {{ block.settings.subtitle_size_mobile }}px;
+                        --subtitle-weight: {{ block.settings.subtitle_weight }};
+                        --subtitle-line-height-desktop: {{ block.settings.subtitle_line_height_desktop }};
+                        --subtitle-line-height-mobile: {{ block.settings.subtitle_line_height_mobile }};
+                        --subtitle-letter-spacing: {{ block.settings.subtitle_letter_spacing }}px;
+                        --subtitle-gap-desktop: {{ block.settings.subtitle_gap_desktop }}px;
+                        --subtitle-gap-mobile: {{ block.settings.subtitle_gap_mobile }}px;
+                        "
+                {{ block.shopify_attributes }}
+        >
+            <div class="mm-gut-flow-inside__heading-inner">
+                {%- if block.settings.title != blank -%}
+                <{{ block.settings.title_tag }} class="mm-gut-flow-inside__title">
+                {{ block.settings.title }}
+            </{{ block.settings.title_tag }}>
+            {%- endif -%}
+
+            {%- if block.settings.subtitle != blank -%}
+                <div class="mm-gut-flow-inside__subtitle">
+                    {{ block.settings.subtitle }}
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+    {%- endif -%}
+    {%- endfor -%}
+
+    <div class="mm-gut-flow-inside__images">
+        {%- for block in section.blocks -%}
+            {%- if block.type == 'image' -%}
+                <div
+                        class="mm-gut-flow-inside__image-block"
+                        data-block-id="{{ block.id }}"
+                        style="
+                                --image-order-desktop: {{ block.settings.image_order_desktop }};
+                                --image-order-mobile: {{ block.settings.image_order_mobile }};
+
+                                --image-bg: {{ block.settings.background }};
+                                --image-radius-desktop: {{ block.settings.radius_desktop }}px;
+                                --image-radius-mobile: {{ block.settings.radius_mobile }}px;
+
+                                --image-width-desktop: {{ block.settings.width_desktop }}%;
+                                --image-width-mobile: {{ block.settings.width_mobile }}%;
+
+                                --image-margin-top-desktop: {{ block.settings.margin_top_desktop }}px;
+                                --image-margin-bottom-desktop: {{ block.settings.margin_bottom_desktop }}px;
+                                --image-margin-top-mobile: {{ block.settings.margin_top_mobile }}px;
+                                --image-margin-bottom-mobile: {{ block.settings.margin_bottom_mobile }}px;
+
+                                --image-align-desktop: {{ block.settings.alignment_desktop }};
+                                --image-align-mobile: {{ block.settings.alignment_mobile }};
+                                "
+                        {{ block.shopify_attributes }}
+                >
+                    <div class="mm-gut-flow-inside__media">
+                        {%- if block.settings.image != blank -%}
+                            {{
+                            block.settings.image
+                            | image_url: width: 1800
+                            | image_tag:
+                            loading: 'lazy',
+                            class: 'mm-gut-flow-inside__image',
+                            widths: '360, 540, 720, 900, 1200, 1500, 1800',
+                            sizes: '(min-width: 990px) 50vw, 100vw',
+                            alt: block.settings.alt
+                            }}
+                        {%- endif -%}
+                    </div>
+                </div>
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+
+    </div>
+</section>
+
+{% style %}
+    .{{ section_class }} {
+    background: {{ section.settings.section_background }} !important;
+    padding:
+    {{ section.settings.padding_top_desktop }}px
+    {{ section.settings.padding_horizontal_desktop }}px
+    {{ section.settings.padding_bottom_desktop }}px;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__inner {
+    width: 100%;
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+    }
+
+    /* =========================
+    HEADING
+    ========================= */
+    .{{ section_class }} .mm-gut-flow-inside__heading-block {
+    width: 100%;
+    margin-top: var(--heading-margin-top-desktop);
+    margin-bottom: var(--heading-margin-bottom-desktop);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__heading-inner {
+    width: 100%;
+    max-width: var(--heading-max-width-desktop);
+    margin: 0 auto;
+    text-align: var(--heading-align-desktop);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__title,
+    .{{ section_class }} .mm-gut-flow-inside__title * {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: var(--title-color) !important;
+    -webkit-text-fill-color: var(--title-color) !important;
+    background: none !important;
+    font-size: var(--title-size-desktop) !important;
+    font-weight: var(--title-weight) !important;
+    line-height: var(--title-line-height-desktop) !important;
+    letter-spacing: var(--title-letter-spacing) !important;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__subtitle,
+    .{{ section_class }} .mm-gut-flow-inside__subtitle * {
+    margin: var(--subtitle-gap-desktop) 0 0 !important;
+    padding: 0 !important;
+    color: var(--subtitle-color) !important;
+    -webkit-text-fill-color: var(--subtitle-color) !important;
+    background: none !important;
+    font-size: var(--subtitle-size-desktop) !important;
+    font-weight: var(--subtitle-weight) !important;
+    line-height: var(--subtitle-line-height-desktop) !important;
+    letter-spacing: var(--subtitle-letter-spacing) !important;
+    }
+
+    /* =========================
+    IMAGE AREA
+    ========================= */
+    .{{ section_class }} .mm-gut-flow-inside__images {
+    display: flex;
+    align-items: flex-start;
+    gap: {{ section.settings.image_gap_desktop }}px;
+    width: 100%;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image-block {
+    order: var(--image-order-desktop);
+    flex: 1 1 0;
+    min-width: 0;
+    width: var(--image-width-desktop);
+    max-width: var(--image-width-desktop);
+    margin-top: var(--image-margin-top-desktop);
+    margin-bottom: var(--image-margin-bottom-desktop);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image-block[style*="--image-align-desktop: center"] {
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image-block[style*="--image-align-desktop: right"] {
+    margin-left: auto;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__media {
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    background: var(--image-bg);
+    border-radius: var(--image-radius-desktop);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    }
+
+    {%- for block in section.blocks -%}
+        {%- if block.type == 'image' -%}
+            .{{ section_class }} [data-block-id="{{ block.id }}"] .mm-gut-flow-inside__image {
+            object-fit: {{ block.settings.object_fit }};
+            object-position: {{ block.settings.object_position }};
+            }
+
+            {%- if block.settings.use_fixed_height_desktop -%}
+                .{{ section_class }} [data-block-id="{{ block.id }}"] .mm-gut-flow-inside__media {
+                height: {{ block.settings.height_desktop }}px;
+                }
+
+                .{{ section_class }} [data-block-id="{{ block.id }}"] .mm-gut-flow-inside__image {
+                width: 100%;
+                height: 100%;
+                }
+            {%- endif -%}
+        {%- endif -%}
+    {%- endfor -%}
+
+    @media (max-width: 989px) {
+    .{{ section_class }} {
+    padding:
+    {{ section.settings.padding_top_mobile }}px
+    {{ section.settings.padding_horizontal_mobile }}px
+    {{ section.settings.padding_bottom_mobile }}px;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__heading-block {
+    margin-top: var(--heading-margin-top-mobile);
+    margin-bottom: var(--heading-margin-bottom-mobile);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__heading-inner {
+    max-width: var(--heading-max-width-mobile);
+    text-align: var(--heading-align-mobile);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__title,
+    .{{ section_class }} .mm-gut-flow-inside__title * {
+    font-size: var(--title-size-mobile) !important;
+    line-height: var(--title-line-height-mobile) !important;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__subtitle,
+    .{{ section_class }} .mm-gut-flow-inside__subtitle * {
+    margin-top: var(--subtitle-gap-mobile) !important;
+    font-size: var(--subtitle-size-mobile) !important;
+    line-height: var(--subtitle-line-height-mobile) !important;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__images {
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.image_gap_mobile }}px;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image-block {
+    order: var(--image-order-mobile);
+    flex: none;
+    width: var(--image-width-mobile);
+    max-width: var(--image-width-mobile);
+    margin-top: var(--image-margin-top-mobile);
+    margin-bottom: var(--image-margin-bottom-mobile);
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image-block[style*="--image-align-mobile: center"] {
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__image-block[style*="--image-align-mobile: right"] {
+    margin-left: auto;
+    }
+
+    .{{ section_class }} .mm-gut-flow-inside__media {
+    border-radius: var(--image-radius-mobile);
+    }
+
+    {%- for block in section.blocks -%}
+        {%- if block.type == 'image' and block.settings.use_fixed_height_mobile -%}
+            .{{ section_class }} [data-block-id="{{ block.id }}"] .mm-gut-flow-inside__media {
+            height: {{ block.settings.height_mobile }}px;
+            }
+
+            .{{ section_class }} [data-block-id="{{ block.id }}"] .mm-gut-flow-inside__image {
+            width: 100%;
+            height: 100%;
+            }
+        {%- endif -%}
+    {%- endfor -%}
+    }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "MM Gut Flow Inside",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "section_background",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content max width",
+      "min": 900,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "default": 1240
+    },
+    {
+      "type": "range",
+      "id": "image_gap_desktop",
+      "label": "Image gap desktop",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "image_gap_mobile",
+      "label": "Image gap mobile",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_desktop",
+      "label": "Left / right",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Left / right",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "What’s Inside Gut Flow?"
+        },
+        {
+          "type": "select",
+          "id": "title_tag",
+          "label": "Title HTML tag",
+          "options": [
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "div", "label": "DIV" }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Clean Formula Built Around Non-Drug, Science-Backed Ingredients"
+        },
+
+        {
+          "type": "header",
+          "content": "Layout"
+        },
+        {
+          "type": "range",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "min": 400,
+          "max": 1200,
+          "step": 10,
+          "unit": "px",
+          "default": 900
+        },
+        {
+          "type": "range",
+          "id": "max_width_mobile",
+          "label": "Max width mobile",
+          "min": 220,
+          "max": 420,
+          "step": 10,
+          "unit": "px",
+          "default": 360
+        },
+        {
+          "type": "select",
+          "id": "alignment_desktop",
+          "label": "Alignment desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "alignment_mobile",
+          "label": "Alignment mobile",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+
+        {
+          "type": "header",
+          "content": "Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Color",
+          "default": "#6F1020"
+        },
+        {
+          "type": "range",
+          "id": "title_size_desktop",
+          "label": "Size desktop",
+          "min": 24,
+          "max": 64,
+          "step": 1,
+          "unit": "px",
+          "default": 44
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "label": "Size mobile",
+          "min": 20,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "select",
+          "id": "title_weight",
+          "label": "Weight",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ],
+          "default": "700"
+        },
+        {
+          "type": "range",
+          "id": "title_line_height_desktop",
+          "label": "Line height desktop",
+          "min": 0.8,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "range",
+          "id": "title_line_height_mobile",
+          "label": "Line height mobile",
+          "min": 0.8,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "range",
+          "id": "title_letter_spacing",
+          "label": "Letter spacing",
+          "min": -2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "px",
+          "default": -0.5
+        },
+
+        {
+          "type": "header",
+          "content": "Subtitle"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Color",
+          "default": "#111111"
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size_desktop",
+          "label": "Size desktop",
+          "min": 14,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "subtitle_size_mobile",
+          "label": "Size mobile",
+          "min": 12,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "subtitle_weight",
+          "label": "Weight",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "range",
+          "id": "subtitle_line_height_desktop",
+          "label": "Line height desktop",
+          "min": 0.8,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.2
+        },
+        {
+          "type": "range",
+          "id": "subtitle_line_height_mobile",
+          "label": "Line height mobile",
+          "min": 0.8,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.3
+        },
+        {
+          "type": "range",
+          "id": "subtitle_letter_spacing",
+          "label": "Letter spacing",
+          "min": -2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "subtitle_gap_desktop",
+          "label": "Title to subtitle desktop",
+          "min": 0,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "subtitle_gap_mobile",
+          "label": "Title to subtitle mobile",
+          "min": 0,
+          "max": 30,
+          "step": 2,
+          "unit": "px",
+          "default": 12
+        },
+
+        {
+          "type": "header",
+          "content": "Block spacing"
+        },
+        {
+          "type": "range",
+          "id": "margin_top_desktop",
+          "label": "Top desktop",
+          "min": 0,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_desktop",
+          "label": "Bottom desktop",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mobile",
+          "label": "Top mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mobile",
+          "label": "Bottom mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 26
+        }
+      ]
+    },
+
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text"
+        },
+
+        {
+          "type": "header",
+          "content": "Image order"
+        },
+        {
+          "type": "select",
+          "id": "image_order_desktop",
+          "label": "Desktop image order",
+          "options": [
+            { "value": "1", "label": "First" },
+            { "value": "2", "label": "Second" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "image_order_mobile",
+          "label": "Mobile image order",
+          "options": [
+            { "value": "1", "label": "First" },
+            { "value": "2", "label": "Second" }
+          ],
+          "default": "1"
+        },
+
+        {
+          "type": "header",
+          "content": "Size"
+        },
+        {
+          "type": "range",
+          "id": "width_desktop",
+          "label": "Width desktop",
+          "min": 30,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "width_mobile",
+          "label": "Width mobile",
+          "min": 30,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 100
+        },
+        {
+          "type": "select",
+          "id": "alignment_desktop",
+          "label": "Alignment desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "alignment_mobile",
+          "label": "Alignment mobile",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+
+        {
+          "type": "header",
+          "content": "Image style"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "select",
+          "id": "object_fit",
+          "label": "Image fit",
+          "options": [
+            { "value": "contain", "label": "Contain" },
+            { "value": "cover", "label": "Cover" }
+          ],
+          "default": "contain"
+        },
+        {
+          "type": "select",
+          "id": "object_position",
+          "label": "Image position",
+          "options": [
+            { "value": "center", "label": "Center" },
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "radius_desktop",
+          "label": "Radius desktop",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "radius_mobile",
+          "label": "Radius mobile",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+
+        {
+          "type": "header",
+          "content": "Fixed height"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_fixed_height_desktop",
+          "label": "Use fixed height desktop",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "height_desktop",
+          "label": "Height desktop",
+          "min": 200,
+          "max": 800,
+          "step": 10,
+          "unit": "px",
+          "default": 560
+        },
+        {
+          "type": "checkbox",
+          "id": "use_fixed_height_mobile",
+          "label": "Use fixed height mobile",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "height_mobile",
+          "label": "Height mobile",
+          "min": 180,
+          "max": 700,
+          "step": 10,
+          "unit": "px",
+          "default": 350
+        },
+
+        {
+          "type": "header",
+          "content": "Block spacing"
+        },
+        {
+          "type": "range",
+          "id": "margin_top_desktop",
+          "label": "Top desktop",
+          "min": 0,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_desktop",
+          "label": "Bottom desktop",
+          "min": 0,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mobile",
+          "label": "Top mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mobile",
+          "label": "Bottom mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "MM Gut Flow Inside",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "image",
+          "settings": {
+            "image_order_desktop": "1",
+            "image_order_mobile": "2",
+            "background": "#FFFFFF",
+            "radius_desktop": 0,
+            "radius_mobile": 0,
+            "alt": "Supplement Facts"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "image_order_desktop": "2",
+            "image_order_mobile": "1",
+            "background": "#F7F7F7",
+            "radius_desktop": 16,
+            "radius_mobile": 16,
+            "alt": "Gut Flow Gummies"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
