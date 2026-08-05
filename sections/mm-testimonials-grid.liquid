@@ -1,0 +1,938 @@
+{% comment %}
+  Section: MM Testimonials Grid
+  Block based testimonials section based on supplied desktop/mobile design.
+{% endcomment %}
+
+{%- liquid
+  assign section_class = 'mm-testimonials-' | append: section.id
+-%}
+
+<section id="mm-testimonials-{{ section.id }}" class="{{ section_class }} mm-testimonials">
+  <div class="mm-testimonials__inner">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'heading' -%}
+        <div
+          class="mm-testimonials__heading"
+          style="
+            --heading-max-width-desktop: {{ block.settings.max_width_desktop }}px;
+            --heading-max-width-mobile: {{ block.settings.max_width_mobile }}px;
+            --heading-align-desktop: {{ block.settings.alignment_desktop }};
+            --heading-align-mobile: {{ block.settings.alignment_mobile }};
+            --heading-color: {{ block.settings.color }};
+            --heading-size-desktop: {{ block.settings.size_desktop }}px;
+            --heading-size-mobile: {{ block.settings.size_mobile }}px;
+            --heading-weight: {{ block.settings.weight }};
+            --heading-line-height-desktop: {{ block.settings.line_height_desktop }};
+            --heading-line-height-mobile: {{ block.settings.line_height_mobile }};
+            --heading-letter-spacing: {{ block.settings.letter_spacing }}px;
+            --heading-margin-bottom-desktop: {{ block.settings.margin_bottom_desktop }}px;
+            --heading-margin-bottom-mobile: {{ block.settings.margin_bottom_mobile }}px;
+          "
+          {{ block.shopify_attributes }}
+        >
+          {%- if block.settings.heading != blank -%}
+            <{{ block.settings.heading_tag }} class="mm-testimonials__title">
+              {{- block.settings.heading -}}
+            </{{ block.settings.heading_tag }}>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <div class="mm-testimonials__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'testimonial' -%}
+          <article
+            class="mm-testimonials__card mm-testimonials__card--{{ block.settings.desktop_width }}"
+            style="
+              --card-order-desktop: {{ block.settings.order_desktop }};
+              --card-order-mobile: {{ block.settings.order_mobile }};
+              --card-bg: {{ block.settings.background }};
+              --card-border-color: {{ block.settings.border_color }};
+              --card-border-width: {{ block.settings.border_width }}px;
+              --card-radius-desktop: {{ block.settings.radius_desktop }}px;
+              --card-radius-mobile: {{ block.settings.radius_mobile }}px;
+              --card-padding-desktop: {{ block.settings.padding_desktop }}px;
+              --card-padding-mobile: {{ block.settings.padding_mobile }}px;
+              --meta-color: {{ block.settings.meta_color }};
+              --meta-size-desktop: {{ block.settings.meta_size_desktop }}px;
+              --meta-size-mobile: {{ block.settings.meta_size_mobile }}px;
+              --meta-weight: {{ block.settings.meta_weight }};
+              --star-color: {{ block.settings.star_color }};
+              --star-size-desktop: {{ block.settings.star_size_desktop }}px;
+              --star-size-mobile: {{ block.settings.star_size_mobile }}px;
+              --verified-text-color: {{ block.settings.verified_text_color }};
+              --verified-bg: {{ block.settings.verified_background }};
+              --verified-border-color: {{ block.settings.verified_border_color }};
+              --verified-size-desktop: {{ block.settings.verified_size_desktop }}px;
+              --verified-size-mobile: {{ block.settings.verified_size_mobile }}px;
+              --review-title-color: {{ block.settings.title_color }};
+              --review-title-size-desktop: {{ block.settings.title_size_desktop }}px;
+              --review-title-size-mobile: {{ block.settings.title_size_mobile }}px;
+              --review-title-weight: {{ block.settings.title_weight }};
+              --review-body-color: {{ block.settings.body_color }};
+              --review-body-size-desktop: {{ block.settings.body_size_desktop }}px;
+              --review-body-size-mobile: {{ block.settings.body_size_mobile }}px;
+              --review-body-line-height-desktop: {{ block.settings.body_line_height_desktop }};
+              --review-body-line-height-mobile: {{ block.settings.body_line_height_mobile }};
+              --top-row-gap-desktop: {{ block.settings.top_row_gap_desktop }}px;
+              --top-row-gap-mobile: {{ block.settings.top_row_gap_mobile }}px;
+              --content-gap-desktop: {{ block.settings.content_gap_desktop }}px;
+              --content-gap-mobile: {{ block.settings.content_gap_mobile }}px;
+            "
+            {{ block.shopify_attributes }}
+          >
+            <div class="mm-testimonials__top-row">
+              <div class="mm-testimonials__author-wrap">
+                <span class="mm-testimonials__author">
+                  {%- if block.settings.name != blank -%}
+                    <span class="mm-testimonials__name">{{ block.settings.name }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.age != blank -%}
+                    <span class="mm-testimonials__age">, {{ block.settings.age }}</span>
+                  {%- endif -%}
+                </span>
+
+                <div class="mm-testimonials__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+                  {%- for i in (1..5) -%}
+                    <span
+                      class="mm-testimonials__star{% if i > block.settings.rating %} is-empty{% endif %}"
+                      aria-hidden="true"
+                      >★</span
+                    >
+                  {%- endfor -%}
+                </div>
+              </div>
+
+              {%- if block.settings.show_verified -%}
+                <span class="mm-testimonials__verified">
+                  <span aria-hidden="true">✓</span>
+                  {{ block.settings.verified_text }}
+                </span>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="mm-testimonials__review-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.body != blank -%}
+              <div class="mm-testimonials__body">{{ block.settings.body }}</div>
+            {%- endif -%}
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .{{ section_class }} {
+  background: {{ section.settings.background }} !important;
+  padding: {{ section.settings.padding_top_desktop }}px {{ section.settings.padding_horizontal_desktop }}px {{ section.settings.padding_bottom_desktop }}px;
+  }
+
+  .{{ section_class }} .mm-testimonials__inner {
+  width: 100%;
+  max-width: {{ section.settings.max_width }}px;
+  margin: 0 auto;
+  }
+
+  .{{ section_class }} .mm-testimonials__heading {
+  width: 100%;
+  max-width: var(--heading-max-width-desktop);
+  margin: 0 auto var(--heading-margin-bottom-desktop);
+  text-align: var(--heading-align-desktop);
+  }
+
+  .{{ section_class }} .mm-testimonials__title,
+  .{{ section_class }} .mm-testimonials__title * {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: var(--heading-color) !important;
+  -webkit-text-fill-color: var(--heading-color) !important;
+  font-size: var(--heading-size-desktop) !important;
+  font-weight: var(--heading-weight) !important;
+  line-height: var(--heading-line-height-desktop) !important;
+  letter-spacing: var(--heading-letter-spacing) !important;
+  text-wrap: balance;
+  }
+
+  .{{ section_class }} .mm-testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: {{ section.settings.gap_desktop }}px;
+  }
+
+  .{{ section_class }} .mm-testimonials__card {
+  order: var(--card-order-desktop);
+  box-sizing: border-box;
+  min-width: 0;
+  background: var(--card-bg);
+  border: var(--card-border-width) solid var(--card-border-color);
+  border-radius: var(--card-radius-desktop);
+  padding: var(--card-padding-desktop);
+  }
+
+  .{{ section_class }} .mm-testimonials__card--full { grid-column: 1 / -1; }
+  .{{ section_class }} .mm-testimonials__card--half { grid-column: span 1; }
+
+  .{{ section_class }} .mm-testimonials__top-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--top-row-gap-desktop);
+  }
+
+  .{{ section_class }} .mm-testimonials__author-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  }
+
+  .{{ section_class }} .mm-testimonials__author {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--meta-color) !important;
+  font-size: var(--meta-size-desktop) !important;
+  font-weight: var(--meta-weight) !important;
+  line-height: 1.2 !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__name,
+  .{{ section_class }} .mm-testimonials__age {
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  line-height: 1;
+  }
+
+  .{{ section_class }} .mm-testimonials__star {
+  color: var(--star-color) !important;
+  font-size: var(--star-size-desktop) !important;
+  line-height: 1 !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__star.is-empty { opacity: .2; }
+
+  .{{ section_class }} .mm-testimonials__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border: 1px solid var(--verified-border-color);
+  border-radius: 999px;
+  background: var(--verified-bg);
+  color: var(--verified-text-color) !important;
+  font-size: var(--verified-size-desktop) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap;
+  }
+
+  .{{ section_class }} .mm-testimonials__review-title {
+  margin: var(--content-gap-desktop) 0 0 !important;
+  padding: 0 !important;
+  color: var(--review-title-color) !important;
+  -webkit-text-fill-color: var(--review-title-color) !important;
+  font-size: var(--review-title-size-desktop) !important;
+  font-weight: var(--review-title-weight) !important;
+  line-height: 1.25 !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__body,
+  .{{ section_class }} .mm-testimonials__body * {
+  margin: var(--content-gap-desktop) 0 0 !important;
+  padding: 0 !important;
+  color: var(--review-body-color) !important;
+  -webkit-text-fill-color: var(--review-body-color) !important;
+  font-size: var(--review-body-size-desktop) !important;
+  font-weight: 400 !important;
+  line-height: var(--review-body-line-height-desktop) !important;
+  }
+
+  @media (max-width: 989px) {
+  .{{ section_class }} {
+  padding: {{ section.settings.padding_top_mobile }}px {{ section.settings.padding_horizontal_mobile }}px {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  .{{ section_class }} .mm-testimonials__heading {
+  max-width: var(--heading-max-width-mobile);
+  margin-bottom: var(--heading-margin-bottom-mobile);
+  text-align: var(--heading-align-mobile);
+  }
+
+  .{{ section_class }} .mm-testimonials__title,
+  .{{ section_class }} .mm-testimonials__title * {
+  font-size: var(--heading-size-mobile) !important;
+  line-height: var(--heading-line-height-mobile) !important;
+  text-wrap: balance;
+  }
+
+  .{{ section_class }} .mm-testimonials__grid {
+  display: flex;
+  flex-direction: column;
+  gap: {{ section.settings.gap_mobile }}px;
+  }
+
+  .{{ section_class }} .mm-testimonials__card {
+  order: var(--card-order-mobile);
+  width: 100%;
+  border-radius: var(--card-radius-mobile);
+  padding: var(--card-padding-mobile);
+  }
+
+  .{{ section_class }} .mm-testimonials__top-row {
+  align-items: flex-start;
+  gap: var(--top-row-gap-mobile);
+  }
+
+  .{{ section_class }} .mm-testimonials__author-wrap {
+  gap: 8px;
+  }
+
+  .{{ section_class }} .mm-testimonials__author {
+  font-size: var(--meta-size-mobile) !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__star {
+  font-size: var(--star-size-mobile) !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__verified {
+  font-size: var(--verified-size-mobile) !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__review-title {
+  margin-top: var(--content-gap-mobile) !important;
+  font-size: var(--review-title-size-mobile) !important;
+  }
+
+  .{{ section_class }} .mm-testimonials__body,
+  .{{ section_class }} .mm-testimonials__body * {
+  margin-top: var(--content-gap-mobile) !important;
+  font-size: var(--review-body-size-mobile) !important;
+  line-height: var(--review-body-line-height-mobile) !important;
+  }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "MM Testimonials Grid",
+  "settings": [
+    { "type": "header", "content": "Section" },
+    { "type": "color", "id": "background", "label": "Background", "default": "#F8F8F8" },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content max width",
+      "min": 800,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "default": 900
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Cards gap desktop",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Cards gap mobile",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+
+    { "type": "header", "content": "Desktop spacing" },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_desktop",
+      "label": "Left / right",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+
+    { "type": "header", "content": "Mobile spacing" },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Left / right",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Thousands of Women Are Rethinking What \"Feeling Lighter\" Actually Means"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "HTML tag",
+          "options": [
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "div", "label": "DIV" }
+          ],
+          "default": "h2"
+        },
+        { "type": "color", "id": "color", "label": "Color", "default": "#6F1020" },
+        {
+          "type": "range",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "min": 400,
+          "max": 1200,
+          "step": 10,
+          "unit": "px",
+          "default": 760
+        },
+        {
+          "type": "range",
+          "id": "max_width_mobile",
+          "label": "Max width mobile",
+          "min": 220,
+          "max": 420,
+          "step": 10,
+          "unit": "px",
+          "default": 350
+        },
+        {
+          "type": "select",
+          "id": "alignment_desktop",
+          "label": "Alignment desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "alignment_mobile",
+          "label": "Alignment mobile",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "size_desktop",
+          "label": "Size desktop",
+          "min": 24,
+          "max": 64,
+          "step": 1,
+          "unit": "px",
+          "default": 38
+        },
+        {
+          "type": "range",
+          "id": "size_mobile",
+          "label": "Size mobile",
+          "min": 20,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "select",
+          "id": "weight",
+          "label": "Weight",
+          "options": [
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ],
+          "default": "700"
+        },
+        {
+          "type": "range",
+          "id": "line_height_desktop",
+          "label": "Line height desktop",
+          "min": 0.8,
+          "max": 1.6,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "range",
+          "id": "line_height_mobile",
+          "label": "Line height mobile",
+          "min": 0.8,
+          "max": 1.6,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "range",
+          "id": "letter_spacing",
+          "label": "Letter spacing",
+          "min": -2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "px",
+          "default": -0.5
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_desktop",
+          "label": "Bottom spacing desktop",
+          "min": 0,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "default": 44
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mobile",
+          "label": "Bottom spacing mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 26
+        }
+      ]
+    },
+
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Linda R." },
+        { "type": "text", "id": "age", "label": "Age", "default": "57" },
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "checkbox", "id": "show_verified", "label": "Show verified badge", "default": true },
+        { "type": "text", "id": "verified_text", "label": "Verified text", "default": "Verified Buyer" },
+        { "type": "text", "id": "title", "label": "Review title", "default": "Love it! Thanks a lot" },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Review text",
+          "default": "I was really skeptical at first because I'd tried so many things before. But after a couple of weeks I noticed I wasn't constantly unbuttoning my jeans by the evening anymore. I just felt lighter, more comfortable, and less bloated after meals."
+        },
+
+        { "type": "header", "content": "Layout" },
+        {
+          "type": "select",
+          "id": "desktop_width",
+          "label": "Desktop width",
+          "options": [
+            { "value": "full", "label": "Full width" },
+            { "value": "half", "label": "Half width" }
+          ],
+          "default": "half"
+        },
+        {
+          "type": "select",
+          "id": "order_desktop",
+          "label": "Desktop order",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "order_mobile",
+          "label": "Mobile order",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" }
+          ],
+          "default": "1"
+        },
+
+        { "type": "header", "content": "Card" },
+        { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+        { "type": "color", "id": "border_color", "label": "Border color", "default": "#D9D9D9" },
+        {
+          "type": "range",
+          "id": "border_width",
+          "label": "Border width",
+          "min": 0,
+          "max": 4,
+          "step": 1,
+          "unit": "px",
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "radius_desktop",
+          "label": "Radius desktop",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "radius_mobile",
+          "label": "Radius mobile",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "padding_desktop",
+          "label": "Padding desktop",
+          "min": 12,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "padding_mobile",
+          "label": "Padding mobile",
+          "min": 12,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 16
+        },
+
+        { "type": "header", "content": "Author" },
+        { "type": "color", "id": "meta_color", "label": "Name / age color", "default": "#111111" },
+        {
+          "type": "range",
+          "id": "meta_size_desktop",
+          "label": "Size desktop",
+          "min": 12,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "meta_size_mobile",
+          "label": "Size mobile",
+          "min": 12,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "select",
+          "id": "meta_weight",
+          "label": "Weight",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" }
+          ],
+          "default": "600"
+        },
+
+        { "type": "header", "content": "Stars" },
+        { "type": "color", "id": "star_color", "label": "Color", "default": "#31B87A" },
+        {
+          "type": "range",
+          "id": "star_size_desktop",
+          "label": "Size desktop",
+          "min": 12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "star_size_mobile",
+          "label": "Size mobile",
+          "min": 12,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+
+        { "type": "header", "content": "Verified badge" },
+        { "type": "color", "id": "verified_text_color", "label": "Text color", "default": "#31B87A" },
+        { "type": "color", "id": "verified_background", "label": "Background", "default": "#F2FFF8" },
+        { "type": "color", "id": "verified_border_color", "label": "Border color", "default": "#31B87A" },
+        {
+          "type": "range",
+          "id": "verified_size_desktop",
+          "label": "Text size desktop",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "verified_size_mobile",
+          "label": "Text size mobile",
+          "min": 10,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        },
+
+        { "type": "header", "content": "Review title" },
+        { "type": "color", "id": "title_color", "label": "Color", "default": "#111111" },
+        {
+          "type": "range",
+          "id": "title_size_desktop",
+          "label": "Size desktop",
+          "min": 14,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "label": "Size mobile",
+          "min": 14,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "title_weight",
+          "label": "Weight",
+          "options": [
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ],
+          "default": "700"
+        },
+
+        { "type": "header", "content": "Review text" },
+        { "type": "color", "id": "body_color", "label": "Color", "default": "#5B5B5B" },
+        {
+          "type": "range",
+          "id": "body_size_desktop",
+          "label": "Size desktop",
+          "min": 13,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "body_size_mobile",
+          "label": "Size mobile",
+          "min": 13,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "body_line_height_desktop",
+          "label": "Line height desktop",
+          "min": 1.0,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 1.4
+        },
+        {
+          "type": "range",
+          "id": "body_line_height_mobile",
+          "label": "Line height mobile",
+          "min": 1.0,
+          "max": 2.0,
+          "step": 0.1,
+          "default": 1.4
+        },
+
+        { "type": "header", "content": "Spacing" },
+        {
+          "type": "range",
+          "id": "top_row_gap_desktop",
+          "label": "Top row gap desktop",
+          "min": 4,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "range",
+          "id": "top_row_gap_mobile",
+          "label": "Top row gap mobile",
+          "min": 4,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "content_gap_desktop",
+          "label": "Content gap desktop",
+          "min": 4,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "content_gap_mobile",
+          "label": "Content gap mobile",
+          "min": 4,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        }
+      ]
+    }
+  ],
+
+  "presets": [
+    {
+      "name": "MM Testimonials Grid",
+      "blocks": [
+        { "type": "heading" },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Linda R.",
+            "age": "57",
+            "title": "Love it! Thanks a lot",
+            "body": "I was really skeptical at first because I'd tried so many things before. But after a couple of weeks I noticed I wasn't constantly unbuttoning my jeans by the evening anymore. I just felt lighter, more comfortable, and less bloated after meals.",
+            "desktop_width": "full",
+            "order_desktop": "1",
+            "order_mobile": "1"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Jessica M.",
+            "age": "38",
+            "title": "Feeling light all-day",
+            "body": "For the longest time, I thought my evening bloating meant I was putting on weight. A few weeks after adding more fiber and Gut Flow to my daily routine, I noticed my digestion felt much more predictable. The best part is that my clothes fit comfortably all day and I don't constantly feel heavy after eating.",
+            "desktop_width": "half",
+            "order_desktop": "2",
+            "order_mobile": "2"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Ashley T.",
+            "age": "42",
+            "title": "Even my husband noticed my changes",
+            "body": "I bought these with pretty low expectations, but they've honestly surprised me. After about two weeks, I noticed I felt lighter by the end of the day, my stomach wasn't as uncomfortable after eating, and my lovely dresses fit perfectly. Even my husband noticed my changes.",
+            "desktop_width": "half",
+            "order_desktop": "3",
+            "order_mobile": "3"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
