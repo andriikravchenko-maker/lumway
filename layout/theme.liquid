@@ -66,7 +66,7 @@
     {% endif %} {% endcomment %}
 
     {% comment %} Loaders: jQuery/Swiper on demand – no defer so sections can call before body parses {% endcomment %}
-    <script src="{{ 'theme-loaders.js' | asset_url }}"></script>
+    <script src="{{ 'theme-loaders.js' | asset_url }}" defer></script>
 
     {% comment %} Font Loading {% endcomment %}
     {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
