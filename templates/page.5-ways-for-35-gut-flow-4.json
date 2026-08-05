@@ -755,6 +755,162 @@
         "padding_bottom_mobile": 40
       }
     },
+    "mm_feeling_heavy_story_yDhrei": {
+      "type": "mm-feeling-heavy-story",
+      "blocks": {
+        "heading_9VkVbX": {
+          "type": "heading",
+          "settings": {
+            "title": "Feeling Heavy Is One of the Most Frustrating Problems Women Mistake for Weight Gain",
+            "accent_text": "Feeling Heavy",
+            "title_tag": "h2",
+            "subtitle": "Why Doesn't Eating Less Always Make Your Stomach Feel Better?",
+            "order_desktop": "1",
+            "order_mobile": "1",
+            "max_width_desktop": 900,
+            "max_width_mobile": 360,
+            "alignment_desktop": "center",
+            "alignment_mobile": "center",
+            "title_color": "#111111",
+            "accent_color": "#6f1020",
+            "title_size_desktop": 34,
+            "title_size_mobile": 28,
+            "title_weight": "700",
+            "title_line_height_desktop": 1.1,
+            "title_line_height_mobile": 1.1,
+            "subtitle_color": "#111111",
+            "subtitle_size_desktop": 18,
+            "subtitle_size_mobile": 16,
+            "subtitle_weight": "600",
+            "subtitle_line_height_desktop": 1.2,
+            "subtitle_line_height_mobile": 1.2,
+            "subtitle_gap_desktop": 26,
+            "subtitle_gap_mobile": 18,
+            "margin_bottom_desktop": 34,
+            "margin_bottom_mobile": 28
+          }
+        },
+        "intro_card_cFaDLm": {
+          "type": "intro_card",
+          "settings": {
+            "image": "shopify://shop_images/feeling-heavy.webp",
+            "image_alt": "Feeling Heavy",
+            "text": "<p>When your jeans suddenly feel tighter, the natural reaction is often:</p>",
+            "list": "Reduce portions\nCut carbohydrates\nSkip breakfast\nAvoid dessert\nStart another “clean” diet",
+            "order_desktop": "2",
+            "order_mobile": "2",
+            "background": "#F9F9F9",
+            "border_color": "#C2C2C2",
+            "border_width": 1,
+            "radius_desktop": 32,
+            "radius_mobile": 28,
+            "padding_desktop": 24,
+            "padding_mobile": 16,
+            "gap_desktop": 24,
+            "gap_mobile": 16,
+            "image_width_desktop": 55,
+            "image_width_mobile": 100,
+            "image_radius_desktop": 20,
+            "image_radius_mobile": 20,
+            "text_color": "#111111",
+            "text_size_desktop": 18,
+            "text_size_mobile": 16,
+            "text_line_height_desktop": 1.4,
+            "text_line_height_mobile": 1.4,
+            "bullet_color": "#5B0D1E",
+            "list_gap_desktop": 4,
+            "list_gap_mobile": 4
+          }
+        },
+        "rich_text_36ymb9": {
+          "type": "rich_text",
+          "settings": {
+            "content": "<p><strong>Eating less does not automatically mean eating better.</strong></p><p>In fact, many popular <strong>weight-loss routines unintentionally reduce</strong> some of the <strong>foods that contribute fiber.</strong><br/>You may consume <strong>fewer calories</strong> while also consuming <strong>less fiber.</strong></p><p>That can leave digestion feeling slower and bowel movements less predictable.<br/><strong>And when your digestive routine is off, you may notice:</strong></p>",
+            "order_desktop": "3",
+            "order_mobile": "3",
+            "color": "#111111",
+            "size_desktop": 18,
+            "size_mobile": 16,
+            "line_height_desktop": 1.4,
+            "line_height_mobile": 1.4,
+            "max_width_desktop": 900,
+            "max_width_mobile": 360,
+            "alignment_desktop": "left",
+            "alignment_mobile": "left",
+            "margin_top_desktop": 40,
+            "margin_bottom_desktop": 0,
+            "margin_top_mobile": 24,
+            "margin_bottom_mobile": 0
+          }
+        },
+        "bullet_box_ECBrWH": {
+          "type": "bullet_box",
+          "settings": {
+            "list": "A stomach that changes throughout the day\nPressure around your waistband\nPost-meal heaviness\nIrregular or incomplete bowel movements\nClothes that feel tighter by evening",
+            "order_desktop": "4",
+            "order_mobile": "4",
+            "background": "#F9F9F9",
+            "border_color": "#C2C2C2",
+            "border_width": 1,
+            "radius_desktop": 20,
+            "radius_mobile": 20,
+            "padding_desktop": 16,
+            "padding_mobile": 16,
+            "text_color": "#111111",
+            "bullet_color": "#5B0D1E",
+            "text_size_desktop": 18,
+            "text_size_mobile": 16,
+            "line_height_desktop": 1.4,
+            "line_height_mobile": 1.4,
+            "item_gap_desktop": 4,
+            "item_gap_mobile": 4,
+            "margin_top_desktop": 16,
+            "margin_bottom_desktop": 16,
+            "margin_top_mobile": 16,
+            "margin_bottom_mobile": 16
+          }
+        },
+        "rich_text_tUWQQE": {
+          "type": "rich_text",
+          "settings": {
+            "content": "<p>Body fat does not suddenly appear between breakfast and dinner.<br/><strong>But bloating and digestive irregularity may change how your waist looks and feels within the same day.</strong></p>",
+            "order_desktop": "5",
+            "order_mobile": "5",
+            "color": "#111111",
+            "size_desktop": 18,
+            "size_mobile": 16,
+            "line_height_desktop": 1.4,
+            "line_height_mobile": 1.4,
+            "max_width_desktop": 900,
+            "max_width_mobile": 360,
+            "alignment_desktop": "left",
+            "alignment_mobile": "left",
+            "margin_top_desktop": 0,
+            "margin_bottom_desktop": 0,
+            "margin_top_mobile": 0,
+            "margin_bottom_mobile": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_9VkVbX",
+        "intro_card_cFaDLm",
+        "rich_text_36ymb9",
+        "bullet_box_ECBrWH",
+        "rich_text_tUWQQE"
+      ],
+      "name": "MM Feeling Heavy Story",
+      "settings": {
+        "background": "#ffffff",
+        "max_width": 900,
+        "padding_top_desktop": 72,
+        "padding_horizontal_desktop": 24,
+        "padding_bottom_desktop": 72,
+        "padding_top_mobile": 40,
+        "padding_horizontal_mobile": 16,
+        "padding_bottom_mobile": 40
+      }
+    },
     "get_harmony_feature_v2_9AzqaE": {
       "type": "get-harmony-feature-v2",
       "blocks": {
@@ -2881,6 +3037,7 @@
     "gut_flow_survey_stats_KBgexA",
     "mm_research_mentions_GeBLp4",
     "mm_testimonials_grid_GbLjb3",
+    "mm_feeling_heavy_story_yDhrei",
     "get_harmony_feature_v2_9AzqaE",
     "get_harmony_feature_v2_nQrn9R",
     "get_harmony_feature_v2_7yt7ni",
