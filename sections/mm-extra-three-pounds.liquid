@@ -1,0 +1,969 @@
+{% comment %}MM Extra Three Pounds — block based section{% endcomment %}
+{%- assign sc = 'mm-etp-' | append: section.id -%}
+<section id="mm-extra-three-pounds-{{ section.id }}" class="{{ sc }} mm-etp">
+  <div class="mm-etp__inner">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'heading' -%}
+          <div
+            class="mm-etp__heading-wrap"
+            style="--order-d:{{ block.settings.order_desktop }};--order-m:{{ block.settings.order_mobile }};--max-d:{{ block.settings.max_width_desktop }}px;--max-m:{{ block.settings.max_width_mobile }}px;--align-d:{{ block.settings.align_desktop }};--align-m:{{ block.settings.align_mobile }};--color:{{ block.settings.color }};--accent:{{ block.settings.accent_color }};--size-d:{{ block.settings.size_desktop }}px;--size-m:{{ block.settings.size_mobile }}px;--weight:{{ block.settings.weight }};--line-d:{{ block.settings.line_height_desktop }};--line-m:{{ block.settings.line_height_mobile }};--mb-d:{{ block.settings.margin_bottom_desktop }}px;--mb-m:{{ block.settings.margin_bottom_mobile }}px;"
+            {{ block.shopify_attributes }}
+          >
+            <div class="mm-etp__heading-inner">
+              {%- if block.settings.heading != blank -%}
+                <{{ block.settings.tag }} class="mm-etp__heading">
+                  {%- if block.settings.accent_text != blank
+                    and block.settings.heading contains block.settings.accent_text
+                  -%}
+                    {%- capture accent_markup -%}<span class="mm-etp__heading-accent">{{ block.settings.accent_text }}</span>{%- endcapture -%}
+                    {{ block.settings.heading | replace: block.settings.accent_text, accent_markup }}
+                  {%- else -%}
+                    {{ block.settings.heading }}
+                  {%- endif -%}
+                </{{ block.settings.tag }}>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- when 'subtitle' -%}
+          <div
+            class="mm-etp__subtitle-wrap"
+            style="--order-d:{{ block.settings.order_desktop }};--order-m:{{ block.settings.order_mobile }};--max-d:{{ block.settings.max_width_desktop }}px;--max-m:{{ block.settings.max_width_mobile }}px;--align-d:{{ block.settings.align_desktop }};--align-m:{{ block.settings.align_mobile }};--color:{{ block.settings.color }};--size-d:{{ block.settings.size_desktop }}px;--size-m:{{ block.settings.size_mobile }}px;--weight:{{ block.settings.weight }};--line-d:{{ block.settings.line_height_desktop }};--line-m:{{ block.settings.line_height_mobile }};--mt-d:{{ block.settings.margin_top_desktop }}px;--mb-d:{{ block.settings.margin_bottom_desktop }}px;--mt-m:{{ block.settings.margin_top_mobile }}px;--mb-m:{{ block.settings.margin_bottom_mobile }}px;"
+            {{ block.shopify_attributes }}
+          >
+            <div class="mm-etp__subtitle">{{ block.settings.text }}</div>
+          </div>
+
+        {%- when 'factor_card' -%}
+          <article
+            class="mm-etp__card mm-etp__card--{{ block.settings.desktop_width }}"
+            style="--order-d:{{ block.settings.order_desktop }};--order-m:{{ block.settings.order_mobile }};--bg:{{ block.settings.background }};--border:{{ block.settings.border_color }};--bw:{{ block.settings.border_width }}px;--radius-d:{{ block.settings.radius_desktop }}px;--radius-m:{{ block.settings.radius_mobile }}px;--pad-d:{{ block.settings.padding_desktop }}px;--pad-m:{{ block.settings.padding_mobile }}px;--badge-bg:{{ block.settings.badge_background }};--badge-color:{{ block.settings.badge_color }};--badge-d:{{ block.settings.badge_size_desktop }}px;--badge-m:{{ block.settings.badge_size_mobile }}px;--title-color:{{ block.settings.title_color }};--title-d:{{ block.settings.title_size_desktop }}px;--title-m:{{ block.settings.title_size_mobile }}px;--title-weight:{{ block.settings.title_weight }};--text-color:{{ block.settings.text_color }};--text-d:{{ block.settings.text_size_desktop }}px;--text-m:{{ block.settings.text_size_mobile }}px;--head-gap:{{ block.settings.header_gap }}px;--body-gap:{{ block.settings.body_gap }}px;"
+            {{ block.shopify_attributes }}
+          >
+            <div class="mm-etp__card-head">
+              {%- if block.settings.number != blank -%}
+                <span class="mm-etp__badge">{{ block.settings.number }}</span>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="mm-etp__card-title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.text != blank -%}
+              <div class="mm-etp__card-text">{{ block.settings.text }}</div>
+            {%- endif -%}
+          </article>
+
+        {%- when 'footer_text' -%}
+          <div
+            class="mm-etp__footer"
+            style="--order-d:{{ block.settings.order_desktop }};--order-m:{{ block.settings.order_mobile }};--max-d:{{ block.settings.max_width_desktop }}px;--max-m:{{ block.settings.max_width_mobile }}px;--align-d:{{ block.settings.align_desktop }};--align-m:{{ block.settings.align_mobile }};--color:{{ block.settings.color }};--size-d:{{ block.settings.size_desktop }}px;--size-m:{{ block.settings.size_mobile }}px;--line-d:{{ block.settings.line_height_desktop }};--line-m:{{ block.settings.line_height_mobile }};--mt-d:{{ block.settings.margin_top_desktop }}px;--mt-m:{{ block.settings.margin_top_mobile }}px;"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.content }}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% style %}
+  .{{ sc }}{background:{{ section.settings.background }};padding:{{ section.settings.padding_top_desktop }}px {{ section.settings.padding_horizontal_desktop }}px {{ section.settings.padding_bottom_desktop }}px}
+  .{{ sc }} .mm-etp__inner{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:{{ section.settings.row_gap_desktop }}px {{ section.settings.column_gap_desktop }}px;width:100%;max-width:{{ section.settings.max_width }}px;margin:0 auto}
+  .{{ sc }} .mm-etp__heading-wrap,.{{ sc }} .mm-etp__subtitle-wrap,.{{ sc }} .mm-etp__footer{grid-column:1/-1;order:var(--order-d)}
+  .{{ sc }} .mm-etp__heading-wrap{margin-bottom:var(--mb-d)}
+  .{{ sc }} .mm-etp__heading-inner{max-width:var(--max-d);margin:0 auto;text-align:var(--align-d)}
+  .{{ sc }} .mm-etp__heading{margin:0!important;color:var(--color)!important;font-size:var(--size-d)!important;font-weight:var(--weight)!important;line-height:var(--line-d)!important;}
+  .{{ sc }} .mm-etp__heading-accent{color:var(--accent)!important}
+  .{{ sc }} .mm-etp__subtitle-wrap{margin:var(--mt-d) 0 var(--mb-d)}
+  .{{ sc }} .mm-etp__subtitle{max-width:var(--max-d);margin:0 auto;color:var(--color);font-size:var(--size-d);font-weight:var(--weight);line-height:var(--line-d);text-align:var(--align-d);}
+  .{{ sc }} .mm-etp__card{order:var(--order-d);box-sizing:border-box;min-width:0;padding:var(--pad-d);background:var(--bg);border:var(--bw) solid var(--border);border-radius:var(--radius-d)}
+  .{{ sc }} .mm-etp__card--third{grid-column:span 2}.{{ sc }} .mm-etp__card--half{grid-column:span 3}.{{ sc }} .mm-etp__card--full{grid-column:1/-1}
+  .{{ sc }} .mm-etp__card-head{display:flex;align-items:center;gap:var(--head-gap)}
+  .{{ sc }} .mm-etp__badge{display:inline-flex;align-items:center;justify-content:center;flex:0 0 var(--badge-d);width:var(--badge-d);height:var(--badge-d);border-radius:50%;background:var(--badge-bg);color:var(--badge-color);font-weight:700;line-height:1}
+  .{{ sc }} .mm-etp__card-title{margin:0!important;color:var(--title-color)!important;font-size:var(--title-d)!important;font-weight:var(--title-weight)!important;line-height:1.15!important}
+  .{{ sc }} .mm-etp__card-text{margin-top:var(--body-gap)}
+  .{{ sc }} .mm-etp__card-text,.{{ sc }} .mm-etp__card-text *{color:var(--text-color)!important;font-size:var(--text-d)!important;line-height:1.45!important}
+  .{{ sc }} .mm-etp__card-text p{margin:0!important}
+  .{{ sc }} .mm-etp__footer{max-width:var(--max-d);margin:var(--mt-d) auto 0;text-align:var(--align-d)}
+  .{{ sc }} .mm-etp__footer,.{{ sc }} .mm-etp__footer *{color:var(--color)!important;font-size:var(--size-d)!important;line-height:var(--line-d)!important}
+  .{{ sc }} .mm-etp__footer p{margin:0!important}
+  @media(max-width:989px){
+    .{{ sc }}{padding:{{ section.settings.padding_top_mobile }}px {{ section.settings.padding_horizontal_mobile }}px {{ section.settings.padding_bottom_mobile }}px}
+    .{{ sc }} .mm-etp__inner{display:flex;flex-direction:column;gap:{{ section.settings.row_gap_mobile }}px}
+    .{{ sc }} .mm-etp__heading-wrap,.{{ sc }} .mm-etp__subtitle-wrap,.{{ sc }} .mm-etp__card,.{{ sc }} .mm-etp__footer{order:var(--order-m);width:100%}
+    .{{ sc }} .mm-etp__heading-wrap{margin-bottom:var(--mb-m)}
+    .{{ sc }} .mm-etp__heading-inner{max-width:var(--max-m);text-align:var(--align-m)}
+    .{{ sc }} .mm-etp__heading{font-size:var(--size-m)!important;line-height:var(--line-m)!important}
+    .{{ sc }} .mm-etp__subtitle-wrap{margin:var(--mt-m) 0 var(--mb-m)}
+    .{{ sc }} .mm-etp__subtitle{max-width:var(--max-m);font-size:var(--size-m);line-height:var(--line-m);text-align:var(--align-m)}
+    .{{ sc }} .mm-etp__card{padding:var(--pad-m);border-radius:var(--radius-m)}
+    .{{ sc }} .mm-etp__badge{flex-basis:var(--badge-m);width:var(--badge-m);height:var(--badge-m)}
+    .{{ sc }} .mm-etp__card-title{font-size:var(--title-m)!important}
+    .{{ sc }} .mm-etp__card-text,.{{ sc }} .mm-etp__card-text *{font-size:var(--text-m)!important}
+    .{{ sc }} .mm-etp__footer{max-width:var(--max-m);margin-top:var(--mt-m);text-align:var(--align-m)}
+    .{{ sc }} .mm-etp__footer,.{{ sc }} .mm-etp__footer *{font-size:var(--size-m)!important;line-height:var(--line-m)!important}
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "MM Extra Three Pounds",
+  "settings": [
+    { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content max width",
+      "min": 700,
+      "max": 1300,
+      "step": 10,
+      "unit": "px",
+      "default": 900
+    },
+    { "type": "header", "content": "Desktop" },
+    {
+      "type": "range",
+      "id": "column_gap_desktop",
+      "label": "Column gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "row_gap_desktop",
+      "label": "Row gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_desktop",
+      "label": "Side padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    { "type": "header", "content": "Mobile" },
+    {
+      "type": "range",
+      "id": "row_gap_mobile",
+      "label": "Block gap",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal_mobile",
+      "label": "Side padding",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "The “Extra Three Pounds” May Not Be What You Think"
+        },
+        { "type": "text", "id": "accent_text", "label": "Accent text", "default": "“Extra Three Pounds”" },
+        {
+          "type": "select",
+          "id": "tag",
+          "label": "HTML tag",
+          "options": [
+            { "value": "h2", "label": "H2" },
+            { "value": "h3", "label": "H3" },
+            { "value": "div", "label": "DIV" }
+          ],
+          "default": "h2"
+        },
+        { "type": "color", "id": "color", "label": "Color", "default": "#111111" },
+        { "type": "color", "id": "accent_color", "label": "Accent color", "default": "#6F1020" },
+        {
+          "type": "range",
+          "id": "size_desktop",
+          "label": "Size desktop",
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 34
+        },
+        {
+          "type": "range",
+          "id": "size_mobile",
+          "label": "Size mobile",
+          "min": 22,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "select",
+          "id": "weight",
+          "label": "Weight",
+          "options": [
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ],
+          "default": "700"
+        },
+        {
+          "type": "range",
+          "id": "line_height_desktop",
+          "label": "Line height desktop",
+          "min": 0.8,
+          "max": 1.6,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "range",
+          "id": "line_height_mobile",
+          "label": "Line height mobile",
+          "min": 0.8,
+          "max": 1.6,
+          "step": 0.1,
+          "default": 1.1
+        },
+        {
+          "type": "range",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "min": 400,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 760
+        },
+        {
+          "type": "range",
+          "id": "max_width_mobile",
+          "label": "Max width mobile",
+          "min": 220,
+          "max": 420,
+          "step": 10,
+          "unit": "px",
+          "default": 360
+        },
+        {
+          "type": "select",
+          "id": "align_desktop",
+          "label": "Alignment desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "align_mobile",
+          "label": "Alignment mobile",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_desktop",
+          "label": "Bottom spacing desktop",
+          "min": 0,
+          "max": 70,
+          "step": 2,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mobile",
+          "label": "Bottom spacing mobile",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "order_desktop",
+          "label": "Desktop order",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "select",
+          "id": "order_mobile",
+          "label": "Mobile order",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" }
+          ],
+          "default": "1"
+        }
+      ]
+    },
+    {
+      "type": "subtitle",
+      "name": "Subtitle",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Uncomfortable feeling you interpret as sudden weight gain is influenced by several temporary factors simultaneously:"
+        },
+        { "type": "color", "id": "color", "label": "Color", "default": "#111111" },
+        {
+          "type": "range",
+          "id": "size_desktop",
+          "label": "Size desktop",
+          "min": 14,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "size_mobile",
+          "label": "Size mobile",
+          "min": 14,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "select",
+          "id": "weight",
+          "label": "Weight",
+          "options": [
+            { "value": "400", "label": "400" },
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "range",
+          "id": "line_height_desktop",
+          "label": "Line height desktop",
+          "min": 1,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.3
+        },
+        {
+          "type": "range",
+          "id": "line_height_mobile",
+          "label": "Line height mobile",
+          "min": 1,
+          "max": 1.8,
+          "step": 0.1,
+          "default": 1.4
+        },
+        {
+          "type": "range",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "min": 400,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 850
+        },
+        {
+          "type": "range",
+          "id": "max_width_mobile",
+          "label": "Max width mobile",
+          "min": 220,
+          "max": 420,
+          "step": 10,
+          "unit": "px",
+          "default": 360
+        },
+        {
+          "type": "select",
+          "id": "align_desktop",
+          "label": "Alignment desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "align_mobile",
+          "label": "Alignment mobile",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "margin_top_desktop",
+          "label": "Top spacing desktop",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_desktop",
+          "label": "Bottom spacing desktop",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mobile",
+          "label": "Top spacing mobile",
+          "min": 0,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom_mobile",
+          "label": "Bottom spacing mobile",
+          "min": 0,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "default": 6
+        },
+        {
+          "type": "select",
+          "id": "order_desktop",
+          "label": "Desktop order",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" }
+          ],
+          "default": "2"
+        },
+        {
+          "type": "select",
+          "id": "order_mobile",
+          "label": "Mobile order",
+          "options": [
+            { "value": "1", "label": "1" },
+            { "value": "2", "label": "2" },
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" }
+          ],
+          "default": "2"
+        }
+      ]
+    },
+    {
+      "type": "factor_card",
+      "name": "Factor card",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "1" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Digestive contents" },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>When bowel movements become less regular, the body may simply feel fuller and heavier.</p>"
+        },
+        {
+          "type": "select",
+          "id": "desktop_width",
+          "label": "Desktop width",
+          "options": [
+            { "value": "third", "label": "1/3" },
+            { "value": "half", "label": "1/2" },
+            { "value": "full", "label": "Full width" }
+          ],
+          "default": "third"
+        },
+        { "type": "color", "id": "background", "label": "Background", "default": "#FFFFFF" },
+        { "type": "color", "id": "border_color", "label": "Border color", "default": "#D8D8D8" },
+        {
+          "type": "range",
+          "id": "border_width",
+          "label": "Border width",
+          "min": 0,
+          "max": 4,
+          "step": 1,
+          "unit": "px",
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "radius_desktop",
+          "label": "Radius desktop",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "radius_mobile",
+          "label": "Radius mobile",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "padding_desktop",
+          "label": "Padding desktop",
+          "min": 8,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "padding_mobile",
+          "label": "Padding mobile",
+          "min": 8,
+          "max": 36,
+          "step": 2,
+          "unit": "px",
+          "default": 16
+        },
+        { "type": "color", "id": "badge_background", "label": "Badge background", "default": "#6F1020" },
+        { "type": "color", "id": "badge_color", "label": "Badge text color", "default": "#FFFFFF" },
+        {
+          "type": "range",
+          "id": "badge_size_desktop",
+          "label": "Badge size desktop",
+          "min": 24,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        },
+        {
+          "type": "range",
+          "id": "badge_size_mobile",
+          "label": "Badge size mobile",
+          "min": 24,
+          "max": 44,
+          "step": 1,
+          "unit": "px",
+          "default": 32
+        },
+        { "type": "color", "id": "title_color", "label": "Title color", "default": "#111111" },
+        {
+          "type": "range",
+          "id": "title_size_desktop",
+          "label": "Title size desktop",
+          "min": 16,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "default": 21
+        },
+        {
+          "type": "range",
+          "id": "title_size_mobile",
+          "label": "Title size mobile",
+          "min": 16,
+          "max": 26,
+          "step": 1,
+          "unit": "px",
+          "default": 18
+        },
+        {
+          "type": "select",
+          "id": "title_weight",
+          "label": "Title weight",
+          "options": [
+            { "value": "500", "label": "500" },
+            { "value": "600", "label": "600" },
+            { "value": "700", "label": "700" },
+            { "value": "800", "label": "800" }
+          ],
+          "default": "700"
+        },
+        { "type": "color", "id": "text_color", "label": "Text color", "default": "#111111" },
+        {
+          "type": "range",
+          "id": "text_size_desktop",
+          "label": "Text size desktop",
+          "min": 13,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "text_size_mobile",
+          "label": "Text size mobile",
+          "min": 14,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "header_gap",
+          "label": "Badge / title gap",
+          "min": 0,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "body_gap",
+          "label": "Title / body gap",
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "order_desktop",
+          "label": "Desktop order",
+          "options": [
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" }
+          ],
+          "default": "3"
+        },
+        {
+          "type": "select",
+          "id": "order_mobile",
+          "label": "Mobile order",
+          "options": [
+            { "value": "3", "label": "3" },
+            { "value": "4", "label": "4" },
+            { "value": "5", "label": "5" },
+            { "value": "6", "label": "6" },
+            { "value": "7", "label": "7" },
+            { "value": "8", "label": "8" }
+          ],
+          "default": "3"
+        }
+      ]
+    },
+    {
+      "type": "footer_text",
+      "name": "Footer text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Gut Flow does not promise to remove three literal pounds instantly – it's specially designed for what many women are actually searching for:<br><strong>Feeling less backed up, less bloated, and more comfortable in their bodies.</strong></p>"
+        },
+        { "type": "color", "id": "color", "label": "Color", "default": "#111111" },
+        {
+          "type": "range",
+          "id": "size_desktop",
+          "label": "Size desktop",
+          "min": 13,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "size_mobile",
+          "label": "Size mobile",
+          "min": 14,
+          "max": 22,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "line_height_desktop",
+          "label": "Line height desktop",
+          "min": 1,
+          "max": 2,
+          "step": 0.1,
+          "default": 1.4
+        },
+        {
+          "type": "range",
+          "id": "line_height_mobile",
+          "label": "Line height mobile",
+          "min": 1,
+          "max": 2,
+          "step": 0.1,
+          "default": 1.4
+        },
+        {
+          "type": "range",
+          "id": "max_width_desktop",
+          "label": "Max width desktop",
+          "min": 400,
+          "max": 1000,
+          "step": 10,
+          "unit": "px",
+          "default": 850
+        },
+        {
+          "type": "range",
+          "id": "max_width_mobile",
+          "label": "Max width mobile",
+          "min": 220,
+          "max": 420,
+          "step": 10,
+          "unit": "px",
+          "default": 360
+        },
+        {
+          "type": "select",
+          "id": "align_desktop",
+          "label": "Alignment desktop",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "align_mobile",
+          "label": "Alignment mobile",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "range",
+          "id": "margin_top_desktop",
+          "label": "Top spacing desktop",
+          "min": 0,
+          "max": 70,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mobile",
+          "label": "Top spacing mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "default": 10
+        },
+        {
+          "type": "select",
+          "id": "order_desktop",
+          "label": "Desktop order",
+          "options": [
+            { "value": "8", "label": "8" },
+            { "value": "9", "label": "9" }
+          ],
+          "default": "8"
+        },
+        {
+          "type": "select",
+          "id": "order_mobile",
+          "label": "Mobile order",
+          "options": [
+            { "value": "8", "label": "8" },
+            { "value": "9", "label": "9" }
+          ],
+          "default": "8"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MM Extra Three Pounds",
+      "blocks": [
+        { "type": "heading" },
+        { "type": "subtitle" },
+        {
+          "type": "factor_card",
+          "settings": {
+            "number": "1",
+            "title": "Digestive contents",
+            "text": "<p>When bowel movements become less regular, the body may simply feel fuller and heavier.</p>",
+            "desktop_width": "third",
+            "order_desktop": "3",
+            "order_mobile": "3"
+          }
+        },
+        {
+          "type": "factor_card",
+          "settings": {
+            "number": "2",
+            "title": "Bloating",
+            "text": "<p>Gas and digestive distension can temporarily change how your stomach looks and how your clothing fits.</p>",
+            "desktop_width": "third",
+            "order_desktop": "4",
+            "order_mobile": "4"
+          }
+        },
+        {
+          "type": "factor_card",
+          "settings": {
+            "number": "3",
+            "title": "Food volume",
+            "text": "<p>A normal day of eating naturally adds temporary physical volume that is not the same as gaining body fat.</p>",
+            "desktop_width": "third",
+            "order_desktop": "5",
+            "order_mobile": "5"
+          }
+        },
+        {
+          "type": "factor_card",
+          "settings": {
+            "number": "4",
+            "title": "Sodium and hydration changes",
+            "text": "<p>Restaurant meals, travel, hormonal transitions, and disrupted routines may change how puffy or heavy you feel.</p>",
+            "desktop_width": "half",
+            "order_desktop": "6",
+            "order_mobile": "6"
+          }
+        },
+        {
+          "type": "factor_card",
+          "settings": {
+            "number": "5",
+            "title": "Low fiber intake",
+            "text": "<p>Without enough dietary fiber, comfortable bowel regularity may be harder to maintain.</p>",
+            "desktop_width": "half",
+            "order_desktop": "7",
+            "order_mobile": "7"
+          }
+        },
+        { "type": "footer_text" }
+      ]
+    }
+  ]
+}
+{% endschema %}
