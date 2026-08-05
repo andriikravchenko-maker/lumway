@@ -2518,7 +2518,6 @@
     },
     "mm_scientist_quote_GnW77f": {
       "type": "mm-scientist-quote",
-      "disabled": true,
       "name": "MM Scientist Quote",
       "settings": {
         "show_section": true,
