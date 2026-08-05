@@ -297,7 +297,7 @@
         "trust_icon_size": 20,
         "mobile_trust_icon_size": 16,
         "trust_font_size": 14,
-        "mobile_trust_font_size": 14,
+        "mobile_trust_font_size": 12,
         "trust_font_weight": "400",
         "trust_line_height": 10,
         "trust_gap": 8,
