@@ -306,7 +306,7 @@
         "show_trust_line": true,
         "show_trust_icon": true,
         "trust_icon": "shopify://shop_images/trust.png",
-        "trust_text": "Feel lighter, happier and more regular – or your money back.*",
+        "trust_text": "Feel lighter, happier and more regular* – or your money back.",
         "trust_icon_size": 20,
         "mobile_trust_icon_size": 16,
         "trust_font_size": 14,
@@ -441,7 +441,7 @@
       "settings": {
         "heading_accent": "The Debloating, Regularity-Supporting",
         "heading": "Daily Gummy Your Gut Has Been Waiting For",
-        "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users. Individual experiences may vary.</p>",
+        "footnote": "<p>Based on an internal quantitative survey of Gut Flow users. Individual experiences may vary.*</p>",
         "background_color": "#f8e6eb",
         "heading_color": "#111111",
         "heading_accent_color": "#6f1020",
