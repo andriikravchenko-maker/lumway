@@ -754,6 +754,7 @@
         "testimonial_dFqGXy",
         "testimonial_Dd993r"
       ],
+      "custom_css": [],
       "name": "MM Testimonials Grid",
       "settings": {
         "background": "#f9f9f9",
@@ -2619,7 +2620,7 @@
         "subtitle_RannTP": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.*</p>"
           }
         },
         "labels_jNjCEd": {
@@ -2827,13 +2828,13 @@
             "tab_1_icon": "star",
             "tab_1_layout": "checklist",
             "tab_1_row_1_label": "Support Daily Regularity",
-            "tab_1_row_1_text": "Help maintain a healthy digestive rhythm.",
+            "tab_1_row_1_text": "Help maintain a healthy digestive rhythm.*",
             "tab_1_row_2_label": "Feed Your Gut Microbiome",
-            "tab_1_row_2_text": "Nourish beneficial gut bacteria that support long-term digestive wellness.",
+            "tab_1_row_2_text": "Nourish beneficial gut bacteria that support long-term digestive wellness.*",
             "tab_1_row_3_label": "Feel Lighter Every Day",
-            "tab_1_row_3_text": "Reduce feelings of bloating and digestive heaviness.",
+            "tab_1_row_3_text": "Reduce feelings of bloating and digestive heaviness.*",
             "tab_1_row_4_label": "Feel Fuller For Longer",
-            "tab_1_row_4_text": "Feel satisfied for longer with fewer everyday cravings.",
+            "tab_1_row_4_text": "Feel satisfied for longer with fewer everyday cravings.*",
             "tab_1_row_5_label": "Clean Ingredients",
             "tab_1_row_5_text": "No fillers, gluten, lactose, artificial colors, or GMOs.",
             "tab_1_row_6_label": "",
