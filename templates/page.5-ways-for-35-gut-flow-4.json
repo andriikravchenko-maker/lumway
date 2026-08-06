@@ -847,7 +847,7 @@
             "line_height_desktop": 1.4,
             "line_height_mobile": 1.4,
             "max_width_desktop": 900,
-            "max_width_mobile": 420,
+            "max_width_mobile": 360,
             "alignment_desktop": "left",
             "alignment_mobile": "left",
             "margin_top_desktop": 40,
