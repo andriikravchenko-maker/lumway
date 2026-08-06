@@ -1574,11 +1574,12 @@
             "name": "Jennifer",
             "location": "California",
             "product": "2 Jars of Gut Flow",
-            "stock_text": "Only 8 left"
+            "stock_text": "Popular bundle today"
           }
         },
         "spp_viewed": {
           "type": "stat",
+          "disabled": true,
           "settings": {
             "icon": "eye",
             "text": "150 people viewed this today",
@@ -1588,6 +1589,7 @@
         },
         "spp_orders": {
           "type": "stat",
+          "disabled": true,
           "settings": {
             "icon": "cart",
             "text": "32 orders today",
