@@ -3523,3 +3523,18 @@ details-disclosure>details {
     display: none!important;
   }
 }
+
+/* =========================================================
+   Below-the-fold rendering optimization
+   Add .section-fast only to sections below the first viewport
+   ========================================================= */
+
+.section-fast {
+  contain-intrinsic-size: auto 700px;
+}
+
+@supports (content-visibility: auto) {
+  .section-fast {
+    content-visibility: auto;
+  }
+}
