@@ -14,7 +14,7 @@
     assign section_class = 'mm-feeling-heavy-' | append: section.id
 -%}
 
-<section id="mm-feeling-heavy-{{ section.id }}" class="{{ section_class }} mm-feeling-heavy" data-section-id="{{ section.id }}">
+<section id="mm-feeling-heavy-{{ section.id }}" class="{{ section_class }} mm-feeling-heavy section-fast" data-section-id="{{ section.id }}">
     <div class="mm-feeling-heavy__inner">
         {%- for block in section.blocks -%}
         {%- case block.type -%}
