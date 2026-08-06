@@ -1,0 +1,161 @@
+{% comment %}
+  Performance deferred scripts
+
+  Purpose:
+  - Keep non-critical JS out of the initial rendering path.
+  - Load selected theme scripts only after window.load + browser idle time.
+  - Intended for A/B performance testing.
+
+  Important:
+  - Do NOT add critical scripts here.
+  - Do NOT add global.js / constants.js / pubsub.js here initially.
+  - Use only for scripts that are not required for the first viewport.
+{% endcomment %}
+
+<script>
+    (() => {
+        if (window.__perfDeferredScriptsInitialized) return;
+        window.__perfDeferredScriptsInitialized = true;
+
+        const scripts = [
+            {
+                src: {{ 'premium-attachment-kit.js' | asset_url | json }},
+                id: 'perf-premium-attachment-kit'
+            },
+            {
+                src: {{ 'upsell-simple.js' | asset_url | json }},
+                id: 'perf-upsell-simple'
+            }
+
+            /*
+            Add additional non-critical scripts here:
+
+            {
+              src: {{ 'animations.js' | asset_url | json }},
+        id: 'perf-animations'
+      },
+
+      {
+        src: {{ 'customer-reviews-carousel.js' | asset_url | json }},
+        id: 'perf-reviews-carousel'
+      }
+      */
+        ];
+
+        const loaded = new Set();
+
+        function loadScript(item) {
+            if (!item?.src) return Promise.resolve();
+
+            if (
+                loaded.has(item.src) ||
+                document.querySelector(`script[src="${CSS.escape(item.src)}"]`)
+            ) {
+                loaded.add(item.src);
+                return Promise.resolve();
+            }
+
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+
+                script.src = item.src;
+                script.async = false;
+
+                if (item.id) {
+                    script.id = item.id;
+                }
+
+                script.dataset.perfDeferred = 'true';
+
+                script.addEventListener(
+                    'load',
+                    () => {
+                        loaded.add(item.src);
+
+                        console.debug(
+                            '[perf-loader] loaded:',
+                            item.src
+                        );
+
+                        resolve();
+                    },
+                    { once: true }
+                );
+
+                script.addEventListener(
+                    'error',
+                    () => {
+                        console.warn(
+                            '[perf-loader] failed:',
+                            item.src
+                        );
+
+                        reject(
+                            new Error(`Failed to load script: ${item.src}`)
+                        );
+                    },
+                    { once: true }
+                );
+
+                document.body.appendChild(script);
+            });
+        }
+
+        async function loadDeferredScripts() {
+            if (window.__perfDeferredScriptsLoaded) return;
+            window.__perfDeferredScriptsLoaded = true;
+
+            console.debug(
+                '[perf-loader] loading deferred scripts...'
+            );
+
+            /*
+              Sequential loading is intentional.
+
+              It preserves script order and reduces the chance
+              of breaking dependencies between theme scripts.
+            */
+            for (const item of scripts) {
+                try {
+                    await loadScript(item);
+                } catch (error) {
+                    console.warn(error);
+                }
+            }
+
+            document.dispatchEvent(
+                new CustomEvent('perf:deferred-scripts-loaded')
+            );
+        }
+
+        function scheduleDeferredScripts() {
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(
+                    loadDeferredScripts,
+                    {
+                        timeout: 2500
+                    }
+                );
+
+                return;
+            }
+
+            setTimeout(
+                loadDeferredScripts,
+                1200
+            );
+        }
+
+        if (document.readyState === 'complete') {
+            scheduleDeferredScripts();
+        } else {
+            window.addEventListener(
+                'load',
+                scheduleDeferredScripts,
+                {
+                    once: true
+                }
+            );
+        }
+    })();
+</script>
