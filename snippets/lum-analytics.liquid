@@ -824,6 +824,60 @@
       }, true);
     })();
 
+
+
+    // =====================================================================
+    // secure_checkout_button_clicked  (drawer checkout button)
+    // =====================================================================
+    (function () {
+      function userEmail() {
+        if (window.__lumCustomerId) return String(window.__lumCustomerId);
+        var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
+        if (m && m.customerId) return String(m.customerId);
+        return null;
+      }
+
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
+        if (!btn) return;
+
+        // read the cart, then fire (click, not waiting for navigation)
+        fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
+          .then(function (r) { return r.json(); })
+          .then(function (cart) {
+            var lines = cart.items || [];
+
+            // discount from cart: original vs final line prices
+            var original = 0, discounted = 0;
+            lines.forEach(function (li) {
+              original   += (li.original_line_price != null ? li.original_line_price : li.line_price) || 0;
+              discounted += (li.final_line_price   != null ? li.final_line_price   : li.line_price) || 0;
+            });
+            var discCents = Math.max(0, original - discounted);
+
+            var props = {
+              cart_value:       (cart.total_price || 0) / 100,
+              currency:         cart.currency,
+              items_number:     cart.item_count,
+              has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
+              product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
+              product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; }))
+            };
+            if (discCents > 0) {
+              props.discount_amount  = Math.round(discCents) / 100;
+              if (original > 0) props.discount_percent = Math.round((discCents / original) * 100);
+            }
+            // logged-in identity (optional, useful for Shop Pay redirect cases)
+            var uid = userEmail();
+            if (uid) { props.is_logged_in = true; }
+
+            track('secure_checkout_button_clicked', props);
+          }).catch(function () {});
+      }, true);
+
+      function uniqArr(a) { var s = {}, o = []; a.forEach(function (v) { if (v && !s[v]) { s[v] = 1; o.push(v); } }); return o; }
+    })();
+
     // =====================================================================
     // NEXT EVENTS GO HERE — port one at a time from the old snippets.
     // Keep each in its own (function(){ ... })() block for clarity.
