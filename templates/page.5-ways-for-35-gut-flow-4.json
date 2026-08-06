@@ -913,7 +913,7 @@
         "rich_text_tUWQQE"
       ],
       "custom_css": [
-        ".mm-feeling-heavy__richtext{margin-left: 0px; margin-right: 0px;}"
+        ".mm-feeling-heavy__richtext {margin-left: 0px; margin-right: 0px;}"
       ],
       "name": "MM Feeling Heavy Story",
       "settings": {
@@ -1721,7 +1721,7 @@
         "heading": "<strong>#1 of the World's Most Studied </strong>Prebiotic Fibers",
         "heading_max_width": 900,
         "heading_max_width_mobile": 420,
-        "heading_alignment": "left",
+        "heading_alignment": "center",
         "heading_font_family": "inherit",
         "heading_font_size_desktop": 40,
         "heading_font_size_mobile": 26,
