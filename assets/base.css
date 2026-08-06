@@ -3530,11 +3530,13 @@ details-disclosure>details {
    ========================================================= */
 
 .section-fast {
-  contain-intrinsic-size: auto 700px;
+  contain-intrinsic-size: auto 800px;
 }
 
 @supports (content-visibility: auto) {
-  .section-fast {
-    content-visibility: auto;
+  @media screen and (max-width: 749px) {
+    .section-fast {
+      content-visibility: auto;
+    }
   }
 }
