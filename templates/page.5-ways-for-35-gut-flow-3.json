@@ -1231,7 +1231,7 @@
           "type": "rating",
           "settings": {
             "stars": 5,
-            "text": "2k+ happy verified customers"
+            "text": "15k+ happy verified customers"
           }
         },
         "title_dAQijL": {
@@ -1243,7 +1243,7 @@
         "subtitle_RannTP": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed natural formula designed to support appetite balance, smooth digestion, and healthy metabolic function through every phase of life.</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.*</p>"
           }
         },
         "labels_jNjCEd": {
@@ -1450,14 +1450,14 @@
             "tab_1_title": "Benefits",
             "tab_1_icon": "star",
             "tab_1_layout": "checklist",
-            "tab_1_row_1_label": "Balanced Appetite",
-            "tab_1_row_1_text": "Feel satisfied for longer with fewer everyday cravings.",
-            "tab_1_row_2_label": "Increase Metabolic Rate",
-            "tab_1_row_2_text": "Support your body's natural metabolic function and calorie burn",
-            "tab_1_row_3_label": "Energy & Mood Regulation",
-            "tab_1_row_3_text": "Help you feel your best from morning to night.",
-            "tab_1_row_4_label": "Blood Sugar Support",
-            "tab_1_row_4_text": "Helps maintain healthy blood sugar levels already within the normal range.",
+            "tab_1_row_1_label": "Support Daily Regularity",
+            "tab_1_row_1_text": "Help maintain a healthy digestive rhythm.*",
+            "tab_1_row_2_label": "Feed Your Gut Microbiome",
+            "tab_1_row_2_text": "Nourish beneficial gut bacteria that support long-term digestive wellness.*",
+            "tab_1_row_3_label": "Feel Lighter Every Day",
+            "tab_1_row_3_text": "Reduce feelings of bloating and digestive heaviness.*",
+            "tab_1_row_4_label": "Feel Fuller For Longer",
+            "tab_1_row_4_text": "Feel satisfied for longer with fewer everyday cravings.*",
             "tab_1_row_5_label": "Clean Ingredients",
             "tab_1_row_5_text": "No fillers, gluten, lactose, artificial colors, or GMOs.",
             "tab_1_row_6_label": "",
@@ -1465,15 +1465,15 @@
             "tab_2_title": "Perfect For",
             "tab_2_icon": "profile",
             "tab_2_layout": "checklist",
-            "tab_2_row_1_label": "Feel like their metabolism has slowed after 45",
+            "tab_2_row_1_label": "Irregular bowel movements",
             "tab_2_row_1_text": "",
-            "tab_2_row_2_label": "Struggle with cravings and overeating during hormonal changes",
+            "tab_2_row_2_label": "Low daily fiber intake",
             "tab_2_row_2_text": "",
-            "tab_2_row_3_label": "Experiencing brain fog and mood swings",
+            "tab_2_row_3_label": "Feeling bloated or sluggish",
             "tab_2_row_3_text": "",
-            "tab_2_row_4_label": "Need steady energy from morning to night",
+            "tab_2_row_4_label": "Supporting long-term gut health",
             "tab_2_row_4_text": "",
-            "tab_2_row_5_label": "Looking for a hormon-free multi-symptom solution",
+            "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits",
             "tab_2_row_5_text": "",
             "tab_2_row_6_label": "",
             "tab_2_row_6_text": "",
@@ -1481,9 +1481,9 @@
             "tab_3_icon": "note",
             "tab_3_layout": "rows",
             "tab_3_row_1_label": "Daily dosage:",
-            "tab_3_row_1_text": "2 capsules",
+            "tab_3_row_1_text": "2-3 gummies",
             "tab_3_row_2_label": "When:",
-            "tab_3_row_2_text": "in the morning or before your largest meal with a full glass of water",
+            "tab_3_row_2_text": "preferably in the morning with a meal",
             "tab_3_row_3_label": "Monthly supply:",
             "tab_3_row_3_text": "1 jar per person",
             "tab_3_row_4_label": "Storage:",
