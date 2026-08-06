@@ -1529,7 +1529,6 @@
       "block_order": [
         "listicle_sticky_atc_8EwYPV"
       ],
-      "disabled": true,
       "settings": {
         "section_max_width": 900,
         "padding_top": 30,
@@ -1640,7 +1639,6 @@
         "spp_amanda",
         "spp_megan"
       ],
-      "disabled": true,
       "settings": {
         "position": "left",
         "bg_color": "#ffffff",
@@ -2828,7 +2826,6 @@
         "faq_item_EAbEA3",
         "faq_item_ymA8aC"
       ],
-      "disabled": true,
       "custom_css": [
         ".store-faq-section {background-color: #f9f9f9 !important;}"
       ],
