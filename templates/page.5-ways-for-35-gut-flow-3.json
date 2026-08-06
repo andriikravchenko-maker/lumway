@@ -195,9 +195,9 @@
         "image_fit": "contain",
         "image_position": "center center",
         "image_border_radius": 0,
-        "heading_before": "\"Finally My",
-        "heading_accent": "Jeans Fit Looser And I Feel More Confident",
-        "heading_after": "Than Ever.\"",
+        "heading_before": "\"How To",
+        "heading_accent": "Feel Three Pounds Lighter",
+        "heading_after": "Without Eating Less\"",
         "heading_size": 50,
         "heading_size_mobile": 26,
         "heading_line_height": 1.1,
@@ -215,7 +215,7 @@
         "button_width": 384,
         "button_bg_color": "#5b0d1e",
         "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#5B0D1E"
+        "button_hover_bg_color": "#5b0d1e"
       }
     },
     "rich_text_BR7tJa": {
