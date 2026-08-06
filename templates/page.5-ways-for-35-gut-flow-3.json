@@ -1873,11 +1873,12 @@
             "name": "Jennifer",
             "location": "California",
             "product": "2 Jars of Gut Flow",
-            "stock_text": "Only 8 left"
+            "stock_text": "Popular bundle today"
           }
         },
         "spp_viewed": {
           "type": "stat",
+          "disabled": true,
           "settings": {
             "icon": "eye",
             "text": "150 people viewed this today",
@@ -1887,6 +1888,7 @@
         },
         "spp_orders": {
           "type": "stat",
+          "disabled": true,
           "settings": {
             "icon": "cart",
             "text": "32 orders today",
@@ -1901,7 +1903,7 @@
             "name": "Jessica",
             "location": "Texas",
             "product": "3 Jars of Gut Flow",
-            "stock_text": "Only 7 left"
+            "stock_text": "Popular bundle today"
           }
         },
         "spp_emily": {
@@ -1911,7 +1913,7 @@
             "name": "Emily",
             "location": "New York",
             "product": "2 Jars of Gut Flow",
-            "stock_text": "Only 6 left"
+            "stock_text": "Popular bundle today"
           }
         },
         "spp_sarah": {
@@ -1921,7 +1923,7 @@
             "name": "Sarah",
             "location": "Florida",
             "product": "3 Jars of Gut Flow",
-            "stock_text": "Only 5 left"
+            "stock_text": "Popular bundle today"
           }
         },
         "spp_amanda": {
@@ -1931,7 +1933,7 @@
             "name": "Amanda",
             "location": "Ohio",
             "product": "2 Jars of Gut Flow",
-            "stock_text": "Only 4 left"
+            "stock_text": "Popular bundle today"
           }
         },
         "spp_megan": {
@@ -1941,7 +1943,7 @@
             "name": "Megan",
             "location": "Arizona",
             "product": "3 Jars of Gut Flow",
-            "stock_text": "Only 3 left"
+            "stock_text": "Popular bundle today"
           }
         }
       },
