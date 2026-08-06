@@ -1206,7 +1206,7 @@
         "rich_text_8qyrYH": {
           "type": "rich_text",
           "settings": {
-            "content": "<p>At Lumway Labs after evaluating different ingredient approaches for everyday digestive support, we built Gut Flow around <strong>clinically studied prebiotic inulin</strong> because it consistently stood out for one simple reason:</p><p>Not all fiber works the same. Most fibers simply add bulk.<br/><strong>Prebiotic inulin does something different.</strong></p><p>Instead of simply passing through your digestive system, it <strong>selectively nourishes the beneficial bacteria already living in your gut.</strong></p><p>As these bacteria naturally ferment inulin, they produce beneficial compounds that help support:</p>",
+            "content": "<p>We believe <strong>effective gut support doesn't come from adding more ingredients</strong>. It comes from <strong>choosing the right one.<br/><br/></strong>At Lumway Labs after evaluating different ingredient approaches for everyday digestive support, we built Gut Flow around <strong>clinically studied prebiotic inulin</strong> because it consistently stood out for one simple reason:<br/><br/>Not all fiber works the same. Most fibers simply add bulk. <strong>Prebiotic inulin does something different. </strong>Instead of simply passing through your digestive system, it <strong>selectively nourishes the beneficial bacteria already living in your gut.<br/><br/></strong>As these bacteria naturally ferment inulin, they produce beneficial compounds that help support:</p>",
             "color": "#111111",
             "size_desktop": 18,
             "size_mobile": 16,
@@ -2532,7 +2532,7 @@
       "name": "MM Certifications Icons",
       "settings": {
         "show_heading": true,
-        "heading": "Try Our Prebiotic Fiber Gummy Today",
+        "heading": "Try Our Daily Prebiotic Inulin Formula",
         "heading_color": "#111111",
         "heading_alignment": "center",
         "heading_size_desktop": 40,
