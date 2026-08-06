@@ -1441,7 +1441,7 @@
             "statistic_number": 89,
             "statistic_suffix": "%",
             "circle_percentage": 84,
-            "body": "<p>of users said supporting their gut became easier once they finally found a routine they could actually stick to*</p>",
+            "body": "<p>of users said supporting their gut became easier once they finally found a routine they could actually stick to.*</p>",
             "note": "*Internal quantitative survey among Gut Flow customers.",
             "background": "#5b0d1e",
             "radius_desktop": 16,
