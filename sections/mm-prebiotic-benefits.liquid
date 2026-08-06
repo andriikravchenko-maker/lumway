@@ -1,0 +1,416 @@
+{% comment %}
+Section: MM Prebiotic Benefits
+- Heading with accent via <strong>
+- Desktop/mobile image
+- Intro rich text
+- "Without" pills as blocks
+- Feature cards as blocks
+- CTA link or smooth-scroll to CSS selector / ID
+- Guarantee line
+{% endcomment %}
+
+{%- liquid
+    assign section_class = 'mm-prebiotic-benefits-' | append: section.id
+-%}
+
+{% style %}
+    .{{ section_class }} {
+    --mm-bg: {{ section.settings.background_color }};
+    --mm-text: {{ section.settings.text_color }};
+    --mm-heading: {{ section.settings.heading_color }};
+    --mm-accent: {{ section.settings.heading_accent_color }};
+    --mm-pill-bg: {{ section.settings.pill_background }};
+    --mm-pill-text: {{ section.settings.pill_text_color }};
+    --mm-pill-icon: {{ section.settings.pill_icon_color }};
+    --mm-card-bg: {{ section.settings.card_background }};
+    --mm-card-border: {{ section.settings.card_border_color }};
+    --mm-card-title: {{ section.settings.card_title_color }};
+    --mm-card-text: {{ section.settings.card_text_color }};
+    --mm-card-icon-bg: {{ section.settings.card_icon_background }};
+    --mm-card-icon: {{ section.settings.card_icon_color }};
+    --mm-btn-bg: {{ section.settings.button_background }};
+    --mm-btn-hover: {{ section.settings.button_background_hover }};
+    --mm-btn-text: {{ section.settings.button_text_color }};
+    --mm-guarantee: {{ section.settings.guarantee_text_color }};
+    --mm-guarantee-icon: {{ section.settings.guarantee_icon_color }};
+    background: var(--mm-bg);
+    color: var(--mm-text);
+    padding: {{ section.settings.padding_top_desktop }}px {{ section.settings.padding_horizontal_desktop }}px {{ section.settings.padding_bottom_desktop }}px;
+    }
+    .{{ section_class }} *, .{{ section_class }} *::before, .{{ section_class }} *::after { box-sizing:border-box; }
+    .{{ section_class }} .mm-pb__inner { width:100%; max-width:{{ section.settings.max_width }}px; margin:0 auto; }
+    .{{ section_class }} .mm-pb__heading {
+    margin:0 auto {{ section.settings.heading_margin_bottom_desktop }}px;
+    max-width:{{ section.settings.heading_max_width }}px;
+    text-align:{{ section.settings.heading_alignment }};
+    font-family:{{ section.settings.heading_font_family }};
+    font-size:{{ section.settings.heading_font_size_desktop }}px;
+    font-weight:{{ section.settings.heading_font_weight }};
+    line-height:{{ section.settings.heading_line_height | divided_by: 10.0 }};
+    letter-spacing:{{ section.settings.heading_letter_spacing | divided_by: 100.0 }}em;
+    color:var(--mm-heading);
+    }
+    .{{ section_class }} .mm-pb__heading strong,
+    .{{ section_class }} .mm-pb__heading b { color:var(--mm-accent); font-weight:inherit; }
+    .{{ section_class }} .mm-pb__media {
+    width:100%; overflow:hidden; border-radius:{{ section.settings.image_radius_desktop }}px;
+    margin-bottom:{{ section.settings.image_margin_bottom_desktop }}px;
+    background:{{ section.settings.image_background }};
+    }
+    .{{ section_class }} .mm-pb__picture,.{{ section_class }} .mm-pb__image { display:block; width:100%; }
+    .{{ section_class }} .mm-pb__image { height:auto; object-fit:{{ section.settings.image_fit }}; object-position:{{ section.settings.image_position_x }}% {{ section.settings.image_position_y }}%; }
+    .{{ section_class }} .mm-pb__content { width:100%; max-width:{{ section.settings.content_max_width }}px; margin:0 auto; }
+    .{{ section_class }} .mm-pb__intro {
+    margin:0 0 {{ section.settings.intro_margin_bottom_desktop }}px;
+    font-family:{{ section.settings.body_font_family }};
+    font-size:{{ section.settings.body_font_size_desktop }}px;
+    font-weight:{{ section.settings.body_font_weight }};
+    line-height:{{ section.settings.body_line_height | divided_by: 10.0 }};
+    color:var(--mm-text);
+    }
+    .{{ section_class }} .mm-pb__intro p { margin:0; }
+    .{{ section_class }} .mm-pb__intro p + p { margin-top:{{ section.settings.paragraph_gap }}px; }
+    .{{ section_class }} .mm-pb__intro strong,.{{ section_class }} .mm-pb__intro b { font-weight:{{ section.settings.body_bold_weight }}; }
+    .{{ section_class }} .mm-pb__without-title {
+    margin:0 0 {{ section.settings.without_title_gap }}px;
+    font-family:{{ section.settings.body_font_family }};
+    font-size:{{ section.settings.without_title_size_desktop }}px;
+    font-weight:{{ section.settings.without_title_weight }};
+    line-height:1.3; color:var(--mm-text);
+    }
+    .{{ section_class }} .mm-pb__pills { display:flex; flex-wrap:wrap; gap:{{ section.settings.pill_gap_desktop }}px; margin-bottom:{{ section.settings.pills_margin_bottom_desktop }}px; }
+    .{{ section_class }} .mm-pb__pill {
+    display:inline-flex; align-items:center; gap:{{ section.settings.pill_icon_gap }}px;
+    min-height:{{ section.settings.pill_min_height }}px;
+    padding:{{ section.settings.pill_padding_vertical }}px {{ section.settings.pill_padding_horizontal }}px;
+    border-radius:{{ section.settings.pill_radius }}px; background:var(--mm-pill-bg); color:var(--mm-pill-text);
+    font-family:{{ section.settings.body_font_family }}; font-size:{{ section.settings.pill_font_size_desktop }}px; font-weight:{{ section.settings.pill_font_weight }}; line-height:1.2;
+    }
+    .{{ section_class }} .mm-pb__pill-icon { display:inline-flex; width:{{ section.settings.pill_icon_size }}px; height:{{ section.settings.pill_icon_size }}px; flex:0 0 {{ section.settings.pill_icon_size }}px; color:var(--mm-pill-icon); }
+    .{{ section_class }} .mm-pb__pill-icon svg { width:100%; height:100%; display:block; }
+    .{{ section_class }} .mm-pb__cards { display:grid; grid-template-columns:repeat({{ section.settings.columns_desktop }},minmax(0,1fr)); gap:{{ section.settings.cards_gap_desktop }}px; margin-bottom:{{ section.settings.cards_margin_bottom_desktop }}px; }
+    .{{ section_class }} .mm-pb__card {
+    padding:{{ section.settings.card_padding_vertical_desktop }}px {{ section.settings.card_padding_horizontal_desktop }}px;
+    background:var(--mm-card-bg); border:{{ section.settings.card_border_width }}px solid var(--mm-card-border); border-radius:{{ section.settings.card_radius }}px;
+    }
+    .{{ section_class }} .mm-pb__card-head { display:flex; align-items:flex-start; gap:{{ section.settings.card_icon_gap }}px; margin-bottom:{{ section.settings.card_title_margin_bottom }}px; }
+    .{{ section_class }} .mm-pb__card-icon {
+    display:inline-flex; align-items:center; justify-content:center;
+    width:{{ section.settings.card_icon_box_size_desktop }}px; height:{{ section.settings.card_icon_box_size_desktop }}px; flex:0 0 {{ section.settings.card_icon_box_size_desktop }}px;
+    border-radius:{{ section.settings.card_icon_radius }}px; background:var(--mm-card-icon-bg); color:var(--mm-card-icon);
+    }
+    .{{ section_class }} .mm-pb__card-icon img,.{{ section_class }} .mm-pb__card-icon svg { display:block; width:{{ section.settings.card_custom_icon_size_desktop }}px; height:{{ section.settings.card_custom_icon_size_desktop }}px; object-fit:contain; }
+    .{{ section_class }} .mm-pb__card-title { margin:0; font-family:{{ section.settings.body_font_family }}; font-size:{{ section.settings.card_title_size_desktop }}px; font-weight:{{ section.settings.card_title_weight }}; line-height:{{ section.settings.card_title_line_height | divided_by: 10.0 }}; color:var(--mm-card-title); }
+    .{{ section_class }} .mm-pb__card-text { margin:0; font-family:{{ section.settings.body_font_family }}; font-size:{{ section.settings.card_text_size_desktop }}px; font-weight:{{ section.settings.card_text_weight }}; line-height:{{ section.settings.card_text_line_height | divided_by: 10.0 }}; color:var(--mm-card-text); }
+    .{{ section_class }} .mm-pb__card-text p { margin:0; }
+    .{{ section_class }} .mm-pb__actions { width:100%; max-width:{{ section.settings.button_wrap_max_width }}px; margin:0 auto; text-align:center; }
+    .{{ section_class }} .mm-pb__button {
+    display:inline-flex; align-items:center; justify-content:center; width:{% if section.settings.button_full_width %}100%{% else %}auto{% endif %};
+    min-height:{{ section.settings.button_height }}px; padding:{{ section.settings.button_padding_vertical }}px {{ section.settings.button_padding_horizontal }}px;
+    border:{{ section.settings.button_border_width }}px solid {{ section.settings.button_border_color }}; border-radius:{{ section.settings.button_radius }}px;
+    background:var(--mm-btn-bg); color:var(--mm-btn-text); text-decoration:none; cursor:pointer;
+    font-family:{{ section.settings.button_font_family }}; font-size:{{ section.settings.button_font_size_desktop }}px; font-weight:{{ section.settings.button_font_weight }}; line-height:1.2; letter-spacing:{{ section.settings.button_letter_spacing | divided_by:100.0 }}em; text-transform:{{ section.settings.button_text_transform }};
+    transition:background-color .2s ease;
+    }
+    .{{ section_class }} .mm-pb__button:hover { background:var(--mm-btn-hover); }
+    .{{ section_class }} .mm-pb__guarantee { display:flex; align-items:center; justify-content:center; gap:{{ section.settings.guarantee_gap }}px; margin-top:{{ section.settings.guarantee_margin_top }}px; font-family:{{ section.settings.body_font_family }}; font-size:{{ section.settings.guarantee_font_size_desktop }}px; font-weight:{{ section.settings.guarantee_font_weight }}; line-height:1.25; color:var(--mm-guarantee); }
+    .{{ section_class }} .mm-pb__guarantee-icon { display:inline-flex; width:{{ section.settings.guarantee_icon_size }}px; height:{{ section.settings.guarantee_icon_size }}px; flex:0 0 {{ section.settings.guarantee_icon_size }}px; color:var(--mm-guarantee-icon); }
+    .{{ section_class }} .mm-pb__guarantee-icon img,.{{ section_class }} .mm-pb__guarantee-icon svg { width:100%; height:100%; display:block; object-fit:contain; }
+
+    @media screen and (max-width:749px) {
+    .{{ section_class }} { padding:{{ section.settings.padding_top_mobile }}px {{ section.settings.padding_horizontal_mobile }}px {{ section.settings.padding_bottom_mobile }}px; }
+    .{{ section_class }} .mm-pb__heading { max-width:{{ section.settings.heading_max_width_mobile }}px; margin-bottom:{{ section.settings.heading_margin_bottom_mobile }}px; font-size:{{ section.settings.heading_font_size_mobile }}px; line-height:{{ section.settings.heading_line_height_mobile | divided_by:10.0 }}; }
+    .{{ section_class }} .mm-pb__media { border-radius:{{ section.settings.image_radius_mobile }}px; margin-bottom:{{ section.settings.image_margin_bottom_mobile }}px; }
+    .{{ section_class }} .mm-pb__intro { margin-bottom:{{ section.settings.intro_margin_bottom_mobile }}px; font-size:{{ section.settings.body_font_size_mobile }}px; line-height:{{ section.settings.body_line_height_mobile | divided_by:10.0 }}; }
+    .{{ section_class }} .mm-pb__without-title { font-size:{{ section.settings.without_title_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__pills { gap:{{ section.settings.pill_gap_mobile }}px; margin-bottom:{{ section.settings.pills_margin_bottom_mobile }}px; }
+    .{{ section_class }} .mm-pb__pill { font-size:{{ section.settings.pill_font_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__cards { grid-template-columns:1fr; gap:{{ section.settings.cards_gap_mobile }}px; margin-bottom:{{ section.settings.cards_margin_bottom_mobile }}px; }
+    .{{ section_class }} .mm-pb__card { padding:{{ section.settings.card_padding_vertical_mobile }}px {{ section.settings.card_padding_horizontal_mobile }}px; }
+    .{{ section_class }} .mm-pb__card-icon { width:{{ section.settings.card_icon_box_size_mobile }}px; height:{{ section.settings.card_icon_box_size_mobile }}px; flex-basis:{{ section.settings.card_icon_box_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__card-icon img,.{{ section_class }} .mm-pb__card-icon svg { width:{{ section.settings.card_custom_icon_size_mobile }}px; height:{{ section.settings.card_custom_icon_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__card-title { font-size:{{ section.settings.card_title_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__card-text { font-size:{{ section.settings.card_text_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__button { width:{% if section.settings.button_full_width_mobile %}100%{% else %}auto{% endif %}; font-size:{{ section.settings.button_font_size_mobile }}px; }
+    .{{ section_class }} .mm-pb__guarantee { font-size:{{ section.settings.guarantee_font_size_mobile }}px; }
+    }
+{% endstyle %}
+
+<section class="{{ section_class }} mm-prebiotic-benefits" data-section-id="{{ section.id }}">
+    <div class="mm-pb__inner">
+        {%- if section.settings.heading != blank -%}<h2 class="mm-pb__heading">{{ section.settings.heading }}</h2>{%- endif -%}
+
+        {%- if section.settings.desktop_image != blank -%}
+            <div class="mm-pb__media">
+                <picture class="mm-pb__picture">
+                    {%- if section.settings.mobile_image != blank -%}
+                        <source media="(max-width:749px)" sizes="100vw" srcset="{{ section.settings.mobile_image | image_url: width:360 }} 360w, {{ section.settings.mobile_image | image_url: width:480 }} 480w, {{ section.settings.mobile_image | image_url: width:600 }} 600w, {{ section.settings.mobile_image | image_url: width:750 }} 750w">
+                    {%- endif -%}
+                    {{ section.settings.desktop_image | image_url: width:1600 | image_tag: class:'mm-pb__image', widths:'600,800,1000,1200,1400,1600', sizes:'(min-width:1200px) 1100px, 92vw', loading:'lazy' }}
+                </picture>
+            </div>
+        {%- endif -%}
+
+        <div class="mm-pb__content">
+            {%- if section.settings.intro != blank -%}<div class="mm-pb__intro rte">{{ section.settings.intro }}</div>{%- endif -%}
+            {%- if section.settings.without_title != blank -%}<p class="mm-pb__without-title">{{ section.settings.without_title }}</p>{%- endif -%}
+
+            <div class="mm-pb__pills">
+                {%- for block in section.blocks -%}
+                    {%- if block.type == 'pill' and block.settings.text != blank -%}
+                        <div class="mm-pb__pill" {{ block.shopify_attributes }}>
+                            <span class="mm-pb__pill-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                            <span>{{ block.settings.text }}</span>
+                        </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+
+            <div class="mm-pb__cards">
+                {%- for block in section.blocks -%}
+                    {%- if block.type == 'feature' -%}
+                        <article class="mm-pb__card" {{ block.shopify_attributes }}>
+                            <div class="mm-pb__card-head">
+                                {%- if block.settings.show_icon -%}
+                                    <span class="mm-pb__card-icon" aria-hidden="true">
+{%- if block.settings.icon_image != blank -%}
+    {{ block.settings.icon_image | image_url: width:120 | image_tag: loading:'lazy', alt:'' }}
+{%- else -%}
+    <svg viewBox="0 0 24 24" fill="none"><path d="M9.1 2.8a4.3 4.3 0 015.8 0l.9.8 1.2-.1a4.3 4.3 0 014.1 4.1l-.1 1.2.8.9a4.3 4.3 0 010 5.8l-.8.9.1 1.2a4.3 4.3 0 01-4.1 4.1l-1.2-.1-.9.8a4.3 4.3 0 01-5.8 0l-.9-.8-1.2.1a4.3 4.3 0 01-4.1-4.1l.1-1.2-.8-.9a4.3 4.3 0 010-5.8l.8-.9-.1-1.2a4.3 4.3 0 014.1-4.1l1.2.1.9-.8z" fill="currentColor"/><path d="M8.5 12.1l2.1 2.1 4.8-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{%- endif -%}
+</span>
+                                {%- endif -%}
+                                {%- if block.settings.title != blank -%}<h3 class="mm-pb__card-title">{{ block.settings.title }}</h3>{%- endif -%}
+                            </div>
+                            {%- if block.settings.text != blank -%}<div class="mm-pb__card-text rte">{{ block.settings.text }}</div>{%- endif -%}
+                        </article>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+
+            {%- if section.settings.button_label != blank -%}
+                <div class="mm-pb__actions">
+                    {%- if section.settings.button_action == 'scroll' -%}
+                        <button type="button" class="mm-pb__button gut-harmony-feature__button" data-mm-pb-scroll data-target="{{ section.settings.button_target_selector | escape }}" data-offset-desktop="{{ section.settings.button_scroll_offset_desktop }}" data-offset-mobile="{{ section.settings.button_scroll_offset_mobile }}">{{ section.settings.button_label }}</button>
+                    {%- else -%}
+                        <a class="mm-pb__button gut-harmony-feature__button" {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% else %}role="link" aria-disabled="true"{% endif %}>{{ section.settings.button_label }}</a>
+                    {%- endif -%}
+
+                    {%- if section.settings.show_guarantee and section.settings.guarantee_text != blank -%}
+                        <div class="mm-pb__guarantee">
+<span class="mm-pb__guarantee-icon" aria-hidden="true">
+{%- if section.settings.guarantee_icon != blank -%}
+    {{ section.settings.guarantee_icon | image_url: width:80 | image_tag: loading:'lazy', alt:'' }}
+{%- else -%}
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5l2.2 1.8 2.8-.3.8 2.7 2.5 1.3-1 2.6 1 2.6-2.5 1.3-.8 2.7-2.8-.3L12 21.5l-2.2-1.8-2.8.3-.8-2.7-2.5-1.3 1-2.6-1-2.6 2.5-1.3.8-2.7 2.8.3L12 2.5z" fill="currentColor"/><path d="M8.7 12l2 2 4.5-4.7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{%- endif -%}
+</span>
+                            <span>{{ section.settings.guarantee_text }}</span>
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+</section>
+
+<script>
+    (function(){
+        var root=document.querySelector('.{{ section_class }}');
+        if(!root||root.__mmPbBound)return; root.__mmPbBound=true;
+        var btn=root.querySelector('[data-mm-pb-scroll]'); if(!btn)return;
+        btn.addEventListener('click',function(){
+            var selector=btn.getAttribute('data-target'); if(!selector)return;
+            var target=null; try{target=document.querySelector(selector);}catch(e){console.warn('[MM Prebiotic Benefits] Invalid selector:',selector);return;}
+            if(!target){console.warn('[MM Prebiotic Benefits] Target not found:',selector);return;}
+            var mobile=window.matchMedia('(max-width:749px)').matches;
+            var offset=parseInt(mobile?btn.getAttribute('data-offset-mobile'):btn.getAttribute('data-offset-desktop'),10)||0;
+            var y=target.getBoundingClientRect().top+window.pageYOffset-offset;
+            window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+        });
+    })();
+</script>
+
+{% schema %}
+{
+  "name":"MM Prebiotic Benefits",
+  "tag":"section",
+  "class":"section-mm-prebiotic-benefits",
+  "settings":[
+    {"type":"header","content":"Layout"},
+    {"type":"range","id":"max_width","label":"Section max width","min":900,"max":1800,"step":20,"unit":"px","default":1200},
+    {"type":"range","id":"content_max_width","label":"Content max width","min":600,"max":1400,"step":20,"unit":"px","default":1200},
+
+    {"type":"header","content":"Heading"},
+    {"type":"inline_richtext","id":"heading","label":"Heading","default":"<strong>#1</strong> of the World's Most Studied Prebiotic Fibers"},
+    {"type":"range","id":"heading_max_width","label":"Heading max width","min":400,"max":1200,"step":20,"unit":"px","default":900},
+    {"type":"range","id":"heading_max_width_mobile","label":"Heading max width mobile","min":260,"max":600,"step":10,"unit":"px","default":420},
+    {"type":"select","id":"heading_alignment","label":"Heading alignment","options":[{"value":"left","label":"Left"},{"value":"center","label":"Center"},{"value":"right","label":"Right"}],"default":"left"},
+    {"type":"text","id":"heading_font_family","label":"Heading font family","default":"inherit"},
+    {"type":"range","id":"heading_font_size_desktop","label":"Heading font size desktop","min":24,"max":64,"step":1,"unit":"px","default":38},
+    {"type":"range","id":"heading_font_size_mobile","label":"Heading font size mobile","min":22,"max":44,"step":1,"unit":"px","default":30},
+    {"type":"select","id":"heading_font_weight","label":"Heading font weight","options":[{"value":"500","label":"Medium"},{"value":"600","label":"Semi bold"},{"value":"700","label":"Bold"},{"value":"800","label":"Extra bold"}],"default":"700"},
+    {"type":"range","id":"heading_line_height","label":"Heading line height desktop","min":9,"max":16,"step":1,"default":11},
+    {"type":"range","id":"heading_line_height_mobile","label":"Heading line height mobile","min":9,"max":16,"step":1,"default":11},
+    {"type":"range","id":"heading_letter_spacing","label":"Heading letter spacing","min":-6,"max":6,"step":1,"default":0},
+    {"type":"range","id":"heading_margin_bottom_desktop","label":"Heading bottom spacing desktop","min":0,"max":80,"step":2,"unit":"px","default":28},
+    {"type":"range","id":"heading_margin_bottom_mobile","label":"Heading bottom spacing mobile","min":0,"max":60,"step":2,"unit":"px","default":22},
+
+    {"type":"header","content":"Main image"},
+    {"type":"image_picker","id":"desktop_image","label":"Desktop image"},
+    {"type":"image_picker","id":"mobile_image","label":"Mobile image"},
+    {"type":"color","id":"image_background","label":"Image background","default":"#f5f5f5"},
+    {"type":"select","id":"image_fit","label":"Image fit","options":[{"value":"cover","label":"Cover"},{"value":"contain","label":"Contain"}],"default":"cover"},
+    {"type":"range","id":"image_position_x","label":"Image horizontal position","min":0,"max":100,"step":1,"unit":"%","default":50},
+    {"type":"range","id":"image_position_y","label":"Image vertical position","min":0,"max":100,"step":1,"unit":"%","default":50},
+    {"type":"range","id":"image_radius_desktop","label":"Image radius desktop","min":0,"max":40,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"image_radius_mobile","label":"Image radius mobile","min":0,"max":32,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"image_margin_bottom_desktop","label":"Image bottom spacing desktop","min":0,"max":80,"step":2,"unit":"px","default":26},
+    {"type":"range","id":"image_margin_bottom_mobile","label":"Image bottom spacing mobile","min":0,"max":60,"step":2,"unit":"px","default":28},
+
+    {"type":"header","content":"Text"},
+    {"type":"richtext","id":"intro","label":"Intro","default":"<p><strong>Every serving delivers</strong> clinically studied prebiotic inulin – a convenient way to help <strong>close the daily fiber gap</strong> while <strong>nourishing the beneficial bacteria</strong> your gut relies on.</p>"},
+    {"type":"text","id":"without_title","label":"Without title","default":"Gut Flow is designed to getting more daily fiber without:"},
+    {"type":"text","id":"body_font_family","label":"Body font family","default":"inherit"},
+    {"type":"range","id":"body_font_size_desktop","label":"Body font size desktop","min":12,"max":24,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"body_font_size_mobile","label":"Body font size mobile","min":13,"max":22,"step":1,"unit":"px","default":16},
+    {"type":"select","id":"body_font_weight","label":"Body font weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"}],"default":"400"},
+    {"type":"select","id":"body_bold_weight","label":"Bold weight","options":[{"value":"600","label":"Semi bold"},{"value":"700","label":"Bold"},{"value":"800","label":"Extra bold"}],"default":"700"},
+    {"type":"range","id":"body_line_height","label":"Body line height desktop","min":11,"max":20,"step":1,"default":14},
+    {"type":"range","id":"body_line_height_mobile","label":"Body line height mobile","min":11,"max":20,"step":1,"default":14},
+    {"type":"range","id":"paragraph_gap","label":"Paragraph gap","min":0,"max":30,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"intro_margin_bottom_desktop","label":"Intro bottom spacing desktop","min":0,"max":60,"step":2,"unit":"px","default":24},
+    {"type":"range","id":"intro_margin_bottom_mobile","label":"Intro bottom spacing mobile","min":0,"max":60,"step":2,"unit":"px","default":24},
+    {"type":"range","id":"without_title_size_desktop","label":"Without title size desktop","min":12,"max":24,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"without_title_size_mobile","label":"Without title size mobile","min":13,"max":22,"step":1,"unit":"px","default":16},
+    {"type":"select","id":"without_title_weight","label":"Without title weight","options":[{"value":"500","label":"Medium"},{"value":"600","label":"Semi bold"},{"value":"700","label":"Bold"}],"default":"700"},
+    {"type":"range","id":"without_title_gap","label":"Without title gap","min":0,"max":30,"step":1,"unit":"px","default":12},
+
+    {"type":"header","content":"Pills"},
+    {"type":"range","id":"pill_gap_desktop","label":"Pill gap desktop","min":0,"max":24,"step":1,"unit":"px","default":8},
+    {"type":"range","id":"pill_gap_mobile","label":"Pill gap mobile","min":0,"max":20,"step":1,"unit":"px","default":8},
+    {"type":"range","id":"pill_min_height","label":"Pill min height","min":28,"max":56,"step":1,"unit":"px","default":34},
+    {"type":"range","id":"pill_padding_vertical","label":"Pill vertical padding","min":2,"max":16,"step":1,"unit":"px","default":6},
+    {"type":"range","id":"pill_padding_horizontal","label":"Pill horizontal padding","min":6,"max":30,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"pill_radius","label":"Pill radius","min":0,"max":30,"step":1,"unit":"px","default":14},
+    {"type":"range","id":"pill_font_size_desktop","label":"Pill font size desktop","min":11,"max":20,"step":1,"unit":"px","default":14},
+    {"type":"range","id":"pill_font_size_mobile","label":"Pill font size mobile","min":12,"max":20,"step":1,"unit":"px","default":15},
+    {"type":"select","id":"pill_font_weight","label":"Pill font weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semi bold"}],"default":"400"},
+    {"type":"range","id":"pill_icon_size","label":"Pill icon size","min":10,"max":24,"step":1,"unit":"px","default":14},
+    {"type":"range","id":"pill_icon_gap","label":"Pill icon gap","min":2,"max":16,"step":1,"unit":"px","default":6},
+    {"type":"range","id":"pills_margin_bottom_desktop","label":"Pills bottom spacing desktop","min":0,"max":80,"step":2,"unit":"px","default":34},
+    {"type":"range","id":"pills_margin_bottom_mobile","label":"Pills bottom spacing mobile","min":0,"max":60,"step":2,"unit":"px","default":28},
+
+    {"type":"header","content":"Feature cards"},
+    {"type":"select","id":"columns_desktop","label":"Columns desktop","options":[{"value":"3","label":"3"},{"value":"4","label":"4"},{"value":"5","label":"5"}],"default":"5"},
+    {"type":"range","id":"cards_gap_desktop","label":"Cards gap desktop","min":0,"max":40,"step":1,"unit":"px","default":14},
+    {"type":"range","id":"cards_gap_mobile","label":"Cards gap mobile","min":0,"max":24,"step":1,"unit":"px","default":10},
+    {"type":"range","id":"card_padding_vertical_desktop","label":"Card vertical padding desktop","min":8,"max":40,"step":1,"unit":"px","default":18},
+    {"type":"range","id":"card_padding_horizontal_desktop","label":"Card horizontal padding desktop","min":8,"max":40,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"card_padding_vertical_mobile","label":"Card vertical padding mobile","min":8,"max":32,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"card_padding_horizontal_mobile","label":"Card horizontal padding mobile","min":8,"max":32,"step":1,"unit":"px","default":16},
+    {"type":"range","id":"card_radius","label":"Card radius","min":0,"max":30,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"card_border_width","label":"Card border width","min":0,"max":3,"step":1,"unit":"px","default":0},
+    {"type":"range","id":"card_icon_gap","label":"Icon/title gap","min":4,"max":20,"step":1,"unit":"px","default":8},
+    {"type":"range","id":"card_icon_box_size_desktop","label":"Icon box desktop","min":24,"max":56,"step":1,"unit":"px","default":30},
+    {"type":"range","id":"card_icon_box_size_mobile","label":"Icon box mobile","min":24,"max":56,"step":1,"unit":"px","default":32},
+    {"type":"range","id":"card_custom_icon_size_desktop","label":"Inner icon desktop","min":14,"max":40,"step":1,"unit":"px","default":18},
+    {"type":"range","id":"card_custom_icon_size_mobile","label":"Inner icon mobile","min":14,"max":40,"step":1,"unit":"px","default":18},
+    {"type":"range","id":"card_icon_radius","label":"Icon radius","min":0,"max":50,"step":1,"unit":"px","default":50},
+    {"type":"range","id":"card_title_size_desktop","label":"Card title size desktop","min":12,"max":22,"step":1,"unit":"px","default":15},
+    {"type":"range","id":"card_title_size_mobile","label":"Card title size mobile","min":13,"max":22,"step":1,"unit":"px","default":16},
+    {"type":"select","id":"card_title_weight","label":"Card title weight","options":[{"value":"500","label":"Medium"},{"value":"600","label":"Semi bold"},{"value":"700","label":"Bold"}],"default":"700"},
+    {"type":"range","id":"card_title_line_height","label":"Card title line height","min":10,"max":18,"step":1,"default":12},
+    {"type":"range","id":"card_title_margin_bottom","label":"Title bottom spacing","min":0,"max":20,"step":1,"unit":"px","default":8},
+    {"type":"range","id":"card_text_size_desktop","label":"Card text size desktop","min":12,"max":20,"step":1,"unit":"px","default":14},
+    {"type":"range","id":"card_text_size_mobile","label":"Card text size mobile","min":13,"max":20,"step":1,"unit":"px","default":15},
+    {"type":"select","id":"card_text_weight","label":"Card text weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"}],"default":"400"},
+    {"type":"range","id":"card_text_line_height","label":"Card text line height","min":11,"max":20,"step":1,"default":14},
+    {"type":"range","id":"cards_margin_bottom_desktop","label":"Cards bottom spacing desktop","min":0,"max":100,"step":2,"unit":"px","default":34},
+    {"type":"range","id":"cards_margin_bottom_mobile","label":"Cards bottom spacing mobile","min":0,"max":80,"step":2,"unit":"px","default":28},
+
+    {"type":"header","content":"CTA"},
+    {"type":"text","id":"button_label","label":"Button label","default":"🔥 TRY GUT FLOW NOW"},
+    {"type":"select","id":"button_action","label":"Button action","options":[{"value":"link","label":"Open link"},{"value":"scroll","label":"Scroll to ID / CSS selector"}],"default":"scroll"},
+    {"type":"url","id":"button_link","label":"Button link"},
+    {"type":"text","id":"button_target_selector","label":"Scroll target selector","default":"#product-details-lum .bsl__label","info":"Examples: #product-details-lum, .bsl__label, #product-details-lum .bsl__label"},
+    {"type":"range","id":"button_scroll_offset_desktop","label":"Scroll offset desktop","min":0,"max":200,"step":4,"unit":"px","default":24},
+    {"type":"range","id":"button_scroll_offset_mobile","label":"Scroll offset mobile","min":0,"max":200,"step":4,"unit":"px","default":24},
+    {"type":"range","id":"button_wrap_max_width","label":"Button wrapper max width","min":280,"max":900,"step":10,"unit":"px","default":540},
+    {"type":"checkbox","id":"button_full_width","label":"Full width desktop","default":true},
+    {"type":"checkbox","id":"button_full_width_mobile","label":"Full width mobile","default":true},
+    {"type":"range","id":"button_height","label":"Button min height","min":40,"max":80,"step":1,"unit":"px","default":52},
+    {"type":"range","id":"button_padding_vertical","label":"Button vertical padding","min":6,"max":24,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"button_padding_horizontal","label":"Button horizontal padding","min":12,"max":60,"step":1,"unit":"px","default":24},
+    {"type":"range","id":"button_radius","label":"Button radius","min":0,"max":30,"step":1,"unit":"px","default":6},
+    {"type":"range","id":"button_border_width","label":"Button border width","min":0,"max":4,"step":1,"unit":"px","default":0},
+    {"type":"text","id":"button_font_family","label":"Button font family","default":"inherit"},
+    {"type":"range","id":"button_font_size_desktop","label":"Button font size desktop","min":12,"max":24,"step":1,"unit":"px","default":15},
+    {"type":"range","id":"button_font_size_mobile","label":"Button font size mobile","min":13,"max":22,"step":1,"unit":"px","default":16},
+    {"type":"select","id":"button_font_weight","label":"Button font weight","options":[{"value":"600","label":"Semi bold"},{"value":"700","label":"Bold"},{"value":"800","label":"Extra bold"}],"default":"700"},
+    {"type":"range","id":"button_letter_spacing","label":"Button letter spacing","min":-5,"max":10,"step":1,"default":0},
+    {"type":"select","id":"button_text_transform","label":"Button text transform","options":[{"value":"none","label":"None"},{"value":"uppercase","label":"Uppercase"}],"default":"uppercase"},
+
+    {"type":"header","content":"Guarantee"},
+    {"type":"checkbox","id":"show_guarantee","label":"Show guarantee","default":true},
+    {"type":"image_picker","id":"guarantee_icon","label":"Custom guarantee icon"},
+    {"type":"text","id":"guarantee_text","label":"Guarantee text","default":"30-day money-back guarantee"},
+    {"type":"range","id":"guarantee_icon_size","label":"Guarantee icon size","min":12,"max":32,"step":1,"unit":"px","default":18},
+    {"type":"range","id":"guarantee_gap","label":"Guarantee gap","min":2,"max":20,"step":1,"unit":"px","default":8},
+    {"type":"range","id":"guarantee_margin_top","label":"Guarantee top spacing","min":0,"max":40,"step":1,"unit":"px","default":10},
+    {"type":"range","id":"guarantee_font_size_desktop","label":"Guarantee font size desktop","min":10,"max":18,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"guarantee_font_size_mobile","label":"Guarantee font size mobile","min":11,"max":18,"step":1,"unit":"px","default":14},
+    {"type":"select","id":"guarantee_font_weight","label":"Guarantee font weight","options":[{"value":"400","label":"Regular"},{"value":"500","label":"Medium"},{"value":"600","label":"Semi bold"}],"default":"500"},
+
+    {"type":"header","content":"Colors"},
+    {"type":"color","id":"background_color","label":"Section background","default":"#ffffff"},
+    {"type":"color","id":"text_color","label":"Text","default":"#111111"},
+    {"type":"color","id":"heading_color","label":"Heading","default":"#111111"},
+    {"type":"color","id":"heading_accent_color","label":"Heading accent","default":"#6f1020"},
+    {"type":"color","id":"pill_background","label":"Pill background","default":"#f7f7f7"},
+    {"type":"color","id":"pill_text_color","label":"Pill text","default":"#111111"},
+    {"type":"color","id":"pill_icon_color","label":"Pill icon","default":"#b00f24"},
+    {"type":"color","id":"card_background","label":"Card background","default":"#fff6f8"},
+    {"type":"color","id":"card_border_color","label":"Card border","default":"#ead9de"},
+    {"type":"color","id":"card_title_color","label":"Card title","default":"#111111"},
+    {"type":"color","id":"card_text_color","label":"Card text","default":"#111111"},
+    {"type":"color","id":"card_icon_background","label":"Card icon background","default":"#7a1029"},
+    {"type":"color","id":"card_icon_color","label":"Card icon","default":"#ffffff"},
+    {"type":"color","id":"button_background","label":"Button background","default":"#982b47"},
+    {"type":"color","id":"button_background_hover","label":"Button hover","default":"#7a1029"},
+    {"type":"color","id":"button_text_color","label":"Button text","default":"#ffffff"},
+    {"type":"color","id":"button_border_color","label":"Button border","default":"#982b47"},
+    {"type":"color","id":"guarantee_text_color","label":"Guarantee text","default":"#111111"},
+    {"type":"color","id":"guarantee_icon_color","label":"Guarantee icon","default":"#6f1020"},
+
+    {"type":"header","content":"Section spacing"},
+    {"type":"range","id":"padding_top_desktop","label":"Padding top desktop","min":0,"max":160,"step":4,"unit":"px","default":64},
+    {"type":"range","id":"padding_bottom_desktop","label":"Padding bottom desktop","min":0,"max":160,"step":4,"unit":"px","default":64},
+    {"type":"range","id":"padding_horizontal_desktop","label":"Padding horizontal desktop","min":0,"max":100,"step":2,"unit":"px","default":32},
+    {"type":"range","id":"padding_top_mobile","label":"Padding top mobile","min":0,"max":100,"step":2,"unit":"px","default":40},
+    {"type":"range","id":"padding_bottom_mobile","label":"Padding bottom mobile","min":0,"max":100,"step":2,"unit":"px","default":40},
+    {"type":"range","id":"padding_horizontal_mobile","label":"Padding horizontal mobile","min":8,"max":40,"step":1,"unit":"px","default":16}
+  ],
+  "blocks":[
+    {"type":"pill","name":"Without pill","settings":[{"type":"text","id":"text","label":"Text","default":"Mixing gritty powders"}]},
+    {"type":"feature","name":"Feature card","settings":[
+      {"type":"checkbox","id":"show_icon","label":"Show icon","default":true},
+      {"type":"image_picker","id":"icon_image","label":"Custom icon image"},
+      {"type":"text","id":"title","label":"Title","default":"Clinically Studied Prebiotic"},
+      {"type":"richtext","id":"text","label":"Text","default":"<p>Supports daily fiber intake and feeds beneficial bacteria.</p>"}
+    ]}
+  ],
+  "presets":[{"name":"MM Prebiotic Benefits","blocks":[
+    {"type":"pill","settings":{"text":"Mixing gritty powders"}},
+    {"type":"pill","settings":{"text":"Swallowing large capsules"}},
+    {"type":"pill","settings":{"text":"Drinking harsh cleansing teas"}},
+    {"type":"pill","settings":{"text":"Starting another extreme diet"}},
+    {"type":"pill","settings":{"text":"Waiting until digestive discomfort becomes unbearable"}},
+    {"type":"feature","settings":{"title":"Clinically Studied Prebiotic","text":"<p>Supports daily fiber intake and feeds beneficial bacteria.</p>"}},
+    {"type":"feature","settings":{"title":"Ferments Where It Matters","text":"<p>Works naturally inside your colon, where beneficial bacteria live.</p>"}},
+    {"type":"feature","settings":{"title":"Creates Beneficial Postbiotics","text":"<p>Supports production of short-chain fatty acids that help maintain a healthier gut environment.</p>"}},
+    {"type":"feature","settings":{"title":"Daily Gut Rhythm","text":"<p>Supports consistency instead of occasional emergency relief.</p>"}},
+    {"type":"feature","settings":{"title":"Gummy Convenience","text":"<p>Easy to take at home, at work, or while travelling.</p>"}}
+  ]}]
+}
+{% endschema %}
