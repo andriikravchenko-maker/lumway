@@ -827,8 +827,12 @@
                 })();
 
 // =====================================================================
-    // secure_checkout_button_clicked  (+ checkout_intent_id)
-    // MUST live INSIDE the main lum-analytics IIFE (needs track()).
+    // secure_checkout_button_clicked  (+ checkout_intent_id into cart)
+    // MUST be placed INSIDE the main lum-analytics IIFE (it calls track()).
+    // The event fires on click; navigation is held ~300ms so the Amplitude
+    // request actually leaves before the checkout page loads (without this the
+    // event dispatches but the HTTP request is killed by navigation — the exact
+    // bug seen on the first anonymous click). One event, per schema.
     // =====================================================================
     (function () {
       function userEmail() {
@@ -840,6 +844,7 @@
       function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
       function newIntentId(){ return 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); }
 
+      // ---- write intent_id into the cart ----------------------------------
       function writeIntent() {
         var existing = sessionStorage.getItem('__lum_intent');
         if (existing) return existing;
@@ -855,7 +860,7 @@
         return intentId;
       }
 
-      // adopt existing intent from cart (same-cart return)
+      // adopt an intent already in the cart (same-cart return across sessions)
       (function () {
         if (sessionStorage.getItem('__lum_intent')) return;
         fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
@@ -866,13 +871,14 @@
           }).catch(function () {});
       })();
 
-      // write intent early on ANY cart interaction (opening drawer, add to cart)
+      // write intent early on any cart interaction (so it's in the cart before checkout)
       document.addEventListener('click', function (e) {
-        if (e.target.closest('[name="add"], [data-atc-button], .cart-drawer, #CartDrawer, [href="/cart"], [id*="cart" i]')) {
+        if (e.target.closest('[name="add"], [data-atc-button], .cart-drawer, cart-drawer, #CartDrawer, [href="/cart"]')) {
           if (!sessionStorage.getItem('__lum_intent')) writeIntent();
         }
       }, true);
 
+      // ---- read cart snapshot from the DOM (synchronous) ------------------
       function money(text) {
         var m = String(text || '').replace(/[^\d.,]/g, '').replace(',', '.');
         var n = parseFloat(m);
@@ -880,12 +886,16 @@
       }
       function collectFromDrawer() {
         var out = { product_ids: [], product_names: [], has_subscription: false };
+
         var totalEl = document.querySelector('.totals__total-value');
         out.cart_value = totalEl ? money(totalEl.textContent) : undefined;
+
         var countEl = document.querySelector('.gb-cart-total-item, .cart-count-bubble');
         out.items_number = countEl ? (parseInt(countEl.textContent, 10) || undefined) : undefined;
+
         var savEl = document.querySelector('.discount_discount-value');
         if (savEl) { var s = money(savEl.textContent); if (s) out.discount_amount = s; }
+
         document.querySelectorAll('.cart-item').forEach(function (it) {
           var nameEl = it.querySelector('.cart-item__name');
           var name = nameEl ? nameEl.textContent.replace(/\s+/g, ' ').trim() : '';
@@ -895,17 +905,24 @@
           if (name) out.product_names.push(name);
           if (handle) out.product_ids.push(handle);
           if ((link && /selling_plan=/.test(link.getAttribute('href') || '')) ||
-              it.querySelector('.cart-item__subscribe-frequency-label, .cart-item__subscription-name')) out.has_subscription = true;
+              it.querySelector('.cart-item__subscribe-frequency-label, .cart-item__subscription-name')) {
+            out.has_subscription = true;
+          }
         });
         out.product_ids = uniqArr(out.product_ids);
         out.product_names = uniqArr(out.product_names);
         return out;
       }
 
-      // fire on checkout click — synchronous, instant
+      // ---- on click: fire, then hold navigation so the request leaves -----
+      var LUM_PROCEEDING = false;
       document.addEventListener('click', function (e) {
         var btn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
         if (!btn) return;
+        if (LUM_PROCEEDING) return; // our own re-dispatched submit — let it through
+
+        e.preventDefault();
+        e.stopPropagation();
 
         var intentId = sessionStorage.getItem('__lum_intent') || writeIntent();
         var uid = userEmail();
@@ -930,6 +947,13 @@
         }
 
         track('secure_checkout_button_clicked', props);
+
+        // let the Amplitude request go out before navigating to checkout
+        setTimeout(function () {
+          LUM_PROCEEDING = true;
+          if (btn.form) { btn.form.submit(); }
+          else { btn.click(); }
+        }, 300);
       }, true);
     })();
 
