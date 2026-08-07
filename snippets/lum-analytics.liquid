@@ -831,7 +831,7 @@
     // intent_id is written to cart attributes when the drawer OPENS (plenty of
     // time, no navigation race), then the click just fires the event with it.
     // =====================================================================
-  (function () {
+  {% comment %} (function () {
   function userEmail() {
     if (window.__lumCustomerId) return String(window.__lumCustomerId);
     var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
@@ -957,7 +957,7 @@
         track('secure_checkout_button_clicked_enriched', props);
       }).catch(function () {});
   }, true);
-})();
+})(); {% endcomment %}
 
 
         // =====================================================================
