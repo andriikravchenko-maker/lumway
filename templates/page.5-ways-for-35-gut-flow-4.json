@@ -19,7 +19,6 @@
     },
     "sticky_countdown": {
       "type": "sticky-countdown-banner",
-      "disabled": true,
       "settings": {
         "text": "🔥 LIMITED TIME OFFER ENDS IN",
         "hours": 2,
