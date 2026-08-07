@@ -19,6 +19,7 @@
     },
     "sticky_countdown": {
       "type": "sticky-countdown-banner",
+      "disabled": true,
       "settings": {
         "text": "🔥 LIMITED TIME OFFER ENDS IN",
         "hours": 2,
@@ -1507,7 +1508,7 @@
             "button_text": "🔥 Try Gut Flow Now",
             "show_arrow": false,
             "button_link": "/products/gut-flow-gummies",
-            "button_bg": "#5e1424",
+            "button_bg": "#5B0D1E",
             "button_text_color": "#ffffff",
             "enable_heartbeat": true,
             "button_font_size": 18,
