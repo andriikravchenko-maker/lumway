@@ -177,6 +177,7 @@
     },
     "mm_gut_harmony_benefits_gKxehV": {
       "type": "mm-gut-harmony-benefits",
+      "custom_css": [],
       "name": "\"Finally My Jeans Fit Looser And I Feel More Confident Than Ever.\"",
       "settings": {
         "use_theme_colors": false,
