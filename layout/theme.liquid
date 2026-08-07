@@ -47,13 +47,13 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    {% comment %} <script src="{{ 'premium-attachment-kit.js' | asset_url }}" defer="defer"></script>  {% endcomment %}
-      {% if template.name == 'product' %}
+    <script src="{{ 'premium-attachment-kit.js' | asset_url }}" defer="defer"></script> 
+     {% comment %} {% if template.name == 'product' %}
   <script
     src="{{ 'premium-attachment-kit.js' | asset_url }}"
     defer
   ></script>
-{% endif %}
+{% endif %} {% endcomment %}
     <script src="{{ 'upsell-simple.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
@@ -536,6 +536,6 @@
     {% endif %}
      {% render 'klaviyo-atc' %}
      {% render 'lum-analytics' %}
-      {% render 'perf-deferred-scripts' %} 
+      {% comment %} {% render 'perf-deferred-scripts' %}  {% endcomment %}
   </body>
 </html>
