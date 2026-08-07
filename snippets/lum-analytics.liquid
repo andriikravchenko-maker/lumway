@@ -1079,27 +1079,16 @@
       .forEach(function (item) {
 
         var name = item.querySelector(
-
           '.cart-item__name'
-
         );
-
         if (name) {
-
           data.product_names.push(
-
             name.textContent
-
               .replace(/\s+/g, ' ')
-
               .trim()
-
           );
-
         }
-
         var link = item.querySelector(
-
           'a.cart-item__name, a.cart-item__link'
         );
         if (link) {
