@@ -1157,33 +1157,19 @@
     data.product_ids = uniqArr(
 
       data.product_ids
-
     );
-
     data.product_names = uniqArr(
-
       data.product_names
-
     );
-
     return data;
-
   }
-
   // ==========================================================
-
   // CHECKOUT CLICK
-
   // ==========================================================
-
   var PROCESSING = false;
-
   document.addEventListener(
-
     'click',
-
     async function (e) {
-
       var btn = e.target.closest(
         '#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button'
       );
