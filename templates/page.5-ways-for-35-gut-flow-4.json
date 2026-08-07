@@ -3256,7 +3256,7 @@
         "role_color": "#111111",
         "quote_color": "#5b0d1e",
         "divider_color": "#c2c2c2",
-        "max_width": 1620,
+        "max_width": 1440,
         "card_min_height_desktop": 320,
         "content_max_width_desktop": 1200,
         "card_radius_desktop": 20,
