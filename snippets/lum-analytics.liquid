@@ -1185,113 +1185,61 @@
     async function (e) {
 
       var btn = e.target.closest(
-
         '#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button'
-
       );
-
       if (!btn) {
-
         return;
-
       }
-
       if (PROCESSING) {
-
         return;
-
       }
-
       e.preventDefault();
-
       e.stopPropagation();
-
       PROCESSING = true;
-
       // create intent first
-
       var intentId =
-
         await writeIntent();
-
       var uid =
-
         userEmail();
-
       var cart =
-
         collectFromDrawer();
-
       var props = {
-
         checkout_intent_id: intentId,
-
         cart_value: cart.cart_value,
-
         currency:
-
           (
-
             window.Shopify &&
-
             Shopify.currency &&
-
             Shopify.currency.active
-
           ) || 'USD',
-
         items_number: cart.items_number,
-
         has_subscription:
-
           cart.has_subscription,
-
         product_ids:
-
           cart.product_ids,
-
         product_names:
-
           cart.product_names,
-
         is_logged_in:
-
           !!uid,
-
       };
-
       track(
-
         'secure_checkout_button_clicked',
-
         props
-
       );
-
       // =====================================================
-
       // DIRECT CHECKOUT
-
       // no /cart
-
       // =====================================================
-
       setTimeout(function () {
-
         window.location.assign(
-
           '/checkout'
 
         );
 
       }, 300);
-
     },
-
     true
-
   );
-
 })();
                     // =====================================================================
                     // NEXT EVENTS GO HERE — port one at a time from the old snippets.
