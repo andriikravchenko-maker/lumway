@@ -828,95 +828,322 @@
 
                     {% comment %} TEST {% endcomment %}
 
-                    (function () {
-function userEmail() {
-if (window.__lumCustomerId) return String(window.__lumCustomerId);
-var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
-if (m && m.customerId) return String(m.customerId);
-return null;
-}
-function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
-function newIntentId(){ return 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); }
+(function () {
+  function userEmail() {
+    if (window.__lumCustomerId) {
+      return String(window.__lumCustomerId);
+    }
 
-// ---- 1. write intent_id into the cart when the drawer opens ----------
-function writeIntent() {
-// one intent per drawer-open cycle; refresh if cart changed since last
-var existing = sessionStorage.getItem('__lum_intent');
-if (existing) return existing;
+    var meta =
+      window.ShopifyAnalytics &&
+      window.ShopifyAnalytics.meta &&
+      window.ShopifyAnalytics.meta.page;
 
-var intentId = newIntentId();
-sessionStorage.setItem('__lum_intent', intentId);
-fetch('/cart/update.js', {
-method: 'POST', headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ attributes: {
-lum_checkout_intent_id: intentId,
-lum_checkout_click_ts: String(Date.now())
-}})
-}).catch(function () {});
-return intentId;
-}
+    if (meta && meta.customerId) {
+      return String(meta.customerId);
+    }
 
-var drawer = document.querySelector('cart-drawer, #CartDrawer');
-if (drawer && 'MutationObserver' in window) {
-var wasOpen = false;
-new MutationObserver(function () {
-var open = drawer.classList.contains('active') || drawer.classList.contains('animate');
-if (open && !wasOpen) writeIntent();
-wasOpen = open;
-}).observe(drawer, { attributes: true, attributeFilter: ['class'] });
-} else {
-// no drawer element? write on first interaction as a fallback
-document.addEventListener('pointerdown', function once() {
-writeIntent(); document.removeEventListener('pointerdown', once);
-}, { once: true, capture: true });
-}
+    return null;
+  }
 
-// ---- 2. fire the event on checkout click (id already in cart) --------
-document.addEventListener('click', function (e) {
-var btn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
-if (!btn) return;
+  function uniqArr(arr) {
+    var seen = {};
+    var out = [];
 
-// ensure we have an intent id even if the drawer observer missed it
-var intentId = sessionStorage.getItem('__lum_intent') || writeIntent();
+    arr.forEach(function (value) {
+      if (value && !seen[value]) {
+        seen[value] = true;
+        out.push(value);
+      }
+    });
 
-fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
-.then(function (r) { return r.json(); })
-.then(function (cart) {
-var lines = cart.items || [];
-var original = 0, discounted = 0;
-lines.forEach(function (li) {
-original += (li.original_line_price != null ? li.original_line_price : li.line_price) || 0;
-discounted += (li.final_line_price != null ? li.final_line_price : li.line_price) || 0;
-});
-var discCents = Math.max(0, original - discounted);
-var uid = userEmail();
+    return out;
+  }
 
-var props = {
-checkout_intent_id: intentId,
-cart_value: (cart.total_price || 0) / 100,
-currency: cart.currency,
-items_number: cart.item_count,
-has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
-product_ids: uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
-product_names: uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
-is_logged_in: !!uid
-};
-if (discCents > 0) {
-props.discount_amount = Math.round(discCents) / 100;
-if (original > 0) props.discount_percent = Math.round((discCents / original) * 100);
-}
-track('secure_checkout_button_clicked', props);
-}).catch(function () {
-// even if cart.js fails, still fire with the intent id
-track('secure_checkout_button_clicked', { checkout_intent_id: intentId });
-});
-}, true);
+  function newIntentId() {
+    return (
+      'ci_' +
+      Date.now().toString(36) +
+      '_' +
+      Math.random().toString(36).slice(2, 10)
+    );
+  }
 
-// ---- 3. clear intent after checkout leaves / cart empties ------------
-// reset so a new drawer-open next session gets a fresh intent id
-window.addEventListener('pagehide', function () {
-// keep it — it must survive into checkout. Cleared on next fresh cart.
-});
+  // =====================================================================
+  // CHECKOUT INTENT
+  // =====================================================================
+
+  function getIntentId() {
+    var existing = sessionStorage.getItem('__lum_intent');
+
+    if (existing) {
+      return existing;
+    }
+
+    var intentId = newIntentId();
+
+    sessionStorage.setItem('__lum_intent', intentId);
+
+    return intentId;
+  }
+
+  async function writeIntent() {
+    var intentId = getIntentId();
+
+    try {
+      await fetch('/cart/update.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          attributes: {
+            lum_checkout_intent_id: intentId,
+            lum_checkout_click_ts: String(Date.now()),
+          },
+        }),
+      });
+    } catch (e) {}
+
+    return intentId;
+  }
+
+  // =====================================================================
+  // WRITE INTENT WHEN CART DRAWER OPENS
+  // =====================================================================
+
+  var drawer = document.querySelector(
+    'cart-drawer, #CartDrawer, #cart-drawer'
+  );
+
+  if (drawer && 'MutationObserver' in window) {
+    var wasOpen = false;
+
+    new MutationObserver(function () {
+      var isOpen =
+        drawer.classList.contains('active') ||
+        drawer.classList.contains('animate') ||
+        drawer.classList.contains('open') ||
+        drawer.hasAttribute('open');
+
+      if (isOpen && !wasOpen) {
+        writeIntent();
+      }
+
+      wasOpen = isOpen;
+    }).observe(drawer, {
+      attributes: true,
+      attributeFilter: ['class', 'open'],
+    });
+  }
+
+  // =====================================================================
+  // CHECKOUT CLICK
+  // =====================================================================
+
+  var checkoutProcessing = false;
+
+  document.addEventListener(
+    'click',
+    async function (e) {
+      var btn = e.target.closest(
+        '#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button'
+      );
+
+      if (!btn) {
+        return;
+      }
+
+      if (checkoutProcessing) {
+        return;
+      }
+
+      // IMPORTANT:
+      // Stop Shopify/native form submission.
+      // Otherwise the browser leaves the page before cart.js -> track().
+      e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      checkoutProcessing = true;
+
+      var intentId = getIntentId();
+
+      // =================================================================
+      // MAKE SURE INTENT EXISTS IN SHOPIFY CART
+      // =================================================================
+
+      try {
+        await fetch('/cart/update.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            attributes: {
+              lum_checkout_intent_id: intentId,
+              lum_checkout_click_ts: String(Date.now()),
+            },
+          }),
+        });
+      } catch (e) {}
+
+      // =================================================================
+      // GET CURRENT CART
+      // =================================================================
+
+      var cart;
+
+      try {
+        var response = await fetch('/cart.js', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+          cache: 'no-store',
+        });
+
+        cart = await response.json();
+      } catch (e) {
+        cart = null;
+      }
+
+      // =================================================================
+      // BUILD EVENT
+      // =================================================================
+
+      if (cart) {
+        var lines = cart.items || [];
+
+        var original = 0;
+        var discounted = 0;
+
+        lines.forEach(function (line) {
+          original +=
+            (line.original_line_price != null
+              ? line.original_line_price
+              : line.line_price) || 0;
+
+          discounted +=
+            (line.final_line_price != null
+              ? line.final_line_price
+              : line.line_price) || 0;
+        });
+
+        var discountCents = Math.max(
+          0,
+          original - discounted
+        );
+
+        var uid = userEmail();
+
+        var props = {
+          checkout_intent_id: intentId,
+
+          cart_value:
+            (cart.total_price || 0) / 100,
+
+          currency:
+            cart.currency ||
+            (
+              window.Shopify &&
+              Shopify.currency &&
+              Shopify.currency.active
+            ) ||
+            'USD',
+
+          items_number:
+            cart.item_count,
+
+          has_subscription:
+            lines.some(function (line) {
+              return !!line.selling_plan_allocation;
+            }),
+
+          product_ids:
+            uniqArr(
+              lines.map(function (line) {
+                return (
+                  line.sku ||
+                  String(line.product_id)
+                );
+              })
+            ),
+
+          product_names:
+            uniqArr(
+              lines.map(function (line) {
+                return (
+                  line.product_title ||
+                  line.title
+                );
+              })
+            ),
+
+          is_logged_in:
+            !!uid,
+        };
+
+        if (discountCents > 0) {
+          props.discount_amount =
+            Math.round(discountCents) / 100;
+
+          if (original > 0) {
+            props.discount_percent =
+              Math.round(
+                (discountCents / original) * 100
+              );
+          }
+        }
+
+        // ===============================================================
+        // AMPLITUDE EVENT
+        // ===============================================================
+
+        try {
+          track(
+            'secure_checkout_button_clicked',
+            props
+          );
+        } catch (e) {}
+      } else {
+        // Even if /cart.js fails, do not lose checkout click completely.
+
+        try {
+          track(
+            'secure_checkout_button_clicked',
+            {
+              checkout_intent_id: intentId,
+            }
+          );
+        } catch (e) {}
+      }
+
+      // =================================================================
+      // DIRECT CHECKOUT
+      // =================================================================
+      //
+      // Give the analytics request a small window to leave the page.
+      // Native form submit is NOT used because that could route via /cart.
+      // =================================================================
+
+      setTimeout(function () {
+        window.location.assign('/checkout');
+      }, 400);
+    },
+    true
+  );
+
+  // =====================================================================
+  // KEEP INTENT WHEN LEAVING FOR CHECKOUT
+  // =====================================================================
+
+  window.addEventListener('pagehide', function () {
+    // Intentionally keep __lum_intent.
+    // It is needed to correlate storefront checkout intent with checkout events.
+  });
 })();
 
                     // =====================================================================
