@@ -553,7 +553,7 @@
       "settings": {
         "show_bottom_text": true,
         "bottom_text": "<p>*Research refers to the ingredient, not the finished product.</p>",
-        "bottom_text_color": "#858585",
+        "bottom_text_color": "#C2C2C2",
         "bottom_text_alignment": "center",
         "bottom_text_alignment_mobile": "center",
         "bottom_text_size": 16,
