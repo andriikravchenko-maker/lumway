@@ -3258,7 +3258,7 @@
         "divider_color": "#c2c2c2",
         "max_width": 1440,
         "card_min_height_desktop": 320,
-        "content_max_width_desktop": 1200,
+        "content_max_width_desktop": 800,
         "card_radius_desktop": 20,
         "card_padding_top_desktop": 40,
         "card_padding_right_desktop": 300,
