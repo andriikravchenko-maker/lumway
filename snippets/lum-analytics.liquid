@@ -825,7 +825,10 @@
                         }
                       }, true);
                     })();
-(function () {
+
+                    {% comment %} TEST {% endcomment %}
+
+                    (function () {
 function userEmail() {
 if (window.__lumCustomerId) return String(window.__lumCustomerId);
 var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
