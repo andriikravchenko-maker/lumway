@@ -1362,7 +1362,7 @@
             "button_bg": "#5b0d1e",
             "button_hover_bg": "#111111",
             "button_text_color": "#ffffff",
-            "show_sticky": true,
+            "show_sticky": false,
             "sticky_label": "Try it Now"
           }
         },
