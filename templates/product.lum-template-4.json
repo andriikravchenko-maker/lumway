@@ -177,7 +177,7 @@
             "button_bg": "#5e1424",
             "button_hover_bg": "#440f1a",
             "button_text_color": "#ffffff",
-            "show_sticky": false,
+            "show_sticky": true,
             "sticky_label": "Try it Now"
           }
         },
@@ -375,6 +375,7 @@
       "block_order": [
         "listicle_sticky_atc_GPep3Y"
       ],
+      "disabled": true,
       "name": "Listicle (Theme Blocks)",
       "settings": {
         "section_max_width": 900,
