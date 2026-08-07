@@ -326,6 +326,74 @@
         "product": ""
       }
     },
+    "listicle_YMXb46": {
+      "type": "listicle",
+      "blocks": {
+        "listicle_sticky_atc_GPep3Y": {
+          "type": "listicle-sticky-atc",
+          "name": "Sticky Add to Cart",
+          "settings": {
+            "button_text": "🔥 Try Gut Flow Now",
+            "show_arrow": true,
+            "button_link": "shopify://products/gut-flow-gummies",
+            "button_bg": "#5B0D1E",
+            "button_text_color": "#ffffff",
+            "enable_heartbeat": true,
+            "button_font_size": 18,
+            "button_font_size_mobile": 16,
+            "button_padding_y": 20,
+            "button_padding_x": 40,
+            "button_border_radius": 8,
+            "show_guarantee": true,
+            "guarantee_icon": "shopify://shop_images/guarante.png",
+            "guarantee_text": "30-day money-back guarantee",
+            "guarantee_text_color": "#111111",
+            "guarantee_font_size": 18,
+            "guarantee_font_size_mobile": 16,
+            "guarantee_font_weight": "700",
+            "guarantee_icon_size": 26,
+            "guarantee_icon_size_mobile": 22,
+            "guarantee_gap": 10,
+            "guarantee_gap_mobile": 8,
+            "guarantee_margin_top": 16,
+            "guarantee_margin_top_mobile": 12,
+            "show_subtext": true,
+            "subtext": "NEW YEAR, NEW ME DISCOUNT ACTIVE",
+            "subtext_color": "#25282a",
+            "subtext_font_size": 12,
+            "sticky": true,
+            "mobile_only": false,
+            "container_bg": "#ffffff",
+            "max_width": 500,
+            "border_radius": 12,
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "listicle_sticky_atc_GPep3Y"
+      ],
+      "name": "Listicle (Theme Blocks)",
+      "settings": {
+        "section_max_width": 900,
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "gap": 30,
+        "use_custom_font": false,
+        "section_font_family": "assistant_n4",
+        "heading_letter_spacing": 0,
+        "body_letter_spacing": 0,
+        "font_size_preset": "medium",
+        "use_theme_colors": false,
+        "disable_scroll_animation": true,
+        "section_background_color": "#FFFFFF",
+        "section_text_color": "#3B3B3B",
+        "container_padding_horizontal": 20,
+        "mobile_container_padding": 20
+      }
+    },
     "subscription_gifts_showcase_9qFpeT": {
       "type": "subscription-gifts-showcase",
       "disabled": true,
@@ -4442,6 +4510,7 @@
   "order": [
     "lum_template_font",
     "product_details_lum_DcMDgT",
+    "listicle_YMXb46",
     "subscription_gifts_showcase_9qFpeT",
     "statistics_column_DdVxjB",
     "main",
