@@ -560,7 +560,7 @@
         "bottom_text_size_mobile": 16,
         "bottom_text_weight": "400",
         "bottom_text_weight_mobile": "400",
-        "bottom_text_margin_top": 32,
+        "bottom_text_margin_top": 24,
         "bottom_text_margin_top_mobile": 24,
         "bottom_text_max_width": 900,
         "heading": "Prebiotic Fiber Ingredient Backed by Nutritional Research",
@@ -587,7 +587,7 @@
         "dot_color": "#f8e3e8",
         "dot_active_color": "#5b0d1e",
         "padding_top": 72,
-        "padding_bottom": 72,
+        "padding_bottom": 44,
         "padding_top_mobile": 20,
         "padding_bottom_mobile": 20
       }
