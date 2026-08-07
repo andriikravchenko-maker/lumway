@@ -826,12 +826,16 @@
               }, true);
             })();
 
-            // =====================================================================
-        // checkout intent + secure_checkout_button_clicked
-        // intent_id is written to cart attributes when the drawer OPENS (plenty of
-        // time, no navigation race), then the click just fires the event with it.
-        // =====================================================================
-     (function () {
+            
+
+           // =====================================================================
+    // secure_checkout_button_clicked  (+ checkout_intent_id into cart)
+    // intent_id is written to cart attributes when the drawer OPENS (no nav
+    // race). The event fires SYNCHRONOUSLY on click using DOM data, so it's
+    // guaranteed to send before the checkout submit navigates away (critical
+    // for the Shop Pay / shop.app redirect case). One event, per schema.
+    // =====================================================================
+    (function () {
       function userEmail() {
         if (window.__lumCustomerId) return String(window.__lumCustomerId);
         var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
@@ -841,9 +845,7 @@
       function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
       function newIntentId(){ return 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); }
 
-      // ---- 1. write intent_id into the cart when the drawer opens ----------
-      // Written early (on open), long before the click, so it's safely in the cart
-      // before any navigation — survives Shop Pay / shop.app redirect.
+      // ---- write intent_id into the cart when the drawer opens --------------
       function writeIntent() {
         var existing = sessionStorage.getItem('__lum_intent');
         if (existing) return existing;
@@ -859,8 +861,8 @@
         return intentId;
       }
 
-      // On first load, adopt an intent already sitting in the cart (survives browser
-      // restart with the same cart) so the click↔order link isn't broken across sessions.
+      // adopt an intent already sitting in the cart (survives browser restart
+      // with the same cart) so the click↔order link isn't broken across sessions
       (function adoptExisting() {
         if (sessionStorage.getItem('__lum_intent')) return;
         fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
@@ -887,75 +889,71 @@
         }, { once: true, capture: true });
       }
 
-      // ---- helpers: read cart snapshot from the DOM (no async, survives nav) ----
+      // ---- read cart snapshot from the DOM (synchronous, no fetch) ----------
       function money(text) {
-        // "$58.12" / "58,12 zł" → 58.12
         var m = String(text || '').replace(/[^\d.,]/g, '').replace(',', '.');
         var n = parseFloat(m);
         return isNaN(n) ? undefined : n;
       }
-      function domCart() {
-        var out = {};
-        // total (visible in drawer footer)
-        var totalEl = document.querySelector('.totals__total-value, .gb-totals-total-value, [class*="total-value"]');
+      function collectFromDrawer() {
+        var out = { product_ids: [], product_names: [], has_subscription: false };
+
+        var totalEl = document.querySelector('.totals__total-value');
         out.cart_value = totalEl ? money(totalEl.textContent) : undefined;
-        // item count (header badge "3")
-        var countEl = document.querySelector('.gb-cart-total-item, .cart-count-bubble, [class*="total-item"]');
-        out.items_number = countEl ? parseInt(countEl.textContent, 10) || undefined : undefined;
-        // savings (drawer shows "-$10.26")
-        var savEl = document.querySelector('.discount_discount-value, [class*="discount-value"]');
+
+        var countEl = document.querySelector('.gb-cart-total-item, .cart-count-bubble');
+        out.items_number = countEl ? (parseInt(countEl.textContent, 10) || undefined) : undefined;
+
+        var savEl = document.querySelector('.discount_discount-value');
         if (savEl) { var s = money(savEl.textContent); if (s) out.discount_amount = s; }
+
+        var items = document.querySelectorAll('.cart-item');
+        items.forEach(function (it) {
+          var nameEl = it.querySelector('.cart-item__name');
+          var name = nameEl ? nameEl.textContent.replace(/\s+/g, ' ').trim() : '';
+          var link = it.querySelector('a.cart-item__name, a.cart-item__link');
+          var handle = '';
+          if (link) { var mm = (link.getAttribute('href') || '').match(/\/products\/([^?#]+)/); if (mm) handle = mm[1]; }
+          if (name) out.product_names.push(name);
+          if (handle) out.product_ids.push(handle);
+          if ((link && /selling_plan=/.test(link.getAttribute('href') || '')) ||
+              it.querySelector('.cart-item__subscribe-frequency-label, .cart-item__subscription-name')) {
+            out.has_subscription = true;
+          }
+        });
+        out.product_ids = uniqArr(out.product_ids);
+        out.product_names = uniqArr(out.product_names);
         return out;
       }
 
-      // ---- 2. fire the event SYNCHRONOUSLY on click (before navigation) ----------
+      // ---- fire secure_checkout_button_clicked SYNCHRONOUSLY on click -------
       document.addEventListener('click', function (e) {
         var btn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
         if (!btn) return;
 
         var intentId = sessionStorage.getItem('__lum_intent') || writeIntent();
         var uid = userEmail();
+        var d = collectFromDrawer();
 
-        // (a) fire immediately with DOM data — guaranteed to send before the submit navigates
-        var quick = domCart();
-        track('secure_checkout_button_clicked', {
+        var props = {
           checkout_intent_id: intentId,
-          cart_value:    quick.cart_value,
-          items_number:  quick.items_number,
-          currency:      (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
-          discount_amount: quick.discount_amount,
-          is_logged_in:  !!uid
-        });
+          cart_value:       d.cart_value,
+          currency:         (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+          items_number:     d.items_number,
+          has_subscription: d.has_subscription,
+          product_ids:      d.product_ids,
+          product_names:    d.product_names,
+          is_logged_in:     !!uid
+        };
+        if (d.discount_amount) {
+          props.discount_amount = d.discount_amount;
+          if (d.cart_value) {
+            var base = d.cart_value + d.discount_amount;
+            if (base > 0) props.discount_percent = Math.round((d.discount_amount / base) * 100);
+          }
+        }
 
-        // (b) enrich in the background (product ids/names, exact discount) — best-effort,
-        //     may or may not land depending on nav speed; the (a) event already covered it.
-        fetch('/cart.js', { headers: { 'Accept': 'application/json' }, keepalive: true })
-          .then(function (r) { return r.json(); })
-          .then(function (cart) {
-            var lines = cart.items || [];
-            var original = 0, discounted = 0;
-            lines.forEach(function (li) {
-              original   += (li.original_line_price != null ? li.original_line_price : li.line_price) || 0;
-              discounted += (li.final_line_price   != null ? li.final_line_price   : li.line_price) || 0;
-            });
-            var discCents = Math.max(0, original - discounted);
-            var props = {
-              checkout_intent_id: intentId,
-              cart_value:       (cart.total_price || 0) / 100,
-              currency:         cart.currency,
-              items_number:     cart.item_count,
-              has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
-              product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
-              product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
-              is_logged_in:     !!uid,
-              enriched:         true
-            };
-            if (discCents > 0) {
-              props.discount_amount  = Math.round(discCents) / 100;
-              if (original > 0) props.discount_percent = Math.round((discCents / original) * 100);
-            }
-            track('secure_checkout_button_clicked_enriched', props);
-          }).catch(function () {});
+        track('secure_checkout_button_clicked', props);
       }, true);
     })();
 
