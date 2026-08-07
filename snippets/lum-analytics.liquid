@@ -1121,39 +1121,23 @@
             );
 
           }
-
           if (
-
             /selling_plan=/.test(
 
               link.getAttribute('href') || ''
-
             )
-
           ) {
-
             data.has_subscription = true;
-
           }
-
         }
-
         if (
-
           item.querySelector(
-
             '.cart-item__subscribe-frequency-label, .cart-item__subscription-name'
-
           )
-
         ) {
-
           data.has_subscription = true;
-
         }
-
       });
-
     data.product_ids = uniqArr(
 
       data.product_ids
