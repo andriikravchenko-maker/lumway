@@ -26,12 +26,15 @@
   #scb-{{ section.id }}.is-visible{ transform:translateY(0); }
   #scb-{{ section.id }} .scb__text{ font-size:13px; font-weight:500; line-height:1.2; letter-spacing:-0.2px; }
   #scb-{{ section.id }} .scb__timer{ font-size:15px; font-weight:700; line-height:1.2; letter-spacing:0.5px; font-variant-numeric:tabular-nums; }
+     @media screen and (max-width: 600px) {
+       #scb-{{ section.id }}{
+      padding: 1px 16px !important;
+    }
+     }
   @media (min-width:750px){
     #scb-{{ section.id }} .scb__text{ font-size:14px; }
     #scb-{{ section.id }} .scb__timer{ font-size:16px; }
-    #scb-{{ section.id }}{
-      padding: 1px 16px !important;
-    }
+   
   }
   @media (prefers-reduced-motion: reduce){ #scb-{{ section.id }}{ transition:none; } }
 {% endstyle %}
