@@ -1101,25 +1101,16 @@
         var link = item.querySelector(
 
           'a.cart-item__name, a.cart-item__link'
-
         );
-
         if (link) {
-
           var match = (
-
             link.getAttribute('href') || ''
-
           ).match(/\/products\/([^?#]+)/);
 
           if (match) {
-
             data.product_ids.push(
-
               match[1]
-
             );
-
           }
           if (
             /selling_plan=/.test(
