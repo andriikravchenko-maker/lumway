@@ -826,14 +826,9 @@
                   }, true);
                 })();
 
-
 // =====================================================================
-    // secure_checkout_button_clicked  (+ checkout_intent_id into cart)
-    // On drawer OPEN: write intent_id into the cart AND pre-collect the event
-    // props from the DOM (cart_value, items, products, discount, subscription).
-    // On CLICK: fire instantly with the pre-built props — nothing async, nothing
-    // to wait for, so the event always sends before checkout navigates away.
-    // One event, per schema.
+    // secure_checkout_button_clicked  (+ checkout_intent_id)
+    // MUST live INSIDE the main lum-analytics IIFE (needs track()).
     // =====================================================================
     (function () {
       function userEmail() {
@@ -845,9 +840,6 @@
       function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
       function newIntentId(){ return 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); }
 
-      var preparedProps = null; // built on drawer open, sent on click
-
-      // ---- write intent_id into the cart ----------------------------------
       function writeIntent() {
         var existing = sessionStorage.getItem('__lum_intent');
         if (existing) return existing;
@@ -863,20 +855,24 @@
         return intentId;
       }
 
-      // adopt an intent already in the cart (survives browser restart, same cart)
-      (function adoptExisting() {
+      // adopt existing intent from cart (same-cart return)
+      (function () {
         if (sessionStorage.getItem('__lum_intent')) return;
         fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
           .then(function (r) { return r.json(); })
           .then(function (cart) {
             var fromCart = cart.attributes && cart.attributes.lum_checkout_intent_id;
-            if (fromCart && !sessionStorage.getItem('__lum_intent')) {
-              sessionStorage.setItem('__lum_intent', fromCart);
-            }
+            if (fromCart && !sessionStorage.getItem('__lum_intent')) sessionStorage.setItem('__lum_intent', fromCart);
           }).catch(function () {});
       })();
 
-      // ---- read cart snapshot from the DOM --------------------------------
+      // write intent early on ANY cart interaction (opening drawer, add to cart)
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[name="add"], [data-atc-button], .cart-drawer, #CartDrawer, [href="/cart"], [id*="cart" i]')) {
+          if (!sessionStorage.getItem('__lum_intent')) writeIntent();
+        }
+      }, true);
+
       function money(text) {
         var m = String(text || '').replace(/[^\d.,]/g, '').replace(',', '.');
         var n = parseFloat(m);
@@ -884,18 +880,13 @@
       }
       function collectFromDrawer() {
         var out = { product_ids: [], product_names: [], has_subscription: false };
-
         var totalEl = document.querySelector('.totals__total-value');
         out.cart_value = totalEl ? money(totalEl.textContent) : undefined;
-
         var countEl = document.querySelector('.gb-cart-total-item, .cart-count-bubble');
         out.items_number = countEl ? (parseInt(countEl.textContent, 10) || undefined) : undefined;
-
         var savEl = document.querySelector('.discount_discount-value');
         if (savEl) { var s = money(savEl.textContent); if (s) out.discount_amount = s; }
-
-        var items = document.querySelectorAll('.cart-item');
-        items.forEach(function (it) {
+        document.querySelectorAll('.cart-item').forEach(function (it) {
           var nameEl = it.querySelector('.cart-item__name');
           var name = nameEl ? nameEl.textContent.replace(/\s+/g, ' ').trim() : '';
           var link = it.querySelector('a.cart-item__name, a.cart-item__link');
@@ -904,20 +895,22 @@
           if (name) out.product_names.push(name);
           if (handle) out.product_ids.push(handle);
           if ((link && /selling_plan=/.test(link.getAttribute('href') || '')) ||
-              it.querySelector('.cart-item__subscribe-frequency-label, .cart-item__subscription-name')) {
-            out.has_subscription = true;
-          }
+              it.querySelector('.cart-item__subscribe-frequency-label, .cart-item__subscription-name')) out.has_subscription = true;
         });
         out.product_ids = uniqArr(out.product_ids);
         out.product_names = uniqArr(out.product_names);
         return out;
       }
 
-      // build the full event props (called on drawer open + refreshed on click)
-      function buildProps() {
+      // fire on checkout click — synchronous, instant
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
+        if (!btn) return;
+
         var intentId = sessionStorage.getItem('__lum_intent') || writeIntent();
         var uid = userEmail();
         var d = collectFromDrawer();
+
         var props = {
           checkout_intent_id: intentId,
           cart_value:       d.cart_value,
@@ -935,37 +928,8 @@
             if (base > 0) props.discount_percent = Math.round((d.discount_amount / base) * 100);
           }
         }
-        return props;
-      }
 
-      // ---- on drawer open: write intent + pre-build props -----------------
-      function onDrawerOpen() {
-        writeIntent();
-        preparedProps = buildProps();
-      }
-
-      var drawer = document.querySelector('cart-drawer, #CartDrawer');
-      if (drawer && 'MutationObserver' in window) {
-        var wasOpen = false;
-        new MutationObserver(function () {
-          var open = drawer.classList.contains('active') || drawer.classList.contains('animate');
-          if (open && !wasOpen) onDrawerOpen();
-          wasOpen = open;
-        }).observe(drawer, { attributes: true, attributeFilter: ['class'] });
-      } else {
-        document.addEventListener('pointerdown', function once() {
-          onDrawerOpen(); document.removeEventListener('pointerdown', once);
-        }, { once: true, capture: true });
-      }
-
-      // ---- on click: fire instantly with prepared props ------------------
-      document.addEventListener('click', function (e) {
-        var btn = e.target.closest('#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button');
-        if (!btn) return;
-        // rebuild fresh (cart may have changed since open); fall back to prepared
-        var props;
-        try { props = buildProps(); } catch (x) { props = preparedProps; }
-        track('secure_checkout_button_clicked', props || preparedProps || {});
+        track('secure_checkout_button_clicked', props);
       }, true);
     })();
 
