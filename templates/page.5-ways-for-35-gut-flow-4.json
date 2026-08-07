@@ -553,7 +553,7 @@
       "settings": {
         "show_bottom_text": true,
         "bottom_text": "<p>*Research refers to the ingredient, not the finished product.</p>",
-        "bottom_text_color": "#C2C2C2",
+        "bottom_text_color": "#c2c2c2",
         "bottom_text_alignment": "center",
         "bottom_text_alignment_mobile": "center",
         "bottom_text_size": 16,
@@ -769,16 +769,28 @@
       "custom_css": [],
       "name": "MM Testimonials Grid",
       "settings": {
+        "show_bottom_text": true,
+        "bottom_text": "<p>*Individual experiences may vary.</p>",
+        "bottom_text_color": "#858585",
+        "bottom_text_alignment": "center",
+        "bottom_text_alignment_mobile": "center",
+        "bottom_text_size": 16,
+        "bottom_text_size_mobile": 16,
+        "bottom_text_weight": "400",
+        "bottom_text_weight_mobile": "400",
+        "bottom_text_margin_top": 24,
+        "bottom_text_margin_top_mobile": 24,
+        "bottom_text_max_width": 900,
         "background": "#f9f9f9",
         "max_width": 900,
         "gap_desktop": 24,
         "gap_mobile": 16,
         "padding_top_desktop": 72,
         "padding_horizontal_desktop": 24,
-        "padding_bottom_desktop": 72,
+        "padding_bottom_desktop": 44,
         "padding_top_mobile": 40,
         "padding_horizontal_mobile": 16,
-        "padding_bottom_mobile": 40
+        "padding_bottom_mobile": 30
       }
     },
     "mm_feeling_heavy_story_yDhrei": {
@@ -3034,7 +3046,7 @@
         "bottom_text_size_mobile": 16,
         "bottom_text_weight": "400",
         "bottom_text_weight_mobile": "400",
-        "bottom_text_margin_top": 32,
+        "bottom_text_margin_top": 24,
         "bottom_text_margin_top_mobile": 24,
         "bottom_text_max_width": 900,
         "use_theme_colors": false,
