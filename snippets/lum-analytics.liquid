@@ -826,461 +826,473 @@
                       }, true);
                     })();
 
-      // =====================================================================
-    // secure_checkout_button_clicked
-    // Direct Cart Drawer -> Checkout flow
-    // Skip /cart redirect
-    // =====================================================================
+// =====================================================================
 
-    (function() {
+// secure_checkout_button_clicked
 
-        function userEmail() {
-            if (window.__lumCustomerId) {
-                return String(window.__lumCustomerId);
-            }
+// Direct Cart Drawer -> Checkout flow
 
-            var meta =
-                window.ShopifyAnalytics &&
-                window.ShopifyAnalytics.meta &&
-                window.ShopifyAnalytics.meta.page;
+// Skip /cart redirect
 
-            if (meta && meta.customerId) {
-                return String(meta.customerId);
-            }
+// =====================================================================
 
-            return null;
-        }
+(function () {
 
+  function userEmail() {
 
-        function uniqArr(arr) {
-            var seen = {};
-            var out = [];
+    if (window.__lumCustomerId) {
 
-            arr.forEach(function(v) {
-                if (v && !seen[v]) {
-                    seen[v] = true;
-                    out.push(v);
-                }
-            });
+      return String(window.__lumCustomerId);
 
-            return out;
-        }
-
-
-        function newIntentId() {
-            return (
-                'ci_' +
-                Date.now().toString(36) +
-                '_' +
-                Math.random().toString(36).slice(2, 10)
-            );
-        }
-
-
-        // ==========================================================
-        // CREATE CHECKOUT INTENT
-        // ==========================================================
-
-        async function writeIntent() {
-
-            var existing = sessionStorage.getItem('__lum_intent');
-
-            if (existing) {
-                return existing;
-            }
-
-
-            var intentId = newIntentId();
-
-            sessionStorage.setItem(
-                '__lum_intent',
-                intentId
-            );
-
-
-            try {
-
-                await fetch('/cart/update.js', {
-                    method: 'POST',
-
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-
-                    body: JSON.stringify({
-
-                        attributes: {
-
-                            lum_checkout_intent_id: intentId,
-
-                            lum_checkout_click_ts: String(Date.now())
-
-                        }
-
-                    })
-
-                });
-
-
-            } catch (e) {}
-
-
-
-            return intentId;
-        }
-
-
-
-        // ==========================================================
-        // RESTORE EXISTING CART INTENT
-        // ==========================================================
-
-        if (!sessionStorage.getItem('__lum_intent')) {
-
-            fetch('/cart.js', {
-                    headers: {
-                        Accept: 'application/json'
-                    }
-                })
-
-                .then(function(r) {
-                    return r.json();
-                })
-
-                .then(function(cart) {
-
-                    var intent =
-                        cart.attributes &&
-                        cart.attributes.lum_checkout_intent_id;
-
-
-                    if (
-                        intent &&
-                        !sessionStorage.getItem('__lum_intent')
-                    ) {
-
-                        sessionStorage.setItem(
-                            '__lum_intent',
-                            intent
-                        );
-
-                    }
-
-                })
-
-                .catch(function() {});
-
-        }
-
-
-
-        // ==========================================================
-        // CART SNAPSHOT
-        // ==========================================================
-
-
-        function money(text) {
-
-            var value = String(text || '')
-                .replace(/[^\d.,]/g, '')
-                .replace(',', '.');
-
-
-            var num = parseFloat(value);
-
-
-            return isNaN(num) ?
-                undefined :
-                num;
-
-        }
-
-
-
-        function collectFromDrawer() {
-
-
-            var data = {
-
-                product_ids: [],
-
-                product_names: [],
-
-                has_subscription: false
-
-            };
-
-
-
-            var total =
-                document.querySelector(
-                    '.totals__total-value'
-                );
-
-
-            data.cart_value =
-                total ?
-                money(total.textContent) :
-                undefined;
-
-
-
-            var count =
-                document.querySelector(
-                    '.gb-cart-total-item, .cart-count-bubble'
-                );
-
-
-            data.items_number =
-                count ?
-                parseInt(
-                    count.textContent,
-                    10
-                ) || undefined :
-                undefined;
-
-
-
-            document
-                .querySelectorAll('.cart-item')
-                .forEach(function(item) {
-
-
-                    var name =
-                        item.querySelector(
-                            '.cart-item__name'
-                        );
-
-
-                    if (name) {
-
-                        data.product_names.push(
-                            name.textContent
-                            .replace(/\s+/g, ' ')
-                            .trim()
-                        );
-
-                    }
-
-
-
-                    var link =
-                        item.querySelector(
-                            'a.cart-item__name, a.cart-item__link'
-                        );
-
-
-                    if (link) {
-
-                        var match =
-                            (
-                                link.getAttribute('href') || ''
-                            )
-                            .match(
-                                /\/products\/([^?#]+)/
-                            );
-
-
-                        if (match) {
-
-                            data.product_ids.push(
-                                match[1]
-                            );
-
-                        }
-
-
-
-                        if (
-                            /selling_plan=/.test(
-                                link.getAttribute('href') || ''
-                            )
-                        ) {
-
-                            data.has_subscription = true;
-
-                        }
-
-                    }
-
-
-
-                    if (
-                        item.querySelector(
-                            '.cart-item__subscribe-frequency-label, .cart-item__subscription-name'
-                        )
-                    ) {
-
-                        data.has_subscription = true;
-
-                    }
-
-
-                });
-
-
-
-            data.product_ids =
-                uniqArr(
-                    data.product_ids
-                );
-
-
-            data.product_names =
-                uniqArr(
-                    data.product_names
-                );
-
-
-            return data;
-
-        }
-
-
-
-        // ==========================================================
-        // CHECKOUT CLICK
-        // ==========================================================
-
-
-        var PROCESSING = false;
-
-
-        document.addEventListener(
-            'click',
-            async function(e) {
-
-
-                    var btn =
-                        e.target.closest(
-                            '#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button'
-                        );
-
-
-                    if (!btn) {
-                        return;
-                    }
-
-
-
-                    if (PROCESSING) {
-                        return;
-                    }
-
-
-
-                    e.preventDefault();
-
-                    e.stopPropagation();
-
-
-
-                    PROCESSING = true;
-
-
-
-                    // create intent first
-
-                    var intentId =
-                        await writeIntent();
-
-
-
-                    var uid =
-                        userEmail();
-
-
-
-                    var cart =
-                        collectFromDrawer();
-
-
-
-
-                    var props = {
-
-
-                        checkout_intent_id: intentId,
-
-
-                        cart_value: cart.cart_value,
-
-
-                        currency: (
-                            window.Shopify &&
-                            Shopify.currency &&
-                            Shopify.currency.active
-                        ) || 'USD',
-
-
-                        items_number: cart.items_number,
-
-
-                        has_subscription: cart.has_subscription,
-
-
-                        product_ids: cart.product_ids,
-
-
-                        product_names: cart.product_names,
-
-
-                        is_logged_in:
-                            !!uid
-
-
-                    };
-
-
-
-
-                    track(
-                        'secure_checkout_button_clicked',
-                        props
-                    );
-
-
-
-
-                    // =====================================================
-                    // DIRECT CHECKOUT
-                    // no /cart
-                    // =====================================================
-
-
-                    setTimeout(function() {
-
-
-                        window.location.assign(
-                            '/checkout'
-                        );
-
-
-                    }, 300);
-
-
-
-                },
-                true
-        );
-
-
-    })();
-
-    // =====================================================================
-    // NEXT EVENTS GO HERE — port one at a time from the old snippets.
-    // Keep each in its own (function(){ ... })() block for clarity.
-    // =====================================================================
-
-    })(); <
-    /script> {
-        % -endif - %
     }
+
+    var meta =
+
+      window.ShopifyAnalytics &&
+
+      window.ShopifyAnalytics.meta &&
+
+      window.ShopifyAnalytics.meta.page;
+
+    if (meta && meta.customerId) {
+
+      return String(meta.customerId);
+
+    }
+
+    return null;
+
+  }
+
+  function uniqArr(arr) {
+
+    var seen = {};
+
+    var out = [];
+
+    arr.forEach(function (v) {
+
+      if (v && !seen[v]) {
+
+        seen[v] = true;
+
+        out.push(v);
+
+      }
+
+    });
+
+    return out;
+
+  }
+
+  function newIntentId() {
+
+    return (
+
+      'ci_' +
+
+      Date.now().toString(36) +
+
+      '_' +
+
+      Math.random().toString(36).slice(2, 10)
 
     );
 
+  }
 
-    })();
+  // ==========================================================
+
+  // CREATE CHECKOUT INTENT
+
+  // ==========================================================
+
+  async function writeIntent() {
+
+    var existing = sessionStorage.getItem('__lum_intent');
+
+    if (existing) {
+
+      return existing;
+
+    }
+
+    var intentId = newIntentId();
+
+    sessionStorage.setItem('__lum_intent', intentId);
+
+    try {
+
+      await fetch('/cart/update.js', {
+
+        method: 'POST',
+
+        headers: {
+
+          'Content-Type': 'application/json',
+
+        },
+
+        body: JSON.stringify({
+
+          attributes: {
+
+            lum_checkout_intent_id: intentId,
+
+            lum_checkout_click_ts: String(Date.now()),
+
+          },
+
+        }),
+
+      });
+
+    } catch (e) {}
+
+    return intentId;
+
+  }
+
+  // ==========================================================
+
+  // RESTORE EXISTING CART INTENT
+
+  // ==========================================================
+
+  if (!sessionStorage.getItem('__lum_intent')) {
+
+    fetch('/cart.js', {
+
+      headers: {
+
+        Accept: 'application/json',
+
+      },
+
+    })
+
+      .then(function (r) {
+
+        return r.json();
+
+      })
+
+      .then(function (cart) {
+
+        var intent =
+
+          cart.attributes &&
+
+          cart.attributes.lum_checkout_intent_id;
+
+        if (
+
+          intent &&
+
+          !sessionStorage.getItem('__lum_intent')
+
+        ) {
+
+          sessionStorage.setItem(
+
+            '__lum_intent',
+
+            intent
+
+          );
+
+        }
+
+      })
+
+      .catch(function () {});
+
+  }
+
+  // ==========================================================
+
+  // CART SNAPSHOT
+
+  // ==========================================================
+
+  function money(text) {
+
+    var value = String(text || '')
+
+      .replace(/[^\d.,]/g, '')
+
+      .replace(',', '.');
+
+    var num = parseFloat(value);
+
+    return isNaN(num) ? undefined : num;
+
+  }
+
+  function collectFromDrawer() {
+
+    var data = {
+
+      product_ids: [],
+
+      product_names: [],
+
+      has_subscription: false,
+
+    };
+
+    var total = document.querySelector(
+
+      '.totals__total-value'
+
+    );
+
+    data.cart_value = total
+
+      ? money(total.textContent)
+
+      : undefined;
+
+    var count = document.querySelector(
+
+      '.gb-cart-total-item, .cart-count-bubble'
+
+    );
+
+    data.items_number = count
+
+      ? parseInt(
+
+          count.textContent,
+
+          10
+
+        ) || undefined
+
+      : undefined;
+
+    document
+
+      .querySelectorAll('.cart-item')
+
+      .forEach(function (item) {
+
+        var name = item.querySelector(
+
+          '.cart-item__name'
+
+        );
+
+        if (name) {
+
+          data.product_names.push(
+
+            name.textContent
+
+              .replace(/\s+/g, ' ')
+
+              .trim()
+
+          );
+
+        }
+
+        var link = item.querySelector(
+
+          'a.cart-item__name, a.cart-item__link'
+
+        );
+
+        if (link) {
+
+          var match = (
+
+            link.getAttribute('href') || ''
+
+          ).match(/\/products\/([^?#]+)/);
+
+          if (match) {
+
+            data.product_ids.push(
+
+              match[1]
+
+            );
+
+          }
+
+          if (
+
+            /selling_plan=/.test(
+
+              link.getAttribute('href') || ''
+
+            )
+
+          ) {
+
+            data.has_subscription = true;
+
+          }
+
+        }
+
+        if (
+
+          item.querySelector(
+
+            '.cart-item__subscribe-frequency-label, .cart-item__subscription-name'
+
+          )
+
+        ) {
+
+          data.has_subscription = true;
+
+        }
+
+      });
+
+    data.product_ids = uniqArr(
+
+      data.product_ids
+
+    );
+
+    data.product_names = uniqArr(
+
+      data.product_names
+
+    );
+
+    return data;
+
+  }
+
+  // ==========================================================
+
+  // CHECKOUT CLICK
+
+  // ==========================================================
+
+  var PROCESSING = false;
+
+  document.addEventListener(
+
+    'click',
+
+    async function (e) {
+
+      var btn = e.target.closest(
+
+        '#CartDrawer-Checkout, [name="checkout"], .cart__checkout-button'
+
+      );
+
+      if (!btn) {
+
+        return;
+
+      }
+
+      if (PROCESSING) {
+
+        return;
+
+      }
+
+      e.preventDefault();
+
+      e.stopPropagation();
+
+      PROCESSING = true;
+
+      // create intent first
+
+      var intentId =
+
+        await writeIntent();
+
+      var uid =
+
+        userEmail();
+
+      var cart =
+
+        collectFromDrawer();
+
+      var props = {
+
+        checkout_intent_id: intentId,
+
+        cart_value: cart.cart_value,
+
+        currency:
+
+          (
+
+            window.Shopify &&
+
+            Shopify.currency &&
+
+            Shopify.currency.active
+
+          ) || 'USD',
+
+        items_number: cart.items_number,
+
+        has_subscription:
+
+          cart.has_subscription,
+
+        product_ids:
+
+          cart.product_ids,
+
+        product_names:
+
+          cart.product_names,
+
+        is_logged_in:
+
+          !!uid,
+
+      };
+
+      track(
+
+        'secure_checkout_button_clicked',
+
+        props
+
+      );
+
+      // =====================================================
+
+      // DIRECT CHECKOUT
+
+      // no /cart
+
+      // =====================================================
+
+      setTimeout(function () {
+
+        window.location.assign(
+
+          '/checkout'
+
+        );
+
+      }, 300);
+
+    },
+
+    true
+
+  );
+
+})();
                     // =====================================================================
                     // NEXT EVENTS GO HERE — port one at a time from the old snippets.
                     // Keep each in its own (function(){ ... })() block for clarity.
