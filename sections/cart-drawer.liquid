@@ -807,9 +807,9 @@
           style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0px;"
         >
           <div class="totals__total">
-            <span class="total_count font-bold">
+            {% comment %} <span class="total_count font-bold">
               {{ 'sections.cart.items_total' | t: item_count: cart.item_count }}
-            </span>
+            </span> {% endcomment %}
           </div>
           <div class="discount_price-container">
             <div style="display: flex; align-items: baseline;">
