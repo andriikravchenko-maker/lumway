@@ -20,7 +20,7 @@
 </div>
 
 {% style %}
-  #scb-{{ section.id }}{ position:fixed; left:0; right:0; z-index:1; display:flex; align-items:center; justify-content:center; gap:10px; padding:10px 16px; background:{{ scb_bg }}; color:{{ scb_ink }}; font-family:'Inter Tight', system-ui, sans-serif; transition:transform .35s cubic-bezier(0.4,0,0.2,1); }
+  #scb-{{ section.id }}{ position:fixed; left:0; right:0; z-index:9999; display:flex; align-items:center; justify-content:center; gap:10px; padding:10px 16px; background:{{ scb_bg }}; color:{{ scb_ink }}; font-family:'Inter Tight', system-ui, sans-serif; transition:transform .35s cubic-bezier(0.4,0,0.2,1); }
   .scb--top#scb-{{ section.id }}{ top:0; transform:translateY(-110%); box-shadow:0 2px 12px rgba(0,0,0,.12); }
   .scb--bottom#scb-{{ section.id }}{ bottom:0; transform:translateY(110%); box-shadow:0 -2px 12px rgba(0,0,0,.12); }
   #scb-{{ section.id }}.is-visible{ transform:translateY(0); }
