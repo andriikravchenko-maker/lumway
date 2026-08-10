@@ -381,6 +381,27 @@
     var pdlEl = null;
     var featureBtns = null;
 
+    function isCartDrawerOpen() {
+      var drawer = document.querySelector('#CartDrawer');
+      if (!drawer) return false;
+
+      var inner = drawer.querySelector('.drawer__inner');
+      if (!inner) return false;
+
+      var style = window.getComputedStyle(inner);
+      var rect = inner.getBoundingClientRect();
+
+      return (
+              style.display !== 'none' &&
+              style.visibility !== 'hidden' &&
+              parseFloat(style.opacity || '1') > 0 &&
+              rect.width > 0 &&
+              rect.height > 0 &&
+              rect.right > 0 &&
+              rect.left < window.innerWidth
+      );
+    }
+
     function findFirstSection() {
       // the hero (gut-harmony-benefits) is the explicit gate when present: the button pops in
       // right after it is scrolled past, regardless of announcement bars above it
@@ -433,7 +454,18 @@
           if (inView(featureBtns[f])) { onFeature = true; break; }
         }
       }
-      stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards || onCta || onPdl || onFeature);
+      var cartDrawerOpen = isCartDrawerOpen();
+
+      stickyEl.classList.toggle(
+              'is-lto-hidden',
+              cartDrawerOpen ||
+              !!atCta ||
+              onFirst ||
+              onCards ||
+              onCta ||
+              onPdl ||
+              onFeature
+      );
     }
 
     // This theme scrolls the document root with `overflow: clip`, so window
@@ -469,7 +501,43 @@
       update();
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update);
+
+      var cartDrawer = document.querySelector('#CartDrawer');
+
+      if (cartDrawer) {
+        var cartDrawerObserver = new MutationObserver(function () {
+          requestAnimationFrame(update);
+        });
+
+        cartDrawerObserver.observe(cartDrawer, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+          attributeFilter: [
+            'class',
+            'style',
+            'open',
+            'aria-hidden'
+          ]
+        });
+
+        var cartDrawerParent = cartDrawer.closest('cart-drawer');
+
+        if (cartDrawerParent) {
+          cartDrawerObserver.observe(cartDrawerParent, {
+            attributes: true,
+            attributeFilter: [
+              'class',
+              'style',
+              'open',
+              'aria-hidden'
+            ]
+          });
+        }
+      }
     }
+
+
 
     // buy box on the page: the button becomes an on-page anchor instead of a product link
     var scrollBtn = stickyEl.querySelector('.sticky-atc-button');
