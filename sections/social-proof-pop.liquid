@@ -6,6 +6,10 @@
 {%- if section.blocks.size > 0 -%}
 <div id="spp-{{ section.id }}" class="spp spp--{{ section.settings.position | default: 'left' }}{% if section.settings.vertical == 'top' %} spp--vtop{% endif %}"
   data-delay="{{ section.settings.start_delay | default: 6 }}"
+     data-trigger-mode="{{ section.settings.trigger_mode | default: 'time' }}"
+     data-trigger-selector="{{ section.settings.trigger_selector | default: '#product-details-lum' | strip | escape }}"
+     data-limit-sections="{{ section.settings.limit_to_sections }}"
+     data-allowed-sections="{{ section.settings.allowed_sections | escape }}"
   data-show="{{ section.settings.show_secs | default: 5 }}"
   data-gap="{{ section.settings.gap_secs | default: 12 }}"
   data-loop="{{ section.settings.loop }}"
@@ -136,43 +140,365 @@
     var items = [].slice.call(root.querySelectorAll('[data-spp-item]'));
     if (!items.length) return;
     var DELAY = (parseInt(root.getAttribute('data-delay'), 10) || 6) * 1000;
+    var TRIGGER_MODE = root.getAttribute('data-trigger-mode') || 'time';
+    var TRIGGER_SELECTOR = root.getAttribute('data-trigger-selector') || '#product-details-lum';
+    var LIMIT_TO_SECTIONS = root.getAttribute('data-limit-sections') === 'true';
+    var ALLOWED_SELECTORS = (root.getAttribute('data-allowed-sections') || '')
+            .split(/\r?\n/)
+            .map(function (selector) {
+              return selector.trim();
+            })
+            .filter(Boolean);
     var SHOW = (parseInt(root.getAttribute('data-show'), 10) || 5) * 1000;
     var GAP = (parseInt(root.getAttribute('data-gap'), 10) || 12) * 1000;
     var LOOP = root.getAttribute('data-loop') === 'true';
     var REMEMBER = root.getAttribute('data-remember') === 'true';
-    try { if (REMEMBER && sessionStorage.getItem('spp-closed') === '1') return; } catch (e) {}
-    var i = 0, closed = false;
+    var STORAGE_KEY = 'spp-closed-{{ section.id }}';
+    try { if (REMEMBER && sessionStorage.getItem(STORAGE_KEY) === '1') return; } catch (e) {}
+    var i = 0,
+            closed = false,
+            rotationStarted = false;
     var closeBtn = root.querySelector('[data-spp-close]');
     if (closeBtn) closeBtn.addEventListener('click', function () {
       closed = true;
       root.classList.remove('is-visible');
-      try { if (REMEMBER) sessionStorage.setItem('spp-closed', '1'); } catch (e) {}
+      try { if (REMEMBER) sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
     });
+    var isInsideAllowedSection = !LIMIT_TO_SECTIONS;
+    var allowedSectionsObserver = null;
+
+    function getAllowedElements() {
+      if (!LIMIT_TO_SECTIONS || !ALLOWED_SELECTORS.length) {
+        return [];
+      }
+
+      var elements = [];
+
+      ALLOWED_SELECTORS.forEach(function (selector) {
+        try {
+          document.querySelectorAll(selector).forEach(function (element) {
+            if (elements.indexOf(element) === -1) {
+              elements.push(element);
+            }
+          });
+        } catch (e) {
+          console.warn('[SPP] Invalid allowed section selector:', selector);
+        }
+      });
+
+      return elements;
+    }
+
+    function initAllowedSectionsObserver() {
+      if (!LIMIT_TO_SECTIONS) {
+        isInsideAllowedSection = true;
+        return;
+      }
+
+      var allowedElements = getAllowedElements();
+
+      if (!allowedElements.length) {
+        isInsideAllowedSection = false;
+        root.classList.remove('is-visible');
+
+        console.warn(
+                '[SPP] No allowed sections found:',
+                ALLOWED_SELECTORS
+        );
+
+        return;
+      }
+
+      var visibleElements = new Set();
+
+      function updateAllowedState() {
+        var wasInsideAllowedSection = isInsideAllowedSection;
+
+        isInsideAllowedSection = visibleElements.size > 0;
+
+        // Left all allowed sections
+        if (!isInsideAllowedSection) {
+          root.classList.remove('is-visible');
+
+          if (hideTimer) {
+            clearTimeout(hideTimer);
+            hideTimer = null;
+          }
+
+          return;
+        }
+
+        // We only care about actual ENTER into an allowed zone
+        if (
+                wasInsideAllowedSection ||
+                closed
+        ) {
+          return;
+        }
+
+        // First allowed section = start popup system
+        if (!rotationStarted) {
+          rotationStarted = true;
+
+          setTimeout(function () {
+            if (
+                    !closed &&
+                    isInsideAllowedSection
+            ) {
+              showIdx(i);
+              setTimeout(next, SHOW);
+            }
+          }, DELAY);
+
+          return;
+        }
+
+        // Rotation was already started:
+        // entering another allowed section shows immediately
+        showIdx(i);
+      }
+
+      if (!('IntersectionObserver' in window)) {
+        function checkAllowedSections() {
+          var wasInsideAllowedSection = isInsideAllowedSection;
+
+          isInsideAllowedSection = allowedElements.some(function (element) {
+            var rect = element.getBoundingClientRect();
+
+            return (
+                    rect.bottom > 0 &&
+                    rect.top < window.innerHeight
+            );
+          });
+
+          if (!isInsideAllowedSection) {
+            root.classList.remove('is-visible');
+
+            if (hideTimer) {
+              clearTimeout(hideTimer);
+              hideTimer = null;
+            }
+
+            return;
+          }
+
+          if (
+                  wasInsideAllowedSection ||
+                  closed
+          ) {
+            return;
+          }
+
+          if (!rotationStarted) {
+            rotationStarted = true;
+
+            setTimeout(function () {
+              if (
+                      !closed &&
+                      isInsideAllowedSection
+              ) {
+                showIdx(i);
+                setTimeout(next, SHOW);
+              }
+            }, DELAY);
+
+            return;
+          }
+
+          showIdx(i);
+        }
+
+        checkAllowedSections();
+
+        window.addEventListener('scroll', checkAllowedSections, {
+          passive: true
+        });
+
+        window.addEventListener('resize', checkAllowedSections);
+
+        return;
+      }
+
+      allowedSectionsObserver = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (entry) {
+                  if (entry.isIntersecting) {
+                    visibleElements.add(entry.target);
+                  } else {
+                    visibleElements.delete(entry.target);
+                  }
+                });
+
+                updateAllowedState();
+              },
+              {
+                root: null,
+                threshold: 0
+              }
+      );
+
+      allowedElements.forEach(function (element) {
+        allowedSectionsObserver.observe(element);
+      });
+    }
     var hideTimer = null;
     function showIdx(k) {
       if (closed) return;
-      if (document.hidden) { setTimeout(function () { showIdx(k); }, 4000); return; }
+
+      if (LIMIT_TO_SECTIONS && !isInsideAllowedSection) {
+        root.classList.remove('is-visible');
+        return;
+      }
+
+      if (document.hidden) {
+        setTimeout(function () {
+          showIdx(k);
+        }, 4000);
+        return;
+      }
       // a still-pending hide from the PREVIOUS toast must not kill this one (schedules can touch/overlap)
       if (hideTimer) { clearTimeout(hideTimer); hideTimer = null; }
       items.forEach(function (el, m) { el.style.display = (m === k) ? '' : 'none'; });
       root.classList.add('is-visible');
       hideTimer = setTimeout(function () { root.classList.remove('is-visible'); hideTimer = null; }, SHOW);
     }
-    function show() { showIdx(i); setTimeout(next, SHOW); }
+    function show() {
+      rotationStarted = true;
+      showIdx(i);
+      setTimeout(next, SHOW);
+    }
     function next() {
       i++;
       if (i >= items.length) { if (!LOOP) return; i = 0; }
       setTimeout(show, GAP);
     }
-    // schedule mode: comma-separated seconds from page open; one show per entry, then stop.
-    var TIMES = (root.getAttribute('data-times') || '').split(',')
-      .map(function (s) { return parseFloat(s) * 1000; })
-      .filter(function (n) { return isFinite(n) && n >= 0; });
-    if (TIMES.length) {
-      TIMES.forEach(function (t, k) { setTimeout(function () { showIdx(k % items.length); }, t); });
-    } else if (document.readyState === 'complete') { setTimeout(show, DELAY); }
-    else { window.addEventListener('load', function () { setTimeout(show, DELAY); }); }
-    document.addEventListener('shopify:section:load', function () { root.classList.remove('is-visible'); });
+    // schedule mode: comma-separated seconds from page open
+    var TIMES = (root.getAttribute('data-times') || '')
+            .split(',')
+            .map(function (s) {
+              return parseFloat(s) * 1000;
+            })
+            .filter(function (n) {
+              return isFinite(n) && n >= 0;
+            });
+
+    function startTimeMode() {
+      // Explicit schedule has priority over normal interval mode
+      if (TIMES.length) {
+        TIMES.forEach(function (t, k) {
+          setTimeout(function () {
+            showIdx(k % items.length);
+          }, t);
+        });
+
+        return;
+      }
+
+      setTimeout(show, DELAY);
+    }
+
+    function startViewportMode() {
+      var target = null;
+
+      try {
+        target = document.querySelector(TRIGGER_SELECTOR);
+      } catch (e) {
+        console.warn('[SPP] Invalid trigger selector:', TRIGGER_SELECTOR);
+      }
+
+      // If selector doesn't exist, do not show popup.
+      if (!target) {
+        console.warn('[SPP] Trigger element not found:', TRIGGER_SELECTOR);
+        return;
+      }
+
+      var hasTriggered = false;
+
+      function trigger() {
+        if (hasTriggered || closed) return;
+
+        hasTriggered = true;
+
+        if (observer) {
+          observer.disconnect();
+        }
+
+        // DELAY is now delay AFTER target enters viewport
+        setTimeout(function () {
+          if (!closed) {
+            show();
+          }
+        }, DELAY);
+      }
+
+      // Fallback for older browsers
+      if (!('IntersectionObserver' in window)) {
+        var rect = target.getBoundingClientRect();
+
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          trigger();
+          return;
+        }
+
+        function onScroll() {
+          var currentRect = target.getBoundingClientRect();
+
+          if (
+                  currentRect.top < window.innerHeight &&
+                  currentRect.bottom > 0
+          ) {
+            window.removeEventListener('scroll', onScroll);
+            trigger();
+          }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return;
+      }
+
+      var observer = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (entry) {
+                  if (entry.isIntersecting) {
+                    trigger();
+                  }
+                });
+              },
+              {
+                root: null,
+                threshold: 0.1
+              }
+      );
+
+      observer.observe(target);
+    }
+
+    function initTrigger() {
+      // Whitelist mode:
+      // allowed sections control BOTH trigger and visibility.
+      if (LIMIT_TO_SECTIONS) {
+        initAllowedSectionsObserver();
+        return;
+      }
+
+      // Normal mode without whitelist
+      if (TRIGGER_MODE === 'viewport') {
+        startViewportMode();
+        return;
+      }
+
+      startTimeMode();
+    }
+
+    if (document.readyState === 'complete') {
+      initTrigger();
+    } else {
+      window.addEventListener('load', initTrigger, { once: true });
+    }
+
+    document.addEventListener('shopify:section:load', function () {
+      root.classList.remove('is-visible');
+    });
   })();
 </script>
 {%- endif -%}
@@ -232,6 +558,42 @@
       "id": "verified_text",
       "label": "Verified line (purchase pop-ups)",
       "default": "Verified by Lumway"
+    },
+    {
+      "type": "select",
+      "id": "trigger_mode",
+      "label": "Pop-up trigger",
+      "options": [
+        {
+          "value": "time",
+          "label": "Time / schedule"
+        },
+        {
+          "value": "viewport",
+          "label": "Section enters viewport"
+        }
+      ],
+      "default": "viewport"
+    },
+    {
+      "type": "text",
+      "id": "trigger_selector",
+      "label": "Viewport trigger selector",
+      "default": "#product-details-lum",
+      "info": "CSS selector of the section that triggers the pop-up. Example: #product-details-lum or .product-details-lum"
+    },
+    {
+      "type": "checkbox",
+      "id": "limit_to_sections",
+      "label": "Show only inside selected sections",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "allowed_sections",
+      "label": "Allowed section selectors",
+      "default": "#product-details-lum",
+      "info": "One CSS selector per line. The pop-up is visible only while one of these sections is inside the viewport."
     },
     {
       "type": "text",

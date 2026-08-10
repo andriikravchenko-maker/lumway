@@ -1689,6 +1689,10 @@
         "vertical": "top",
         "bottom_offset": 44,
         "verified_text": "Verified by Lumway",
+        "trigger_mode": "viewport",
+        "trigger_selector": "#product-details-lum",
+        "limit_to_sections": true,
+        "allowed_sections": "#product-details-lum",
         "show_times": "3,8.5,15,30,60,80,105,160",
         "start_delay": 6,
         "show_secs": 5,
@@ -3278,6 +3282,7 @@
     },
     "mm_scientist_quote_GnW77f": {
       "type": "mm-scientist-quote",
+      "disabled": true,
       "name": "MM Scientist Quote",
       "settings": {
         "show_section": true,
