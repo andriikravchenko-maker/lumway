@@ -807,10 +807,10 @@
           style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0px;"
         >
           <div class="totals__total">
-             <span class="total_count font-bold">
+             {% comment %} <span class="total_count font-bold">
               {{ 'sections.cart.items_total' | t: item_count: cart.item_count }}
-            </span> 
-            {% comment %} {%- liquid
+            </span>  {% endcomment %}
+             {%- liquid
               assign paid_item_count = 0
               assign free_gift_count = 0
 
@@ -872,7 +872,7 @@
                 + {{ free_gift_count }}
                 free gift{% unless free_gift_count == 1 %}s{% endunless %}
               {% endif %}
-            </span> {% endcomment %}
+            </span> 
           </div>
           <div class="discount_price-container">
             <div style="display: flex; align-items: baseline;">
