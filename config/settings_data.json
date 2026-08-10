@@ -323,6 +323,7 @@
         "blocks": {
           "cart_discount_banner_PcQkqL": {
             "type": "cart-discount-banner",
+            "disabled": true,
             "settings": {
               "discount_banner_prefix": "Congrats!",
               "discount_banner_middle": "You're saving",
@@ -354,7 +355,6 @@
           },
           "cart_progress_bar_yRGpcf": {
             "type": "cart_progress_bar",
-            "disabled": true,
             "settings": {
               "progress_bar_free_product": "",
               "shipping_away_text": "You're [missingAmount] away from Free Shipping",
@@ -363,7 +363,7 @@
               "free_product_earn_text": "You've earned [freeProduct]",
               "product_free_shipping": 47,
               "product_free_custom_id_title": "",
-              "product_free_amount": 100,
+              "product_free_amount": 40,
               "hide_icons_single_goal": false,
               "hide_icons_container_padding": 12,
               "hide_icons_text_padding": 8,
