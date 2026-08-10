@@ -1980,7 +1980,7 @@
         "trigger_mode": "viewport",
         "trigger_selector": "#product-details-lum",
         "limit_to_sections": true,
-        "allowed_sections": "#product-details-lum\n.gut-harmony-feature__highlight-checklist",
+        "allowed_sections": "#product-details-lum\n.gut-harmony-feature__highlight-checklist\n.gut-harmony-feature__quote-callout",
         "show_times": "3,8.5,15,30,60,80,105,160",
         "start_delay": 2,
         "show_secs": 5,
