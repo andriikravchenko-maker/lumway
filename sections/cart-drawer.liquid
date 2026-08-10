@@ -807,8 +807,71 @@
           style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; padding: 0px;"
         >
           <div class="totals__total">
-            {% comment %} <span class="total_count font-bold">
+             <span class="total_count font-bold">
               {{ 'sections.cart.items_total' | t: item_count: cart.item_count }}
+            </span> 
+            {% comment %} {%- liquid
+              assign paid_item_count = 0
+              assign free_gift_count = 0
+
+              for item in cart.items
+                assign is_free_gift = false
+
+                comment
+                  IMPORTANT:
+                  Currently identifies gifts by zero final price.
+                  Ideally replace this with a dedicated line-item property,
+                  variant metafield or known gift variant identification.
+                endcomment
+
+                if item.final_price == 0
+                  assign is_free_gift = true
+                endif
+
+                if is_free_gift
+                  assign free_gift_count = free_gift_count | plus: item.quantity
+
+                else
+                  if item.selling_plan_allocation != blank
+                    assign subscription_units = 1
+                    assign jar_units_found = false
+
+                    for option in item.options_with_values
+                      assign option_name = option.name | downcase | strip
+                      assign option_value = option.value | downcase | strip
+
+                      if option_name == 'jar' or option_name == 'jars'
+                        assign parsed_units = option_value | split: ' ' | first | plus: 0
+
+                        if parsed_units > 0
+                          assign subscription_units = parsed_units
+                          assign jar_units_found = true
+                        endif
+                      endif
+                    endfor
+
+                    unless jar_units_found
+                      assign subscription_units = 1
+                    endunless
+
+                    assign subscription_units = subscription_units | times: item.quantity
+                    assign paid_item_count = paid_item_count | plus: subscription_units
+
+                  else
+                    assign paid_item_count = paid_item_count | plus: item.quantity
+                  endif
+                endif
+              endfor
+            -%}
+
+            <span class="total_count font-bold">
+                Total: {{ paid_item_count }}
+                 Item{% unless paid_item_count == 1 %}s{% endunless %}
+
+              {% if free_gift_count > 0 %}
+                + {{ free_gift_count }}
+                free gift{% unless free_gift_count == 1 %}s{% endunless %}
+              {% endif %}
             </span> {% endcomment %}
           </div>
           <div class="discount_price-container">
