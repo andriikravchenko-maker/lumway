@@ -1,849 +1,917 @@
 {% comment %}
-Block: Listicle Sticky Add to Cart
-Matches the image provided with a large button and discount subtext.
+  Block: Listicle Sticky Add to Cart
+  Matches the image provided with a large button and discount subtext.
 {% endcomment %}
 
 <div class="listicle-sticky-atc listicle-sticky-atc-{{ block.id }} {% if block.settings.sticky %} is-sticky is-lto-hidden{% endif %} {% if block.settings.mobile_only %} mobile-only{% endif %}" {{ block.shopify_attributes }}>
-<div class="sticky-atc-container">
-<a href="{{ block.settings.button_link }}" class="sticky-atc-button">
-<span class="button-text">{{ block.settings.button_text }}</span>
-{% unless block.settings.show_arrow == false %}
-<span class="button-arrow">
-<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-<line x1="5" y1="12" x2="19" y2="12"></line>
-<polyline points="12 5 19 12 12 19"></polyline>
-</svg>
-</span>
-{% endunless %}
-</a>
-{% if block.settings.show_guarantee %}
-<div class="sticky-atc-guarantee">
-{% if block.settings.guarantee_icon != blank %}
-{{
-block.settings.guarantee_icon
-| image_url: width: 80
-| image_tag:
-loading: 'lazy',
-widths: '24, 32, 40, 48, 64, 80',
-class: 'sticky-atc-guarantee__icon'
-}}
-{% endif %}
+  <div class="sticky-atc-container">
+    <a href="{{ block.settings.button_link }}" class="sticky-atc-button">
+      <span class="button-text">{{ block.settings.button_text }}</span>
+      {% unless block.settings.show_arrow == false %}
+      <span class="button-arrow">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </span>
+      {% endunless %}
+    </a>
+   {% if block.settings.show_guarantee %}
+  <div class="sticky-atc-guarantee">
+    {% if block.settings.guarantee_icon != blank %}
+      {{
+        block.settings.guarantee_icon
+        | image_url: width: 80
+        | image_tag:
+          loading: 'lazy',
+          widths: '24, 32, 40, 48, 64, 80',
+          class: 'sticky-atc-guarantee__icon'
+      }}
+    {% endif %}
 
-{% if block.settings.guarantee_text != blank %}
-<span class="sticky-atc-guarantee__text">
-{{ block.settings.guarantee_text }}
-</span>
+    {% if block.settings.guarantee_text != blank %}
+      <span class="sticky-atc-guarantee__text">
+        {{ block.settings.guarantee_text }}
+      </span>
+    {% endif %}
+  </div>
 {% endif %}
-</div>
-{% endif %}
-
-{% if block.settings.show_subtext %}
-<div class="sticky-atc-subtext">
-<span class="subtext-icon">
-{% if block.settings.subtext_icon_image != blank %}
-<img src="{{ block.settings.subtext_icon_image | image_url: width: 40 }}" alt="{{ block.settings.subtext_icon_image.alt | escape }}" width="20" height="20">
-{% else %}
-<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-<circle cx="12" cy="12" r="10"></circle>
-<line x1="12" y1="8" x2="12" y2="12"></line>
-<line x1="12" y1="16" x2="12.01" y2="16"></line>
-</svg>
-{% endif %}
-</span>
-<span class="subtext-content">{{ block.settings.subtext }}</span>
-</div>
-{% endif %}
-</div>
+    
+    {% if block.settings.show_subtext %}
+      <div class="sticky-atc-subtext">
+        <span class="subtext-icon">
+          {% if block.settings.subtext_icon_image != blank %}
+            <img src="{{ block.settings.subtext_icon_image | image_url: width: 40 }}" alt="{{ block.settings.subtext_icon_image.alt | escape }}" width="20" height="20">
+          {% else %}
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          {% endif %}
+        </span>
+        <span class="subtext-content">{{ block.settings.subtext }}</span>
+      </div>
+    {% endif %}
+  </div>
 </div>
 
 <style>
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
-display: flex;
-align-items: center;
-justify-content: center;
+ .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-width: 100%;
-min-width: 0;
+  width: 100%;
+  min-width: 0;
 
-gap: {{ block.settings.guarantee_gap }}px;
-margin-top: {{ block.settings.guarantee_margin_top }}px;
+  gap: {{ block.settings.guarantee_gap }}px;
+  margin-top: {{ block.settings.guarantee_margin_top }}px;
 
-color: {{ block.settings.guarantee_text_color }};
-font-size: {{ block.settings.guarantee_font_size }}px;
-font-weight: {{ block.settings.guarantee_font_weight }} !important;
-line-height: 1.2;
+  color: {{ block.settings.guarantee_text_color }};
+  font-size: {{ block.settings.guarantee_font_size }}px;
+  font-weight: {{ block.settings.guarantee_font_weight }} !important;
+  line-height: 1.2;
 
-text-align: center;
-box-sizing: border-box;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
-display: block;
+  display: block;
 
-width: {{ block.settings.guarantee_icon_size }}px !important;
-height: {{ block.settings.guarantee_icon_size }}px !important;
+  width: {{ block.settings.guarantee_icon_size }}px !important;
+  height: {{ block.settings.guarantee_icon_size }}px !important;
 
-min-width: {{ block.settings.guarantee_icon_size }}px;
-max-width: {{ block.settings.guarantee_icon_size }}px;
+  min-width: {{ block.settings.guarantee_icon_size }}px;
+  max-width: {{ block.settings.guarantee_icon_size }}px;
 
-flex: 0 0 {{ block.settings.guarantee_icon_size }}px;
+  flex: 0 0 {{ block.settings.guarantee_icon_size }}px;
 
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
 
-object-fit: contain;
-object-position: center;
+  object-fit: contain;
+  object-position: center;
 }
 
 .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__text {
-display: block;
-min-width: 0;
+  display: block;
+  min-width: 0;
 
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
 
-font: inherit;
-line-height: inherit;
-color: inherit;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
 
-text-align: left;
+  text-align: left;
 }
 
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee{
-line-height: initial;
-}
-
-@media (max-width: 768px) {
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
-align-items: center;
-justify-content: center;
-
-gap: {{ block.settings.guarantee_gap_mobile }}px;
-margin-top: {{ block.settings.guarantee_margin_top_mobile }}px;
-padding-inline: 4px;
-
-font-size: {{ block.settings.guarantee_font_size_mobile }}px;
-line-height: 1.2;
-}
-
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
-width: {{ block.settings.guarantee_icon_size_mobile }}px !important;
-height: {{ block.settings.guarantee_icon_size_mobile }}px !important;
-
-min-width: {{ block.settings.guarantee_icon_size_mobile }}px;
-max-width: {{ block.settings.guarantee_icon_size_mobile }}px;
-
-flex: 0 0 {{ block.settings.guarantee_icon_size_mobile }}px;
-transform: translateY(-2px);
-}
-
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__text {
-flex: 0 1 auto;
-
-max-width: calc(
-100% -
-{{ block.settings.guarantee_icon_size_mobile }}px -
-{{ block.settings.guarantee_gap_mobile }}px
-);
-
-line-height: 1.2;
-text-align: left;
-}
-}
-.listicle-sticky-atc-{{ block.id }} {
-margin-top: {{ block.settings.margin_top }}px;
-margin-bottom: {{ block.settings.margin_bottom }}px;
-width: 100%;
-max-width: {{ block.settings.max_width }}px;
-margin-left: auto;
-margin-right: auto;
-letter-spacing: 0px !important;
-background-color: {{ block.settings.container_bg }} !important;
-}
-
-.listicle-sticky-atc-{{ block.id }} * {
-letter-spacing: 0px !important;
-}
-
-.listicle-sticky-atc-{{ block.id }}.is-sticky {
-position: fixed;
-bottom: 0 !important;
-left: 0 !important;
-z-index: 9999;
-width: 100vw !important;
-max-width: none !important;
-background: {{ block.settings.container_bg }} !important;
-padding: 15px 20px 9px 20px;
-border-radius: 0;
-box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
-transform: none !important;
-margin-bottom: 0 !important;
-transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.listicle-sticky-atc-{{ block.id }}.is-sticky.is-lto-hidden {
-bottom: -200px !important;
-}
-
-/* Desktop Hide Option */
-@media (min-width: 769px) {
-.listicle-sticky-atc-{{ block.id }}.mobile-only {
-display: none !important;
-}
-}
-
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-container {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 5px;
-width: 100%;
-max-width: {{ block.settings.max_width }}px;
-margin: 0 auto;
-}
-
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 15px;
-width: 100%;
-background-color: {{ block.settings.button_bg }};
-color: {{ block.settings.button_text_color }};
-padding: {{ block.settings.button_padding_y }}px {{ block.settings.button_padding_x }}px;
-border-radius: {{ block.settings.button_border_radius }}px;
-text-decoration: none;
-font-weight: 700 !important;
-font-size: {{ block.settings.button_font_size }}px;
-text-transform: uppercase;
-{% unless request.page_type == 'page' %}
-transition: transform 0.2s ease;
-{% endunless %}
-}
-
-{% if block.settings.enable_heartbeat %}
-@keyframes heartbeat-{{ block.id }} {
-0% { transform: scale(1); }
-14% { transform: scale(1.06); }
-28% { transform: scale(1); }
-42% { transform: scale(1.06); }
-70% { transform: scale(1); }
-}
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
-animation: heartbeat-{{ block.id }} 1.5s ease-in-out infinite;
-transform-origin: center;
-will-change: transform;
-}
-@media (prefers-reduced-motion: reduce) {
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
-animation: none;
-}
-}
-{% endif %}
-
-{% if request.page_type == 'page' %}
-.listicle-sticky-atc-{{ block.id }}:hover,
-.listicle-sticky-atc-{{ block.id }}:focus,
-.listicle-sticky-atc-{{ block.id }}:focus-within,
-.listicle-sticky-atc-{{ block.id }}.is-sticky:hover,
-.listicle-sticky-atc-{{ block.id }}.is-sticky:focus,
-.listicle-sticky-atc-{{ block.id }}.is-sticky:focus-within {
-background-color: {{ block.settings.container_bg }} !important;
-background: {{ block.settings.container_bg }} !important;
-box-shadow: 0 -4px 15px rgba(0,0,0,0.1) !important;
-transform: none !important;
-opacity: 1 !important;
-}
-
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button:hover,
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button:focus,
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button:active {
-background-color: {{ block.settings.button_bg }} !important;
-color: {{ block.settings.button_text_color }} !important;
-transform: none !important;
-opacity: 1 !important;
-box-shadow: none !important;
-}
-{% else %}
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button:hover {
-transform: scale(1.02);
-}
-{% endif %}
-
-/* the label stays on one line; JS below shrinks the button font until it fits.
-The font's metrics sit the caps slightly high in the line box, so nudge the label
-down a hair to line up with the arrow (em = scales with the font). */
-.listicle-sticky-atc-{{ block.id }} .button-text {
-white-space: nowrap;
-min-width: 0;
-line-height: 1.2;
-position: relative;
-top: 0.1em;
-}
-
-.listicle-sticky-atc-{{ block.id }} .button-arrow {
-display: flex;
-align-items: center;
-flex: 0 0 auto;
-}
-
-/* arrow scales with the button font. The glyph fills only ~58% of its viewBox, so the box
-is sized ~1.3em to make the VISIBLE arrow match the caps height; display:block kills the
-inline-baseline offset, flex centering keeps it level with the text */
-.listicle-sticky-atc-{{ block.id }} .button-arrow svg {
-display: block;
-width: 1.3em;
-height: 1.3em;
-}
-
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-subtext {
-display: flex;
-align-items: center;
-gap: 6px;
-color: {{ block.settings.subtext_color }};
-font-size: {{ block.settings.subtext_font_size }}px;
-font-weight: 700 !important;
-text-transform: uppercase;
-}
-
-.listicle-sticky-atc-{{ block.id }} .subtext-icon {
-display: flex;
-align-items: center;
-opacity: 0.7;
-}
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee{
+   line-height: initial;
+  }
 
 @media (max-width: 768px) {
-.listicle-sticky-atc-{{ block.id }}.is-sticky {
-bottom: 0 !important;
-width: 100vw !important;
-left: 0 !important;
-padding: 15px 20px 9px 20px;
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee {
+    align-items: center;
+    justify-content: center;
+
+    gap: {{ block.settings.guarantee_gap_mobile }}px;
+    margin-top: {{ block.settings.guarantee_margin_top_mobile }}px;
+    padding-inline: 4px;
+
+    font-size: {{ block.settings.guarantee_font_size_mobile }}px;
+    line-height: 1.2;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
+    width: {{ block.settings.guarantee_icon_size_mobile }}px !important;
+    height: {{ block.settings.guarantee_icon_size_mobile }}px !important;
+
+    min-width: {{ block.settings.guarantee_icon_size_mobile }}px;
+    max-width: {{ block.settings.guarantee_icon_size_mobile }}px;
+
+    flex: 0 0 {{ block.settings.guarantee_icon_size_mobile }}px;
+     transform: translateY(-2px);
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__text {
+    flex: 0 1 auto;
+
+    max-width: calc(
+      100% -
+      {{ block.settings.guarantee_icon_size_mobile }}px -
+      {{ block.settings.guarantee_gap_mobile }}px
+    );
+
+    line-height: 1.2;
+    text-align: left;
+  }
 }
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
-transform: translateY(-2px);
-}
-.listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
-padding: {{ block.settings.button_padding_y_mobile }}px {{ block.settings.button_padding_x_mobile }}px;
-font-size: {{ block.settings.button_font_size_mobile }}px;
-}
-}
+  .listicle-sticky-atc-{{ block.id }} {
+    margin-top: {{ block.settings.margin_top }}px;
+    margin-bottom: {{ block.settings.margin_bottom }}px;
+    width: 100%;
+    max-width: {{ block.settings.max_width }}px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0px !important;
+    background-color: {{ block.settings.container_bg }} !important;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} * {
+    letter-spacing: 0px !important;
+  }
+
+  .listicle-sticky-atc-{{ block.id }}.is-sticky {
+    position: fixed;
+    bottom: 0 !important;
+    left: 0 !important;
+    z-index: 1;
+    width: 100vw !important;
+    max-width: none !important;
+    background: {{ block.settings.container_bg }} !important;
+    padding: 15px 20px 9px 20px;
+    border-radius: 0;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    transform: none !important;
+    margin-bottom: 0 !important;
+    transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .listicle-sticky-atc-{{ block.id }}.is-sticky.is-lto-hidden {
+    bottom: -200px !important;
+  }
+
+  /* Desktop Hide Option */
+  @media (min-width: 769px) {
+    .listicle-sticky-atc-{{ block.id }}.mobile-only {
+      display: none !important;
+    }
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    background-color: {{ block.settings.button_bg }};
+    color: {{ block.settings.button_text_color }};
+    padding: {{ block.settings.button_padding_y }}px {{ block.settings.button_padding_x }}px;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    text-decoration: none;
+    font-weight: 700 !important;
+    font-size: {{ block.settings.button_font_size }}px;
+    text-transform: uppercase;
+    {% unless request.page_type == 'page' %}
+    transition: transform 0.2s ease;
+    {% endunless %}
+  }
+
+  {% if block.settings.enable_heartbeat %}
+  @keyframes heartbeat-{{ block.id }} {
+    0%   { transform: scale(1); }
+    14%  { transform: scale(1.06); }
+    28%  { transform: scale(1); }
+    42%  { transform: scale(1.06); }
+    70%  { transform: scale(1); }
+  }
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
+    animation: heartbeat-{{ block.id }} 1.5s ease-in-out infinite;
+    transform-origin: center;
+    will-change: transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
+      animation: none;
+    }
+  }
+  {% endif %}
+
+  {% if request.page_type == 'page' %}
+  .listicle-sticky-atc-{{ block.id }}:hover,
+  .listicle-sticky-atc-{{ block.id }}:focus,
+  .listicle-sticky-atc-{{ block.id }}:focus-within,
+  .listicle-sticky-atc-{{ block.id }}.is-sticky:hover,
+  .listicle-sticky-atc-{{ block.id }}.is-sticky:focus,
+  .listicle-sticky-atc-{{ block.id }}.is-sticky:focus-within {
+    background-color: {{ block.settings.container_bg }} !important;
+    background: {{ block.settings.container_bg }} !important;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.1) !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button:hover,
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button:focus,
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button:active {
+    background-color: {{ block.settings.button_bg }} !important;
+    color: {{ block.settings.button_text_color }} !important;
+    transform: none !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+  }
+  {% else %}
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-button:hover {
+    transform: scale(1.02);
+  }
+  {% endif %}
+
+  /* the label stays on one line; JS below shrinks the button font until it fits.
+     The font's metrics sit the caps slightly high in the line box, so nudge the label
+     down a hair to line up with the arrow (em = scales with the font). */
+  .listicle-sticky-atc-{{ block.id }} .button-text {
+    white-space: nowrap;
+    min-width: 0;
+    line-height: 1.2;
+    position: relative;
+    top: 0.1em;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .button-arrow {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  /* arrow scales with the button font. The glyph fills only ~58% of its viewBox, so the box
+     is sized ~1.3em to make the VISIBLE arrow match the caps height; display:block kills the
+     inline-baseline offset, flex centering keeps it level with the text */
+  .listicle-sticky-atc-{{ block.id }} .button-arrow svg {
+    display: block;
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .sticky-atc-subtext {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: {{ block.settings.subtext_color }};
+    font-size: {{ block.settings.subtext_font_size }}px;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+  }
+
+  .listicle-sticky-atc-{{ block.id }} .subtext-icon {
+    display: flex;
+    align-items: center;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .listicle-sticky-atc-{{ block.id }}.is-sticky {
+      bottom: 0 !important;
+      width: 100vw !important;
+      left: 0 !important;
+      padding: 15px 20px 9px 20px;
+    }
+    .listicle-sticky-atc-{{ block.id }} .sticky-atc-guarantee__icon {
+        transform: translateY(-2px);
+    }
+    .listicle-sticky-atc-{{ block.id }} .sticky-atc-button {
+      padding: {{ block.settings.button_padding_y_mobile }}px {{ block.settings.button_padding_x_mobile }}px;
+      font-size: {{ block.settings.button_font_size_mobile }}px;
+    }
+  }
 </style>
 
 <script>
-/* fit-to-width: with nowrap on, long labels would overflow the button; shrink the
-label font (never below 11px) until the whole row fits. No-op when it already fits. */
-(function () {
-var btn = document.querySelector('.listicle-sticky-atc-{{ block.id }} .sticky-atc-button');
-if (!btn) return;
-var txt = btn.querySelector('.button-text');
-if (!txt) return;
-function fit() {
-btn.style.fontSize = '';
-var size = parseFloat(window.getComputedStyle(btn).fontSize) || 16;
-var guard = 0;
-// shrink the BUTTON font (label + em-sized arrow follow together), keep a 6px slack
-while (btn.scrollWidth > btn.clientWidth - 6 && size > 11 && guard < 24) {
-size -= 0.5;
-btn.style.fontSize = size + 'px';
-guard++;
-}
-}
-if (document.readyState === 'complete') { fit(); } else { window.addEventListener('load', fit); }
-window.addEventListener('resize', fit);
-})();
-{% if template.suffix == 'lumway3' or template.suffix contains '5-ways-for-35' %}
-/* lumway3 / 5-ways-for-35: the button must be visible from page load. Its parent section
-carries theme scroll animations (ancestor transform/opacity), which both hide the subtree
-and turn position:fixed into section-relative, so re-parent to <body>. Hidden again once
-the gut-harmony-cta section comes into view. */
-(function () {
-var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
-if (!stickyEl) return;
+  /* fit-to-width: with nowrap on, long labels would overflow the button; shrink the
+     label font (never below 11px) until the whole row fits. No-op when it already fits. */
+  (function () {
+    var btn = document.querySelector('.listicle-sticky-atc-{{ block.id }} .sticky-atc-button');
+    if (!btn) return;
+    var txt = btn.querySelector('.button-text');
+    if (!txt) return;
+    function fit() {
+      btn.style.fontSize = '';
+      var size = parseFloat(window.getComputedStyle(btn).fontSize) || 16;
+      var guard = 0;
+      // shrink the BUTTON font (label + em-sized arrow follow together), keep a 6px slack
+      while (btn.scrollWidth > btn.clientWidth - 6 && size > 11 && guard < 24) {
+        size -= 0.5;
+        btn.style.fontSize = size + 'px';
+        guard++;
+      }
+    }
+    if (document.readyState === 'complete') { fit(); } else { window.addEventListener('load', fit); }
+    window.addEventListener('resize', fit);
+  })();
+  {% if template.suffix == 'lumway3' or template.suffix contains '5-ways-for-35' %}
+  /* lumway3 / 5-ways-for-35: the button must be visible from page load. Its parent section
+     carries theme scroll animations (ancestor transform/opacity), which both hide the subtree
+     and turn position:fixed into section-relative, so re-parent to <body>. Hidden again once
+     the gut-harmony-cta section comes into view. */
+  (function () {
+    var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
+    if (!stickyEl) return;
 
-// This block lives inside a section that Dawn fades in on scroll
-// (`.scroll-trigger` sets opacity:0 while the section is offscreen). Opacity
-// on an ancestor hides its whole subtree, so the fixed button stays
-// invisible until the listicle section scrolls into view. Re-parent it to
-// <body> so it escapes the section's opacity and shows from page load.
-if (stickyEl.parentNode !== document.body) {
-document.body.appendChild(stickyEl);
-}
+    // This block lives inside a section that Dawn fades in on scroll
+    // (`.scroll-trigger` sets opacity:0 while the section is offscreen). Opacity
+    // on an ancestor hides its whole subtree, so the fixed button stays
+    // invisible until the listicle section scrolls into view. Re-parent it to
+    // <body> so it escapes the section's opacity and shows from page load.
+    if (stickyEl.parentNode !== document.body) {
+      document.body.appendChild(stickyEl);
+    }
 
-// lumway3: visible from page load, hides once the gut-harmony-cta section enters the viewport.
-// 5-ways-for-35: hidden while the first content section (hero) is on screen and while the LTO
-// product cards are in view (they carry their own CTA); stays visible at the final CTA.
-// If the page carries the PDP buy box (product-details-lum), the button also hides while the
-// buy box is on screen and its tap scrolls to the buy box instead of leaving the page.
-var WAIT_FIRST = {% if template.suffix contains '5-ways-for-35' %}true{% else %}false{% endif %};
-var ctaInner = null;
-var firstSec = null;
-var ltoCards = null;
-var pdlEl = null;
-var featureBtns = null;
+    // lumway3: visible from page load, hides once the gut-harmony-cta section enters the viewport.
+    // 5-ways-for-35: hidden while the first content section (hero) is on screen and while the LTO
+    // product cards are in view (they carry their own CTA); stays visible at the final CTA.
+    // If the page carries the PDP buy box (product-details-lum), the button also hides while the
+    // buy box is on screen and its tap scrolls to the buy box instead of leaving the page.
+    var WAIT_FIRST = {% if template.suffix contains '5-ways-for-35' %}true{% else %}false{% endif %};
+    var ctaInner = null;
+    var firstSec = null;
+    var ltoCards = null;
+    var pdlEl = null;
+    var featureBtns = null;
 
-function findFirstSection() {
-// the hero (gut-harmony-benefits) is the explicit gate when present: the button pops in
-// right after it is scrolled past, regardless of announcement bars above it
-var hero = document.querySelector('.gut-harmony-benefits');
-if (hero) return hero.closest('.shopify-section') || hero;
-var secs = document.querySelectorAll('#MainContent .shopify-section');
-for (var k = 0; k < secs.length; k++) {
-if (secs[k].offsetHeight > 50) return secs[k]; // skip utility sections (font loader etc.)
-}
-return null;
-}
+    function isCartDrawerOpen() {
+      var drawer = document.querySelector('#CartDrawer');
+      if (!drawer) return false;
 
-function inView(el) {
-var r = el.getBoundingClientRect();
-return r.bottom > 0 && r.top < window.innerHeight;
-}
+      var inner = drawer.querySelector('.drawer__inner');
+      if (!inner) return false;
 
-function update() {
-if (!ctaInner) {
-ctaInner = document.querySelector('.gut-harmony-cta__inner');
-}
-var atCta = !WAIT_FIRST && ctaInner && ctaInner.getBoundingClientRect().top < window.innerHeight;
-var onFirst = false, onCards = false, onCta = false;
-if (WAIT_FIRST) {
-if (!firstSec) firstSec = findFirstSection();
-onFirst = firstSec ? firstSec.getBoundingClientRect().bottom > 0 : false;
-if (!ltoCards || !ltoCards.length) ltoCards = document.querySelectorAll('.lto__card');
-for (var c = 0; c < ltoCards.length; c++) {
-if (inView(ltoCards[c])) { onCards = true; break; }
-}
-// pages with the buy box route their CTA button to it, so the sticky yields while the
-// gut-harmony-cta section is on screen; pages without a buy box keep the sticky there
-onCta = pdlEl && ctaInner ? inView(ctaInner) : false;
-}
-// buy zone = from the buy box top down to its Add to Cart button; the section's tail
-// (info cards, tabs) does not count, so the button pops back as soon as the ATC is passed
-var onPdl = false;
-if (pdlEl) {
-var atcBtn = pdlEl.querySelector('[data-atc-button]');
-var zoneTop = pdlEl.getBoundingClientRect().top;
-var zoneBottom = (atcBtn || pdlEl).getBoundingClientRect().bottom;
-onPdl = zoneTop < window.innerHeight && zoneBottom > 0;
-}
-// Gut Harmony Feature sections carry their own CTA to the buy box; the sticky yields while one
-// of those buttons is on screen, same principle as the gut-harmony-cta section (hide near the
-// button, not for the whole tall section).
-var onFeature = false;
-if (featureBtns) {
-for (var f = 0; f < featureBtns.length; f++) {
-if (inView(featureBtns[f])) { onFeature = true; break; }
-}
-}
-stickyEl.classList.toggle('is-lto-hidden', !!atCta || onFirst || onCards || onCta || onPdl || onFeature);
-}
+      var style = window.getComputedStyle(inner);
+      var rect = inner.getBoundingClientRect();
 
-// This theme scrolls the document root with `overflow: clip`, so window
-// `scroll` events are unreliable. Drive updates with IntersectionObserver
-// (fires from the compositor regardless of the scroll mechanism) and keep
-// scroll/resize as a fallback.
-var io = ('IntersectionObserver' in window)
-? new IntersectionObserver(update, { threshold: [0, 1] })
-: null;
+      return (
+              style.display !== 'none' &&
+              style.visibility !== 'hidden' &&
+              parseFloat(style.opacity || '1') > 0 &&
+              rect.width > 0 &&
+              rect.height > 0 &&
+              rect.right > 0 &&
+              rect.left < window.innerWidth
+      );
+    }
 
-// Defer the hide logic until the page has fully loaded. Before images
-// settle into place the page is short and the CTA can momentarily sit
-// inside the viewport, which would hide the button right after it appears.
-function start() {
-ctaInner = document.querySelector('.gut-harmony-cta__inner');
-if (io && ctaInner) {
-io.observe(ctaInner);
-}
-if (WAIT_FIRST) {
-firstSec = findFirstSection();
-if (io && firstSec) io.observe(firstSec);
-ltoCards = document.querySelectorAll('.lto__card');
-if (io) { for (var c = 0; c < ltoCards.length; c++) io.observe(ltoCards[c]); }
-}
-pdlEl = document.querySelector('.section-product-details-lum');
-if (io && pdlEl) {
-io.observe(pdlEl);
-var atcBtnObs = pdlEl.querySelector('[data-atc-button]');
-if (atcBtnObs) io.observe(atcBtnObs);
-}
-featureBtns = document.querySelectorAll('.gut-harmony-feature__button');
-if (io) { for (var f2 = 0; f2 < featureBtns.length; f2++) io.observe(featureBtns[f2]); }
-update();
-window.addEventListener('scroll', update, { passive: true });
-window.addEventListener('resize', update);
-}
+    function findFirstSection() {
+      // the hero (gut-harmony-benefits) is the explicit gate when present: the button pops in
+      // right after it is scrolled past, regardless of announcement bars above it
+      var hero = document.querySelector('.gut-harmony-benefits');
+      if (hero) return hero.closest('.shopify-section') || hero;
+      var secs = document.querySelectorAll('#MainContent .shopify-section');
+      for (var k = 0; k < secs.length; k++) {
+        if (secs[k].offsetHeight > 50) return secs[k]; // skip utility sections (font loader etc.)
+      }
+      return null;
+    }
 
-// buy box on the page: the button becomes an on-page anchor instead of a product link
-var scrollBtn = stickyEl.querySelector('.sticky-atc-button');
-if (scrollBtn) {
-scrollBtn.addEventListener('click', function (e) {
-var target = pdlEl || document.querySelector('.section-product-details-lum');
-if (!target) return;
-e.preventDefault();
-target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
-}
+    function inView(el) {
+      var r = el.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    }
 
-if (document.readyState === 'complete') {
-start();
-} else {
-window.addEventListener('load', start);
-}
-})();
-{% else %}
-(function () {
-var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
-if (!stickyEl) return;
+    function update() {
+      if (!ctaInner) {
+        ctaInner = document.querySelector('.gut-harmony-cta__inner');
+      }
+      var atCta = !WAIT_FIRST && ctaInner && ctaInner.getBoundingClientRect().top < window.innerHeight;
+      var onFirst = false, onCards = false, onCta = false;
+      if (WAIT_FIRST) {
+        if (!firstSec) firstSec = findFirstSection();
+        onFirst = firstSec ? firstSec.getBoundingClientRect().bottom > 0 : false;
+        if (!ltoCards || !ltoCards.length) ltoCards = document.querySelectorAll('.lto__card');
+        for (var c = 0; c < ltoCards.length; c++) {
+          if (inView(ltoCards[c])) { onCards = true; break; }
+        }
+        // pages with the buy box route their CTA button to it, so the sticky yields while the
+        // gut-harmony-cta section is on screen; pages without a buy box keep the sticky there
+        onCta = pdlEl && ctaInner ? inView(ctaInner) : false;
+      }
+      // buy zone = from the buy box top down to its Add to Cart button; the section's tail
+      // (info cards, tabs) does not count, so the button pops back as soon as the ATC is passed
+      var onPdl = false;
+      if (pdlEl) {
+        var atcBtn = pdlEl.querySelector('[data-atc-button]');
+        var zoneTop = pdlEl.getBoundingClientRect().top;
+        var zoneBottom = (atcBtn || pdlEl).getBoundingClientRect().bottom;
+        onPdl = zoneTop < window.innerHeight && zoneBottom > 0;
+      }
+      // Gut Harmony Feature sections carry their own CTA to the buy box; the sticky yields while one
+      // of those buttons is on screen, same principle as the gut-harmony-cta section (hide near the
+      // button, not for the whole tall section).
+      var onFeature = false;
+      if (featureBtns) {
+        for (var f = 0; f < featureBtns.length; f++) {
+          if (inView(featureBtns[f])) { onFeature = true; break; }
+        }
+      }
+      var cartDrawerOpen = isCartDrawerOpen();
 
-var ltoCards = document.querySelectorAll('.lto__card');
-if (!ltoCards.length) return;
+      stickyEl.classList.toggle(
+              'is-lto-hidden',
+              cartDrawerOpen ||
+              !!atCta ||
+              onFirst ||
+              onCards ||
+              onCta ||
+              onPdl ||
+              onFeature
+      );
+    }
 
-var visible = new Set();
+    // This theme scrolls the document root with `overflow: clip`, so window
+    // `scroll` events are unreliable. Drive updates with IntersectionObserver
+    // (fires from the compositor regardless of the scroll mechanism) and keep
+    // scroll/resize as a fallback.
+    var io = ('IntersectionObserver' in window)
+      ? new IntersectionObserver(update, { threshold: [0, 1] })
+      : null;
 
-var observer = new IntersectionObserver(function (entries) {
-entries.forEach(function (entry) {
-if (entry.isIntersecting) {
-visible.add(entry.target);
-} else {
-visible.delete(entry.target);
-}
-});
-stickyEl.classList.toggle('is-lto-hidden', visible.size > 0);
-}, { threshold: 0 });
+    // Defer the hide logic until the page has fully loaded. Before images
+    // settle into place the page is short and the CTA can momentarily sit
+    // inside the viewport, which would hide the button right after it appears.
+    function start() {
+      ctaInner = document.querySelector('.gut-harmony-cta__inner');
+      if (io && ctaInner) {
+        io.observe(ctaInner);
+      }
+      if (WAIT_FIRST) {
+        firstSec = findFirstSection();
+        if (io && firstSec) io.observe(firstSec);
+        ltoCards = document.querySelectorAll('.lto__card');
+        if (io) { for (var c = 0; c < ltoCards.length; c++) io.observe(ltoCards[c]); }
+      }
+      pdlEl = document.querySelector('.section-product-details-lum');
+      if (io && pdlEl) {
+        io.observe(pdlEl);
+        var atcBtnObs = pdlEl.querySelector('[data-atc-button]');
+        if (atcBtnObs) io.observe(atcBtnObs);
+      }
+      featureBtns = document.querySelectorAll('.gut-harmony-feature__button');
+      if (io) { for (var f2 = 0; f2 < featureBtns.length; f2++) io.observe(featureBtns[f2]); }
+      update();
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
 
-ltoCards.forEach(function (card) { observer.observe(card); });
-})();
-{% endif %}
+      var cartDrawer = document.querySelector('#CartDrawer');
+
+      if (cartDrawer) {
+        var cartDrawerObserver = new MutationObserver(function () {
+          requestAnimationFrame(update);
+        });
+
+        cartDrawerObserver.observe(cartDrawer, {
+          attributes: true,
+          childList: true,
+          subtree: true,
+          attributeFilter: [
+            'class',
+            'style',
+            'open',
+            'aria-hidden'
+          ]
+        });
+
+        var cartDrawerParent = cartDrawer.closest('cart-drawer');
+
+        if (cartDrawerParent) {
+          cartDrawerObserver.observe(cartDrawerParent, {
+            attributes: true,
+            attributeFilter: [
+              'class',
+              'style',
+              'open',
+              'aria-hidden'
+            ]
+          });
+        }
+      }
+    }
+
+
+
+    // buy box on the page: the button becomes an on-page anchor instead of a product link
+    var scrollBtn = stickyEl.querySelector('.sticky-atc-button');
+    if (scrollBtn) {
+      scrollBtn.addEventListener('click', function (e) {
+        var target = pdlEl || document.querySelector('.section-product-details-lum');
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+
+    if (document.readyState === 'complete') {
+      start();
+    } else {
+      window.addEventListener('load', start);
+    }
+  })();
+  {% else %}
+  (function () {
+    var stickyEl = document.querySelector('.listicle-sticky-atc-{{ block.id }}');
+    if (!stickyEl) return;
+
+    var ltoCards = document.querySelectorAll('.lto__card');
+    if (!ltoCards.length) return;
+
+    var visible = new Set();
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          visible.add(entry.target);
+        } else {
+          visible.delete(entry.target);
+        }
+      });
+      stickyEl.classList.toggle('is-lto-hidden', visible.size > 0);
+    }, { threshold: 0 });
+
+    ltoCards.forEach(function (card) { observer.observe(card); });
+  })();
+  {% endif %}
 </script>
 
 {% schema %}
 {
-"name": "Sticky Add to Cart",
-"settings": [
-{
-"type": "header",
-"content": "Button Settings"
+  "name": "Sticky Add to Cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "YES, GET 58% OFF"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Show arrow",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background Color",
+      "default": "#25282a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_heartbeat",
+      "label": "Heartbeat animation",
+      "default": true,
+      "info": "Pulsing heartbeat effect on the button to draw attention."
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size (Desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "button_font_size_mobile",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Font Size (Mobile)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_y",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Button Vertical Padding",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_padding_x",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Horizontal Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button Border Radius",
+      "default": 8
+    },
+    {
+  "type": "header",
+  "content": "Guarantee Settings"
 },
 {
-"type": "text",
-"id": "button_text",
-"label": "Button Text",
-"default": "YES, GET 58% OFF"
+  "type": "checkbox",
+  "id": "show_guarantee",
+  "label": "Show guarantee block",
+  "default": false
 },
 {
-"type": "checkbox",
-"id": "show_arrow",
-"label": "Show arrow",
-"default": true
+  "type": "image_picker",
+  "id": "guarantee_icon",
+  "label": "Guarantee icon"
 },
 {
-"type": "url",
-"id": "button_link",
-"label": "Button Link"
+  "type": "text",
+  "id": "guarantee_text",
+  "label": "Guarantee text",
+  "default": "30-day money-back guarantee"
 },
 {
-"type": "color",
-"id": "button_bg",
-"label": "Button Background Color",
-"default": "#25282a"
+  "type": "color",
+  "id": "guarantee_text_color",
+  "label": "Guarantee text color",
+  "default": "#111111"
 },
 {
-"type": "color",
-"id": "button_text_color",
-"label": "Button Text Color",
-"default": "#ffffff"
+  "type": "range",
+  "id": "guarantee_font_size",
+  "label": "Guarantee font size desktop",
+  "min": 12,
+  "max": 32,
+  "step": 1,
+  "unit": "px",
+  "default": 18
 },
 {
-"type": "checkbox",
-"id": "enable_heartbeat",
-"label": "Heartbeat animation",
-"default": true,
-"info": "Pulsing heartbeat effect on the button to draw attention."
+  "type": "range",
+  "id": "guarantee_font_size_mobile",
+  "label": "Guarantee font size mobile",
+  "min": 10,
+  "max": 24,
+  "step": 1,
+  "unit": "px",
+  "default": 16
 },
 {
-"type": "range",
-"id": "button_font_size",
-"min": 12,
-"max": 30,
-"step": 1,
-"unit": "px",
-"label": "Button Font Size (Desktop)",
-"default": 18
+  "type": "select",
+  "id": "guarantee_font_weight",
+  "label": "Guarantee font weight",
+  "options": [
+    {
+      "value": "400",
+      "label": "Regular"
+    },
+    {
+      "value": "500",
+      "label": "Medium"
+    },
+    {
+      "value": "600",
+      "label": "Semibold"
+    },
+    {
+      "value": "700",
+      "label": "Bold"
+    }
+  ],
+  "default": "700"
 },
 {
-"type": "range",
-"id": "button_font_size_mobile",
-"min": 12,
-"max": 24,
-"step": 1,
-"unit": "px",
-"label": "Button Font Size (Mobile)",
-"default": 16
+  "type": "range",
+  "id": "guarantee_icon_size",
+  "label": "Guarantee icon size desktop",
+  "min": 12,
+  "max": 60,
+  "step": 1,
+  "unit": "px",
+  "default": 26
 },
 {
-"type": "range",
-"id": "button_padding_y",
-"min": 5,
-"max": 40,
-"step": 1,
-"unit": "px",
-"label": "Button Vertical Padding",
-"default": 20
+  "type": "range",
+  "id": "guarantee_icon_size_mobile",
+  "label": "Guarantee icon size mobile",
+  "min": 12,
+  "max": 50,
+  "step": 1,
+  "unit": "px",
+  "default": 22
 },
 {
-"type": "range",
-"id": "button_padding_x",
-"min": 10,
-"max": 60,
-"step": 2,
-"unit": "px",
-"label": "Button Horizontal Padding",
-"default": 40
+  "type": "range",
+  "id": "guarantee_gap",
+  "label": "Gap desktop",
+  "min": 0,
+  "max": 30,
+  "step": 1,
+  "unit": "px",
+  "default": 10
 },
 {
-"type": "range",
-"id": "button_border_radius",
-"min": 0,
-"max": 50,
-"step": 2,
-"unit": "px",
-"label": "Button Border Radius",
-"default": 8
+  "type": "range",
+  "id": "guarantee_gap_mobile",
+  "label": "Gap mobile",
+  "min": 0,
+  "max": 30,
+  "step": 1,
+  "unit": "px",
+  "default": 8
 },
 {
-"type": "header",
-"content": "Guarantee Settings"
+  "type": "range",
+  "id": "guarantee_margin_top",
+  "label": "Top spacing desktop",
+  "min": 0,
+  "max": 60,
+  "step": 2,
+  "unit": "px",
+  "default": 16
 },
 {
-"type": "checkbox",
-"id": "show_guarantee",
-"label": "Show guarantee block",
-"default": false
+  "type": "range",
+  "id": "guarantee_margin_top_mobile",
+  "label": "Top spacing mobile",
+  "min": 0,
+  "max": 40,
+  "step": 2,
+  "unit": "px",
+  "default": 12
 },
-{
-"type": "image_picker",
-"id": "guarantee_icon",
-"label": "Guarantee icon"
-},
-{
-"type": "text",
-"id": "guarantee_text",
-"label": "Guarantee text",
-"default": "30-day money-back guarantee"
-},
-{
-"type": "color",
-"id": "guarantee_text_color",
-"label": "Guarantee text color",
-"default": "#111111"
-},
-{
-"type": "range",
-"id": "guarantee_font_size",
-"label": "Guarantee font size desktop",
-"min": 12,
-"max": 32,
-"step": 1,
-"unit": "px",
-"default": 18
-},
-{
-"type": "range",
-"id": "guarantee_font_size_mobile",
-"label": "Guarantee font size mobile",
-"min": 10,
-"max": 24,
-"step": 1,
-"unit": "px",
-"default": 16
-},
-{
-"type": "select",
-"id": "guarantee_font_weight",
-"label": "Guarantee font weight",
-"options": [
-{
-"value": "400",
-"label": "Regular"
-},
-{
-"value": "500",
-"label": "Medium"
-},
-{
-"value": "600",
-"label": "Semibold"
-},
-{
-"value": "700",
-"label": "Bold"
-}
-],
-"default": "700"
-},
-{
-"type": "range",
-"id": "guarantee_icon_size",
-"label": "Guarantee icon size desktop",
-"min": 12,
-"max": 60,
-"step": 1,
-"unit": "px",
-"default": 26
-},
-{
-"type": "range",
-"id": "guarantee_icon_size_mobile",
-"label": "Guarantee icon size mobile",
-"min": 12,
-"max": 50,
-"step": 1,
-"unit": "px",
-"default": 22
-},
-{
-"type": "range",
-"id": "guarantee_gap",
-"label": "Gap desktop",
-"min": 0,
-"max": 30,
-"step": 1,
-"unit": "px",
-"default": 10
-},
-{
-"type": "range",
-"id": "guarantee_gap_mobile",
-"label": "Gap mobile",
-"min": 0,
-"max": 30,
-"step": 1,
-"unit": "px",
-"default": 8
-},
-{
-"type": "range",
-"id": "guarantee_margin_top",
-"label": "Top spacing desktop",
-"min": 0,
-"max": 60,
-"step": 2,
-"unit": "px",
-"default": 16
-},
-{
-"type": "range",
-"id": "guarantee_margin_top_mobile",
-"label": "Top spacing mobile",
-"min": 0,
-"max": 40,
-"step": 2,
-"unit": "px",
-"default": 12
-},
-{
-"type": "header",
-"content": "Subtext Settings"
-},
-{
-"type": "checkbox",
-"id": "show_subtext",
-"label": "Show Subtext",
-"default": true
-},
-{
-"type": "text",
-"id": "subtext",
-"label": "Subtext",
-"default": "NEW YEAR, NEW ME DISCOUNT ACTIVE"
-},
-{
-"type": "image_picker",
-"id": "subtext_icon_image",
-"label": "Custom Icon Image"
-},
-{
-"type": "color",
-"id": "subtext_color",
-"label": "Subtext Color",
-"default": "#25282a"
-},
-{
-"type": "range",
-"id": "subtext_font_size",
-"min": 8,
-"max": 20,
-"step": 1,
-"unit": "px",
-"label": "Subtext Font Size",
-"default": 12
-},
-{
-"type": "header",
-"content": "Layout Settings"
-},
-{
-"type": "checkbox",
-"id": "sticky",
-"label": "Enable Sticky Mode",
-"default": true,
-"info": "If enabled, the button will stick to the bottom of the screen."
-},
-{
-"type": "checkbox",
-"id": "mobile_only",
-"label": "Show on Mobile Only",
-"default": false,
-"info": "Hide this block on desktop screens."
-},
-{
-"type": "color",
-"id": "container_bg",
-"label": "Sticky Container Background",
-"default": "#ffffff",
-"info": "Only used when sticky mode is enabled."
-},
-{
-"type": "range",
-"id": "max_width",
-"min": 300,
-"max": 1200,
-"step": 20,
-"unit": "px",
-"label": "Max Width",
-"default": 500
-},
-{
-"type": "range",
-"id": "border_radius",
-"min": 0,
-"max": 40,
-"step": 2,
-"unit": "px",
-"label": "Container Border Radius",
-"default": 12
-},
-{
-"type": "range",
-"id": "margin_top",
-"min": 0,
-"max": 100,
-"step": 4,
-"unit": "px",
-"label": "Margin Top",
-"default": 20
-},
-{
-"type": "range",
-"id": "margin_bottom",
-"min": 0,
-"max": 100,
-"step": 4,
-"unit": "px",
-"label": "Margin Bottom",
-"default": 20
-}
-],
-"presets": [
-{ "name": "Sticky Add to Cart" }
-]
+    {
+      "type": "header",
+      "content": "Subtext Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_subtext",
+      "label": "Show Subtext",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "NEW YEAR, NEW ME DISCOUNT ACTIVE"
+    },
+    {
+      "type": "image_picker",
+      "id": "subtext_icon_image",
+      "label": "Custom Icon Image"
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext Color",
+      "default": "#25282a"
+    },
+    {
+      "type": "range",
+      "id": "subtext_font_size",
+      "min": 8,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtext Font Size",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Enable Sticky Mode",
+      "default": true,
+      "info": "If enabled, the button will stick to the bottom of the screen."
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_only",
+      "label": "Show on Mobile Only",
+      "default": false,
+      "info": "Hide this block on desktop screens."
+    },
+    {
+      "type": "color",
+      "id": "container_bg",
+      "label": "Sticky Container Background",
+      "default": "#ffffff",
+      "info": "Only used when sticky mode is enabled."
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 300,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "label": "Max Width",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Container Border Radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 20
+    }
+  ],
+  "presets": [
+    { "name": "Sticky Add to Cart" }
+  ]
 }
 {% endschema %}
