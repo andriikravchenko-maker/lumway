@@ -1694,7 +1694,7 @@
         "limit_to_sections": true,
         "allowed_sections": "#product-details-lum\n.mm-gfs\n.mm-gut-flow-inside__inner",
         "show_times": "3,8.5,15,30,60,80,105,160",
-        "start_delay": 6,
+        "start_delay": 2,
         "show_secs": 5,
         "gap_secs": 8,
         "loop": true,
