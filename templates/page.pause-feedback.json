@@ -20,6 +20,7 @@
     },
     "pause_feedback_thank_you_79HHak": {
       "type": "pause-feedback-thank-you",
+      "disabled": true,
       "name": "Pause feedback",
       "settings": {
         "logo_text": "",
