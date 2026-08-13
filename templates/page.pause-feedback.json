@@ -11,13 +11,71 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
+        "use_theme_colors": true,
         "padding_top": 28,
         "padding_bottom": 28
+      }
+    },
+    "pause_feedback_thank_you_79HHak": {
+      "type": "pause-feedback-thank-you",
+      "name": "Pause feedback",
+      "settings": {
+        "logo_text": "",
+        "logo_width": 150,
+        "logo_width_mobile": 130,
+        "logo_text_size": 40,
+        "logo_text_size_mobile": 34,
+        "logo_spacing": 56,
+        "show_icon": true,
+        "icon_size": 70,
+        "icon_spacing": 32,
+        "icon_background": "#e8f0e4",
+        "icon_color": "#347659",
+        "heading": "Thank you for your feedback.",
+        "text": "<p>It means a lot that you took a moment to tell us why you paused. We read every response, and it genuinely shapes what we do next.</p>",
+        "bottom_text": "Either way, we appreciate you.",
+        "button_label": "BACK TO SHOP",
+        "button_link": "",
+        "button_width": 215,
+        "button_height": 54,
+        "button_radius": 27,
+        "button_spacing": 38,
+        "button_text_size": 15,
+        "button_weight": "700",
+        "button_text_transform": "uppercase",
+        "button_letter_spacing": 4,
+        "button_full_mobile": false,
+        "heading_size": 40,
+        "heading_size_mobile": 30,
+        "heading_weight": "500",
+        "heading_line_height": 115,
+        "text_size": 20,
+        "text_size_mobile": 17,
+        "text_line_height": 155,
+        "bottom_text_size": 15,
+        "bottom_text_size_mobile": 14,
+        "content_width": 760,
+        "heading_width": 650,
+        "text_width": 570,
+        "text_spacing": 18,
+        "bottom_spacing": 20,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "background_color": "#f7f6f2",
+        "heading_color": "#20201e",
+        "text_color": "#4c4c49",
+        "bottom_text_color": "#96938d",
+        "button_background": "#347659",
+        "button_color": "#ffffff"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "pause_feedback_thank_you_79HHak"
   ]
 }
