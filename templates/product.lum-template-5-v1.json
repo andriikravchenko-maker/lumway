@@ -2156,7 +2156,7 @@
         "ingredient_gTpCwV": {
           "type": "ingredient",
           "settings": {
-            "image": "shopify://shop_images/Ellipse_869.webp",
+            "image": "shopify://shop_images/fos-1.webp",
             "title": "FOS",
             "badge_text": "Nourishes Your Gut From Within",
             "description": "<p>Fructooligosaccharides (FOS) works alongside Inulin to help beneficial bacteria thrive that support a balanced gut microbiome. </p>",
@@ -2166,7 +2166,7 @@
         "ingredient_NTHJDE": {
           "type": "ingredient",
           "settings": {
-            "image": "shopify://shop_images/Ellipse_871.webp",
+            "image": "shopify://shop_images/mbf.webp",
             "title": "Mixed Berry Flavor",
             "badge_text": "Without Artificial Flavorings",
             "description": "<p>Creates a balanced berry taste that makes daily supplementation enjoyable.</p>",
