@@ -2349,8 +2349,9 @@
       "blocks": {
         "review_m8qMYC": {
           "type": "review",
+          "name": "Emily R.",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_58_40_PM_1_4400337d-0598-4326-970c-2e80410ec167.webp",
+            "review_image": "shopify://shop_images/Emily_R.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2369,8 +2370,9 @@
         },
         "review_Brta4Y": {
           "type": "review",
+          "name": "Jessica M.",
           "settings": {
-            "review_image": "shopify://shop_images/image_81.webp",
+            "review_image": "shopify://shop_images/Jessica_M.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2389,8 +2391,9 @@
         },
         "review_8cjTyc": {
           "type": "review",
+          "name": "Sarah T",
           "settings": {
-            "review_image": "shopify://shop_images/image_77_e49a8749-a170-43ae-9fa8-c850b4d3fce6.webp",
+            "review_image": "shopify://shop_images/Sarah_T.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2409,8 +2412,9 @@
         },
         "review_wNLbay": {
           "type": "review",
+          "name": "Amanda J",
           "settings": {
-            "review_image": "shopify://shop_images/image_82.webp",
+            "review_image": "shopify://shop_images/Amanda_J.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2429,8 +2433,9 @@
         },
         "review_9b3eY4": {
           "type": "review",
+          "name": "Megan L",
           "settings": {
-            "review_image": "shopify://shop_images/image_85.webp",
+            "review_image": "shopify://shop_images/Megan_L.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 4,
@@ -2449,8 +2454,9 @@
         },
         "review_6x6kdA": {
           "type": "review",
+          "name": "Rachel S",
           "settings": {
-            "review_image": "shopify://shop_images/image_86.webp",
+            "review_image": "shopify://shop_images/Rachel_S.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2469,8 +2475,9 @@
         },
         "review_gyMjCt": {
           "type": "review",
+          "name": "Olivia P",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_01_50_27_PM_1_1633dd18-7f83-423b-a268-49dfd5ad2fa8.webp",
+            "review_image": "shopify://shop_images/Olivia_P.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2489,8 +2496,9 @@
         },
         "review_cQpc4j": {
           "type": "review",
+          "name": "Lauren K",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_57_58_PM_1_c8b36dad-069d-4d19-a68b-fd04607acabf.webp",
+            "review_image": "shopify://shop_images/Lauren_K.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 5,
@@ -2509,8 +2517,9 @@
         },
         "review_FXxqza": {
           "type": "review",
+          "name": "Nicole D",
           "settings": {
-            "review_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_02_37_47_PM_1_c1585ef3-1a4f-43be-a039-52d2f8c7702c.webp",
+            "review_image": "shopify://shop_images/Nicole_D.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 4,
@@ -2529,8 +2538,9 @@
         },
         "review_X8BJaj": {
           "type": "review",
+          "name": "Danielle H",
           "settings": {
-            "review_image": "shopify://shop_images/image_78_99f9e61f-ce48-4282-9193-adcc0d94f7bd.webp",
+            "review_image": "shopify://shop_images/Danielle_H.webp",
             "image_position": "center center",
             "wrap_image": true,
             "rating": 4,
@@ -2579,7 +2589,7 @@
         "section_width": 1200,
         "center_cards_desktop": true,
         "center_cards_mobile": false,
-        "section_background": "#FFFDFA",
+        "section_background": "#fffdfa",
         "title_text": "Transformations That",
         "accent_text": "Speak For Themselves ",
         "title_color": "#000000",
@@ -2604,7 +2614,7 @@
         "use_global_nav_buttons": true,
         "prev_button_bg": "#ffffff",
         "prev_button_color": "#000000",
-        "prev_button_border": "#e0e0e0",
+        "prev_button_border": "#c2c2c2",
         "next_button_bg": "#ef4a65",
         "next_button_color": "#ffffff",
         "next_button_border": "#ef4a65",
@@ -2621,7 +2631,7 @@
         "card_margin_right": 0,
         "card_margin_bottom": 0,
         "card_margin_left": 0,
-        "star_filled_color": "#113b34",
+        "star_filled_color": "#fad356",
         "star_empty_color": "#ffffff",
         "carousel_review_star_size": 16,
         "review_text_color": "#000000",
@@ -2823,7 +2833,7 @@
         "benefit_title_size_desktop": 16,
         "benefit_description_size_mobile": 13,
         "benefit_description_size_desktop": 14,
-        "accent_color": "#FFFDFA",
+        "accent_color": "#fffdfa",
         "use_theme_colors": false,
         "title_below_icon": false,
         "override_global_accent": false,
@@ -2842,7 +2852,7 @@
         "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.",
         "show_image": true,
         "media_type": "image",
-        "feature_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_03_26_47_PM_1.webp",
+        "feature_image": "shopify://shop_images/why_people_love_gut_flow.webp",
         "image_alt": "Feature product image",
         "video_autoplay": true,
         "video_muted": true,
@@ -2860,7 +2870,7 @@
         "image_border_radius": 8,
         "heading_color": "#000000",
         "subtitle_color": "#000000",
-        "description_color": "#FFFDFA",
+        "description_color": "#fffdfa",
         "section_background": "#FFFDFA",
         "use_background_image": false,
         "background_image_size": "cover",
@@ -2936,9 +2946,7 @@
         "faq_item_T4fbLF",
         "faq_item_rhqHRh"
       ],
-      "custom_css": [
-        ".store-faq-section {background-color: #f9f9f9 !important;}"
-      ],
+      "custom_css": [],
       "name": "Store FAQ",
       "settings": {
         "use_theme_colors": false,
@@ -2951,9 +2959,9 @@
         "section_padding": 30,
         "container_padding_mobile": 15,
         "container_padding_desktop": 15,
-        "section_bg_color": "#f9f9f9",
+        "section_bg_color": "#fffdfa",
         "border_radius": 8,
-        "border_color": "#e5e5e5",
+        "border_color": "#8D2B40",
         "divider_color": "#e5e5e5",
         "border_style": "full",
         "border_width": 1,
