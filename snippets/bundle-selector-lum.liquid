@@ -56,13 +56,7 @@
   .bsl-{{ uid }} .bsl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; -webkit-appearance:none; appearance:none; }
   .bsl-{{ uid }} .bsl__card:has(.bsl__input:focus-visible){ outline:2px solid var(--bsl-ink); outline-offset:2px; }
 
-       /* Fraunces only for lum-template-5-v1 */
-            {% if template.name == 'product' and template.suffix == 'lum-template-5-v1' %}
-        #MainContent .section-{{ section.id }} .bsl__label {
-          font-family: 'Fraunces', Georgia, serif !important;
-          font-size: 20px;
-        }
-      {% endif %}
+    
 
   .bsl-{{ uid }} .bsl__pack{ display:flex; align-items:center; justify-content:center; gap:2px; width:100%; height:48px; }
   .bsl-{{ uid }} .bsl__img{ flex:0 1 auto; min-width:0; height:48px; display:flex; align-items:center; justify-content:center; }
