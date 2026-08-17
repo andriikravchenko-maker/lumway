@@ -1,62 +1,89 @@
 {% style %}
+
   /* =========================================
      PRODUCT — lum-template-5-v1
   ========================================= */
-                    {% if template.name == 'product' and template.suffix == 'lum-template-5-v1' %}
-                #MainContent .pdl-title {
-                  font-family: 'Fraunces', Georgia, serif !important;
-                  color: var(--pdl-title-color, #113B34) !important;
-                }
-                .#MainContent {
-                   background: #FFFDFA;
-                }
-                 #MainContent .xsl__heading,  #MainContent  .ptl__label{
-                   font-family: 'Fraunces', Georgia, serif !important;
-                   font-size: 20px;
-                }
-                     .icl__row{
-                   box-shadow: 4px 4px 0 0 #FA6C56;
-                   border: 1px solid #5B0D1E;
-                }
-                #MainContent  .ptab-product_tabs_mig .ptab__tab{
-                  background: #F5F3EF !important;
-                   border: 1px solid black !important;
+  {% if template.name == 'product' and template.suffix == 'lum-template-5-v1' %}
 
-                }
-                 #MainContent  .ptab-product_tabs_mig .ptab__tab.is-active{
-                    background: #ffffff !important;
-                   }
+    #MainContent {
+      --template-heading-font: 'Fraunces', Georgia, serif;
+      --template-bg: #FFFDFA;
+      --template-accent: #FA6C56;
+      --template-border: #5B0D1E;
+      --template-soft-bg: #F5F3EF;
 
-                 #MainContent  .xsl__card{
-                   background: #F5F3EF !important;
-                }
-                 #MainContent  .ptab__panel-wrap{
-                      border: 1px solid black !important;
-                      border-top: 0 !important;
-                }
-                #MainContent  .bsl__input{
-                  border:  1px solid #C2C2C2 !important;
-                  background: #F5F3EF  !important;
-                }
-                #MainContent .stats-column-container .stats-section-title, #MainContent  .custom-accent-text{
-                  font-family: 'Fraunces', Georgia, serif !important;
-                }
-                #MainContent  .ingredient-cards__heading, #MainContent  .ingredient-cards__heading-accent{
-                   font-family: 'Fraunces', Georgia, serif !important;
-                }
-                 #MainContent  .ingredient-card__image-wrap{
-                  width: 100%;
-                  border-radius: 8px;
-                }
-                #MainContent .ingredient-card__image{
-                   border-radius: 8px;
-                }
-                #MainContent  .ingredient-card{
-                  padding: 24px;
-                   border: 1px solid #5B0D1E;
-                    box-shadow: 4px 4px 0 0 #FA6C56;
-                }
+      background: var(--template-bg);
+    }
 
+       #MainContent .bsl__label {
+         font-family: var(--template-heading-font) !important;
+          font-size: 20px;
+        }
 
-              {% endif %}
+    #MainContent .pdl-title {
+      font-family: var(--template-heading-font) !important;
+      color: var(--pdl-title-color, #113B34) !important;
+    }
+
+    #MainContent .xsl__heading,
+    #MainContent .ptl__label,
+    #MainContent .stats-column-container .stats-section-title,
+    #MainContent .custom-accent-text,
+    #MainContent .ingredient-cards__heading,
+    #MainContent .ingredient-cards__heading-accent,
+    #MainContent .product-benefits-heading,
+    #MainContent .product-benefits-heading span {
+      font-family: var(--template-heading-font) !important;
+    }
+
+    #MainContent .xsl__heading,
+    #MainContent .ptl__label {
+      font-size: 20px;
+    }
+
+    #MainContent .icl__row {
+      box-shadow: 4px 4px 0 0 var(--template-accent);
+      border: 1px solid var(--template-border);
+    }
+
+    #MainContent .ptab-product_tabs_mig .ptab__tab {
+      background: var(--template-soft-bg) !important;
+      border: 1px solid #000 !important;
+    }
+
+    #MainContent .ptab-product_tabs_mig .ptab__tab.is-active {
+      background: #fff !important;
+    }
+
+    #MainContent .xsl__card {
+      background: var(--template-soft-bg) !important;
+    }
+
+    #MainContent .ptab__panel-wrap {
+      border: 1px solid #000 !important;
+      border-top: 0 !important;
+    }
+
+    #MainContent .bsl__input {
+      border: 1px solid #C2C2C2 !important;
+      background: var(--template-soft-bg) !important;
+    }
+
+    #MainContent .ingredient-card__image-wrap,
+    #MainContent .ingredient-card__image {
+      border-radius: 8px;
+    }
+
+    #MainContent .ingredient-card__image-wrap {
+      width: 100%;
+    }
+
+    #MainContent .ingredient-card {
+      padding: 24px;
+      border: 1px solid var(--template-border);
+      box-shadow: 4px 4px 0 0 var(--template-accent);
+    }
+
+  {% endif %}
+
 {% endstyle %}
