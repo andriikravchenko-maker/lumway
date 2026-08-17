@@ -628,7 +628,7 @@
         "disclaimer_text": "*Based on internal customer feedback and post-purchase surveys. Individual results may vary. These statements have not been evaluated by the Food and Drug Administration.",
         "disclaimer_color": "#ffffff",
         "disclaimer_icon_color": "#ffffff",
-        "disclaimer_background_color": "#0A7761",
+        "disclaimer_background_color": "#0a7761",
         "disclaimer_size_mobile": 14,
         "disclaimer_size_desktop": 16,
         "disclaimer_line_height": 1.4,
@@ -2146,7 +2146,7 @@
         "ingredient_3yTYWc": {
           "type": "ingredient",
           "settings": {
-            "image": "shopify://shop_images/Ellipse_868.webp",
+            "image": "shopify://shop_images/inulin.webp",
             "title": "Inulin",
             "badge_text": "Feeds Beneficial Gut Bacteria",
             "description": "<p>Supports microbiome diversity and digestive regularity.</p>",
@@ -2160,16 +2160,6 @@
             "title": "FOS",
             "badge_text": "Nourishes Your Gut From Within",
             "description": "<p>Fructooligosaccharides (FOS) works alongside Inulin to help beneficial bacteria thrive that support a balanced gut microbiome. </p>",
-            "benefit_text": ""
-          }
-        },
-        "ingredient_x6WJib": {
-          "type": "ingredient",
-          "settings": {
-            "image": "shopify://shop_images/Ellipse_870.webp",
-            "title": "Pectin",
-            "badge_text": "Supports Digestive Comfort",
-            "description": "<p>A natural soluble fiber that complements your daily fiber intake.</p>",
             "benefit_text": ""
           }
         },
@@ -2187,7 +2177,6 @@
       "block_order": [
         "ingredient_3yTYWc",
         "ingredient_gTpCwV",
-        "ingredient_x6WJib",
         "ingredient_NTHJDE"
       ],
       "custom_css": [
@@ -2203,14 +2192,14 @@
         "heading_color": "#000000",
         "accent_color": "#113b34",
         "card_background": "#ffffff",
-        "card_border_color": "#c2c2c2",
+        "card_border_color": "#5b0d1e",
         "card_border_radius": 8,
         "title_color": "#000000",
         "description_color": "#000000",
-        "badge_background": "#fff8d6",
-        "badge_text_color": "#5e1424",
+        "badge_background": "#fad356",
+        "badge_text_color": "#5b0d1e",
         "benefit_color": "#113b34",
-        "section_background": "#f9f9f9",
+        "section_background": "#fffdfa",
         "container_width": 1200,
         "padding_top": 80,
         "padding_bottom": 80,
@@ -2331,7 +2320,7 @@
         "placeholder_min_height_desktop": 600,
         "enable_placeholder_space_mobile": false,
         "placeholder_height_mobile": 300,
-        "section_background": "linear-gradient(135deg, rgba(249, 249, 249, 1), rgba(249, 249, 249, 1) 100%)",
+        "section_background": "#FFFDFA",
         "heading_color": "#121212",
         "subheading_color": "#121212",
         "step_title_color": "#121212",
