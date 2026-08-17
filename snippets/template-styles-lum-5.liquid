@@ -1,89 +1,135 @@
 {% style %}
+    /* =========================================
+       PRODUCT — lum-template-5-v1
+    ========================================= */
+    {% if template.name == 'product' and template.suffix == 'lum-template-5-v1' %}
 
-  /* =========================================
-     PRODUCT — lum-template-5-v1
-  ========================================= */
-  {% if template.name == 'product' and template.suffix == 'lum-template-5-v1' %}
+      #MainContent {
+        --template-heading-font: 'Fraunces', Georgia, serif;
+        --template-bg: #FFFDFA;
+        --template-accent: #FA6C56;
+        --template-border: #5B0D1E;
+        --template-soft-bg: #F5F3EF;
 
-    #MainContent {
-      --template-heading-font: 'Fraunces', Georgia, serif;
-      --template-bg: #FFFDFA;
-      --template-accent: #FA6C56;
-      --template-border: #5B0D1E;
-      --template-soft-bg: #F5F3EF;
+        background: var(--template-bg);
+      }
 
-      background: var(--template-bg);
+         #MainContent .bsl__label {
+           font-family: var(--template-heading-font) !important;
+            font-size: 20px;
+          }
+
+      #MainContent .pdl-title {
+        font-family: var(--template-heading-font) !important;
+        color: var(--pdl-title-color, #113B34) !important;
+      }
+
+      #MainContent .xsl__heading,
+      #MainContent .ptl__label,
+      #MainContent .stats-column-container .stats-section-title,
+      #MainContent .custom-accent-text,
+      #MainContent .ingredient-cards__heading,
+      #MainContent .ingredient-cards__heading-accent,
+      #MainContent .product-benefits-heading,
+      #MainContent .product-benefits-heading span,
+      #MainContent .reviews-subtitle,
+      #MainContent .reviews-subtitle span,
+      #MainContent .store-faq-heading,
+      #MainContent .roadmap-header h2,
+      #MainContent .roadmap-header span
+      {
+        font-family: var(--template-heading-font) !important;
+      }
+
+      #MainContent .xsl__heading,
+      #MainContent .ptl__label {
+        font-size: 20px;
+      }
+
+      #MainContent .icl__row {
+        box-shadow: 4px 4px 0 0 var(--template-accent);
+        border: 1px solid var(--template-border);
+      }
+
+      #MainContent .ptab-product_tabs_mig .ptab__tab {
+        background: var(--template-soft-bg) !important;
+        border: 1px solid #000 !important;
+      }
+
+      #MainContent .ptab-product_tabs_mig .ptab__tab.is-active {
+        background: #fff !important;
+      }
+
+      #MainContent .xsl__card {
+        background: var(--template-soft-bg) !important;
+      }
+
+      #MainContent .ptab__panel-wrap {
+        border: 1px solid #000 !important;
+        border-top: 0 !important;
+      }
+
+      #MainContent .bsl__input {
+        border: 1px solid #C2C2C2 !important;
+        background: var(--template-soft-bg) !important;
+      }
+
+      #MainContent .ingredient-card__image-wrap,
+      #MainContent .ingredient-card__image {
+        border-radius: 8px;
+      }
+
+      #MainContent .ingredient-card__image-wrap {
+        width: 100%;
+      }
+
+      #MainContent .ingredient-card {
+        padding: 24px;
+        border: 1px solid var(--template-border);
+        box-shadow: 4px 4px 0 0 var(--template-accent);
+      }
+       #MainContent .custom-feature-image{
+        box-shadow: 4px 4px 0 0 var(--template-accent);
+        border: 1px solid var(--template-border);
+      }
+       #MainContent .store-faq-items-container.individual-borders,
+       #MainContent .store-faq-items-container-two-columns {
+      overflow: visible !important;
+
+    }
+    #MainContent .store-faq-items-container-two-columns {
+      padding-right: 4px;
+      padding-bottom: 4px;
+      box-sizing: border-box;
     }
 
-       #MainContent .bsl__label {
-         font-family: var(--template-heading-font) !important;
-          font-size: 20px;
-        }
-
-    #MainContent .pdl-title {
-      font-family: var(--template-heading-font) !important;
-      color: var(--pdl-title-color, #113B34) !important;
-    }
-
-    #MainContent .xsl__heading,
-    #MainContent .ptl__label,
-    #MainContent .stats-column-container .stats-section-title,
-    #MainContent .custom-accent-text,
-    #MainContent .ingredient-cards__heading,
-    #MainContent .ingredient-cards__heading-accent,
-    #MainContent .product-benefits-heading,
-    #MainContent .product-benefits-heading span {
-      font-family: var(--template-heading-font) !important;
-    }
-
-    #MainContent .xsl__heading,
-    #MainContent .ptl__label {
-      font-size: 20px;
-    }
-
-    #MainContent .icl__row {
+    #MainContent  .store-faq-item {
+      background: var(--template-soft-bg) !important;
+      border-radius: 8px !important;
       box-shadow: 4px 4px 0 0 var(--template-accent);
+    }
+    #MainContent  .roadmap-circle{
+      background: var(--template-soft-bg) !important;
       border: 1px solid var(--template-border);
+      box-shadow: 4px 4px 0 0 var(--template-accent);
     }
-
-    #MainContent .ptab-product_tabs_mig .ptab__tab {
-      background: var(--template-soft-bg) !important;
-      border: 1px solid #000 !important;
+    #MainContent  .roadmap-circle path{
+      fill: #111111 !important;
     }
-
-    #MainContent .ptab-product_tabs_mig .ptab__tab.is-active {
-      background: #fff !important;
-    }
-
-    #MainContent .xsl__card {
-      background: var(--template-soft-bg) !important;
-    }
-
-    #MainContent .ptab__panel-wrap {
-      border: 1px solid #000 !important;
-      border-top: 0 !important;
-    }
-
-    #MainContent .bsl__input {
-      border: 1px solid #C2C2C2 !important;
-      background: var(--template-soft-bg) !important;
-    }
-
-    #MainContent .ingredient-card__image-wrap,
-    #MainContent .ingredient-card__image {
-      border-radius: 8px;
-    }
-
-    #MainContent .ingredient-card__image-wrap {
+   #MainContent .roadmap-timeline::before{
+    left: 3.5%;
+    background: #C2C2C2;
+  }
+  @media screen and (max-width: 749px) {
+     #MainContent .ingredient-card__image-wrap img{
       width: 100%;
     }
-
-    #MainContent .ingredient-card {
-      padding: 24px;
-      border: 1px solid var(--template-border);
-      box-shadow: 4px 4px 0 0 var(--template-accent);
+    #MainContent .roadmap-timeline::before{
+      left: 5.5%;
     }
-
-  {% endif %}
-
+     #MainContent .store-faq-items-container.individual-borders .store-faq-item:not(:last-child){
+      margin-bottom: 10px;
+    }
+  }
+    {% endif %}
 {% endstyle %}
