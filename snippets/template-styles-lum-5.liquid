@@ -10,6 +10,7 @@
         --template-accent: #FA6C56;
         --template-border: #5B0D1E;
         --template-soft-bg: #F5F3EF;
+         --template-accent-black: #111111;
 
         background: var(--template-bg);
       }
@@ -25,6 +26,15 @@
       }
        #MainContent .lpg__item{
         aspect-ratio: 4/3;
+      }
+
+       #MainContent  .pdl-subtitle,
+       #MainContent .pdl-chip__text,
+       {
+          color: var(--template-accent-black);
+      }
+      #MainContent .pdl-chip__text{
+        background: var(--template-soft-bg);
       }
 
          #MainContent .bsl__label {
