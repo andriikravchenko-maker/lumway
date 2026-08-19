@@ -108,7 +108,7 @@
         <form id="{{ fid }}" class="xsl__form" action="{{ routes.cart_add_url }}" method="post" data-cart-action="drawer" onsubmit="return false;">
           <input type="hidden" name="id" value="{{ variant.id }}">
           <input type="hidden" name="quantity" value="1">
-          <button type="button" class="xsl__add disable-global-button-styling" onclick="handleProductUpsellAdd(this, '{{ fid }}')"{% unless variant.available %} disabled{% endunless %}>
+          <button type="button" class="xsl__add disable-global-button-styling" onclick="handleProductUpsellAdd(this, '{{ fid }}')" data-upsell-sku="{{ variant.sku | escape }}" data-upsell-name="{{ title | escape }}" data-upsell-price="{{ price }}"{% unless variant.available %} disabled{% endunless %}>
             <span class="xsl__add-icon">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
             <span class="xsl__add-label">{{ block.settings.add_label | default: 'Add' | escape }}</span>
           </button>
