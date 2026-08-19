@@ -130,7 +130,7 @@
           assign is_sel = true
         endif
       -%}
-      <label class="bsl__card{% if is_sel %} is-selected{% endif %}" data-variant="{{ v.id }}" data-pack-total="{{ paid | plus: free }}" data-pack-paid="{{ paid }}" data-pack-free="{{ free }}" data-price="{{ v.price }}" data-compare-total="{{ base_compare | times: total_jars }}">
+      <label class="bsl__card{% if is_sel %} is-selected{% endif %}" data-variant="{{ v.id }}" data-offer="{{ badge | default: '' | handleize }}" data-pack-total="{{ paid | plus: free }}" data-pack-paid="{{ paid }}" data-pack-free="{{ free }}" data-price="{{ v.price }}" data-compare-total="{{ base_compare | times: total_jars }}">
         <input type="radio" class="bsl__input" name="bsl-{{ uid }}" value="{{ v.id }}"{% if is_sel %} checked{% endif %} aria-label="{{ label | escape }}">
         {%- if badge != blank -%}<span class="bsl__badge" style="background:{{ badge_bg }};color:{{ badge_tc }}">{{ badge | escape }}</span>{%- endif -%}
         <span class="bsl__pack{% if img2 != blank %} bsl__pack--multi{% endif %}" aria-hidden="true">
