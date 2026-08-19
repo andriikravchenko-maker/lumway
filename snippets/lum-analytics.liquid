@@ -676,7 +676,10 @@
                     // buy-box: bundle_selected + purchase_type_selected (PDP)
                     // =====================================================================
                     (function () {
-                      if (PAGE_TYPE !== 'pdp') return;
+                      // Buy-box (product-details-lum) can be dropped on non-PDP templates (landings, advertorials).
+                      // Gate on the buy-box being present rather than PAGE_TYPE, so purchase_type_selected /
+                      // bundle_selected fire wherever the buy-box renders.
+                      if (!document.querySelector('.ptl__input, .bsl__input')) return;
                       var PACKS = ['1_jar', '2_jars', '3_jars', '4_jars'];
 
                       function packIndexOf(input) {
@@ -696,6 +699,50 @@
                         return null;
                       }
 
+                      // --- purchase_type_selected helpers (mirror the product_added_to_cart block) ---
+                      function buyboxVariants() {
+                        var node = document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
+                        try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+                      }
+                      function buyboxPlans() {
+                        var node = document.querySelector('.ptl-plans');
+                        try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+                      }
+                      function buyboxSelectedVariant(vs) {
+                        var input = document.querySelector('.product-buy-form-pdp input[name="id"]')
+                                || document.querySelector('input[name="id"]');
+                        var id = input && input.value;
+                        for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
+                        return vs[0] || null;
+                      }
+                      function buyboxPackLabel() {
+                        var card = document.querySelector('.bsl__card.is-selected')
+                                || ((document.querySelector('.bsl__input:checked') || {}).closest
+                                        && document.querySelector('.bsl__input:checked').closest('.bsl__card'));
+                        var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+                        if (!n) n = 1;
+                        return n + (n === 1 ? '-jar' : '-jars');
+                      }
+                      function buyboxSubscriptionType() {
+                        var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]')
+                                || document.querySelector('input[name="selling_plan"]');
+                        var planId = sp && sp.value;
+                        if (!planId) return undefined;
+                        var groups = buyboxPlans();
+                        for (var g = 0; g < groups.length; g++) {
+                          var sps = groups[g].selling_plans || [];
+                          for (var i = 0; i < sps.length; i++) {
+                            if (String(sps[i].id) === String(planId)) {
+                              var opts = sps[i].options || [];
+                              for (var o = 0; o < opts.length; o++) {
+                                if (/frequency|order frequency|unit/i.test(opts[o].name || '')) return opts[o].value;
+                              }
+                            }
+                          }
+                        }
+                        return undefined;
+                      }
+
                       document.addEventListener('change', function (e) {
                         var t = e.target;
                         if (t.classList && t.classList.contains('bsl__input')) {
@@ -703,7 +750,25 @@
                           if (i > -1) track('bundle_selected', { bundle_type: PACKS[i] || String(i + 1), bundle_price: bundlePrice(t.value) });
                         }
                         if (t.classList && t.classList.contains('ptl__input')) {
-                          track('purchase_type_selected', { purchase_type: t.value === 'subscribe' ? 'subscription' : 'one_time' });
+                          // The buy-box writes name="selling_plan" + updates .bsl__card.is-selected on this same
+                          // change event; defer a tick so selected variant / pack / plan read the settled state.
+                          setTimeout(function () {
+                            var vs = buyboxVariants();
+                            var v = buyboxSelectedVariant(vs);
+                            var sku = v ? (v.sku || (vs[0] && vs[0].sku)) : null;
+                            var isSub = t.value === 'subscribe';
+                            var props = {
+                              product_id: sku || undefined,
+                              product_name: v ? ((v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined) : undefined,
+                              purchase_type: isSub ? 'subscription' : 'one_time',
+                              variant_id: buyboxPackLabel()
+                            };
+                            if (isSub) {
+                              var st = buyboxSubscriptionType();
+                              if (st) props.subscription_type = st;
+                            }
+                            track('purchase_type_selected', props);
+                          }, 0);
                         }
                       }, true);
                     })();
