@@ -52,7 +52,7 @@
             "chip_3_text": "Close the Daily Fiber Gap",
             "chip_4_show": true,
             "chip_4_text": "Feel Fuller For Longer",
-            "chip_5_show": true,
+            "chip_5_show": false,
             "chip_5_text": "Drug-free",
             "chip_6_show": false,
             "chip_6_text": ""
