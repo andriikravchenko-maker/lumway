@@ -48,12 +48,12 @@
             "chip_1_text": "Digestive Regularity",
             "chip_2_show": true,
             "chip_2_text": "Feel Lighter Daily",
-            "chip_3_show": false,
-            "chip_3_text": "Weight-loss",
+            "chip_3_show": true,
+            "chip_3_text": "Close the Daily Fiber Gap",
             "chip_4_show": true,
-            "chip_4_text": "Drug-free",
-            "chip_5_show": false,
-            "chip_5_text": "",
+            "chip_4_text": "Feel Fuller For Longer",
+            "chip_5_show": true,
+            "chip_5_text": "Drug-free",
             "chip_6_show": false,
             "chip_6_text": ""
           }
