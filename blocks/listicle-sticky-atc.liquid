@@ -351,7 +351,10 @@
     if (document.readyState === 'complete') { fit(); } else { window.addEventListener('load', fit); }
     window.addEventListener('resize', fit);
   })();
-  {% if template.suffix == 'lumway3' or template.suffix contains '5-ways-for-35' %}
+  {% if template.suffix == 'lumway3'
+  or template.suffix contains '5-ways-for-35'
+  or template.suffix contains 'gut-flow-'
+%}
   /* lumway3 / 5-ways-for-35: the button must be visible from page load. Its parent section
      carries theme scroll animations (ancestor transform/opacity), which both hide the subtree
      and turn position:fixed into section-relative, so re-parent to <body>. Hidden again once
