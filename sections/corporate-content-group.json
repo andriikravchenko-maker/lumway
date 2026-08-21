@@ -1,0 +1,235 @@
+{
+  "type": "custom.content",
+  "name": "Corporate Content",
+  "sections": {
+    "hero": {
+      "type": "corporate-hero",
+      "settings": {}
+    },
+    "overview": {
+      "type": "corporate-overview",
+      "settings": {}
+    },
+    "services": {
+      "type": "corporate-services",
+      "settings": {
+        "heading": "Services"
+      },
+      "blocks": {
+        "regulatory": {
+          "type": "service",
+          "settings": {
+            "tone": "plum",
+            "tag": "Regulatory",
+            "title": "Regulatory & Compliance Advisory",
+            "text": "Guidance on US labeling, marketing claims, and advertising compliance for health and wellness products, including review against applicable FDA and FTC frameworks and assessment of market-entry regulatory risk."
+          }
+        },
+        "strategy": {
+          "type": "service",
+          "settings": {
+            "tone": "sage",
+            "tag": "Strategy",
+            "title": "Market Entry & Business Strategy",
+            "text": "Support for companies planning or executing entry into the US market: positioning, competitive assessment, and channel and pricing strategy."
+          }
+        },
+        "sourcing": {
+          "type": "service",
+          "settings": {
+            "tone": "gold",
+            "tag": "Sourcing",
+            "title": "Product Development & Sourcing",
+            "text": "Evaluation of manufacturers and suppliers, product specification review, and supply chain and quality risk assessment."
+          }
+        }
+      },
+      "block_order": [
+        "regulatory",
+        "strategy",
+        "sourcing"
+      ]
+    },
+    "approach": {
+      "type": "corporate-approach",
+      "settings": {
+        "heading": "Approach",
+        "lede": "A defined engagement, before work begins."
+      },
+      "blocks": {
+        "brief": {
+          "type": "step",
+          "settings": {
+            "label": "BRIEF",
+            "title": "Align the decision.",
+            "text": "We start with the business question, the market context, and the outcome that matters. The scope is built around a decision to make, not a generic workstream."
+          }
+        },
+        "scope": {
+          "type": "step",
+          "settings": {
+            "label": "SCOPE",
+            "title": "Make the work tangible.",
+            "text": "Before launch, we map the working sessions, deliverables, review points, and timing. You can see exactly what will be produced and how it supports the decision."
+          }
+        },
+        "owners": {
+          "type": "step",
+          "settings": {
+            "label": "OWNERS",
+            "title": "Put the right people in the room.",
+            "text": "Your statement of work names the Lumway team and client owners, with a clear cadence for decisions and feedback throughout the engagement."
+          }
+        }
+      },
+      "block_order": [
+        "brief",
+        "scope",
+        "owners"
+      ]
+    },
+    "clients": {
+      "type": "corporate-clients",
+      "settings": {
+        "heading": "Who We Work With",
+        "intro": "We work with early- and growth-stage consumer health and wellness brands operating in the US market, including companies managing dietary supplement labeling and advertising compliance, entering new product categories, or evaluating manufacturing and sourcing partners."
+      },
+      "blocks": {
+        "p1": {
+          "type": "profile",
+          "settings": {
+            "tone": "sage",
+            "label": "Dietary supplement labeling & advertising compliance"
+          }
+        },
+        "p2": {
+          "type": "profile",
+          "settings": {
+            "tone": "plum",
+            "label": "Entering new product categories"
+          }
+        },
+        "p3": {
+          "type": "profile",
+          "settings": {
+            "tone": "gold",
+            "label": "Evaluating manufacturing & sourcing partners"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ]
+    },
+    "team": {
+      "type": "corporate-team",
+      "settings": {
+        "heading": "Team"
+      },
+      "blocks": {
+        "reg": {
+          "type": "practice",
+          "settings": {
+            "label": "Regulatory practice",
+            "title": "Regulatory & Compliance Practice",
+            "text": "Reviews product labeling, marketing claims, and advertising against FDA and FTC frameworks, and assesses regulatory risk for new products and markets. The work is grounded in hands-on compliance experience for a US direct-to-consumer health and wellness brand, including labeling review under 21 CFR Parts 101/111 and endorsement disclosure assessment under the FTC Endorsement Guides."
+          }
+        },
+        "strat": {
+          "type": "practice",
+          "settings": {
+            "label": "Strategy practice",
+            "title": "Market Entry & Strategy Practice",
+            "text": "Evaluates competitive landscape, positioning, and channel and pricing strategy for companies entering or scaling in the US consumer health and wellness market."
+          }
+        },
+        "src": {
+          "type": "practice",
+          "settings": {
+            "label": "Sourcing practice",
+            "title": "Product & Sourcing Practice",
+            "text": "Evaluates manufacturers and suppliers, reviews product specifications, and assesses supply chain and quality risk for consumer health and wellness products."
+          }
+        }
+      },
+      "block_order": [
+        "reg",
+        "strat",
+        "src"
+      ]
+    },
+    "contact": {
+      "type": "corporate-contact",
+      "settings": {
+        "heading": "Tell us about your project.",
+        "intro": "Share a few details about your company and what you are working on, and we will come back to you with how we can help.",
+        "direct_prefix": "Or reach us directly at",
+        "email": "info@lumwaywellness.com",
+        "submit_text": "Submit",
+        "success_note": "Thanks — your inquiry has been sent. We will be in touch shortly."
+      }
+    },
+    "marquee": {
+      "type": "corporate-marquee",
+      "settings": {},
+      "blocks": {
+        "m1": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "FDA labeling frameworks"
+          }
+        },
+        "m2": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "FTC advertising compliance"
+          }
+        },
+        "m3": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "21 CFR Parts 101 / 111"
+          }
+        },
+        "m4": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Endorsement Guides"
+          }
+        },
+        "m5": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Market entry strategy"
+          }
+        },
+        "m6": {
+          "type": "marquee_item",
+          "settings": {
+            "text": "Supplier evaluation"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5",
+        "m6"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "overview",
+    "services",
+    "approach",
+    "clients",
+    "team",
+    "contact"
+  ]
+}

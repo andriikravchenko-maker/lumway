@@ -1,0 +1,51 @@
+{%- comment -%} Corporate Services: light section, practice cards. Blocks via corporate-content-group. {%- endcomment -%}
+<section class="section services" id="services">
+  <div class="container">
+    <div class="section-head"><h2>{{ section.settings.heading | default: 'Services' }}</h2></div>
+    <div class="service-stream">
+      {%- for block in section.blocks -%}
+        <article class="service-row" data-tone="{{ block.settings.tone }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.tag != blank -%}<span class="service-tag">{{ block.settings.tag }}</span>{%- endif -%}
+          <h3>{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+          <span class="service-arrow" aria-hidden="true">&rarr;</span>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% style %}
+  .lw-corp #services{ border:0; padding-top:clamp(4.5rem, 9vh, 7rem); }
+  .lw-corp #services .section-head{ justify-content:center; text-align:center; margin-bottom:clamp(2rem, 5vh, 3.5rem); }
+  .lw-corp #services .section-head h2::after{ margin-inline:auto; }
+  .lw-corp .service-stream{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:1.25rem; }
+  .lw-corp .service-row{ display:flex; flex-direction:column; align-items:flex-start; gap:1.15rem; min-height:22rem; padding:clamp(1.65rem, 3.2vw, 2.5rem); border-radius:1.4rem; background:var(--paper-card); color:var(--night); box-shadow:0 1rem 2.5rem oklch(0.18 0.018 345 / 0.045); transition:transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out); }
+  .lw-corp .service-row:hover{ transform:translateY(-0.45rem); box-shadow:0 1.4rem 3.5rem oklch(0.18 0.018 345 / 0.1); }
+  .lw-corp .service-row:last-child{ grid-column:1 / -1; min-height:15rem; }
+  .lw-corp .service-tag{ display:inline-flex; width:fit-content; align-items:center; padding:0.35rem 0.65rem; border:1px solid currentColor; border-radius:999px; font-size:0.66rem; font-weight:600; letter-spacing:0.09em; text-transform:uppercase; }
+  .lw-corp .service-row[data-tone="plum"] .service-tag{ color:var(--brand); }
+  .lw-corp .service-row[data-tone="sage"] .service-tag{ color:var(--sage); }
+  .lw-corp .service-row[data-tone="gold"] .service-tag{ color:var(--gold-deep); }
+  .lw-corp .service-row h3{ margin:0; max-width:14ch; font-family:var(--font-sans); font-size:clamp(1.65rem, 2.5vw, 2.35rem); font-weight:500; line-height:1.04; letter-spacing:-0.045em; }
+  .lw-corp .service-row p{ margin:auto 0 0; max-width:34rem; color:var(--muted-foreground); font-size:1rem; line-height:1.65; }
+  .lw-corp .service-row .service-arrow{ color:var(--night); font-family:var(--font-sans); font-size:1.4rem; line-height:1; transition:transform 0.25s var(--ease-out); }
+  .lw-corp .service-row:hover .service-arrow{ transform:translateX(0.35rem); }
+  @media (max-width:760px){ .lw-corp .service-stream{ grid-template-columns:1fr; } .lw-corp .service-row:last-child{ grid-column:auto; } }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Services",
+  "settings": [ { "type": "text", "id": "heading", "label": "Heading", "default": "Services" } ],
+  "blocks": [
+    { "type": "service", "name": "Practice", "settings": [
+      { "type": "select", "id": "tone", "label": "Accent", "default": "plum", "options": [
+        { "value": "plum", "label": "Plum (Regulatory)" }, { "value": "sage", "label": "Sage (Strategy)" }, { "value": "gold", "label": "Gold (Sourcing)" } ] },
+      { "type": "text", "id": "tag", "label": "Tag", "default": "Regulatory" },
+      { "type": "text", "id": "title", "label": "Title", "default": "Practice title" },
+      { "type": "textarea", "id": "text", "label": "Description" }
+    ] }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Corporate Services" }]
+}
+{% endschema %}

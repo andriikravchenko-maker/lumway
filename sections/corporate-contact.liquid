@@ -1,0 +1,85 @@
+{%- comment -%} Corporate Contact: native Shopify contact form. Submissions go to the store contact email. {%- endcomment -%}
+<section class="section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-intro">
+        <h2>{{ section.settings.heading | default: 'Tell us about your project.' }}</h2>
+        {%- if section.settings.intro != blank -%}<p>{{ section.settings.intro }}</p>{%- endif -%}
+        {%- if section.settings.email != blank -%}
+          <p class="contact-direct">{{ section.settings.direct_prefix }} <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></p>
+        {%- endif -%}
+      </div>
+      {%- form 'contact', class: 'contact-form', id: 'corporate-contact-form' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="form-note">{{ section.settings.success_note | default: 'Thanks — your inquiry has been sent. We will be in touch shortly.' }}</p>
+        {%- else -%}
+          {%- if form.errors -%}<p class="form-note form-error">{{ form.errors | default_errors }}</p>{%- endif -%}
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" type="text" name="contact[name]" value="{{ form.name }}">
+            </div>
+            <div class="field">
+              <label for="cf-company">Company</label>
+              <input id="cf-company" type="text" name="contact[Company]">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" type="email" name="contact[email]" value="{{ form.email }}" required>
+            </div>
+            <div class="field">
+              <label for="cf-country">Country</label>
+              <input id="cf-country" type="text" name="contact[Country]">
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-message">Brief description of inquiry</label>
+            <textarea id="cf-message" name="contact[body]">{{ form.body }}</textarea>
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit">{{ section.settings.submit_text | default: 'Submit' }} <span class="arrow" aria-hidden="true">&rarr;</span></button>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+{% style %}
+  .lw-corp #contact{ background:var(--night); color:var(--cream); padding-block:clamp(5.5rem, 12vh, 9rem); }
+  .lw-corp .contact-grid{ display:grid; grid-template-columns:4fr 5fr; gap:clamp(2.5rem, 6vw, 5rem); align-items:center; }
+  .lw-corp .contact-intro h2{ margin:0 0 1.25rem; color:var(--cream); font-family:var(--font-sans); font-size:clamp(2.6rem, 5.2vw, 4.8rem); font-weight:500; letter-spacing:-0.07em; line-height:0.98; }
+  .lw-corp .contact-intro h2 em{ color:var(--gold); font-family:var(--font-heading); font-weight:400; font-style:italic; }
+  .lw-corp .contact-intro p{ margin:0; max-width:26rem; color:oklch(0.97 0.012 82 / 0.68); line-height:1.65; }
+  .lw-corp .contact-direct{ margin-top:2rem; padding-top:1.5rem; border-top:1px solid oklch(0.97 0.012 82 / 0.16); font-size:0.95rem; color:oklch(0.97 0.012 82 / 0.68); }
+  .lw-corp .contact-direct a{ color:var(--cta-sage); font-weight:600; text-decoration:none; }
+  .lw-corp .contact-direct a:hover{ text-decoration:underline; }
+  .lw-corp .contact-form{ display:grid; gap:1.1rem; padding:clamp(1.5rem, 3.5vw, 2.5rem); border:0; border-radius:1.4rem; background:var(--paper-card); color:var(--night); }
+  .lw-corp .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+  .lw-corp .field{ display:grid; gap:0.4rem; }
+  .lw-corp .field label{ color:var(--night); font-size:0.84rem; font-weight:600; letter-spacing:0.02em; }
+  .lw-corp .field input, .lw-corp .field textarea{ width:100%; font-family:var(--font-sans); font-size:0.95rem; color:var(--night); background:var(--paper); border:1px solid oklch(0.24 0.035 153 / 0.18); border-radius:var(--radius); padding:0.7rem 0.9rem; transition:border-color 0.2s, box-shadow 0.2s; }
+  .lw-corp .field textarea{ resize:vertical; min-height:7rem; }
+  .lw-corp .field input::placeholder, .lw-corp .field textarea::placeholder{ color:oklch(0.4 0.024 153 / 0.65); }
+  .lw-corp .field input:focus, .lw-corp .field textarea:focus{ outline:none; border-color:var(--sage); box-shadow:0 0 0 3px oklch(0.46 0.08 155 / 0.18); }
+  .lw-corp .contact-form .btn{ justify-content:center; }
+  .lw-corp #contact .contact-form .btn-primary{ background:var(--gold); color:var(--night); box-shadow:none; }
+  .lw-corp #contact .contact-form .btn-primary:hover{ background:var(--gold-deep); color:var(--cream); }
+  .lw-corp .form-note{ font-size:0.88rem; padding:0.8rem 1rem; border-radius:var(--radius); background:oklch(0.46 0.08 155 / 0.12); color:var(--sage); border:1px solid oklch(0.46 0.08 155 / 0.3); }
+  .lw-corp .form-note.form-error{ background:oklch(0.55 0.16 18 / 0.1); color:var(--primary); border-color:oklch(0.55 0.16 18 / 0.3); }
+  @media (max-width:860px){ .lw-corp .contact-grid{ grid-template-columns:1fr; } }
+  @media (max-width:560px){ .lw-corp .field-row{ grid-template-columns:1fr; } }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Contact",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tell us about your project." },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Share a few details about your company and what you are working on, and we will come back to you with how we can help." },
+    { "type": "text", "id": "direct_prefix", "label": "Direct-contact prefix", "default": "Or reach us directly at" },
+    { "type": "text", "id": "email", "label": "Contact email", "default": "info@lumwaywellness.com" },
+    { "type": "text", "id": "submit_text", "label": "Submit button text", "default": "Submit" },
+    { "type": "textarea", "id": "success_note", "label": "Success message", "default": "Thanks — your inquiry has been sent. We will be in touch shortly." }
+  ],
+  "presets": [{ "name": "Corporate Contact" }]
+}
+{% endschema %}

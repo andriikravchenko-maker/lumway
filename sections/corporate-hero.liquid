@@ -1,0 +1,81 @@
+{%- comment -%} Corporate page hero: dark band continuing the header, tight display H1 with a gold accent. {%- endcomment -%}
+<section class="hero">
+  <div class="container">
+    <div class="hero-copy">
+      <h1>{{ section.settings.heading_before }}<em>{{ section.settings.heading_accent }}</em>{{ section.settings.heading_after }}</h1>
+      {%- if section.settings.lede != blank -%}
+        <p class="lede">{{ section.settings.lede }}</p>
+      {%- endif -%}
+      {%- if section.settings.cta_text != blank -%}
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="{{ section.settings.cta_link | default: '#contact' }}">{{ section.settings.cta_text }} <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% style %}
+  .lw-corp .hero{ position:relative; overflow:hidden; background:var(--night); color:var(--cream); padding-block:clamp(4.75rem, 9vh, 7.5rem); }
+  .lw-corp .hero::before{
+    content:""; position:absolute; width:43rem; height:43rem; left:48%; top:-12rem;
+    border:1px solid oklch(0.97 0.012 82 / 0.13); border-radius:50%;
+    box-shadow:0 0 0 4.5rem oklch(0.97 0.012 82 / 0.025), 0 0 0 9rem oklch(0.97 0.012 82 / 0.018);
+    pointer-events:none;
+  }
+  .lw-corp .hero::after{
+    content:""; position:absolute; width:20rem; height:20rem; left:34%; bottom:-15rem;
+    border:1px solid oklch(0.97 0.012 82 / 0.13); border-radius:50%; pointer-events:none;
+  }
+  .lw-corp .hero .container{ position:relative; display:block; }
+  .lw-corp .hero-copy{ position:relative; z-index:1; max-width:48rem; }
+  .lw-corp .hero h1{
+    margin:0; max-width:12.2ch; font-family:var(--font-sans);
+    font-size:clamp(3.25rem, 6.2vw, 6.25rem); font-weight:600; line-height:0.92; letter-spacing:-0.075em;
+  }
+  .lw-corp .hero h1 em{ color:var(--gold); font-family:inherit; font-style:normal; font-weight:inherit; letter-spacing:inherit; }
+  .lw-corp .hero .lede{
+    margin:1.6rem 0 2.4rem; max-width:30rem; color:oklch(0.97 0.012 82 / 0.72);
+    font-size:clamp(1rem, 1.35vw, 1.12rem); line-height:1.65; text-wrap:pretty;
+  }
+  .lw-corp .hero .btn-lg{ padding:0.95rem 2rem; font-size:1rem; }
+  .lw-corp .hero .btn-primary{ background:var(--cream); color:var(--sage); box-shadow:none; }
+  .lw-corp .hero .btn-primary:hover{ background:var(--gold); color:var(--sage); box-shadow:none; }
+  .lw-corp .hero .arrow{ transition:transform 0.2s var(--ease-out); }
+  .lw-corp .hero .btn:hover .arrow{ transform:translateX(3px); }
+  @keyframes lw-rise{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:none; } }
+  .lw-corp .hero h1, .lw-corp .hero .lede, .lw-corp .hero .cta-row{ animation:lw-rise 0.8s var(--ease-out) both; }
+  .lw-corp .hero h1{ animation-delay:0.08s; }
+  .lw-corp .hero .lede{ animation-delay:0.16s; }
+  .lw-corp .hero .cta-row{ animation-delay:0.24s; }
+  @media (max-width:940px){
+    .lw-corp .hero .container{ text-align:center; }
+    .lw-corp .hero-copy{ margin-inline:auto; }
+    .lw-corp .hero .lede{ margin-inline:auto; }
+  }
+  @media (max-width:860px){ .lw-corp .hero h1{ max-width:11ch; } }
+  @media (max-width:560px){
+    .lw-corp .hero{ padding-block:3.5rem 4.25rem; }
+    .lw-corp .hero h1{ font-size:clamp(3rem, 15vw, 4.3rem); }
+    .lw-corp .hero .container{ text-align:left; }
+    .lw-corp .hero .lede{ margin-inline:0; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .lw-corp .hero h1, .lw-corp .hero .lede, .lw-corp .hero .cta-row{ animation:none; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Corporate Hero",
+  "settings": [
+    { "type": "text", "id": "heading_before", "label": "Heading start", "default": "US market advisory for consumer " },
+    { "type": "text", "id": "heading_accent", "label": "Heading accent (gold)", "default": "health & wellness" },
+    { "type": "text", "id": "heading_after", "label": "Heading end", "default": " brands." },
+    { "type": "textarea", "id": "lede", "label": "Lede", "default": "Regulatory, go-to-market, and product sourcing guidance for companies bringing health and wellness products to the United States." },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Start a conversation" },
+    { "type": "text", "id": "cta_link", "label": "CTA link", "default": "#contact" }
+  ],
+  "presets": [{ "name": "Corporate Hero" }]
+}
+{% endschema %}

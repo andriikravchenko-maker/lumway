@@ -1,0 +1,52 @@
+{%- comment -%} Corporate footer: logo, legal/contact links, company line + copyright. Rendered by the layout. {%- endcomment -%}
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <span class="logo" role="img" aria-label="{{ section.settings.logo_alt | escape }}"></span>
+      {%- if section.blocks.size > 0 -%}
+        <nav class="footer-links" aria-label="Footer">
+          {%- for block in section.blocks -%}
+            <a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+    </div>
+    <div class="footer-bottom">
+      {%- if section.settings.company_line != blank -%}<span>{{ section.settings.company_line }}</span>{%- endif -%}
+      {%- if section.settings.copyright != blank -%}<span>{{ section.settings.copyright }}</span>{%- endif -%}
+    </div>
+  </div>
+</footer>
+{% style %}
+  .lw-corp .site-footer{ background:var(--night); border-top:1px solid oklch(0.97 0.012 82 / 0.13); padding-block:clamp(2.5rem, 5vh, 4rem); }
+  .lw-corp .site-footer .container{ display:grid; gap:1.75rem; }
+  .lw-corp .footer-top{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:1rem; }
+  .lw-corp .site-footer .logo{ color:var(--cream); width:{{ section.settings.logo_width | default: 104 }}px; }
+  .lw-corp .footer-links{ display:flex; flex-wrap:wrap; gap:1.5rem; }
+  .lw-corp .footer-links a{ color:oklch(0.97 0.012 82 / 0.72); text-decoration:none; transition:color 0.2s; font-size:0.9rem; }
+  .lw-corp .footer-links a:hover{ color:var(--cream); }
+  .lw-corp .footer-bottom{ border-top:1px solid oklch(0.97 0.012 82 / 0.15); padding-top:1.5rem; display:flex; flex-wrap:wrap; justify-content:space-between; gap:0.75rem; color:oklch(0.97 0.012 82 / 0.5); font-size:0.85rem; }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Footer",
+  "settings": [
+    { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Lumway — Powered by Nature" },
+    { "type": "range", "id": "logo_width", "min": 60, "max": 180, "step": 2, "unit": "px", "label": "Logo width", "default": 104 },
+    { "type": "text", "id": "company_line", "label": "Company line", "default": "Lumway Wellness Inc., 1615 Valley Avenue East, Apt 22, Sumner, WA, 98390, United States" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 Lumway Wellness Inc." }
+  ],
+  "blocks": [
+    {
+      "type": "footer_link",
+      "name": "Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "url", "label": "URL", "default": "#" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "Corporate Footer" }]
+}
+{% endschema %}

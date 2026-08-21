@@ -1,0 +1,52 @@
+{%- comment -%} Corporate Approach: engagement steps. Blocks configured via corporate-content-group. {%- endcomment -%}
+<section class="section approach" id="approach">
+  <div class="container">
+    <div class="section-head"><h2>{{ section.settings.heading | default: 'Approach' }}</h2></div>
+    {%- if section.settings.lede != blank -%}<p class="approach-lede">{{ section.settings.lede }}</p>{%- endif -%}
+    <ul class="steps">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}<span class="step-icon">{{ block.settings.label }}</span>{%- endif -%}
+          <h3>{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{% style %}
+  .lw-corp .approach{ position:relative; overflow:hidden; background:var(--night); color:var(--cream); padding-block:clamp(5rem, 11vh, 8.5rem); }
+  .lw-corp .approach::before{ content:""; position:absolute; width:48rem; height:48rem; right:-21rem; top:-20rem; border:1px solid oklch(0.97 0.012 82 / 0.12); border-radius:50%; box-shadow:0 0 0 5rem oklch(0.97 0.012 82 / 0.025), 0 0 0 10rem oklch(0.97 0.012 82 / 0.016); pointer-events:none; }
+  .lw-corp .approach .container{ position:relative; }
+  .lw-corp .approach .section-head h2{ color:var(--cream); }
+  .lw-corp .approach-lede{ margin:0 0 clamp(2rem, 5vh, 3.5rem); max-width:38rem; color:var(--cream); font-family:var(--font-sans); font-size:clamp(1.8rem, 3.3vw, 3.1rem); font-weight:500; letter-spacing:-0.06em; line-height:1.06; text-wrap:pretty; }
+  .lw-corp .approach-lede em{ color:var(--gold); font-family:inherit; font-style:normal; font-weight:inherit; }
+  .lw-corp .steps{ position:relative; display:grid; grid-template-columns:repeat(3, 1fr); gap:1.25rem; list-style:none; margin:0; padding:0; }
+  .lw-corp .steps li{ min-height:18rem; padding:1.65rem; border:1px solid oklch(0.97 0.012 82 / 0.16); border-radius:1.25rem; background:oklch(0.25 0.025 345 / 0.92); }
+  .lw-corp .steps .step-icon{ display:inline-block; padding:0.35rem 0.55rem; border:1px solid var(--cta-sage); border-radius:999px; color:var(--cta-sage); background:transparent; font-family:var(--font-sans); font-size:0.66rem; font-weight:600; letter-spacing:0.09em; }
+  .lw-corp .steps h3{ margin:2.25rem 0 0.75rem; color:var(--cream); font-family:var(--font-sans); font-size:1.45rem; font-weight:500; letter-spacing:-0.04em; line-height:1.1; }
+  .lw-corp .steps p{ margin:0; color:oklch(0.97 0.012 82 / 0.68); font-size:0.95rem; line-height:1.65; }
+  @media (max-width:780px){ .lw-corp .steps{ grid-template-columns:1fr; } .lw-corp .steps li{ min-height:0; } }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Approach",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Approach" },
+    { "type": "textarea", "id": "lede", "label": "Lede", "default": "A defined engagement, before work begins." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "BRIEF" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Step title" },
+        { "type": "textarea", "id": "text", "label": "Description" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Corporate Approach" }]
+}
+{% endschema %}
