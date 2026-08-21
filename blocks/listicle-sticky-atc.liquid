@@ -377,7 +377,9 @@
     // product cards are in view (they carry their own CTA); stays visible at the final CTA.
     // If the page carries the PDP buy box (product-details-lum), the button also hides while the
     // buy box is on screen and its tap scrolls to the buy box instead of leaving the page.
-    var WAIT_FIRST = {% if template.suffix contains '5-ways-for-35' %}true{% else %}false{% endif %};
+    var WAIT_FIRST = {% if template.suffix contains '5-ways-for-35'
+  or template.suffix contains 'gut-flow-'
+%}true{% else %}false{% endif %};
     var ctaInner = null;
     var firstSec = null;
     var ltoCards = null;
