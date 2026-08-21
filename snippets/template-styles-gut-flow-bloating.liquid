@@ -1,0 +1,11 @@
+{% comment %} template-styles-gut-flow-bloating.liquid {% endcomment %}
+ {% style %}
+    /* =========================================
+       PAGES — gut-flow-bloating
+    ========================================= */
+    {% if template.name == 'page' and template.suffix == 'gut-flow-bloating' %}
+       #mm-gut-harmony-feature .gut-harmony-feature__list{
+            width: max-content;
+         }
+    {% endif %}
+{% endstyle %}
