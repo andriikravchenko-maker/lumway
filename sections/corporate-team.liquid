@@ -1,0 +1,48 @@
+{%- comment -%} Corporate Team: practice cards (advisory practices). Blocks via the content group. {%- endcomment -%}
+<section class="section team" id="team">
+  <div class="container">
+    <div class="section-head"><h2>{{ section.settings.heading | default: 'Team' }}</h2></div>
+    <div class="card-grid">
+      {%- for block in section.blocks -%}
+        <article class="card practice-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.label != blank -%}<span class="practice-label">{{ block.settings.label }}</span>{%- endif -%}
+          <h3>{{ block.settings.title }}</h3>
+          {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% style %}
+  .lw-corp .team{ padding-top:clamp(2.5rem, 5vh, 4rem); padding-bottom:clamp(5rem, 10vh, 8rem); }
+  .lw-corp .team .section-head{ justify-content:center; text-align:center; margin-bottom:3.25rem; }
+  .lw-corp .team .section-head h2::after{ margin-inline:auto; }
+  .lw-corp .card-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.25rem; }
+  .lw-corp .team .practice-card{ position:relative; overflow:hidden; display:flex; flex-direction:column; gap:1rem; min-height:23rem; justify-content:flex-start; padding:clamp(1.6rem, 3vw, 2.35rem); border-radius:1.25rem; background:var(--paper-card); box-shadow:0 1rem 2.5rem oklch(0.18 0.018 345 / 0.045); transition:transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out); }
+  .lw-corp .team .practice-card:hover{ transform:translateY(-4px); box-shadow:0 14px 34px oklch(0.26 0.018 25 / 0.08); }
+  .lw-corp .practice-label{ margin:0; font-size:0.72rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; }
+  .lw-corp .team .practice-card h3{ margin:0; font-family:var(--font-sans); font-size:1.55rem; font-weight:500; letter-spacing:-0.045em; line-height:1.1; }
+  .lw-corp .team .practice-card p{ margin:0; color:var(--muted-foreground); font-size:0.95rem; line-height:1.65; }
+  @media (max-width:900px){ .lw-corp .card-grid{ grid-template-columns:1fr; } }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Team",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Team" }
+  ],
+  "blocks": [
+    {
+      "type": "practice",
+      "name": "Practice",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Regulatory practice" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Practice title" },
+        { "type": "textarea", "id": "text", "label": "Description" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Corporate Team" }]
+}
+{% endschema %}

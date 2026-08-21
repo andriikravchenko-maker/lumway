@@ -1,0 +1,23 @@
+{
+  "type": "footer",
+  "name": "Corporate Footer",
+  "sections": {
+    "corporate_footer": {
+      "type": "corporate-footer",
+      "settings": {
+        "logo_alt": "Lumway — Powered by Nature",
+        "logo_width": 104,
+        "company_line": "Lumway Wellness Inc., 1615 Valley Avenue East, Apt 22, Sumner, WA, 98390, United States",
+        "copyright": "© 2026 Lumway Wellness Inc."
+      },
+      "blocks": {
+        "privacy": { "type": "footer_link", "settings": { "label": "Privacy Policy", "url": "#" } },
+        "cookies": { "type": "footer_link", "settings": { "label": "Cookies Policy", "url": "#" } },
+        "terms": { "type": "footer_link", "settings": { "label": "Terms of Use", "url": "#" } },
+        "email": { "type": "footer_link", "settings": { "label": "info@lumwaywellness.com", "url": "mailto:info@lumwaywellness.com" } }
+      },
+      "block_order": ["privacy", "cookies", "terms", "email"]
+    }
+  },
+  "order": ["corporate_footer"]
+}

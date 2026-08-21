@@ -1,0 +1,82 @@
+{%- comment -%} Corporate page header: logo + primary nav + CTA. Used only by the theme-corporate layout. {%- endcomment -%}
+<header class="site-header">
+  <div class="container">
+    <a class="logo-link" href="{{ section.settings.logo_link | default: '#top' }}">
+      <span class="logo" role="img" aria-label="{{ section.settings.logo_alt | escape }}"></span>
+    </a>
+    {%- if section.blocks.size > 0 -%}
+      <nav class="site-nav" aria-label="Primary">
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+    {%- if section.settings.cta_text != blank -%}
+      <a class="btn btn-primary" href="{{ section.settings.cta_link | default: '#contact' }}">{{ section.settings.cta_text }}</a>
+    {%- endif -%}
+  </div>
+</header>
+
+{% style %}
+  .lw-corp .site-header{
+    position:sticky; top:0; z-index:50;
+    background:var(--night);
+    border-bottom:1px solid oklch(0.97 0.012 82 / 0.14);
+  }
+  .lw-corp .site-header .container{ display:flex; align-items:center; justify-content:space-between; gap:1.5rem; height:4.25rem; }
+  .lw-corp .logo-link{ display:inline-flex; color:var(--cream); }
+  .lw-corp .logo{
+    display:inline-block;
+    width:{{ section.settings.logo_width | default: 118 }}px;
+    aspect-ratio:836 / 242;
+    background:currentColor;
+    -webkit-mask:url("{{ 'corporate-logo.png' | asset_url }}") center / contain no-repeat;
+    mask:url("{{ 'corporate-logo.png' | asset_url }}") center / contain no-repeat;
+  }
+  .lw-corp .site-nav{ display:flex; gap:1.75rem; }
+  .lw-corp .site-nav a{ font-size:0.875rem; font-weight:500; color:oklch(0.97 0.012 82 / 0.68); text-decoration:none; transition:color 0.2s; }
+  .lw-corp .site-nav a:hover{ color:var(--cream); }
+  .lw-corp .site-header .btn-primary{ background:var(--cream); color:var(--sage); box-shadow:none; }
+  .lw-corp .site-header .btn-primary:hover{ background:var(--gold); color:var(--sage); box-shadow:none; }
+  @media (max-width:860px){ .lw-corp .site-nav{ display:none; } }
+  @media (max-width:520px){
+    .lw-corp .site-header .logo{ width:96px; }
+    .lw-corp .site-header .btn{ padding:0.6rem 1.1rem; font-size:0.82rem; }
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Corporate Header",
+  "settings": [
+    { "type": "text", "id": "logo_alt", "label": "Logo alt text", "default": "Lumway — Powered by Nature" },
+    { "type": "text", "id": "logo_link", "label": "Logo link", "default": "#top" },
+    { "type": "range", "id": "logo_width", "min": 60, "max": 200, "step": 2, "unit": "px", "label": "Logo width", "default": 118 },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Start a conversation" },
+    { "type": "text", "id": "cta_link", "label": "CTA link", "default": "#contact" }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Nav item",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "url", "label": "URL", "default": "#" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Corporate Header",
+      "blocks": [
+        { "type": "nav_item", "settings": { "label": "Overview", "url": "#overview" } },
+        { "type": "nav_item", "settings": { "label": "Services", "url": "#services" } },
+        { "type": "nav_item", "settings": { "label": "Approach", "url": "#approach" } },
+        { "type": "nav_item", "settings": { "label": "Who We Work With", "url": "#clients" } },
+        { "type": "nav_item", "settings": { "label": "Team", "url": "#team" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

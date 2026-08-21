@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {%- comment -%}
+      Isolated layout for the Lumway Wellness corporate page. Deliberately does NOT load the store
+      chrome (lhead header, footer, cart drawer) or the store app scripts — this is a standalone
+      corporate presence. Only new files are added; layout/theme.liquid stays untouched.
+    {%- endcomment -%}
+
+    <title>{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
+    {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}<link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">{%- endif -%}
+
+    {%- comment -%} Default per PM decision: reachable by link, kept out of Google. {%- endcomment -%}
+    <meta name="robots" content="noindex, nofollow">
+
+    {%- comment -%} Corporate typography: Fraunces (headings) + Geist (sans), mirrors the source page. {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+
+    {% style %}
+      :root{
+        --background: oklch(0.987 0.006 78);
+        --foreground: oklch(0.26 0.018 25);
+        --card: oklch(1 0.003 80);
+        --primary: oklch(0.55 0.16 18);
+        --primary-foreground: oklch(0.99 0.01 80);
+        --secondary: oklch(0.95 0.018 62);
+        --muted: oklch(0.955 0.01 72);
+        --muted-foreground: oklch(0.5 0.022 38);
+        --accent: oklch(0.92 0.04 30);
+        --border: oklch(0.9 0.012 62);
+        --ring: oklch(0.55 0.16 18);
+        --brand: oklch(0.42 0.09 350);
+        --sage: oklch(0.46 0.08 155);
+        --gold: oklch(0.8 0.13 82);
+        --gold-deep: oklch(0.55 0.11 82);
+        --cream: oklch(0.97 0.012 82);
+        --night: oklch(0.24 0.035 153);
+        --paper: oklch(0.965 0.008 88);
+        --paper-card: oklch(0.995 0.003 88);
+        --cta-sage: oklch(0.76 0.09 153);
+        --radius: 0.625rem;
+        --container: 72rem;
+        --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+        --font-heading: "Fraunces", Georgia, serif;
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      *,*::before,*::after{ box-sizing:border-box; }
+      html{ scroll-behavior:smooth; }
+      html,body{ overflow-x:clip; margin:0; }
+      body{
+        background:var(--paper);
+        color:var(--foreground);
+        font-family:var(--font-sans);
+        font-size:1rem; line-height:1.65;
+        -webkit-font-smoothing:antialiased;
+      }
+      .lw-corp .container{ max-width:var(--container); margin-inline:auto; padding-inline:clamp(1.25rem, 4vw, 2.5rem); }
+      .lw-corp section[id]{ scroll-margin-top:5.5rem; }
+      .lw-corp .btn{
+        display:inline-flex; align-items:center; gap:0.5rem;
+        font-family:var(--font-sans); font-size:0.9rem; font-weight:600;
+        text-decoration:none; border:none; cursor:pointer; border-radius:999px;
+        padding:0.72rem 1.5rem;
+        transition:transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s;
+      }
+      .lw-corp .btn-primary{ background:var(--primary); color:var(--primary-foreground); box-shadow:0 1px 2px oklch(0.26 0.018 25 / 0.18); }
+      .lw-corp .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 6px 18px oklch(0.55 0.16 18 / 0.28); }
+      .lw-corp .btn-lg{ padding:0.95rem 2rem; font-size:1rem; }
+      .lw-corp a:focus-visible, .lw-corp .btn:focus-visible{ outline:2px solid var(--ring); outline-offset:3px; }
+      /* shared section scaffolding (used by all content sections) */
+      .lw-corp .section{ padding-block:clamp(4rem, 9vh, 6.5rem); }
+      .lw-corp .section-head{ display:flex; align-items:baseline; gap:1.25rem; margin-bottom:clamp(1.75rem, 4vh, 2.75rem); }
+      .lw-corp .section-head h2{ margin:0; font-family:var(--font-sans); font-size:clamp(2.1rem, 3.7vw, 3.45rem); font-weight:600; letter-spacing:-0.06em; }
+      .lw-corp .section-head h2::after{ content:""; display:block; width:3rem; height:0.3rem; margin-top:0.85rem; border-radius:999px; background:var(--cta-sage); }
+    {% endstyle %}
+
+    {{ content_for_header }}
+  </head>
+  <body class="corp-body">
+    <div class="lw-corp">
+      {% sections 'corporate-header-group' %}
+      <main id="top">
+        {% sections 'corporate-content-group' %}
+        {{ content_for_layout }}
+      </main>
+      {% sections 'corporate-footer-group' %}
+    </div>
+  </body>
+</html>

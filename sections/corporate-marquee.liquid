@@ -1,0 +1,28 @@
+{%- comment -%} Corporate marquee: scrolling compliance/expertise ticker between hero and overview. {%- endcomment -%}
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    {%- for block in section.blocks -%}<span {{ block.shopify_attributes }}>{{ block.settings.text }}</span>{%- endfor -%}
+    {%- for block in section.blocks -%}<span>{{ block.settings.text }}</span>{%- endfor -%}
+  </div>
+</div>
+{% style %}
+  .lw-corp .marquee{ background:var(--night); border-block:1px solid oklch(0.97 0.012 82 / 0.14); color:oklch(0.97 0.012 82 / 0.68); overflow:hidden; padding-block:0.85rem;
+    -webkit-mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image:linear-gradient(to right, transparent, black 8%, black 92%, transparent); }
+  .lw-corp .marquee-track{ display:flex; gap:3rem; width:max-content; animation:lw-marquee 36s linear infinite; }
+  .lw-corp .marquee-track span{ display:flex; align-items:center; gap:3rem; font-size:0.8rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted-foreground); white-space:nowrap; }
+  .lw-corp .marquee-track span::after{ content:"\25C6"; font-size:0.5rem; color:var(--cta-sage); }
+  @keyframes lw-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion:reduce){ .lw-corp .marquee-track{ animation:none; } }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Marquee",
+  "settings": [],
+  "blocks": [
+    { "type": "marquee_item", "name": "Item", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Item" } ] }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Corporate Marquee" }]
+}
+{% endschema %}

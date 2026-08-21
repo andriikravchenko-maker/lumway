@@ -1,0 +1,25 @@
+{
+  "type": "header",
+  "name": "Corporate Header",
+  "sections": {
+    "corporate_header": {
+      "type": "corporate-header",
+      "settings": {
+        "logo_alt": "Lumway — Powered by Nature",
+        "logo_link": "#top",
+        "logo_width": 118,
+        "cta_text": "Start a conversation",
+        "cta_link": "#contact"
+      },
+      "blocks": {
+        "nav_overview": { "type": "nav_item", "settings": { "label": "Overview", "url": "#overview" } },
+        "nav_services": { "type": "nav_item", "settings": { "label": "Services", "url": "#services" } },
+        "nav_approach": { "type": "nav_item", "settings": { "label": "Approach", "url": "#approach" } },
+        "nav_clients": { "type": "nav_item", "settings": { "label": "Who We Work With", "url": "#clients" } },
+        "nav_team": { "type": "nav_item", "settings": { "label": "Team", "url": "#team" } }
+      },
+      "block_order": ["nav_overview", "nav_services", "nav_approach", "nav_clients", "nav_team"]
+    }
+  },
+  "order": ["corporate_header"]
+}

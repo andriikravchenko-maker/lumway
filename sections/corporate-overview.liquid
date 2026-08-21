@@ -1,0 +1,29 @@
+{%- comment -%} Corporate Overview: centered lead statement + supporting note. {%- endcomment -%}
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-head"><h2>{{ section.settings.heading | default: 'Overview' }}</h2></div>
+    <div class="overview-grid">
+      {%- if section.settings.lead != blank -%}<p class="lead">{{ section.settings.lead }}</p>{%- endif -%}
+      {%- if section.settings.support != blank -%}<p class="support">{{ section.settings.support }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+{% style %}
+  .lw-corp #overview{ padding-block:clamp(5.5rem, 12vh, 9rem); }
+  .lw-corp #overview .section-head{ justify-content:center; text-align:center; }
+  .lw-corp #overview .section-head h2::after{ margin-inline:auto; }
+  .lw-corp .overview-grid{ display:block; max-width:62rem; margin-inline:auto; }
+  .lw-corp #overview .overview-grid .lead{ max-width:58rem; margin:0 auto; color:var(--night); font-family:var(--font-sans); font-size:clamp(1.65rem, 3vw, 2.75rem); font-weight:500; letter-spacing:-0.055em; line-height:1.16; text-align:center; }
+  .lw-corp #overview .overview-grid .support{ max-width:44rem; margin:2rem auto 0; padding:0; border:0; color:var(--muted-foreground); font-size:1rem; line-height:1.75; text-align:center; }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Overview",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Overview" },
+    { "type": "textarea", "id": "lead", "label": "Lead statement", "default": "Lumway Wellness Inc. advises consumer health and wellness companies on what it takes to operate in the US market: from regulatory positioning through to go-to-market execution and supply chain decisions." },
+    { "type": "textarea", "id": "support", "label": "Supporting note", "default": "That perspective comes from direct, operational experience: reviewing product labeling and marketing claims against FDA and FTC frameworks, assessing advertising and endorsement compliance, and evaluating manufacturing and ingredient sourcing partners for a US direct-to-consumer health and wellness brand." }
+  ],
+  "presets": [{ "name": "Corporate Overview" }]
+}
+{% endschema %}
