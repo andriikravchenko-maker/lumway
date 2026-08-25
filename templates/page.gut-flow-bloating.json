@@ -1574,7 +1574,7 @@
             "show_compare_in_button": true,
             "cart_icon": "none",
             "button_bg": "#8d2b40",
-            "button_hover_bg": "#111111",
+            "button_hover_bg": "#5B0D1E",
             "button_text_color": "#ffffff",
             "show_sticky": false,
             "sticky_label": "Try it Now"
