@@ -1573,7 +1573,7 @@
             "show_price_in_button": true,
             "show_compare_in_button": true,
             "cart_icon": "none",
-            "button_bg": "#5b0d1e",
+            "button_bg": "#8D2B40",
             "button_hover_bg": "#111111",
             "button_text_color": "#ffffff",
             "show_sticky": false,
