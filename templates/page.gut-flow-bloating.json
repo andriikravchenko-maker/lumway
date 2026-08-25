@@ -1441,7 +1441,7 @@
         "subtitle_RannTP": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.*</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
           }
         },
         "labels_jNjCEd": {
@@ -1452,9 +1452,9 @@
             "chip_2_show": true,
             "chip_2_text": "Feel Lighter Daily",
             "chip_3_show": true,
-            "chip_3_text": "Drug-free",
-            "chip_4_show": false,
-            "chip_4_text": "Drug-free",
+            "chip_3_text": "Close the Daily Fiber Gap",
+            "chip_4_show": true,
+            "chip_4_text": "Feel Fuller For Longer",
             "chip_5_show": false,
             "chip_5_text": "",
             "chip_6_show": false,
