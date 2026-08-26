@@ -2518,7 +2518,7 @@
           "type": "benefit",
           "settings": {
             "title": "4g of Prebiotic Fiber",
-            "description": "Delivers a meaningful amount of prebiotic fiber to help nourish beneficial gut bacteria.",
+            "description": "Close the daily fiber gap to help nourish beneficial gut bacteria.*",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2531,7 +2531,7 @@
         "benefit_j3eYym": {
           "type": "benefit",
           "settings": {
-            "title": "Supports Digestive Regularity",
+            "title": "Supports Digestive Regularity*",
             "description": "Helps maintain a healthy digestive rhythm and everyday gut comfort.",
             "benefit_color": "",
             "benefit_description_color": "",
@@ -2545,7 +2545,7 @@
         "benefit_pPE6LW": {
           "type": "benefit",
           "settings": {
-            "title": "Feeds Beneficial Gut Bacteria",
+            "title": "Feeds Beneficial Gut Bacteria*",
             "description": "Inulin and FOS work together to support a balanced, thriving gut environment.",
             "benefit_color": "",
             "benefit_description_color": "",
@@ -2560,7 +2560,7 @@
           "type": "benefit",
           "settings": {
             "title": "Feel Lighter Every Day",
-            "description": "Supports digestive comfort and helps you feel less weighed down after meals.",
+            "description": "Supports digestive comfort and helps you feel less weighed down after meals.*",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2574,7 +2574,7 @@
           "type": "benefit",
           "settings": {
             "title": "Delicious & No Mess",
-            "description": "No powders, no mixing — just two tasty gummies each day.",
+            "description": "No powders, no mixing – just two tasty gummies each day.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2658,7 +2658,7 @@
         "border_color": "#ffffff",
         "heading_accent": "Gut Flow*",
         "heading_regular": "Why People Love",
-        "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.",
+        "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.*",
         "show_image": true,
         "media_type": "image",
         "feature_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_03_26_47_PM_1.webp",
