@@ -26,48 +26,216 @@
         "padding_bottom": 28
       }
     },
-    "mm_gut_harmony_benefits_gKxehV": {
-      "type": "mm-gut-harmony-benefits",
-      "custom_css": [],
-      "name": "“I Blamed Getting Older For My Bloating, Belly Fat & Irregularity -",
+    "mm_gut_flow_hero_AbhQ4K": {
+      "type": "mm-gut-flow-hero",
+      "name": "Gut Flow Hero",
       "settings": {
-        "use_theme_colors": false,
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40,
-        "column_gap": 24,
-        "content_gap": 24,
-        "background_color": "#f9f9f9",
-        "image": "shopify://shop_images/hero-blamed.webp",
-        "image_width": 602,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center center",
-        "image_border_radius": 0,
-        "heading_before": "",
-        "heading_accent": "“I Blamed Getting Older For My Bloating, Belly Fat & Irregularity -",
-        "heading_after": "Until I Looked At My Gut.”",
-        "heading_size": 50,
-        "heading_size_mobile": 26,
-        "heading_line_height": 1.1,
-        "heading_color": "#111111",
-        "heading_accent_color": "#5b0d1e",
-        "subheading": "<p>I thought the heavier feeling, tighter jeans, and unpredictable digestion were simply part of getting older. Then I realized I had been overlooking one important part of the picture.</p>",
-        "subheading_size": 22,
-        "subheading_size_mobile": 16,
-        "subheading_color": "#6b6b6b",
-        "button_text": "LEARN MORE",
-        "button_link": "#advertorial-section",
+        "max_width": 2400,
+        "desktop_min_height": 600,
+        "image_width": 48,
+        "enable_border_radius": false,
+        "border_radius": 0,
+        "mobile_border_radius": 0,
+        "show_image": true,
+        "image": "shopify://shop_images/1_7dd3f4c5-5ef9-4095-9b14-9f7473caad1a.webp",
+        "mobile_image": "shopify://shop_images/mobile.webp",
+        "image_fit": "cover",
+        "image_position_horizontal": 50,
+        "image_position_vertical": 50,
+        "mobile_image_height": 250,
+        "mobile_image_position_horizontal": 50,
+        "mobile_image_position_vertical": 50,
+        "mobile_image_position": "top",
+        "show_promo_overlay": true,
+        "show_promo_circle": false,
+        "promo_eyebrow": "Up to",
+        "promo_main_text": "40%\nOff",
+        "promo_sub_text": "2 & 3 Packs",
+        "promo_desktop_x": 50,
+        "promo_desktop_y": 82,
+        "promo_product_width": 120,
+        "promo_circle_size": 120,
+        "promo_gap": -8,
+        "promo_mobile_x": 50,
+        "promo_mobile_y": 78,
+        "promo_mobile_product_width": 80,
+        "promo_mobile_circle_size": 85,
+        "promo_mobile_gap": -6,
+        "promo_circle_background": "#ffd54a",
+        "promo_circle_text_color": "#111111",
+        "promo_circle_border_color": "#ffd54a",
+        "promo_circle_border_width": 0,
+        "promo_circle_padding": 10,
+        "promo_mobile_circle_padding": 8,
+        "promo_eyebrow_size": 14,
+        "promo_mobile_eyebrow_size": 10,
+        "promo_eyebrow_weight": "400",
+        "promo_eyebrow_spacing": 2,
+        "promo_mobile_eyebrow_spacing": 1,
+        "promo_main_size": 32,
+        "promo_mobile_main_size": 24,
+        "promo_main_weight": "600",
+        "promo_main_line_height": 9,
+        "promo_sub_size": 12,
+        "promo_mobile_sub_size": 9,
+        "promo_sub_weight": "400",
+        "promo_sub_spacing": 2,
+        "promo_mobile_sub_spacing": 1,
+        "content_max_width": 720,
+        "content_alignment": "left",
+        "mobile_content_alignment": "center",
+        "show_reviews": false,
+        "show_stars": true,
+        "review_text": "15K+ Positive Reviews",
+        "review_font_size": 14,
+        "mobile_review_font_size": 12,
+        "review_font_weight": "500",
+        "review_line_height": 14,
+        "star_size": 14,
+        "mobile_star_size": 12,
+        "star_gap": 1,
+        "review_gap": 6,
+        "review_margin_bottom": 24,
+        "mobile_review_margin_bottom": 18,
+        "heading": "See How Women Over 40 Are <strong>Saying Goodbye to Stubborn Belly Fat, Constant Bloating, and Irregularity</strong>",
+        "heading_font_size": 50,
+        "mobile_heading_font_size": 26,
+        "heading_font_weight": "700",
+        "heading_line_height": 11,
+        "mobile_heading_line_height": 11,
+        "heading_letter_spacing": 0,
+        "heading_uppercase": false,
+        "heading_margin_bottom": 26,
+        "mobile_heading_margin_bottom": 20,
+        "description": "<p>A changing waistline doesn't always tell the whole story. Before assuming it's simply weight gain or hormones, there's another part of the picture worth understanding.</p>",
+        "description_max_width": 600,
+        "description_font_size": 22,
+        "mobile_description_font_size": 16,
+        "description_font_weight": "400",
+        "description_line_height": 14,
+        "mobile_description_line_height": 15,
+        "description_margin_bottom": 28,
+        "mobile_description_margin_bottom": 24,
+        "button_label": "LEARN MORE",
+        "button_action": "scroll",
+        "button_link": "",
+        "button_target_selector": "#advertorial-section",
+        "button_scroll_behavior": "smooth",
+        "button_scroll_offset": 24,
+        "mobile_button_scroll_offset": 24,
+        "button_full_width": false,
+        "mobile_button_full_width": false,
+        "button_min_width": 400,
+        "mobile_button_min_width": 200,
+        "button_height": 52,
+        "mobile_button_height": 47,
+        "button_padding_horizontal": 30,
+        "button_padding_vertical": 12,
+        "mobile_button_padding_horizontal": 12,
+        "mobile_button_padding_vertical": 12,
         "button_font_size": 24,
-        "button_font_size_mobile": 16,
-        "button_radius": 32,
-        "button_width": 384,
-        "button_bg_color": "#8d2b40",
+        "mobile_button_font_size": 16,
+        "button_font_weight": "600",
+        "button_border_width": 0,
+        "button_border_radius": 32,
+        "button_hover_lift": false,
+        "button_margin_bottom": 12,
+        "mobile_button_margin_bottom": 12,
+        "show_trust_line": true,
+        "show_trust_icon": true,
+        "trust_text": "",
+        "trust_icon_size": 16,
+        "mobile_trust_icon_size": 15,
+        "trust_font_size": 12,
+        "mobile_trust_font_size": 11,
+        "trust_font_weight": "400",
+        "trust_line_height": 14,
+        "trust_gap": 8,
+        "background_color": "#f9f9f9",
+        "content_background_color": "#f9f9f9",
+        "heading_color": "#090909",
+        "heading_accent_color": "#711126",
+        "text_color": "#111111",
+        "review_text_color": "#111111",
+        "review_stars_color": "#36a66d",
+        "button_background": "#8d2b40",
+        "button_background_hover": "#5b0d1e",
         "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#5b0d1e"
+        "button_border_color": "#8d2b40",
+        "trust_text_color": "#292929",
+        "trust_icon_color": "#7a1029",
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "content_padding_horizontal": 60,
+        "content_padding_vertical": 50,
+        "mobile_padding_top": 0,
+        "mobile_padding_bottom": 0,
+        "mobile_content_padding_horizontal": 20,
+        "mobile_content_padding_vertical": 24,
+        "container_margin_top": 0,
+        "container_margin_bottom": 0,
+        "media_margin_top": 0,
+        "media_margin_right": 0,
+        "media_margin_bottom": 0,
+        "media_margin_left": 0,
+        "content_margin_top": 0,
+        "content_margin_right": 0,
+        "content_margin_bottom": 0,
+        "content_margin_left": 0,
+        "mobile_section_padding_left": 0,
+        "mobile_section_padding_right": 0,
+        "mobile_container_width": 100,
+        "mobile_container_max_width": 900,
+        "mobile_container_margin_top": 0,
+        "mobile_container_margin_bottom": 0,
+        "mobile_media_full_bleed": true,
+        "mobile_media_bleed_left": 0,
+        "mobile_media_bleed_right": 0,
+        "mobile_media_width": 100,
+        "mobile_media_margin_top": 0,
+        "mobile_media_margin_bottom": 0,
+        "review_margin_top": 0,
+        "review_margin_right": 0,
+        "review_margin_left": 0,
+        "heading_margin_top": 0,
+        "heading_margin_right": 0,
+        "heading_margin_left": 0,
+        "description_margin_top": 0,
+        "button_margin_top": 0,
+        "button_margin_right": 0,
+        "button_margin_left": 0,
+        "trust_margin_top": 0,
+        "trust_margin_right": 0,
+        "trust_margin_bottom": 0,
+        "trust_margin_left": 0,
+        "mobile_content_margin_top": 0,
+        "mobile_content_margin_right": 0,
+        "mobile_content_margin_bottom": 0,
+        "mobile_content_margin_left": 0,
+        "mobile_review_margin_top": 0,
+        "mobile_review_margin_right": 0,
+        "mobile_review_margin_left": 0,
+        "mobile_heading_margin_top": 0,
+        "mobile_heading_margin_right": 0,
+        "mobile_heading_margin_left": 0,
+        "mobile_description_margin_top": 0,
+        "mobile_button_margin_top": 0,
+        "mobile_button_margin_right": 0,
+        "mobile_button_margin_left": 0,
+        "mobile_trust_margin_top": 0,
+        "mobile_trust_margin_right": 0,
+        "mobile_trust_margin_bottom": 0,
+        "mobile_trust_margin_left": 0,
+        "heading_font_family": "inherit",
+        "mobile_heading_letter_spacing": 0,
+        "description_font_family": "inherit",
+        "description_link_color": "#982b47",
+        "description_strong_color": "#111111",
+        "review_font_family": "inherit",
+        "button_font_family": "inherit",
+        "button_letter_spacing": 0,
+        "button_text_transform": "uppercase",
+        "trust_font_family": "inherit"
       }
     },
     "rich_text_BR7tJa": {
@@ -76,33 +244,40 @@
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>For most of my life, I knew what my body felt like.<br/><strong>Then I turned 40.</strong><br/><br/>I started noticing things I hadn't really experienced before: <strong>feeling heavy after meals, going less regularly, feeling backed up.</strong><br/>My jeans started feeling tighter around my waist by the end of the day.<br/><br/>At first, I didn't think much of it. Until I realized I just <strong>didn't feel as comfortable in my clothes and in my own body as I used to.</strong><br/><br/>Then I started learning about what happens to women's bodies after 40:</p>"
+            "subtitle": "<p>After 40, many women notice changes that seem to come out of nowhere:</p>"
           }
         },
-        "tags_iqdNPf": {
-          "type": "tags",
+        "bullet_tags_N7663E": {
+          "type": "bullet_tags",
           "settings": {
-            "tag_1_show": true,
-            "tag_1_text": "Hormonal changes",
-            "tag_2_show": true,
-            "tag_2_text": "Perimenopause",
-            "tag_3_show": true,
-            "tag_3_text": "Menopause",
-            "tag_4_show": false,
-            "tag_4_text": "",
-            "tag_5_show": false,
-            "tag_5_text": "",
-            "tag_6_show": false,
-            "tag_6_text": "",
-            "background_color": "#f8e3e8",
+            "item_1_show": true,
+            "item_1_text": "Clothes feeling tighter around the waist",
+            "item_2_show": true,
+            "item_2_text": "A stomach that looks flatter in the morning and fuller by evening",
+            "item_3_show": true,
+            "item_3_text": "More frequent bloating",
+            "item_4_show": true,
+            "item_4_text": "Feeling heavy or overly full after meals",
+            "item_5_show": true,
+            "item_5_text": "Less predictable bowel movements",
+            "item_6_show": false,
+            "item_6_text": "",
+            "item_7_show": false,
+            "item_7_text": "",
+            "item_8_show": false,
+            "item_8_text": "",
+            "background_color": "#f8e5e8",
             "text_color": "#111111",
-            "border_color": "#f8e3e8",
+            "dot_color": "#6b0d22",
+            "border_color": "#f8e5e8",
             "font_size": 18,
-            "font_weight": "500",
+            "font_weight": "400",
             "line_height": 1.2,
             "padding_vertical": 4,
             "padding_horizontal": 8,
             "gap": 8,
+            "dot_size": 8,
+            "dot_gap": 8,
             "border_width": 0,
             "border_radius": 12,
             "margin_top": 0,
@@ -110,23 +285,25 @@
             "font_size_mobile": 16,
             "padding_vertical_mobile": 4,
             "padding_horizontal_mobile": 8,
-            "gap_mobile": 8,
+            "gap_mobile": 6,
+            "dot_size_mobile": 8,
+            "dot_gap_mobile": 8,
+            "allow_wrap_mobile": true,
             "margin_top_mobile": 0,
             "margin_bottom_mobile": 12
           }
         },
-        "title_6k7zw7": {
-          "type": "title",
+        "subtitle_qKrzA9": {
+          "type": "subtitle",
           "settings": {
-            "title": "And suddenly, everything made sense. Or at least I thought it did.",
-            "accent_text": ""
+            "subtitle": "<p>It's easy to assume these changes are simply a sign of gaining weight.<br/>And when they happen alongside <strong>perimenopause, menopause and other hormonal changes, </strong>it can seem like the explanation is obvious.</p>"
           }
         }
       },
       "block_order": [
         "subtitle_PirNe8",
-        "tags_iqdNPf",
-        "title_6k7zw7"
+        "bullet_tags_N7663E",
+        "subtitle_qKrzA9"
       ],
       "custom_css": [
         ".rich-text-title {color: #5b0d1e !important;}"
@@ -187,8 +364,9 @@
       "blocks": {
         "heading_DPnxJp": {
           "type": "heading",
+          "name": "Why Your Body Can Feel Different After 40",
           "settings": {
-            "text": "My Hormones May Not Be The Whole Story",
+            "text": "Why Your Body Can Feel Different After 40",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -201,7 +379,7 @@
         "text_U6Ria4": {
           "type": "text",
           "settings": {
-            "text": "<p>This was the biggest shift in how I started looking at my body after 40.<br/>Hormonal changes are real. And they can affect how you feel, sleep, eat, and experience changes in your body.<br/>But I started realizing that <strong>my hormones weren't the only thing that had changed.</strong><br/><br/>My routine had changed too:</p>",
+            "text": "<p>Hormonal changes can affect many aspects of how women feel as they move through their 40s and beyond.<br/><strong>But age isn't the only thing that changes.</strong><br/>Daily movement, stress, sleep, travel, eating patterns and digestive habits can change too.<br/>And your gut can be affected by these everyday shifts.<br/><br/>That's why two women can eat similarly and still experience very different levels of:</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -210,58 +388,58 @@
             "margin_bottom": 16
           }
         },
-        "list_kyXRfb": {
-          "type": "list",
+        "pill_list_3FUCar": {
+          "type": "pill_list",
           "settings": {
-            "items": "I wasn't moving as much as I used to.\nStress was different.\nSleep wasn't always consistent.\nTravel and busy days disrupted my usual routine.\n Even the way I ate had changed.",
-            "background_color": "#f9f9f9",
-            "border_color": "#c2c2c2",
-            "border_width": 1,
-            "border_radius": 16,
+            "icon_1": "shopify://shop_images/tdesign_arrow-up.webp",
+            "text_1": "Bloating",
+            "icon_2": "shopify://shop_images/tdesign_arrow-up.webp",
+            "text_2": "Digestive heaviness",
+            "icon_3": "shopify://shop_images/tdesign_arrow-up.webp",
+            "text_3": "Fullness",
+            "icon_4": "shopify://shop_images/tdesign_arrow-up.webp",
+            "text_4": "Irregularity",
+            "text_5": "",
+            "text_6": "",
+            "text_7": "",
+            "text_8": "",
+            "background_color": "#f7f7f7",
             "text_color": "#111111",
-            "bullet_color": "#5b0d1e",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
-            "bullet_size": 8,
-            "bullet_gap": 8,
-            "item_gap": 6,
-            "padding_vertical": 18,
-            "padding_horizontal": 14,
-            "padding_vertical_mobile": 14,
-            "padding_horizontal_mobile": 14,
-            "margin_bottom": 24
+            "border_color": "#f7f7f7",
+            "border_width": 0,
+            "border_radius": 20,
+            "font_size": 14,
+            "font_size_mobile": 14,
+            "font_weight": "400",
+            "line_height": 1.2,
+            "icon_size": 14,
+            "icon_size_mobile": 14,
+            "icon_gap": 6,
+            "alignment": "flex-start",
+            "column_gap": 8,
+            "row_gap": 8,
+            "padding_vertical": 6,
+            "padding_horizontal": 10,
+            "margin_top": 0,
+            "margin_bottom": 16,
+            "alignment_mobile": "flex-start",
+            "column_gap_mobile": 6,
+            "row_gap_mobile": 6,
+            "padding_vertical_mobile": 6,
+            "padding_horizontal_mobile": 10,
+            "margin_top_mobile": 0,
+            "margin_bottom_mobile": 16
           }
         },
         "text_6gDaij": {
           "type": "text",
           "settings": {
-            "text": "<p>And somewhere along the way, <strong>my digestion had changed with it.<br/></strong>I started noticing that the days I felt the heaviest weren't necessarily the days I had eaten the most.<br/>Sometimes it was simply a day when <strong>my gut felt off</strong></p>",
+            "text": "<p><strong>The overlooked part? Your digestive routine.</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "quote_callout_DxatGU": {
-          "type": "quote_callout",
-          "settings": {
-            "text": "<p>Maybe I didn't need to fight my body harder.<br/>Maybe I needed to understand it better.</p>",
-            "background_color": "#f9f9f9",
-            "text_color": "#5b0d1e",
-            "border_color": "#5b0d1e",
-            "border_width": 3,
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "700",
-            "line_height": 1.4,
-            "padding_vertical": 12,
-            "padding_horizontal": 16,
-            "padding_vertical_mobile": 12,
-            "padding_horizontal_mobile": 14,
+            "line_height": 1.2,
             "margin_bottom": 16
           }
         }
@@ -269,11 +447,10 @@
       "block_order": [
         "heading_DPnxJp",
         "text_U6Ria4",
-        "list_kyXRfb",
-        "text_6gDaij",
-        "quote_callout_DxatGU"
+        "pill_list_3FUCar",
+        "text_6gDaij"
       ],
-      "name": "My Hormones May Not Be The Whole Story",
+      "name": "Why Your Body Can Feel Different After 40",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 72,
@@ -284,11 +461,11 @@
         "column_gap": 0,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "My Hormones May Not Be The Whole Story",
+        "title": "Why Your Body Can Feel Different After 40",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
-        "image": "shopify://shop_images/my-hormones.webp",
+        "image": "shopify://shop_images/Why_Your_Body_Can_Feel_Different_After_40.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -318,8 +495,9 @@
       "blocks": {
         "heading_P6pBLJ": {
           "type": "heading",
+          "name": "Tighter Jeans Don't Always Mean More Body Fat",
           "settings": {
-            "text": "I Thought My Tight Jeans Meant I Was Gaining Weight",
+            "text": "Tighter Jeans Don't Always Mean More Body Fat",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -332,7 +510,7 @@
         "text_xALnGM": {
           "type": "text",
           "settings": {
-            "text": "<p>Once I noticed my waist changing, my next thought was obvious:<br/><strong>“I must be gaining weight.”</strong></p>",
+            "text": "<p>One of the<strong> easiest mistakes </strong>to make is assuming that <strong>every change</strong> around your waist <strong>means you've gained fat.</strong><br/>But your stomach can change noticeably throughout a single day.<br/><br/><strong>Bloating,</strong> <strong>food volume, hydration and digestive contents </strong>can all temporarily <strong>affect</strong> how your abdomen feels and h<strong>ow your clothes fit.</strong><br/>And <strong>when bowel movements become less regular,</strong> that <strong>feeling of fullness and heaviness</strong> can become even <strong>more noticeable.</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -341,95 +519,26 @@
             "margin_bottom": 16
           }
         },
-        "icon_list_item_JxKtLz": {
-          "type": "icon_list_item",
-          "name": "I started eating less.",
+        "highlight_XL3RWU": {
+          "type": "highlight",
           "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "text": "I started eating less.",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
+            "text": "<p><strong>💡Feeling heavier isn't always the same as gaining body fat.</strong></p>",
+            "background_color": "#f8e3e8",
             "text_color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 8,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_MVhwFN": {
-          "type": "icon_list_item",
-          "name": "I paid more attention to calories.",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "text": "I paid more attention to calories.",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 8,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_W8JGTf": {
-          "type": "icon_list_item",
-          "name": "I tried to be \"better\" during the week.",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "text": "I tried to be \"better\" during the week.",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 8,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_X6Qn3g": {
-          "type": "icon_list_item",
-          "name": "I cut back on foods I enjoyed.",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "text": "I cut back on foods I enjoyed.",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 8,
-            "margin_bottom": 0
-          }
-        },
-        "icon_list_item_PLi4x3": {
-          "type": "icon_list_item",
-          "name": "I even tried GLP-1 medications.",
-          "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "text": "I even tried GLP-1 medications.",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "gap": 8,
-            "margin_bottom": 20
+            "icon_size": 20,
+            "icon_gap": 10,
+            "border_radius": 16,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "margin_bottom": 24
           }
         },
         "text_HjYXyW": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>But there was something I couldn't explain.</strong><br/>My stomach could look completely different from morning to evening.<br/><strong>I could wake up feeling comfortable...</strong><br/>and <strong>by the evening</strong> feeling like <strong>my jeans had somehow become two sizes smaller.</strong><br/><strong>That couldn't all be body fat.</strong><br/><br/>And that's when I started questioning something I had taken for granted:</p>",
+            "text": "<p>This distinction matters because the solution to digestive discomfort <strong>isn't necessarily another restrictive diet.</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -437,36 +546,15 @@
             "line_height": 1.4,
             "margin_bottom": 24
           }
-        },
-        "highlight_XL3RWU": {
-          "type": "highlight",
-          "settings": {
-            "text": "<p><strong>🤔 Was every change in my stomach really a weight problem?</strong></p>",
-            "background_color": "#f8e3e8",
-            "text_color": "#111111",
-            "font_size": 16,
-            "font_size_mobile": 16,
-            "icon_size": 20,
-            "icon_gap": 10,
-            "border_radius": 16,
-            "padding_vertical": 16,
-            "padding_horizontal": 16,
-            "margin_bottom": 0
-          }
         }
       },
       "block_order": [
         "heading_P6pBLJ",
         "text_xALnGM",
-        "icon_list_item_JxKtLz",
-        "icon_list_item_MVhwFN",
-        "icon_list_item_W8JGTf",
-        "icon_list_item_X6Qn3g",
-        "icon_list_item_PLi4x3",
-        "text_HjYXyW",
-        "highlight_XL3RWU"
+        "highlight_XL3RWU",
+        "text_HjYXyW"
       ],
-      "name": "I Thought My Tight Jeans Meant I Was Gaining Weight",
+      "name": "Tighter Jeans Don't Always Mean More Body Fat",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 0,
@@ -477,11 +565,11 @@
         "column_gap": 0,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "I Thought My Tight Jeans Meant I Was Gaining Weight",
+        "title": "Tighter Jeans Don't Always Mean More Body Fat",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
-        "image": "shopify://shop_images/i-thought.webp",
+        "image": "shopify://shop_images/2_6b78e99e-53bd-4527-99dc-cc17c2f38d81.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -512,7 +600,7 @@
         "heading_4G9Ftc": {
           "type": "heading",
           "settings": {
-            "text": "I Began Paying Attention to Things I Had Ignored",
+            "text": "The Connection Between Bloating, Fullness & Regularity",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -525,19 +613,19 @@
         "text_JpWUji": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Not just what I ate.<br/>But how my digestion actually felt?</strong></p>",
+            "text": "<p><strong>Your digestive system has its own daily rhythm.</strong><br/><br/>When that <strong>rhythm becomes less consistent you may notice:</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
-            "line_height": 1.2,
+            "line_height": 1.1,
             "margin_bottom": 16
           }
         },
         "list_YzPJa8": {
           "type": "list",
           "settings": {
-            "items": "How regularly I was going?\nHow often I felt bloated?\nHow heavy I felt after meals?\nWhen my stomach felt comfortable throughout the day?",
+            "items": "Feeling backed up\nLess frequent bowel movements\nAbdominal fullness\nBloating\nDigestive discomfort\nClothes feeling tighter throughout the day",
             "background_color": "#f9f9f9",
             "border_color": "#c2c2c2",
             "border_width": 1,
@@ -561,12 +649,62 @@
         "text_jLWgiM": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>That's when I realized something:</strong><br/><strong>Feeling heavier isn't always</strong> the same thing <strong>as gaining body fat.</strong><br/><br/>Bloating, food volume, hydration and digestive contents can all temporarily change how your stomach feels and how your clothes fit.<br/>And when bowel movements become less regular, you can feel even more full, heavy and uncomfortable.<br/><br/>Suddenly, <strong>my \"weight problem\" looked a little different.</strong></p>",
+            "text": "<p>That's why looking only at weight can miss an important part of the picture.<br/><br/>🗣️Instead of asking only: </p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
             "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "quote_callout_gcfbDH": {
+          "type": "quote_callout",
+          "settings": {
+            "text": "<p>\"How do I lose this belly?\"</p>",
+            "background_color": "#f7f7f7",
+            "text_color": "#70172a",
+            "border_color": "#70172a",
+            "border_width": 3,
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.4,
+            "padding_vertical": 12,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 12,
+            "padding_horizontal_mobile": 14,
+            "margin_bottom": 16
+          }
+        },
+        "text_mPLGMn": {
+          "type": "text",
+          "settings": {
+            "text": "<p>🗣️It may also be worth asking: </p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "quote_callout_aHxebq": {
+          "type": "quote_callout",
+          "settings": {
+            "text": "<p>\"How well is my digestive system functioning day to day?\"</p>",
+            "background_color": "#f7f7f7",
+            "text_color": "#70172a",
+            "border_color": "#70172a",
+            "border_width": 3,
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.4,
+            "padding_vertical": 12,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 12,
+            "padding_horizontal_mobile": 14,
             "margin_bottom": 16
           }
         }
@@ -575,9 +713,12 @@
         "heading_4G9Ftc",
         "text_JpWUji",
         "list_YzPJa8",
-        "text_jLWgiM"
+        "text_jLWgiM",
+        "quote_callout_gcfbDH",
+        "text_mPLGMn",
+        "quote_callout_aHxebq"
       ],
-      "name": "I Began Paying Attention to Things I Had Ignored",
+      "name": "The Connection Between Bloating, Fullness & Regularity",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 0,
@@ -588,7 +729,7 @@
         "column_gap": 0,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "I Began Paying Attention to Things I Had Ignored",
+        "title": "The Connection Between Bloating, Fullness & Regularity",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
@@ -636,7 +777,7 @@
         "text_BBRDPb": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>This was the question I had never asked myself.</strong>I assumed that because I was going to the bathroom, everything was fine.<br/>But <strong>once I started paying attention</strong>, I realized <strong>my bowel routine wasn't </strong>particularly <strong>consistent.</strong></p>",
+            "text": "<p>Regularity is one of those things many people don't think about until something changes.<br/>You may be going to the bathroom – but not as consistently as you'd like.<br/>Or you may occasionally feel backed up, overly full or uncomfortable.<br/><br/>A healthy digestive routine depends on many factors:</p>",
             "color": "#333333",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -645,83 +786,38 @@
             "margin_bottom": 16
           }
         },
-        "icon_text_tNdtwe": {
-          "type": "icon_text",
-          "name": "Some days were fine.",
+        "highlight_checklist_QjFLnV": {
+          "type": "highlight_checklist",
           "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "text": "<p>Some days were fine.</p>",
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "items": "Hydration\nMovement\nDiet\nFiber Intake",
+            "background_color": "#f8e3e8",
+            "border_radius": 20,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.3,
             "icon_size": 24,
             "icon_size_mobile": 24,
             "icon_gap": 8,
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 14,
-            "font_weight": "500",
-            "line_height": 1.1,
-            "margin_bottom": 8
-          }
-        },
-        "icon_text_ywLmMT": {
-          "type": "icon_text",
-          "name": "Other days I felt backed up.",
-          "settings": {
-            "icon": "shopify://shop_images/material-symbols_cancel.webp",
-            "text": "<p>Other days I felt backed up.</p>",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "icon_gap": 8,
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 14,
-            "font_weight": "500",
-            "line_height": 1.1,
-            "margin_bottom": 8
-          }
-        },
-        "icon_text_g49erh": {
-          "type": "icon_text",
-          "name": "Sometimes I wouldn't go when I expected to.",
-          "settings": {
-            "icon": "shopify://shop_images/material-symbols_cancel.webp",
-            "text": "<p>Sometimes I wouldn't go when I expected to.</p>",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "icon_gap": 8,
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 14,
-            "font_weight": "500",
-            "line_height": 1.1,
-            "margin_bottom": 8
-          }
-        },
-        "icon_text_nmhGxW": {
-          "type": "icon_text",
-          "name": "I felt like I was carrying around a much heavier stomach by the evening.",
-          "settings": {
-            "icon": "shopify://shop_images/material-symbols_cancel.webp",
-            "text": "<p>I felt like I was carrying around a much heavier stomach by the evening.</p>",
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "icon_gap": 8,
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 14,
-            "font_weight": "500",
-            "line_height": 1.1,
+            "row_gap": 8,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 16,
+            "padding_horizontal_mobile": 16,
             "margin_bottom": 24
           }
         },
         "text_Ck6Q7y": {
           "type": "text",
           "settings": {
-            "text": "<p>That's when I started wondering: <strong>Could my gut be part of what I was experiencing?</strong></p>",
-            "color": "#333333",
+            "text": "<p><strong>Fiber plays an important role</strong> in digestive health and bowel regularity and <strong>one of the basics</strong> that can be surprisingly e<strong>asy to miss.</strong></p>",
+            "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "500",
-            "line_height": 1.4,
+            "line_height": 1.2,
             "margin_bottom": 16
           }
         }
@@ -729,11 +825,11 @@
       "block_order": [
         "heading_m4jHLa",
         "text_BBRDPb",
-        "icon_text_tNdtwe",
-        "icon_text_ywLmMT",
-        "icon_text_g49erh",
-        "icon_text_nmhGxW",
+        "highlight_checklist_QjFLnV",
         "text_Ck6Q7y"
+      ],
+      "custom_css": [
+        "@media screen and (max-width: 749px) {.gut-harmony-feature__highlight-checklist-items {display: grid; grid-template-columns: repeat(2, 1fr); }}"
       ],
       "name": "How Regular Am I, Really?",
       "settings": {
@@ -750,7 +846,7 @@
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
-        "image": "shopify://shop_images/How_Regular_Am_I_Really.webp",
+        "image": "shopify://shop_images/4.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -780,8 +876,9 @@
       "blocks": {
         "heading_kX6Ehy": {
           "type": "heading",
+          "name": "Knowing “You Need More Fiber” Isn't Enough",
           "settings": {
-            "text": "Your Gut Has A Rhythm And Life Can Throw It Off",
+            "text": "Knowing “You Need More Fiber” Isn't Enough",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -794,137 +891,21 @@
         "text_Ed9nRk": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>The more I paid attention, the more I noticed how connected everything was.</strong></p>",
+            "text": "<p>Most woman thought the only thing that mattered was getting more grams.<br/><br/><strong>But not all fiber works the same. <br/>Most fibers primarily contribute to stool bulk.</strong><br/><br/>One of the <strong>world’s most-studied</strong> examples? <strong>Prebiotic Inulin.</strong><br/><br/>Instead of <strong>simply passing through your digestive system. It selectively nourishes the beneficial bacteria </strong>already living in your gut.</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
             "line_height": 1.4,
             "margin_bottom": 16
-          }
-        },
-        "pill_list_Tbwxcm": {
-          "type": "pill_list",
-          "settings": {
-            "icon_1": "shopify://shop_images/tdesign_arrow-up.webp",
-            "text_1": "Stress",
-            "icon_2": "shopify://shop_images/tdesign_arrow-up.webp",
-            "text_2": "Sleep",
-            "icon_3": "shopify://shop_images/tdesign_arrow-up.webp",
-            "text_3": "Movement",
-            "icon_4": "shopify://shop_images/tdesign_arrow-up.webp",
-            "text_4": "Travel",
-            "icon_5": "shopify://shop_images/tdesign_arrow-up.webp",
-            "text_5": "Changes in eating habits",
-            "icon_6": "shopify://shop_images/tdesign_arrow-up.webp",
-            "text_6": "Age",
-            "text_7": "",
-            "text_8": "",
-            "background_color": "#f9f9f9",
-            "text_color": "#111111",
-            "border_color": "#f9f9f9",
-            "border_width": 0,
-            "border_radius": 12,
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.2,
-            "icon_size": 16,
-            "icon_size_mobile": 16,
-            "icon_gap": 8,
-            "alignment": "flex-start",
-            "column_gap": 8,
-            "row_gap": 8,
-            "padding_vertical": 6,
-            "padding_horizontal": 10,
-            "margin_top": 8,
-            "margin_bottom": 24,
-            "alignment_mobile": "flex-start",
-            "column_gap_mobile": 6,
-            "row_gap_mobile": 6,
-            "padding_vertical_mobile": 6,
-            "padding_horizontal_mobile": 10,
-            "margin_top_mobile": 0,
-            "margin_bottom_mobile": 24
-          }
-        },
-        "text_EbLQTy": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Even those small disruptions that seem insignificant at the time.<br/>They can all change the routines that support healthy digestion.<br/>And when your <strong>digestion isn't feeling regular</strong>, you can notice it in ways <strong>that have nothing to do with a number on the scale.<br/><br/></strong>You might simply feel:</p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        },
-        "pill_list_byHYDJ": {
-          "type": "pill_list",
-          "settings": {
-            "icon_1": "shopify://shop_images/ix_cancel.webp",
-            "text_1": "Fuller",
-            "icon_2": "shopify://shop_images/ix_cancel.webp",
-            "text_2": "Heavier",
-            "icon_3": "shopify://shop_images/ix_cancel.webp",
-            "text_3": "More bloated",
-            "icon_4": "shopify://shop_images/ix_cancel.webp",
-            "text_4": "Less comfortable",
-            "text_5": "",
-            "text_6": "",
-            "text_7": "",
-            "text_8": "",
-            "background_color": "#f9f9f9",
-            "text_color": "#111111",
-            "border_color": "#f9f9f9",
-            "border_width": 0,
-            "border_radius": 12,
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.2,
-            "icon_size": 16,
-            "icon_size_mobile": 16,
-            "icon_gap": 8,
-            "alignment": "flex-start",
-            "column_gap": 8,
-            "row_gap": 8,
-            "padding_vertical": 6,
-            "padding_horizontal": 10,
-            "margin_top": 8,
-            "margin_bottom": 24,
-            "alignment_mobile": "flex-start",
-            "column_gap_mobile": 6,
-            "row_gap_mobile": 6,
-            "padding_vertical_mobile": 6,
-            "padding_horizontal_mobile": 10,
-            "margin_top_mobile": 0,
-            "margin_bottom_mobile": 24
-          }
-        },
-        "text_h6jHbd": {
-          "type": "text",
-          "settings": {
-            "text": "<p>And that's when I started asking a different question: <strong>What does my gut actually need?</strong></p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 0
           }
         }
       },
       "block_order": [
         "heading_kX6Ehy",
-        "text_Ed9nRk",
-        "pill_list_Tbwxcm",
-        "text_EbLQTy",
-        "pill_list_byHYDJ",
-        "text_h6jHbd"
+        "text_Ed9nRk"
       ],
-      "name": "Your Gut Has A Rhythm And Life Can Throw It Off",
+      "name": "Knowing “You Need More Fiber” Isn't Enough",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 0,
@@ -935,11 +916,11 @@
         "column_gap": 20,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "Your Gut Has A Rhythm And Life Can Throw It Off",
+        "title": "Knowing “You Need More Fiber” Isn't Enough",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
-        "image": "shopify://shop_images/Your_Gut_Has_A_Rhythm_And_Life_Can_Throw_It_Off.webp",
+        "image": "shopify://shop_images/6.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -969,9 +950,9 @@
       "blocks": {
         "heading_yR93An": {
           "type": "heading",
-          "name": "How Gut Flow Supports Healthy Weight Loss",
+          "name": "The Best Gut Routine Is The One You Can Actually Stick To",
           "settings": {
-            "text": "That's When I Started Looking Beyond The Obvious",
+            "text": "The Best Gut Routine Is The One You Can Actually Stick To",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -981,72 +962,106 @@
             "margin_bottom": 24
           }
         },
-        "highlight_checklist_DaB6AE": {
-          "type": "highlight_checklist",
-          "settings": {
-            "icon": "shopify://shop_images/material-symbols_cancel.webp",
-            "items": "I wasn't looking for another diet.\nI wasn't looking for a detox.\nI wasn't looking for another GLP-1.\nAnd I definitely wasn't looking for something that would force my body to do anything overnight.",
-            "background_color": "#f9f9f9",
-            "border_radius": 24,
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "600",
-            "line_height": 1.3,
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "icon_gap": 8,
-            "row_gap": 8,
-            "padding_vertical": 16,
-            "padding_horizontal": 16,
-            "padding_vertical_mobile": 14,
-            "padding_horizontal_mobile": 14,
-            "margin_bottom": 24
-          }
-        },
         "text_rDbwUJ": {
           "type": "text",
           "settings": {
-            "text": "<p>I started looking at the basics instead:</p>",
+            "text": "<p>You can get fiber from food. And you should. <br/><strong>But knowing what to do and doing it consistently aren't the same thing.</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
-            "line_height": 1,
+            "line_height": 1.3,
             "margin_bottom": 24
           }
         },
-        "highlight_checklist_GLQmfP": {
-          "type": "highlight_checklist",
+        "list_McFL86": {
+          "type": "list",
           "settings": {
-            "icon": "shopify://shop_images/lets-icons_check-fill.png",
-            "items": "Hydration\nMovement\nBalanced meals\nEnough sleep\n<span class=\"fhc\">And something I had always heard about – but never consistently prioritized:</span> <b>Fiber.</b>",
-            "background_color": "#f8e3e8",
-            "border_radius": 20,
-            "text_color": "#111111",
+            "items": "Some days you eat plenty of vegetables.\nSome days you're traveling.\nSome days lunch happens between meetings.\nSome days dinner is whatever is convenient.",
+            "background_color": "#f7f7f7",
+            "border_color": "#dddddd",
+            "border_width": 1,
+            "border_radius": 16,
+            "text_color": "#333333",
+            "bullet_color": "#78152b",
             "font_size": 18,
             "font_size_mobile": 16,
-            "font_weight": "600",
-            "line_height": 1.2,
-            "icon_size": 24,
-            "icon_size_mobile": 24,
-            "icon_gap": 8,
-            "row_gap": 4,
+            "font_weight": "500",
+            "line_height": 1.4,
+            "bullet_size": 8,
+            "bullet_gap": 10,
+            "item_gap": 6,
             "padding_vertical": 16,
-            "padding_horizontal": 16,
-            "padding_vertical_mobile": 16,
-            "padding_horizontal_mobile": 16,
+            "padding_horizontal": 18,
+            "padding_vertical_mobile": 14,
+            "padding_horizontal_mobile": 14,
+            "margin_bottom": 16
+          }
+        },
+        "text_6V47wr": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Every serving contains <strong>highly bioavailable Prebiotic Inulin and helps close the daily fiber gap </strong>without:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.3,
             "margin_bottom": 24
+          }
+        },
+        "pill_list_jhDPHj": {
+          "type": "pill_list",
+          "settings": {
+            "icon_1": "shopify://shop_images/icon-close.png",
+            "text_1": "Gritty fiber powders",
+            "icon_2": "shopify://shop_images/icon-close.png",
+            "text_2": "Complicated protocol",
+            "icon_3": "shopify://shop_images/icon-close.png",
+            "text_3": "Extreme diet",
+            "icon_4": "shopify://shop_images/icon-close.png",
+            "text_4": "Laxative drugs",
+            "text_5": "",
+            "text_6": "",
+            "text_7": "",
+            "text_8": "",
+            "background_color": "#f9f9f9",
+            "text_color": "#111111",
+            "border_color": "#c2c2c2",
+            "border_width": 1,
+            "border_radius": 12,
+            "font_size": 16,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.2,
+            "icon_size": 20,
+            "icon_size_mobile": 14,
+            "icon_gap": 8,
+            "alignment": "flex-start",
+            "column_gap": 8,
+            "row_gap": 8,
+            "padding_vertical": 6,
+            "padding_horizontal": 10,
+            "margin_top": 0,
+            "margin_bottom": 16,
+            "alignment_mobile": "flex-start",
+            "column_gap_mobile": 6,
+            "row_gap_mobile": 6,
+            "padding_vertical_mobile": 6,
+            "padding_horizontal_mobile": 10,
+            "margin_top_mobile": 0,
+            "margin_bottom_mobile": 16
           }
         }
       },
       "block_order": [
         "heading_yR93An",
-        "highlight_checklist_DaB6AE",
         "text_rDbwUJ",
-        "highlight_checklist_GLQmfP"
+        "list_McFL86",
+        "text_6V47wr",
+        "pill_list_jhDPHj"
       ],
-      "name": "That's When I Started Looking Beyond The Obvious",
+      "name": "The Best Gut Routine Is The One You Can Actually Stick To",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 0,
@@ -1057,11 +1072,11 @@
         "column_gap": 20,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "That's When I Started Looking Beyond The Obvious",
+        "title": "The Best Gut Routine Is The One You Can Actually Stick To",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
-        "image": "shopify://shop_images/That_s_When_I_Started_Looking_Beyond_The_Obvious.webp",
+        "image": "shopify://shop_images/7.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -1091,9 +1106,9 @@
       "blocks": {
         "heading_yFMGAf": {
           "type": "heading",
-          "name": "Knowing “You Need More Fiber” Isn't Enough",
+          "name": "The Results Go Beyond The Number On The Scale",
           "settings": {
-            "text": "Knowing “You Need More Fiber” Isn't Enough",
+            "text": "The Results Go Beyond The Number On The Scale",
             "tag": "h2",
             "color": "#111111",
             "font_size": 40,
@@ -1106,7 +1121,7 @@
         "text_KYVE8X": {
           "type": "text",
           "settings": {
-            "text": "<p>For years, <strong>I thought </strong>the only thing that<strong> mattered was getting more grams.Not all fiber works the same. Most fibers simply add bulk. </strong><br/><br/>Some fibers primarily contribute to stool bulk.<br/>Others can simply passing through your digestive system.</p>",
+            "text": "<p>Getting enough fiber once in a while isn't the same as making it part of an everyday routine. <br/><strong>The difference comes from consistency.</strong><br/><br/>When <strong>Gut Flow becomes part of a regular daily routine, </strong>consistent fiber support can help promote practical benefits:</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -1115,256 +1130,63 @@
             "margin_bottom": 24
           }
         },
-        "highlight_z8TxCn": {
-          "type": "highlight",
-          "settings": {
-            "text": "<p><strong>💡Inulin Is One of the World’s Most-Studied Prebiotic Fibers.* It selectively nourishes the beneficial bacteria already living in your gut.*</strong></p>",
-            "background_color": "#f8e3e8",
-            "text_color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "icon_size": 20,
-            "icon_gap": 10,
-            "border_radius": 16,
-            "padding_vertical": 16,
-            "padding_horizontal": 18,
-            "margin_bottom": 16
-          }
-        }
-      },
-      "block_order": [
-        "heading_yFMGAf",
-        "text_KYVE8X",
-        "highlight_z8TxCn"
-      ],
-      "name": "Knowing “You Need More Fiber” Isn't Enough",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 40,
-        "title_gap": 0,
-        "column_gap": 20,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "Knowing “You Need More Fiber” Isn't Enough",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#111111",
-        "image": "shopify://shop_images/Knowing_You_Need_More_Fiber_Isn_t_Enough.webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#111111",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
-      }
-    },
-    "get_harmony_feature_v2_nbMHaz": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_tMqaLf": {
-          "type": "heading",
-          "name": "The Best Gut Routine Is The One You Can Actually Stick To",
-          "settings": {
-            "text": "The Best Gut Routine Is The One You Can Actually Stick To",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 24
-          }
-        },
-        "text_QEQpK7": {
-          "type": "text",
-          "settings": {
-            "text": "<p>I knew I could get more fiber from food. <strong><br/>But knowing what to do and doing it consistently aren't the same thing.</strong></p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 24
-          }
-        },
-        "list_bGEGKA": {
-          "type": "list",
-          "settings": {
-            "items": "Some days I ate plenty of vegetables.\nSome days I was traveling.\nSome days lunch happened between meetings.\nSome days dinner was whatever was convenient.",
-            "background_color": "#f9f9f9",
-            "border_color": "#c2c2c2",
-            "border_width": 1,
-            "border_radius": 16,
-            "text_color": "#111111",
-            "bullet_color": "#5b0d1e",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
-            "bullet_size": 8,
-            "bullet_gap": 10,
-            "item_gap": 6,
-            "padding_vertical": 16,
-            "padding_horizontal": 18,
-            "padding_vertical_mobile": 14,
-            "padding_horizontal_mobile": 14,
-            "margin_bottom": 16
-          }
-        },
-        "text_JVEhNm": {
-          "type": "text",
-          "settings": {
-            "text": "<p><strong>I didn't need another complicated wellness protocol.</strong> I needed something simple enough to become a habit.<br/>That's why I added <strong>Gut Flow</strong> to my daily routine.<strong> Every serving contains highly bioavailable Prebiotic Inulin</strong> and helps <strong>close the daily fiber gap</strong> – without mixing gritty powders or starting another extreme diet just to <strong>feel lighter and more comfortable in my clothes throughout the day.</strong></p>",
-            "color": "#333333",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
-            "margin_bottom": 16
-          }
-        }
-      },
-      "block_order": [
-        "heading_tMqaLf",
-        "text_QEQpK7",
-        "list_bGEGKA",
-        "text_JVEhNm"
-      ],
-      "name": "The Best Gut Routine Is The One You Can Actually Stick To",
-      "settings": {
-        "use_theme_colors": false,
-        "padding_top": 0,
-        "padding_bottom": 72,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 40,
-        "title_gap": 0,
-        "column_gap": 20,
-        "content_gap": 0,
-        "background_color": "#ffffff",
-        "title": "The Best Gut Routine Is The One You Can Actually Stick To",
-        "title_size": 40,
-        "title_size_mobile": 26,
-        "title_color": "#111111",
-        "image": "shopify://shop_images/The_Best_Gut_Routine_Is_The_One_You_Can_Actually_Stick_To.webp",
-        "image_width": 600,
-        "image_height": 450,
-        "image_width_mobile": 450,
-        "image_height_mobile": 262,
-        "image_fit": "contain",
-        "image_position": "center top",
-        "image_border_radius": 0,
-        "body_text": "",
-        "text_size": 18,
-        "text_color": "#111111",
-        "testimonial_text": "",
-        "testimonial_size": 16,
-        "testimonial_paragraph_spacing": 12,
-        "testimonial_color": "#333333",
-        "button_text": "",
-        "button_link": "",
-        "button_show_arrow": false,
-        "button_font_size": 24,
-        "button_radius": 32,
-        "button_bg_color": "#23a02a",
-        "button_text_color": "#ffffff",
-        "button_hover_bg_color": "#1d8a23"
-      }
-    },
-    "get_harmony_feature_v2_7Ae7eJ": {
-      "type": "get-harmony-feature-v2",
-      "blocks": {
-        "heading_NFHeQw": {
-          "type": "heading",
-          "name": "What I Noticed Wasn’t a Number on the Scale",
-          "settings": {
-            "text": "What I Noticed Wasn’t a Number on the Scale",
-            "tag": "h2",
-            "color": "#111111",
-            "font_size": 40,
-            "font_size_mobile": 26,
-            "font_weight": "700",
-            "line_height": 1.2,
-            "margin_bottom": 24
-          }
-        },
-        "text_xKk4fc": {
-          "type": "text",
-          "settings": {
-            "text": "<p>The <strong>changes</strong> were much <strong>more practical.</strong></p>",
-            "color": "#111111",
-            "font_size": 18,
-            "font_size_mobile": 16,
-            "font_weight": "400",
-            "line_height": 1.4,
-            "margin_bottom": 24
-          }
-        },
-        "highlight_checklist_tfjwzi": {
+        "highlight_checklist_FePBNW": {
           "type": "highlight_checklist",
           "settings": {
             "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "items": "I became more regular.\nI felt less digestive heaviness.\nI felt more comfortable after every meals.\nMy clothes fits better.\nI am feeling satisfied.",
+            "items": "More regular bowel movements\nLess digestive heaviness\nGreater comfort throughout the day\nMore comfortable-feeling clothes\nFeeling more satisfied as part of a balanced diet",
             "background_color": "#f8e3e8",
             "border_radius": 20,
             "text_color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
             "font_weight": "400",
-            "line_height": 1.3,
+            "line_height": 1.2,
             "icon_size": 24,
-            "icon_size_mobile": 24,
+            "icon_size_mobile": 22,
             "icon_gap": 8,
             "row_gap": 8,
-            "padding_vertical": 22,
-            "padding_horizontal": 24,
-            "padding_vertical_mobile": 18,
-            "padding_horizontal_mobile": 18,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 16,
+            "padding_horizontal_mobile": 16,
             "margin_bottom": 16
           }
         },
-        "text_tLBMty": {
+        "text_VycQgG": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>I stopped blaming every change on my hormones</strong> or treating every bloated evening like a reason to start another diet.<br/><strong>I finally felt more confident </strong>navigating life <strong>after 40without</strong> constantly trying to <strong>fight my body.</strong></p>",
+            "text": "<p>And perhaps most importantly, <strong>consistent gut support can help you stop treating every change in your body as a reason to start another diet or blame it on hormones.</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
-            "font_weight": "500",
-            "line_height": 1.4,
-            "margin_bottom": 16
+            "font_weight": "400",
+            "line_height": 1.2,
+            "margin_bottom": 18
+          }
+        },
+        "text_xmNgkV": {
+          "type": "text",
+          "name": "The goal isn't to fight your body through every change that comes with life after 40, but to support",
+          "settings": {
+            "text": "<p>The goal isn't to fight your body through every change that comes with life after 40, but to support it with simple, sustainable daily habits.</p>",
+            "color": "#5b0d1e",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
           }
         }
       },
       "block_order": [
-        "heading_NFHeQw",
-        "text_xKk4fc",
-        "highlight_checklist_tfjwzi",
-        "text_tLBMty"
+        "heading_yFMGAf",
+        "text_KYVE8X",
+        "highlight_checklist_FePBNW",
+        "text_VycQgG",
+        "text_xmNgkV"
       ],
-      "custom_css": [
-        ".gut-harmony-feature__highlight-checklist {width: max-content;}",
-        "@media screen and (max-width: 749px) {.gut-harmony-feature__highlight-checklist {width: 100%; }}"
-      ],
-      "name": "What I Noticed Wasn’t a Number on the Scale",
+      "name": "The Results Go Beyond The Number On The Scale",
       "settings": {
         "use_theme_colors": false,
         "padding_top": 0,
@@ -1375,11 +1197,11 @@
         "column_gap": 20,
         "content_gap": 0,
         "background_color": "#ffffff",
-        "title": "What I Noticed Wasn’t a Number on the Scale",
+        "title": "The Results Go Beyond The Number On The Scale",
         "title_size": 40,
         "title_size_mobile": 26,
         "title_color": "#111111",
-        "image": "shopify://shop_images/What_I_Noticed_Wasn_t_a_Number_on_the_Scale.webp",
+        "image": "shopify://shop_images/8.webp",
         "image_width": 600,
         "image_height": 450,
         "image_width_mobile": 450,
@@ -1402,6 +1224,73 @@
         "button_bg_color": "#23a02a",
         "button_text_color": "#ffffff",
         "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "listicle_sticky_only": {
+      "type": "listicle",
+      "blocks": {
+        "listicle_sticky_atc_8EwYPV": {
+          "type": "listicle-sticky-atc",
+          "name": "Sticky Add to Cart",
+          "settings": {
+            "button_text": "🔥 Try Gut Flow Now",
+            "show_arrow": false,
+            "button_link": "/products/gut-flow-gummies",
+            "button_bg": "#5e1424",
+            "button_text_color": "#ffffff",
+            "enable_heartbeat": true,
+            "button_font_size": 18,
+            "button_font_size_mobile": 14,
+            "button_padding_y": 20,
+            "button_padding_x": 40,
+            "button_border_radius": 8,
+            "show_guarantee": true,
+            "guarantee_icon": "shopify://shop_images/guarante.png",
+            "guarantee_text": "30-day money-back guarantee",
+            "guarantee_text_color": "#111111",
+            "guarantee_font_size": 14,
+            "guarantee_font_size_mobile": 12,
+            "guarantee_font_weight": "400",
+            "guarantee_icon_size": 16,
+            "guarantee_icon_size_mobile": 12,
+            "guarantee_gap": 5,
+            "guarantee_gap_mobile": 4,
+            "guarantee_margin_top": 0,
+            "guarantee_margin_top_mobile": 0,
+            "show_subtext": false,
+            "subtext": "",
+            "subtext_color": "#25282a",
+            "subtext_font_size": 12,
+            "sticky": true,
+            "mobile_only": false,
+            "container_bg": "#f1eeef",
+            "max_width": 500,
+            "border_radius": 12,
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "listicle_sticky_atc_8EwYPV"
+      ],
+      "settings": {
+        "section_max_width": 900,
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "gap": 30,
+        "use_custom_font": false,
+        "section_font_family": "assistant_n4",
+        "heading_letter_spacing": 0,
+        "body_letter_spacing": 0,
+        "font_size_preset": "medium",
+        "use_theme_colors": false,
+        "disable_scroll_animation": true,
+        "section_background_color": "#ffffff",
+        "section_text_color": "#3b3b3b",
+        "container_padding_horizontal": 20,
+        "mobile_container_padding": 20
       }
     },
     "mm_heading_banner_lum_H3xaWF": {
@@ -1441,7 +1330,7 @@
         "subtitle_RannTP": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.*</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
           }
         },
         "labels_jNjCEd": {
@@ -1501,7 +1390,7 @@
             "option_3_free": 0,
             "option_3_save": "Save $12",
             "option_3_badge": "Most Savings",
-            "option_3_badge_bg": "#99364c",
+            "option_3_badge_bg": "#5b0d1e",
             "option_3_badge_text": "#ffffff",
             "option_4_show": false,
             "option_4_selected": false,
@@ -1512,7 +1401,7 @@
             "option_4_save": "",
             "option_4_badge": "",
             "option_4_badge_bg": "#fad356",
-            "option_4_badge_text": "#113b34"
+            "option_4_badge_text": "#111111"
           }
         },
         "purchase_type_6BPytR": {
@@ -1573,8 +1462,8 @@
             "show_price_in_button": true,
             "show_compare_in_button": true,
             "cart_icon": "none",
-            "button_bg": "#5b0d1e",
-            "button_hover_bg": "#111111",
+            "button_bg": "#8d2b40",
+            "button_hover_bg": "#5b0d1e",
             "button_text_color": "#ffffff",
             "show_sticky": false,
             "sticky_label": "Try it Now"
@@ -1609,22 +1498,21 @@
         },
         "cross_sell_WWLLUc": {
           "type": "cross_sell",
-          "disabled": true,
           "settings": {
             "heading": "Thousands of customers also buy",
-            "heading_color": "#113b34",
-            "card_bg": "#f4f4f2",
+            "heading_color": "#111111",
+            "card_bg": "#f9f9f9",
             "show_compare": true,
             "save_auto": true,
             "save_prefix": "Save",
-            "save_bg": "#fa6c56",
-            "save_text": "#ffffff",
+            "save_bg": "#fad356",
+            "save_text": "#8d2b40",
             "add_label": "Add",
             "button_bg": "#ffffff",
-            "button_text": "#113b34",
-            "product_1": "",
+            "button_text": "#5b0d1e",
+            "product_1": "feel-balanced-after-45",
             "custom_title_1": "",
-            "custom_subtitle_1": "",
+            "custom_subtitle_1": "Natural metabolic & energy support for women 45+",
             "product_2": "",
             "custom_title_2": "",
             "custom_subtitle_2": "",
@@ -1663,13 +1551,13 @@
             "tab_2_title": "Perfect For",
             "tab_2_icon": "profile",
             "tab_2_layout": "checklist",
-            "tab_2_row_1_label": "Irregular bowel movements*",
+            "tab_2_row_1_label": "Irregular bowel movements",
             "tab_2_row_1_text": "",
             "tab_2_row_2_label": "Low daily fiber intake",
             "tab_2_row_2_text": "",
             "tab_2_row_3_label": "Feeling bloated or sluggish",
             "tab_2_row_3_text": "",
-            "tab_2_row_4_label": "Supporting long-term gut health*",
+            "tab_2_row_4_label": "Supporting long-term gut health",
             "tab_2_row_4_text": "",
             "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits",
             "tab_2_row_5_text": "",
@@ -1715,13 +1603,13 @@
       "settings": {
         "gifts_heading": "Limited Time Free Welcome Gifts",
         "gifts_save_prefix": "Save",
-        "gifts_divider_color": "#c2c2c2",
+        "gifts_divider_color": "#f9f9f9",
         "gifts_heading_color": "#5b0d1e",
         "gifts_title_color": "#111111",
         "gifts_card_bg": "#f9f9f9",
         "gifts_card_active_bg": "#ffffff",
         "gifts_lock_color": "#858585",
-        "gifts_save_bg": "#ffd34e",
+        "gifts_save_bg": "#fad356",
         "gifts_save_color": "#111111",
         "gifts_header_bottom": 16,
         "gifts_margin_top": 0,
@@ -2518,7 +2406,7 @@
           "type": "benefit",
           "settings": {
             "title": "4g of Prebiotic Fiber",
-            "description": "Close the daily fiber gap to help nourish beneficial gut bacteria.*",
+            "description": "Delivers a meaningful amount of prebiotic fiber to help nourish beneficial gut bacteria.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2531,7 +2419,7 @@
         "benefit_j3eYym": {
           "type": "benefit",
           "settings": {
-            "title": "Supports Digestive Regularity*",
+            "title": "Supports Digestive Regularity",
             "description": "Helps maintain a healthy digestive rhythm and everyday gut comfort.",
             "benefit_color": "",
             "benefit_description_color": "",
@@ -2545,7 +2433,7 @@
         "benefit_pPE6LW": {
           "type": "benefit",
           "settings": {
-            "title": "Feeds Beneficial Gut Bacteria*",
+            "title": "Feeds Beneficial Gut Bacteria",
             "description": "Inulin and FOS work together to support a balanced, thriving gut environment.",
             "benefit_color": "",
             "benefit_description_color": "",
@@ -2560,7 +2448,7 @@
           "type": "benefit",
           "settings": {
             "title": "Feel Lighter Every Day",
-            "description": "Supports digestive comfort and helps you feel less weighed down after meals.*",
+            "description": "Supports digestive comfort and helps you feel less weighed down after meals.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2574,7 +2462,7 @@
           "type": "benefit",
           "settings": {
             "title": "Delicious & No Mess",
-            "description": "No powders, no mixing – just two tasty gummies each day.",
+            "description": "No powders, no mixing — just two tasty gummies each day.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2658,7 +2546,7 @@
         "border_color": "#ffffff",
         "heading_accent": "Gut Flow*",
         "heading_regular": "Why People Love",
-        "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.*",
+        "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.",
         "show_image": true,
         "media_type": "image",
         "feature_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_03_26_47_PM_1.webp",
@@ -2830,79 +2718,12 @@
         "section_bottom_border_style": "solid",
         "section_bottom_border_color": "#e5e5e5"
       }
-    },
-    "listicle_sticky_only": {
-      "type": "listicle",
-      "blocks": {
-        "listicle_sticky_atc_8EwYPV": {
-          "type": "listicle-sticky-atc",
-          "name": "Sticky Add to Cart",
-          "settings": {
-            "button_text": "🔥 Try Gut Flow Now",
-            "show_arrow": false,
-            "button_link": "/products/gut-flow-gummies",
-            "button_bg": "#5e1424",
-            "button_text_color": "#ffffff",
-            "enable_heartbeat": true,
-            "button_font_size": 18,
-            "button_font_size_mobile": 14,
-            "button_padding_y": 20,
-            "button_padding_x": 40,
-            "button_border_radius": 8,
-            "show_guarantee": true,
-            "guarantee_icon": "shopify://shop_images/guarante.png",
-            "guarantee_text": "30-day money-back guarantee",
-            "guarantee_text_color": "#111111",
-            "guarantee_font_size": 14,
-            "guarantee_font_size_mobile": 12,
-            "guarantee_font_weight": "400",
-            "guarantee_icon_size": 16,
-            "guarantee_icon_size_mobile": 12,
-            "guarantee_gap": 5,
-            "guarantee_gap_mobile": 4,
-            "guarantee_margin_top": 0,
-            "guarantee_margin_top_mobile": 0,
-            "show_subtext": false,
-            "subtext": "",
-            "subtext_color": "#25282a",
-            "subtext_font_size": 12,
-            "sticky": true,
-            "mobile_only": false,
-            "container_bg": "#f1eeef",
-            "max_width": 500,
-            "border_radius": 12,
-            "margin_top": 20,
-            "margin_bottom": 20
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "listicle_sticky_atc_8EwYPV"
-      ],
-      "settings": {
-        "section_max_width": 900,
-        "padding_top": 30,
-        "padding_bottom": 0,
-        "gap": 30,
-        "use_custom_font": false,
-        "section_font_family": "assistant_n4",
-        "heading_letter_spacing": 0,
-        "body_letter_spacing": 0,
-        "font_size_preset": "medium",
-        "use_theme_colors": false,
-        "disable_scroll_animation": true,
-        "section_background_color": "#f9f9f9",
-        "section_text_color": "#3b3b3b",
-        "container_padding_horizontal": 20,
-        "mobile_container_padding": 20
-      }
     }
   },
   "order": [
     "lum_template_font",
     "main",
-    "mm_gut_harmony_benefits_gKxehV",
+    "mm_gut_flow_hero_AbhQ4K",
     "rich_text_BR7tJa",
     "get_harmony_feature_v2_9AzqaE",
     "get_harmony_feature_v2_nQrn9R",
@@ -2911,8 +2732,7 @@
     "get_harmony_feature_v2_WwW9hw",
     "get_harmony_feature_v2_hVXahQ",
     "get_harmony_feature_v2_QcAKNJ",
-    "get_harmony_feature_v2_nbMHaz",
-    "get_harmony_feature_v2_7Ae7eJ",
+    "listicle_sticky_only",
     "mm_heading_banner_lum_H3xaWF",
     "product_details_lum_WFPgrJ",
     "mm_research_mentions_GeBLp4",
@@ -2923,7 +2743,6 @@
     "customer_reviews_carousel_6W7Cht",
     "roadmap_MGJAcC",
     "product_benefits_4DmPcz",
-    "store_faq_73Kxey",
-    "listicle_sticky_only"
+    "store_faq_73Kxey"
   ]
 }
