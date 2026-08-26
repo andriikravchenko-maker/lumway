@@ -76,7 +76,7 @@
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>For most of my life, I knew what my body felt like.<br/><strong>Then I turned 40.</strong><br/><br/>I started noticing things I hadn't really experienced before: f<strong>eeling heavy after meals, going less regularly, feeling backed up.</strong><br/>My jeans started feeling tighter around my waist by the end of the day.<br/><br/>At first, I didn't think much of it. Until I realized I just <strong>didn't feel as comfortable in my clothes and in my own body as I used to.</strong><br/><br/>Then I started learning about what happens to women's bodies after 40:</p>"
+            "subtitle": "<p>For most of my life, I knew what my body felt like.<br/><strong>Then I turned 40.</strong><br/><br/>I started noticing things I hadn't really experienced before: <strong>feeling heavy after meals, going less regularly, feeling backed up.</strong><br/>My jeans started feeling tighter around my waist by the end of the day.<br/><br/>At first, I didn't think much of it. Until I realized I just <strong>didn't feel as comfortable in my clothes and in my own body as I used to.</strong><br/><br/>Then I started learning about what happens to women's bodies after 40:</p>"
           }
         },
         "tags_iqdNPf": {
@@ -1106,7 +1106,7 @@
         "text_KYVE8X": {
           "type": "text",
           "settings": {
-            "text": "<p>For years, <strong>I thought </strong>the only thing that<strong> mattered was getting more grams.Not all fiber works the same. Most fibers simply add bulk. </strong><br/><br/>Some fibers primarily contribute to stool bulk.<br/>Others can simply passing through your digestive system.</p>",
+            "text": "<p>For years, <strong>I thought </strong>the only thing that<strong> mattered was getting more grams. Not all fiber works the same. Most fibers simply add bulk.</strong><br/><br/>Some fibers primarily contribute to stool bulk.<br/>Others can simply pass through your digestive system.</p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -1118,7 +1118,7 @@
         "highlight_z8TxCn": {
           "type": "highlight",
           "settings": {
-            "text": "<p><strong>💡Inulin Is One of the World’s Most-Studied Prebiotic Fibers. It selectively nourishes the beneficial bacteria already living in your gut. </strong></p>",
+            "text": "<p><strong>💡Inulin Is One of the World’s Most-Studied Prebiotic Fibers.* It selectively nourishes the beneficial bacteria already living in your gut.*</strong></p>",
             "background_color": "#f8e3e8",
             "text_color": "#111111",
             "font_size": 18,
@@ -1322,7 +1322,7 @@
           "type": "highlight_checklist",
           "settings": {
             "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "items": "I became more regular\nI felt less digestive heaviness\nI felt more comfortable after every meals\nMy clothes fits better\nI am feeling satisfied",
+            "items": "I became more regular.\nI felt less digestive heaviness.\nI felt more comfortable after every meals.\nMy clothes fits better.\nI am feeling satisfied.",
             "background_color": "#f8e3e8",
             "border_radius": 20,
             "text_color": "#111111",
@@ -1344,7 +1344,7 @@
         "text_tLBMty": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>I stopped blaming every change on my hormones</strong> or treating every bloated evening like a reason to start another diet.<br/><strong>I finally felt more confident </strong>navigating life <strong>after 40without</strong> constantly trying to <strong>fight my body.</strong></p>",
+            "text": "<p><strong>I stopped blaming every change on my hormones</strong> or treating every bloated evening like a reason to start another diet.<br/><strong>I finally felt more confident </strong>navigating life <strong>after 40 without</strong> constantly trying to <strong>fight my body.</strong></p>",
             "color": "#111111",
             "font_size": 18,
             "font_size_mobile": 16,
@@ -1441,7 +1441,7 @@
         "subtitle_RannTP": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.*</p>"
           }
         },
         "labels_jNjCEd": {
@@ -1574,7 +1574,7 @@
             "show_compare_in_button": true,
             "cart_icon": "none",
             "button_bg": "#8d2b40",
-            "button_hover_bg": "#5B0D1E",
+            "button_hover_bg": "#5b0d1e",
             "button_text_color": "#ffffff",
             "show_sticky": false,
             "sticky_label": "Try it Now"
@@ -1662,15 +1662,15 @@
             "tab_2_title": "Perfect For",
             "tab_2_icon": "profile",
             "tab_2_layout": "checklist",
-            "tab_2_row_1_label": "Irregular bowel movements",
+            "tab_2_row_1_label": "Irregular bowel movements*",
             "tab_2_row_1_text": "",
             "tab_2_row_2_label": "Low daily fiber intake",
             "tab_2_row_2_text": "",
             "tab_2_row_3_label": "Feeling bloated or sluggish",
             "tab_2_row_3_text": "",
-            "tab_2_row_4_label": "Supporting long-term gut health",
+            "tab_2_row_4_label": "Supporting long-term gut health*",
             "tab_2_row_4_text": "",
-            "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits",
+            "tab_2_row_5_label": "Looking for a drug-free alternative to support healthy habits*",
             "tab_2_row_5_text": "",
             "tab_2_row_6_label": "",
             "tab_2_row_6_text": "",
@@ -2517,7 +2517,7 @@
           "type": "benefit",
           "settings": {
             "title": "4g of Prebiotic Fiber",
-            "description": "Delivers a meaningful amount of prebiotic fiber to help nourish beneficial gut bacteria.",
+            "description": "Close the daily fiber gap to help nourish beneficial gut bacteria.*",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2530,7 +2530,7 @@
         "benefit_j3eYym": {
           "type": "benefit",
           "settings": {
-            "title": "Supports Digestive Regularity",
+            "title": "Supports Digestive Regularity*",
             "description": "Helps maintain a healthy digestive rhythm and everyday gut comfort.",
             "benefit_color": "",
             "benefit_description_color": "",
@@ -2544,7 +2544,7 @@
         "benefit_pPE6LW": {
           "type": "benefit",
           "settings": {
-            "title": "Feeds Beneficial Gut Bacteria",
+            "title": "Feeds Beneficial Gut Bacteria*",
             "description": "Inulin and FOS work together to support a balanced, thriving gut environment.",
             "benefit_color": "",
             "benefit_description_color": "",
@@ -2559,7 +2559,7 @@
           "type": "benefit",
           "settings": {
             "title": "Feel Lighter Every Day",
-            "description": "Supports digestive comfort and helps you feel less weighed down after meals.",
+            "description": "Supports digestive comfort and helps you feel less weighed down after meals.*",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
@@ -2573,7 +2573,7 @@
           "type": "benefit",
           "settings": {
             "title": "Delicious & No Mess",
-            "description": "No powders, no mixing — just two tasty gummies each day.",
+            "description": "No powders, no mixing – just two tasty gummies each day.",
             "benefit_color": "",
             "benefit_description_color": "",
             "icon_size": 24,
