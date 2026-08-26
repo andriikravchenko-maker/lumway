@@ -76,7 +76,7 @@
         "subtitle_PirNe8": {
           "type": "subtitle",
           "settings": {
-            "subtitle": "<p>For most of my life, I knew what my body felt like.<br/><strong>Then I turned 40.</strong><br/><br/>I started noticing things I hadn't really experienced before: f<strong>eeling heavy after meals, going less regularly, feeling backed up.</strong><br/>My jeans started feeling tighter around my waist by the end of the day.<br/><br/>At first, I didn't think much of it. Until I realized I just <strong>didn't feel as comfortable in my clothes and in my own body as I used to.</strong><br/><br/>Then I started learning about what happens to women's bodies after 40:</p>"
+            "subtitle": "<p>For most of my life, I knew what my body felt like.<br/><strong>Then I turned 40.</strong><br/><br/>I started noticing things I hadn't really experienced before: <strong>feeling heavy after meals, going less regularly, feeling backed up.</strong><br/>My jeans started feeling tighter around my waist by the end of the day.<br/><br/>At first, I didn't think much of it. Until I realized I just <strong>didn't feel as comfortable in my clothes and in my own body as I used to.</strong><br/><br/>Then I started learning about what happens to women's bodies after 40:</p>"
           }
         },
         "tags_iqdNPf": {
@@ -1322,7 +1322,7 @@
           "type": "highlight_checklist",
           "settings": {
             "icon": "shopify://shop_images/lets-icons_check-fill.webp",
-            "items": "I became more regular\nI felt less digestive heaviness\nI felt more comfortable after every meals\nMy clothes fits better\nI am feeling satisfied",
+            "items": "I became more regular.\nI felt less digestive heaviness.\nI felt more comfortable after every meals.\nMy clothes fits better.\nI am feeling satisfied.",
             "background_color": "#f8e3e8",
             "border_radius": 20,
             "text_color": "#111111",
