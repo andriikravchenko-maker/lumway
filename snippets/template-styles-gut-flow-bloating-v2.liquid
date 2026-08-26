@@ -24,11 +24,9 @@ background: var(--template-bg-v2) !important;
 color: var(--template-border) !important;
 }
 
-.gut-harmony-feature__list-items{
-  font-size: var(--font-m);
-}
+
 .gut-harmony-feature__list-bullet{
-  margin-top: 0 !important;
+  margin-top: 0;
 }
 
 
@@ -109,6 +107,12 @@ width: max-content;
 }
 
 @media screen and (max-width: 749px) {
+  .gut-harmony-feature__list-items{
+  font-size: var(--font-m);
+}
+  #mm-gut-harmony-feature .gut-harmony-feature__list-item{
+      align-items: flex-start !important;
+  }
 .gut-harmony-feature__highlight-checklist-item{
   align-items: flex-start;
 }
