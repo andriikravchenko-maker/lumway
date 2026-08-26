@@ -1465,7 +1465,7 @@
           "type": "bundle",
           "settings": {
             "heading": "Select Quantity",
-            "note": "Stay consistent for 8+ weeks for optimal results.",
+            "note": "For best results take consistently for at least 6–8 weeks.",
             "save_badge_bg": "#fa6c56",
             "save_badge_text": "#ffffff",
             "save_auto": true,
@@ -1501,7 +1501,7 @@
             "option_3_free": 0,
             "option_3_save": "Save $12",
             "option_3_badge": "Most Savings",
-            "option_3_badge_bg": "#99364C",
+            "option_3_badge_bg": "#99364c",
             "option_3_badge_text": "#ffffff",
             "option_4_show": false,
             "option_4_selected": false,
