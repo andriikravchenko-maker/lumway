@@ -7,24 +7,23 @@
   }) {
     window.__metaAtcCount = (window.__metaAtcCount || 0) + 1;
 
-    console.group('[Meta ATC] call #' + window.__metaAtcCount);
+    console.log('[Meta ATC COUNT]', window.__metaAtcCount);
 
-    console.log('payload:', {
+    console.log('[Meta ATC PAYLOAD]', {
       value,
       currency,
       quantity,
       items
     });
 
-    console.trace('called from');
+    console.trace('[Meta ATC SOURCE]');
 
     if (
       !window.Shopify ||
       !Shopify.analytics ||
       typeof Shopify.analytics.publish !== 'function'
     ) {
-      console.error('Shopify.analytics.publish unavailable');
-      console.groupEnd();
+      console.error('[Meta ATC] Shopify.analytics.publish unavailable');
       return;
     }
 
@@ -35,13 +34,11 @@
       items: Array.isArray(items) ? items : []
     };
 
-    console.log('publishing lumway:add_to_cart', payload);
+    console.log('[Meta ATC PUBLISH]', payload);
 
     Shopify.analytics.publish(
       'lumway:add_to_cart',
       payload
     );
-
-    console.groupEnd();
   };
 </script>
