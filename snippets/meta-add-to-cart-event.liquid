@@ -20,16 +20,10 @@
     console.log('[Meta ATC] publishing lumway:add_to_cart');
 
     Shopify.analytics.publish('lumway:add_to_cart', {
-  value: Number(value) || 0,
-  currency: currency || Shopify.currency?.active || 'USD',
-  quantity: Number(quantity) || 1,
-  items: Array.isArray(items) ? items : []
-})
-.then(function(result) {
-  console.log('[Meta ATC] publish result:', result);
-})
-.catch(function(error) {
-  console.error('[Meta ATC] publish error:', error);
-});
+      value: Number(value) || 0,
+      currency: currency || Shopify.currency?.active || 'USD',
+      quantity: Number(quantity) || 1,
+      items: Array.isArray(items) ? items : []
+    });
   };
 </script>
