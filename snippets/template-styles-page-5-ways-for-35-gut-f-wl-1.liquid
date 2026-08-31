@@ -1,0 +1,33 @@
+{% comment %} template-styles-page-5-ways-for-35-gut-f-wl-1 {% endcomment %}
+{% style %}
+/* =========================================
+PAGES — 5-ways-for-35-gut-f-wl-1
+========================================= */
+{% if template.name == 'page' and template.suffix == '5-ways-for-35-gut-f-wl-1' %}
+#MainContent {
+          --template-heading-font: 'Fraunces', Georgia, serif;
+          --template-btn-font: 'League Spartan', Arial, sans-serif;
+          --template-bg: #FFFDFA;
+          --template-accent: #FA6C56;
+          --template-border: #5B0D1E;
+          --template-soft-bg: #F5F3EF;
+           --template-accent-black: #111111;
+
+          background: var(--template-bg);
+        }
+#MainContent h2,#MainContent .gut-harmony-benefits__heading h2,#MainContent .gut-harmony-benefits__heading span{
+     font-family: var(--template-heading-font) !important;
+}
+#advertorial-section{
+    background: var(--template-soft-bg);
+}
+#MainContent  .gut-harmony-benefits__button{
+  font-family: var(--template-btn-font)  !important;
+}
+
+@media screen and (max-width: 749px) {
+  
+}
+
+{% endif %}
+{% endstyle %}
