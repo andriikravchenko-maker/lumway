@@ -5,10 +5,19 @@
     quantity,
     items
   }) {
-    if (!window.Shopify?.analytics?.publish) {
-      console.warn('[Meta ATC] Shopify.analytics.publish unavailable');
+    console.log('[Meta ATC] function called', {
+      value,
+      currency,
+      quantity,
+      items
+    });
+
+    if (!window.Shopify || !Shopify.analytics || !Shopify.analytics.publish) {
+      console.error('[Meta ATC] Shopify.analytics.publish unavailable');
       return;
     }
+
+    console.log('[Meta ATC] publishing lumway:add_to_cart');
 
     Shopify.analytics.publish('lumway:add_to_cart', {
       value: Number(value) || 0,
