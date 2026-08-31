@@ -547,7 +547,28 @@ if (data && data.status) { window.alert(data.description || 'Could not add to ca
 // Main + gifts are already in. Only the threshold-gated progress-bar guide may still need adding;
 // open the drawer with its payload if it fired, otherwise with our combined-add payload.
 return ensureFreeGift().then(function (freeData) {
-openDrawerWith((freeData && freeData.sections) ? freeData : data);
+  var variant = currentVariant();
+
+  var price = (override && override.price != null)
+    ? override.price
+    : (variant ? variant.price : 0);
+
+  if (typeof window.publishMetaAddToCart === 'function') {
+    window.publishMetaAddToCart({
+      value: price / 100,
+      currency: Shopify.currency.active,
+      quantity: Number(mainItem.quantity) || 1,
+      items: [
+        {
+          variant_id: mainItem.id,
+          quantity: Number(mainItem.quantity) || 1,
+          price: price / 100
+        }
+      ]
+    });
+  }
+
+  openDrawerWith((freeData && freeData.sections) ? freeData : data);
 });
 })
 .catch(function () { atcForm.submit(); })
