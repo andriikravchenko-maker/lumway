@@ -12,6 +12,8 @@
       items
     });
 
+    console.trace('[Meta ATC] call source');
+
     if (
       !window.Shopify ||
       !Shopify.analytics ||
@@ -30,13 +32,6 @@
 
     console.log('[Meta ATC] publishing lumway:add_to_cart', payload);
 
-    Shopify.analytics
-      .publish('lumway:add_to_cart', payload)
-      .then(function (result) {
-        console.log('[Meta ATC] publish result:', result);
-      })
-      .catch(function (error) {
-        console.error('[Meta ATC] publish error:', error);
-      });
+    Shopify.analytics.publish('lumway:add_to_cart', payload);
   };
 </script>
