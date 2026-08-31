@@ -5,7 +5,9 @@
     quantity,
     items
   }) {
-    console.group('[Meta ATC] publish call');
+    window.__metaAtcCount = (window.__metaAtcCount || 0) + 1;
+
+    console.group('[Meta ATC] call #' + window.__metaAtcCount);
 
     console.log('payload:', {
       value,
@@ -33,7 +35,7 @@
       items: Array.isArray(items) ? items : []
     };
 
-    console.log('publishing lumway:add_to_cart:', payload);
+    console.log('publishing lumway:add_to_cart', payload);
 
     Shopify.analytics.publish(
       'lumway:add_to_cart',
