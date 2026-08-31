@@ -41,6 +41,7 @@
     {% render 'shogun-optimizer' %}
     {% render 'elevateab' %}
     <link rel="canonical" href="{{ canonical_url }}">
+    {% render 'meta-add-to-cart-event' %}
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
