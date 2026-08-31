@@ -1,0 +1,20 @@
+<script>
+  window.publishMetaAddToCart = function ({
+    value,
+    currency,
+    quantity,
+    items
+  }) {
+    if (!window.Shopify?.analytics?.publish) {
+      console.warn('[Meta ATC] Shopify.analytics.publish unavailable');
+      return;
+    }
+
+    Shopify.analytics.publish('lumway:add_to_cart', {
+      value: Number(value) || 0,
+      currency: currency || Shopify.currency?.active || 'USD',
+      quantity: Number(quantity) || 1,
+      items: Array.isArray(items) ? items : []
+    });
+  };
+</script>
