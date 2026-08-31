@@ -5,21 +5,24 @@
     quantity,
     items
   }) {
-    console.log('[Meta ATC] function called', {
+    console.group('[Meta ATC] publish call');
+
+    console.log('payload:', {
       value,
       currency,
       quantity,
       items
     });
 
-    console.trace('[Meta ATC] call source');
+    console.trace('called from');
 
     if (
       !window.Shopify ||
       !Shopify.analytics ||
       typeof Shopify.analytics.publish !== 'function'
     ) {
-      console.error('[Meta ATC] Shopify.analytics.publish unavailable');
+      console.error('Shopify.analytics.publish unavailable');
+      console.groupEnd();
       return;
     }
 
@@ -30,8 +33,13 @@
       items: Array.isArray(items) ? items : []
     };
 
-    console.log('[Meta ATC] publishing lumway:add_to_cart', payload);
+    console.log('publishing lumway:add_to_cart:', payload);
 
-    Shopify.analytics.publish('lumway:add_to_cart', payload);
+    Shopify.analytics.publish(
+      'lumway:add_to_cart',
+      payload
+    );
+
+    console.groupEnd();
   };
 </script>
