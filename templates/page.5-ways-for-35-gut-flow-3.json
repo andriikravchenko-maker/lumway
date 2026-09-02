@@ -1216,7 +1216,7 @@
           "type": "rating",
           "settings": {
             "stars": 5,
-            "text": "15k+ happy verified customers"
+            "text": "2k+ happy verified customers"
           }
         },
         "title_dAQijL": {
@@ -1290,7 +1290,7 @@
             "option_3_free": 0,
             "option_3_save": "Save $12",
             "option_3_badge": "Most Savings",
-            "option_3_badge_bg": "#99364C",
+            "option_3_badge_bg": "#99364c",
             "option_3_badge_text": "#ffffff",
             "option_4_show": false,
             "option_4_selected": false,
