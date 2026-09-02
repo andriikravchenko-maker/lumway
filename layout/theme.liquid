@@ -24,6 +24,8 @@
 {% render 'shoplift' %}
 <!-- End of Shoplift scripts -->
 
+{% comment %} INCLUDE FONT {% endcomment %}
+
 {% case template.name %}
   {% when 'product' %}
     {% comment %}
@@ -43,6 +45,8 @@
       {% render 'font-fraunces' %}
     {% endif %}
 {% endcase %}
+
+{% comment %} END INCLUDE FONT {% endcomment %}
 
     {% comment %} charset + viewport MUST come before any app script. shogun-optimizer and elevateab
       inject ~50KB of inline JS; if the viewport meta sits after them the browser lays out at its
