@@ -5,29 +5,237 @@ PAGES — 5-ways-for-35-gut-f-wl-1
 ========================================= */
 {% if template.name == 'page' and template.suffix == '5-ways-for-35-gut-f-wl-1' %}
 #MainContent {
-          --template-heading-font: 'Fraunces', Georgia, serif;
-          --template-btn-font: 'League Spartan', Arial, sans-serif;
-          --template-bg: #FFFDFA;
-          --template-accent: #FA6C56;
-          --template-border: #5B0D1E;
-          --template-soft-bg: #F5F3EF;
-           --template-accent-black: #111111;
+  --template-heading-font: "Fraunces", Georgia, sans-serif;
+  --template-btn-font: "League Spartan", Arial, sans-serif;
+  --template-bg: #fffdfa;
+  --template-accent: #fa6c56;
+  --template-border: #5b0d1e;
+  --template-soft-bg: #f5f3ef;
+  --template-accent-black: #111111;
+  --template-border-teal: #0a776133;
+  --template-shadow-color: #113b340d;
+}
+#MainContent .section-product-details-lum {
+  background: var(--template-bg);
+}
+#MainContent .mm-product-details-lum {
+  background: var(--template-bg);
+}
+#MainContent .pdl-subtitle,
+#MainContent .pdl-rating__text,
+#MainContent .xsl__compare,
+#MainContent .xsl__save {
+  color: var(--template-accent-black);
+}
+#MainContent .roadmap-circle {
+  background: #fffaed !important;
+  border: 1px solid var(--template-border);
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+}
+#MainContent .roadmap-circle path {
+  fill: #111111 !important;
+}
+#MainContent .roadmap-timeline::before {
+  left: 3.5%;
+  background: #c2c2c2;
+}
+#MainContent .gut-flow-stats__percentage {
+  font-family: var(--template-heading-font) !important;
+}
+#MainContent .pdl-title {
+  font-family: var(--template-heading-font) !important;
+  color: var(--template-border) !important;
+}
+#MainContent .roadmap-header span {
+  font-family: var(--template-heading-font) !important;
+}
+#MainContent .gut-flow-stats__heading-line {
+  font-family: var(--template-heading-font) !important;
+}
+#MainContent .pdl-chip__text {
+  color: var(--template-accent-black) !important;
+}
+#MainContent .pdl-chip__text {
+  background: var(--template-soft-bg);
+}
+#MainContent #tick-circle path {
+  fill: var(--template-accent-black) !important;
+}
+#MainContent .bsl__label {
+  font-family: var(--template-heading-font) !important;
+  font-size: 20px;
+  color: var(--template-accent-black);
+}
+#MainContent .bsl__input {
+  border: 1px solid #c2c2c2 !important;
+  background: var(--template-soft-bg) !important;
+}
+#MainContent .research-mentions__card {
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+  border: 1px solid var(--template-border);
+}
+#MainContent .xsl__heading,
+#MainContent .ptl__label {
+  font-size: 20px;
+  font-family: var(--template-heading-font) !important;
+}
 
-          background: var(--template-bg);
-        }
-#MainContent h2,#MainContent .gut-harmony-benefits__heading h2,#MainContent .gut-harmony-benefits__heading span{
-     font-family: var(--template-heading-font) !important;
+#MainContent .ptl__label,
+#MainContent .bsl__note-text,
+#MainContent .ptl__price {
+  color: var(--template-accent-black);
 }
-#advertorial-section{
-    background: var(--template-soft-bg);
+#MainContent .ptl__card {
+  background: var(--template-soft-bg) !important;
 }
-#MainContent  .gut-harmony-benefits__button{
-  font-family: var(--template-btn-font)  !important;
+#MainContent .ptl__card.is-selected {
+  border: 1px solid var(--template-accent-black) !important;
+}
+#MainContent .ptl__compare,
+#MainContent .gclum__text {
+  color: #11111166;
+}
+#MainContent .ptl__benefits li span {
+  color: var(--template-accent-black) !important;
+}
+#MainContent .gclum__aside span:nth-of-type(2) {
+  color: #11111166 !important;
+}
+#MainContent .gclum__aside span:first-child {
+  color: white !important;
+}
+#MainContent .icl__row {
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+  border: 1px solid var(--template-border);
+}
+#MainContent .xsl__inline-price {
+  color: var(--template-border);
+}
+#MainContent .bsl__sub,
+#MainContent .xsl__desc,
+#MainContent .icl__sub {
+  color: #858585;
+}
+#MainContent .xsl__add-label,
+#MainContent .xsl__add-icon,
+#MainContent .ptab__tab-icon,
+#MainContent .ptab__tab-label {
+  color: var(--template-accent-black);
+}
+#MainContent .ptab__check-sub {
+  color: #11111199;
+}
+#MainContent .xsl__card {
+  background: var(--template-soft-bg) !important;
+}
+#MainContent .ptab__tab {
+  background: var(--template-soft-bg) !important;
 }
 
+#MainContent .ptab__tab.is-active {
+  background: #fff !important;
+}
+#MainContent {
+  background: var(--template-bg) !important;
+}
+#MainContent h2,
+#MainContent .gut-harmony-benefits__heading h2,
+#MainContent .gut-harmony-benefits__heading span {
+  font-family: var(--template-heading-font) !important;
+}
+#MainContent .mm-heading-banner-lum__heading span {
+  font-family: var(--template-heading-font) !important;
+}
+#MainContent .global-accent-text {
+  font-family: var(--template-heading-font) !important;
+}
+#advertorial-section {
+  background: var(--template-soft-bg);
+}
+#advertorial-section .rich-text-title {
+  font-family: inherit !important;
+}
+#MainContent .gut-harmony-benefits__button {
+  font-family: var(--template-btn-font) !important;
+}
+#mm-gut-harmony-feature .gut-harmony-feature__list {
+  width: max-content;
+}
+#mm-gut-harmony-feature .gut-harmony-feature__highlight {
+  border: 1px solid var(--template-border);
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+}
+#mm-gut-harmony-feature .gut-harmony-feature__numbered-highlight {
+  border: 1px solid var(--template-border);
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+}
+#mm-gut-harmony-feature .gut-harmony-feature__highlight-checklist {
+  border: 1px solid var(--template-border);
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+  width: max-content;
+}
+#mm-ustom-benefits-section-wrapper {
+  background: var(--template-bg) !important;
+}
+#MainContent .custom-feature-image {
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+  border: 1px solid var(--template-border);
+}
+#MainContent .store-faq-items-container.individual-borders,
+#MainContent .store-faq-items-container-two-columns {
+  overflow: visible !important;
+}
+#MainContent .store-faq-items-container-two-columns {
+  padding-right: 4px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+}
+#MainContent .store-faq-item {
+  background: var(--template-soft-bg) !important;
+  border-radius: 8px !important;
+  box-shadow: 4px 4px 0 0 var(--template-accent);
+}
+#MainContent .gclum-purchase_type {
+  border-top: 1px solid #1111111a !important;
+  box-shadow: 0 1px 3px 0 var(--template-shadow-color) !important;
+}
+#MainContent .ptab__text p,
+#MainContent .ptab__pill {
+  color: var(--template-accent-black) !important;
+}
+#MainContent .ptab__pill {
+  background: var(--template-soft-bg) !important;
+}
 @media screen and (max-width: 749px) {
-  
+  #MainContent .research-mentions__dot {
+    color: var(--template-border-teal) !important;
+    opacity: 20%;
+  }
+  #MainContent .research-mentions__dot.is-active {
+    opacity: 1;
+  }
+  #MainContent .xsl__save {
+    color: #ffffff !important;
+  }
+  #MainContent .xsl__price {
+    color: var(--template-accent-black) !important;
+  }
+  #MainContent
+    .store-faq-items-container.individual-borders
+    .store-faq-item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  #MainContent .roadmap-timeline::before {
+    left: 5.5%;
+  }
+  #mm-gut-harmony-feature .gut-harmony-feature__highlight-checklist {
+    width: 100%;
+  }
+  #mm-gut-harmony-feature .gut-harmony-feature__list {
+    width: 100%;
+  }
 }
+
 
 {% endif %}
 {% endstyle %}
