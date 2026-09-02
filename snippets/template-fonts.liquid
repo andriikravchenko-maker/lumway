@@ -1,0 +1,26 @@
+{% comment %}
+  Loads custom fonts only for specific Shopify templates.
+
+  Add new template suffixes to the corresponding template type
+  to avoid loading custom font assets globally across the store.
+{% endcomment %}
+
+{% case template.name %}
+  {% when 'product' %}
+    {% comment %}
+      To add another product template:
+      or template.suffix == 'template-name'
+    {% endcomment %}
+    {% if template.suffix == 'lum-template-5-v1' %}
+      {% render 'font-fraunces' %}
+    {% endif %}
+
+  {% when 'page' %}
+    {% comment %}
+      To add another page template:
+      or template.suffix == 'template-name'
+    {% endcomment %}
+    {% if template.suffix == '5-ways-for-35-gut-f-wl-1' %}
+      {% render 'font-fraunces' %}
+    {% endif %}
+{% endcase %}
