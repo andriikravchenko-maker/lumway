@@ -24,29 +24,8 @@
 {% render 'shoplift' %}
 <!-- End of Shoplift scripts -->
 
-{% comment %} INCLUDE FONT {% endcomment %}
-
-{% case template.name %}
-  {% when 'product' %}
-    {% comment %}
-      To add another product template:
-      or template.suffix == 'template-name'
-    {% endcomment %}
-    {% if template.suffix == 'lum-template-5-v1' %}
-      {% render 'font-fraunces' %}
-    {% endif %}
-
-  {% when 'page' %}
-    {% comment %}
-      To add another page template:
-      or template.suffix == 'template-name'
-    {% endcomment %}
-    {% if template.suffix == '5-ways-for-35-gut-f-wl-1' %}
-      {% render 'font-fraunces' %}
-    {% endif %}
-{% endcase %}
-
-{% comment %} END INCLUDE FONT {% endcomment %}
+{% comment %} Template-specific fonts {% endcomment %}
+{% render 'template-fonts' %}
 
     {% comment %} charset + viewport MUST come before any app script. shogun-optimizer and elevateab
       inject ~50KB of inline JS; if the viewport meta sits after them the browser lays out at its
