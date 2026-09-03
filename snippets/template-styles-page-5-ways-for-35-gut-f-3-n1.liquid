@@ -1,0 +1,100 @@
+{% comment %} template-styles-page-5-ways-for-35-gut-f-3-n1 {% endcomment %}
+{% style %}
+/* =========================================
+PAGES — 5-ways-for-35-gut-f-3-n1
+========================================= */
+{% if template.name == 'page' and template.suffix == '5-ways-for-35-gut-f-3-n1' %}
+#MainContent {
+  --template-heading-font: "Fraunces", Georgia, sans-serif;
+  --template-btn-font: "League Spartan", Arial, sans-serif;
+  --template-bg: #fffdfa;
+  --template-accent: #fa6c56;
+  --template-border: #5b0d1e;
+  --template-soft-bg: #f5f3ef;
+  --template-accent-black: #111111;
+  --template-border-teal: #0a776133;
+  --template-shadow-color: #113b340d;
+  --template-btn-bg: #8d2b40;
+}
+
+
+#MainContent .pdl-subtitle,
+#MainContent .pdl-rating__text,
+#MainContent .xsl__compare,
+#MainContent .xsl__save {
+  color: var(--template-accent-black);
+}
+
+#MainContent .pdl-title {
+  color: var(--template-border) !important;
+}
+
+#MainContent .pdl-chip__text {
+  color: var(--template-accent-black) !important;
+}
+
+#MainContent #tick-circle path {
+  fill: var(--template-accent-black) !important;
+}
+#MainContent .bsl__label {
+  font-family: var(--template-heading-font) !important;
+  font-size: 20px;
+  color: var(--template-accent-black);
+}
+
+
+#MainContent .ptl__label,
+#MainContent .bsl__note-text,
+#MainContent .ptl__price {
+  color: var(--template-accent-black);
+}
+
+
+#MainContent .ptl__compare,
+#MainContent .gclum__text {
+  color: #11111166;
+}
+#MainContent .ptl__benefits li span {
+  color: var(--template-accent-black) !important;
+}
+#MainContent .gclum__aside span:nth-of-type(2) {
+  color: #11111166 !important;
+}
+#MainContent .gclum__aside span:first-child {
+  color: white !important;
+}
+
+#MainContent .xsl__inline-price {
+  color: var(--template-border);
+}
+#MainContent .bsl__sub,
+#MainContent .xsl__desc,
+#MainContent .icl__sub {
+  color: #858585;
+}
+#MainContent .xsl__add-label,
+#MainContent .xsl__add-icon,
+#MainContent .ptab__tab-icon,
+#MainContent .ptab__tab-label {
+  color: var(--template-accent-black);
+}
+#MainContent .ptab__check-sub {
+  color: #11111199;
+}
+
+
+
+#MainContent .ptab__text p,
+#MainContent .ptab__pill {
+  color: var(--template-accent-black) !important;
+}
+
+@media screen and (max-width: 749px) {
+  #MainContent .xsl__price {
+    color: var(--template-accent-black) !important;
+  }
+}
+
+
+{% endif %}
+{% endstyle %}
