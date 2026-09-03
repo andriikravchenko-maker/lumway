@@ -67,7 +67,7 @@
     "enable_global_button_styling": true,
     "page_width": 1200,
     "spacing_sections": 0,
-    "animations_reveal_on_scroll": true,
+    "animations_reveal_on_scroll": false,
     "variant_pills_border_thickness": 1,
     "variant_pills_border_opacity": 55,
     "variant_pills_radius": 40,
