@@ -17,32 +17,33 @@ Ported so far:
 {%- endcomment -%}
 
 {%- liquid
-assign lum_landing_handles = 'copy-of-lumway,lumway2,listicle-2,metabolic' | split: ','
+  assign lum_landing_handles = 'copy-of-lumway,lumway2,listicle-2,metabolic' | split: ','
 
-assign lum_page_type = ''
+  assign lum_page_type = ''
 
-case template.name
-when 'product'
-assign lum_page_type = 'pdp'
-when 'index'
-assign lum_page_type = 'home'
-when 'collection'
-assign lum_page_type = 'best-sellers'
-when 'cart'
-assign lum_page_type = 'cart'
-when 'page'
-if lum_landing_handles contains page.handle
-assign lum_page_type = 'advertorial'
-elsif page.handle contains 'contact'
-assign lum_page_type = 'contact'
-elsif page.handle contains 'faq'
-assign lum_page_type = 'faq'
-elsif page.handle contains 'review'
-assign lum_page_type = 'reviews'
-else
-assign lum_page_type = 'landing'
-endif
-endcase
+  if request.page_type == 'product'
+    assign lum_page_type = 'pdp'
+  elsif request.page_type == 'index'
+    assign lum_page_type = 'home'
+  elsif request.page_type == 'collection'
+    assign lum_page_type = 'best-sellers'
+  elsif request.page_type == 'cart'
+    assign lum_page_type = 'cart'
+  elsif request.page_type == 'policy'
+    assign lum_page_type = 'policies'
+  elsif request.page_type == 'page'
+    if lum_landing_handles contains page.handle
+      assign lum_page_type = 'advertorial'
+    elsif page.handle contains 'contact'
+      assign lum_page_type = 'contact'
+    elsif page.handle contains 'faq'
+      assign lum_page_type = 'faq'
+    elsif page.handle contains 'review'
+      assign lum_page_type = 'reviews'
+    else
+      assign lum_page_type = 'landing'
+    endif
+  endif
 -%}
 
 {%- if lum_page_type != '' -%}
@@ -753,81 +754,6 @@ track('purchase_type_selected', props);
 }, true);
 })();
 
-// =====================================================================
-// pp_image_thumbnail_click + pp_image_swipe (PDP gallery)
-// =====================================================================
-(function () {
-var root = document.querySelector('[data-lpg]');
-if (!root) return;
-var lpgTrack = root.querySelector('[data-lpg-track]');
-if (!lpgTrack) return;
-
-var slides = [].slice.call(root.querySelectorAll('[data-lpg-slide]'));
-var items = [].slice.call(root.querySelectorAll('[data-lpg-item]'));
-
-function productId() {
-var el = document.querySelector('[data-product-id]');
-return el ? el.getAttribute('data-product-id') : undefined;
-}
-function totalImages() { return slides.length; }
-function galleryIndex() {
-var w = lpgTrack.clientWidth || 1;
-return Math.round(lpgTrack.scrollLeft / w);
-}
-
-var lastIdx = galleryIndex();
-var swipeTimer = null;
-var lastProgrammatic = 0;
-
-function resync() { lastIdx = galleryIndex(); }
-window.addEventListener('load', resync);
-[300, 800, 1500].forEach(function (d) { setTimeout(resync, d); });
-
-// ---- thumbnail / arrow click -------------------------------------
-root.addEventListener('click', function (e) {
-var thumb = e.target.closest('[data-lpg-item]');
-var arrow = e.target.closest('[data-lpg-prev], [data-lpg-next]');
-if (!thumb && !arrow) return;
-
-lastProgrammatic = Date.now();
-
-var from = galleryIndex();
-var to = from;
-if (thumb) to = items.indexOf(thumb);
-else if (arrow) to = e.target.closest('[data-lpg-next]') ? from + 1 : from - 1;
-
-var total = totalImages();
-if (to < 0) to = 0;
-if (to > total - 1) to = total - 1;
-
-track('pp_image_thumbnail_click', {
-product_id: productId(),
-from_index: from + 1,
-to_index: to + 1,
-total_images: total
-});
-}, true);
-
-// ---- swipe (real scroll, not click-driven) -----------------------
-lpgTrack.addEventListener('scroll', function () {
-clearTimeout(swipeTimer);
-swipeTimer = setTimeout(function () {
-var idx = galleryIndex();
-if (idx === lastIdx) return;
-if (Date.now() - lastProgrammatic > 900) {
-track('pp_image_swipe', {
-product_id: productId(),
-from_index: lastIdx + 1,
-to_index: idx + 1,
-total_images: totalImages()
-});
-}
-lastIdx = idx;
-}, 250);
-}, { passive: true });
-})();
-
-
 
 // =====================================================================
 // reviews_carousel
@@ -1355,6 +1281,471 @@ location: 'also_buy'
 track('upsell_product_added', props);
 }, true);
 })();
+
+    // =====================================================================
+    // gallery_image_viewed  (PDP gallery — thumbnail / arrow navigation)
+    // Fires when the user reaches an image via a thumbnail click or an arrow.
+    // Swipe is intentionally NOT tracked (schema method enum = thumbnail /
+    // arrow_next / arrow_prev only).
+    // =====================================================================
+    (function () {
+      var root = document.querySelector('[data-lpg]');
+      if (!root) return;
+
+      var items = [].slice.call(root.querySelectorAll('[data-lpg-item]'));
+      var slides = [].slice.call(root.querySelectorAll('[data-lpg-slide]'));
+
+      // product_id = SKU (from the buy-box variants JSON on the PDP)
+      function productSku() {
+        try {
+          var node = document.querySelector('.bsl-variants') || document.querySelector('.patc-variants');
+          var vs = node ? JSON.parse(node.textContent) : [];
+          for (var i = 0; i < vs.length; i++) { if (vs[i] && vs[i].sku) return vs[i].sku; }
+        } catch (e) {}
+        return undefined;
+      }
+      var SKU = productSku();
+
+      function currentIndex() {
+        // the active thumbnail marks the current slide
+        for (var i = 0; i < items.length; i++) {
+          if (items[i].classList.contains('is-active')) return i;
+        }
+        return 0;
+      }
+
+      function fire(index, method) {
+        if (index < 0) index = 0;
+        if (index > slides.length - 1) index = slides.length - 1;
+        track('gallery_image_viewed', {
+          product_id:  SKU,
+          image_index: index + 1,   // 1-based position
+          method:      method
+        });
+      }
+
+      root.addEventListener('click', function (e) {
+        // thumbnail
+        var thumb = e.target.closest('[data-lpg-item]');
+        if (thumb) { fire(items.indexOf(thumb), 'thumbnail'); return; }
+
+        // arrows — index moves relative to current
+        if (e.target.closest('[data-lpg-next]')) { fire(currentIndex() + 1, 'arrow_next'); return; }
+        if (e.target.closest('[data-lpg-prev]')) { fire(currentIndex() - 1, 'arrow_prev'); return; }
+      }, true);
+    })();
+
+
+        // =====================================================================
+    // product_description_tab_clicked  (description tabs — PDP + pages)
+    // Fires when a description tab is clicked. tab_name normalised to enum:
+    // benefits / perfect_for / how_to_take.
+    // =====================================================================
+    (function () {
+      // only bind if the tabs section exists on this page
+      if (!document.querySelector('.ptab')) return;
+
+      // product_id = SKU (from a buy-box on the page, if present)
+      function productSku() {
+        try {
+          var node = document.querySelector('.bsl-variants') || document.querySelector('.patc-variants');
+          var vs = node ? JSON.parse(node.textContent) : [];
+          for (var i = 0; i < vs.length; i++) { if (vs[i] && vs[i].sku) return vs[i].sku; }
+        } catch (e) {}
+        return undefined;
+      }
+
+      // map the visible tab label → schema enum
+      function tabName(label) {
+        var s = String(label || '').toLowerCase().replace(/\s+/g, ' ').trim();
+        if (/perfect/.test(s))                              return 'perfect_for';
+        if (/how\s*to\s*take|how\s*to\s*use|usage/.test(s)) return 'how_to_take';
+        if (/benefit/.test(s))                              return 'benefits';
+        return s.replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+      }
+
+      document.addEventListener('click', function (e) {
+        var tab = e.target.closest('.ptab__tab');
+        if (!tab) return;
+        var labelEl = tab.querySelector('.ptab__tab-label');
+        var label = labelEl ? labelEl.textContent : tab.textContent;
+
+        var props = { tab_name: tabName(label) };
+        var sku = productSku();
+        if (sku) props.product_id = sku;
+
+        track('product_description_tab_clicked', props);
+      }, true);
+    })();
+
+        // =====================================================================
+    // faq_item_expanded  (FAQ accordion — fires only on OPEN, not close)
+    // =====================================================================
+    (function () {
+      // FAQ appears on pdp + advertorials; schema page_type enum: pdp / advertorial
+      var FAQ_PAGE_TYPES = { pdp: 1, advertorial: 1 };
+      if (!document.querySelector('.store-faq-section, .store-faq-item')) return;
+
+      function clean(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+
+      document.addEventListener('click', function (e) {
+        var q = e.target.closest('.store-faq-question');
+        if (!q) return;
+        var item = q.closest('.store-faq-item');
+        if (!item) return;
+
+        // the theme toggles `.active` in its own capture-phase handler; read the
+        // state AFTER that runs so we only fire when it becomes OPEN.
+        setTimeout(function () {
+          if (!item.classList.contains('active')) return; // was a close → skip
+
+          var text = clean(q.textContent).slice(0, 200);
+          if (!text) return;
+
+          var props = { question_text: text };
+          // page_type only when it's one of the allowed values; else send actual
+          props.page_type = FAQ_PAGE_TYPES[PAGE_TYPE] ? PAGE_TYPE : PAGE_TYPE;
+
+          track('faq_item_expanded', props);
+        }, 0);
+      }, true);
+    })();
+
+
+        // =====================================================================
+    // reviews_carousel_navigated  (reviews Swiper carousel — prev / next)
+    // =====================================================================
+    (function () {
+      var section = document.querySelector('.reviews-transformation-section, .reviews-carousel-swiper');
+      if (!section) return;
+
+      // product_id = SKU (from the buy-box variants JSON, if the page has one)
+      function productSku() {
+        try {
+          var node = document.querySelector('.bsl-variants') || document.querySelector('.patc-variants');
+          var vs = node ? JSON.parse(node.textContent) : [];
+          for (var i = 0; i < vs.length; i++) { if (vs[i] && vs[i].sku) return vs[i].sku; }
+        } catch (e) {}
+        return undefined;
+      }
+      var SKU = productSku();
+
+      var swiperEl = section.querySelector('.reviews-carousel-swiper.swiper') || section.querySelector('.swiper');
+
+      // current slide index from Swiper (realIndex handles loop mode), else DOM
+      function currentIndex() {
+        try {
+          if (swiperEl && swiperEl.swiper) {
+            var sw = swiperEl.swiper;
+            return (sw.realIndex != null ? sw.realIndex : sw.activeIndex) || 0;
+          }
+        } catch (e) {}
+        // fallback: first slide flagged active
+        var active = section.querySelector('.swiper-slide-active');
+        if (active) {
+          var all = [].slice.call(section.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)'));
+          var idx = all.indexOf(active);
+          if (idx > -1) return idx;
+        }
+        return 0;
+      }
+
+      function directionOf(el) {
+        // by explicit hooks / classes
+        if (el.closest('[data-direction="next"], .swiper-button-next, .nav-button--next, [aria-label*="Next" i]')) return 'next';
+        if (el.closest('[data-direction="prev"], .swiper-button-prev, .nav-button--prev, [aria-label*="Previous" i], [aria-label*="Prev" i]')) return 'prev';
+        return null;
+      }
+
+      section.addEventListener('click', function (e) {
+        var navBtn = e.target.closest('.global-nav-button, .nav-button, .swiper-button-next, .swiper-button-prev, [data-direction], [aria-label*="review" i]');
+        if (!navBtn) return;
+
+        var dir = directionOf(e.target);
+        if (!dir) return;
+
+        // read the index AFTER Swiper advances (next tick)
+        setTimeout(function () {
+          var props = {
+            direction:   dir,
+            slide_index: currentIndex() + 1  // 1-based; optional per schema
+          };
+          if (SKU) props.product_id = SKU;
+          track('reviews_carousel_navigated', props);
+        }, 50);
+      }, true);
+    })();
+
+        // =====================================================================
+    // login_link_clicked  (header account/login link — login only)
+    // page_type reflects the SECTION context: if the user has scrolled into the
+    // FAQ or Reviews section, page_type becomes 'faq' / 'reviews'; otherwise it's
+    // the base page type (pdp / home / contact ...). enum: pdp/home/faq/reviews/contact
+    // =====================================================================
+    (function () {
+      // track which in-page section the user is currently viewing
+      var sectionContext = null; // 'faq' | 'reviews' | null
+
+      function watchSection(selector, name) {
+        var el = document.querySelector(selector);
+        if (!el || !('IntersectionObserver' in window)) return;
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) sectionContext = name;
+            else if (sectionContext === name) sectionContext = null;
+          });
+        }, { threshold: 0.5 }).observe(el);
+      }
+      watchSection('.store-faq-section, [data-faq-section-id]', 'faq');
+      watchSection('.reviews-transformation-section', 'reviews');
+
+      // resolve page_type: section context overrides the base page type
+      function resolvedPageType() {
+        return sectionContext || PAGE_TYPE;
+      }
+
+      var LUM_LOGIN_GO = false;
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('.lhead__desk-account, .lhead__account, a[href*="/account/login"], a[href*="/account/register"]');
+        if (!link) return;
+        if (LUM_LOGIN_GO) return;
+
+        var href = (link.getAttribute && link.getAttribute('href')) || '';
+        var loggedIn = !!window.__lumCustomerId;
+        var isLogin = /\/account\/login|\/account\/register/.test(href) || !loggedIn;
+        if (!isLogin) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        track('login_link_clicked', { page_type: resolvedPageType() });
+
+        setTimeout(function () {
+          LUM_LOGIN_GO = true;
+          if (link.href) window.location.href = link.href;
+          else link.click();
+        }, 200);
+      }, true);
+    })();
+
+        // =====================================================================
+    // cart_icon_clicked  (header cart icon — desktop + mobile)
+    // page_type reflects section context (faq/reviews override base page type),
+    // matching enum: pdp/home/faq/reviews/contact.
+    // =====================================================================
+    (function () {
+      // ---- section context (shared idea with login_link_clicked) ----------
+      var sectionContext = null;
+      function watchSection(selector, name) {
+        var el = document.querySelector(selector);
+        if (!el || !('IntersectionObserver' in window)) return;
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) sectionContext = name;
+            else if (sectionContext === name) sectionContext = null;
+          });
+        }, { threshold: 0.5 }).observe(el);
+      }
+      watchSection('.store-faq-section, [data-faq-section-id]', 'faq');
+      watchSection('.reviews-transformation-section', 'reviews');
+      function resolvedPageType() { return sectionContext || PAGE_TYPE; }
+
+      // ---- read cart snapshot from the header dot / DOM (synchronous) ------
+      function cartSnapshot() {
+        var out = {};
+        // item count: the header shows a dot when cart.item_count > 0; for the
+        // exact number read /cart.js is async — instead use the count bubble if
+        // present, else infer has_items from the dot.
+        var dot = document.querySelector('.lhead__cart-dot.is-on, .lhead__desk-cart-dot.is-on');
+        var countEl = document.querySelector('.gb-cart-total-item, .cart-count-bubble');
+        var totalEl = document.querySelector('.totals__total-value, .gb-totals-total-value');
+
+        var n = countEl ? parseInt(countEl.textContent, 10) : NaN;
+        if (!isNaN(n)) out.items_number = n;
+
+        // has_items: from count if known, else from the "is-on" dot
+        out.has_items = !isNaN(n) ? n > 0 : !!dot;
+
+        if (totalEl) {
+          var v = parseFloat(String(totalEl.textContent).replace(/[^\d.,]/g, '').replace(',', '.'));
+          if (!isNaN(v)) out.cart_value = v;
+        }
+        return out;
+      }
+
+      document.addEventListener('click', function (e) {
+        var icon = e.target.closest('[data-lhead-cart], .lhead__cart, .lhead__desk-cart');
+        if (!icon) return;
+
+        var snap = cartSnapshot();
+        var props = {
+          page_type:  resolvedPageType(),
+          has_items:  !!snap.has_items
+        };
+        if (snap.items_number != null) props.items_number = snap.items_number;
+        if (snap.cart_value != null)   props.cart_value   = snap.cart_value;
+
+        track('cart_icon_clicked', props);
+      }, true);
+    })();
+
+        // =====================================================================
+    // region_selected  (header country/currency localization selector)
+    // Fires when a country is picked from the localization dropdown. The form
+    // submits (page reload), so navigation is held briefly to let the event go.
+    // =====================================================================
+    (function () {
+      var LUM_REGION_GO = false;
+
+      // pull "USD" out of an option label like "United States (USD $)"
+      function currencyFrom(text) {
+        var m = String(text || '').match(/\(([A-Z]{3})\b/);       // "(USD ..."
+        if (m) return m[1];
+        var m2 = String(text || '').match(/\b([A-Z]{3})\b\s*[$€£¥]/); // "USD $"
+        return m2 ? m2[1] : undefined;
+      }
+      // clean country name: strip the "(USD $)" suffix
+      function countryFrom(text) {
+        return String(text || '').replace(/\s*\([^)]*\)\s*$/, '').replace(/\s+/g, ' ').trim();
+      }
+
+      document.addEventListener('click', function (e) {
+        // Shopify country options are links/buttons inside the localization list
+        var opt = e.target.closest(
+          '.localization-form__list a, .localization-form__list button, ' +
+          '.disclosure__link[data-value], a[data-value][name], .country-selector a'
+        );
+        if (!opt) return;
+        // must be inside a localization form (not some other disclosure)
+        if (!opt.closest('.localization-form, .lhead__locale, .lhead__desk-locale')) return;
+        if (LUM_REGION_GO) return;
+
+        var label = (opt.textContent || '').trim();
+        var country = countryFrom(label);
+        var currency = currencyFrom(label);
+        if (!country) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        track('region_selected', {
+          country:  country,
+          currency: currency
+        });
+
+        setTimeout(function () {
+          LUM_REGION_GO = true;
+          opt.click(); // re-trigger to submit the localization form
+        }, 200);
+      }, true);
+    })();
+
+        // =====================================================================
+    // nav_item_clicked  (header navigation links — desktop + mobile)
+    // page_type reflects section context (faq/reviews override), enum:
+    // pdp/home/faq/reviews/contact.
+    // =====================================================================
+    (function () {
+      // ---- section context (same as login/cart) ---------------------------
+      var sectionContext = null;
+      function watchSection(selector, name) {
+        var el = document.querySelector(selector);
+        if (!el || !('IntersectionObserver' in window)) return;
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) sectionContext = name;
+            else if (sectionContext === name) sectionContext = null;
+          });
+        }, { threshold: 0.5 }).observe(el);
+      }
+      watchSection('.store-faq-section, [data-faq-section-id]', 'faq');
+      watchSection('.reviews-transformation-section', 'reviews');
+      function resolvedPageType() { return sectionContext || PAGE_TYPE; }
+
+      function clean(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+
+      var LUM_NAV_GO = false;
+      document.addEventListener('click', function (e) {
+        // any link inside the header nav (desktop simple/mega + mobile drawer)
+        var link = e.target.closest(
+          '.lhead__desk-nav a, .lhead__desk-mega a, .lhead__desk-link, .lhead__nav a'
+        );
+        if (!link || link.tagName !== 'A') return;
+        if (LUM_NAV_GO) return;
+
+        var label = clean(link.textContent).slice(0, 80);
+        if (!label) return;
+
+        var href = (link.getAttribute && link.getAttribute('href')) || '';
+        var destination = '';
+        try { destination = href ? new URL(href, location.origin).pathname : ''; } catch (x) { destination = href; }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        track('nav_item_clicked', {
+          item_label:  label,
+          page_type:   resolvedPageType(),
+          destination: destination || href || undefined
+        });
+
+        setTimeout(function () {
+          LUM_NAV_GO = true;
+          if (link.href) window.location.href = link.href;
+          else link.click();
+        }, 200);
+      }, true);
+    })();
+        // =====================================================================
+    // footer_link_clicked  (footer policy / support links)
+    // link_label from exact URL → enum: search / contact_information /
+    // privacy_policy / refund_policy / terms_of_service / shipping_policy.
+    // =====================================================================
+    (function () {
+      // map a footer link to the schema enum — by exact URL path
+      function labelFor(href) {
+        var h = String(href || '').toLowerCase();
+        if (/\/policies\/privacy-policy/.test(h))      return 'privacy_policy';
+        if (/\/policies\/refund-policy/.test(h))       return 'refund_policy';
+        if (/\/policies\/terms-of-service/.test(h))    return 'terms_of_service';
+        if (/\/policies\/shipping-policy/.test(h))     return 'shipping_policy';
+        if (/\/policies\/contact-information/.test(h)) return 'contact_information';
+        if (/\/search/.test(h))                        return 'search';
+        return undefined; // not a tracked link → skip
+      }
+
+      var LUM_FOOTER_GO = false;
+      document.addEventListener('click', function (e) {
+        var footer = e.target.closest('.footer-main, footer');
+        if (!footer) return;
+        var link = e.target.closest('a[href]');
+        if (!link || !footer.contains(link)) return;
+        if (LUM_FOOTER_GO) return;
+
+        var href = link.getAttribute('href') || '';
+        var label = labelFor(href);
+        if (!label) return; // only the enum links
+
+        var destination = '';
+        try { destination = href ? new URL(href, location.origin).pathname : ''; } catch (x) { destination = href; }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        track('footer_link_clicked', {
+          page_type:   PAGE_TYPE,
+          link_label:  label,
+          destination: destination || href || undefined
+        });
+
+        setTimeout(function () {
+          LUM_FOOTER_GO = true;
+          if (link.href) window.location.href = link.href;
+          else link.click();
+        }, 200);
+      }, true);
+    })();
+
 // =====================================================================
 // NEXT EVENTS GO HERE — port one at a time from the old snippets.
 // Keep each in its own (function(){ ... })() block for clarity.
