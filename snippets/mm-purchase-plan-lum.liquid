@@ -108,6 +108,11 @@ transition:border-color .15s ease;
 .mmptl-{{ uid }} .mmptl__select-wrap{ flex:0 0 auto; min-width:0; width:fit-content; }
 .mmptl-{{ uid }} .mmptl__select{ width:fit-content; }
 }
+/* Small phones only (e.g. iPhone SE / 375px-wide devices) — everything above this stays at the
+   normal .mmptl__price size set above. */
+@media (max-width:375px){
+.mmptl-{{ uid }} .mmptl__price{ font-size:14px; }
+}
 {% endstyle %}
 
 <div
