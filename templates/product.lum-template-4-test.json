@@ -139,7 +139,7 @@
             "price_color": "#111111",
             "compare_color": "#c2c2c2",
             "preselect": "subscribe",
-            "force_show_subscribe": false,
+            "force_show_subscribe": true,
             "interval_mode": "mapped",
             "monthly_plan_id": "",
             "bimonthly_plan_id": "",
