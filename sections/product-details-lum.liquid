@@ -53,6 +53,8 @@
                         }
                         .section-{{ section.id }}.pdl{ display:flex; flex-direction:column; }
                         .section-{{ section.id }} .pdl__info{ display:flex; flex-direction:column; gap:16px; padding:16px; }
+                        /* Bundle + Purchase type, when adjacent in the block list, share one wrapper so they can be styled/spaced as one visual unit. */
+                        .section-{{ section.id }} .pdl__combo{ display:flex; flex-direction:column; gap:16px; }
 
                         /* Rating */
                         .section-{{ section.id }} .pdl-rating{ display:flex; align-items:center; gap:12px; }
@@ -134,7 +136,13 @@
     </div>
 
     <div class="pdl__info">
+      {%- assign pdl_combo_open = false -%}
       {%- for block in section.blocks -%}
+        {%- assign pdl_next_type = '' -%}
+        {%- assign pdl_next_index = forloop.index0 | plus: 1 -%}
+        {%- if pdl_next_index < section.blocks.size -%}
+          {%- assign pdl_next_type = section.blocks[pdl_next_index].type -%}
+        {%- endif -%}
         {%- case block.type -%}
           {%- when 'rating' -%}
             <div class="pdl-rating" {{ block.shopify_attributes }}>
@@ -211,17 +219,32 @@
           {%- when 'purchase_type' -%}
             {%- render 'mm-purchase-type-lum', block: block, product: pdl_product -%}
 
+          {%- when 'mm_bundle_select' -%}
+            {%- if pdl_next_type == 'mm_purchase_plan' -%}
+              {%- assign pdl_combo_open = true -%}
+              <div class="pdl__combo">
+            {%- endif -%}
+            {%- render 'mm-bundle-select-lum', block: block, product: pdl_product -%}
+
+          {%- when 'mm_purchase_plan' -%}
+            {%- render 'mm-purchase-plan-lum', block: block, product: pdl_product -%}
+            {%- if pdl_combo_open -%}
+              </div>
+              {%- assign pdl_combo_open = false -%}
+            {%- endif -%}
+
           {%- when 'add_to_cart' -%}
             {%- render 'mm-add-to-cart-lum-speed', block: block, product: pdl_product -%}
 
           {%- when 'info_cards' -%}
             {%- render 'info-cards-lum', block: block -%}
-            {% comment %}
-              {% render 'subscription-welcome-gifts',
-                      product: product,
-                      block: block
-              %}
-            {% endcomment %}
+
+          {% comment %}
+          {% render 'subscription-welcome-gifts',
+                  product: product,
+                  block: block
+          %}
+        {% endcomment %}
 
           {%- when 'cross_sell' -%}
             {%- render 'pdl-cross-sell', block: block -%}
@@ -259,7 +282,6 @@
       "label": "Save label",
       "default": "Save"
     },
-
     {
       "type": "header",
       "content": "Welcome gifts — Colors"
@@ -312,7 +334,6 @@
       "label": "Save text color",
       "default": "#111111"
     },
-
     {
       "type": "header",
       "content": "Welcome gifts — Spacing"
@@ -688,7 +709,7 @@
           "type": "text",
           "id": "note",
           "label": "Note",
-          "default": "Take more than 8 weeks may necessary to see a meaningful benefits."
+          "default": "For best results take consistently for at least 6–8 weeks."
         },
         {
           "type": "image_picker",
@@ -719,6 +740,34 @@
           "id": "save_prefix",
           "label": "Save prefix",
           "default": "Save "
+        },
+        {
+          "type": "header",
+          "content": "Buy More Save More banner"
+        },
+        {
+          "type": "checkbox",
+          "id": "bmsm_show",
+          "label": "Show banner",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "bmsm_text",
+          "label": "Banner text",
+          "default": "Buy More Save More"
+        },
+        {
+          "type": "color",
+          "id": "bmsm_bg",
+          "label": "Banner background",
+          "default": "#fde7c9"
+        },
+        {
+          "type": "color",
+          "id": "bmsm_text_color",
+          "label": "Banner text color",
+          "default": "#b8641e"
         },
         {
           "type": "header",
@@ -1037,6 +1086,530 @@
       ]
     },
     {
+      "type": "mm_bundle_select",
+      "name": "Bundle (New)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Select Quantity"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note",
+          "default": "For best results take consistently for at least 6–8 weeks."
+        },
+        {
+          "type": "image_picker",
+          "id": "bottle_image",
+          "label": "Fallback image",
+          "info": "Used when an option has no image set. Defaults to the product image."
+        },
+        {
+          "type": "header",
+          "content": "Card colors"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Card background",
+          "default": "#f9f9f9"
+        },
+        {
+          "type": "header",
+          "content": "Label typography"
+        },
+        {
+          "type": "color",
+          "id": "label_color",
+          "label": "Label color",
+          "default": "#111111"
+        },
+        {
+          "type": "range",
+          "id": "label_font_size",
+          "label": "Label font size — desktop",
+          "min": 10,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "label_font_size_mobile",
+          "label": "Label font size — mobile",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "note_text_color",
+          "label": "Note text color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "note_icon_color",
+          "label": "Note icon color",
+          "default": "#111111"
+        },
+        {
+          "type": "range",
+          "id": "note_line_height",
+          "label": "Note line height",
+          "min": 1,
+          "max": 2,
+          "step": 0.1,
+          "default": 1.4
+        },
+        {
+          "type": "color",
+          "id": "option_title_color",
+          "label": "Option title color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "option_sub_color",
+          "label": "Option sub-label color",
+          "default": "#C2C2C2"
+        },
+        {
+          "type": "color",
+          "id": "save_badge_bg",
+          "label": "Save badge background",
+          "default": "#fa6c56"
+        },
+        {
+          "type": "color",
+          "id": "save_badge_text",
+          "label": "Save badge text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "checkbox",
+          "id": "save_auto",
+          "label": "Auto-calculate Save (compare × jars − pack price)",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "save_prefix",
+          "label": "Save prefix",
+          "default": "Save"
+        },
+        {
+          "type": "header",
+          "content": "Buy More Save More banner"
+        },
+        {
+          "type": "checkbox",
+          "id": "bmsm_show",
+          "label": "Show banner",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "bmsm_text",
+          "label": "Banner text",
+          "default": "Buy More Save More"
+        },
+        {
+          "type": "color_background",
+          "id": "bmsm_bg",
+          "label": "Banner background",
+          "default": "linear-gradient(90deg, rgba(248, 227, 232, 1), rgba(248, 227, 232, 0.5) 100%)"
+        },
+        {
+          "type": "color",
+          "id": "bmsm_text_color",
+          "label": "Banner text color",
+          "default": "#5b0d1e"
+        },
+        {
+          "type": "range",
+          "id": "bmsm_font_size",
+          "label": "Banner font size — desktop",
+          "min": 8,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 11
+        },
+        {
+          "type": "range",
+          "id": "bmsm_font_size_mobile",
+          "label": "Banner font size — mobile",
+          "min": 8,
+          "max": 18,
+          "step": 1,
+          "unit": "px",
+          "default": 11
+        },
+        {
+          "type": "range",
+          "id": "bmsm_radius",
+          "label": "Banner corner radius — desktop",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "bmsm_radius_mobile",
+          "label": "Banner corner radius — mobile",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "head_gap",
+          "label": "Heading row gap — desktop",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "range",
+          "id": "head_gap_mobile",
+          "label": "Heading row gap — mobile",
+          "min": 0,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 8
+        },
+        {
+          "type": "header",
+          "content": "Option 1"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "option_1_selected",
+          "label": "Selected by default",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "option_1_label",
+          "label": "Label",
+          "default": "1-Pack"
+        },
+        {
+          "type": "text",
+          "id": "option_1_sublabel",
+          "label": "Sub-label"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_1_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_1_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "option_1_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "option_1_save",
+          "label": "Save badge",
+          "default": "Save $12"
+        },
+        {
+          "type": "text",
+          "id": "option_1_badge",
+          "label": "Top badge"
+        },
+        {
+          "type": "color",
+          "id": "option_1_badge_bg",
+          "label": "Top badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "option_1_badge_text",
+          "label": "Top badge text",
+          "default": "#111111"
+        },
+        {
+          "type": "header",
+          "content": "Option 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_2_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "option_2_selected",
+          "label": "Selected by default",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "option_2_label",
+          "label": "Label",
+          "default": "2-Pack"
+        },
+        {
+          "type": "text",
+          "id": "option_2_sublabel",
+          "label": "Sub-label",
+          "default": "Free shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_2_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_2_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_2_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "range",
+          "id": "option_2_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "text",
+          "id": "option_2_save",
+          "label": "Save badge",
+          "default": "Save $12"
+        },
+        {
+          "type": "text",
+          "id": "option_2_badge",
+          "label": "Top badge",
+          "default": "Best Seller"
+        },
+        {
+          "type": "color",
+          "id": "option_2_badge_bg",
+          "label": "Top badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "option_2_badge_text",
+          "label": "Top badge text",
+          "default": "#5B0D1E"
+        },
+        {
+          "type": "header",
+          "content": "Option 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_3_show",
+          "label": "Show",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "option_3_selected",
+          "label": "Selected by default",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "option_3_label",
+          "label": "Label",
+          "default": "3-Pack"
+        },
+        {
+          "type": "text",
+          "id": "option_3_sublabel",
+          "label": "Sub-label",
+          "default": "Free shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_3_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_3_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_3_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "option_3_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "option_3_save",
+          "label": "Save badge",
+          "default": "Save $12"
+        },
+        {
+          "type": "text",
+          "id": "option_3_badge",
+          "label": "Top badge",
+          "default": "Most Savings"
+        },
+        {
+          "type": "color",
+          "id": "option_3_badge_bg",
+          "label": "Top badge background",
+          "default": "#5B0D1E"
+        },
+        {
+          "type": "color",
+          "id": "option_3_badge_text",
+          "label": "Top badge text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Option 4"
+        },
+        {
+          "type": "checkbox",
+          "id": "option_4_show",
+          "label": "Show",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "option_4_selected",
+          "label": "Selected by default",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "option_4_label",
+          "label": "Label"
+        },
+        {
+          "type": "text",
+          "id": "option_4_sublabel",
+          "label": "Sub-label"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_4_image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "option_4_image_2",
+          "label": "Image 2 (after +)"
+        },
+        {
+          "type": "range",
+          "id": "option_4_paid",
+          "label": "Jars (paid)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 1
+        },
+        {
+          "type": "range",
+          "id": "option_4_free",
+          "label": "Jars (free, after +)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        },
+        {
+          "type": "text",
+          "id": "option_4_save",
+          "label": "Save badge"
+        },
+        {
+          "type": "text",
+          "id": "option_4_badge",
+          "label": "Top badge"
+        },
+        {
+          "type": "color",
+          "id": "option_4_badge_bg",
+          "label": "Top badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "option_4_badge_text",
+          "label": "Top badge text",
+          "default": "#113b34"
+        }
+      ]
+    },
+    {
       "type": "purchase_type",
       "name": "Purchase type",
       "limit": 1,
@@ -1184,7 +1757,6 @@
           "label": "Show benefit 1",
           "default": true
         },
-
         {
           "type": "text",
           "id": "benefit_1_text",
@@ -1367,7 +1939,626 @@
         }
       ]
     },
-
+    {
+      "type": "mm_purchase_plan",
+      "name": "Purchase type (New)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Purchase Type"
+        },
+        {
+          "type": "header",
+          "content": "Heading typography"
+        },
+        {
+          "type": "color",
+          "id": "label_color",
+          "label": "Heading color",
+          "default": "#111111"
+        },
+        {
+          "type": "range",
+          "id": "label_font_size",
+          "label": "Heading font size — desktop",
+          "min": 10,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "label_font_size_mobile",
+          "label": "Heading font size — mobile",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "default": 16
+        },
+        {
+          "type": "header",
+          "content": "Card colors"
+        },
+        {
+          "type": "color",
+          "id": "card_bg",
+          "label": "Card background (unselected)",
+          "default": "#f9f9f9"
+        },
+        {
+          "type": "color",
+          "id": "price_color",
+          "label": "Price color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "compare_color",
+          "label": "Compare-at (struck) price color",
+          "default": "#C2C2C2"
+        },
+        {
+          "type": "select",
+          "id": "preselect",
+          "label": "Preselect",
+          "options": [
+            {
+              "value": "subscribe",
+              "label": "Subscribe"
+            },
+            {
+              "value": "one_time",
+              "label": "One-time"
+            }
+          ],
+          "default": "subscribe"
+        },
+        {
+          "type": "checkbox",
+          "id": "force_show_subscribe",
+          "label": "Show subscribe without plans (design preview)",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Dynamic interval"
+        },
+        {
+          "type": "select",
+          "id": "interval_mode",
+          "label": "Interval mode",
+          "options": [
+            {
+              "value": "mapped",
+              "label": "Mapped (theme maps pack index)"
+            },
+            {
+              "value": "auto",
+              "label": "Auto (variant allocations)"
+            }
+          ],
+          "default": "mapped"
+        },
+        {
+          "type": "text",
+          "id": "monthly_plan_id",
+          "label": "Monthly selling plan id",
+          "info": "Mapped mode, for pack below threshold."
+        },
+        {
+          "type": "text",
+          "id": "bimonthly_plan_id",
+          "label": "Bi-monthly selling plan id",
+          "info": "Mapped mode, for pack at/above threshold."
+        },
+        {
+          "type": "range",
+          "id": "interval_threshold",
+          "label": "Bi-monthly from pack #",
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "text",
+          "id": "interval_label_format",
+          "label": "Interval label format",
+          "default": "{n}-month"
+        },
+        {
+          "type": "text",
+          "id": "interval_prefix",
+          "label": "Interval row text",
+          "default": "Delivery every"
+        },
+        {
+          "type": "color",
+          "id": "interval_label_color",
+          "label": "Interval row text color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "interval_select_text_color",
+          "label": "Dropdown text/arrow color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "interval_select_bg",
+          "label": "Dropdown background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "interval_select_border",
+          "label": "Dropdown border color",
+          "default": "#C2C2C2"
+        },
+        {
+          "type": "color",
+          "id": "interval_select_arrow_color",
+          "label": "Dropdown arrow color",
+          "default": "#111111"
+        },
+        {
+          "type": "header",
+          "content": "Labels & badge"
+        },
+        {
+          "type": "text",
+          "id": "one_time_title",
+          "label": "One-time title",
+          "default": "One-time Purchase"
+        },
+        {
+          "type": "checkbox",
+          "id": "save_badge_show",
+          "label": "Show save badge",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "save_badge_text",
+          "label": "Save badge text (fallback)",
+          "info": "Used only when \"Auto-compute badge\" is off.",
+          "default": "Save 15%"
+        },
+        {
+          "type": "checkbox",
+          "id": "save_badge_auto",
+          "label": "Auto-compute badge from subscription discount",
+          "info": "Reads the % off from the selling plan itself, e.g. \"Save 15%\" — stays correct if the plan’s discount changes.",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "save_badge_bg",
+          "label": "Badge background",
+          "default": "#fad356"
+        },
+        {
+          "type": "color",
+          "id": "save_badge_text_color",
+          "label": "Badge text",
+          "default": "#5B0D1E"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_per_pack",
+          "label": "Show /pack suffix",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "per_pack_suffix",
+          "label": "Per-pack suffix",
+          "default": "/pack"
+        },
+        {
+          "type": "header",
+          "content": "Subscribe benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "benefits_show",
+          "label": "Show benefits list",
+          "default": true
+        },
+        {
+          "type": "color",
+          "id": "benefits_icon_color",
+          "label": "Benefits checkmark color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "benefits_text_color",
+          "label": "Benefits text color",
+          "default": "#111111"
+        },
+        {
+          "type": "header",
+          "content": "Option 1 benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "opt1_benefit_1_show",
+          "label": "Benefit 1: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt1_benefit_1_text",
+          "label": "Benefit 1: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt1_benefit_1_icon",
+          "label": "Benefit 1: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt1_benefit_2_show",
+          "label": "Benefit 2: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt1_benefit_2_text",
+          "label": "Benefit 2: text",
+          "default": "Gut Health Tracker"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt1_benefit_2_icon",
+          "label": "Benefit 2: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt1_benefit_3_show",
+          "label": "Benefit 3: show",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "opt1_benefit_3_text",
+          "label": "Benefit 3: text",
+          "default": "Gut Health Tracker"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt1_benefit_3_icon",
+          "label": "Benefit 3: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt1_benefit_4_show",
+          "label": "Benefit 4: show",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "opt1_benefit_4_text",
+          "label": "Benefit 4: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt1_benefit_4_icon",
+          "label": "Benefit 4: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "header",
+          "content": "Option 2 benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "opt2_benefit_1_show",
+          "label": "Benefit 1: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt2_benefit_1_text",
+          "label": "Benefit 1: text",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt2_benefit_1_icon",
+          "label": "Benefit 1: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt2_benefit_2_show",
+          "label": "Benefit 2: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt2_benefit_2_text",
+          "label": "Benefit 2: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt2_benefit_2_icon",
+          "label": "Benefit 2: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt2_benefit_3_show",
+          "label": "Benefit 3: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt2_benefit_3_text",
+          "label": "Benefit 3: text",
+          "default": "Gut Health Tracker"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt2_benefit_3_icon",
+          "label": "Benefit 3: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt2_benefit_4_show",
+          "label": "Benefit 4: show",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "opt2_benefit_4_text",
+          "label": "Benefit 4: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt2_benefit_4_icon",
+          "label": "Benefit 4: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "header",
+          "content": "Option 3 benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "opt3_benefit_1_show",
+          "label": "Benefit 1: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt3_benefit_1_text",
+          "label": "Benefit 1: text",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt3_benefit_1_icon",
+          "label": "Benefit 1: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt3_benefit_2_show",
+          "label": "Benefit 2: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt3_benefit_2_text",
+          "label": "Benefit 2: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt3_benefit_2_icon",
+          "label": "Benefit 2: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt3_benefit_3_show",
+          "label": "Benefit 3: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt3_benefit_3_text",
+          "label": "Benefit 3: text",
+          "default": "Gut Health Tracker"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt3_benefit_3_icon",
+          "label": "Benefit 3: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt3_benefit_4_show",
+          "label": "Benefit 4: show",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "opt3_benefit_4_text",
+          "label": "Benefit 4: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt3_benefit_4_icon",
+          "label": "Benefit 4: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "header",
+          "content": "Option 4 benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "opt4_benefit_1_show",
+          "label": "Benefit 1: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt4_benefit_1_text",
+          "label": "Benefit 1: text",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt4_benefit_1_icon",
+          "label": "Benefit 1: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt4_benefit_2_show",
+          "label": "Benefit 2: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt4_benefit_2_text",
+          "label": "Benefit 2: text",
+          "default": "Craving Control Guide"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt4_benefit_2_icon",
+          "label": "Benefit 2: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt4_benefit_3_show",
+          "label": "Benefit 3: show",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "opt4_benefit_3_text",
+          "label": "Benefit 3: text",
+          "default": "Gut Health Tracker"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt4_benefit_3_icon",
+          "label": "Benefit 3: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "checkbox",
+          "id": "opt4_benefit_4_show",
+          "label": "Benefit 4: show",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "opt4_benefit_4_text",
+          "label": "Benefit 4: text",
+          "default": "Modify or cancel anytime"
+        },
+        {
+          "type": "image_picker",
+          "id": "opt4_benefit_4_icon",
+          "label": "Benefit 4: icon (optional)",
+          "info": "Leave empty to use the default tick icon."
+        },
+        {
+          "type": "header",
+          "content": "Gift card"
+        },
+        {
+          "type": "range",
+          "id": "gc_border_width",
+          "label": "Border width",
+          "min": 1,
+          "max": 4,
+          "step": 0.5,
+          "unit": "px",
+          "default": 2.5
+        },
+        {
+          "type": "image_picker",
+          "id": "gc_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "gc_title",
+          "label": "Title",
+          "info": "Leave empty to hide the whole card.",
+          "default": "Craving Control Guide + Gut Health Traker"
+        },
+        {
+          "type": "text",
+          "id": "gc_text",
+          "label": "Description",
+          "default": "A 7-day plan to break the sugar loop"
+        },
+        {
+          "type": "color",
+          "id": "gc_text_color",
+          "label": "Description color",
+          "default": "rgba(17, 59, 52, 0.5)"
+        },
+        {
+          "type": "text",
+          "id": "gc_badge",
+          "label": "Badge text",
+          "info": "Leave empty to hide the badge.",
+          "default": "Free"
+        },
+        {
+          "type": "color",
+          "id": "gc_badge_bg",
+          "label": "Badge background",
+          "default": "#fa6c56"
+        },
+        {
+          "type": "color",
+          "id": "gc_badge_text_color",
+          "label": "Badge text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "text",
+          "id": "gc_compare_price",
+          "label": "Struck-through price",
+          "info": "Plain text, e.g. $40.00. Leave empty to hide.",
+          "default": "$50.00"
+        },
+        {
+          "type": "color",
+          "id": "gc_compare_color",
+          "label": "Struck-through price color",
+          "default": "#C2C2C2"
+        }
+      ]
+    },
     {
       "type": "add_to_cart",
       "name": "Add to cart",
@@ -1974,11 +3165,8 @@
         },
         {
           "type": "image_picker",
-
           "id": "tab_1_custom_icon",
-
           "label": "Custom icon",
-
           "info": "Overrides the selected default icon."
         },
         {
@@ -2012,7 +3200,6 @@
           "id": "tab_1_row_1_text",
           "label": "Row 1 text"
         },
-
         {
           "type": "text",
           "id": "tab_1_row_2_label",
@@ -2028,7 +3215,6 @@
           "id": "tab_1_row_2_text",
           "label": "Row 2 text"
         },
-
         {
           "type": "text",
           "id": "tab_1_row_3_label",
@@ -2044,7 +3230,6 @@
           "id": "tab_1_row_3_text",
           "label": "Row 3 text"
         },
-
         {
           "type": "text",
           "id": "tab_1_row_4_label",
@@ -2060,7 +3245,6 @@
           "id": "tab_1_row_4_text",
           "label": "Row 4 text"
         },
-
         {
           "type": "text",
           "id": "tab_1_row_5_label",
@@ -2076,7 +3260,6 @@
           "id": "tab_1_row_5_text",
           "label": "Row 5 text"
         },
-
         {
           "type": "text",
           "id": "tab_1_row_6_label",
@@ -2171,7 +3354,6 @@
           "id": "tab_2_row_1_text",
           "label": "Row 1 text"
         },
-
         {
           "type": "text",
           "id": "tab_2_row_2_label",
@@ -2187,7 +3369,6 @@
           "id": "tab_2_row_2_text",
           "label": "Row 2 text"
         },
-
         {
           "type": "text",
           "id": "tab_2_row_3_label",
@@ -2203,7 +3384,6 @@
           "id": "tab_2_row_3_text",
           "label": "Row 3 text"
         },
-
         {
           "type": "text",
           "id": "tab_2_row_4_label",
@@ -2219,7 +3399,6 @@
           "id": "tab_2_row_4_text",
           "label": "Row 4 text"
         },
-
         {
           "type": "text",
           "id": "tab_2_row_5_label",
@@ -2235,7 +3414,6 @@
           "id": "tab_2_row_5_text",
           "label": "Row 5 text"
         },
-
         {
           "type": "text",
           "id": "tab_2_row_6_label",
@@ -2330,7 +3508,6 @@
           "id": "tab_3_row_1_text",
           "label": "Row 1 text"
         },
-
         {
           "type": "text",
           "id": "tab_3_row_2_label",
@@ -2346,7 +3523,6 @@
           "id": "tab_3_row_2_text",
           "label": "Row 2 text"
         },
-
         {
           "type": "text",
           "id": "tab_3_row_3_label",
@@ -2362,7 +3538,6 @@
           "id": "tab_3_row_3_text",
           "label": "Row 3 text"
         },
-
         {
           "type": "text",
           "id": "tab_3_row_4_label",
@@ -2378,7 +3553,6 @@
           "id": "tab_3_row_4_text",
           "label": "Row 4 text"
         },
-
         {
           "type": "text",
           "id": "tab_3_row_5_label",
@@ -2394,7 +3568,6 @@
           "id": "tab_3_row_5_text",
           "label": "Row 5 text"
         },
-
         {
           "type": "text",
           "id": "tab_3_row_6_label",
