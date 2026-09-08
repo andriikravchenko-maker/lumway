@@ -569,9 +569,9 @@
         "disabled": true,
         "settings": {}
       },
-      "7539343560218715217": {
-        "type": "shopify://apps/lucky-orange-heatmaps-replay/blocks/lucky_orange_tracking/019b2899-e426-7dbd-b9e7-ff9f0bb0d0f3",
-        "disabled": true,
+      "11532412952436166569": {
+        "type": "shopify://apps/loox-reviews/blocks/loox-inject/5c3b337f-fd14-4df5-b1d6-80ec13e6e28e",
+        "disabled": false,
         "settings": {}
       }
     }
