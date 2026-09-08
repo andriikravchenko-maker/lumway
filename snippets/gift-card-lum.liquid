@@ -14,7 +14,9 @@
         badge: block.settings.gc_badge,
         badge_bg: block.settings.gc_badge_bg,
         badge_text_color: block.settings.gc_badge_text_color,
-        compare_price: block.settings.gc_compare_price
+        compare_price: block.settings.gc_compare_price,
+        compare_color: block.settings.gc_compare_color,
+        text_color: block.settings.gc_text_color
     -%}
 
   All params optional. Any empty field is simply skipped (no empty nodes rendered).
@@ -24,6 +26,8 @@
   assign gc_uid = uid | default: 'gc'
   assign gc_badge_bg = badge_bg | default: '#fa6c56'
   assign gc_badge_fg = badge_text_color | default: '#ffffff'
+  assign gc_compare_color = compare_color | default: 'rgba(17,59,52,.4)'
+  assign gc_text_color = text_color | default: 'rgba(17,59,52,.5)'
 -%}
 
 {%- if title != blank or image != blank or text != blank -%}
@@ -32,23 +36,22 @@
       --gclum-font:'Inter Tight', system-ui, sans-serif;
       --gclum-ink:#113b34;
       --gclum-card:#ffffff;
-      --gclum-line:rgba(17,59,52,.08);
+      --gclum-line:rgba(17,59,52,.25);
       --gclum-img-bg:#f4f4f2;
       display:flex; align-items:center; gap:16px;
       width:100%; padding:12px; box-sizing:border-box;
-      background:var(--gclum-card); border:1px solid var(--gclum-line); border-radius:16px;
-      box-shadow:0 1px 3px rgba(17,59,52,.05);
+      background:var(--gclum-card); border:1.5px dashed var(--gclum-line); border-radius:14px;
       }
       .gclum-{{ gc_uid }} .gclum__compare{ }
       .gclum-{{ gc_uid }} .gclum__media{ flex:0 0 72px; width:72px; height:72px; border-radius:12px; background:var(--gclum-img-bg); overflow:hidden; display:flex; align-items:center; justify-content:center; }
       .gclum-{{ gc_uid }} .gclum__media img{ display:block; width:100%; height:100%; object-fit:cover; border-radius: 8px !important;}
       .gclum-{{ gc_uid }} .gclum__body{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:4px; }
       .gclum-{{ gc_uid }} .gclum__title{ margin:0; font-family:var(--gclum-font) !important; font-weight:700; font-size:18px; line-height:1.2; letter-spacing:-0.36px; color:var(--gclum-ink); }
-      .gclum-{{ gc_uid }} .gclum__text{ margin:0; font-family:var(--gclum-font) !important; font-weight:400; font-size:14px; line-height:1.3; letter-spacing:-0.28px; color:rgba(17,59,52,.5); }
+      .gclum-{{ gc_uid }} .gclum__text{ margin:0; font-family:var(--gclum-font) !important; font-weight:400; font-size:14px; line-height:1.3; letter-spacing:-0.28px; color:{{ gc_text_color }}; }
       .gclum-{{ gc_uid }} .gclum__aside{ flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; gap:8px; text-align:right; }
-      .gclum-{{ gc_uid }} .gclum__badge{ display:inline-flex; align-items:center; padding:4px 12px; border-radius:4px; font-family:var(--gclum-font) !important; font-weight:500 !important; font-size:10px; line-height:1.2; letter-spacing:-0.28px; white-space:nowrap; background:{{ gc_badge_bg }}; color:{{ gc_badge_fg }}; }
-      .gclum-purchase_type{border-radius:12px;}
-      .gclum-{{ gc_uid }} .gclum__compare{ font-family:var(--gclum-font) !important; font-weight:400 !important; font-size:16px !important; line-height:1.2 !important; letter-spacing:-0.32px !important; color:rgba(17,59,52,.4) !important; text-decoration:line-through !important; white-space:nowrap !important; }
+      .gclum-{{ gc_uid }} .gclum__badge{ display:inline-flex; align-items:center; padding:5px 12px; border-radius:24px; font-family:var(--gclum-font) !important; font-weight:600 !important; font-size:11px; line-height:1.2; letter-spacing:-0.22px; white-space:nowrap; background:{{ gc_badge_bg }}; color:{{ gc_badge_fg }}; }
+      .gclum-purchase_type{border-radius:12px; border:none;}
+      .gclum-{{ gc_uid }} .gclum__compare{ font-family:var(--gclum-font) !important; font-weight:400 !important; font-size:16px !important; line-height:1.2 !important; letter-spacing:-0.32px !important; color:{{ gc_compare_color }} !important; text-decoration:line-through !important; white-space:nowrap !important; }
       @media (min-width:990px){
       .gclum-{{ gc_uid }} .gclum__title{ font-size:20px; letter-spacing:-0.4px; }
       }
