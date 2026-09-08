@@ -1,0 +1,277 @@
+{%- comment -%}
+Bundle / pack selector (NEW generation) — Lumway PDP. Figma redesign 3323:21002.
+Supersedes bundle-selector-lum. Wire in product-details-lum via {%- when 'bundle' -%}.
+
+WHAT CHANGED vs bundle-selector-lum:
+  - New "Buy More Save More" banner pill next to the heading (bmsm_* settings).
+  - Card visuals refreshed for the redesign (Best Seller / Most Savings top badge, "Free shipping"
+    sub-label, Save pill under the card).
+WHAT IS UNCHANGED (contract kept intact so Purchase Type + ATC keep working):
+  - VARIANT-BASED: option N -> product.variants[N-1] by order.
+  - Publishes window.__lumBundlePack = { variantId, total, paid, free }.
+  - Fires 'variant:change' + 'simple-variant-picker:variantChange' so Purchase Type / Recharge
+    + add-to-cart price update.
+  - Save badges recompute per purchase type via window.__lumSubByVariant (published by Purchase Type).
+    Discount is read dynamically from the Recharge plan (no hard-coded %); one-time uses the variant
+    price, subscribe uses the resolved plan price. Since the discount is equal across intervals, the
+    subscribe price does NOT depend on the chosen interval, so Save stays stable when the interval
+    dropdown changes — no interval listener needed here.
+  - data-* on each card (pack-total/paid/free/price/compare-total/variant) kept for downstream reads.
+
+Usage: {% render 'mm-bundle-select-lum', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+assign uid = block.id
+assign has_product = false
+if product != nil and product.variants.size > 0
+assign has_product = true
+endif
+assign fallback_img = block.settings.bottle_image | default: product.featured_image
+assign save_bg = block.settings.save_badge_bg | default: '#fa6c56'
+assign save_tc = block.settings.save_badge_text | default: '#ffffff'
+assign base_compare = product.variants.first.compare_at_price | default: product.variants.first.price
+assign sel_index = 0
+assign first_shown = 0
+if has_product
+for i in (1..4)
+assign vidx = i | minus: 1
+assign v = product.variants[vidx]
+assign show_key = 'option_' | append: i | append: '_show'
+if v and block.settings[show_key]
+if first_shown == 0
+assign first_shown = i
+endif
+assign sel_key = 'option_' | append: i | append: '_selected'
+if block.settings[sel_key] and sel_index == 0
+assign sel_index = i
+endif
+endif
+endfor
+if sel_index == 0
+assign sel_index = first_shown
+endif
+endif
+-%}
+
+{%- if has_product -%}
+{% style %}
+.mmbsl-{{ uid }}{
+--mmbsl-font: 'Inter Tight', system-ui, sans-serif;
+--mmbsl-ink: #113b34;
+--mmbsl-card: {{ block.settings.card_bg | default: '#F9F9F9' }};
+display:flex; flex-direction:column; gap:16px; width:100%;
+}
+.mmbsl-{{ uid }} .mmbsl__head{ display:flex; align-items:center; gap:{{ block.settings.head_gap_mobile | default: 8 }}px; flex-wrap:wrap; }
+.mmbsl-{{ uid }} .mmbsl__label{ margin:0; font-family:var(--mmbsl-font) !important; font-weight:600 !important; font-size:{{ block.settings.label_font_size_mobile | default: 16 }}px; line-height:1.2; letter-spacing:-0.32px; color:{{ block.settings.label_color | default: '#113b34' }}; }
+.mmbsl-{{ uid }} .mmbsl__bmsm{ display:inline-flex; align-items:center; padding:4px 8px; border-radius:{{ block.settings.bmsm_radius_mobile | default: 28 }}px; font-family:var(--mmbsl-font) !important; font-weight:600 !important; font-size:{{ block.settings.bmsm_font_size_mobile | default: 11 }}px; line-height:1.2; letter-spacing:0.2px; text-transform:uppercase; white-space:nowrap; }
+.mmbsl-{{ uid }} .mmbsl__grid{ display:flex; align-items:stretch; gap:4px; }
+.mmbsl-{{ uid }} .mmbsl__card{ position:relative; flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:8px; padding:12px; background:var(--mmbsl-card); border:1.5px solid rgba(17,59,52,.1); border-radius:12px; cursor:pointer; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+.mmbsl-{{ uid }} .mmbsl__card.is-selected{ border-color:var(--mmbsl-ink); }
+.mmbsl-{{ uid }} .mmbsl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; -webkit-appearance:none; appearance:none; }
+.mmbsl-{{ uid }} .mmbsl__card:has(.mmbsl__input:focus-visible){ outline:2px solid var(--mmbsl-ink); outline-offset:2px; }
+
+.mmbsl-{{ uid }} .mmbsl__pack{ display:flex; align-items:center; justify-content:center; gap:2px; width:100%; height:48px; }
+.mmbsl-{{ uid }} .mmbsl__img{ flex:0 1 auto; min-width:0; height:48px; display:flex; align-items:center; justify-content:center; }
+.mmbsl-{{ uid }} .mmbsl__img img{ display:block; width:auto; height:auto; max-width:100%; max-height:48px; object-fit:contain; }
+.mmbsl-{{ uid }} .mmbsl__pack--multi .mmbsl__img img{ max-height:36px; }
+.mmbsl-{{ uid }} .mmbsl__plus{ position:relative; z-index:1; flex:0 0 12px; display:inline-flex; align-items:center; justify-content:center; width:12px; height:8px; padding:0 1.375px; background:#fff; border-radius:10.313px; box-sizing:border-box; }
+.mmbsl-{{ uid }} .mmbsl__plus svg{ display:block; width:8.25px; height:8.25px; }
+
+.mmbsl-{{ uid }} .mmbsl__text{ display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center; }
+.mmbsl-{{ uid }} .mmbsl__title{ font-family:var(--mmbsl-font) !important; font-weight:600 !important; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:{{ block.settings.option_title_color | default: '#113b34' }}; white-space:nowrap; }
+.mmbsl-{{ uid }} .mmbsl__sub{ font-family:var(--mmbsl-font) !important; font-weight:400 !important; font-size:10px; line-height:1.2; letter-spacing:-0.2px; color:{{ block.settings.option_sub_color | default: 'rgba(17,59,52,.6)' }}; white-space:nowrap; }
+
+.mmbsl-{{ uid }} .mmbsl__badge{ position:absolute; top:-13px; left:50%; transform:translateX(-50%); z-index:1; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--mmbsl-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+.mmbsl-{{ uid }} .mmbsl__save{ position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); z-index:1; display:inline-flex; align-items:center; padding:3px 6px; border-radius:28px; font-family:var(--mmbsl-font) !important; font-weight:500 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+@media (min-width:990px){
+.mmbsl-{{ uid }} .mmbsl__label{ font-size:{{ block.settings.label_font_size | default: 16 }}px; }
+.mmbsl-{{ uid }} .mmbsl__bmsm{ font-size:{{ block.settings.bmsm_font_size | default: 11 }}px; border-radius:{{ block.settings.bmsm_radius | default: 28 }}px; }
+.mmbsl-{{ uid }} .mmbsl__head{ gap:{{ block.settings.head_gap | default: 8 }}px; }
+.mmbsl-{{ uid }} .mmbsl__badge{ top:-14px; padding:5px 10px; font-size:13px; letter-spacing:-0.26px; }
+.mmbsl-{{ uid }} .mmbsl__save{ bottom:-10px; padding:3px 7px; font-size:12px; letter-spacing:-0.24px; }
+.mmbsl-{{ uid }} .mmbsl__pack{ height:64px; margin-top:4px; }
+.mmbsl-{{ uid }} .mmbsl__img{ height:60px; }
+.mmbsl-{{ uid }} .mmbsl__img img{ max-height:60px; }
+.mmbsl-{{ uid }} .mmbsl__pack--multi .mmbsl__img img{ max-height:44px; }
+}
+
+.mmbsl-{{ uid }} .mmbsl__note{ display:flex; align-items:flex-start; gap:8px; margin:0; }
+.mmbsl-{{ uid }} .mmbsl__note-icon{ flex:0 0 16px; width:16px; height:16px; margin-top:1px; --fill-0:{{ block.settings.note_icon_color | default: '#113b34' }}; }
+.mmbsl-{{ uid }} .mmbsl__note-icon svg{ display:block; width:100%; height:100%; }
+.mmbsl-{{ uid }} .mmbsl__note-text{ font-family:var(--mmbsl-font) !important; font-weight:400 !important; font-size:12px; line-height:{{ block.settings.note_line_height | default: 1.2 }}; letter-spacing:-0.24px; color:{{ block.settings.note_text_color | default: '#113b34' }}; }
+{% endstyle %}
+
+<div id="mm-bundle-select-{{ uid }}" class="mmbsl mmbsl-{{ uid }} mm-bundle-select" {{ block.shopify_attributes }} data-product-id="{{ product.id }}">
+<script type="application/json" class="mmbsl-variants">{{ product.variants | json }}</script>
+
+{%- comment -%} Heading row: label + optional Buy More Save More banner pill {%- endcomment -%}
+{%- if block.settings.heading != blank or block.settings.bmsm_show -%}
+<div class="mmbsl__head">
+{%- if block.settings.heading != blank -%}<p class="mmbsl__label">{{ block.settings.heading | escape }}</p>{%- endif -%}
+{%- if block.settings.bmsm_show and block.settings.bmsm_text != blank -%}
+<span class="mmbsl__bmsm" style="background:{{ block.settings.bmsm_bg | default: 'linear-gradient(90deg, #F8E3E8 0%, rgba(248, 227, 232, 0.5) 100%)' }};color:{{ block.settings.bmsm_text_color | default: '#5B0D1E' }}">{{ block.settings.bmsm_text | escape }}</span>
+{%- endif -%}
+</div>
+{%- endif -%}
+
+<div class="mmbsl__grid" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Select quantity' | escape }}">
+{%- for i in (1..4) -%}
+{%- liquid
+assign vidx = i | minus: 1
+assign v = product.variants[vidx]
+assign show_key = 'option_' | append: i | append: '_show'
+unless v and block.settings[show_key]
+continue
+endunless
+assign label_key = 'option_' | append: i | append: '_label'
+assign label = block.settings[label_key]
+if label == blank
+assign label = v.title
+endif
+assign sub_key = 'option_' | append: i | append: '_sublabel'
+assign sublabel = block.settings[sub_key]
+assign img1_key = 'option_' | append: i | append: '_image'
+assign img1 = block.settings[img1_key] | default: fallback_img
+assign img2_key = 'option_' | append: i | append: '_image_2'
+assign img2 = block.settings[img2_key]
+assign paid_key = 'option_' | append: i | append: '_paid'
+assign free_key = 'option_' | append: i | append: '_free'
+assign paid = block.settings[paid_key] | default: 1
+assign free = block.settings[free_key] | default: 0
+assign badge_key = 'option_' | append: i | append: '_badge'
+assign badge = block.settings[badge_key]
+assign badge_bg_key = 'option_' | append: i | append: '_badge_bg'
+assign badge_bg = block.settings[badge_bg_key] | default: '#fad356'
+assign badge_tc_key = 'option_' | append: i | append: '_badge_text'
+assign badge_tc = block.settings[badge_tc_key] | default: '#113b34'
+assign save_key = 'option_' | append: i | append: '_save'
+assign save = block.settings[save_key]
+assign total_jars = paid | plus: free
+assign save_amount = base_compare | times: total_jars | minus: v.price
+assign is_sel = false
+if i == sel_index
+assign is_sel = true
+endif
+-%}
+<label class="mmbsl__card{% if is_sel %} is-selected{% endif %}" data-variant="{{ v.id }}" data-offer="{{ badge | default: '' | handleize }}" data-pack-total="{{ paid | plus: free }}" data-pack-paid="{{ paid }}" data-pack-free="{{ free }}" data-price="{{ v.price }}" data-compare-total="{{ base_compare | times: total_jars }}">
+<input type="radio" class="mmbsl__input" name="mmbsl-{{ uid }}" value="{{ v.id }}"{% if is_sel %} checked{% endif %} aria-label="{{ label | escape }}">
+{%- if badge != blank -%}<span class="mmbsl__badge" style="background:{{ badge_bg }};color:{{ badge_tc }}">{{ badge | escape }}</span>{%- endif -%}
+<span class="mmbsl__pack{% if img2 != blank %} mmbsl__pack--multi{% endif %}" aria-hidden="true">
+{%- if img1 != blank -%}<span class="mmbsl__img">{{ img1 | image_url: width: 180 | image_tag: loading: 'lazy', widths: '60,120,180', sizes: '60px', alt: '' }}</span>{%- endif -%}
+{%- if img2 != blank -%}
+<span class="mmbsl__plus">{{ 'lum-icon-add.svg' | inline_asset_content }}</span>
+<span class="mmbsl__img">{{ img2 | image_url: width: 180 | image_tag: loading: 'lazy', widths: '60,120,180', sizes: '60px', alt: '' }}</span>
+{%- endif -%}
+</span>
+<span class="mmbsl__text">
+<span class="mmbsl__title">{{ label | escape }}</span>
+{%- if sublabel != blank -%}<span class="mmbsl__sub">{{ sublabel | escape }}</span>{%- endif -%}
+</span>
+{%- if block.settings.save_auto -%}
+{%- comment -%} span always present: JS re-fills it per purchase type (one-time vs subscribe) {%- endcomment -%}
+<span class="mmbsl__save" data-role="save" style="background:{{ save_bg }};color:{{ save_tc }}{% if save_amount <= 0 %};display:none{% endif %}">{{ block.settings.save_prefix | default: 'Save' | strip | append: ' ' }}{% if save_amount > 0 %}{{ save_amount | money }}{% endif %}</span>
+{%- elsif save != blank -%}
+<span class="mmbsl__save" style="background:{{ save_bg }};color:{{ save_tc }}">{{ save | escape }}</span>
+{%- endif -%}
+</label>
+{%- endfor -%}
+</div>
+{%- if block.settings.note != blank -%}
+<p class="mmbsl__note">
+<span class="mmbsl__note-icon">{{ 'lum-icon-info.svg' | inline_asset_content }}</span>
+<span class="mmbsl__note-text">{{ block.settings.note | escape }}</span>
+</p>
+{%- endif -%}
+</div>
+
+<script>
+(function () {
+var root = document.querySelector('.mmbsl-{{ uid }}');
+if (!root || root.__mmbslBound) return;
+root.__mmbslBound = true;
+var variants = [];
+try { variants = JSON.parse(root.querySelector('.mmbsl-variants').textContent) || []; } catch (e) { variants = []; }
+function variantById(id) { for (var k = 0; k < variants.length; k++) { if (String(variants[k].id) === String(id)) return variants[k]; } return null; }
+function variantInput() {
+// Target the buy box's OWN form. On landing pages other product forms exist (the theme's
+// free-gift / cart progress-bar renders a hidden free-product-form with its own name="id");
+// a document-wide lookup wrote the variant into THAT form, so the buy box submitted a stale
+// variant (picking 3 jars added the initial 1). The buy box form always carries .product-buy-form-pdp.
+return document.querySelector('.product-buy-form-pdp input[name="id"]')
+|| document.querySelector('product-form input[name="id"]')
+|| document.querySelector('form[action*="/cart/add"] input[name="id"]')
+|| document.querySelector('input[name="id"]');
+}
+function packForId(id) {
+var inp = root.querySelector('.mmbsl__input[value="' + id + '"]');
+var card = inp ? inp.closest('.mmbsl__card') : null;
+if (!card) return null;
+return { variantId: id,
+total: parseInt(card.getAttribute('data-pack-total') || '1', 10),
+paid: parseInt(card.getAttribute('data-pack-paid') || '1', 10),
+free: parseInt(card.getAttribute('data-pack-free') || '0', 10) };
+}
+function selectVariant(id) {
+var variant = variantById(id);
+if (!variant) return;
+var pack = packForId(id);
+if (pack) window.__lumBundlePack = pack;
+var input = variantInput();
+if (input) {
+input.value = variant.id;
+input.setAttribute('value', variant.id);
+if (variant.available !== false) { input.removeAttribute('disabled'); }
+input.dispatchEvent(new Event('change', { bubbles: true }));
+}
+document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: { variant: variant, source: 'mm-bundle-select-lum', pack: pack } }));
+document.dispatchEvent(new CustomEvent('variant:change', { detail: { variant: variant, pack: pack } }));
+}
+// Dynamic Save badges: recompute per purchase type (one-time uses variant price, subscribe uses the
+// pack's resolved plan price published by Purchase Type in window.__lumSubByVariant). Discount comes
+// from the Recharge plan, not a hard-coded %.
+var SAVE_AUTO = {{ block.settings.save_auto | default: false | json }};
+var SAVE_PREFIX = {{ block.settings.save_prefix | default: 'Save' | strip | json }};
+var MONEY_FMT = {{ shop.money_format | json }};
+function fmtMoney(c) {
+if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, MONEY_FMT);
+return String(MONEY_FMT).replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
+}
+function updateSaves(type) {
+if (!SAVE_AUTO) return;
+var subMap = window.__lumSubByVariant || {};
+root.querySelectorAll('.mmbsl__card').forEach(function (card) {
+var el = card.querySelector('[data-role="save"]');
+if (!el) return;
+var compareTotal = parseInt(card.getAttribute('data-compare-total') || '0', 10);
+var price = parseInt(card.getAttribute('data-price') || '0', 10);
+var sub = subMap[String(card.getAttribute('data-variant'))];
+var eff = (type === 'subscribe' && sub) ? sub : price;
+var amt = compareTotal - eff;
+if (amt > 0) { el.textContent = SAVE_PREFIX + ' ' + fmtMoney(amt); el.style.display = ''; }
+else { el.style.display = 'none'; }
+});
+}
+document.addEventListener('lum:atc-price', function (e) {
+var t = e && e.detail && e.detail.type;
+if (t) updateSaves(t);
+});
+var userTouched = false;
+root.addEventListener('change', function (e) {
+if (!e.target.classList || !e.target.classList.contains('mmbsl__input')) return;
+userTouched = true;
+root.querySelectorAll('.mmbsl__card').forEach(function (c) {
+c.classList.toggle('is-selected', c.querySelector('.mmbsl__input').checked);
+});
+selectVariant(e.target.value);
+});
+function init() { if (userTouched) return; var c = root.querySelector('.mmbsl__input:checked'); if (c) selectVariant(c.value); }
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+window.addEventListener('load', init);
+[200, 600, 1200, 2500].forEach(function (d) { setTimeout(init, d); });
+document.addEventListener('shopify:section:load', function () { userTouched = false; setTimeout(init, 60); });
+})();
+</script>
+{%- elsif request.design_mode -%}
+<div style="padding:16px;border:1px dashed #ccc;border-radius:8px;color:#666;font:14px sans-serif;text-align:center">Bundle selector: add this on a product page (no variants found).</div>
+{%- endif -%}
