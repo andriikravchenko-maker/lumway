@@ -585,6 +585,14 @@
             </div>
           {%- endif -%}
 
+          {%- if section.settings.show_privacy_links -%}
+            <div class="footer-copyright footer-privacy-links">
+              {%- if section.settings.privacy_dns_label != blank -%}
+                <a href="#lum-privacy">{{ section.settings.privacy_dns_label }}</a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
           {%- if section.settings.show_payment_icons -%}
             <div class="footer-payment-icons-wrapper">
               {% render 'payment-icons-footer', section: section %}
@@ -1247,7 +1255,10 @@
       "id": "section_top_border_color",
       "label": "Top Border Color",
       "default": "#E5E5E5"
-    }
+    },
+    { "type": "header", "content": "Privacy links (US Do Not Sell)" },
+    { "type": "checkbox", "id": "show_privacy_links", "label": "Show privacy links in footer bottom", "default": true },
+    { "type": "text", "id": "privacy_dns_label", "label": "Do Not Sell link text", "default": "Do Not Sell or Share My Personal Information", "info": "One click opts the browser out in place (lum-privacy-guard); the confirmation shows an Undo link" }
   ],
   "blocks": [
     {

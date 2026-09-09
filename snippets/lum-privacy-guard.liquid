@@ -1,0 +1,270 @@
+{%- comment -%}
+  lum-privacy-guard: enforces the visitor's US "Do Not Sell or Share" opt-out (and the browser's
+  Global Privacy Control signal) against vendors that ignore Shopify's Customer Privacy API.
+
+  Inert until the visitor opts out. Once opted out it:
+    1. mirrors the choice in a JS-readable cookie (Shopify's _tracking_consent is HttpOnly, so
+       inline app embeds would run before the state is known otherwise),
+    2. refuses vendor cookie writes and deletes the ones already set,
+    3. refuses dynamically added vendor scripts, fetch/XHR/beacon/image calls to vendor hosts,
+    4. calls the vendors' own kill switches (Amplitude setOptOut, Clarity stop),
+    5. cascades the choice into Shopify's consent API so Web Pixels and channels follow.
+
+  Must render as the FIRST script in <head>, before any app embed and content_for_header.
+  Public API: window.lumPrivacy.optOut() / .optIn() / .isOptedOut()
+  Footer hooks: <a href="#lum-privacy">…</a> opts out (idempotent); the confirmation that appears
+                next to it carries an "Undo" link (#lum-privacy-undo) that opts back in.
+  Maintenance: HOSTS / COOKIES / STORAGE below are the only lists to update when apps change.
+  Never list Shopify infrastructure here (cdn.shopify.com, shop.app, monorail).
+{%- endcomment -%}
+<script>
+(function (w, d, n) {
+  'use strict';
+  try {
+    var MIRROR = 'lum_optout';
+    var HOSTS = [
+      'klaviyo.com', 'd3k81ch9hvuctc.cloudfront.net',
+      'clarity.ms',
+      'amplitude.com',
+      'googletagmanager.com', 'google-analytics.com', 'googleadservices.com', 'doubleclick.net',
+      'merchant-center-analytics.goog',
+      'shoplift.ai',
+      'ipinfo.io',
+      'connect.facebook.net', 'facebook.com', 'analytics.tiktok.com', 'tiktok.com',
+      'applovin.com', 'axon.ai'
+    ];
+    var GOOGLE_PATHS = /^\/(ccm|pagead)\//;
+    var COOKIES = /^(_fbp|_fbc|__parkour_|_ax|ax_visitor|__kla_id|_clck|_clsk|_ga|_gid|_gcl_|AMP_|EXP_|Shoplift_Analytics|Shoplift_Session|_shg_)/;
+    var STORAGE = /^(Parkour_|__parkour_|AMP_|EXP_|__kl_key|klaviyoOnsite|kl-post-identification-sync|Shoplift_Analytics|Shoplift_ClientId|shoplift_last_pageview|_gcl_ls|_applovin_pixel_version|\$referrer|\$last_referrer|Shoplift_Session|_axsid|_cltk|klaviyoPagesVisitCountV2|AMP_PAGE_VIEW|AMP_URL_INFO|_shg_)/;
+    var CASCADE = { analytics: false, marketing: false, preferences: true, sale_of_data: false };
+    var RESTORE = { analytics: true, marketing: true, preferences: true, sale_of_data: true };
+    var TEXT_ON = 'Opt-Out Request Honored. This browser is opted out of the sale or sharing of personal information.';
+    var TEXT_GPC = 'Opt-Out Preference Signal Honored. Your browser\'s Global Privacy Control signal has opted this browser out of the sale or sharing of personal information.';
+    var TEXT_UNDO = 'Undo';
+
+    var cookieDesc = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie') ||
+                     Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
+    var readCookie = function () { return cookieDesc.get.call(d) || ''; };
+    var writeCookie = function (v) { cookieDesc.set.call(d, v); };
+
+    var gpc = n.globalPrivacyControl === true;
+    var hasMirror = function () {
+      var parts = readCookie().split('; ');
+      for (var i = 0; i < parts.length; i++) if (parts[i].indexOf(MIRROR + '=1') === 0) return true;
+      return false;
+    };
+    var setMirror = function (on) {
+      writeCookie(MIRROR + '=' + (on ? '1' : '') + '; path=/; max-age=' + (on ? 31536000 : 0) + '; SameSite=Lax');
+    };
+
+    var optedOut = gpc || hasMirror();
+    var engaged = false;
+
+    function parse(u) { try { return new URL(String(u), location.href); } catch (e) { return null; } }
+    function blocked(u) {
+      var x = parse(u); if (!x) return false;
+      var h = x.hostname;
+      if (h === 'www.google.com' || h === 'google.com') return GOOGLE_PATHS.test(x.pathname);
+      for (var i = 0; i < HOSTS.length; i++) {
+        var b = HOSTS[i];
+        if (h === b || h.slice(-(b.length + 1)) === '.' + b) return true;
+      }
+      return false;
+    }
+    function killCookie(name) {
+      var hn = location.hostname, root = hn.split('.').slice(-2).join('.');
+      var doms = ['', '; domain=' + hn, '; domain=.' + hn, '; domain=.' + root];
+      var paths = ['/'];
+      var segs = location.pathname.split('/').filter(Boolean);
+      for (var p = 1; p <= segs.length; p++) paths.push('/' + segs.slice(0, p).join('/'));
+      for (var i = 0; i < doms.length; i++) for (var j = 0; j < paths.length; j++)
+        writeCookie(name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=' + paths[j] + doms[i]);
+    }
+    function purge() {
+      var parts = readCookie().split('; ');
+      for (var i = 0; i < parts.length; i++) {
+        var name = parts[i].split('=')[0];
+        if (name && COOKIES.test(name)) killCookie(name);
+      }
+      [w.localStorage, w.sessionStorage].forEach(function (store) {
+        try {
+          var keys = [];
+          for (var k = 0; k < store.length; k++) keys.push(store.key(k));
+          keys.forEach(function (key) { if (STORAGE.test(key)) store.removeItem(key); });
+        } catch (e) {}
+      });
+    }
+    function vendorStops() {
+      try { if (w.amplitude && typeof w.amplitude.setOptOut === 'function') w.amplitude.setOptOut(true); } catch (e) {}
+      try {
+        if (typeof w.clarity === 'function') {
+          w.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'denied' });
+          w.clarity('stop');
+        }
+      } catch (e) {}
+    }
+
+    function engage() {
+      if (engaged) return;
+      engaged = true;
+      optedOut = true;
+
+      // 1. cookies: refuse vendor writes, delete existing ones
+      Object.defineProperty(d, 'cookie', {
+        configurable: true,
+        get: function () { return readCookie(); },
+        set: function (v) {
+          var name = String(v).split('=')[0].replace(/^\s+/, '');
+          if (COOKIES.test(name)) { killCookie(name); return; }
+          writeCookie(v);
+        }
+      });
+      purge();
+
+      // 2. dynamically added scripts and images
+      var srcDesc = Object.getOwnPropertyDescriptor(HTMLScriptElement.prototype, 'src');
+      Object.defineProperty(HTMLScriptElement.prototype, 'src', {
+        configurable: true,
+        get: srcDesc.get,
+        set: function (v) {
+          if (blocked(v)) { this.type = 'text/plain'; this.setAttribute('data-lum-blocked', String(v)); return; }
+          srcDesc.set.call(this, v);
+        }
+      });
+      var imgDesc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');
+      Object.defineProperty(HTMLImageElement.prototype, 'src', {
+        configurable: true,
+        get: imgDesc.get,
+        set: function (v) { if (blocked(v)) return; imgDesc.set.call(this, v); }
+      });
+      var setAttr = Element.prototype.setAttribute;
+      Element.prototype.setAttribute = function (k, v) {
+        if (String(k).toLowerCase() === 'src' && (this.tagName === 'SCRIPT' || this.tagName === 'IMG') && blocked(v)) {
+          if (this.tagName === 'SCRIPT') { this.type = 'text/plain'; setAttr.call(this, 'data-lum-blocked', String(v)); }
+          return;
+        }
+        return setAttr.call(this, k, v);
+      };
+      if (w.MutationObserver) {
+        new MutationObserver(function (muts) {
+          for (var i = 0; i < muts.length; i++) {
+            var added = muts[i].addedNodes;
+            for (var j = 0; j < added.length; j++) {
+              var node = added[j];
+              if (node.tagName === 'SCRIPT' && node.getAttribute('src') && blocked(node.getAttribute('src'))) {
+                node.type = 'text/plain';
+                if (node.parentNode) node.parentNode.removeChild(node);
+              }
+            }
+          }
+        }).observe(d.documentElement, { childList: true, subtree: true });
+      }
+
+      // 2b. vendor storage writes (identifiers written by inline embeds after purge)
+      try {
+        var setItem = Storage.prototype.setItem;
+        Storage.prototype.setItem = function (k, v) { if (STORAGE.test(String(k))) return; return setItem.call(this, k, v); };
+      } catch (e) {}
+
+      // 3. network
+      if (w.fetch) {
+        var nativeFetch = w.fetch;
+        w.fetch = function (input, init) {
+          var u = typeof input === 'string' ? input : (input && input.url);
+          if (u && blocked(u)) {
+            try { return Promise.resolve(new Response(null, { status: 204, statusText: 'blocked' })); } catch (e) { return Promise.resolve({ ok: true, status: 204, text: function () { return Promise.resolve(''); }, json: function () { return Promise.resolve({}); } }); }
+          }
+          return nativeFetch.apply(this, arguments);
+        };
+      }
+      var xo = XMLHttpRequest.prototype.open, xs = XMLHttpRequest.prototype.send;
+      XMLHttpRequest.prototype.open = function (m, u) { this.__lumBlocked = blocked(u); return xo.apply(this, arguments); };
+      XMLHttpRequest.prototype.send = function () { if (this.__lumBlocked) return; return xs.apply(this, arguments); };
+      if (n.sendBeacon) {
+        var nb = n.sendBeacon;
+        n.sendBeacon = function (u) { if (blocked(u)) return true; return nb.apply(n, arguments); };
+      }
+
+      // 4. vendor kill switches, now and again once they have loaded
+      vendorStops();
+      var tries = 0, timer = setInterval(function () { vendorStops(); if (++tries >= 20) clearInterval(timer); }, 500);
+      d.addEventListener('DOMContentLoaded', vendorStops);
+      w.addEventListener('load', function () { vendorStops(); purge(); });
+    }
+
+    // 5. keep Shopify's consent API in sync with the choice
+    function withPrivacyApi(fn) {
+      if (!(w.Shopify && w.Shopify.loadFeatures)) return;
+      w.Shopify.loadFeatures([{ name: 'consent-tracking-api', version: '0.1' }], function (err) {
+        if (err || !w.Shopify.customerPrivacy) return;
+        fn(w.Shopify.customerPrivacy);
+      });
+    }
+    function syncShopify() {
+      withPrivacyApi(function (cp) {
+        var api = cp.currentVisitorConsent ? cp.currentVisitorConsent() : {};
+        if (optedOut) {
+          if (api.sale_of_data !== 'no' || api.marketing !== 'no') cp.setTrackingConsent(CASCADE, function () {});
+        } else if (api.sale_of_data === 'no') {
+          setMirror(true); engage();
+        }
+        d.addEventListener('visitorConsentCollected', function (e) {
+          var det = (e && e.detail) || {};
+          var no = det.saleOfDataAllowed === false || det.marketingAllowed === false;
+          if (no && !optedOut) { setMirror(true); engage(); }
+        });
+      });
+    }
+
+    function status(on) {
+      var els = d.querySelectorAll('[data-lum-privacy-status]');
+      for (var i = 0; i < els.length; i++) {
+        els[i].textContent = '';
+        if (!on) continue;
+        if (gpc) { els[i].appendChild(d.createTextNode(TEXT_GPC)); continue; }
+        els[i].appendChild(d.createTextNode(TEXT_ON + ' '));
+        var undo = d.createElement('a');
+        undo.href = '#lum-privacy-undo'; undo.className = 'lum-privacy-undo'; undo.textContent = TEXT_UNDO;
+        els[i].appendChild(undo);
+      }
+    }
+
+    w.lumPrivacy = {
+      isOptedOut: function () { return optedOut; },
+      optOut: function () {
+        setMirror(true); engage();
+        withPrivacyApi(function (cp) { cp.setTrackingConsent(CASCADE, function () {}); });
+        status(true);
+      },
+      optIn: function () {
+        setMirror(false);
+        withPrivacyApi(function (cp) { cp.setTrackingConsent(RESTORE, function () { w.location.reload(); }); });
+        setTimeout(function () { w.location.reload(); }, 1500);
+      }
+    };
+
+    if (optedOut) engage();
+
+    var init = function () {
+      syncShopify();
+      var links = d.querySelectorAll('a[href$="#lum-privacy"]');
+      for (var i = 0; i < links.length; i++) {
+        if (!links[i].nextElementSibling || !links[i].nextElementSibling.hasAttribute('data-lum-privacy-status')) {
+          var s = d.createElement('span'); s.setAttribute('data-lum-privacy-status', ''); s.className = 'lum-privacy-status';
+          links[i].parentNode.insertBefore(s, links[i].nextSibling);
+        }
+      }
+      status(optedOut);
+      d.addEventListener('click', function (e) {
+        var a = e.target && e.target.closest ? e.target.closest('a[href$="#lum-privacy"], a[href$="#lum-privacy-undo"]') : null;
+        if (!a) return;
+        e.preventDefault();
+        if (/#lum-privacy-undo$/.test(a.getAttribute('href') || '')) w.lumPrivacy.optIn(); else w.lumPrivacy.optOut();
+      });
+    };
+    if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', init); else init();
+  } catch (e) {
+    try { console.warn('lum-privacy-guard disabled:', e); } catch (e2) {}
+  }
+})(window, document, navigator);
+</script>
