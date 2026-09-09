@@ -585,6 +585,17 @@
             </div>
           {%- endif -%}
 
+          {%- if section.settings.show_privacy_links -%}
+            <div class="footer-copyright footer-privacy-links">
+              {%- if section.settings.privacy_dns_label != blank -%}
+                <a href="{{ section.settings.privacy_dns_url | default: '/pages/data-sharing-opt-out' }}">{{ section.settings.privacy_dns_label }}</a>
+              {%- endif -%}
+              {%- if section.settings.privacy_settings_label != blank -%}
+                <a href="#lum-privacy">{{ section.settings.privacy_settings_label }}</a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
           {%- if section.settings.show_payment_icons -%}
             <div class="footer-payment-icons-wrapper">
               {% render 'payment-icons-footer', section: section %}
@@ -1247,7 +1258,12 @@
       "id": "section_top_border_color",
       "label": "Top Border Color",
       "default": "#E5E5E5"
-    }
+    },
+    { "type": "header", "content": "Privacy links (US Do Not Sell)" },
+    { "type": "checkbox", "id": "show_privacy_links", "label": "Show privacy links in footer bottom", "default": true },
+    { "type": "text", "id": "privacy_dns_label", "label": "Do Not Sell link text", "default": "Do Not Sell or Share My Personal Information" },
+    { "type": "url", "id": "privacy_dns_url", "label": "Do Not Sell link URL", "info": "Shopify's automated Your Privacy Choices page: /pages/data-sharing-opt-out" },
+    { "type": "text", "id": "privacy_settings_label", "label": "Cookie Settings link text", "default": "Cookie Settings", "info": "Toggles the opt-out in place via lum-privacy-guard" }
   ],
   "blocks": [
     {
