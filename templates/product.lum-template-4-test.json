@@ -60,7 +60,7 @@
         },
         "mm_bundle_select_HjgwTc": {
           "type": "mm_bundle_select",
-           "settings": {
+          "settings": {
             "heading": "Select Quantity",
             "note": "For best results take consistently for at least 6–8 weeks.",
             "card_bg": "#f9f9f9",
@@ -133,7 +133,7 @@
         },
         "mm_purchase_plan_rfYPgm": {
           "type": "mm_purchase_plan",
-            "settings": {
+          "settings": {
             "heading": "Purchase Type",
             "label_color": "#111111",
             "label_font_size": 16,
@@ -157,7 +157,7 @@
             "one_time_title": "One-time Purchase",
             "save_badge_show": true,
             "save_badge_text": "Save 15%",
-            "save_badge_auto": true,
+            "save_badge_auto": false,
             "save_badge_bg": "#fad356",
             "save_badge_text_color": "#5b0d1e",
             "show_per_pack": true,
@@ -209,7 +209,7 @@
             "gc_image": "shopify://shop_images/craving-control-guide-gut-health-traker-8065139.webp",
             "gc_title": "Craving Control Guide + Gut Health Traker",
             "gc_text": "A 7-day plan to break the sugar loop",
-            "gc_text_color": "#C2C2C2",
+            "gc_text_color": "#c2c2c2",
             "gc_badge": "Free",
             "gc_badge_bg": "#fa6c56",
             "gc_badge_text_color": "#ffffff",
