@@ -60,6 +60,7 @@
         },
         "mm_bundle_select_HjgwTc": {
           "type": "mm_bundle_select",
+          "disabled": true,
           "settings": {
             "heading": "Select Quantity",
             "note": "For best results take consistently for at least 6–8 weeks.",
@@ -133,6 +134,7 @@
         },
         "mm_purchase_plan_rfYPgm": {
           "type": "mm_purchase_plan",
+          "disabled": true,
           "settings": {
             "heading": "Purchase Type",
             "label_color": "#111111",
@@ -219,7 +221,6 @@
         },
         "bundle_BLEyFB": {
           "type": "bundle",
-          "disabled": true,
           "settings": {
             "heading": "Select Quantity",
             "note": "For best results take consistently for at least 6–8 weeks.",
@@ -279,7 +280,6 @@
         },
         "purchase_type_zrrNbf": {
           "type": "purchase_type",
-          "disabled": true,
           "settings": {
             "heading": "Purchase Type",
             "preselect": "subscribe",
