@@ -71,10 +71,13 @@
       return false;
     }
     function killCookie(name) {
-      var exp = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       var hn = location.hostname, root = hn.split('.').slice(-2).join('.');
       var doms = ['', '; domain=' + hn, '; domain=.' + hn, '; domain=.' + root];
-      for (var i = 0; i < doms.length; i++) writeCookie(name + exp + doms[i]);
+      var paths = ['/'];
+      var segs = location.pathname.split('/').filter(Boolean);
+      for (var p = 1; p <= segs.length; p++) paths.push('/' + segs.slice(0, p).join('/'));
+      for (var i = 0; i < doms.length; i++) for (var j = 0; j < paths.length; j++)
+        writeCookie(name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=' + paths[j] + doms[i]);
     }
     function purge() {
       var parts = readCookie().split('; ');
@@ -156,13 +159,19 @@
         }).observe(d.documentElement, { childList: true, subtree: true });
       }
 
+      // 2b. vendor storage writes (identifiers written by inline embeds after purge)
+      try {
+        var setItem = Storage.prototype.setItem;
+        Storage.prototype.setItem = function (k, v) { if (STORAGE.test(String(k))) return; return setItem.call(this, k, v); };
+      } catch (e) {}
+
       // 3. network
       if (w.fetch) {
         var nativeFetch = w.fetch;
         w.fetch = function (input, init) {
           var u = typeof input === 'string' ? input : (input && input.url);
           if (u && blocked(u)) {
-            try { return Promise.resolve(new Response('', { status: 204 })); } catch (e) { return Promise.resolve({ ok: true, status: 204 }); }
+            try { return Promise.resolve(new Response(null, { status: 204, statusText: 'blocked' })); } catch (e) { return Promise.resolve({ ok: true, status: 204, text: function () { return Promise.resolve(''); }, json: function () { return Promise.resolve({}); } }); }
           }
           return nativeFetch.apply(this, arguments);
         };
