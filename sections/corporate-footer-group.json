@@ -23,9 +23,11 @@
         "privacy": { "type": "footer_link", "settings": { "label": "Privacy Policy", "url": "#" } },
         "cookies": { "type": "footer_link", "settings": { "label": "Cookies Policy", "url": "#" } },
         "terms": { "type": "footer_link", "settings": { "label": "Terms of Use", "url": "#" } },
+        "dns": { "type": "footer_link", "settings": { "label": "Do Not Sell or Share My Personal Information", "url": "/pages/data-sharing-opt-out" } },
+        "cookie_settings": { "type": "footer_link", "settings": { "label": "Cookie Settings", "url": "#lum-privacy" } },
         "email": { "type": "footer_link", "settings": { "label": "support@lumwaylabs.com", "url": "mailto:support@lumwaylabs.com" } }
       },
-      "block_order": ["privacy", "cookies", "terms", "email"]
+      "block_order": ["privacy", "cookies", "terms", "dns", "cookie_settings", "email"]
     }
   },
   "order": ["corporate_footer"]
