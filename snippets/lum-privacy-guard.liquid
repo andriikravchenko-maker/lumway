@@ -12,8 +12,8 @@
 
   Must render as the FIRST script in <head>, before any app embed and content_for_header.
   Public API: window.lumPrivacy.optOut() / .optIn() / .isOptedOut()
-  Footer hooks: <a href="#lum-privacy">…</a> toggles the choice;
-                [data-lum-privacy-status] receives the confirmation text.
+  Footer hooks: <a href="#lum-privacy">…</a> opts out (idempotent); the confirmation that appears
+                next to it carries an "Undo" link (#lum-privacy-undo) that opts back in.
   Maintenance: HOSTS / COOKIES / STORAGE below are the only lists to update when apps change.
   Never list Shopify infrastructure here (cdn.shopify.com, shop.app, monorail).
 {%- endcomment -%}
@@ -39,7 +39,7 @@
     var CASCADE = { analytics: false, marketing: false, preferences: true, sale_of_data: false };
     var RESTORE = { analytics: true, marketing: true, preferences: true, sale_of_data: true };
     var TEXT_ON = 'Your choice is saved: this browser is opted out of the sale or sharing of personal information.';
-    var TEXT_OFF = 'This browser is opted in. Use the link to opt out of the sale or sharing of personal information.';
+    var TEXT_UNDO = 'Undo';
 
     var cookieDesc = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie') ||
                      Object.getOwnPropertyDescriptor(HTMLDocument.prototype, 'cookie');
@@ -217,7 +217,14 @@
 
     function status(on) {
       var els = d.querySelectorAll('[data-lum-privacy-status]');
-      for (var i = 0; i < els.length; i++) els[i].textContent = on ? TEXT_ON : TEXT_OFF;
+      for (var i = 0; i < els.length; i++) {
+        els[i].textContent = '';
+        if (!on) continue;
+        els[i].appendChild(d.createTextNode(TEXT_ON + ' '));
+        var undo = d.createElement('a');
+        undo.href = '#lum-privacy-undo'; undo.className = 'lum-privacy-undo'; undo.textContent = TEXT_UNDO;
+        els[i].appendChild(undo);
+      }
     }
 
     w.lumPrivacy = {
@@ -247,10 +254,10 @@
       }
       status(optedOut);
       d.addEventListener('click', function (e) {
-        var a = e.target && e.target.closest ? e.target.closest('a[href$="#lum-privacy"]') : null;
+        var a = e.target && e.target.closest ? e.target.closest('a[href$="#lum-privacy"], a[href$="#lum-privacy-undo"]') : null;
         if (!a) return;
         e.preventDefault();
-        if (optedOut) w.lumPrivacy.optIn(); else w.lumPrivacy.optOut();
+        if (/#lum-privacy-undo$/.test(a.getAttribute('href') || '')) w.lumPrivacy.optIn(); else w.lumPrivacy.optOut();
       });
     };
     if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', init); else init();
