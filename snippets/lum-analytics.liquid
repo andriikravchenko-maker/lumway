@@ -676,84 +676,92 @@ if (PAGE_TYPE === 'cart') fire();
 })();
 
 
-// =====================================================================
-// buy-box: purchase_type_selected (PDP)
-// =====================================================================
-(function () {
-// Buy-box (product-details-lum) can be dropped on non-PDP templates (landings, advertorials).
-// Gate on the buy-box being present rather than PAGE_TYPE.
-if (!document.querySelector('.ptl__input')) return;
+  // =====================================================================
+  // purchase_type_selected  (PDP buy-box — supports mmptl (new) + ptl (old))
+  // In the new mmptl buy-box the subscribe interval is an independent <select>
+  // (data-role="interval-select"), so subscription_type is read from there.
+  // =====================================================================
+  (function () {
+    if (!document.querySelector('.mmptl__input, .ptl__input')) return;
 
-// --- purchase_type_selected helpers (mirror the product_added_to_cart block) ---
-function buyboxVariants() {
-var node = document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
-try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
-}
-function buyboxPlans() {
-var node = document.querySelector('.ptl-plans');
-try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
-}
-function buyboxSelectedVariant(vs) {
-var input = document.querySelector('.product-buy-form-pdp input[name="id"]')
-|| document.querySelector('input[name="id"]');
-var id = input && input.value;
-for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
-return vs[0] || null;
-}
-function buyboxPackLabel() {
-var card = document.querySelector('.bsl__card.is-selected')
-|| ((document.querySelector('.bsl__input:checked') || {}).closest
-&& document.querySelector('.bsl__input:checked').closest('.bsl__card'));
-var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
-if (!n) n = 1;
-return n + (n === 1 ? '-jar' : '-jars');
-}
-function buyboxSubscriptionType() {
-var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]')
-|| document.querySelector('input[name="selling_plan"]');
-var planId = sp && sp.value;
-if (!planId) return undefined;
-var groups = buyboxPlans();
-for (var g = 0; g < groups.length; g++) {
-var sps = groups[g].selling_plans || [];
-for (var i = 0; i < sps.length; i++) {
-if (String(sps[i].id) === String(planId)) {
-var opts = sps[i].options || [];
-for (var o = 0; o < opts.length; o++) {
-if (/frequency|order frequency|unit/i.test(opts[o].name || '')) return opts[o].value;
-}
-}
-}
-}
-return undefined;
-}
+    function variantsOf() {
+      var node = document.querySelector('.mmbsl-variants') || document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
+      try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+    }
+    function selectedVariant(vs) {
+      var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
+      var id = input && input.value;
+      for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
+      return vs[0] || null;
+    }
+    function packLabel() {
+      var card = document.querySelector('.mmbsl__card.is-selected') || document.querySelector('.bsl__card.is-selected');
+      if (!card) {
+        var checked = document.querySelector('.mmbsl__input:checked, .bsl__input:checked');
+        card = checked ? checked.closest('.mmbsl__card, .bsl__card') : null;
+      }
+      var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+      if (!n) n = 1;
+      return n + (n === 1 ? '-jar' : '-jars');
+    }
+    // subscription_type: new buy-box → interval <select>; old → selling_plan options
+    function subscriptionType() {
+      // NEW: independent interval select ("Delivery every N month")
+      var sel = document.querySelector('.mmptl__select[data-role="interval-select"], .mmptl__select');
+      if (sel && sel.value) {
+        // option text/value usually holds "1 month" / "2 month" / "3 month"
+        var chosen = sel.options && sel.selectedIndex > -1 ? sel.options[sel.selectedIndex] : null;
+        var hay = (chosen ? chosen.textContent : '') + ' ' + sel.value;
+        var m = hay.match(/([123])\s*[-\s]?\s*month/i);
+        if (m) return m[1] + '-month';
+      }
+      // OLD fallback: read from selling_plan input + .ptl-plans
+      var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]') || document.querySelector('input[name="selling_plan"]');
+      var planId = sp && sp.value;
+      if (planId) {
+        var node = document.querySelector('.ptl-plans');
+        var groups = [];
+        try { groups = node ? JSON.parse(node.textContent) : []; } catch (e) {}
+        for (var g = 0; g < groups.length; g++) {
+          var sps = groups[g].selling_plans || [];
+          for (var i = 0; i < sps.length; i++) {
+            if (String(sps[i].id) === String(planId)) {
+              var opts = sps[i].options || [];
+              for (var o = 0; o < opts.length; o++) {
+                if (/frequency|order frequency|unit/i.test(opts[o].name || '')) return opts[o].value;
+              }
+            }
+          }
+        }
+      }
+      return undefined;
+    }
 
-document.addEventListener('change', function (e) {
-var t = e.target;
-if (t.classList && t.classList.contains('ptl__input')) {
-// The buy-box writes name="selling_plan" + updates .bsl__card.is-selected on this same
-// change event; defer a tick so selected variant / pack / plan read the settled state.
-setTimeout(function () {
-var vs = buyboxVariants();
-var v = buyboxSelectedVariant(vs);
-var sku = v ? (v.sku || (vs[0] && vs[0].sku)) : null;
-var isSub = t.value === 'subscribe';
-var props = {
-product_id: sku || undefined,
-product_name: v ? ((v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined) : undefined,
-purchase_type: isSub ? 'subscription' : 'one_time',
-variant_id: buyboxPackLabel()
-};
-if (isSub) {
-var st = buyboxSubscriptionType();
-if (st) props.subscription_type = st;
-}
-track('purchase_type_selected', props);
-}, 0);
-}
-}, true);
-})();
+    document.addEventListener('change', function (e) {
+      var t = e.target;
+      var isPurchaseRadio = t.classList && (t.classList.contains('mmptl__input') || t.classList.contains('ptl__input'));
+      if (!isPurchaseRadio) return;
 
+      setTimeout(function () {
+        var vs = variantsOf();
+        var v = selectedVariant(vs);
+        var sku = v ? (v.sku || (vs[0] && vs[0].sku)) : null;
+        var isSub = t.value === 'subscribe';
+
+        var props = {
+          product_id:    sku || undefined,
+          product_name:  v ? ((v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined) : undefined,
+          purchase_type: isSub ? 'subscription' : 'one_time',
+          variant_id:    packLabel()
+        };
+        if (isSub) {
+          var st = subscriptionType();
+          if (st) props.subscription_type = st;
+        }
+        track('purchase_type_selected', props);
+      }, 0);
+    }, true);
+  })();
 
 // =====================================================================
 // reviews_carousel
@@ -1208,57 +1216,57 @@ function () {
 })();
 
 
-// =====================================================================
-// quantity_option_selected (PDP buy-box pack selector)
-// =====================================================================
-(function () {
-if (!document.querySelector('.bsl__input')) return;
+  // =====================================================================
+  // quantity_option_selected  (PDP buy-box pack selector — mmbsl)
+  // =====================================================================
+  (function () {
+    if (!document.querySelector('.mmbsl__input, .bsl__input')) return;
 
-function variantsOf() {
-var node = document.querySelector('.bsl-variants') || document.querySelector('.patc-variants');
-try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
-}
-function variantById(vs, id) {
-for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
-return vs[0] || null;
-}
-function productName(v) {
-if (!v) return undefined;
-return (v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined;
-}
-function packLabel(total) {
-var n = total > 0 ? total : 1;
-return n + (n === 1 ? '-jar' : '-jars');
-}
-function offerName(card) {
-var slug = card ? (card.getAttribute('data-offer') || '') : '';
-return slug ? slug.replace(/-/g, '_') : undefined;
-}
+    function variantsOf() {
+      var node = document.querySelector('.mmbsl-variants') || document.querySelector('.bsl-variants') || document.querySelector('.patc-variants');
+      try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+    }
+    function variantById(vs, id) {
+      for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
+      return vs[0] || null;
+    }
+    function productName(v) {
+      if (!v) return undefined;
+      return (v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined;
+    }
+    function packLabel(total) {
+      var n = total > 0 ? total : 1;
+      return n + (n === 1 ? '-jar' : '-jars');
+    }
+    function offerName(card) {
+      var slug = card ? (card.getAttribute('data-offer') || '') : '';
+      return slug ? slug.replace(/-/g, '_') : undefined;
+    }
 
-document.addEventListener('change', function (e) {
-var t = e.target;
-if (!t.classList || !t.classList.contains('bsl__input')) return;
+    document.addEventListener('change', function (e) {
+      var t = e.target;
+      if (!t.classList || !(t.classList.contains('mmbsl__input') || t.classList.contains('bsl__input'))) return;
 
-setTimeout(function () {
-var card = t.closest('.bsl__card');
-var total = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
-var vs = variantsOf();
-var v = variantById(vs, t.value);
-var sku = v ? (v.sku || (vs[0] && vs[0].sku)) : null;
+      setTimeout(function () {
+        var card = t.closest('.mmbsl__card') || t.closest('.bsl__card');
+        var total = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+        var vs = variantsOf();
+        var v = variantById(vs, t.value);
+        var sku = v ? (v.sku || (vs[0] && vs[0].sku)) : null;
 
-var props = {
-product_id: sku || undefined,
-product_name: productName(v),
-quantity: total > 0 ? total : 1,
-variant_id: packLabel(total)
-};
-var offer = offerName(card);
-if (offer) props.offer_name = offer;
+        var props = {
+          product_id:   sku || undefined,
+          product_name: productName(v),
+          quantity:     total > 0 ? total : 1,
+          variant_id:   packLabel(total)
+        };
+        var offer = offerName(card);
+        if (offer) props.offer_name = offer;
 
-track('quantity_option_selected', props);
-}, 0);
-}, true);
-})();
+        track('quantity_option_selected', props);
+      }, 0);
+    }, true);
+  })();
 
 // =====================================================================
 // upsell_product_added (PDP cross-sell "also buy")
