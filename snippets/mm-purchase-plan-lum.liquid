@@ -311,12 +311,30 @@ hay += ' ' + (plan.name || '');
 var m = hay.match(/(\d+)\s*month/i) || hay.match(/(\d+)/);
 return m ? parseInt(m[1], 10) : null;
 }
+// Not every interval's selling plan carries its own price_adjustments (only the 1-month plan has one
+// configured in Recharge; 2/3-month are left blank there). When the CHOSEN plan has none, fall back
+// to the standard subscribe discount rate — the percentage found on whichever plan in the product
+// DOES define one — applied to the variant price, same discount for every interval.
+// NOTE: this fixes the ON-SCREEN price/badge only. Elixir_SetProductFormSellingPlan submits the REAL
+// selling_plan id to Shopify, which still prices the order from THAT plan's own price_adjustments —
+// so until the 2/3-month plans get a real 15% configured in Shopify/Recharge, checkout will charge
+// the full (undiscounted) amount for those intervals even though this shows the discounted one.
+function standardDiscountPercent() {
+for (var i = 0; i < planList.length; i++) {
+var a = planList[i].price_adjustments && planList[i].price_adjustments[0];
+if (a && a.value_type === 'percentage' && a.value > 0) return a.value;
+}
+return 0;
+}
 function applyAdjustment(price, plan) {
-if (!plan || !plan.price_adjustments || !plan.price_adjustments.length) return price;
+if (plan && plan.price_adjustments && plan.price_adjustments.length) {
 var a = plan.price_adjustments[0];
 if (a.value_type === 'percentage') return Math.round(price * (1 - (a.value / 100)));
 if (a.value_type === 'fixed_amount') return Math.max(0, price - a.value);
 if (a.value_type === 'price') return a.value;
+}
+var pct = standardDiscountPercent();
+if (pct > 0) return Math.round(price * (1 - (pct / 100)));
 return price;
 }
 // ---- OPTION B (default): synthesize "Delivery every {n} month" from month count. ----
@@ -358,10 +376,13 @@ subPrice: applyAdjustment(v.price, plan),
 subCompare: v.compare_at_price || 0 };
 }
 // Badge text driven by the ACTUAL selling plan discount: "Save {n}%" when the plan's own
-// adjustment is a percentage (the normal case), else falls back to the computed $ difference.
+// adjustment is a percentage; when it has none, the same standard rate applyAdjustment() used
+// to compute subPrice (so the badge always matches the price shown, for every interval).
 function badgeTextFor(plan, jarStruck, subJar) {
 var a = plan && plan.price_adjustments && plan.price_adjustments[0];
 if (a && a.value_type === 'percentage' && a.value > 0) return 'Save ' + Math.round(a.value) + '%';
+var pct = standardDiscountPercent();
+if (pct > 0) return 'Save ' + Math.round(pct) + '%';
 if (jarStruck > subJar) return 'Save ' + fmt(jarStruck - subJar);
 return null;
 }
