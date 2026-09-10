@@ -61,7 +61,7 @@
         "mm_bundle_select_HjgwTc": {
           "type": "mm_bundle_select",
           "disabled": true,
-          "settings": {
+           "settings": {
             "heading": "Select Quantity",
             "note": "For best results take consistently for at least 6–8 weeks.",
             "card_bg": "#f9f9f9",
@@ -104,7 +104,7 @@
             "option_2_sublabel": "Free shipping",
             "option_2_image": "shopify://shop_images/Group_1000002672_1_1.png",
             "option_2_paid": 2,
-            "option_2_free": 1,
+            "option_2_free": 0,
             "option_2_save": "Save $12",
             "option_2_badge": "Best Seller",
             "option_2_badge_bg": "#fad356",
@@ -115,7 +115,7 @@
             "option_3_sublabel": "Free shipping",
             "option_3_image": "shopify://shop_images/Group_1000002672-1_47db7f69-3399-4094-b191-52f1bf3d0510.png",
             "option_3_paid": 3,
-            "option_3_free": 2,
+            "option_3_free": 0,
             "option_3_save": "Save $12",
             "option_3_badge": "Most Savings",
             "option_3_badge_bg": "#5b0d1e",
