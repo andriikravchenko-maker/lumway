@@ -1,391 +1,501 @@
 {%- comment -%}
-  Purchase Type (subscribe / one-time) — Lumway PDP. Figma mobile 484:7110.
-  Native Shopify selling plans (Recharge is the processor). The SUBSCRIBE interval is driven by the pack
-  selector: resolvePlanForVariant() picks the plan/interval per the selected variant.
-    interval_mode 'mapped' (default): a pack of N jars subscribes to the N-month plan (1->monthly, 2->2-month, 3->3-month);
-      if the product has no N-month plan it steps down to the nearest smaller interval. The resolved plan is published
-      on window.__lumResolvedSub so the sticky bar (mm-add-to-cart-lum) shows the same subscribe price.
-    interval_mode 'auto': read the selected variant.selling_plan_allocations (Recharge variant-level plans).
-  Selecting subscribe writes name="selling_plan" (via Elixir_SetProductFormSellingPlan) + sets the price
-  context (Elixir_SetSubscriptionContext) so the ATC button shows the discounted price.
-  Subscribe card is rendered only when the product has selling plans (or force_show_subscribe). One-time works today.
-  Usage: {% render 'mm-purchase-type-lum', block: block, product: product %}
+Purchase Type (subscribe / one-time) — Lumway PDP. NEW generation, redesign 3323:21002.
+Native Shopify selling plans (Recharge is the processor).
+
+WHAT CHANGED vs the old mm-purchase-type-lum:
+- The subscribe INTERVAL is now INDEPENDENT of the pack. A "Delivery every N month" <select>
+inside the subscribe card lets the buyer pick any plan; the resolver applies the chosen plan's
+price_adjustment to the CURRENT variant price. Picking 1-pack + 3-month adds variant 1 with the
+3-month selling_plan.
+- Plans are read from product.selling_plan_groups (product-level group; all intervals available on
+every variant). No pack->interval mapping, no variantIndex stepping.
+- window.__lumResolvedSub now carries the CHOSEN plan (independent of pack) so the sticky bar +
+add-to-cart show the same subscribe price/interval.
+- window.__lumSubByVariant is still published (variant -> subscribe price at the chosen interval)
+for the quantity block's dynamic Save badges. Discount is read from the plan (no hard-coded %);
+since the discount is equal across intervals, this map is stable across interval changes.
+
+INTERVAL LABELS: option B — labels are generated as "Delivery every {n} month" from the plan's month
+count via interval_label_format. To switch to option A (use the real Recharge plan name verbatim),
+change the ONE marked line in intervalLabel() to `return plan && plan.name ? plan.name : ...`.
+
+Usage: {% render 'mm-purchase-type-lum', block: block, product: product %}
 {%- endcomment -%}
 
 {%- liquid
-  assign uid = block.id
-  assign has_plans = false
-  if product.selling_plan_groups.size > 0
-    assign has_plans = true
-  endif
-  assign show_sub = has_plans
-  if block.settings.force_show_subscribe
-    assign show_sub = true
-  endif
-  assign preselect_sub = false
-  if show_sub and block.settings.preselect != 'one_time'
-    assign preselect_sub = true
-  endif
-  assign suffix = ''
-  if block.settings.show_per_pack
-    assign suffix = block.settings.per_pack_suffix | default: '/pack'
-  endif
+assign uid = block.id
+assign has_plans = false
+if product.selling_plan_groups.size > 0
+assign has_plans = true
+endif
+assign show_sub = has_plans
+if block.settings.force_show_subscribe
+assign show_sub = true
+endif
+assign preselect_sub = false
+if show_sub and block.settings.preselect != 'one_time'
+assign preselect_sub = true
+endif
+assign suffix = ''
+if block.settings.show_per_pack
+assign suffix = block.settings.per_pack_suffix | default: '/pack'
+endif
 -%}
 
 {%- if product != null and product.variants.size > 0 -%}
-  {% style %}
-    .ptl-{{ uid }}{ --ptl-font:'Inter Tight', system-ui, sans-serif; --ptl-ink:#113b34; --ptl-card:#f4f4f2; --ptl-line:rgba(17,59,52,.1); display:flex; flex-direction:column; gap:16px; width:100%; }
-    .ptl-{{ uid }} .ptl__label{ margin:0; font-family:var(--ptl-font) !important; font-weight:600 !important; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:var(--ptl-ink); }
-    .ptl-{{ uid }} .ptl__list{ display:flex; flex-direction:column; gap:8px; }
-    .ptl-{{ uid }} .ptl__card{ position:relative; display:flex; flex-direction:column; gap:8px; padding:12px; background:var(--ptl-card); border:1px solid var(--ptl-line); border-radius:12px; cursor:pointer; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-    .ptl-{{ uid }} .ptl__card.is-selected{ border:1.5px solid var(--ptl-ink); }
-    .ptl-{{ uid }} .ptl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; -webkit-appearance:none; appearance:none; }
-    .ptl-{{ uid }} .ptl__top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
-    .ptl-{{ uid }} .ptl__main{ display:flex; align-items:center; gap:12px; min-width:0; }
-    .ptl-{{ uid }} .ptl__radio{ flex:0 0 18px; width:18px; height:18px; border-radius:50%; border:1.5px solid rgba(17,59,52,.35); background:#fff; position:relative; box-sizing:border-box; }
-    .ptl-{{ uid }} .ptl__card.is-selected .ptl__radio{ border-color:var(--ptl-ink); }
-    .ptl-{{ uid }} .ptl__card.is-selected .ptl__radio::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--ptl-ink); }
-    .ptl-{{ uid }} .ptl__title{ font-family:var(--ptl-font); font-weight:600; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--ptl-ink); white-space:nowrap; }
-    .ptl-{{ uid }} .ptl__prices{ display:flex; flex-direction:column; align-items:flex-end; gap:4px; text-align:right; }
-    .ptl-{{ uid }} .ptl__card--ot .ptl__prices{ flex-direction:row; align-items:center; gap:8px; }
-    .ptl-{{ uid }} .ptl__price{ font-family:var(--ptl-font); font-weight:600; font-size:14px; line-height:1.2; letter-spacing:-0.28px; color:var(--ptl-ink); white-space:nowrap; }
-    .ptl-{{ uid }} .ptl__compare{ font-family:var(--ptl-font); font-weight:400; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:rgba(17,59,52,.4); text-decoration:line-through; white-space:nowrap; }
-    .ptl-{{ uid }} .ptl__divider{ display:block; height:1px; width:100%; background:var(--ptl-line); }
-    .ptl-{{ uid }} .ptl__benefits{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
-    .ptl-{{ uid }} .ptl__benefits li{ display:flex; align-items:center; gap:4px; }
-    .ptl-{{ uid }} .ptl__check{ display:inline-flex; width:12px; height:12px; flex:0 0 12px; }
-    .ptl-{{ uid }} .ptl__check svg{ display:block; width:100%; height:100%; }
-    .ptl-{{ uid }} .ptl__check img{ display:block; width:100%; height:100%; object-fit:contain; }
-    .ptl-{{ uid }} .ptl__benefits span:last-child{ font-family:var(--ptl-font); font-weight:400; font-size:12px; line-height:1.2; letter-spacing:-0.24px; color:var(--ptl-ink); }
-    .ptl-{{ uid }} .ptl__badge{ position:absolute; top:-12px; right:12px; z-index:3; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--ptl-font); font-weight:500; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
-    /* Theme re-fonts these; force Inter Tight */
-    .ptl-{{ uid }} .ptl__title,
-    .ptl-{{ uid }} .ptl__price,
-    .ptl-{{ uid }} .ptl__compare,
-    .ptl-{{ uid }} .ptl__badge,
-    .ptl-{{ uid }} .ptl__benefits span:last-child{ font-family:var(--ptl-font) !important; }
-    .ptl-{{ uid }} .ptl__benefits li.ptl__benefit-card{ display:block; gap:0; padding:0; margin-top:4px; }
-    .ptl-{{ uid }} .ptl__input:focus-visible ~ .ptl__top .ptl__radio{ outline:2px solid var(--ptl-ink); outline-offset:2px; }
-  {% endstyle %}
+{% style %}
+.mmptl-{{ uid }}{ --mmptl-font:'Inter Tight', system-ui, sans-serif; --mmptl-ink:#113b34; --mmptl-card:{{ block.settings.card_bg | default: '#F9F9F9' }}; --mmptl-line:rgba(17,59,52,.1); display:flex; flex-direction:column; gap:16px; width:100%; }
+.mmptl-{{ uid }} .mmptl__label{ margin:0; font-family:var(--mmptl-font) !important; font-weight:600 !important; font-size:{{ block.settings.label_font_size_mobile | default: 16 }}px; line-height:1.2; letter-spacing:-0.32px; color:{{ block.settings.label_color | default: '#113b34' }}; }
+.mmptl-{{ uid }} .mmptl__list{ display:flex; flex-direction:column; gap:10px; }
+.mmptl-{{ uid }} .mmptl__card{ position:relative; display:flex; flex-direction:column; gap:10px; padding:16px; background:var(--mmptl-card); border:1px solid var(--mmptl-line); border-radius:16px; cursor:pointer; box-sizing:border-box; -webkit-tap-highlight-color:transparent; transition:background-color .15s ease, border-color .15s ease; }
+.mmptl-{{ uid }} .mmptl__card.is-selected{ background:#fff; border:2px solid var(--mmptl-ink); }
+.mmptl-{{ uid }} .mmptl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; -webkit-appearance:none; appearance:none; }
+.mmptl-{{ uid }} .mmptl__top{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.mmptl-{{ uid }} .mmptl__main{ display:flex; align-items:center; gap:8px; min-width:0; }
+.mmptl-{{ uid }} .mmptl__main .mmptl__radio + .mmptl__title{ margin-right:0; }
+.mmptl-{{ uid }} .mmptl__radio{ flex:0 0 18px; width:18px; height:18px; border-radius:50%; border:1.5px solid rgba(17,59,52,.35); background:#fff; position:relative; box-sizing:border-box; }
+.mmptl-{{ uid }} .mmptl__card.is-selected .mmptl__radio{ border-color:var(--mmptl-ink); }
+.mmptl-{{ uid }} .mmptl__card.is-selected .mmptl__radio::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--mmptl-ink); }
+.mmptl-{{ uid }} .mmptl__title{ font-family:var(--mmptl-font); font-weight:600; font-size:15px; line-height:1.2; letter-spacing:-0.3px; color:var(--mmptl-ink); white-space:nowrap; }
+.mmptl-{{ uid }} .mmptl__save-inline{ display:inline-flex; align-items:center; padding:5px 10px; border-radius:28px; font-family:var(--mmptl-font) !important; font-weight:700 !important; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+.mmptl-{{ uid }} .mmptl__prices{ display:flex; flex-direction:column; align-items:flex-end; gap:4px; text-align:right; }
+.mmptl-{{ uid }} .mmptl__card--ot .mmptl__prices{ flex-direction:row; align-items:center; gap:8px; }
+.mmptl-{{ uid }} .mmptl__price{ font-family:var(--mmptl-font); font-weight:600; font-size:16px; line-height:1.2; letter-spacing:-0.32px; color:{{ block.settings.price_color | default: '#113b34' }}; white-space:nowrap; }
+.mmptl-{{ uid }} .mmptl__compare{ font-family:var(--mmptl-font); font-weight:400; font-size:13px; line-height:1.2; letter-spacing:-0.26px; color:{{ block.settings.compare_color | default: 'rgba(17,59,52,.4)' }}; text-decoration:line-through; white-space:nowrap; }
+.mmptl-{{ uid }} .mmptl__divider{ display:block; height:1px; width:100%; background:var(--mmptl-line); }
 
-  <div
-    class="ptl ptl-{{ uid }}"
-    {{ block.shopify_attributes }}
-    data-interval-mode="{{ block.settings.interval_mode | default: 'mapped' }}"
-  >
-    <script type="application/json" class="ptl-variants">
-      {{ product.variants | json }}
-    </script>
-    <script type="application/json" class="ptl-plans">
-      {{ product.selling_plan_groups | json }}
-    </script>
-    {%- if block.settings.heading != blank -%}
-      <p class="ptl__label">{{ block.settings.heading | escape }}</p>
-    {%- endif -%}
-    <div
-      class="ptl__list"
-      role="radiogroup"
-      aria-label="{{ block.settings.heading | default: 'Purchase type' | escape }}"
-    >
-      {%- if show_sub -%}
-        <label class="ptl__card ptl__card--sub{% if preselect_sub %} is-selected{% endif %}">
-          <input
-            type="radio"
-            class="ptl__input"
-            name="ptl-{{ uid }}"
-            value="subscribe"
-            {% if preselect_sub %}
-              checked
-            {% endif %}
-            data-ptl-type="subscribe"
-          >
-          {%- if block.settings.save_badge_show -%}
-            <span
-              class="ptl__badge"
-              data-role="save-badge"
-              style="background:{{ block.settings.save_badge_bg | default: '#fad356' }};color:{{ block.settings.save_badge_text_color | default: '#113b34' }}"
-            >
-              {{- block.settings.save_badge_text | default: 'Save' | escape -}}
-            </span>
-          {%- endif -%}
-          <span class="ptl__top">
-            <span class="ptl__main"
-              ><span class="ptl__radio" aria-hidden="true"></span
-              ><span class="ptl__title" data-role="interval">Subscribe</span></span
-            >
-            <span class="ptl__prices"
-              ><span class="ptl__price" data-role="sub-price"></span
-              ><span class="ptl__compare" data-role="sub-compare"></span
-            ></span>
-          </span>
-          <span class="ptl__divider"></span>
+/* Interval row (subscribe only). Mobile: select stretches to fill the remaining row width (right edge
+   lines up with the price column above). Desktop: compact, content-sized (see @media below). */
+.mmptl-{{ uid }} .mmptl__interval{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.mmptl-{{ uid }} .mmptl__interval-label{ font-family:var(--mmptl-font) !important; font-weight:400 !important; font-size:13px; line-height:1.2; letter-spacing:-0.26px; color:{{ block.settings.interval_label_color | default: 'rgba(17,59,52,.6)' }}; flex:0 0 auto; }
+.mmptl-{{ uid }} .mmptl__select-wrap{ position:relative; z-index:3; display:inline-flex; align-items:center; flex:1 1 auto; min-width:0; }
+.mmptl-{{ uid }} .mmptl__select{ position:relative; z-index:3; appearance:none; -webkit-appearance:none; -moz-appearance:none; width:100%; font-family:var(--mmptl-font) !important; font-weight:500 !important; font-size:13px; line-height:1.2; letter-spacing:-0.26px; color:{{ block.settings.interval_select_text_color | default: '#113b34' }}; background:{{ block.settings.interval_select_bg | default: '#ffffff' }}; border:1px solid {{ block.settings.interval_select_border | default: 'rgba(17,59,52,.15)' }}; border-radius:10px; padding:8px 30px 8px 12px; cursor:pointer; box-sizing:border-box; }
+.mmptl-{{ uid }} .mmptl__select-wrap::after{ content:""; z-index: 3; position:absolute; right:12px; top:50%; width:8px; height:8px; border-right:1.5px solid {{ block.settings.interval_select_arrow_color | default: '#113b34' }}; border-bottom:1.5px solid {{ block.settings.interval_select_arrow_color | default: '#113b34' }}; transform:translateY(-70%) rotate(45deg); pointer-events:none; }
 
-          {%- if block.settings.benefits_show -%}
-            <ul class="ptl__benefits">
-              {%- for i in (1..6) -%}
-                {%- assign bshow = 'benefit_' | append: i | append: '_show' -%}
-                {%- assign btext = 'benefit_' | append: i | append: '_text' -%}
-                {%- assign bmulti = 'benefit_' | append: i | append: '_multi_only' -%}
-                {%- assign bicon = 'benefit_' | append: i | append: '_icon' -%}
-                {%- if block.settings[bshow] and block.settings[btext] != blank -%}
-                  {%- assign bicon_img = block.settings[bicon] -%}
-                  <li
-                    {% if block.settings[bmulti] %}
-                      data-multi-only
-                    {% endif %}
-                  >
-                    <span class="ptl__check">
-                      {%- if bicon_img -%}
-                        <img
-                          src="{{ bicon_img | image_url: width: 36 }}"
-                          alt="{{ block.settings[btext] | escape }}"
-                          width="12"
-                          height="12"
-                          loading="lazy"
-                        >
-                      {%- else -%}
-                        {{ 'lum-icon-tick.svg' | inline_asset_content }}
-                      {%- endif -%}</span
-                    ><span>{{ block.settings[btext] | escape }}</span>
-                  </li>
-                {%- endif -%}
-              {%- endfor -%}
-              {%- comment -%} Gift mini-card as the last list item. Renders only if a title or image is set. {%- endcomment -%}
-              {%- if block.settings.gc_title != blank or block.settings.gc_image != blank -%}
-                <li class="ptl__benefit-card">
-                  {%- render 'gift-card-lum',
-                    uid: block.id,
-                    image: block.settings.gc_image,
-                    title: block.settings.gc_title,
-                    text: block.settings.gc_text,
-                    badge: block.settings.gc_badge,
-                    badge_bg: block.settings.gc_badge_bg,
-                    badge_text_color: block.settings.gc_badge_text_color,
-                    compare_price: block.settings.gc_compare_price
-                  -%}
-                </li>
-              {%- endif -%}
-            </ul>
-          {%- endif -%}
-        </label>
-      {%- endif -%}
+.mmptl-{{ uid }} .mmptl__benefits{ list-style:none; margin:0; padding:0; display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; gap:8px 16px; }
+.mmptl-{{ uid }} .mmptl__benefits[hidden]{ display:none; }
+.mmptl-{{ uid }} .mmptl__benefits li{ display:flex; align-items:center; gap:6px; }
+.mmptl-{{ uid }} .mmptl__check{ display:inline-flex; width:13px; height:13px; flex:0 0 13px; color:{{ block.settings.benefits_icon_color | default: '#113b34' }}; }
+.mmptl-{{ uid }} .mmptl__check svg{ display:block; width:100%; height:100%; }
+.mmptl-{{ uid }} .mmptl__check img{ display:block; width:100%; height:100%; object-fit:contain; }
+.mmptl-{{ uid }} .mmptl__benefits span:last-child{ font-family:var(--mmptl-font); font-weight:400; font-size:13px; line-height:1.2; letter-spacing:-0.26px; color:{{ block.settings.benefits_text_color | default: '#113b34' }}; }
+.mmptl-{{ uid }} .mmptl__badge{ position:absolute; top:-12px; right:12px; z-index:3; display:inline-flex; align-items:center; padding:4px 8px; border-radius:28px; font-family:var(--mmptl-font); font-weight:500; font-size:12px; line-height:1.2; letter-spacing:-0.24px; white-space:nowrap; }
+.mmptl-{{ uid }} .mmptl__title,
+.mmptl-{{ uid }} .mmptl__price,
+.mmptl-{{ uid }} .mmptl__compare,
+.mmptl-{{ uid }} .mmptl__badge,
+.mmptl-{{ uid }} .mmptl__benefits span:last-child{ font-family:var(--mmptl-font) !important; }
+/* Sits flush under the Subscribe card (cancels the .mmptl__list gap on this one edge only);
+   the normal gap stays below it, between the gift card and the One-time card. */
+.mmptl-{{ uid }} .mmptl__gift{ display:block; margin-top:-10px; }
+/* Gift card border (Figma spec): solid, no top edge (flush against the card above), dark while
+   Subscribe is chosen, faint on One-time. Set as a full border (not just border-color) so this
+   stays correct regardless of gift-card-lum's own base rule. */
+.mmptl-{{ uid }} .mmptl__gift .gclum-purchase_type{
+   border-width: 0 {{ block.settings.gc_border_width | default: 2.5 }}px {{ block.settings.gc_border_width | default: 2.5 }}px {{ block.settings.gc_border_width | default: 2.5 }}px;
+   border-style: dashed;
+   border-radius: 0 0 12px 12px;
+border-color:rgba(17,17,17,.102);
+box-shadow:0 1px 3px rgba(17,59,52,.051);
+background:#fff;
+transition:border-color .15s ease;
+}
+.mmptl-{{ uid }}.subscribing .mmptl__gift .gclum-purchase_type{ border-color:#111111; }
+.mmptl-{{ uid }} .mmptl__input:focus-visible ~ .mmptl__top .mmptl__radio{ outline:2px solid var(--mmptl-ink); outline-offset:2px; }
+@media (min-width:990px){
+.mmptl-{{ uid }} .mmptl__label{ font-size:{{ block.settings.label_font_size | default: 16 }}px; }
+.mmptl-{{ uid }} .mmptl__interval{ justify-content:flex-start; }
+.mmptl-{{ uid }} .mmptl__select-wrap{ flex:0 0 auto; min-width:0; width:fit-content; }
+.mmptl-{{ uid }} .mmptl__select{ width:fit-content; }
+}
+/* Small phones only (e.g. iPhone SE / 375px-wide devices) — everything above this stays at the
+   normal .mmptl__price size set above. */
+@media (max-width:375px){
+.mmptl-{{ uid }} .mmptl__price{ font-size:14px; }
+}
+{% endstyle %}
 
-      <label class="ptl__card ptl__card--ot{% unless preselect_sub %} is-selected{% endunless %}">
-        <input
-          type="radio"
-          class="ptl__input"
-          name="ptl-{{ uid }}"
-          value="one_time"
-          {% unless preselect_sub %}
-            checked
-          {% endunless %}
-          data-ptl-type="one_time"
-        >
-        <span class="ptl__top">
-          <span class="ptl__main"
-            ><span class="ptl__radio" aria-hidden="true"></span
-            ><span class="ptl__title">
-              {{- block.settings.one_time_title | default: 'One-time Purchase' | escape -}}
-            </span></span
-          >
-          <span class="ptl__prices"
-            ><span class="ptl__price" data-role="ot-price"></span
-            ><span class="ptl__compare" data-role="ot-compare"></span
-          ></span>
-        </span>
-      </label>
-    </div>
-  </div>
+<div
+id="mm-purchase-plan-{{ uid }}"
+class="mmptl mmptl-{{ uid }} mm-purchase-plan{% if preselect_sub %} subscribing{% endif %}"
+{{ block.shopify_attributes }}
+data-interval-mode="{{ block.settings.interval_mode | default: 'plans' }}"
+>
+<script type="application/json" class="mmptl-variants">
+{{ product.variants | json }}
+</script>
+<script type="application/json" class="mmptl-plans">
+{{ product.selling_plan_groups | json }}
+</script>
+{%- if block.settings.heading != blank -%}
+<p class="mmptl__label">{{ block.settings.heading | escape }}</p>
+{%- endif -%}
+<div
+class="mmptl__list"
+role="radiogroup"
+aria-label="{{ block.settings.heading | default: 'Purchase type' | escape }}"
+>
+{%- if show_sub -%}
+<label class="mmptl__card mmptl__card--sub{% if preselect_sub %} is-selected{% endif %}">
+<input
+type="radio"
+class="mmptl__input"
+name="mmptl-{{ uid }}"
+value="subscribe"
+{% if preselect_sub %}
+checked
+{% endif %}
+data-mmptl-type="subscribe"
+>
+<span class="mmptl__top">
+<span class="mmptl__main"
+><span class="mmptl__radio" aria-hidden="true"></span
+><span class="mmptl__title" data-role="sub-title">{{ block.settings.subscribe_title | default: 'Subscribe & save' | escape }}</span
+>{%- if block.settings.save_badge_show -%}<span
+class="mmptl__save-inline"
+data-role="save-badge"
+style="background:{{ block.settings.save_badge_bg | default: '#fad356' }};color:{{ block.settings.save_badge_text_color | default: '#113b34' }}"
+>{{- block.settings.save_badge_text | default: 'Save 15%' | escape -}}</span>{%- endif -%}</span
+>
+<span class="mmptl__prices"
+><span class="mmptl__price" data-role="sub-price"></span
+><span class="mmptl__compare" data-role="sub-compare"></span
+></span>
+</span>
 
-  <script>
-    (function () {
-      var root = document.querySelector('.ptl-{{ uid }}');
-      if (!root || root.__ptlBound) return;
-      root.__ptlBound = true;
+{%- comment -%} Interval selector: options injected by JS from the product's selling plans {%- endcomment -%}
+<div class="mmptl__interval" data-role="interval-row">
+<span class="mmptl__interval-label">{{ block.settings.interval_prefix | default: 'Delivery every' | escape }}</span>
+<span class="mmptl__select-wrap">
+<select class="mmptl__select" data-role="interval-select" aria-label="{{ block.settings.interval_prefix | default: 'Delivery every' | escape }}"></select>
+</span>
+</div>
 
-      var SUFFIX = {{ suffix | json }};
-      var MODE = root.getAttribute('data-interval-mode') || 'mapped';
-      var MONTHLY_ID = {{ block.settings.monthly_plan_id | default: '' | json }};
-      var BIMONTHLY_ID = {{ block.settings.bimonthly_plan_id | default: '' | json }};
-      var LABEL_FMT = {{ block.settings.interval_label_format | json }} || '{n}-Month-Delivery';
-      var BADGE_AUTO = {{ block.settings.save_badge_auto | default: false | json }};
-      var moneyFormat = {{ shop.money_format | json }};
+<span class="mmptl__divider"></span>
 
-      var variants = [], groups = [];
-      try { variants = JSON.parse(root.querySelector('.ptl-variants').textContent) || []; } catch (e) {}
-      try { groups = JSON.parse(root.querySelector('.ptl-plans').textContent) || []; } catch (e) {}
-      var plansById = {};
-      groups.forEach(function (g) { (g.selling_plans || []).forEach(function (p) { plansById[String(p.id)] = p; }); });
-      var hasPlans = Object.keys(plansById).length > 0;
+{%- if block.settings.benefits_show -%}
+{%- for opt in (1..4) -%}
+<ul class="mmptl__benefits" data-option-benefits="{{ opt }}"{% unless opt == 1 %} hidden{% endunless %}>
+{%- for i in (1..4) -%}
+{%- assign bprefix = 'opt' | append: opt | append: '_benefit_' | append: i -%}
+{%- assign bshow = bprefix | append: '_show' -%}
+{%- assign btext = bprefix | append: '_text' -%}
+{%- assign bicon = bprefix | append: '_icon' -%}
+{%- if block.settings[bshow] and block.settings[btext] != blank -%}
+{%- assign bicon_img = block.settings[bicon] -%}
+<li>
+<span class="mmptl__check">
+{%- if bicon_img -%}
+<img
+src="{{ bicon_img | image_url: width: 36 }}"
+alt="{{ block.settings[btext] | escape }}"
+width="12"
+height="12"
+loading="lazy"
+>
+{%- else -%}
+{{ 'icon-checkmark.svg' | inline_asset_content }}
+{%- endif -%}</span
+><span>{{ block.settings[btext] | escape }}</span>
+</li>
+{%- endif -%}
+{%- endfor -%}
+</ul>
+{%- endfor -%}
+{%- endif -%}
+</label>
+{%- endif -%}
 
-      var subInput = root.querySelector('input[value="subscribe"]');
-      var els = {
-        interval: root.querySelector('[data-role="interval"]'),
-        subPrice: root.querySelector('[data-role="sub-price"]'),
-        subCompare: root.querySelector('[data-role="sub-compare"]'),
-        badge: root.querySelector('[data-role="save-badge"]'),
-        otPrice: root.querySelector('[data-role="ot-price"]'),
-        otCompare: root.querySelector('[data-role="ot-compare"]')
-      };
+{%- comment -%} Gift mini-card: its own box between the two purchase-type options, not nested inside the Subscribe card's border. Renders only if a title or image is set. {%- endcomment -%}
+{%- if block.settings.gc_title != blank or block.settings.gc_image != blank -%}
+<div class="mmptl__gift">
+{%- render 'gift-card-lum',
+uid: block.id,
+image: block.settings.gc_image,
+title: block.settings.gc_title,
+text: block.settings.gc_text,
+badge: block.settings.gc_badge,
+badge_bg: block.settings.gc_badge_bg,
+badge_text_color: block.settings.gc_badge_text_color,
+compare_price: block.settings.gc_compare_price,
+compare_color: block.settings.gc_compare_color,
+text_color: block.settings.gc_text_color
+-%}
+</div>
+{%- endif -%}
 
-      function fmt(c) {
-        if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, moneyFormat);
-        return String(moneyFormat).replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
-      }
-      function setPrice(el, cents) { if (el) el.textContent = (cents || cents === 0) ? (fmt(cents) + SUFFIX) : ''; }
-      function setCompare(el, cents, vs) { if (!el) return; if (cents && cents > vs) { el.textContent = fmt(cents); el.style.display = ''; } else { el.textContent = ''; el.style.display = 'none'; } }
-      function variantIndex(v) { for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(v.id)) return i; } return 0; }
-      function currentVariant() {
-        // Scope to the buy box's own form (see bundle-selector-lum): landing pages have a second
-        // product form (free-gift / cart progress-bar) whose name="id" would otherwise be read here.
-        var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
-        var id = input && input.value;
-        for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(id)) return variants[i]; }
-        return variants[0] || null;
-      }
-      function intervalMonthsFromPlan(plan) {
-        if (!plan) return null;
-        var hay = '';
-        if (plan.options) plan.options.forEach(function (o) { hay += ' ' + (o.value || '') + ' ' + (o.name || ''); });
-        hay += ' ' + (plan.name || '');
-        var m = hay.match(/(\d+)\s*month/i) || hay.match(/(\d+)/);
-        return m ? parseInt(m[1], 10) : null;
-      }
-      function planForMonths(months) {
-        var ids = Object.keys(plansById);
-        for (var i = 0; i < ids.length; i++) { if (intervalMonthsFromPlan(plansById[ids[i]]) === months) return plansById[ids[i]]; }
-        return null;
-      }
-      function applyAdjustment(price, plan) {
-        if (!plan || !plan.price_adjustments || !plan.price_adjustments.length) return price;
-        var a = plan.price_adjustments[0];
-        if (a.value_type === 'percentage') return Math.round(price * (1 - (a.value / 100)));
-        if (a.value_type === 'fixed_amount') return Math.max(0, price - a.value);
-        if (a.value_type === 'price') return a.value;
-        return price;
-      }
-      function formatInterval(n) {
-        if (!n) return 'Subscribe & Save';
-        return String(LABEL_FMT).replace('{n}', n);
-      }
-      // Core dynamic-interval resolution.
-      function resolvePlanForVariant(v) {
-        if (!v) return null;
-        if (MODE === 'auto') {
-          var allocs = v.selling_plan_allocations || [];
-          if (!allocs.length) return null;
-          var a = allocs[0];
-          var plan = plansById[String(a.selling_plan_id)];
-          return { planId: a.selling_plan_id, months: plan ? intervalMonthsFromPlan(plan) : null,
-                   subPrice: (typeof a.price !== 'undefined') ? a.price : v.price,
-                   subCompare: a.compare_at_price || v.compare_at_price || 0 };
-        }
-        // mapped: a pack of N jars -> the N-month plan; no N-month plan on this product -> nearest smaller interval
-        var pos = variantIndex(v) + 1;
-        var explicitId = pos === 1 ? MONTHLY_ID : (pos === 2 ? BIMONTHLY_ID : '');
-        var plan = explicitId ? plansById[String(explicitId)] : null;
-        if (!explicitId) {
-          for (var mm = pos; mm >= 1 && !plan; mm--) plan = planForMonths(mm);
-          if (!plan) { var ks = Object.keys(plansById); if (ks.length) plan = plansById[ks[0]]; }
-        }
-        var months = plan ? (intervalMonthsFromPlan(plan) || pos) : pos;
-        return { planId: plan ? plan.id : explicitId, months: months,
-                 subPrice: plan ? applyAdjustment(v.price, plan) : v.price,
-                 subCompare: v.compare_at_price || 0 };
-      }
+<label class="mmptl__card mmptl__card--ot{% unless preselect_sub %} is-selected{% endunless %}">
+<input
+type="radio"
+class="mmptl__input"
+name="mmptl-{{ uid }}"
+value="one_time"
+{% unless preselect_sub %}
+checked
+{% endunless %}
+data-mmptl-type="one_time"
+>
+<span class="mmptl__top">
+<span class="mmptl__main"
+><span class="mmptl__radio" aria-hidden="true"></span
+><span class="mmptl__title">
+{{- block.settings.one_time_title | default: 'One-time Purchase' | escape -}}
+</span></span
+>
+<span class="mmptl__prices"
+><span class="mmptl__price" data-role="ot-price"></span
+><span class="mmptl__compare" data-role="ot-compare"></span
+></span>
+</span>
+</label>
+</div>
+</div>
 
-      function isSubscribe() { return !!(subInput && subInput.checked); }
-      function applySubscribe(r, v) {
-        if (!r || !r.planId) return;
-        if (typeof window.Elixir_SetProductFormSellingPlan === 'function') window.Elixir_SetProductFormSellingPlan(r.planId);
-        var synthetic = { id: r.planId, priceAdjustments: [{ value_type: 'price', value: r.subPrice }] };
-        if (typeof window.Elixir_SetSubscriptionContext === 'function') window.Elixir_SetSubscriptionContext(r.planId, v, synthetic);
-      }
-      function clearSubscribe() {
-        if (typeof window.Elixir_SetProductFormSellingPlan === 'function') window.Elixir_SetProductFormSellingPlan('');
-        if (typeof window.Elixir_SetSubscriptionContext === 'function') window.Elixir_SetSubscriptionContext();
-      }
+<script>
+(function () {
+var root = document.querySelector('.mmptl-{{ uid }}');
+if (!root || root.__mmptlBound) return;
+root.__mmptlBound = true;
 
-      function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
-      function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
-      // subscribe price of EVERY pack (not just the selected one) for the bundle cards' dynamic Save badges
-      try {
-        var subByVariant = {};
-        variants.forEach(function (pv) { var pr = resolvePlanForVariant(pv); if (pr && pr.planId) subByVariant[String(pv.id)] = pr.subPrice; });
-        window.__lumSubByVariant = subByVariant;
-      } catch (e) {}
-      function emitPrice(price, compare, type) {
-        document.dispatchEvent(new CustomEvent('lum:atc-price', { detail: { price: price, compare: compare, type: type } }));
-      }
-      function recompute() {
-        var v = currentVariant();
-        if (!v) return;
-        var r = subInput ? resolvePlanForVariant(v) : null;
-        // publish the resolved plan so the sticky bar shows the SAME subscribe price/interval for this pack
-        window.__lumResolvedSub = (r && r.planId) ? { variantId: v.id, planId: r.planId, subPrice: r.subPrice, months: r.months } : null;
-        // subscribe selected but no plan for this variant -> fall back to one-time
-        if (subInput && subInput.checked && (!r || !r.planId || !hasPlans)) {
-          var ot = root.querySelector('input[value="one_time"]');
-          if (ot) { ot.checked = true; syncSelected(); }
-        }
-        var total = packTotal(v) || 1; // jars in the pack (paid + free)
-        // benefits flagged multi-only (Free Shipping) belong to the 2+/3+ jar packs, not the single jar
-        var multi = total > 1 || variantIndex(v) > 0;
-        root.querySelectorAll('.ptl__benefits [data-multi-only]').forEach(function (li) { li.style.display = multi ? '' : 'none'; });
-        // Purchase Type shows the PER-JAR price (pack total / jars); struck = single-jar compare-at, per jar.
-        var jarStruck = baseCompare();
-        var otJar = Math.round(v.price / total);
-        setPrice(els.otPrice, otJar);
-        setCompare(els.otCompare, jarStruck, otJar);
-        if (r) {
-          if (els.interval) els.interval.textContent = formatInterval(r.months);
-          var subJar = Math.round(r.subPrice / total);
-          setPrice(els.subPrice, subJar);
-          setCompare(els.subCompare, jarStruck, subJar);
-          if (els.badge && BADGE_AUTO && jarStruck > subJar) els.badge.textContent = 'Save ' + fmt(jarStruck - subJar);
-        }
-        var subscribing = isSubscribe() && hasPlans && r && r.planId;
-        if (subscribing) applySubscribe(r, v); else clearSubscribe();
-        // The ATC button keeps the PACK TOTAL price + pack-level struck (single-jar compare x jars).
-        emitPrice(subscribing ? r.subPrice : v.price, baseCompare() * total, subscribing ? 'subscribe' : 'one_time');
-      }
+var SUFFIX = {{ suffix | json }};
+var LABEL_FMT = {{ block.settings.interval_label_format | json }} || '{n}-Month-Delivery';
+var BADGE_AUTO = {{ block.settings.save_badge_auto | default: false | json }};
+var moneyFormat = {{ shop.money_format | json }};
 
-      function selectType(type) {
-        var input = root.querySelector('input[value="' + type + '"]');
-        if (input && !input.checked) { input.checked = true; }
-        syncSelected();
-        onToggle();
-      }
-      function syncSelected() {
-        root.querySelectorAll('.ptl__card').forEach(function (c) {
-          var i = c.querySelector('.ptl__input');
-          c.classList.toggle('is-selected', !!(i && i.checked));
-        });
-      }
-      function onToggle() {
-        var v = currentVariant();
-        if (isSubscribe() && hasPlans) {
-          var r = resolvePlanForVariant(v);
-          if (r && r.planId) applySubscribe(r, v); else clearSubscribe();
-        } else {
-          clearSubscribe();
-        }
-      }
+var variants = [], groups = [];
+try { variants = JSON.parse(root.querySelector('.mmptl-variants').textContent) || []; } catch (e) {}
+try { groups = JSON.parse(root.querySelector('.mmptl-plans').textContent) || []; } catch (e) {}
 
-      root.addEventListener('change', function (e) {
-        if (!e.target.classList || !e.target.classList.contains('ptl__input')) return;
-        syncSelected();
-        recompute();
-      });
-      ['variant:change', 'simple-variant-picker:variantChange'].forEach(function (ev) {
-        document.addEventListener(ev, function () { setTimeout(recompute, 0); });
-      });
-      document.addEventListener('change', function (e) { if (e.target && e.target.name === 'id') setTimeout(recompute, 0); });
+// Flatten every selling plan across the product's groups (product-level plans -> all variants).
+var plansById = {};
+var planList = [];
+groups.forEach(function (g) {
+(g.selling_plans || []).forEach(function (p) {
+if (plansById[String(p.id)]) return;
+plansById[String(p.id)] = p;
+planList.push(p);
+});
+});
+var hasPlans = planList.length > 0;
 
-      function init() { syncSelected(); recompute(); }
-      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
-      [200, 700, 1500].forEach(function (d) { setTimeout(recompute, d); });
-      document.addEventListener('shopify:section:load', function () { setTimeout(init, 60); });
-    })();
-  </script>
+var subInput = root.querySelector('input[value="subscribe"]');
+var intervalSelect = root.querySelector('[data-role="interval-select"]');
+var els = {
+subTitle: root.querySelector('[data-role="sub-title"]'),
+subPrice: root.querySelector('[data-role="sub-price"]'),
+subCompare: root.querySelector('[data-role="sub-compare"]'),
+badge: root.querySelector('[data-role="save-badge"]'),
+otPrice: root.querySelector('[data-role="ot-price"]'),
+otCompare: root.querySelector('[data-role="ot-compare"]')
+};
+
+function fmt(c) {
+if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, moneyFormat);
+return String(moneyFormat).replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
+}
+function setPrice(el, cents) { if (el) el.textContent = (cents || cents === 0) ? (fmt(cents) + SUFFIX) : ''; }
+function setCompare(el, cents, vs) { if (!el) return; if (cents && cents > vs) { el.textContent = fmt(cents); el.style.display = ''; } else { el.textContent = ''; el.style.display = 'none'; } }
+
+function variantIndex(v) { for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(v.id)) return i; } return 0; }
+function currentVariant() {
+var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
+var id = input && input.value;
+for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(id)) return variants[i]; }
+return variants[0] || null;
+}
+function intervalMonthsFromPlan(plan) {
+if (!plan) return null;
+var hay = '';
+if (plan.options) plan.options.forEach(function (o) { hay += ' ' + (o.value || '') + ' ' + (o.name || ''); });
+hay += ' ' + (plan.name || '');
+var m = hay.match(/(\d+)\s*month/i) || hay.match(/(\d+)/);
+return m ? parseInt(m[1], 10) : null;
+}
+// Not every interval's selling plan carries its own price_adjustments (only the 1-month plan has one
+// configured in Recharge; 2/3-month are left blank there). When the CHOSEN plan has none, fall back
+// to the standard subscribe discount rate — the percentage found on whichever plan in the product
+// DOES define one — applied to the variant price, same discount for every interval.
+// NOTE: this fixes the ON-SCREEN price/badge only. Elixir_SetProductFormSellingPlan submits the REAL
+// selling_plan id to Shopify, which still prices the order from THAT plan's own price_adjustments —
+// so until the 2/3-month plans get a real 15% configured in Shopify/Recharge, checkout will charge
+// the full (undiscounted) amount for those intervals even though this shows the discounted one.
+function standardDiscountPercent() {
+for (var i = 0; i < planList.length; i++) {
+var a = planList[i].price_adjustments && planList[i].price_adjustments[0];
+if (a && a.value_type === 'percentage' && a.value > 0) return a.value;
+}
+return 0;
+}
+function applyAdjustment(price, plan) {
+if (plan && plan.price_adjustments && plan.price_adjustments.length) {
+var a = plan.price_adjustments[0];
+if (a.value_type === 'percentage') return Math.round(price * (1 - (a.value / 100)));
+if (a.value_type === 'fixed_amount') return Math.max(0, price - a.value);
+if (a.value_type === 'price') return a.value;
+}
+var pct = standardDiscountPercent();
+if (pct > 0) return Math.round(price * (1 - (pct / 100)));
+return price;
+}
+// ---- OPTION B (default): synthesize "Delivery every {n} month" from month count. ----
+// ---- To switch to OPTION A (real Recharge plan name), replace the return below with: ----
+// ---- return (plan && plan.name) ? plan.name : ('Delivery every ' + (months || '?')); ----
+function intervalLabel(plan, months) {
+var n = months != null ? months : intervalMonthsFromPlan(plan);
+return String(LABEL_FMT).replace('{n}', n != null ? n : '?');
+}
+
+// Sort plans by month count so the dropdown reads 1, 2, 3...
+planList.sort(function (a, b) { return (intervalMonthsFromPlan(a) || 99) - (intervalMonthsFromPlan(b) || 99); });
+
+function buildOptions() {
+if (!intervalSelect) return;
+intervalSelect.innerHTML = '';
+planList.forEach(function (p) {
+var months = intervalMonthsFromPlan(p);
+var opt = document.createElement('option');
+opt.value = String(p.id);
+opt.textContent = intervalLabel(p, months);
+opt.setAttribute('data-months', months != null ? months : '');
+intervalSelect.appendChild(opt);
+});
+}
+function selectedPlan() {
+if (!intervalSelect) return planList[0] || null;
+return plansById[String(intervalSelect.value)] || planList[0] || null;
+}
+
+// Resolve the CHOSEN plan against the CURRENT variant (interval is independent of pack).
+function resolveChosen(v) {
+if (!v || !hasPlans) return null;
+var plan = selectedPlan();
+if (!plan) return null;
+var months = intervalMonthsFromPlan(plan);
+return { planId: plan.id, months: months, plan: plan,
+subPrice: applyAdjustment(v.price, plan),
+subCompare: v.compare_at_price || 0 };
+}
+// Badge text driven by the ACTUAL selling plan discount: "Save {n}%" when the plan's own
+// adjustment is a percentage; when it has none, the same standard rate applyAdjustment() used
+// to compute subPrice (so the badge always matches the price shown, for every interval).
+function badgeTextFor(plan, jarStruck, subJar) {
+var a = plan && plan.price_adjustments && plan.price_adjustments[0];
+if (a && a.value_type === 'percentage' && a.value > 0) return 'Save ' + Math.round(a.value) + '%';
+var pct = standardDiscountPercent();
+if (pct > 0) return 'Save ' + Math.round(pct) + '%';
+if (jarStruck > subJar) return 'Save ' + fmt(jarStruck - subJar);
+return null;
+}
+
+function isSubscribe() { return !!(subInput && subInput.checked); }
+function applySubscribe(r, v) {
+if (!r || !r.planId) return;
+if (typeof window.Elixir_SetProductFormSellingPlan === 'function') window.Elixir_SetProductFormSellingPlan(r.planId);
+var synthetic = { id: r.planId, priceAdjustments: [{ value_type: 'price', value: r.subPrice }] };
+if (typeof window.Elixir_SetSubscriptionContext === 'function') window.Elixir_SetSubscriptionContext(r.planId, v, synthetic);
+}
+function clearSubscribe() {
+if (typeof window.Elixir_SetProductFormSellingPlan === 'function') window.Elixir_SetProductFormSellingPlan('');
+if (typeof window.Elixir_SetSubscriptionContext === 'function') window.Elixir_SetSubscriptionContext();
+}
+
+function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
+function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
+
+// subscribe price of EVERY variant at the CHOSEN interval, for the quantity block's Save badges.
+// Discount is equal across intervals, so this stays stable; recomputed on interval change anyway.
+function publishSubByVariant() {
+try {
+var plan = selectedPlan();
+var map = {};
+variants.forEach(function (pv) { if (plan) map[String(pv.id)] = applyAdjustment(pv.price, plan); });
+window.__lumSubByVariant = map;
+} catch (e) {}
+}
+
+function emitPrice(price, compare, type) {
+document.dispatchEvent(new CustomEvent('lum:atc-price', { detail: { price: price, compare: compare, type: type } }));
+}
+function recompute() {
+var v = currentVariant();
+if (!v) return;
+var r = subInput ? resolveChosen(v) : null;
+// publish the resolved (chosen) plan so the sticky bar shows the SAME subscribe price/interval
+window.__lumResolvedSub = (r && r.planId) ? { variantId: v.id, planId: r.planId, subPrice: r.subPrice, months: r.months } : null;
+publishSubByVariant();
+// subscribe selected but no plan -> fall back to one-time
+if (subInput && subInput.checked && (!r || !r.planId || !hasPlans)) {
+var ot = root.querySelector('input[value="one_time"]');
+if (ot) { ot.checked = true; syncSelected(); }
+}
+var total = packTotal(v) || 1;
+// Each bundle option (1-4, same variant-order convention as the bundle selector) has its OWN
+// manually-configured benefits list; show only the one matching the currently selected option.
+var activeOption = Math.min(variantIndex(v) + 1, 4);
+root.querySelectorAll('.mmptl__benefits[data-option-benefits]').forEach(function (ul) {
+var isActive = String(ul.getAttribute('data-option-benefits')) === String(activeOption);
+ul.hidden = !isActive;
+});
+// Purchase Type shows the PER-JAR price (pack total / jars); struck = single-jar compare-at, per jar.
+var jarStruck = baseCompare();
+var otJar = Math.round(v.price / total);
+setPrice(els.otPrice, otJar);
+setCompare(els.otCompare, jarStruck, otJar);
+if (r) {
+var subJar = Math.round(r.subPrice / total);
+setPrice(els.subPrice, subJar);
+setCompare(els.subCompare, jarStruck, subJar);
+if (els.badge && BADGE_AUTO) {
+var badgeText = badgeTextFor(r.plan, jarStruck, subJar);
+if (badgeText) { els.badge.textContent = badgeText; els.badge.style.display = ''; }
+else { els.badge.style.display = 'none'; }
+}
+}
+var subscribing = isSubscribe() && hasPlans && r && r.planId;
+if (subscribing) applySubscribe(r, v); else clearSubscribe();
+emitPrice(subscribing ? r.subPrice : v.price, baseCompare() * total, subscribing ? 'subscribe' : 'one_time');
+}
+
+function selectType(type) {
+var input = root.querySelector('input[value="' + type + '"]');
+if (input && !input.checked) { input.checked = true; }
+syncSelected();
+onToggle();
+}
+function syncSelected() {
+root.querySelectorAll('.mmptl__card').forEach(function (c) {
+var i = c.querySelector('.mmptl__input');
+c.classList.toggle('is-selected', !!(i && i.checked));
+});
+root.classList.toggle('subscribing', isSubscribe());
+}
+function onToggle() {
+var v = currentVariant();
+if (isSubscribe() && hasPlans) {
+var r = resolveChosen(v);
+if (r && r.planId) applySubscribe(r, v); else clearSubscribe();
+} else {
+clearSubscribe();
+}
+}
+
+root.addEventListener('change', function (e) {
+if (!e.target.classList) return;
+// interval dropdown changed -> re-resolve at the new plan
+if (e.target === intervalSelect) { recompute(); return; }
+if (!e.target.classList.contains('mmptl__input')) return;
+syncSelected();
+recompute();
+});
+['variant:change', 'simple-variant-picker:variantChange'].forEach(function (ev) {
+document.addEventListener(ev, function () { setTimeout(recompute, 0); });
+});
+document.addEventListener('change', function (e) { if (e.target && e.target.name === 'id') setTimeout(recompute, 0); });
+
+function init() { buildOptions(); syncSelected(); recompute(); }
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+[200, 700, 1500].forEach(function (d) { setTimeout(recompute, d); });
+document.addEventListener('shopify:section:load', function () { setTimeout(init, 60); });
+})();
+</script>
 {%- endif -%}
