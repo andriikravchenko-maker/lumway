@@ -431,117 +431,115 @@ roots.forEach(function (r) { io.observe(r); });
 })();
 
 
-// =====================================================================
-// product_added_to_cart (works on PDP + advertorials with buy-box)
-// =====================================================================
-(function () {
-function root() {
-return document.querySelector('.patc') || document.querySelector('[data-product-id]');
-}
+  // =====================================================================
+  // product_added_to_cart  (PDP + advertorials — mmbsl/mmptl new + bsl/ptl old)
+  // =====================================================================
+  (function () {
+    function variants() {
+      var node = document.querySelector('.mmbsl-variants') || document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
+      try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
+    }
 
-function variants() {
-var node = document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
-try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
-}
+    function selectedVariant() {
+      var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
+      var id = input && input.value;
+      var vs = variants();
+      for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
+      return vs[0] || null;
+    }
 
-function plans() {
-var node = document.querySelector('.ptl-plans');
-try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
-}
+    function packLabel() {
+      var card = document.querySelector('.mmbsl__card.is-selected') || document.querySelector('.bsl__card.is-selected');
+      if (!card) {
+        var checked = document.querySelector('.mmbsl__input:checked, .bsl__input:checked');
+        card = checked ? checked.closest('.mmbsl__card, .bsl__card') : null;
+      }
+      var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+      if (!n) n = 1;
+      return n + (n === 1 ? '-jar' : '-jars');
+    }
 
-function selectedVariant() {
-var input = document.querySelector('.product-buy-form-pdp input[name="id"]')
-|| document.querySelector('input[name="id"]');
-var id = input && input.value;
-var vs = variants();
-for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
-return vs[0] || null;
-}
+    function purchaseType() {
+      // active subscribe radio (new mmptl / old ptl) or a non-empty selling_plan
+      var checked = document.querySelector('.mmptl__input:checked, .ptl__input:checked');
+      if (checked && checked.value === 'subscribe') return 'subscription';
+      var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]') || document.querySelector('input[name="selling_plan"]');
+      if (sp && sp.value) return 'subscription';
+      return 'one_time';
+    }
 
-function packLabel() {
-var card = document.querySelector('.bsl__card.is-selected')
-|| (document.querySelector('.bsl__input:checked') || {}).closest
-&& document.querySelector('.bsl__input:checked').closest('.bsl__card');
-var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
-if (!n) n = 1;
-return n + (n === 1 ? '-jar' : '-jars');
-}
+    // subscription_type: new buy-box → interval <select>; old → selling_plan options
+    function subscriptionType() {
+      // NEW: independent interval select ("Delivery every N month")
+      var sel = document.querySelector('.mmptl__select[data-role="interval-select"], .mmptl__select');
+      if (sel && sel.value) {
+        var chosen = sel.options && sel.selectedIndex > -1 ? sel.options[sel.selectedIndex] : null;
+        var hay = (chosen ? chosen.textContent : '') + ' ' + sel.value;
+        var m = hay.match(/([123])\s*[-\s]?\s*month/i);
+        if (m) return m[1] + '-month';
+      }
+      // OLD fallback: selling_plan input + .ptl-plans
+      var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]') || document.querySelector('input[name="selling_plan"]');
+      var planId = sp && sp.value;
+      if (planId) {
+        var node = document.querySelector('.ptl-plans');
+        var groups = [];
+        try { groups = node ? JSON.parse(node.textContent) : []; } catch (e) {}
+        for (var g = 0; g < groups.length; g++) {
+          var sps = groups[g].selling_plans || [];
+          for (var i = 0; i < sps.length; i++) {
+            if (String(sps[i].id) === String(planId)) {
+              var opts = sps[i].options || [];
+              for (var o = 0; o < opts.length; o++) {
+                if (/frequency|order frequency|unit/i.test(opts[o].name || '')) return opts[o].value;
+              }
+            }
+          }
+        }
+      }
+      return undefined;
+    }
 
-function purchaseType() {
-var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]')
-|| document.querySelector('input[name="selling_plan"]');
-// a non-empty selling_plan means subscription is active (matches the buy-box's own logic)
-if (sp && sp.value) return 'subscription';
-var checked = document.querySelector('.ptl__input:checked');
-if (checked && (checked.value === 'subscribe')) return 'subscription';
-return 'one_time';
-}
+    function priceOf(v, isSub) {
+      if (isSub && v.selling_plan_allocations && v.selling_plan_allocations.length) {
+        var sp = document.querySelector('input[name="selling_plan"]');
+        var pid = sp && sp.value;
+        var allocs = v.selling_plan_allocations;
+        for (var i = 0; i < allocs.length; i++) {
+          if (String(allocs[i].selling_plan_id) === String(pid)) return Math.round(allocs[i].price) / 100;
+        }
+        return Math.round(allocs[0].price) / 100;
+      }
+      return Math.round(v.price) / 100;
+    }
 
-// subscription_type: read the selling_plan id → find its plan → "Order Frequency and Unit"
-function subscriptionType() {
-var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]')
-|| document.querySelector('input[name="selling_plan"]');
-var planId = sp && sp.value;
-if (!planId) return undefined;
-var groups = plans();
-for (var g = 0; g < groups.length; g++) {
-var sps = groups[g].selling_plans || [];
-for (var i = 0; i < sps.length; i++) {
-if (String(sps[i].id) === String(planId)) {
-var opts = sps[i].options || [];
-for (var o = 0; o < opts.length; o++) {
-if (/frequency|order frequency|unit/i.test(opts[o].name || '')) {
-return opts[o].value; // already "1-month" / "2-month" / "3-month"
-}
-}
-}
-}
-}
-return undefined;
-}
+    function fire() {
+      var v = selectedVariant();
+      if (!v) return;
+      var vs = variants();
+      var sku = v.sku || (vs[0] && vs[0].sku) || null;
+      var pt = purchaseType();
 
-function priceOf(v, isSub) {
-if (isSub && v.selling_plan_allocations && v.selling_plan_allocations.length) {
-// match the active plan's allocation, else take the first
-var sp = document.querySelector('input[name="selling_plan"]');
-var pid = sp && sp.value;
-var allocs = v.selling_plan_allocations;
-for (var i = 0; i < allocs.length; i++) {
-if (String(allocs[i].selling_plan_id) === String(pid)) return Math.round(allocs[i].price) / 100;
-}
-return Math.round(allocs[0].price) / 100;
-}
-return Math.round(v.price) / 100;
-}
+      var props = {
+        product_id:    sku || undefined,
+        product_name:  (v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined,
+        variant_id:    packLabel(),
+        price:         priceOf(v, pt === 'subscription'),
+        quantity:      1,
+        currency:      (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+        purchase_type: pt
+      };
+      if (pt === 'subscription') {
+        var st = subscriptionType();
+        if (st) props.subscription_type = st;
+      }
+      track('product_added_to_cart', props);
+    }
 
-function fire() {
-var v = selectedVariant();
-if (!v) return;
-var vs = variants();
-var sku = v.sku || (vs[0] && vs[0].sku) || null;
-var pt = purchaseType();
-
-var props = {
-product_id: sku || undefined,
-product_name: (v.name || v.title || '').replace(/\s*-\s*\d+\s*Jars?$/i, '') || undefined,
-variant_id: packLabel(),
-price: priceOf(v, pt === 'subscription'),
-quantity: 1,
-currency: (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
-purchase_type: pt
-};
-if (pt === 'subscription') {
-var st = subscriptionType();
-if (st) props.subscription_type = st;
-}
-track('product_added_to_cart', props);
-}
-
-// capture-phase click on the ATC button (mirrors the old tracker's hook)
-document.addEventListener('click', function (e) {
-if (e.target.closest('[data-atc-button]')) fire();
-}, true);
-})();
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-atc-button]')) fire();
+    }, true);
+  })();
 
 
 // =====================================================================
