@@ -1,0 +1,53 @@
+{%- comment -%} Corporate legal document page: renders the Shopify page body (lawyers' text) in the corporate layout. Content lives in the page in Admin, not in the theme. {%- endcomment -%}
+<section class="section legal">
+  <div class="container">
+    <article class="legal-doc">
+      {%- if section.settings.show_back_link and section.settings.back_url != blank -%}
+        <a class="legal-back" href="{{ section.settings.back_url }}">&larr; {{ section.settings.back_label | default: 'Back' }}</a>
+      {%- endif -%}
+      <h1>{{ page.title }}</h1>
+      <div class="legal-body">
+        {{ page.content }}
+      </div>
+    </article>
+  </div>
+</section>
+{% style %}
+  .lw-corp .section.legal{ padding-top:{{ section.settings.padding_top }}px; padding-bottom:{{ section.settings.padding_bottom }}px; background:var(--paper); }
+  .lw-corp .legal-doc{ max-width:{{ section.settings.max_width }}px; margin-inline:auto; color:var(--foreground); }
+  .lw-corp .legal-back{ display:inline-block; margin-bottom:1.5rem; font-size:0.9rem; font-weight:600; color:var(--sage); text-decoration:none; }
+  .lw-corp .legal-back:hover{ text-decoration:underline; }
+  .lw-corp .legal-doc h1{ margin:0 0 1.25rem; font-family:var(--font-sans); font-size:clamp(2.2rem, 4.5vw, 3.4rem); font-weight:600; letter-spacing:-0.05em; line-height:1.02; color:var(--night); }
+  .lw-corp .legal-doc h1::after{ content:""; display:block; width:3rem; height:0.3rem; margin-top:0.85rem; border-radius:999px; background:var(--cta-sage); }
+  .lw-corp .legal-body{ font-size:1rem; line-height:1.7; }
+  .lw-corp .legal-body .legal-eyebrow{ margin:0 0 0.25rem; font-size:0.8rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage); }
+  .lw-corp .legal-body .legal-effective{ margin:0 0 2.25rem; font-size:0.9rem; color:var(--muted-foreground); }
+  .lw-corp .legal-body h2{ margin:2.5rem 0 0.85rem; font-family:var(--font-sans); font-size:clamp(1.35rem, 2.2vw, 1.7rem); font-weight:600; letter-spacing:-0.03em; line-height:1.2; color:var(--night); }
+  .lw-corp .legal-body h3{ margin:1.75rem 0 0.6rem; font-family:var(--font-sans); font-size:1.1rem; font-weight:600; color:var(--night); }
+  .lw-corp .legal-body h4{ margin:1.25rem 0 0.5rem; font-size:1rem; font-weight:600; }
+  .lw-corp .legal-body p{ margin:0 0 1rem; }
+  .lw-corp .legal-body ul, .lw-corp .legal-body ol{ margin:0 0 1rem; padding-left:1.4rem; }
+  .lw-corp .legal-body li{ margin-bottom:0.4rem; }
+  .lw-corp .legal-body li > ul{ margin-top:0.4rem; }
+  .lw-corp .legal-body a{ color:var(--sage); text-decoration:underline; text-underline-offset:0.15em; overflow-wrap:anywhere; }
+  .lw-corp .legal-body a:hover{ color:var(--night); }
+  .lw-corp .legal-body table{ width:100%; border-collapse:collapse; margin:0.5rem 0 1.75rem; font-size:0.9rem; display:block; overflow-x:auto; }
+  .lw-corp .legal-body th, .lw-corp .legal-body td{ text-align:left; vertical-align:top; padding:0.6rem 0.75rem; border-bottom:1px solid var(--border); }
+  .lw-corp .legal-body th{ font-weight:600; color:var(--night); background:var(--paper-card); }
+  .lw-corp .legal-body strong{ font-weight:600; }
+  @media (max-width:640px){ .lw-corp .legal-body table{ font-size:0.82rem; } .lw-corp .legal-body th, .lw-corp .legal-body td{ padding:0.5rem; } }
+{% endstyle %}
+{% schema %}
+{
+  "name": "Corporate Legal Document",
+  "settings": [
+    { "type": "range", "id": "max_width", "label": "Text column width (px)", "min": 560, "max": 960, "step": 20, "default": 760 },
+    { "type": "range", "id": "padding_top", "label": "Padding top", "min": 0, "max": 100, "step": 4, "default": 64 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom", "min": 0, "max": 100, "step": 4, "default": 80 },
+    { "type": "checkbox", "id": "show_back_link", "label": "Show back link", "default": true },
+    { "type": "text", "id": "back_label", "label": "Back link text", "default": "Back to Lumway Wellness Inc." },
+    { "type": "url", "id": "back_url", "label": "Back link URL", "info": "Defaults to the corporate page" }
+  ],
+  "presets": [{ "name": "Corporate Legal Document" }]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{
+  "layout": "theme-corporate",
+  "sections": {
+    "main": {
+      "type": "corporate-legal",
+      "settings": {
+        "back_url": "/pages/corporate"
+      }
+    }
+  },
+  "order": ["main"]
+}
