@@ -93,7 +93,7 @@
     <div class="lw-corp">
       {% sections 'corporate-header-group' %}
       <main id="top">
-        {% sections 'corporate-content-group' %}
+        {%- if template.suffix == 'corporate' -%}{% sections 'corporate-content-group' %}{%- endif -%}
         {{ content_for_layout }}
       </main>
       {% sections 'corporate-footer-group' %}

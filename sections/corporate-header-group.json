@@ -15,17 +15,17 @@
       "type": "corporate-header",
       "settings": {
         "logo_alt": "Lumway — Powered by Nature",
-        "logo_link": "#top",
+        "logo_link": "/pages/corporate",
         "logo_width": 118,
         "cta_text": "Start a conversation",
-        "cta_link": "#contact"
+        "cta_link": "/pages/corporate#contact"
       },
       "blocks": {
-        "nav_overview": { "type": "nav_item", "settings": { "label": "Overview", "url": "#overview" } },
-        "nav_services": { "type": "nav_item", "settings": { "label": "Services", "url": "#services" } },
-        "nav_approach": { "type": "nav_item", "settings": { "label": "Approach", "url": "#approach" } },
-        "nav_clients": { "type": "nav_item", "settings": { "label": "Who We Work With", "url": "#clients" } },
-        "nav_team": { "type": "nav_item", "settings": { "label": "Team", "url": "#team" } }
+        "nav_overview": { "type": "nav_item", "settings": { "label": "Overview", "url": "/pages/corporate#overview" } },
+        "nav_services": { "type": "nav_item", "settings": { "label": "Services", "url": "/pages/corporate#services" } },
+        "nav_approach": { "type": "nav_item", "settings": { "label": "Approach", "url": "/pages/corporate#approach" } },
+        "nav_clients": { "type": "nav_item", "settings": { "label": "Who We Work With", "url": "/pages/corporate#clients" } },
+        "nav_team": { "type": "nav_item", "settings": { "label": "Team", "url": "/pages/corporate#team" } }
       },
       "block_order": ["nav_overview", "nav_services", "nav_approach", "nav_clients", "nav_team"]
     }
