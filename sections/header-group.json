@@ -123,21 +123,11 @@
         "bottom_border_style": "solid",
         "bottom_border_color": "#000000"
       }
-    },
-    "custom_liquid_kMKaMF": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>",
-        "padding_top": 40,
-        "padding_bottom": 52
-      }
     }
   },
   "order": [
     "custom_announcement_bar_inxgM4",
     "header",
-    "scrolling_features_bar_J64Pwx",
-    "custom_liquid_kMKaMF"
+    "scrolling_features_bar_J64Pwx"
   ]
 }
