@@ -13,7 +13,6 @@
   "sections": {
     "custom_announcement_bar_inxgM4": {
       "type": "promo-bar-lum",
-      "disabled": true,
       "name": "Promo bar",
       "settings": {
         "text": "FREE SHIPPING ON ORDERS $40+",
@@ -24,7 +23,6 @@
     },
     "header": {
       "type": "header-lum",
-      "disabled": true,
       "settings": {
         "logo": "shopify://shop_images/6c6768e9cf1fbd83dbd2b89ce33fee088c1ca6c0.png",
         "logo_width": 97,
