@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "mm_promo_bar_Qjx7NC": {
+      "type": "mm-promo-bar",
+      "name": "Promo bar",
+      "settings": {
+        "text": "🇺🇸 FREE U.S. SHIPPING ON ORDERS $40+",
+        "link": "",
+        "bg": "#111111",
+        "text_color": "#FFFFFF"
+      }
+    },
     "main": {
       "type": "main-page",
       "disabled": true,
@@ -18,18 +28,19 @@
         "padding_bottom": 28
       }
     },
-    "custom_liquid_wwr3fa": {
+    "custom_liquid_HUzjGz": {
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>\n<heyflow-wrapper flow-id=\"01a08ac5-1631-732e-b4e2-8e0bf25317a8\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"100%\"}'></heyflow-wrapper>",
-        "padding_top": 40,
+        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>\n<heyflow-wrapper flow-id=\"01a0a3db-6799-725f-9631-f1b6ff8b9b33\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"100%\"}'></heyflow-wrapper>",
+        "padding_top": 0,
         "padding_bottom": 52
       }
     }
   },
   "order": [
+    "mm_promo_bar_Qjx7NC",
     "main",
-    "custom_liquid_wwr3fa"
+    "custom_liquid_HUzjGz"
   ]
 }
