@@ -1,0 +1,91 @@
+{%- comment -%}
+  Promo Bar
+  Reusable announcement/promo bar.
+  Can be added from the Theme Editor to supported section groups/templates.
+{%- endcomment -%}
+
+{%- liquid
+  assign uid = section.id
+-%}
+
+{% style %}
+  #shopify-section-{{ uid }} .promo-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: {{ section.settings.bg }};
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ uid }} .promo-bar__text {
+    margin: 0;
+    font-family: 'Inter Tight', system-ui, sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: -0.24px;
+    color: {{ section.settings.text_color }};
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ uid }} a.promo-bar__text {
+    text-decoration: none;
+  }
+{% endstyle %}
+
+{%- if section.settings.text != blank -%}
+  <div class="promo-bar">
+    {%- if section.settings.link != blank -%}
+      <a
+        class="promo-bar__text"
+        href="{{ section.settings.link }}"
+      >
+        {{ section.settings.text | escape }}
+      </a>
+    {%- else -%}
+      <p class="promo-bar__text">
+        {{ section.settings.text | escape }}
+      </p>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Promo bar",
+  "tag": "section",
+  "class": "section-promo-bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "FREE SHIPPING ON $39"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Background",
+      "default": "#fad356"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#113b34"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo bar"
+    }
+  ]
+}
+{% endschema %}
