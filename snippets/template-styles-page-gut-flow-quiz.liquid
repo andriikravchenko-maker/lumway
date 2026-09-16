@@ -1,0 +1,29 @@
+
+{% style %}
+    /* =========================================
+    PAGES — gut-flow-quiz
+    ========================================= */
+    {% if template.name == 'page' and template.suffix == 'gut-flow-quiz' %}
+        #MainContent {
+        --template-heading-font: "Fraunces", Georgia, sans-serif;
+        --template-btn-font: "League Spartan", Arial, sans-serif;
+        --template-bg: #fdfaf6;
+        --template-accent: #fa6c56;
+        --template-border: #5b0d1e;
+        --template-soft-bg: #f5f3ef;
+        --template-accent-black: #111111;
+        --template-border-teal: #0a776133;
+        --template-shadow-color: #113b340d;
+        --template-btn-bg: #8d2b40;
+        }
+   
+     footer, header, .section-promo-lum{
+        display: none;
+     }
+        @media screen and (max-width: 749px) {
+
+        }
+
+
+    {% endif %}
+{% endstyle %}
