@@ -20,7 +20,9 @@
       To add another page template:
       or template.suffix == 'template-name'
     {% endcomment %}
-    {% if template.suffix == '5-ways-for-35-gut-f-wl-1' %}
+    {% if template.suffix == '5-ways-for-35-gut-f-wl-1'
+      or template.suffix == 'gut-flow-quiz-start'
+    %}
       {% render 'font-fraunces' %}
     {% endif %}
 {% endcase %}
