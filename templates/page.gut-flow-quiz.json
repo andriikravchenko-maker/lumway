@@ -16,7 +16,7 @@
         "text": "🇺🇸 FREE U.S. SHIPPING ON ORDERS $40+",
         "link": "",
         "bg": "#111111",
-        "text_color": "#FFFFFF"
+        "text_color": "#ffffff"
       }
     },
     "main": {
@@ -32,7 +32,7 @@
       "type": "custom-liquid",
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>\n<heyflow-wrapper flow-id=\"01a0a3db-6799-725f-9631-f1b6ff8b9b33\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"100%\"}'></heyflow-wrapper>",
+        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>\n<heyflow-wrapper flow-id=\"01a0a3db-6799-725f-9631-f1b6ff8b9b33\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"100%\",\"height\":\"100vh\"}'></heyflow-wrapper>",
         "padding_top": 0,
         "padding_bottom": 52
       }
