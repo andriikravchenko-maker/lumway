@@ -9,16 +9,122 @@
  */
 {
   "sections": {
+    "mm_promo_bar_jzrCGd": {
+      "type": "mm-promo-bar",
+      "name": "Promo bar",
+      "settings": {
+        "text": "🇺🇸 FREE U.S. SHIPPING ON ORDERS $40+",
+        "link": "",
+        "bg": "#111111",
+        "text_color": "#ffffff"
+      }
+    },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "use_theme_colors": true,
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "custom_liquid_HUzjGz": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>\n<heyflow-wrapper flow-id=\"01a0a3db-6799-725f-9631-f1b6ff8b9b33\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"100%\"}'></heyflow-wrapper>",
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "mm_quiz_hero_9kFNGq": {
+      "type": "mm-quiz-hero",
+      "blocks": {
+        "benefit_xnzJHb": {
+          "type": "benefit",
+          "settings": {
+            "text": "Appetite control"
+          }
+        },
+        "benefit_gQKKxN": {
+          "type": "benefit",
+          "settings": {
+            "text": "Weight loss"
+          }
+        },
+        "benefit_eBfazx": {
+          "type": "benefit",
+          "settings": {
+            "text": "Bloating relief"
+          }
+        },
+        "benefit_cbyVRD": {
+          "type": "benefit",
+          "settings": {
+            "text": "Regularity"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_xnzJHb",
+        "benefit_gQKKxN",
+        "benefit_eBfazx",
+        "benefit_cbyVRD"
+      ],
+      "name": "MM Quiz hero",
+      "settings": {
+        "brand_name": "lumway",
+        "brand_caption": "",
+        "logo": "shopify://shop_images/6c6768e9cf1fbd83dbd2b89ce33fee088c1ca6c0.png",
+        "logo_link": "",
+        "heading": "A flatter-looking stomach, without eating less. Save up to 30% OFF",
+        "description": "<p>Start your gut reset and save up to 30% on daily fiber support for:</p>",
+        "question": "Select your gender:",
+        "button_1_label": "FEMALE",
+        "button_1_link": "shopify://pages/gut-flow-quiz",
+        "button_2_label": "MALE",
+        "button_2_link": "shopify://pages/gut-flow-quiz",
+        "note": "Takes about a minute. No account needed.",
+        "image_desktop": "shopify://shop_images/hero-gutflow-berries.webp",
+        "image_alt": "Gut Flow gummies with fresh berries",
+        "image_position": "center center",
+        "mobile_image_position": "right center",
+        "overlay_opacity": 0,
+        "mobile_image_height": 320,
+        "container_width": 1300,
+        "content_width": 620,
+        "desktop_height": 900,
+        "padding_top": 24,
+        "padding_bottom": 80,
+        "logo_width": 110,
+        "logo_gap": 76,
+        "content_gap": 28,
+        "heading_size": 68,
+        "mobile_heading_size": 40,
+        "body_size": 23,
+        "mobile_body_size": 17,
+        "button_height": 58,
+        "button_radius": 40,
+        "heading_font": "serif",
+        "heading_line_height": 105,
+        "background": "#f4cbcd",
+        "text_color": "#2e211e",
+        "primary_background": "#bc4050",
+        "primary_text": "#ffffff",
+        "secondary_background": "#ffffff",
+        "secondary_text": "#2e211e",
+        "check_color": "#bc4050",
+        "check_background": "#ffffff",
+        "hide_header": true,
+        "hide_footer": true
+      }
     }
   },
   "order": [
-    "main"
+    "mm_promo_bar_jzrCGd",
+    "main",
+    "custom_liquid_HUzjGz",
+    "mm_quiz_hero_9kFNGq"
   ]
 }
