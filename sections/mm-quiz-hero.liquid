@@ -1,0 +1,568 @@
+{{ 'mm-quiz-hero.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign hero_image = section.settings.image_desktop | default: section.settings.image_mobile
+  assign mobile_image = section.settings.image_mobile | default: hero_image
+-%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    --quiz-background: {{ section.settings.background }};
+    --quiz-text: {{ section.settings.text_color }};
+    --quiz-primary: {{ section.settings.primary_background }};
+    --quiz-primary-text: {{ section.settings.primary_text }};
+    --quiz-secondary: {{ section.settings.secondary_background }};
+    --quiz-secondary-text: {{ section.settings.secondary_text }};
+    --quiz-check: {{ section.settings.check_color }};
+    --quiz-check-background: {{ section.settings.check_background }};
+    --quiz-container: {{ section.settings.container_width }}px;
+    --quiz-content: {{ section.settings.content_width }}px;
+    --quiz-height: {{ section.settings.desktop_height }}px;
+    --quiz-heading-size: {{ section.settings.heading_size }}px;
+    --quiz-mobile-heading-size: {{ section.settings.mobile_heading_size }}px;
+    --quiz-body-size: {{ section.settings.body_size }}px;
+    --quiz-mobile-body-size: {{ section.settings.mobile_body_size }}px;
+    --quiz-heading-line-height: {{ section.settings.heading_line_height | divided_by: 100.0 }};
+    --quiz-top: {{ section.settings.padding_top }}px;
+    --quiz-bottom: {{ section.settings.padding_bottom }}px;
+    --quiz-logo-width: {{ section.settings.logo_width }}px;
+    --quiz-logo-gap: {{ section.settings.logo_gap }}px;
+    --quiz-content-gap: {{ section.settings.content_gap }}px;
+    --quiz-button-radius: {{ section.settings.button_radius }}px;
+    --quiz-button-height: {{ section.settings.button_height }}px;
+    --quiz-mobile-image-height: {{ section.settings.mobile_image_height }}px;
+    --quiz-image-position: {{ section.settings.image_position }};
+    --quiz-mobile-image-position: {{ section.settings.mobile_image_position }};
+    --quiz-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+  {% if section.settings.hide_header %}
+    body:has(#shopify-section-{{ section.id }}) .shopify-section-group-header-group { display: none; }
+  {% endif %}
+  {% if section.settings.hide_footer %}
+    body:has(#shopify-section-{{ section.id }}) .shopify-section-group-footer-group { display: none; }
+  {% endif %}
+{%- endstyle -%}
+
+<section class="mm-quiz-hero{% if hero_image != blank %} mm-quiz-hero--has-image{% endif %} mm-quiz-hero--{{ section.settings.heading_font }}" {% if section.settings.heading != blank %}aria-labelledby="QuizHeading-{{ section.id }}"{% endif %}>
+  {% if hero_image != blank %}
+    <picture class="mm-quiz-hero__media">
+      <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 480 }} 480w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
+      {{ hero_image | image_url: width: 3000 | image_tag: class: 'mm-quiz-hero__image', widths: '750, 1100, 1500, 2000, 2500, 3000', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image_alt }}
+    </picture>
+  {% elsif request.design_mode %}
+    <div class="mm-quiz-hero__image-hint">Select a desktop background image in this section’s settings. Use a photo with space for text on the left.</div>
+  {% endif %}
+
+  <div class="mm-quiz-hero__container">
+    <div class="mm-quiz-hero__content">
+      {% if section.settings.logo != blank or section.settings.brand_name != blank %}
+        <div class="mm-quiz-hero__brand">
+          {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
+          {% if section.settings.logo != blank %}
+            {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'mm-quiz-hero__logo', widths: '120, 240, 360, 600', sizes: '240px', alt: section.settings.brand_name }}
+          {% else %}
+            <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
+          {% endif %}
+          {% if section.settings.logo_link != blank %}</a>{% endif %}
+          {% if section.settings.brand_caption != blank %}<span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>{% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 id="QuizHeading-{{ section.id }}" class="mm-quiz-hero__heading">{{ section.settings.heading | escape | newline_to_br }}</h1>
+      {% endif %}
+      {% if section.settings.description != blank %}<div class="mm-quiz-hero__description">{{ section.settings.description }}</div>{% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <ul class="mm-quiz-hero__benefits" role="list">
+          {% for block in section.blocks %}
+            <li class="mm-quiz-hero__benefit" {{ block.shopify_attributes }}>
+              <span class="mm-quiz-hero__check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="m4 8 2.5 2.5L12 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span>{{ block.settings.text | escape }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      <div class="mm-quiz-hero__actions">
+        {% if section.settings.question != blank %}<h2 class="mm-quiz-hero__question">{{ section.settings.question | escape }}</h2>{% endif %}
+        <div class="mm-quiz-hero__buttons">
+          {% for index in (1..2) %}
+            {% liquid
+              assign label_key = 'button_' | append: index | append: '_label'
+              assign link_key = 'button_' | append: index | append: '_link'
+              assign label = section.settings[label_key]
+              assign link = section.settings[link_key]
+            %}
+            {% if label != blank %}
+              {% if link != blank %}
+                <a class="mm-quiz-hero__button mm-quiz-hero__button--{{ index }}" href="{{ link }}">{{ label | escape }}</a>
+              {% else %}
+                <button class="mm-quiz-hero__button mm-quiz-hero__button--{{ index }}" type="button" disabled>{{ label | escape }}</button>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% if section.settings.note != blank %}<p class="mm-quiz-hero__note">{{ section.settings.note | escape }}</p>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+{
+  "name": "MM Quiz hero",
+  "tag": "div",
+  "max_blocks": 8,
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand / logo alt text",
+      "default": "lumway"
+    },
+    {
+      "type": "text",
+      "id": "brand_caption",
+      "label": "Brand caption",
+      "default": "Powered by nature"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A flatter-looking stomach, without eating less. Save up to 30% OFF"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Start your gut reset and save up to 30% on daily fiber support for:</p>"
+    },
+    {
+      "type": "text",
+      "id": "question",
+      "label": "Choice heading",
+      "default": "Select your gender:"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 label",
+      "default": "FEMALE"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link",
+      "info": "Choose the next quiz page or section anchor. Disabled until a link is set."
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 label",
+      "default": "MALE"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link",
+      "info": "Choose the next quiz page or section anchor. Disabled until a link is set."
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Text below buttons",
+      "default": "Takes about a minute. No account needed."
+    },
+    {
+      "type": "header",
+      "content": "Photography"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop background",
+      "info": "Use a wide photo with the product on the right and clear space on the left, without text."
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image",
+      "info": "Optional crop displayed below the content on mobile."
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Photo description",
+      "default": "Gut Flow gummies with fresh berries"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop image position",
+      "default": "center center",
+      "options": [
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_position",
+      "label": "Mobile image position",
+      "default": "right center",
+      "options": [
+        {
+          "value": "left center",
+          "label": "Left"
+        },
+        {
+          "value": "center center",
+          "label": "Center"
+        },
+        {
+          "value": "right center",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Background color overlay",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_height",
+      "label": "Mobile image height",
+      "min": 160,
+      "max": 600,
+      "step": 10,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Layout and typography"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 960,
+      "max": 1800,
+      "step": 20,
+      "default": 1300,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Text column width",
+      "min": 320,
+      "max": 800,
+      "step": 10,
+      "default": 620,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Minimum desktop height",
+      "min": 500,
+      "max": 1100,
+      "step": 20,
+      "default": 900,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top spacing",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom spacing",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 60,
+      "max": 240,
+      "step": 10,
+      "default": 110,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "label": "Space below logo on desktop",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "default": 76,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Space below heading on desktop",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 32,
+      "max": 100,
+      "step": 2,
+      "default": 68,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 26,
+      "max": 60,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Desktop description size",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "default": 23,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "label": "Mobile description size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 17,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_height",
+      "label": "Button minimum height",
+      "min": 44,
+      "max": 80,
+      "step": 2,
+      "default": 58,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "button_radius",
+      "label": "Button corner radius",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "serif",
+      "options": [
+        {
+          "value": "serif",
+          "label": "Classic serif (Georgia)"
+        },
+        {
+          "value": "theme",
+          "label": "Theme heading font"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Heading line height",
+      "min": 90,
+      "max": 150,
+      "step": 5,
+      "default": 105,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#F4CBCD"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#2E211E"
+    },
+    {
+      "type": "color",
+      "id": "primary_background",
+      "label": "First button background",
+      "default": "#BC4050"
+    },
+    {
+      "type": "color",
+      "id": "primary_text",
+      "label": "First button text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_background",
+      "label": "Second button background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "secondary_text",
+      "label": "Second button text",
+      "default": "#2E211E"
+    },
+    {
+      "type": "color",
+      "id": "check_color",
+      "label": "Checkmark",
+      "default": "#BC4050"
+    },
+    {
+      "type": "color",
+      "id": "check_background",
+      "label": "Checkmark circle",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Page chrome"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_header",
+      "label": "Hide theme header on this page",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_footer",
+      "label": "Hide theme footer on this page",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Daily digestive support"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MM Quiz hero",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Appetite control"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Weight loss"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Bloating relief"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Regularity"
+          }
+        }
+      ]
+    }
+  ],
+  "class": "mm-quiz-hero-section"
+}
+{% endschema %}
