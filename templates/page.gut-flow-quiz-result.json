@@ -11,14 +11,120 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "use_theme_colors": true,
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "custom_liquid_HUzjGz": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<script src=\"https://assets.prd.heyflow.com/builder/widget/latest/webview.js\"></script>\n<heyflow-wrapper flow-id=\"01a0a3db-6799-725f-9631-f1b6ff8b9b33\" dynamic-height scroll-up-on-navigation style-config='{\"width\":\"100%\"}'></heyflow-wrapper>",
+        "padding_top": 0,
+        "padding_bottom": 52
+      }
+    },
+    "quiz_result_slider_VbcqiN": {
+      "type": "quiz-result-slider",
+      "blocks": {
+        "comparison_fHzBQW": {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Plant-based prebiotic fiber",
+            "other_text": "Harsh stimulants or laxatives",
+            "other_status": "no"
+          }
+        },
+        "comparison_mArxGB": {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Helps you feel fuller between meals",
+            "other_text": "Relies on restriction or skipping meals",
+            "other_status": "no"
+          }
+        },
+        "comparison_dJX7Ag": {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Supports regularity and beneficial bacteria",
+            "other_text": "Often focused mainly on bulk",
+            "other_status": "warning"
+          }
+        },
+        "comparison_fUR7xU": {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Easy-to-start gummy format",
+            "other_text": "Stronger options may require a prescription",
+            "other_status": "warning"
+          }
+        },
+        "comparison_R3pEif": {
+          "type": "comparison",
+          "settings": {
+            "product_text": "No scooping or mixing",
+            "other_text": "Powders require extra prep",
+            "other_status": "no"
+          }
+        },
+        "comparison_fqbkhY": {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Made in the USA with locally sourced ingredients",
+            "other_text": "Quality and sourcing vary",
+            "other_status": "warning"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_fHzBQW",
+        "comparison_mArxGB",
+        "comparison_dJX7Ag",
+        "comparison_fUR7xU",
+        "comparison_R3pEif",
+        "comparison_fqbkhY"
+      ],
+      "name": "Quiz result slider",
+      "settings": {
+        "background_color": "#fbf8f4",
+        "card_background": "#ffffff",
+        "text_color": "#302522",
+        "muted_color": "#766863",
+        "accent_color": "#9a6b00",
+        "border_color": "#e5d9d1",
+        "button_background": "#c83e4d",
+        "button_color": "#ffffff",
+        "timeline_heading": "Here's how Gut Flow can support your progress",
+        "timeline_text": "<p>Your personalized results are in. Learn how Gut Flow's prebiotic fiber supports regularity and helps you feel fuller after meals, so you can stay on track.</p>",
+        "timeline_disclaimer": "*This estimate is based on your answers and assumes consistent nutrition and activity habits. Individual results vary.",
+        "month_heading": "Let small changes build into real progress",
+        "month_text": "<p>With Gut Flow supporting your routine, small daily steps can build toward your wellness goals and better results month after month.</p>",
+        "month_disclaimer": "*Estimates are based on your answers and general nutrition guidance, not medical advice. Individual results vary. A balanced diet and regular activity are needed to lose weight.",
+        "summary_heading": "Your personal summary",
+        "summary_text": "<p>Here's what your answers tell us. Next, let's see what we can do about it.</p>",
+        "default_gender": "Female",
+        "metabolic_text": "A few years ahead of your age. Daily fiber and a steadier rhythm move it back.",
+        "bowel_value": "1 time per week",
+        "bowel_text": "Your rhythm is slow",
+        "comparison_heading": "Why Gut Flow stands out from other fiber supplements",
+        "comparison_text": "<p>Same goal, very different way of getting there.</p>",
+        "product_column_title": "Gut Flow",
+        "other_column_title": "Basic fiber supplements",
+        "continue_label": "Continue",
+        "checkout_label": "Get Gut Flow",
+        "checkout_product": "gut-flow-gummies",
+        "checkout_quantity": 1,
+        "checkout_plan_index": "2"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "custom_liquid_HUzjGz",
+    "quiz_result_slider_VbcqiN"
   ]
 }
