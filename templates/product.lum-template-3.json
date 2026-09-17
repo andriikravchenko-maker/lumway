@@ -60,6 +60,7 @@
         },
         "mm_bundle_select_kz8JUk": {
           "type": "mm_bundle_select",
+          "disabled": true,
           "settings": {
             "heading": "Select Quantity",
             "note": "For best results take consistently for at least 6–8 weeks.",
@@ -96,7 +97,7 @@
             "option_1_save": "Save $12",
             "option_1_badge": "",
             "option_1_badge_bg": "#fad356",
-            "option_1_badge_text": "#113B34",
+            "option_1_badge_text": "#113b34",
             "option_2_show": true,
             "option_2_selected": true,
             "option_2_label": "2-Pack",
@@ -107,7 +108,7 @@
             "option_2_save": "Save $12",
             "option_2_badge": "Best Seller",
             "option_2_badge_bg": "#fad356",
-            "option_2_badge_text": "#113B34",
+            "option_2_badge_text": "#113b34",
             "option_3_show": true,
             "option_3_selected": false,
             "option_3_label": "3-Pack",
@@ -117,7 +118,7 @@
             "option_3_free": 2,
             "option_3_save": "Save $12",
             "option_3_badge": "Most Savings",
-            "option_3_badge_bg": "#113B34",
+            "option_3_badge_bg": "#113b34",
             "option_3_badge_text": "#ffffff",
             "option_4_show": false,
             "option_4_selected": false,
@@ -133,6 +134,7 @@
         },
         "mm_purchase_plan_jrUX8k": {
           "type": "mm_purchase_plan",
+          "disabled": true,
           "settings": {
             "heading": "Purchase Type",
             "label_color": "#111111",
@@ -221,7 +223,6 @@
         },
         "bundle_BLEyFB": {
           "type": "bundle",
-          "disabled": true,
           "settings": {
             "heading": "Select Quantity",
             "note": "Take for more than 8 weeks may be necessary to see a meaningful benefits.",
@@ -281,7 +282,6 @@
         },
         "purchase_type_zrrNbf": {
           "type": "purchase_type",
-          "disabled": true,
           "settings": {
             "heading": "Purchase Type",
             "preselect": "subscribe",
