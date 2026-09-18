@@ -6,459 +6,533 @@ Expected URL params:
 &height=165
 &currentWeight=180
 &targetWeight=160
+&gender=Female
 
 Example:
-/pages/gut-flow-quiz-result?age=42&height=165&currentWeight=180&targetWeight=160
+/pages/gut-flow-quiz-result?age=42&height=165&currentWeight=180&targetWeight=160&gender=Female
 {% endcomment %}
 
 {%- liquid
-assign checkout_product = section.settings.checkout_product
-assign checkout_variant = checkout_product.selected_or_first_available_variant
-assign checkout_selling_plan = blank
+    assign checkout_product = section.settings.checkout_product
+    assign checkout_variant = checkout_product.selected_or_first_available_variant
+    assign checkout_selling_plan = blank
 
-unless section.settings.checkout_plan_index == 'one_time'
-assign requested_plan_index = section.settings.checkout_plan_index | plus: 0
-assign current_plan_index = 0
+    unless section.settings.checkout_plan_index == 'one_time'
+        assign requested_plan_index = section.settings.checkout_plan_index | plus: 0
+        assign current_plan_index = 0
 
-for selling_plan_group in checkout_product.selling_plan_groups
-for selling_plan in selling_plan_group.selling_plans
-assign current_plan_index = current_plan_index | plus: 1
+        for selling_plan_group in checkout_product.selling_plan_groups
+            for selling_plan in selling_plan_group.selling_plans
+                assign current_plan_index = current_plan_index | plus: 1
 
-if current_plan_index == requested_plan_index
-assign checkout_selling_plan = selling_plan
-break
-endif
-endfor
+                if current_plan_index == requested_plan_index
+                    assign checkout_selling_plan = selling_plan
+                    break
+                endif
+            endfor
 
-if checkout_selling_plan != blank
-break
-endif
-endfor
-endunless
+            if checkout_selling_plan != blank
+                break
+            endif
+        endfor
+    endunless
 -%}
 
 <section
-id="QuizResultSlider-{{ section.id }}"
-class="quiz-result-slider"
-data-quiz-result-slider
-style="
---qrs-bg: {{ section.settings.background_color }};
---qrs-card-bg: {{ section.settings.card_background }};
---qrs-text: {{ section.settings.text_color }};
---qrs-muted: {{ section.settings.muted_color }};
---qrs-accent: {{ section.settings.accent_color }};
---qrs-button-bg: {{ section.settings.button_background }};
---qrs-button-color: {{ section.settings.button_color }};
---qrs-border: {{ section.settings.border_color }};
-"
+        id="QuizResultSlider-{{ section.id }}"
+        class="quiz-result-slider"
+        data-quiz-result-slider
+        style="
+                --qrs-bg: {{ section.settings.background_color }};
+                --qrs-card-bg: {{ section.settings.card_background }};
+                --qrs-text: {{ section.settings.text_color }};
+                --qrs-muted: {{ section.settings.muted_color }};
+                --qrs-accent: {{ section.settings.accent_color }};
+                --qrs-button-bg: {{ section.settings.button_background }};
+                --qrs-button-color: {{ section.settings.button_color }};
+                --qrs-border: {{ section.settings.border_color }};
+                --qrs-heading-size-desktop: {{ section.settings.heading_size_desktop }}px;
+                --qrs-heading-size-mobile: {{ section.settings.heading_size_mobile }}px;
+                --qrs-body-size-desktop: {{ section.settings.body_size_desktop }}px;
+                --qrs-body-size-mobile: {{ section.settings.body_size_mobile }}px;
+                --qrs-card-title-size-desktop: {{ section.settings.card_title_size_desktop }}px;
+                --qrs-card-title-size-mobile: {{ section.settings.card_title_size_mobile }}px;
+                --qrs-value-size-desktop: {{ section.settings.value_size_desktop }}px;
+                --qrs-value-size-mobile: {{ section.settings.value_size_mobile }}px;
+                --qrs-small-size-desktop: {{ section.settings.small_size_desktop }}px;
+                --qrs-small-size-mobile: {{ section.settings.small_size_mobile }}px;
+                "
 >
-<div class="quiz-result-slider__viewport">
+    <div class="quiz-result-slider__viewport">
 
-<div
-class="quiz-result-slider__slide is-active"
-data-quiz-slide="0"
->
-<div class="quiz-result-slider__container quiz-result-slider__container--timeline">
+        <div
+                class="quiz-result-slider__slide is-active"
+                data-quiz-slide="0"
+        >
+            <div class="quiz-result-slider__container quiz-result-slider__container--timeline">
 
-<div class="quiz-result-slider__intro">
-<h2 class="quiz-result-slider__title">
-{{ section.settings.timeline_heading }}
-</h2>
+                <div class="quiz-result-slider__intro">
+                    <h2 class="quiz-result-slider__title">
+                        {{ section.settings.timeline_heading }}
+                    </h2>
 
-<div class="quiz-result-slider__description">
-{{ section.settings.timeline_text }}
-</div>
+                    <div class="quiz-result-slider__description">
+                        {{ section.settings.timeline_text }}
+                    </div>
 
-<p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--desktop">
-{{ section.settings.timeline_disclaimer }}
-</p>
-</div>
+                    <p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--desktop">
+                        {{ section.settings.timeline_disclaimer }}
+                    </p>
+                </div>
 
-<div class="quiz-timeline-card">
+                <div class="quiz-timeline-card">
 
-<h3 class="quiz-timeline-card__title">
-Your estimated timeline*
-</h3>
+                    <h3 class="quiz-timeline-card__title">
+                        Your estimated timeline*
+                    </h3>
 
-<div class="quiz-timeline-card__divider"></div>
+                    <div class="quiz-timeline-card__divider"></div>
 
-<div class="quiz-timeline-card__dates">
-<span data-current-month>—</span>
-<span data-target-month>—</span>
-</div>
+                    <div class="quiz-timeline-card__dates">
+                        <span data-current-month>—</span>
+                        <span data-target-month>—</span>
+                    </div>
 
-<div class="quiz-timeline-card__weights">
-<strong>
-<span data-current-weight>—</span> lb
-</strong>
+                    <div class="quiz-timeline-card__weights">
+                        <strong>
+                            <span data-current-weight>{{ section.settings.placeholder_current_weight }}</span> lb
+                        </strong>
 
-<span class="quiz-timeline-card__arrow">→</span>
+                        <span class="quiz-timeline-card__arrow">→</span>
 
-<strong>
-<span data-target-weight>—</span> lb
-</strong>
-</div>
+                        <strong>
+                            <span data-target-weight>{{ section.settings.placeholder_target_weight }}</span> lb
+                        </strong>
+                    </div>
 
-<div class="quiz-timeline-chart">
-<svg
-class="quiz-timeline-chart__svg"
-viewBox="0 0 500 150"
-preserveAspectRatio="none"
-aria-hidden="true"
->
-<line
-class="quiz-chart-grid"
-x1="0"
-y1="0"
-x2="0"
-y2="150"
-/>
+                    <div class="quiz-timeline-chart">
+                        <svg
+                                class="quiz-timeline-chart__svg"
+                                viewBox="0 0 500 150"
+                                preserveAspectRatio="none"
+                                aria-hidden="true"
+                        >
+                            <line
+                                    class="quiz-chart-grid"
+                                    x1="0"
+                                    y1="0"
+                                    x2="0"
+                                    y2="150"
+                            />
 
-<line
-class="quiz-chart-grid"
-x1="125"
-y1="0"
-x2="125"
-y2="150"
-/>
+                            <line
+                                    class="quiz-chart-grid"
+                                    x1="125"
+                                    y1="0"
+                                    x2="125"
+                                    y2="150"
+                            />
 
-<line
-class="quiz-chart-grid"
-x1="250"
-y1="0"
-x2="250"
-y2="150"
-/>
+                            <line
+                                    class="quiz-chart-grid"
+                                    x1="250"
+                                    y1="0"
+                                    x2="250"
+                                    y2="150"
+                            />
 
-<line
-class="quiz-chart-grid"
-x1="375"
-y1="0"
-x2="375"
-y2="150"
-/>
+                            <line
+                                    class="quiz-chart-grid"
+                                    x1="375"
+                                    y1="0"
+                                    x2="375"
+                                    y2="150"
+                            />
 
-<line
-class="quiz-chart-grid"
-x1="499"
-y1="0"
-x2="499"
-y2="150"
-/>
+                            <line
+                                    class="quiz-chart-grid"
+                                    x1="499"
+                                    y1="0"
+                                    x2="499"
+                                    y2="150"
+                            />
 
-<path
-class="quiz-timeline-chart__area"
-data-timeline-area
-d=""
-/>
+                            <path
+                                    class="quiz-timeline-chart__area"
+                                    data-timeline-area
+                                    d=""
+                            />
 
-<path
-class="quiz-timeline-chart__line"
-data-timeline-line
-d=""
-/>
+                            <path
+                                    class="quiz-timeline-chart__line"
+                                    data-timeline-line
+                                    d=""
+                            />
 
-<circle
-class="quiz-timeline-chart__point"
-data-timeline-point-one
-r="6"
-/>
+                            <circle
+                                    class="quiz-timeline-chart__point"
+                                    data-timeline-point-one
+                                    r="6"
+                            />
 
-<circle
-class="quiz-timeline-chart__point"
-data-timeline-point-two
-r="6"
-/>
-</svg>
+                            <circle
+                                    class="quiz-timeline-chart__point"
+                                    data-timeline-point-two
+                                    r="6"
+                            />
+                        </svg>
 
-<span
-class="quiz-timeline-chart__label quiz-timeline-chart__label--first"
-data-timeline-label-one
->
+                        <span
+                                class="quiz-timeline-chart__label quiz-timeline-chart__label--first"
+                                data-timeline-label-one
+                        >
 —
 </span>
 
-<span
-class="quiz-timeline-chart__label quiz-timeline-chart__label--last"
-data-timeline-label-two
->
+                        <span
+                                class="quiz-timeline-chart__label quiz-timeline-chart__label--last"
+                                data-timeline-label-two
+                        >
 —
 </span>
-</div>
+                    </div>
 
-</div>
+                </div>
 
-<p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--mobile">
-{{ section.settings.timeline_disclaimer }}
-</p>
+                <p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--mobile">
+                    {{ section.settings.timeline_disclaimer }}
+                </p>
 
-</div>
-</div>
-
-
-<div
-class="quiz-result-slider__slide"
-data-quiz-slide="1"
-hidden
->
-<div class="quiz-result-slider__container">
-
-<div class="quiz-month-card">
-
-<div class="quiz-month-card__content">
-<h2 class="quiz-month-card__title">
-{{ section.settings.month_heading }}
-</h2>
-
-<div class="quiz-month-card__description">
-{{ section.settings.month_text }}
-</div>
-</div>
-
-<div class="quiz-month-card__chart-wrapper">
-
-<div class="quiz-month-card__summary">
-<strong data-first-month-loss>—</strong>
-<span>in your first month</span>
-</div>
-
-<div class="quiz-month-chart">
-
-<svg
-class="quiz-month-chart__svg"
-viewBox="0 0 500 170"
-preserveAspectRatio="none"
-aria-hidden="true"
->
-<path
-class="quiz-month-chart__line"
-data-month-line
-d=""
-/>
-
-<g data-week-points></g>
-</svg>
-
-<div class="quiz-month-chart__labels">
-<div>
-<strong data-week-weight="0">—</strong>
-<span>WEEK 1</span>
-</div>
-
-<div>
-<strong data-week-weight="1">—</strong>
-<span>WEEK 2</span>
-</div>
-
-<div>
-<strong data-week-weight="2">—</strong>
-<span>WEEK 3</span>
-</div>
-
-<div>
-<strong data-week-weight="3">—</strong>
-<span>WEEK 4</span>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-
-<p class="quiz-result-slider__disclaimer">
-{{ section.settings.month_disclaimer }}
-</p>
-
-</div>
-</div>
+            </div>
+        </div>
 
 
-<div
-class="quiz-result-slider__slide"
-data-quiz-slide="2"
-hidden
->
-<div class="quiz-result-slider__container">
+        <div
+                class="quiz-result-slider__slide"
+                data-quiz-slide="1"
+                hidden
+        >
+            <div class="quiz-result-slider__container">
 
-<div class="quiz-summary">
+                <div class="quiz-month-card">
 
-<div class="quiz-summary__header">
-<h2 class="quiz-summary__title">
-{{ section.settings.summary_heading }}
-</h2>
+                    <div class="quiz-month-card__content">
+                        <h2 class="quiz-month-card__title">
+                            {{ section.settings.month_heading }}
+                        </h2>
 
-<div class="quiz-summary__subtitle">
-{{ section.settings.summary_text }}
-</div>
-</div>
+                        <div class="quiz-month-card__description">
+                            {{ section.settings.month_text }}
+                        </div>
+                    </div>
 
-<div class="quiz-summary__stats">
+                    <div class="quiz-month-card__chart-wrapper">
 
-<div class="quiz-summary-stat">
-<div class="quiz-summary-stat__icon">♀</div>
+                        <div class="quiz-month-card__summary">
+                            <strong data-first-month-loss>{{ section.settings.placeholder_first_month_loss }}</strong>
+                            <span>in your first month</span>
+                        </div>
 
-<div>
-<span>Gender</span>
-<strong data-summary-gender>
-{{ section.settings.default_gender }}
-</strong>
-</div>
-</div>
+                        <div class="quiz-month-chart">
+                            <svg
+                                    class="quiz-month-chart__svg"
+                                    viewBox="0 0 640 170"
+                                    aria-hidden="true"
+                            >
+                                <line class="quiz-month-chart__cap" x1="30" x2="70" y1="30" y2="30"></line>
+                                <line class="quiz-month-chart__cap" x1="570" x2="610" y1="140" y2="140"></line>
 
-<div class="quiz-summary-stat">
-<div class="quiz-summary-stat__icon">♙</div>
+                                <path
+                                        class="quiz-month-chart__line"
+                                        data-month-line
+                                        d=""
+                                ></path>
 
-<div>
-<span>Age</span>
-<strong data-summary-age>—</strong>
-</div>
-</div>
+                                <g data-week-guides></g>
+                                <g data-week-points></g>
+                            </svg>
 
-<div class="quiz-summary-stat">
-<div class="quiz-summary-stat__icon">↕</div>
+                            <div class="quiz-month-chart__weight-labels">
+                                <strong data-week-weight="0">{{ section.settings.placeholder_week_1 }}</strong>
+                                <strong data-week-weight="1">{{ section.settings.placeholder_week_2 }}</strong>
+                                <strong data-week-weight="2">{{ section.settings.placeholder_week_3 }}</strong>
+                                <strong data-week-weight="3">{{ section.settings.placeholder_week_4 }}</strong>
+                            </div>
 
-<div>
-<span>Height</span>
-<strong>
-<span data-summary-height>—</span>
-<small>cm</small>
-</strong>
-</div>
-</div>
+                            <div class="quiz-month-chart__week-labels">
+                                <span>WEEK 1</span>
+                                <span>WEEK 2</span>
+                                <span>WEEK 3</span>
+                                <span>WEEK 4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<div class="quiz-summary-stat">
-<div class="quiz-summary-stat__icon">▣</div>
+                <p class="quiz-result-slider__disclaimer">
+                    {{ section.settings.month_disclaimer }}
+                </p>
 
-<div>
-<span>Weight, lb</span>
-<strong data-summary-weight>—</strong>
-</div>
-</div>
-
-</div>
-
-<div class="quiz-summary__bmi">
-
-<div class="quiz-summary__bmi-icon">
-◴
-</div>
-
-<div class="quiz-summary__bmi-value">
-<span>Your BMI</span>
-<strong data-bmi>—</strong>
-</div>
-
-<p data-bmi-description>
-—
-</p>
-
-</div>
-
-<div class="quiz-summary__cards">
-
-<div class="quiz-summary-info-card">
-<div class="quiz-summary-info-card__icon">
-♨
-</div>
-
-<div>
-<span>Metabolic age</span>
-
-<strong>
-<span data-metabolic-age>—</span> years
-</strong>
-
-<p>
-{{ section.settings.metabolic_text }}
-</p>
-</div>
-</div>
-
-<div class="quiz-summary-info-card">
-<div class="quiz-summary-info-card__icon">
-◉
-</div>
-
-<div>
-<span>Bowel movement</span>
-
-<strong>
-{{ section.settings.bowel_value }}
-</strong>
-
-<p>
-{{ section.settings.bowel_text }}
-</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-</div>
+            </div>
+        </div>
 
 
-<div
-class="quiz-result-slider__slide"
-data-quiz-slide="3"
-hidden
->
-<div class="quiz-result-slider__container">
+        <div
+                class="quiz-result-slider__slide"
+                data-quiz-slide="2"
+                hidden
+        >
+            <div class="quiz-result-slider__container">
 
-<div class="quiz-comparison">
+                <div class="quiz-summary">
 
-<div class="quiz-comparison__header">
-<h2 class="quiz-comparison__title">
-{{ section.settings.comparison_heading }}
-</h2>
+                    <div class="quiz-summary__header">
+                        <h2 class="quiz-summary__title">
+                            {{ section.settings.summary_heading }}
+                        </h2>
 
-<div class="quiz-comparison__subtitle">
-{{ section.settings.comparison_text }}
-</div>
-</div>
+                        <div class="quiz-summary__subtitle">
+                            {{ section.settings.summary_text }}
+                        </div>
+                    </div>
 
-<div class="quiz-comparison__table">
+                    <div class="quiz-summary__stats">
 
-<div class="quiz-comparison__column quiz-comparison__column--product">
+                        <div class="quiz-summary-stat">
+                            <div class="quiz-summary-stat__icon">
+                                {% if section.settings.summary_gender_svg != blank %}
+                                    <div class="quiz-summary__custom-svg">
+                                        {{ section.settings.summary_gender_svg }}
+                                    </div>
+                                {% elsif section.settings.summary_gender_icon != blank %}
+                                    {{ section.settings.summary_gender_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% else %}
+                                    <span>♀</span>
+                                {% endif %}
+                            </div>
 
-<h3>
-{{ section.settings.product_column_title }}
-</h3>
+                            <div>
+                                <span>Gender</span>
+                                <strong data-summary-gender>
+                                    {{ section.settings.default_gender }}
+                                </strong>
+                            </div>
+                        </div>
 
-{% for block in section.blocks %}
-{% if block.type == 'comparison' %}
-<div
-class="quiz-comparison__row"
-{{ block.shopify_attributes }}
->
+                        <div class="quiz-summary-stat">
+                            <div class="quiz-summary-stat__icon">
+                                {% if section.settings.summary_age_svg != blank %}
+                                    <div class="quiz-summary__custom-svg">
+                                        {{ section.settings.summary_age_svg }}
+                                    </div>
+                                {% elsif section.settings.summary_age_icon != blank %}
+                                    {{ section.settings.summary_age_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% else %}
+                                    <span>♙</span>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <span>Age</span>
+                                <strong data-summary-age>{{ section.settings.placeholder_age }}</strong>
+                            </div>
+                        </div>
+
+                        <div class="quiz-summary-stat">
+                            <div class="quiz-summary-stat__icon">
+                                {% if section.settings.summary_height_svg != blank %}
+                                    <div class="quiz-summary__custom-svg">
+                                        {{ section.settings.summary_height_svg }}
+                                    </div>
+                                {% elsif section.settings.summary_height_icon != blank %}
+                                    {{ section.settings.summary_height_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% else %}
+                                    <span>↕</span>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <span>Height, cm</span>
+                                <strong data-summary-height>
+                                    {{ section.settings.placeholder_height }}
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="quiz-summary-stat">
+                            <div class="quiz-summary-stat__icon">
+                                {% if section.settings.summary_weight_svg != blank %}
+                                    <div class="quiz-summary__custom-svg">
+                                        {{ section.settings.summary_weight_svg }}
+                                    </div>
+                                {% elsif section.settings.summary_weight_icon != blank %}
+                                    {{ section.settings.summary_weight_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% else %}
+                                    <span>▣</span>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <span>Weight, lb</span>
+                                <strong data-summary-weight>{{ section.settings.placeholder_current_weight }}</strong>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="quiz-summary__bmi">
+
+                        <div class="quiz-summary__bmi-icon">
+                            {% if section.settings.summary_bmi_svg != blank %}
+                                <div class="quiz-summary__custom-svg">
+                                    {{ section.settings.summary_bmi_svg }}
+                                </div>
+                            {% elsif section.settings.summary_bmi_icon != blank %}
+                                {{ section.settings.summary_bmi_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                            {% else %}
+                                <span>◴</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="quiz-summary__bmi-value">
+                            <span>Your BMI</span>
+                            <strong data-bmi>{{ section.settings.placeholder_bmi }}</strong>
+                        </div>
+
+                        <p data-bmi-description>
+                            —
+                        </p>
+
+                    </div>
+
+                    <div class="quiz-summary__cards">
+
+                        <div class="quiz-summary-info-card">
+                            <div class="quiz-summary-info-card__icon">
+                                {% if section.settings.summary_metabolic_age_svg != blank %}
+                                    <div class="quiz-summary__custom-svg">
+                                        {{ section.settings.summary_metabolic_age_svg }}
+                                    </div>
+                                {% elsif section.settings.summary_metabolic_age_icon != blank %}
+                                    {{ section.settings.summary_metabolic_age_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% else %}
+                                    <span>♨</span>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <span>Metabolic age</span>
+
+                                <strong data-metabolic-age>
+                                    {{ section.settings.placeholder_metabolic_age }} years
+                                </strong>
+
+                                <p>
+                                    {{ section.settings.metabolic_text }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="quiz-summary-info-card">
+                            <div class="quiz-summary-info-card__icon">
+                                {% if section.settings.summary_bowel_svg != blank %}
+                                    <div class="quiz-summary__custom-svg">
+                                        {{ section.settings.summary_bowel_svg }}
+                                    </div>
+                                {% elsif section.settings.summary_bowel_icon != blank %}
+                                    {{ section.settings.summary_bowel_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% else %}
+                                    <span>◉</span>
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <span>Bowel movement</span>
+
+                                <strong>
+                                    {{ section.settings.bowel_value }}
+                                </strong>
+
+                                <p>
+                                    {{ section.settings.bowel_text }}
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div
+                class="quiz-result-slider__slide"
+                data-quiz-slide="3"
+                hidden
+        >
+            <div class="quiz-result-slider__container">
+
+                <div class="quiz-comparison">
+
+                    <div class="quiz-comparison__header">
+                        <h2 class="quiz-comparison__title">
+                            {{ section.settings.comparison_heading }}
+                        </h2>
+
+                        <div class="quiz-comparison__subtitle">
+                            {{ section.settings.comparison_text }}
+                        </div>
+                    </div>
+
+                    <div class="quiz-comparison__table">
+
+                        <div class="quiz-comparison__column quiz-comparison__column--product">
+
+                            <h3>
+                                {{ section.settings.product_column_title }}
+                            </h3>
+
+                            {% for block in section.blocks %}
+                                {% if block.type == 'comparison' %}
+                                    <div
+                                            class="quiz-comparison__row"
+                                            {{ block.shopify_attributes }}
+                                    >
 <span class="quiz-comparison__status quiz-comparison__status--yes">
-✓
+{% if section.settings.comparison_yes_icon != blank %}
+    {{
+    section.settings.comparison_yes_icon
+    | image_url: width: 80
+    | image_tag: loading: 'lazy', widths: '20, 40, 60, 80', alt: ''
+    }}
+{% else %}
+    ✓
+{% endif %}
 </span>
 
-<span>
+                                        <span>
 {{ block.settings.product_text }}
 </span>
-</div>
-{% endif %}
-{% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-</div>
+                        </div>
 
-<div class="quiz-comparison__column quiz-comparison__column--other">
+                        <div class="quiz-comparison__column quiz-comparison__column--other">
 
-<h3>
-{{ section.settings.other_column_title }}
-</h3>
+                            <h3>
+                                {{ section.settings.other_column_title }}
+                            </h3>
 
-{% for block in section.blocks %}
-{% if block.type == 'comparison' %}
-<div class="quiz-comparison__row">
+                            {% for block in section.blocks %}
+                                {% if block.type == 'comparison' %}
+                                    <div class="quiz-comparison__row">
 
 <span
-class="
+        class="
 quiz-comparison__status
 {% if block.settings.other_status == 'warning' %}
 quiz-comparison__status--warning
@@ -468,1659 +542,1964 @@ quiz-comparison__status--no
 "
 >
 {% if block.settings.other_status == 'warning' %}
-!
+
+    {% if section.settings.comparison_warning_icon != blank %}
+        {{
+        section.settings.comparison_warning_icon
+        | image_url: width: 80
+        | image_tag: loading: 'lazy', widths: '20, 40, 60, 80', alt: ''
+        }}
+    {% else %}
+        !
+    {% endif %}
+
 {% else %}
-×
+
+    {% if section.settings.comparison_no_icon != blank %}
+        {{
+        section.settings.comparison_no_icon
+        | image_url: width: 80
+        | image_tag: loading: 'lazy', widths: '20, 40, 60, 80', alt: ''
+        }}
+    {% else %}
+        ×
+    {% endif %}
+
 {% endif %}
 </span>
 
-<span>
+                                        <span>
 {{ block.settings.other_text }}
 </span>
 
-</div>
-{% endif %}
-{% endfor %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</div>
-</div>
+            </div>
+        </div>
 
-</div>
+    </div>
 
 
-<div class="quiz-result-slider__footer">
+    <div class="quiz-result-slider__footer">
 
-{% if section.settings.show_back_button %}
-<button
-type="button"
-class="quiz-result-slider__back"
-data-quiz-back
->
-<span aria-hidden="true">←</span>
-<span>{{ section.settings.back_label }}</span>
-</button>
-{% endif %}
+        {% if section.settings.show_back_button %}
+            <button
+                    type="button"
+                    class="quiz-result-slider__back"
+                    data-quiz-back
+            >
+                <span aria-hidden="true">←</span>
+                <span>{{ section.settings.back_label }}</span>
+            </button>
+        {% endif %}
 
-<button
-type="button"
-class="quiz-result-slider__continue"
-data-quiz-continue
-{% if checkout_variant == blank %}
-disabled
-{% elsif section.settings.checkout_plan_index != 'one_time' and checkout_selling_plan == blank %}
-disabled
-{% endif %}
->
+        <button
+                type="button"
+                class="quiz-result-slider__continue"
+                data-quiz-continue
+                {% if checkout_variant == blank %}
+                    disabled
+                {% elsif section.settings.checkout_plan_index != 'one_time' and checkout_selling_plan == blank %}
+                    disabled
+                {% endif %}
+        >
 <span data-continue-label>
 {{ section.settings.continue_label }}
 </span>
-</button>
-</div>
+        </button>
+    </div>
 
-{% if request.design_mode and checkout_product %}
-<div style="display:none;" data-quiz-checkout-debug>
-Selected product: {{ checkout_product.title }}
-Selected variant: {{ checkout_variant.title }} ({{ checkout_variant.id }})
-{% if checkout_selling_plan %}
-Selected selling plan: {{ checkout_selling_plan.name }} ({{ checkout_selling_plan.id }})
-{% else %}
-Selected selling plan: One-time / none
-{% endif %}
-</div>
-{% endif %}
+    {% if request.design_mode and checkout_product %}
+        <div style="display:none;" data-quiz-checkout-debug>
+            Selected product: {{ checkout_product.title }}
+            Selected variant: {{ checkout_variant.title }} ({{ checkout_variant.id }})
+            {% if checkout_selling_plan %}
+                Selected selling plan: {{ checkout_selling_plan.name }} ({{ checkout_selling_plan.id }})
+            {% else %}
+                Selected selling plan: One-time / none
+            {% endif %}
+        </div>
+    {% endif %}
 
 </section>
 
 
 <style>
-#QuizResultSlider-{{ section.id }} {
-background: var(--qrs-bg);
-color: var(--qrs-text);
-font-family: Arial, Helvetica, sans-serif;
-}
-
-#QuizResultSlider-{{ section.id }} * {
-box-sizing: border-box;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__viewport {
-position: relative;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__slide {
-min-height: 740px;
-padding: 58px 32px 70px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__slide[hidden] {
-display: none !important;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__slide.is-active {
-animation: quizResultFade-{{ section.id }} 0.35s ease;
-}
-
-@keyframes quizResultFade-{{ section.id }} {
-from {
-opacity: 0;
-transform: translateX(12px);
-}
-
-to {
-opacity: 1;
-transform: translateX(0);
-}
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__container {
-width: min(100%, 976px);
-margin-inline: auto;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__container--timeline {
-display: grid;
-grid-template-columns: minmax(0, 1fr) minmax(400px, 465px);
-gap: 72px;
-align-items: center;
-padding-top: 85px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__title,
-#QuizResultSlider-{{ section.id }} .quiz-month-card__title,
-#QuizResultSlider-{{ section.id }} .quiz-summary__title,
-#QuizResultSlider-{{ section.id }} .quiz-comparison__title {
-margin: 0;
-font-family: 'Fraunces', Georgia, serif;
-color: var(--qrs-text);
-font-weight: 700;
-line-height: 1.08;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__title {
-max-width: 440px;
-font-size: 48px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__description {
-max-width: 480px;
-margin-top: 20px;
-color: var(--qrs-muted);
-font-size: 18px;
-line-height: 1.6;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__description p,
-#QuizResultSlider-{{ section.id }} .quiz-month-card__description p,
-#QuizResultSlider-{{ section.id }} .quiz-summary__subtitle p,
-#QuizResultSlider-{{ section.id }} .quiz-comparison__subtitle p {
-margin: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer {
-margin: 28px 0 0;
-color: var(--qrs-muted);
-font-size: 14px;
-line-height: 1.5;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--desktop {
-margin-top: 46px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--mobile {
-display: none;
-}
-
-
-/* Timeline */
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card {
-padding: 28px 24px 18px;
-border: 1px solid var(--qrs-border);
-border-radius: 16px;
-background: var(--qrs-card-bg);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__title {
-margin: 0;
-font-family: 'Fraunces', Georgia, serif;
-font-size: 20px;
-line-height: 1.2;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__divider {
-height: 1px;
-margin: 14px 0 18px;
-background: var(--qrs-border);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__dates,
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights {
-display: flex;
-align-items: center;
-justify-content: space-between;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__dates {
-color: var(--qrs-muted);
-font-size: 13px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights {
-margin-top: 2px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights strong {
-font-family: 'Fraunces', Georgia, serif;
-font-size: 38px;
-line-height: 1;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__arrow {
-color: var(--qrs-accent);
-font-size: 34px;
-line-height: 1;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart {
-position: relative;
-height: 155px;
-margin-top: 16px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__svg,
-#QuizResultSlider-{{ section.id }} .quiz-month-chart__svg {
-width: 100%;
-height: 100%;
-overflow: visible;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-chart-grid {
-stroke: var(--qrs-border);
-stroke-width: 1;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__area {
-fill: color-mix(in srgb, var(--qrs-accent) 8%, transparent);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__line,
-#QuizResultSlider-{{ section.id }} .quiz-month-chart__line {
-fill: none;
-stroke: var(--qrs-accent);
-stroke-width: 4;
-stroke-linecap: round;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__point {
-fill: var(--qrs-accent);
-stroke: var(--qrs-card-bg);
-stroke-width: 2;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__label {
-position: absolute;
-color: var(--qrs-accent);
-font-size: 13px;
-font-weight: 700;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__label--first {
-top: 35px;
-left: 30%;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-chart__label--last {
-right: 8px;
-bottom: -4px;
-}
-
-
-/* Month */
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card {
-display: grid;
-grid-template-columns: 0.9fr 1.3fr;
-gap: 50px;
-align-items: center;
-margin-top: 45px;
-padding: 38px 40px;
-border: 1px solid var(--qrs-border);
-border-radius: 16px;
-background: var(--qrs-card-bg);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__title {
-font-size: 34px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__description {
-margin-top: 18px;
-color: var(--qrs-muted);
-font-size: 16px;
-line-height: 1.6;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__chart-wrapper {
-position: relative;
-padding-top: 45px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__summary {
-position: absolute;
-top: -10px;
-right: 0;
-text-align: right;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__summary strong {
-display: block;
-color: var(--qrs-accent);
-font-family: 'Fraunces', Georgia, serif;
-font-size: 48px;
-line-height: 1;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__summary span {
-display: block;
-margin-top: 4px;
-color: var(--qrs-muted);
-font-size: 13px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-chart {
-height: 190px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-chart__labels {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-margin-top: -150px;
-position: relative;
-pointer-events: none;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-chart__labels > div {
-display: flex;
-min-height: 165px;
-flex-direction: column;
-justify-content: space-between;
-align-items: center;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-chart__labels strong {
-font-family: 'Fraunces', Georgia, serif;
-font-size: 17px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-chart__labels span {
-color: var(--qrs-muted);
-font-size: 12px;
-font-weight: 700;
-}
-
-
-/* Summary */
-
-#QuizResultSlider-{{ section.id }} .quiz-summary {
-padding-top: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__header {
-padding: 38px;
-border: 1px solid var(--qrs-border);
-border-radius: 16px;
-background: var(--qrs-card-bg);
-text-align: center;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__title {
-font-size: 36px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__subtitle {
-margin-top: 10px;
-color: var(--qrs-muted);
-font-size: 15px;
-line-height: 1.5;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__stats {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-margin-top: 16px;
-border: 1px solid var(--qrs-border);
-border-radius: 16px;
-background: var(--qrs-card-bg);
-overflow: hidden;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat {
-display: flex;
-align-items: center;
-gap: 14px;
-min-height: 92px;
-padding: 18px 26px;
-border-right: 1px solid var(--qrs-border);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat:last-child {
-border-right: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat__icon {
-flex: 0 0 auto;
-font-size: 27px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat span,
-#QuizResultSlider-{{ section.id }} .quiz-summary-info-card span,
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi-value span {
-display: block;
-margin-bottom: 4px;
-color: var(--qrs-muted);
-font-size: 12px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat strong {
-display: block;
-font-family: 'Fraunces', Georgia, serif;
-font-size: 25px;
-line-height: 1.1;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat small {
-font-size: 14px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi {
-display: grid;
-grid-template-columns: auto 130px 1fr;
-gap: 18px;
-align-items: center;
-margin-top: 16px;
-padding: 28px 40px;
-border: 1px solid var(--qrs-border);
-border-radius: 16px;
-background: var(--qrs-card-bg);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi-icon {
-font-size: 36px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi-value strong {
-display: block;
-font-family: 'Fraunces', Georgia, serif;
-font-size: 54px;
-line-height: 0.9;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi p {
-margin: 0;
-color: var(--qrs-muted);
-font-size: 18px;
-line-height: 1.4;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__cards {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 16px;
-margin-top: 16px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-info-card {
-display: grid;
-grid-template-columns: auto 1fr;
-gap: 20px;
-padding: 26px 32px;
-border: 1px solid var(--qrs-border);
-border-radius: 16px;
-background: var(--qrs-card-bg);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-info-card__icon {
-font-size: 32px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-info-card strong {
-display: block;
-font-family: 'Fraunces', Georgia, serif;
-font-size: 28px;
-line-height: 1.1;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-info-card p {
-margin: 8px 0 0;
-color: var(--qrs-muted);
-font-size: 14px;
-line-height: 1.5;
-}
-
-
-/* Comparison */
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison {
-padding-top: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__header {
-margin-bottom: 36px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__title {
-max-width: 500px;
-font-size: 48px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__subtitle {
-margin-top: 18px;
-color: var(--qrs-muted);
-font-size: 17px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__table {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 8px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__column {
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__column h3,
-#QuizResultSlider-{{ section.id }} .quiz-comparison__row {
-margin: 0;
-padding: 14px 20px;
-border-radius: 10px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__column h3 {
-background: color-mix(in srgb, var(--qrs-accent) 8%, var(--qrs-card-bg));
-font-family: 'Fraunces', Georgia, serif;
-font-size: 23px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__column--other h3,
-#QuizResultSlider-{{ section.id }} .quiz-comparison__column--other .quiz-comparison__row {
-background: color-mix(in srgb, var(--qrs-text) 4%, var(--qrs-card-bg));
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__column--product .quiz-comparison__row {
-background: color-mix(in srgb, var(--qrs-accent) 7%, var(--qrs-card-bg));
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__row {
-display: flex;
-align-items: center;
-gap: 12px;
-min-height: 54px;
-font-size: 15px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__status {
-display: inline-flex;
-width: 19px;
-height: 19px;
-flex: 0 0 19px;
-align-items: center;
-justify-content: center;
-border: 1.5px solid currentColor;
-border-radius: 50%;
-font-size: 12px;
-font-weight: 700;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__status--yes {
-color: #28795b;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__status--no {
-color: #e34e55;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__status--warning {
-color: #a87400;
-}
-
-
-/* Footer */
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
-position: sticky;
-z-index: 5;
-bottom: 0;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 12px;
-padding: 16px 24px;
-border-top: 1px solid var(--qrs-border);
-background: var(--qrs-card-bg);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__back {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-width: min(100%, 180px);
-min-height: 54px;
-padding: 14px 24px;
-border: 1px solid var(--qrs-border);
-border-radius: 999px;
-background: transparent;
-color: var(--qrs-text);
-font: inherit;
-font-size: 13px;
-font-weight: 700;
-letter-spacing: 0.04em;
-text-transform: uppercase;
-cursor: pointer;
-transition:
-background 0.2s ease,
-transform 0.2s ease;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__back:hover {
-background: color-mix(in srgb, var(--qrs-text) 5%, transparent);
-transform: translateY(-1px);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__continue {
-width: min(100%, 328px);
-min-height: 54px;
-padding: 14px 32px;
-border: 0;
-border-radius: 999px;
-background: var(--qrs-button-bg);
-color: var(--qrs-button-color);
-font: inherit;
-font-size: 13px;
-font-weight: 700;
-letter-spacing: 0.06em;
-text-transform: uppercase;
-cursor: pointer;
-transition:
-transform 0.2s ease,
-opacity 0.2s ease;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__continue:hover {
-opacity: 0.92;
-transform: translateY(-1px);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__continue:disabled {
-opacity: 0.6;
-cursor: not-allowed;
-transform: none;
-}
-
-
-@media screen and (max-width: 749px) {
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__slide {
-min-height: auto;
-padding: 40px 16px 48px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__container--timeline {
-display: block;
-padding-top: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__title,
-#QuizResultSlider-{{ section.id }} .quiz-comparison__title {
-font-size: 36px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__description {
-font-size: 16px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card {
-margin-top: 32px;
-padding: 22px 16px 14px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights strong {
-font-size: 30px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--desktop {
-display: none;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--mobile {
-display: block;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card {
-display: block;
-margin-top: 0;
-padding: 24px 18px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__title {
-font-size: 30px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__chart-wrapper {
-margin-top: 35px;
-padding-top: 60px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-month-card__summary strong {
-font-size: 40px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__header {
-padding: 28px 20px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__title {
-font-size: 30px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__stats {
-grid-template-columns: repeat(2, 1fr);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat {
-min-height: 86px;
-padding: 16px;
-border-bottom: 1px solid var(--qrs-border);
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat:nth-child(2) {
-border-right: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat:nth-child(3),
-#QuizResultSlider-{{ section.id }} .quiz-summary-stat:nth-child(4) {
-border-bottom: 0;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi {
-grid-template-columns: auto 1fr;
-padding: 24px 20px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__bmi p {
-grid-column: 1 / -1;
-font-size: 15px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary__cards {
-grid-template-columns: 1fr;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-summary-info-card {
-padding: 22px 20px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__table {
-grid-template-columns: 1fr;
-gap: 20px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-comparison__header {
-margin-bottom: 28px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
-padding: 12px 16px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
-gap: 8px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__back {
-width: auto;
-min-width: 110px;
-padding-inline: 18px;
-}
-
-#QuizResultSlider-{{ section.id }} .quiz-result-slider__continue {
-width: 100%;
-}
-}
+
+    #QuizResultSlider-{{ section.id }} {
+        background: var(--qrs-bg);
+        color: var(--qrs-text);
+        font-family: "Fraunces", Georgia, sans-serif;
+    }
+
+    #QuizResultSlider-{{ section.id }} * {
+        box-sizing: border-box;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__viewport {
+        position: relative;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__slide {
+        min-height: 740px;
+        padding: 58px 32px 70px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__slide[hidden] {
+        display: none !important;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__slide.is-active {
+        animation: quizResultFade-{{ section.id }} 0.35s ease;
+    }
+
+    @keyframes quizResultFade-{{ section.id }} {
+        from {
+            opacity: 0;
+            transform: translateX(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__container {
+        width: min(100%, 976px);
+        margin-inline: auto;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__container--timeline {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(400px, 465px);
+        gap: 72px;
+        align-items: center;
+        padding-top: 85px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__title,
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__title,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__title,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__title {
+        margin: 0;
+        font-family: 'Fraunces', Georgia, serif;
+        color: var(--qrs-text);
+        font-weight: 700;
+        line-height: 1.08;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__title {
+        max-width: 440px;
+        font-size: 48px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__description {
+        max-width: 480px;
+        margin-top: 20px;
+        color: var(--qrs-muted);
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__description p,
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__description p,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__subtitle p,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__subtitle p {
+        margin: 0;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer {
+        margin: 28px 0 0;
+        color: var(--qrs-muted);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--desktop {
+        margin-top: 46px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--mobile {
+        display: none;
+    }
+
+
+    /* Timeline */
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card {
+        padding: 28px 24px 18px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 16px;
+        background: var(--qrs-card-bg);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__title {
+        margin: 0;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 20px;
+        line-height: 1.2;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__divider {
+        height: 1px;
+        margin: 14px 0 18px;
+        background: var(--qrs-border);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__dates,
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__dates {
+        color: var(--qrs-muted);
+        font-size: 13px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights {
+        margin-top: 2px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights strong {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 38px;
+        line-height: 1;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__arrow {
+        color: var(--qrs-accent);
+        font-size: 34px;
+        line-height: 1;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart {
+        position: relative;
+        height: 155px;
+        margin-top: 16px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__svg,
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-chart-grid {
+        stroke: var(--qrs-border);
+        stroke-width: 1;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__area {
+        fill: color-mix(in srgb, var(--qrs-accent) 8%, transparent);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__line,
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__line {
+        fill: none;
+        stroke: var(--qrs-accent);
+        stroke-width: 4;
+        stroke-linecap: round;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__point {
+        fill: var(--qrs-accent);
+        stroke: var(--qrs-card-bg);
+        stroke-width: 2;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__label {
+        position: absolute;
+        color: var(--qrs-accent);
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__label--first {
+        top: 35px;
+        left: 30%;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-chart__label--last {
+        right: 8px;
+        bottom: -4px;
+    }
+
+
+    /* Month */
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card {
+        display: grid;
+        grid-template-columns: 0.95fr 1.45fr;
+        gap: 56px;
+        align-items: center;
+        margin-top: 45px;
+        padding: 38px 40px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 16px;
+        background: var(--qrs-card-bg);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__title {
+        font-size: 34px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__description {
+        margin-top: 18px;
+        color: var(--qrs-muted);
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__chart-wrapper {
+        position: relative;
+        padding-top: 45px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__summary {
+        position: absolute;
+        top: -10px;
+        right: 0;
+        text-align: right;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__summary strong {
+        display: block;
+        color: var(--qrs-accent);
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 48px;
+        line-height: 1;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__summary span {
+        display: block;
+        margin-top: 4px;
+        color: var(--qrs-muted);
+        font-size: 13px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart {
+        position: relative;
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__cap,
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__line {
+        fill: none;
+        stroke: var(--qrs-accent);
+        stroke-width: 5;
+        stroke-linecap: round;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__guide {
+        stroke: var(--qrs-border);
+        stroke-width: 2;
+        stroke-dasharray: 4 6;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__point {
+        fill: var(--qrs-accent);
+        stroke: var(--qrs-card-bg);
+        stroke-width: 3;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels strong {
+        position: absolute;
+        transform: translate(-50%, -100%);
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1;
+        white-space: nowrap;
+        color: var(--qrs-text);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels strong:nth-child(1) {
+        left: 10.9375%;
+        top: 17.6471%;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels strong:nth-child(2) {
+        left: 36.9792%;
+        top: 43.5294%;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels strong:nth-child(3) {
+        left: 63.0208%;
+        top: 65.7143%;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels strong:nth-child(4) {
+        left: 89.0625%;
+        top: 82.3529%;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__week-labels {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 8px;
+        padding-inline: 0;
+        text-align: center;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-month-chart__week-labels span {
+        color: var(--qrs-muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+    }
+
+
+    /* Summary */
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary {
+        padding-top: 0;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__header {
+        padding: 38px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 16px;
+        background: var(--qrs-card-bg);
+        text-align: center;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__title {
+        font-size: 36px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__subtitle {
+        margin-top: 10px;
+        color: var(--qrs-muted);
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 16px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 16px;
+        background: var(--qrs-card-bg);
+        overflow: hidden;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-height: 92px;
+        padding: 18px 26px;
+        border-right: 1px solid var(--qrs-border);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat:last-child {
+        border-right: 0;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat__icon {
+        flex: 0 0 auto;
+        font-size: 27px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat__icon img,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi-icon img,
+    #QuizResultSlider-{{ section.id }} .quiz-summary-info-card__icon img {
+        display: block;
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__custom-svg {
+        display: flex;
+        width: 32px;
+        height: 32px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__custom-svg svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat span,
+    #QuizResultSlider-{{ section.id }} .quiz-summary-info-card span,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi-value span {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--qrs-muted);
+        font-size: 12px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat strong {
+        display: block;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 25px;
+        line-height: 1.1;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-stat small {
+        font-size: 14px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi {
+        display: grid;
+        grid-template-columns: auto 130px 1fr;
+        gap: 18px;
+        align-items: center;
+        margin-top: 16px;
+        padding: 28px 40px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 16px;
+        background: var(--qrs-card-bg);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi-icon {
+        font-size: 36px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi-value strong {
+        display: block;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 54px;
+        line-height: 0.9;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi p {
+        margin: 0;
+        color: var(--qrs-muted);
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary__cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-info-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+        padding: 26px 32px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 16px;
+        background: var(--qrs-card-bg);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-info-card__icon {
+        font-size: 32px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-info-card strong {
+        display: block;
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 28px;
+        line-height: 1.1;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-summary-info-card p {
+        margin: 8px 0 0;
+        color: var(--qrs-muted);
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+
+    /* Comparison */
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison {
+        padding-top: 0;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__header {
+        margin-bottom: 36px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__title {
+        max-width: 500px;
+        font-size: 48px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__subtitle {
+        margin-top: 18px;
+        color: var(--qrs-muted);
+        font-size: 17px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__table {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column h3,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__row {
+        margin: 0;
+        padding: 14px 20px;
+        border-radius: 10px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column h3 {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 23px;
+    }
+
+    /* LEFT — Gut Flow */
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column--product h3,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column--product .quiz-comparison__row {
+        background: {{ section.settings.comparison_product_row_bg }};
+    }
+
+    /* RIGHT — Basic fiber supplements */
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column--other h3,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column--other .quiz-comparison__row {
+        background: {{ section.settings.comparison_other_row_bg }};
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 54px;
+        font-size: 15px;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__status {
+        display: inline-flex;
+        width: 19px;
+        height: 19px;
+        flex: 0 0 19px;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid currentColor;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__status:has(img) {
+        border: 0;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__status img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__status--yes {
+        color: #28795b;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__status--no {
+        color: #e34e55;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__status--warning {
+        color: #a87400;
+    }
+
+
+    /* Footer */
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
+        position: sticky;
+        z-index: 5;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px 24px;
+        border-top: 1px solid var(--qrs-border);
+        background: var(--qrs-card-bg);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: min(100%, 180px);
+        min-height: 54px;
+        padding: 14px 24px;
+        border: 1px solid var(--qrs-border);
+        border-radius: 999px;
+        background: transparent;
+        color: var(--qrs-text);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__back:hover {
+        background: color-mix(in srgb, var(--qrs-text) 5%, transparent);
+        transform: translateY(-1px);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__continue {
+        width: min(100%, 328px);
+        min-height: 54px;
+        padding: 14px 32px;
+        border: 0;
+        border-radius: 999px;
+        background: var(--qrs-button-bg);
+        color: var(--qrs-button-color);
+        font: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__continue:hover {
+        opacity: 0.92;
+        transform: translateY(-1px);
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__continue:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+
+    /* Typography controls */
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__title,
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__title,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__title,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__title { font-size: var(--qrs-heading-size-desktop); }
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__description,
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__description,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__subtitle,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__subtitle { font-size: var(--qrs-body-size-desktop); }
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__title,
+    #QuizResultSlider-{{ section.id }} .quiz-comparison__column h3 { font-size: var(--qrs-card-title-size-desktop); }
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights strong,
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__summary strong,
+    #QuizResultSlider-{{ section.id }} .quiz-summary__bmi-value strong { font-size: var(--qrs-value-size-desktop); }
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer,
+    #QuizResultSlider-{{ section.id }} .quiz-timeline-card__dates,
+    #QuizResultSlider-{{ section.id }} .quiz-month-card__summary span { font-size: var(--qrs-small-size-desktop); }
+
+    @media screen and (max-width: 749px) {
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__title,
+        #QuizResultSlider-{{ section.id }} .quiz-month-card__title,
+        #QuizResultSlider-{{ section.id }} .quiz-summary__title,
+        #QuizResultSlider-{{ section.id }} .quiz-comparison__title { font-size: var(--qrs-heading-size-mobile); }
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__description,
+        #QuizResultSlider-{{ section.id }} .quiz-month-card__description,
+        #QuizResultSlider-{{ section.id }} .quiz-summary__subtitle,
+        #QuizResultSlider-{{ section.id }} .quiz-comparison__subtitle { font-size: var(--qrs-body-size-mobile); }
+        #QuizResultSlider-{{ section.id }} .quiz-timeline-card__title,
+        #QuizResultSlider-{{ section.id }} .quiz-comparison__column h3 { font-size: var(--qrs-card-title-size-mobile); }
+        #QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights strong,
+        #QuizResultSlider-{{ section.id }} .quiz-month-card__summary strong,
+        #QuizResultSlider-{{ section.id }} .quiz-summary__bmi-value strong { font-size: var(--qrs-value-size-mobile); }
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer,
+        #QuizResultSlider-{{ section.id }} .quiz-timeline-card__dates,
+        #QuizResultSlider-{{ section.id }} .quiz-month-card__summary span { font-size: var(--qrs-small-size-mobile); }
+
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__slide {
+            min-height: auto;
+            padding: 40px 16px 48px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__container--timeline {
+            display: block;
+            padding-top: 0;
+        }
+
+
+
+        #QuizResultSlider-{{ section.id }} .quiz-timeline-card {
+            margin-top: 32px;
+            padding: 22px 16px 14px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-timeline-card__weights strong {
+            font-size: 30px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--desktop {
+            display: none;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__disclaimer--mobile {
+            display: block;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-month-card {
+            display: block;
+            margin-top: 0;
+            padding: 24px 18px;
+        }
+
+
+        #QuizResultSlider-{{ section.id }} .quiz-month-card__chart-wrapper {
+            margin-top: 35px;
+            padding-top: 60px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-month-chart {
+            margin-top: 8px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-month-chart__weight-labels strong {
+            font-size: 14px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-month-chart__week-labels span {
+            font-size: 10px;
+        }
+
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary__header {
+            padding: 28px 20px;
+        }
+
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary__stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary-stat {
+            min-height: 86px;
+            padding: 16px;
+            border-bottom: 1px solid var(--qrs-border);
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary-stat:nth-child(2) {
+            border-right: 0;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary-stat:nth-child(3),
+        #QuizResultSlider-{{ section.id }} .quiz-summary-stat:nth-child(4) {
+            border-bottom: 0;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary__bmi {
+            grid-template-columns: auto 1fr;
+            padding: 24px 20px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary__bmi p {
+            grid-column: 1 / -1;
+            font-size: 15px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary__cards {
+            grid-template-columns: 1fr;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-summary-info-card {
+            padding: 22px 20px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-comparison__table {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-comparison__header {
+            margin-bottom: 28px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
+            padding: 12px 16px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
+            gap: 8px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__back {
+            width: auto;
+            min-width: 110px;
+            padding-inline: 18px;
+        }
+
+        #QuizResultSlider-{{ section.id }} .quiz-result-slider__continue {
+            width: 100%;
+        }
+    }
 </style>
 
 
 <script>
-(() => {
-const section = document.getElementById(
-'QuizResultSlider-{{ section.id }}'
-);
+    (() => {
+        const section = document.getElementById(
+            'QuizResultSlider-{{ section.id }}'
+        );
 
-if (!section || section.dataset.initialized === 'true') return;
+        if (!section || section.dataset.initialized === 'true') return;
 
-section.dataset.initialized = 'true';
+        section.dataset.initialized = 'true';
 
-const slides = Array.from(
-section.querySelectorAll('[data-quiz-slide]')
-);
+        const slides = Array.from(
+            section.querySelectorAll('[data-quiz-slide]')
+        );
 
-const continueButton = section.querySelector(
-'[data-quiz-continue]'
-);
+        const continueButton = section.querySelector(
+            '[data-quiz-continue]'
+        );
 
-const continueLabel = section.querySelector(
-'[data-continue-label]'
-);
+        const continueLabel = section.querySelector(
+            '[data-continue-label]'
+        );
 
-const backButton = section.querySelector(
-'[data-quiz-back]'
-);
+        const backButton = section.querySelector(
+            '[data-quiz-back]'
+        );
 
-const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
 
-const checkoutConfig = {
-variantId: {{ checkout_variant.id | default: 0 | json }},
-quantity: {{ section.settings.checkout_quantity | default: 1 | json }},
-sellingPlanId: {{ checkout_selling_plan.id | default: 0 | json }}
-};
+        const checkoutConfig = {
+            variantId: {{ checkout_variant.id | default: 0 | json }},
+            quantity: {{ section.settings.checkout_quantity | default: 1 | json }},
+            sellingPlanId: {{ checkout_selling_plan.id | default: 0 | json }}
+        };
 
-const data = {
-age: parseNumber(params.get('age')),
-height: parseNumber(params.get('height')),
-currentWeight: parseNumber(params.get('currentWeight')),
-targetWeight: parseNumber(params.get('targetWeight')),
-gender: params.get('gender') || '{{ section.settings.default_gender | escape }}'
-};
+        const fallbackData = {
+            age: {{ section.settings.placeholder_age | json }},
+            height: {{ section.settings.placeholder_height | json }},
+            currentWeight: {{ section.settings.placeholder_current_weight | json }},
+            targetWeight: {{ section.settings.placeholder_target_weight | json }},
+            gender: {{ section.settings.default_gender | json }}
+        };
 
-let activeSlide = 0;
-let isAddingToCart = false;
+        const urlData = {
+            age: parseNumber(params.get('age')),
+            height: parseNumber(params.get('height')),
+            currentWeight: parseNumber(params.get('currentWeight')),
+            targetWeight: parseNumber(params.get('targetWeight')),
+            gender: params.get('gender')
+        };
 
+        const data = {
+            age: urlData.age ?? fallbackData.age,
+            height: urlData.height ?? fallbackData.height,
+            currentWeight: urlData.currentWeight ?? fallbackData.currentWeight,
+            targetWeight: urlData.targetWeight ?? fallbackData.targetWeight,
+            gender: urlData.gender || fallbackData.gender
+        };
 
-function parseNumber(value) {
-const number = Number.parseFloat(value);
+        console.log('[Quiz Result] URL data:', urlData);
+        console.log('[Quiz Result] Final data:', data);
 
-return Number.isFinite(number)
-? number
-: null;
-}
+        let activeSlide = 0;
+        let isAddingToCart = false;
 
 
-function setText(selector, value) {
-section.querySelectorAll(selector).forEach((element) => {
-element.textContent =
-value !== null &&
-value !== undefined &&
-value !== ''
-? value
-: '—';
-});
-}
+        function parseNumber(value) {
+            const number = Number.parseFloat(value);
 
+            return Number.isFinite(number)
+                ? number
+                : null;
+        }
 
-function formatWeight(value) {
-if (value === null) return '—';
 
-return Math.round(value);
-}
+        function setText(selector, value) {
+            section.querySelectorAll(selector).forEach((element) => {
+                element.textContent =
+                    value !== null &&
+                    value !== undefined &&
+                    value !== ''
+                        ? value
+                        : '—';
+            });
+        }
 
 
-function calculateBMI() {
-if (!data.height || !data.currentWeight) return null;
+        function formatWeight(value) {
+            if (value === null) return '—';
 
-const weightKg = data.currentWeight * 0.45359237;
-const heightM = data.height / 100;
+            return Math.round(value);
+        }
 
-if (!heightM) return null;
 
-return weightKg / (heightM * heightM);
-}
+        function calculateBMI() {
+            if (!data.height || !data.currentWeight) return null;
 
+            const weightKg = data.currentWeight * 0.45359237;
+            const heightM = data.height / 100;
 
-function getBMIDescription(bmi) {
-if (bmi === null) return '—';
+            if (!heightM) return null;
 
-if (bmi < 18.5) {
-return 'Below the range most guidelines call healthy';
-}
+            return weightKg / (heightM * heightM);
+        }
 
-if (bmi < 25) {
-return 'Within the range most guidelines call healthy';
-}
 
-if (bmi < 30) {
-return 'Above the range most guidelines call healthy';
-}
+        function getBMIDescription(bmi) {
+            if (bmi === null) return '—';
 
-return 'Above the range most guidelines call healthy';
-}
+            if (bmi < 18.5) {
+                return 'Below the range most guidelines call healthy';
+            }
 
+            if (bmi < 25) {
+                return 'Within the range most guidelines call healthy';
+            }
 
-function getMetabolicAge(bmi) {
-if (!data.age) return null;
+            if (bmi < 30) {
+                return 'Above the range most guidelines call healthy';
+            }
 
-if (!bmi) return data.age;
+            return 'Above the range most guidelines call healthy';
+        }
 
-if (bmi < 25) {
-return data.age;
-}
 
-if (bmi < 30) {
-return data.age + 3;
-}
+        function getMetabolicAge(bmi) {
+            if (!data.age) return null;
 
-if (bmi < 35) {
-return data.age + 5;
-}
+            if (!bmi) return data.age;
 
-return data.age + 8;
-}
+            if (bmi < 25) {
+                return data.age;
+            }
 
+            if (bmi < 30) {
+                return data.age + 3;
+            }
 
-function getTimelineMonths() {
-if (!data.currentWeight || !data.targetWeight) {
-return 5;
-}
+            if (bmi < 35) {
+                return data.age + 5;
+            }
 
-const difference = Math.max(
-0,
-data.currentWeight - data.targetWeight
-);
+            return data.age + 8;
+        }
 
-return Math.max(
-1,
-Math.ceil(difference / 8)
-);
-}
 
+        function getTimelineMonths() {
+            if (!data.currentWeight || !data.targetWeight) {
+                return 5;
+            }
 
-function formatMonth(date) {
-return new Intl.DateTimeFormat('en-US', {
-month: 'short',
-year: 'numeric'
-}).format(date);
-}
+            const difference = Math.max(
+                0,
+                data.currentWeight - data.targetWeight
+            );
 
+            return Math.max(
+                1,
+                Math.ceil(difference / 8)
+            );
+        }
 
-function renderBasicData() {
-setText(
-'[data-current-weight]',
-formatWeight(data.currentWeight)
-);
 
-setText(
-'[data-target-weight]',
-formatWeight(data.targetWeight)
-);
+        function formatMonth(date) {
+            return new Intl.DateTimeFormat('en-US', {
+                month: 'short',
+                year: 'numeric'
+            }).format(date);
+        }
 
-setText(
-'[data-summary-age]',
-data.age ? Math.round(data.age) : null
-);
 
-setText(
-'[data-summary-height]',
-data.height ? Math.round(data.height) : null
-);
+        function renderBasicData() {
+            setText(
+                '[data-current-weight]',
+                formatWeight(data.currentWeight)
+            );
 
-setText(
-'[data-summary-weight]',
-formatWeight(data.currentWeight)
-);
+            setText(
+                '[data-target-weight]',
+                formatWeight(data.targetWeight)
+            );
 
-setText(
-'[data-summary-gender]',
-data.gender
-);
+            setText(
+                '[data-summary-age]',
+                data.age ? Math.round(data.age) : null
+            );
 
-const bmi = calculateBMI();
+            setText(
+                '[data-summary-height]',
+                data.height ? Math.round(data.height) : null
+            );
 
-setText(
-'[data-bmi]',
-bmi ? bmi.toFixed(1) : null
-);
+            setText(
+                '[data-summary-weight]',
+                formatWeight(data.currentWeight)
+            );
 
-setText(
-'[data-bmi-description]',
-getBMIDescription(bmi)
-);
+            setText(
+                '[data-summary-gender]',
+                data.gender
+            );
 
-setText(
-'[data-metabolic-age]',
-getMetabolicAge(bmi)
-);
-}
+            const bmi = calculateBMI();
 
+            setText(
+                '[data-bmi]',
+                bmi ? bmi.toFixed(1) : null
+            );
 
-function renderTimeline() {
-const now = new Date();
+            setText(
+                '[data-bmi-description]',
+                getBMIDescription(bmi)
+            );
 
-const targetDate = new Date(now);
+            setText(
+                '[data-metabolic-age]',
+                getMetabolicAge(bmi) !== null
+                    ? `${getMetabolicAge(bmi)} years`
+                    : null
+            );
+        }
 
-targetDate.setMonth(
-targetDate.getMonth() + getTimelineMonths()
-);
 
-setText(
-'[data-current-month]',
-formatMonth(now)
-);
+        function renderTimeline() {
+            const now = new Date();
 
-setText(
-'[data-target-month]',
-formatMonth(targetDate)
-);
+            const targetDate = new Date(now);
 
-if (!data.currentWeight || !data.targetWeight) return;
+            targetDate.setMonth(
+                targetDate.getMonth() + getTimelineMonths()
+            );
 
-const totalLoss = Math.max(
-0,
-data.currentWeight - data.targetWeight
-);
+            setText(
+                '[data-current-month]',
+                formatMonth(now)
+            );
 
-const firstLoss = Math.min(
-Math.max(Math.round(totalLoss * 0.4), 1),
-totalLoss
-);
+            setText(
+                '[data-target-month]',
+                formatMonth(targetDate)
+            );
 
-const x1 = 125;
-const y1 = 70;
+            if (!data.currentWeight || !data.targetWeight) return;
 
-const x2 = 500;
-const y2 = 135;
+            const totalLoss = Math.max(
+                0,
+                data.currentWeight - data.targetWeight
+            );
 
-const line = section.querySelector(
-'[data-timeline-line]'
-);
+            const firstLoss = Math.min(
+                Math.max(Math.round(totalLoss * 0.4), 1),
+                totalLoss
+            );
 
-const area = section.querySelector(
-'[data-timeline-area]'
-);
+            const x1 = 125;
+            const y1 = 70;
 
-const pointOne = section.querySelector(
-'[data-timeline-point-one]'
-);
+            const x2 = 500;
+            const y2 = 135;
 
-const pointTwo = section.querySelector(
-'[data-timeline-point-two]'
-);
+            const line = section.querySelector(
+                '[data-timeline-line]'
+            );
 
-if (line) {
-line.setAttribute(
-'d',
-`M 0 20
+            const area = section.querySelector(
+                '[data-timeline-area]'
+            );
+
+            const pointOne = section.querySelector(
+                '[data-timeline-point-one]'
+            );
+
+            const pointTwo = section.querySelector(
+                '[data-timeline-point-two]'
+            );
+
+            if (line) {
+                line.setAttribute(
+                    'd',
+                    `M 0 20
 C 100 60, 250 105, 500 135`
-);
-}
+                );
+            }
 
-if (area) {
-area.setAttribute(
-'d',
-`M 0 20
+            if (area) {
+                area.setAttribute(
+                    'd',
+                    `M 0 20
 C 100 60, 250 105, 500 135
 L 500 150
 L 0 150
 Z`
-);
-}
+                );
+            }
 
-if (pointOne) {
-pointOne.setAttribute('cx', x1);
-pointOne.setAttribute('cy', y1);
-}
+            if (pointOne) {
+                pointOne.setAttribute('cx', x1);
+                pointOne.setAttribute('cy', y1);
+            }
 
-if (pointTwo) {
-pointTwo.setAttribute('cx', x2);
-pointTwo.setAttribute('cy', y2);
-}
+            if (pointTwo) {
+                pointTwo.setAttribute('cx', x2);
+                pointTwo.setAttribute('cy', y2);
+            }
 
-setText(
-'[data-timeline-label-one]',
-`-${firstLoss} lb`
-);
+            setText(
+                '[data-timeline-label-one]',
+                `-${firstLoss} lb`
+            );
 
-setText(
-'[data-timeline-label-two]',
-`-${Math.round(totalLoss)} lb`
-);
-}
+            setText(
+                '[data-timeline-label-two]',
+                `-${Math.round(totalLoss)} lb`
+            );
+        }
 
 
-function renderMonthProgress() {
-if (!data.currentWeight || !data.targetWeight) return;
+        function renderMonthProgress() {
+            if (!data.currentWeight || !data.targetWeight) return;
 
-const totalDifference = Math.max(
-0,
-data.currentWeight - data.targetWeight
-);
+            const totalDifference = Math.max(
+                0,
+                data.currentWeight - data.targetWeight
+            );
 
-const firstMonthLoss = Math.min(
-9,
-totalDifference
-);
+            const firstMonthLoss = Math.min(
+                9,
+                totalDifference
+            );
 
-setText(
-'[data-first-month-loss]',
-`-${Math.round(firstMonthLoss)} lb`
-);
+            setText(
+                '[data-first-month-loss]',
+                `-${Math.round(firstMonthLoss)} lb`
+            );
 
-const weeklyLoss = firstMonthLoss / 4;
+            const weeklyLoss = firstMonthLoss / 4;
 
-const weights = Array.from(
-{ length: 4 },
-(_, index) => {
-return data.currentWeight -
-weeklyLoss * (index + 1);
-}
-);
+            const weights = Array.from(
+                { length: 4 },
+                (_, index) => {
+                    return data.currentWeight -
+                        weeklyLoss * (index + 1);
+                }
+            );
 
-weights.forEach((weight, index) => {
-setText(
-`[data-week-weight="${index}"]`,
-`${formatWeight(weight)} lb`
-);
-});
+            weights.forEach((weight, index) => {
+                setText(
+                    `[data-week-weight="${index}"]`,
+                    `${formatWeight(weight)} lb`
+                );
+            });
 
-const points = [
-{ x: 40, y: 30 },
-{ x: 190, y: 65 },
-{ x: 340, y: 100 },
-{ x: 480, y: 125 }
-];
+            const points = [
+                { x: 70, y: 30 },
+                { x: 236.6667, y: 74 },
+                { x: 403.3333, y: 111.7143 },
+                { x: 570, y: 140 }
+            ];
 
-const line = section.querySelector(
-'[data-month-line]'
-);
+            const line = section.querySelector(
+                '[data-month-line]'
+            );
 
-if (line) {
-line.setAttribute(
-'d',
-`
-M ${points[0].x} ${points[0].y}
-C 110 42,
-135 54,
-${points[1].x} ${points[1].y}
-S 280 90,
-${points[2].x} ${points[2].y}
-S 430 125,
-${points[3].x} ${points[3].y}
-`
-);
-}
+            if (line) {
+                line.setAttribute(
+                    'd',
+                    'M 70 30 C 97.7778 37.3333, 181.1111 60.381, 236.6667 74 C 292.2222 87.619, 347.7778 100.7143, 403.3333 111.7143 C 458.8889 122.7143, 542.2222 135.2857, 570 140'
+                );
+            }
 
-const pointsContainer = section.querySelector(
-'[data-week-points]'
-);
+            const guidesContainer = section.querySelector(
+                '[data-week-guides]'
+            );
 
-if (pointsContainer) {
-pointsContainer.innerHTML = points
-.map((point) => {
-return `
-<circle
-cx="${point.x}"
-cy="${point.y}"
-r="6"
-fill="var(--qrs-accent)"
-stroke="var(--qrs-card-bg)"
-stroke-width="2"
+            if (guidesContainer) {
+                guidesContainer.innerHTML = points
+                    .map((point) => {
+                        return `
+<line
+class="quiz-month-chart__guide"
+x1="${point.x}"
+x2="${point.x}"
+y1="${point.y + 14}"
+y2="170"
 />
 `;
-})
-.join('');
-}
-}
+                    })
+                    .join('');
+            }
+
+            const pointsContainer = section.querySelector(
+                '[data-week-points]'
+            );
+
+            if (pointsContainer) {
+                pointsContainer.innerHTML = points
+                    .map((point) => {
+                        return `
+<circle
+class="quiz-month-chart__point"
+cx="${point.x}"
+cy="${point.y}"
+r="10"
+/>
+`;
+                    })
+                    .join('');
+            }
+        }
 
 
-function showSlide(index) {
-slides.forEach((slide, slideIndex) => {
-const active = slideIndex === index;
+        function showSlide(index) {
+            slides.forEach((slide, slideIndex) => {
+                const active = slideIndex === index;
 
-slide.hidden = !active;
-slide.classList.toggle(
-'is-active',
-active
-);
-});
+                slide.hidden = !active;
+                slide.classList.toggle(
+                    'is-active',
+                    active
+                );
+            });
 
-activeSlide = index;
+            activeSlide = index;
 
-if (continueLabel) {
-continueLabel.textContent =
-activeSlide === slides.length - 1
-? '{{ section.settings.checkout_label | escape }}'
-: '{{ section.settings.continue_label | escape }}';
-}
+            if (continueLabel) {
+                continueLabel.textContent =
+                    activeSlide === slides.length - 1
+                        ? '{{ section.settings.checkout_label | escape }}'
+                        : '{{ section.settings.continue_label | escape }}';
+            }
 
-section.scrollIntoView({
-behavior: 'smooth',
-block: 'start'
-});
-}
-
-
-async function addProductAndCheckout() {
-if (isAddingToCart) return;
-
-if (!checkoutConfig.variantId) {
-console.error('[Quiz Result] Checkout product is not configured.');
-return;
-}
-
-isAddingToCart = true;
-continueButton.disabled = true;
-
-const originalLabel = continueLabel?.textContent;
-
-if (continueLabel) {
-continueLabel.textContent = 'Loading...';
-}
-
-const item = {
-id: Number(checkoutConfig.variantId),
-quantity: Number(checkoutConfig.quantity) || 1
-};
-
-if (
-checkoutConfig.sellingPlanId &&
-String(checkoutConfig.sellingPlanId).trim()
-) {
-item.selling_plan = Number(checkoutConfig.sellingPlanId);
-}
-
-try {
-const root = window.Shopify?.routes?.root || '/';
-
-const response = await fetch(`${root}cart/add.js`, {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-'Accept': 'application/json'
-},
-body: JSON.stringify({
-items: [item]
-})
-});
-
-if (!response.ok) {
-const error = await response.json().catch(() => null);
-
-throw new Error(
-error?.description ||
-error?.message ||
-'Unable to add product to cart.'
-);
-}
-
-window.location.assign(`${root}checkout`);
-} catch (error) {
-console.error('[Quiz Result] Checkout error:', error);
-
-isAddingToCart = false;
-continueButton.disabled = false;
-
-if (continueLabel) {
-continueLabel.textContent =
-originalLabel ||
-'{{ section.settings.checkout_label | escape }}';
-}
-}
-}
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
 
 
-backButton?.addEventListener('click', () => {
-if (activeSlide > 0) {
-showSlide(activeSlide - 1);
-return;
-}
+        async function addProductAndCheckout() {
+            if (isAddingToCart) return;
 
-const backUrl = {{ section.settings.back_url | json }};
+            if (!checkoutConfig.variantId) {
+                console.error('[Quiz Result] Checkout product is not configured.');
+                return;
+            }
 
-if (backUrl) {
-window.location.assign(backUrl);
-return;
-}
+            isAddingToCart = true;
+            continueButton.disabled = true;
 
-window.history.back();
-});
+            const originalLabel = continueLabel?.textContent;
+
+            if (continueLabel) {
+                continueLabel.textContent = 'Loading...';
+            }
+
+            const item = {
+                id: Number(checkoutConfig.variantId),
+                quantity: Number(checkoutConfig.quantity) || 1
+            };
+
+            if (
+                checkoutConfig.sellingPlanId &&
+                String(checkoutConfig.sellingPlanId).trim()
+            ) {
+                item.selling_plan = Number(checkoutConfig.sellingPlanId);
+            }
+
+            try {
+                const root = window.Shopify?.routes?.root || '/';
+
+                const response = await fetch(`${root}cart/add.js`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        items: [item]
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json().catch(() => null);
+
+                    throw new Error(
+                        error?.description ||
+                        error?.message ||
+                        'Unable to add product to cart.'
+                    );
+                }
+
+                window.location.assign(`${root}checkout`);
+            } catch (error) {
+                console.error('[Quiz Result] Checkout error:', error);
+
+                isAddingToCart = false;
+                continueButton.disabled = false;
+
+                if (continueLabel) {
+                    continueLabel.textContent =
+                        originalLabel ||
+                        '{{ section.settings.checkout_label | escape }}';
+                }
+            }
+        }
 
 
-continueButton?.addEventListener('click', async () => {
-if (activeSlide < slides.length - 1) {
-showSlide(activeSlide + 1);
-return;
-}
+        backButton?.addEventListener('click', () => {
+            if (activeSlide > 0) {
+                showSlide(activeSlide - 1);
+                return;
+            }
 
-await addProductAndCheckout();
-});
+            const backUrl = {{ section.settings.back_url | json }};
+
+            if (backUrl) {
+                window.location.assign(backUrl);
+                return;
+            }
+
+            window.history.back();
+        });
 
 
-renderBasicData();
-renderTimeline();
-renderMonthProgress();
-})();
+        continueButton?.addEventListener('click', async () => {
+            if (activeSlide < slides.length - 1) {
+                showSlide(activeSlide + 1);
+                return;
+            }
+
+            await addProductAndCheckout();
+        });
+
+
+        renderBasicData();
+        renderTimeline();
+        renderMonthProgress();
+    })();
 </script>
 
 
 {% schema %}
 {
-"name": "Quiz result slider",
-"tag": "section",
-"class": "section-quiz-result-slider",
-"settings": [
-{
-"type": "header",
-"content": "Colors"
-},
-{
-"type": "color",
-"id": "background_color",
-"label": "Background",
-"default": "#FBF8F4"
-},
-{
-"type": "color",
-"id": "card_background",
-"label": "Card background",
-"default": "#FFFFFF"
-},
-{
-"type": "color",
-"id": "text_color",
-"label": "Text",
-"default": "#302522"
-},
-{
-"type": "color",
-"id": "muted_color",
-"label": "Muted text",
-"default": "#766863"
-},
-{
-"type": "color",
-"id": "accent_color",
-"label": "Accent",
-"default": "#9A6B00"
-},
-{
-"type": "color",
-"id": "border_color",
-"label": "Border",
-"default": "#E5D9D1"
-},
-{
-"type": "color",
-"id": "button_background",
-"label": "Button background",
-"default": "#C83E4D"
-},
-{
-"type": "color",
-"id": "button_color",
-"label": "Button text",
-"default": "#FFFFFF"
-},
+  "name": "Quiz result slider",
+  "tag": "section",
+  "class": "section-quiz-result-slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FBF8F4"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#302522"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text",
+      "default": "#766863"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#9A6B00"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#E5D9D1"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#C83E4D"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button text",
+      "default": "#FFFFFF"
+    },
 
-{
-"type": "header",
-"content": "Slide 1 — Timeline"
-},
-{
-"type": "text",
-"id": "timeline_heading",
-"label": "Heading",
-"default": "Here's how Gut Flow can support your progress"
-},
-{
-"type": "richtext",
-"id": "timeline_text",
-"label": "Text",
-"default": "<p>Your personalized results are in. Learn how Gut Flow's prebiotic fiber supports regularity and helps you feel fuller after meals, so you can stay on track.</p>"
-},
-{
-"type": "textarea",
-"id": "timeline_disclaimer",
-"label": "Disclaimer",
-"default": "*This estimate is based on your answers and assumes consistent nutrition and activity habits. Individual results vary."
-},
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    { "type": "range", "id": "heading_size_desktop", "label": "Heading size — desktop", "min": 24, "max": 72, "step": 1, "unit": "px", "default": 48 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size — mobile", "min": 20, "max": 52, "step": 1, "unit": "px", "default": 36 },
+    { "type": "range", "id": "body_size_desktop", "label": "Body size — desktop", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "body_size_mobile", "label": "Body size — mobile", "min": 12, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "card_title_size_desktop", "label": "Card title size — desktop", "min": 14, "max": 36, "step": 1, "unit": "px", "default": 20 },
+    { "type": "range", "id": "card_title_size_mobile", "label": "Card title size — mobile", "min": 14, "max": 30, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "value_size_desktop", "label": "Large value size — desktop", "min": 24, "max": 64, "step": 1, "unit": "px", "default": 38 },
+    { "type": "range", "id": "value_size_mobile", "label": "Large value size — mobile", "min": 22, "max": 52, "step": 1, "unit": "px", "default": 30 },
+    { "type": "range", "id": "small_size_desktop", "label": "Small text size — desktop", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "small_size_mobile", "label": "Small text size — mobile", "min": 10, "max": 18, "step": 1, "unit": "px", "default": 13 },
 
-{
-"type": "header",
-"content": "Slide 2 — First month"
-},
-{
-"type": "text",
-"id": "month_heading",
-"label": "Heading",
-"default": "Let small changes build into real progress"
-},
-{
-"type": "richtext",
-"id": "month_text",
-"label": "Text",
-"default": "<p>With Gut Flow supporting your routine, small daily steps can build toward your wellness goals and better results month after month.</p>"
-},
-{
-"type": "textarea",
-"id": "month_disclaimer",
-"label": "Disclaimer",
-"default": "*Estimates are based on your answers and general nutrition guidance, not medical advice. Individual results vary. A balanced diet and regular activity are needed to lose weight."
-},
+    {
+      "type": "header",
+      "content": "Preview / fallback data"
+    },
+    { "type": "range", "id": "placeholder_age", "label": "Age", "min": 18, "max": 118, "step": 1, "default": 42 },
+    { "type": "range", "id": "placeholder_height", "label": "Height (cm)", "min": 100, "max": 250, "step": 2, "default": 164 },
+    { "type": "range", "id": "placeholder_current_weight", "label": "Current weight (lb)", "min": 50, "max": 700, "step": 10, "default": 180 },
+    { "type": "range", "id": "placeholder_target_weight", "label": "Target weight (lb)", "min": 50, "max": 700, "step": 10, "default": 160 },
+    { "type": "text", "id": "placeholder_bmi", "label": "BMI placeholder", "default": "83.3" },
+    { "type": "range", "id": "placeholder_metabolic_age", "label": "Metabolic age placeholder", "min": 18, "max": 120, "step": 2, "default": 50 },
+    { "type": "text", "id": "placeholder_first_month_loss", "label": "First month loss placeholder", "default": "-9 lb" },
+    { "type": "text", "id": "placeholder_week_1", "label": "Week 1 placeholder", "default": "497 lb" },
+    { "type": "text", "id": "placeholder_week_2", "label": "Week 2 placeholder", "default": "495 lb" },
+    { "type": "text", "id": "placeholder_week_3", "label": "Week 3 placeholder", "default": "493 lb" },
+    { "type": "text", "id": "placeholder_week_4", "label": "Week 4 placeholder", "default": "491 lb" },
 
-{
-"type": "header",
-"content": "Slide 3 — Summary"
-},
-{
-"type": "text",
-"id": "summary_heading",
-"label": "Heading",
-"default": "Your personal summary"
-},
-{
-"type": "richtext",
-"id": "summary_text",
-"label": "Text",
-"default": "<p>Here's what your answers tell us. Next, let's see what we can do about it.</p>"
-},
-{
-"type": "text",
-"id": "default_gender",
-"label": "Default gender",
-"default": "Female"
-},
-{
-"type": "textarea",
-"id": "metabolic_text",
-"label": "Metabolic age text",
-"default": "A few years ahead of your age. Daily fiber and a steadier rhythm move it back."
-},
-{
-"type": "text",
-"id": "bowel_value",
-"label": "Bowel movement value",
-"default": "1 time per week"
-},
-{
-"type": "text",
-"id": "bowel_text",
-"label": "Bowel movement text",
-"default": "Your rhythm is slow"
-},
+    {
+      "type": "header",
+      "content": "Slide 1 — Timeline"
+    },
+    {
+      "type": "text",
+      "id": "timeline_heading",
+      "label": "Heading",
+      "default": "Here's how Gut Flow can support your progress"
+    },
+    {
+      "type": "richtext",
+      "id": "timeline_text",
+      "label": "Text",
+      "default": "<p>Your personalized results are in. Learn how Gut Flow's prebiotic fiber supports regularity and helps you feel fuller after meals, so you can stay on track.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "timeline_disclaimer",
+      "label": "Disclaimer",
+      "default": "*This estimate is based on your answers and assumes consistent nutrition and activity habits. Individual results vary."
+    },
 
-{
-"type": "header",
-"content": "Slide 4 — Comparison"
-},
-{
-"type": "text",
-"id": "comparison_heading",
-"label": "Heading",
-"default": "Why Gut Flow stands out from other fiber supplements"
-},
-{
-"type": "richtext",
-"id": "comparison_text",
-"label": "Text",
-"default": "<p>Same goal, very different way of getting there.</p>"
-},
-{
-"type": "text",
-"id": "product_column_title",
-"label": "Product column",
-"default": "Gut Flow"
-},
-{
-"type": "text",
-"id": "other_column_title",
-"label": "Comparison column",
-"default": "Basic fiber supplements"
-},
+    {
+      "type": "header",
+      "content": "Slide 2 — First month"
+    },
+    {
+      "type": "text",
+      "id": "month_heading",
+      "label": "Heading",
+      "default": "Let small changes build into real progress"
+    },
+    {
+      "type": "richtext",
+      "id": "month_text",
+      "label": "Text",
+      "default": "<p>With Gut Flow supporting your routine, small daily steps can build toward your wellness goals and better results month after month.</p>"
+    },
+    {
+      "type": "textarea",
+      "id": "month_disclaimer",
+      "label": "Disclaimer",
+      "default": "*Estimates are based on your answers and general nutrition guidance, not medical advice. Individual results vary. A balanced diet and regular activity are needed to lose weight."
+    },
 
-{
-"type": "header",
-"content": "Navigation"
-},
-{
-"type": "text",
-"id": "continue_label",
-"label": "Continue label",
-"default": "Continue"
-},
-{
-"type": "text",
-"id": "checkout_label",
-"label": "Checkout button label",
-"default": "Get Gut Flow"
-},
-{
-"type": "checkbox",
-"id": "show_back_button",
-"label": "Show back button",
-"default": true
-},
-{
-"type": "text",
-"id": "back_label",
-"label": "Back button label",
-"default": "Back"
-},
-{
-"type": "url",
-"id": "back_url",
-"label": "Back URL",
-"info": "Used on the first result slide. Example: /pages/gut-flow-quiz"
-},
-{
-"type": "header",
-"content": "Checkout"
-},
-{
-"type": "product",
-"id": "checkout_product",
-"label": "Product to checkout"
-},
-{
-"type": "range",
-"id": "checkout_quantity",
-"label": "Quantity",
-"min": 1,
-"max": 10,
-"step": 1,
-"default": 1
-},
-{
-"type": "select",
-"id": "checkout_plan_index",
-"label": "Subscription plan",
-"default": "1",
-"info": "Selects the selling plan by its order on the selected product.",
-"options": [
-{
-"value": "one_time",
-"label": "One-time purchase"
-},
-{
-"value": "1",
-"label": "Selling plan 1"
-},
-{
-"value": "2",
-"label": "Selling plan 2"
-},
-{
-"value": "3",
-"label": "Selling plan 3"
-},
-{
-"value": "4",
-"label": "Selling plan 4"
-},
-{
-"value": "5",
-"label": "Selling plan 5"
-}
-]
-}
-],
-"blocks": [
-{
-"type": "comparison",
-"name": "Comparison row",
-"settings": [
-{
-"type": "text",
-"id": "product_text",
-"label": "Gut Flow",
-"default": "Plant-based prebiotic fiber"
-},
-{
-"type": "text",
-"id": "other_text",
-"label": "Basic supplements",
-"default": "Harsh stimulants or laxatives"
-},
-{
-"type": "select",
-"id": "other_status",
-"label": "Comparison status",
-"default": "no",
-"options": [
-{
-"value": "no",
-"label": "No"
-},
-{
-"value": "warning",
-"label": "Warning"
-}
-]
-}
-]
-}
-],
-"presets": [
-{
-"name": "Quiz result slider",
-"blocks": [
-{
-"type": "comparison",
-"settings": {
-"product_text": "Plant-based prebiotic fiber",
-"other_text": "Harsh stimulants or laxatives",
-"other_status": "no"
-}
-},
-{
-"type": "comparison",
-"settings": {
-"product_text": "Helps you feel fuller between meals",
-"other_text": "Relies on restriction or skipping meals",
-"other_status": "no"
-}
-},
-{
-"type": "comparison",
-"settings": {
-"product_text": "Supports regularity and beneficial bacteria",
-"other_text": "Often focused mainly on bulk",
-"other_status": "warning"
-}
-},
-{
-"type": "comparison",
-"settings": {
-"product_text": "Easy-to-start gummy format",
-"other_text": "Stronger options may require a prescription",
-"other_status": "warning"
-}
-},
-{
-"type": "comparison",
-"settings": {
-"product_text": "No scooping or mixing",
-"other_text": "Powders require extra prep",
-"other_status": "no"
-}
-},
-{
-"type": "comparison",
-"settings": {
-"product_text": "Made in the USA with locally sourced ingredients",
-"other_text": "Quality and sourcing vary",
-"other_status": "warning"
-}
-}
-]
-}
-]
+    {
+      "type": "header",
+      "content": "Slide 3 — Icons"
+    },
+    {
+      "type": "html",
+      "id": "summary_gender_svg",
+      "label": "Gender — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_gender_icon",
+      "label": "Gender — Image"
+    },
+    {
+      "type": "html",
+      "id": "summary_age_svg",
+      "label": "Age — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_age_icon",
+      "label": "Age — Image"
+    },
+    {
+      "type": "html",
+      "id": "summary_height_svg",
+      "label": "Height — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_height_icon",
+      "label": "Height — Image"
+    },
+    {
+      "type": "html",
+      "id": "summary_weight_svg",
+      "label": "Weight — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_weight_icon",
+      "label": "Weight — Image"
+    },
+    {
+      "type": "html",
+      "id": "summary_bmi_svg",
+      "label": "BMI — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_bmi_icon",
+      "label": "BMI — Image"
+    },
+    {
+      "type": "html",
+      "id": "summary_metabolic_age_svg",
+      "label": "Metabolic age — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_metabolic_age_icon",
+      "label": "Metabolic age — Image"
+    },
+    {
+      "type": "html",
+      "id": "summary_bowel_svg",
+      "label": "Bowel movement — Custom SVG"
+    },
+    {
+      "type": "image_picker",
+      "id": "summary_bowel_icon",
+      "label": "Bowel movement — Image"
+    },
+
+    {
+      "type": "header",
+      "content": "Slide 3 — Summary"
+    },
+    {
+      "type": "text",
+      "id": "summary_heading",
+      "label": "Heading",
+      "default": "Your personal summary"
+    },
+    {
+      "type": "richtext",
+      "id": "summary_text",
+      "label": "Text",
+      "default": "<p>Here's what your answers tell us. Next, let's see what we can do about it.</p>"
+    },
+    {
+      "type": "text",
+      "id": "default_gender",
+      "label": "Default gender",
+      "default": "Female"
+    },
+    {
+      "type": "textarea",
+      "id": "metabolic_text",
+      "label": "Metabolic age text",
+      "default": "A few years ahead of your age. Daily fiber and a steadier rhythm move it back."
+    },
+    {
+      "type": "text",
+      "id": "bowel_value",
+      "label": "Bowel movement value",
+      "default": "1 time per week"
+    },
+    {
+      "type": "text",
+      "id": "bowel_text",
+      "label": "Bowel movement text",
+      "default": "Your rhythm is slow"
+    },
+
+    {
+      "type": "header",
+      "content": "Slide 4 — Comparison"
+    },
+    {
+      "type": "image_picker",
+      "id": "comparison_yes_icon",
+      "label": "Yes icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "comparison_no_icon",
+      "label": "No icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "comparison_warning_icon",
+      "label": "Warning icon"
+    },
+    {
+      "type": "color",
+      "id": "comparison_product_row_bg",
+      "label": "Left column rows background",
+      "default": "#F7F3E8"
+    },
+    {
+      "type": "color",
+      "id": "comparison_other_row_bg",
+      "label": "Right column rows background",
+      "default": "#F7F6F5"
+    },
+    {
+      "type": "text",
+      "id": "comparison_heading",
+      "label": "Heading",
+      "default": "Why Gut Flow stands out from other fiber supplements"
+    },
+    {
+      "type": "richtext",
+      "id": "comparison_text",
+      "label": "Text",
+      "default": "<p>Same goal, very different way of getting there.</p>"
+    },
+    {
+      "type": "text",
+      "id": "product_column_title",
+      "label": "Product column",
+      "default": "Gut Flow"
+    },
+    {
+      "type": "text",
+      "id": "other_column_title",
+      "label": "Comparison column",
+      "default": "Basic fiber supplements"
+    },
+
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "text",
+      "id": "continue_label",
+      "label": "Continue label",
+      "default": "Continue"
+    },
+    {
+      "type": "text",
+      "id": "checkout_label",
+      "label": "Checkout button label",
+      "default": "Get Gut Flow"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_back_button",
+      "label": "Show back button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back button label",
+      "default": "Back"
+    },
+    {
+      "type": "url",
+      "id": "back_url",
+      "label": "Back URL",
+      "info": "Used on the first result slide. Example: /pages/gut-flow-quiz"
+    },
+    {
+      "type": "header",
+      "content": "Checkout"
+    },
+    {
+      "type": "product",
+      "id": "checkout_product",
+      "label": "Product to checkout"
+    },
+    {
+      "type": "range",
+      "id": "checkout_quantity",
+      "label": "Quantity",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "select",
+      "id": "checkout_plan_index",
+      "label": "Subscription plan",
+      "default": "1",
+      "info": "Selects the selling plan by its order on the selected product.",
+      "options": [
+        {
+          "value": "one_time",
+          "label": "One-time purchase"
+        },
+        {
+          "value": "1",
+          "label": "Selling plan 1"
+        },
+        {
+          "value": "2",
+          "label": "Selling plan 2"
+        },
+        {
+          "value": "3",
+          "label": "Selling plan 3"
+        },
+        {
+          "value": "4",
+          "label": "Selling plan 4"
+        },
+        {
+          "value": "5",
+          "label": "Selling plan 5"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "comparison",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_text",
+          "label": "Gut Flow",
+          "default": "Plant-based prebiotic fiber"
+        },
+        {
+          "type": "text",
+          "id": "other_text",
+          "label": "Basic supplements",
+          "default": "Harsh stimulants or laxatives"
+        },
+        {
+          "type": "select",
+          "id": "other_status",
+          "label": "Comparison status",
+          "default": "no",
+          "options": [
+            {
+              "value": "no",
+              "label": "No"
+            },
+            {
+              "value": "warning",
+              "label": "Warning"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz result slider",
+      "blocks": [
+        {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Plant-based prebiotic fiber",
+            "other_text": "Harsh stimulants or laxatives",
+            "other_status": "no"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Helps you feel fuller between meals",
+            "other_text": "Relies on restriction or skipping meals",
+            "other_status": "no"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Supports regularity and beneficial bacteria",
+            "other_text": "Often focused mainly on bulk",
+            "other_status": "warning"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Easy-to-start gummy format",
+            "other_text": "Stronger options may require a prescription",
+            "other_status": "warning"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "product_text": "No scooping or mixing",
+            "other_text": "Powders require extra prep",
+            "other_status": "no"
+          }
+        },
+        {
+          "type": "comparison",
+          "settings": {
+            "product_text": "Made in the USA with locally sourced ingredients",
+            "other_text": "Quality and sourcing vary",
+            "other_status": "warning"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
