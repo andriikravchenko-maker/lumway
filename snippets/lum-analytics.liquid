@@ -1752,16 +1752,15 @@ track('upsell_product_added', props);
       }, true);
     })();
 
-  // =====================================================================
+    // =====================================================================
   // QUIZ RESULT — product_added_to_cart + secure_checkout_button_clicked
-  // On the LAST slide the quiz "continue" adds the product and redirects to
-  // /checkout. We intercept that click, hold navigation, fire both events,
-  // then re-dispatch the click so the quiz proceeds. Fires once; intent_id is
-  // taken from the cart so it matches the pixel's checkout_started.
+  // Mirrors the drawer checkout flow: intercept the final click, await the
+  // Amplitude flush (so events actually leave), then let the quiz proceed.
   // =====================================================================
   (function () {
     if (!document.querySelector('[data-quiz-continue]')) return;
 
+    function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
     function userEmail() {
       if (window.__lumCustomerId) return String(window.__lumCustomerId);
       var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
@@ -1771,14 +1770,24 @@ track('upsell_product_added', props);
     function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
     function newIntentId(){ return 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); }
 
+    // flush-aware track (same idea as the drawer's trackAndFlush)
+    async function trackAndFlush(name, props) {
+      try {
+        var r = track(name, props);
+        if (r && r.promise && typeof r.promise.then === 'function') {
+          await Promise.race([r.promise, sleep(1200)]);
+        } else {
+          await sleep(300);
+        }
+      } catch (e) {}
+    }
+
     function isCheckoutStep() {
       var all = [].slice.call(document.querySelectorAll('.quiz-result-slider__slide'));
       if (!all.length) return false;
       var active = document.querySelector('.quiz-result-slider__slide.is-active');
-      if (!active) return false;
-      return all.indexOf(active) === all.length - 1;
+      return active ? all.indexOf(active) === all.length - 1 : false;
     }
-
     function packLabelFromLine(line) {
       var raw = (line.options_with_values && line.options_with_values[0] && line.options_with_values[0].value) || line.variant_title || line.title || '';
       var m = String(raw).match(/(\d+)\s*jar/i);
@@ -1792,75 +1801,76 @@ track('upsell_product_added', props);
       return m ? m[1] + '-month' : undefined;
     }
 
-    function fireEvents(cart) {
-      var lines = cart.items || [];
-      if (!lines.length) return;
-      var line = lines[lines.length - 1];
-      var uid = userEmail();
-      var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
-      var intentId = (cart.attributes && cart.attributes.lum_checkout_intent_id) || sessionStorage.getItem('__lum_intent') || newIntentId();
-      sessionStorage.setItem('__lum_intent', intentId);
+    var processing = false;
+    document.addEventListener('click', async function (e) {
+      var btn = e.target.closest('[data-quiz-continue]');
+      if (!btn || btn.disabled) return;
+      if (processing) return;                 // our re-dispatched click → let quiz run
+      if (!isCheckoutStep()) return;          // intermediate → advance slides
+      processing = true;
 
-      var atc = {
-        product_id:    line.sku || String(line.product_id) || undefined,
-        product_name:  (line.product_title || line.title || '').replace(/\s*-\s*\d+\s*jars?$/i, '') || undefined,
-        variant_id:    packLabelFromLine(line),
-        price:         Math.round(line.final_price != null ? line.final_price : line.price) / 100,
-        quantity:      line.quantity || 1,
-        currency:      cart.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
-        purchase_type: isSub ? 'subscription' : 'one_time'
-      };
-      if (isSub) { var st = subTypeFromLine(line); if (st) atc.subscription_type = st; }
-      track('product_added_to_cart', atc);
-
-      track('secure_checkout_button_clicked', {
-        checkout_intent_id: intentId,
-        cart_value:       (cart.total_price || 0) / 100,
-        currency:         cart.currency,
-        items_number:     cart.item_count,
-        has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
-        product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
-        product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
-        is_logged_in:     !!uid
-      });
-
-      if (!(cart.attributes && cart.attributes.lum_checkout_intent_id)) {
-        fetch('/cart/update.js', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
-          body: JSON.stringify({ attributes: { lum_checkout_intent_id: intentId } })
-        }).catch(function () {});
-      }
-    }
-
-    var LUM_QUIZ_FIRED = false;
-    var LUM_QUIZ_GO = false;
-
-    document.addEventListener('click', function (e) {
-      var hit = e.target.closest('[data-quiz-continue]');
-      if (!hit || hit.disabled) return;
-      if (LUM_QUIZ_GO) return;          // our re-dispatched click → let quiz handle it
-      if (!isCheckoutStep()) return;    // intermediate clicks just advance slides
-      if (LUM_QUIZ_FIRED) return;
-      LUM_QUIZ_FIRED = true;
-
-      // HOLD the quiz's own handler + navigation
+      // hold the quiz handler + navigation
       e.preventDefault();
+      e.stopPropagation();
       e.stopImmediatePropagation();
 
-      // read cart (quiz hasn't added yet — but on last slide the variant is known;
-      // read current cart, fire, then let the quiz run to add + checkout)
-      fetch('/cart.js', { headers: { 'Accept': 'application/json' }, keepalive: true })
-        .then(function (r) { return r.json(); })
-        .then(function (cart) { fireEvents(cart); })
-        .catch(function () {})
-        .then(function () {
-          // re-run the quiz's click (adds product + redirects) after events sent
-          setTimeout(function () {
-            LUM_QUIZ_GO = true;
-            hit.click();
-          }, 250);
+      // the quiz adds the item on its own handler which we just blocked, so add it
+      // ourselves is NOT needed — instead read cart AFTER re-dispatch. But we must
+      // fire before checkout. Strategy: read current cart, fire, then re-run click.
+      var intentId = getSafeIntent();
+
+      // write intent to cart (await, like the drawer)
+      try {
+        await fetch('/cart/update.js', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ attributes: { lum_checkout_intent_id: intentId, lum_checkout_click_ts: String(Date.now()) } })
         });
+      } catch (e2) {}
+
+      // read cart
+      var cart = null;
+      try { cart = await (await fetch('/cart.js', { headers: { Accept: 'application/json' }, cache: 'no-store' })).json(); } catch (e3) {}
+
+      if (cart && cart.items && cart.items.length) {
+        var lines = cart.items;
+        var line = lines[lines.length - 1];
+        var uid = userEmail();
+        var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
+
+        var atc = {
+          product_id:    line.sku || String(line.product_id) || undefined,
+          product_name:  (line.product_title || line.title || '').replace(/\s*-\s*\d+\s*jars?$/i, '') || undefined,
+          variant_id:    packLabelFromLine(line),
+          price:         Math.round(line.final_price != null ? line.final_price : line.price) / 100,
+          quantity:      line.quantity || 1,
+          currency:      cart.currency || 'USD',
+          purchase_type: isSub ? 'subscription' : 'one_time'
+        };
+        if (isSub) { var st = subTypeFromLine(line); if (st) atc.subscription_type = st; }
+        await trackAndFlush('product_added_to_cart', atc);
+
+        await trackAndFlush('secure_checkout_button_clicked', {
+          checkout_intent_id: intentId,
+          cart_value:       (cart.total_price || 0) / 100,
+          currency:         cart.currency,
+          items_number:     cart.item_count,
+          has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
+          product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
+          product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
+          is_logged_in:     !!uid
+        });
+      }
+
+      // now let the quiz do its own add + redirect
+      processing = 'go';
+      btn.click();
     }, true);
+
+    function getSafeIntent() {
+      var id = sessionStorage.getItem('__lum_intent') || newIntentId();
+      sessionStorage.setItem('__lum_intent', id);
+      return id;
+    }
   })();
 
 
