@@ -1755,19 +1755,15 @@ track('upsell_product_added', props);
    
 // ============================================================================
 // QUIZ RESULT ANALYTICS — product_added_to_cart + secure_checkout_button_clicked
-// FULLY SELF-CONTAINED: has its own track + flush, does not depend on the main
-// lum-analytics IIFE. Can live anywhere on the quiz-result page (even a separate
-// <script>). Reads product from the button's data-quiz-* attrs, intercepts the
-// final "continue" click, adds the item, fires both events (awaiting the
-// Amplitude send), writes intent to the cart, then redirects to /checkout.
+// Self-contained. On the final "continue" click: shows a full-screen loader
+// immediately, adds the product, fires both events (awaited), then redirects to
+// /checkout. The loader covers the wait and blocks double-clicks.
 // ============================================================================
 (function () {
-  var btnEl = document.querySelector('[data-quiz-continue]');
-  if (!btnEl) return;
+  if (!document.querySelector('[data-quiz-continue]')) return;
 
   function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
   function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
-
   function userEmail() {
     if (window.__lumCustomerId) return String(window.__lumCustomerId);
     var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
@@ -1779,8 +1775,6 @@ track('upsell_product_added', props);
     if (!id) { id = 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); sessionStorage.setItem('__lum_intent', id); }
     return id;
   }
-
-  // own track: dispatch lum:analytics + send to Amplitude, return the SDK promise
   function ampTrack(name, props) {
     var payload = Object.assign({}, props || {});
     try { document.dispatchEvent(new CustomEvent('lum:analytics', { detail: { event: name, properties: payload } })); } catch (e) {}
@@ -1791,13 +1785,28 @@ track('upsell_product_added', props);
     } catch (e) {}
     return null;
   }
-  // flush-aware: wait for the send (or 1200ms) so it leaves before navigation
   async function trackAndFlush(name, props) {
     try {
       var r = ampTrack(name, props);
-      if (r && r.promise && typeof r.promise.then === 'function') await Promise.race([r.promise, sleep(1200)]);
-      else await sleep(300);
+      if (r && r.promise && typeof r.promise.then === 'function') await Promise.race([r.promise, sleep(1000)]);
+      else await sleep(250);
     } catch (e) {}
+  }
+
+  // ---- full-screen loader --------------------------------------------------
+  function showLoader() {
+    if (document.getElementById('lum-quiz-loader')) return;
+    var ov = document.createElement('div');
+    ov.id = 'lum-quiz-loader';
+    ov.setAttribute('aria-live', 'polite');
+    ov.style.cssText =
+      'position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;' +
+      'background:rgba(251,248,244,.92);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);';
+    ov.innerHTML =
+      '<div style="width:44px;height:44px;border:3px solid rgba(17,59,52,.15);border-top-color:#113b34;' +
+      'border-radius:50%;animation:lumQuizSpin .8s linear infinite;"></div>' +
+      '<style>@keyframes lumQuizSpin{to{transform:rotate(360deg)}}</style>';
+    document.body.appendChild(ov);
   }
 
   function isCheckoutStep() {
@@ -1827,10 +1836,11 @@ track('upsell_product_added', props);
     if (!isCheckoutStep()) return;   // intermediate slide → let the quiz advance
     processing = true;
 
-    // take over the final click: block quiz add+redirect, do it ourselves
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
+
+    showLoader();          // immediate full-screen feedback, blocks re-clicks
 
     var root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
     var variantId = btn.getAttribute('data-quiz-variant');
@@ -1838,7 +1848,6 @@ track('upsell_product_added', props);
     var qty       = parseInt(btn.getAttribute('data-quiz-qty'), 10) || 1;
     var intentId  = getIntentId();
 
-    // 1) add the quiz product to the cart
     try {
       if (variantId && Number(variantId)) {
         var item = { id: Number(variantId), quantity: qty };
@@ -1850,7 +1859,6 @@ track('upsell_product_added', props);
       }
     } catch (e2) {}
 
-    // 2) write intent into the cart (awaited)
     try {
       await fetch('/cart/update.js', {
         method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -1858,7 +1866,6 @@ track('upsell_product_added', props);
       });
     } catch (e3) {}
 
-    // 3) read cart, fire both events (awaited flush)
     var cart = null;
     try { cart = await (await fetch('/cart.js', { headers: { Accept: 'application/json' }, cache: 'no-store' })).json(); } catch (e4) {}
 
@@ -1897,7 +1904,6 @@ track('upsell_product_added', props);
       });
     }
 
-    // 4) go to checkout
     window.location.assign(root + 'checkout');
   }, true);
 })();
