@@ -1752,103 +1752,128 @@ track('upsell_product_added', props);
       }, true);
     })();
 
+   // =====================================================================
+    // QUIZ RESULT — product_added_to_cart + secure_checkout_button_clicked
+    // Self-contained. Reads the product from the button's data-quiz-* attrs
+    // (added in the section Liquid), intercepts the final click, adds the item,
+    // fires both events via trackAndFlush (awaited → they actually send), then
+    // redirects to /checkout. No dependency on the quiz script.
+    // Requires trackAndFlush + getIntentId from the main IIFE.
     // =====================================================================
-  // QUIZ RESULT — product_added_to_cart + secure_checkout_button_clicked
-  // Registers window.lumQuizCheckout(); the quiz calls it (awaited) AFTER the
-  // product is added and BEFORE redirecting to /checkout. Cart is ready, the
-  // redirect waits for the flush → events always send. intent_id is taken from
-  // the cart so it matches the pixel's checkout_started.
-  // =====================================================================
-  (function () {
-    function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
-    function userEmail() {
-      if (window.__lumCustomerId) return String(window.__lumCustomerId);
-      var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
-      if (m && m.customerId) return String(m.customerId);
-      return null;
-    }
-    function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
-    function newIntentId(){ return 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); }
-    function packLabelFromLine(line) {
-      var raw = (line.options_with_values && line.options_with_values[0] && line.options_with_values[0].value) || line.variant_title || line.title || '';
-      var m = String(raw).match(/(\d+)\s*jar/i);
-      var n = m ? parseInt(m[1], 10) : 1;
-      return n + (n === 1 ? '-jar' : '-jars');
-    }
-    function subTypeFromLine(line) {
-      var sp = line.selling_plan_allocation && line.selling_plan_allocation.selling_plan;
-      if (!sp) return undefined;
-      var m = ((sp.name || '') + ' ' + (sp.description || '')).match(/([123])\s*[-\s]?\s*month/i);
-      return m ? m[1] + '-month' : undefined;
-    }
+    (function () {
+      var btnEl = document.querySelector('[data-quiz-continue]');
+      if (!btnEl) return;
 
-    // flush-aware track: waits for the Amplitude send (or 1200ms) so the event
-    // actually leaves before the quiz navigates away.
-    async function trackAndFlush(name, props) {
-      try {
-        var r = track(name, props);
-        if (r && r.promise && typeof r.promise.then === 'function') {
-          await Promise.race([r.promise, sleep(1200)]);
-        } else {
-          await sleep(250);
-        }
-      } catch (e) {}
-    }
+      function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
+      function userEmailQ() {
+        if (window.__lumCustomerId) return String(window.__lumCustomerId);
+        var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
+        if (m && m.customerId) return String(m.customerId);
+        return null;
+      }
+      function isCheckoutStep() {
+        var all = [].slice.call(document.querySelectorAll('.quiz-result-slider__slide'));
+        if (!all.length) return true;
+        var active = document.querySelector('.quiz-result-slider__slide.is-active');
+        return active ? all.indexOf(active) === all.length - 1 : false;
+      }
+      function packLabelFromLine(line) {
+        var raw = (line.options_with_values && line.options_with_values[0] && line.options_with_values[0].value) || line.variant_title || line.title || '';
+        var m = String(raw).match(/(\d+)\s*jar/i);
+        var n = m ? parseInt(m[1], 10) : 1;
+        return n + (n === 1 ? '-jar' : '-jars');
+      }
+      function subTypeFromLine(line) {
+        var sp = line.selling_plan_allocation && line.selling_plan_allocation.selling_plan;
+        if (!sp) return undefined;
+        var mm = ((sp.name || '') + ' ' + (sp.description || '')).match(/([123])\s*[-\s]?\s*month/i);
+        return mm ? mm[1] + '-month' : undefined;
+      }
 
-    // called (awaited) by the quiz right before it redirects to /checkout
-    window.lumQuizCheckout = async function () {
-      var cart = null;
-      try {
-        cart = await (await fetch('/cart.js', { headers: { Accept: 'application/json' }, cache: 'no-store' })).json();
-      } catch (e) {}
-      if (!cart || !cart.items || !cart.items.length) return;
+      var quizProcessing = false;
 
-      var lines = cart.items;
-      var line = lines[lines.length - 1];
-      var uid = userEmail();
-      var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
+      document.addEventListener('click', async function (e) {
+        var btn = e.target.closest('[data-quiz-continue]');
+        if (!btn || btn.disabled) return;
+        if (quizProcessing) return;
+        if (!isCheckoutStep()) return;   // intermediate slide → let the quiz advance
+        quizProcessing = true;
 
-      // reuse the intent already in cart so it matches the pixel; else own
-      var intentId = (cart.attributes && cart.attributes.lum_checkout_intent_id) || sessionStorage.getItem('__lum_intent') || newIntentId();
-      sessionStorage.setItem('__lum_intent', intentId);
+        // take over: block the quiz's own add+redirect, do it ourselves
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
 
-      // ensure intent is in the cart (awaited) before we leave
-      if (!(cart.attributes && cart.attributes.lum_checkout_intent_id)) {
+        var root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+        var variantId = btn.getAttribute('data-quiz-variant');
+        var planId    = btn.getAttribute('data-quiz-plan');
+        var qty       = parseInt(btn.getAttribute('data-quiz-qty'), 10) || 1;
+        var intentId  = getIntentId();
+
+        // 1) add the quiz product to the cart
+        try {
+          if (variantId && Number(variantId)) {
+            var item = { id: Number(variantId), quantity: qty };
+            if (planId && Number(planId)) item.selling_plan = Number(planId);
+            await fetch(root + 'cart/add.js', {
+              method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+              body: JSON.stringify({ items: [item] })
+            });
+          }
+        } catch (e2) {}
+
+        // 2) write intent into the cart (awaited)
         try {
           await fetch('/cart/update.js', {
             method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
             body: JSON.stringify({ attributes: { lum_checkout_intent_id: intentId, lum_checkout_click_ts: String(Date.now()) } })
           });
-        } catch (e) {}
-      }
+        } catch (e3) {}
 
-      // 1) product_added_to_cart (quiz product)
-      var atc = {
-        product_id:    line.sku || String(line.product_id) || undefined,
-        product_name:  (line.product_title || line.title || '').replace(/\s*-\s*\d+\s*jars?$/i, '') || undefined,
-        variant_id:    packLabelFromLine(line),
-        price:         Math.round(line.final_price != null ? line.final_price : line.price) / 100,
-        quantity:      line.quantity || 1,
-        currency:      cart.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
-        purchase_type: isSub ? 'subscription' : 'one_time'
-      };
-      if (isSub) { var st = subTypeFromLine(line); if (st) atc.subscription_type = st; }
-      await trackAndFlush('product_added_to_cart', atc);
+        // 3) read cart and fire both events (awaited flush)
+        var cart = null;
+        try { cart = await (await fetch('/cart.js', { headers: { Accept: 'application/json' }, cache: 'no-store' })).json(); } catch (e4) {}
 
-      // 2) secure_checkout_button_clicked (whole cart)
-      await trackAndFlush('secure_checkout_button_clicked', {
-        checkout_intent_id: intentId,
-        cart_value:       (cart.total_price || 0) / 100,
-        currency:         cart.currency,
-        items_number:     cart.item_count,
-        has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
-        product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
-        product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
-        is_logged_in:     !!uid
-      });
-    };
-  })();
+        if (cart && cart.items && cart.items.length) {
+          var lines = cart.items;
+          // prefer the just-added variant line; else last line
+          var line = null;
+          for (var i = lines.length - 1; i >= 0; i--) {
+            if (variantId && String(lines[i].variant_id) === String(variantId)) { line = lines[i]; break; }
+          }
+          if (!line) line = lines[lines.length - 1];
 
+          var uid = userEmailQ();
+          var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
+
+          var atc = {
+            product_id:    line.sku || String(line.product_id) || undefined,
+            product_name:  (line.product_title || line.title || '').replace(/\s*-\s*\d+\s*jars?$/i, '') || undefined,
+            variant_id:    packLabelFromLine(line),
+            price:         Math.round(line.final_price != null ? line.final_price : line.price) / 100,
+            quantity:      line.quantity || 1,
+            currency:      cart.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+            purchase_type: isSub ? 'subscription' : 'one_time'
+          };
+          if (isSub) { var st = subTypeFromLine(line); if (st) atc.subscription_type = st; }
+          await trackAndFlush('product_added_to_cart', atc);
+
+          await trackAndFlush('secure_checkout_button_clicked', {
+            checkout_intent_id: intentId,
+            cart_value:       (cart.total_price || 0) / 100,
+            currency:         cart.currency,
+            items_number:     cart.item_count,
+            has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
+            product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
+            product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
+            is_logged_in:     !!uid
+          });
+        }
+
+        // 4) go to checkout
+        window.location.assign(root + 'checkout');
+      }, true);
+    })();
 
 // =====================================================================
 // NEXT EVENTS GO HERE — port one at a time from the old snippets.
