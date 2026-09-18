@@ -1,11 +1,12 @@
-
+{% render 'font-fraunces' %}
 {% style %}
     /* =========================================
     PAGES — gut-flow-quiz-result
     ========================================= */
     {% if template.name == 'page' and template.suffix == 'gut-flow-quiz-result' %}
+
         #MainContent {
-        --template-heading-font: "Fraunces", Georgia, sans-serif;
+        --template-heading-font: "Fraunces", sans-serif;
         --template-btn-font: "League Spartan", Arial, sans-serif;
         --template-bg: #fffdfa;
         --template-accent: #fa6c56;
@@ -16,6 +17,118 @@
         --template-shadow-color: #113b340d;
         --template-btn-bg: #8d2b40;
         }
+
+         #MainContent  .quiz-result-slider__intro h2{
+          font-family: var(--template-heading-font) !important;
+        font-weight: 500 !important;
+        }
+        #MainContent  .quiz-month-card__title{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 500 !important;
+        font-size: 30px !important;
+        }
+        #MainContent .quiz-month-chart__weight-labels strong{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 300 !important;
+        }
+        #MainContent .quiz-month-chart__week-labels span{
+        font-weight: 300 !important;
+        }
+        #MainContent  .quiz-month-card__summary span{
+        font-weight: 300 !important;
+        }
+
+        #MainContent .quiz-month-chart__weight-labels strong:nth-child(1){
+            top: 5% !important;
+        }
+
+        #MainContent .quiz-month-chart__weight-labels strong:nth-child(2){
+        top: 27% !important;
+        }
+
+        #MainContent .quiz-month-chart__weight-labels strong:nth-child(3){
+        top: 45% !important;
+        }
+        #MainContent .quiz-month-chart__weight-labels strong:nth-child(4){
+        top: 60% !important;
+        }
+
+        #MainContent  .quiz-month-card__description p{
+        font-weight: 300 !important;
+        line-height: 1.4;
+        }
+        .quiz-result-slider__disclaimer{
+        font-weight: 300 !important;
+        line-height: 1.4;
+        }
+        #MainContent .quiz-timeline-card__title{
+        position: relative;
+        font-family: var(--template-heading-font) !important;
+        color: #2c2120 !important;
+        font-weight: 500;
+        padding-bottom: 10px;
+        }
+        #MainContent .quiz-timeline-card__title::after{
+        position: absolute;
+        left: 0;
+        right: o;
+        bottom: 0;
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: #e4dcd6;
+        }
+        #MainContent .quiz-timeline-card__dates{
+            padding-top: 10px;
+        }
+        #MainContent   .quiz-result-slider__description p{
+        font-weight: 300 !important;
+        line-height: 1.4;
+        }
+        #MainContent  .quiz-timeline-card__weights strong span{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 500;
+        }
+        #MainContent  .quiz-timeline-card__weights strong {
+        font-weight: 500 !important;
+        }
+        #MainContent  .quiz-summary__title{
+        font-family: var(--template-heading-font) !important;
+        color: #2c2120 !important;
+        font-weight: 500 !important;
+        }
+        #MainContent .quiz-summary__subtitle{
+        font-weight: 300 !important;
+        color: #7b6c68 !important;
+        }
+        #MainContent .quiz-summary-stat strong{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 500 !important;
+        }
+        #MainContent .quiz-summary__bmi-value strong{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 500 !important;
+        }
+        #MainContent  p{
+        font-weight: 300 !important;
+        }
+        #MainContent .quiz-comparison__header h2{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 500 !important;
+        }
+        #MainContent .quiz-comparison__header p{
+        color: #7b6c68 !important;
+        }
+        #MainContent  .quiz-comparison__table h3{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 500 !important;
+        }
+
+        #MainContent  .quiz-comparison__row span{
+        font-weight: 300 !important;
+        }
+
+
    
      footer{
         display: none;
