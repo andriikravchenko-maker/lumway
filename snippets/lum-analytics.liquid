@@ -1755,9 +1755,9 @@ track('upsell_product_added', props);
    
 // ============================================================================
 // QUIZ RESULT ANALYTICS — product_added_to_cart + secure_checkout_button_clicked
-// Self-contained. On the final "continue" click: shows a full-screen loader
-// immediately, adds the product, fires both events (awaited), then redirects to
-// /checkout. The loader covers the wait and blocks double-clicks.
+// Self-contained. On the final "continue" click: the BUTTON itself shows a
+// spinner + is disabled (no double-clicks), the product is added, both events
+// fire (awaited), then it redirects to /checkout.
 // ============================================================================
 (function () {
   if (!document.querySelector('[data-quiz-continue]')) return;
@@ -1793,20 +1793,25 @@ track('upsell_product_added', props);
     } catch (e) {}
   }
 
-  // ---- full-screen loader --------------------------------------------------
-  function showLoader() {
-    if (document.getElementById('lum-quiz-loader')) return;
-    var ov = document.createElement('div');
-    ov.id = 'lum-quiz-loader';
-    ov.setAttribute('aria-live', 'polite');
-    ov.style.cssText =
-      'position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;' +
-      'background:rgba(251,248,244,.92);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);';
-    ov.innerHTML =
-      '<div style="width:44px;height:44px;border:3px solid rgba(17,59,52,.15);border-top-color:#113b34;' +
-      'border-radius:50%;animation:lumQuizSpin .8s linear infinite;"></div>' +
-      '<style>@keyframes lumQuizSpin{to{transform:rotate(360deg)}}</style>';
-    document.body.appendChild(ov);
+  // ---- in-button spinner ---------------------------------------------------
+  var SPIN_CSS_ADDED = false;
+  function addSpinCss() {
+    if (SPIN_CSS_ADDED) return; SPIN_CSS_ADDED = true;
+    var s = document.createElement('style');
+    s.textContent =
+      '@keyframes lumQuizBtnSpin{to{transform:rotate(360deg)}}' +
+      '[data-quiz-continue].lum-loading{position:relative;color:transparent!important;pointer-events:none;opacity:.85;}' +
+      '[data-quiz-continue].lum-loading>*{visibility:hidden;}' +
+      '[data-quiz-continue].lum-loading::after{content:"";position:absolute;top:50%;left:50%;width:20px;height:20px;' +
+      'margin:-10px 0 0 -10px;border:2.5px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;' +
+      'animation:lumQuizBtnSpin .7s linear infinite;visibility:visible;}';
+    document.head.appendChild(s);
+  }
+  function startBtnLoading(btn) {
+    addSpinCss();
+    btn.classList.add('lum-loading');
+    btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
   }
 
   function isCheckoutStep() {
@@ -1840,7 +1845,7 @@ track('upsell_product_added', props);
     e.stopPropagation();
     e.stopImmediatePropagation();
 
-    showLoader();          // immediate full-screen feedback, blocks re-clicks
+    startBtnLoading(btn);   // spinner ON the button + disabled → no double-click
 
     var root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
     var variantId = btn.getAttribute('data-quiz-variant');
