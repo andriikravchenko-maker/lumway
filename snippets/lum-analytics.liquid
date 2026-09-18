@@ -1816,9 +1816,7 @@ track('upsell_product_added', props);
                   var line = lines[lines.length - 1];     // most recently added (quiz product)
                   var uid = userEmail();
                   var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
-                  // reuse the intent already in the cart so it MATCHES the pixel's
-                  // checkout_started; else our sessionStorage one; else a new one.
-                  var intentId = (cart.attributes && cart.attributes.lum_checkout_intent_id) || sessionStorage.getItem('__lum_intent') || newIntentId();
+                  var intentId = sessionStorage.getItem('__lum_intent') || newIntentId();
                   sessionStorage.setItem('__lum_intent', intentId);
 
                   // 1) product_added_to_cart (the quiz product)
