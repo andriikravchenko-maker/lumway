@@ -605,6 +605,12 @@ quiz-comparison__status--no
                 type="button"
                 class="quiz-result-slider__continue"
                 data-quiz-continue
+data-quiz-variant="{{ checkout_variant.id }}"
+data-quiz-plan="{{ checkout_selling_plan.id }}"
+data-quiz-qty="{{ section.settings.checkout_quantity | default: 1 }}"
+data-quiz-sku="{{ checkout_variant.sku }}"
+data-quiz-name="{{ checkout_product.title | escape }}"
+data-quiz-price="{{ checkout_variant.price }}"
                 {% if checkout_variant == blank %}
                     disabled
                 {% elsif section.settings.checkout_plan_index != 'one_time' and checkout_selling_plan == blank %}
