@@ -1753,7 +1753,154 @@ track('upsell_product_added', props);
     })();
 
    
+// ============================================================================
+// QUIZ RESULT ANALYTICS — product_added_to_cart + secure_checkout_button_clicked
+// FULLY SELF-CONTAINED: has its own track + flush, does not depend on the main
+// lum-analytics IIFE. Can live anywhere on the quiz-result page (even a separate
+// <script>). Reads product from the button's data-quiz-* attrs, intercepts the
+// final "continue" click, adds the item, fires both events (awaiting the
+// Amplitude send), writes intent to the cart, then redirects to /checkout.
+// ============================================================================
+(function () {
+  var btnEl = document.querySelector('[data-quiz-continue]');
+  if (!btnEl) return;
 
+  function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+  function uniqArr(a){ var s={},o=[]; a.forEach(function(v){ if(v&&!s[v]){s[v]=1;o.push(v);} }); return o; }
+
+  function userEmail() {
+    if (window.__lumCustomerId) return String(window.__lumCustomerId);
+    var m = window.ShopifyAnalytics && window.ShopifyAnalytics.meta && window.ShopifyAnalytics.meta.page;
+    if (m && m.customerId) return String(m.customerId);
+    return null;
+  }
+  function getIntentId() {
+    var id = sessionStorage.getItem('__lum_intent');
+    if (!id) { id = 'ci_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,10); sessionStorage.setItem('__lum_intent', id); }
+    return id;
+  }
+
+  // own track: dispatch lum:analytics + send to Amplitude, return the SDK promise
+  function ampTrack(name, props) {
+    var payload = Object.assign({}, props || {});
+    try { document.dispatchEvent(new CustomEvent('lum:analytics', { detail: { event: name, properties: payload } })); } catch (e) {}
+    var amp = window.amplitude;
+    try {
+      if (amp && typeof amp.track === 'function') return amp.track(name, payload);
+      if (amp && amp.getInstance) { var inst = amp.getInstance(); if (inst && inst.logEvent) inst.logEvent(name, payload); }
+    } catch (e) {}
+    return null;
+  }
+  // flush-aware: wait for the send (or 1200ms) so it leaves before navigation
+  async function trackAndFlush(name, props) {
+    try {
+      var r = ampTrack(name, props);
+      if (r && r.promise && typeof r.promise.then === 'function') await Promise.race([r.promise, sleep(1200)]);
+      else await sleep(300);
+    } catch (e) {}
+  }
+
+  function isCheckoutStep() {
+    var all = [].slice.call(document.querySelectorAll('.quiz-result-slider__slide'));
+    if (!all.length) return true;
+    var active = document.querySelector('.quiz-result-slider__slide.is-active');
+    return active ? all.indexOf(active) === all.length - 1 : false;
+  }
+  function packLabelFromLine(line) {
+    var raw = (line.options_with_values && line.options_with_values[0] && line.options_with_values[0].value) || line.variant_title || line.title || '';
+    var m = String(raw).match(/(\d+)\s*jar/i);
+    var n = m ? parseInt(m[1], 10) : 1;
+    return n + (n === 1 ? '-jar' : '-jars');
+  }
+  function subTypeFromLine(line) {
+    var sp = line.selling_plan_allocation && line.selling_plan_allocation.selling_plan;
+    if (!sp) return undefined;
+    var mm = ((sp.name || '') + ' ' + (sp.description || '')).match(/([123])\s*[-\s]?\s*month/i);
+    return mm ? mm[1] + '-month' : undefined;
+  }
+
+  var processing = false;
+  document.addEventListener('click', async function (e) {
+    var btn = e.target.closest('[data-quiz-continue]');
+    if (!btn || btn.disabled) return;
+    if (processing) return;
+    if (!isCheckoutStep()) return;   // intermediate slide → let the quiz advance
+    processing = true;
+
+    // take over the final click: block quiz add+redirect, do it ourselves
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+
+    var root = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+    var variantId = btn.getAttribute('data-quiz-variant');
+    var planId    = btn.getAttribute('data-quiz-plan');
+    var qty       = parseInt(btn.getAttribute('data-quiz-qty'), 10) || 1;
+    var intentId  = getIntentId();
+
+    // 1) add the quiz product to the cart
+    try {
+      if (variantId && Number(variantId)) {
+        var item = { id: Number(variantId), quantity: qty };
+        if (planId && Number(planId)) item.selling_plan = Number(planId);
+        await fetch(root + 'cart/add.js', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ items: [item] })
+        });
+      }
+    } catch (e2) {}
+
+    // 2) write intent into the cart (awaited)
+    try {
+      await fetch('/cart/update.js', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ attributes: { lum_checkout_intent_id: intentId, lum_checkout_click_ts: String(Date.now()) } })
+      });
+    } catch (e3) {}
+
+    // 3) read cart, fire both events (awaited flush)
+    var cart = null;
+    try { cart = await (await fetch('/cart.js', { headers: { Accept: 'application/json' }, cache: 'no-store' })).json(); } catch (e4) {}
+
+    if (cart && cart.items && cart.items.length) {
+      var lines = cart.items;
+      var line = null;
+      for (var i = lines.length - 1; i >= 0; i--) {
+        if (variantId && String(lines[i].variant_id) === String(variantId)) { line = lines[i]; break; }
+      }
+      if (!line) line = lines[lines.length - 1];
+
+      var uid = userEmail();
+      var isSub = !!(line.selling_plan_allocation && line.selling_plan_allocation.selling_plan);
+
+      var atc = {
+        product_id:    line.sku || String(line.product_id) || undefined,
+        product_name:  (line.product_title || line.title || '').replace(/\s*-\s*\d+\s*jars?$/i, '') || undefined,
+        variant_id:    packLabelFromLine(line),
+        price:         Math.round(line.final_price != null ? line.final_price : line.price) / 100,
+        quantity:      line.quantity || 1,
+        currency:      cart.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+        purchase_type: isSub ? 'subscription' : 'one_time'
+      };
+      if (isSub) { var st = subTypeFromLine(line); if (st) atc.subscription_type = st; }
+      await trackAndFlush('product_added_to_cart', atc);
+
+      await trackAndFlush('secure_checkout_button_clicked', {
+        checkout_intent_id: intentId,
+        cart_value:       (cart.total_price || 0) / 100,
+        currency:         cart.currency,
+        items_number:     cart.item_count,
+        has_subscription: lines.some(function (l) { return !!l.selling_plan_allocation; }),
+        product_ids:      uniqArr(lines.map(function (l) { return l.sku || String(l.product_id); })),
+        product_names:    uniqArr(lines.map(function (l) { return l.product_title || l.title; })),
+        is_logged_in:     !!uid
+      });
+    }
+
+    // 4) go to checkout
+    window.location.assign(root + 'checkout');
+  }, true);
+})();
 // =====================================================================
 // NEXT EVENTS GO HERE — port one at a time from the old snippets.
 // Keep each in its own (function(){ ... })() block for clarity.
