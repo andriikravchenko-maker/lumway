@@ -1827,39 +1827,44 @@ track('upsell_product_added', props);
         });
       }
 
-            var LUM_QUIZ_FIRED = false;
+      var LUM_QUIZ_FIRED = false;
       document.addEventListener('click', function (e) {
         var hit = e.target.closest('[data-quiz-continue]');
         if (!hit || hit.disabled) return;
-        if (!isCheckoutStep()) return;
+        if (!isCheckoutStep()) return;   // intermediate clicks just advance slides
         if (LUM_QUIZ_FIRED) return;
         LUM_QUIZ_FIRED = true;
 
-        // resolve intent NOW (sync), write to cart in the background (keepalive)
-        var intentId = sessionStorage.getItem('__lum_intent') || newIntentId();
-        sessionStorage.setItem('__lum_intent', intentId);
-        fetch('/cart/update.js', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
-          body: JSON.stringify({ attributes: { lum_checkout_intent_id: intentId } })
-        }).catch(function(){});
-
-        // read cart once (quiz already added the item) and fire immediately.
-        // keepalive lets the read survive the pending navigation.
-        var done = false, tries = 0;
+        var tries = 0, done = false;
         var iv = setInterval(function () {
           if (done) { clearInterval(iv); return; }
           tries++;
-          fetch('/cart.js', { headers: { 'Accept': 'application/json' }, keepalive: true })
+          fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
             .then(function (r) { return r.json(); })
             .then(function (cart) {
               if (done) return;
               var lines = cart.items || [];
               if (!lines.length) { if (tries > 8) { done = true; clearInterval(iv); } return; }
-              done = true; clearInterval(iv);
-              fireEvents(cart, intentId);  // fire with the already-resolved intent
+              done = true;
+              clearInterval(iv);
+
+              // use the intent ALREADY in the cart if present, so it matches the
+              // pixel's checkout_started; else our sessionStorage one; else new.
+              var cartIntent = cart.attributes && cart.attributes.lum_checkout_intent_id;
+              var intentId = cartIntent || sessionStorage.getItem('__lum_intent') || newIntentId();
+              sessionStorage.setItem('__lum_intent', intentId);
+
+              // write intent to cart FIRST, then fire events with the SAME id.
+              // if the id was already in the cart, this is a harmless no-op write.
+              fetch('/cart/update.js', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+                body: JSON.stringify({ attributes: { lum_checkout_intent_id: intentId } })
+              })
+              .then(function () { fireEvents(cart, intentId); })
+              .catch(function () { fireEvents(cart, intentId); }); // fire anyway
             })
             .catch(function () { if (tries > 8) { done = true; clearInterval(iv); } });
-        }, 100);
+        }, 150);
       }, true);
     })();
 // =====================================================================
