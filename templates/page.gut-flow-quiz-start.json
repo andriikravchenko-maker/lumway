@@ -271,7 +271,6 @@
         "step_cgMW3F",
         "step_Qe4VKi"
       ],
-      "disabled": true,
       "name": "MM Fiber steps",
       "settings": {
         "heading": "One fiber that does the heavy lifting",
@@ -334,7 +333,6 @@
         "review_ntnnMz",
         "review_zpfCWB"
       ],
-      "disabled": true,
       "name": "Quiz reviews",
       "settings": {
         "heading": "Love notes from\nhappier guts",
@@ -393,6 +391,94 @@
         "padding_bottom_mobile": 64,
         "padding_x_mobile": 24
       }
+    },
+    "quiz_footer_N4GXyL": {
+      "type": "quiz-footer",
+      "blocks": {
+        "menu_column_eRGCBK": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Customer success",
+            "menu": "footer"
+          }
+        },
+        "menu_column_MPjUAY": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Learn",
+            "menu": "footer"
+          }
+        },
+        "menu_column_LBgVkR": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Legal",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "menu_column_eRGCBK",
+        "menu_column_MPjUAY",
+        "menu_column_LBgVkR"
+      ],
+      "name": "Quiz footer",
+      "settings": {
+        "logo": "shopify://shop_images/content.png",
+        "logo_link": "/pages/gut-flow-quiz-start",
+        "logo_width_desktop": 100,
+        "logo_width_mobile": 125,
+        "research_text": "*Research and references behind every claim are listed on the product page.",
+        "disclaimer_title": "Disclaimer.",
+        "disclaimer_text": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.",
+        "auto_copyright": true,
+        "copyright_suffix": "All rights reserved",
+        "copyright_text": "LUMWAY 2026 © All rights reserved",
+        "background_color": "#ffffff",
+        "heading_color": "#111111",
+        "text_color": "#6F5F5A",
+        "link_color": "#786a64",
+        "link_hover_color": "#111111",
+        "divider_color": "#6F5F5A",
+        "menu_title_size_desktop": 16,
+        "menu_title_size_mobile": 16,
+        "menu_title_weight": "700",
+        "link_size_desktop": 16,
+        "link_size_mobile": 16,
+        "link_weight": "400",
+        "legal_size_desktop": 16,
+        "legal_size_mobile": 16,
+        "legal_weight": "400",
+        "disclaimer_title_weight": "700",
+        "legal_line_height": 155,
+        "container_width": 1280,
+        "logo_column_width": 560,
+        "logo_menus_gap": 80,
+        "columns_desktop": "3",
+        "menu_columns_gap": 64,
+        "menu_title_gap_desktop": 22,
+        "link_gap_desktop": 20,
+        "divider_top_desktop": 64,
+        "divider_bottom_desktop": 36,
+        "divider_width": 1,
+        "legal_max_width": 760,
+        "research_gap": 20,
+        "disclaimer_gap": 28,
+        "logo_menus_gap_mobile": 80,
+        "menu_columns_gap_mobile": 56,
+        "menu_title_gap_mobile": 28,
+        "link_gap_mobile": 28,
+        "divider_top_mobile": 80,
+        "divider_bottom_mobile": 50,
+        "research_gap_mobile": 28,
+        "disclaimer_gap_mobile": 38,
+        "padding_top_desktop": 72,
+        "padding_bottom_desktop": 40,
+        "padding_x_desktop": 32,
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16,
+        "padding_x_mobile": 32
+      }
     }
   },
   "order": [
@@ -402,6 +488,7 @@
     "mm_quiz_hero_9kFNGq",
     "quiz_before_after_9EFLTj",
     "mm_fiber_steps_r6CiwV",
-    "quiz_reviews_dAE96w"
+    "quiz_reviews_dAE96w",
+    "quiz_footer_N4GXyL"
   ]
 }
