@@ -1,0 +1,228 @@
+{{ 'mm-fiber-steps.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+    #shopify-section-{{ section.id }} {
+    --fiber-bg: {{ section.settings.background }};
+    --fiber-card-bg: {{ section.settings.card_background }};
+    --fiber-text: {{ section.settings.text_color }};
+    --fiber-muted: {{ section.settings.muted_color }};
+    --fiber-accent: {{ section.settings.accent_color }};
+    --fiber-link: {{ section.settings.link_color }};
+    --fiber-border: {{ section.settings.border_color }};
+    --fiber-button-text: {{ section.settings.button_text_color }};
+    --fiber-container: {{ section.settings.container_width }}px;
+    --fiber-heading-size: {{ section.settings.heading_size }}px;
+    --fiber-heading-mobile-size: {{ section.settings.heading_mobile_size }}px;
+    --fiber-body-size: {{ section.settings.body_size }}px;
+    --fiber-card-radius: {{ section.settings.card_radius }}px;
+    --fiber-padding-top: {{ section.settings.padding_top }}px;
+    --fiber-padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+{%- endstyle -%}
+
+<section class="mm-fiber-steps" data-fiber-steps="{{ section.id }}" {% if section.settings.heading != blank %}aria-labelledby="FiberStepsHeading-{{ section.id }}"{% endif %}>
+    <div class="mm-fiber-steps__container">
+        <header class="mm-fiber-steps__header">
+            {% if section.settings.heading != blank %}
+                <h2 id="FiberStepsHeading-{{ section.id }}" class="mm-fiber-steps__heading">{{ section.settings.heading | escape | newline_to_br }}</h2>
+            {% endif %}
+            {% if section.settings.description != blank %}
+                <div class="mm-fiber-steps__description">{{ section.settings.description }}</div>
+            {% endif %}
+        </header>
+
+        {% if section.blocks.size > 0 %}
+            <div class="mm-fiber-steps__slider">
+                <div class="mm-fiber-steps__track" data-fiber-track role="region" aria-label="{{ section.settings.slider_label | escape }}" tabindex="0">
+                    {% for block in section.blocks %}
+                        <article class="mm-fiber-steps__card" data-fiber-card data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+                            <div class="mm-fiber-steps__card-top">
+                                <div class="mm-fiber-steps__icon-wrap" aria-hidden="true">
+                                    {% if block.settings.icon != blank %}
+                                        {{ block.settings.icon | image_url: width: 120 | image_tag: class: 'mm-fiber-steps__icon', widths: '40, 60, 80, 120', loading: 'lazy', alt: '' }}
+                                    {% else %}
+                                        <span class="mm-fiber-steps__icon-placeholder">
+                      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="22" r="12" fill="currentColor" opacity=".14"/><path d="M20 31V11M20 17c-4-1-6-4-6-7 4 0 6 2 6 7Zm0 5c4-1 7-4 7-8-4 0-7 3-7 8Zm-4 2h8M17 28h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                                    {% endif %}
+                                </div>
+                                <span class="mm-fiber-steps__number" aria-hidden="true">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                            </div>
+
+                            {% if block.settings.title != blank %}<h3 class="mm-fiber-steps__card-title">{{ block.settings.title | escape }}</h3>{% endif %}
+                            {% if block.settings.text != blank %}<div class="mm-fiber-steps__card-text">{{ block.settings.text }}</div>{% endif %}
+                        </article>
+                    {% endfor %}
+                </div>
+
+                <div class="mm-fiber-steps__mobile-controls">
+                    <div class="mm-fiber-steps__dots" data-fiber-dots aria-label="Slider pagination">
+                        {% for block in section.blocks %}
+                            <button class="mm-fiber-steps__dot{% if forloop.first %} is-active{% endif %}" type="button" data-fiber-dot="{{ forloop.index0 }}" aria-label="Go to step {{ forloop.index }}" {% if forloop.first %}aria-current="true"{% endif %}></button>
+                        {% endfor %}
+                    </div>
+
+                    <div class="mm-fiber-steps__arrows">
+                        <button class="mm-fiber-steps__arrow mm-fiber-steps__arrow--prev" type="button" data-fiber-prev aria-label="Previous step" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                        <button class="mm-fiber-steps__arrow mm-fiber-steps__arrow--next" type="button" data-fiber-next aria-label="Next step" {% if section.blocks.size <= 1 %}disabled{% endif %}>
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="mm-fiber-steps__actions">
+            {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+                <a class="mm-fiber-steps__button" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+            {% endif %}
+            {% if section.settings.link_label != blank and section.settings.link_url != blank %}
+                <a class="mm-fiber-steps__link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    (() => {
+        const section = document.querySelector(
+            '[data-fiber-steps="{{ section.id }}"]'
+        );
+
+        if (!section) return;
+
+        const track = section.querySelector('[data-fiber-track]');
+        const cards = [...section.querySelectorAll('[data-fiber-card]')];
+        const dots = [...section.querySelectorAll('[data-fiber-dot]')];
+        const prev = section.querySelector('[data-fiber-prev]');
+        const next = section.querySelector('[data-fiber-next]');
+
+        if (!track || !cards.length) return;
+
+        let active = 0;
+        let scrollTimer;
+
+        const update = (index) => {
+            active = Math.max(0, Math.min(index, cards.length - 1));
+
+            dots.forEach((dot, i) => {
+                const isActive = i === active;
+
+                dot.classList.toggle('is-active', isActive);
+                dot.toggleAttribute('aria-current', isActive);
+            });
+
+            prev.disabled = active === 0;
+            next.disabled = active === cards.length - 1;
+        };
+
+        const goTo = (index) => {
+            const target = Math.max(0, Math.min(index, cards.length - 1));
+
+            update(target);
+
+            track.scrollTo({
+                left: cards[target].offsetLeft - track.offsetLeft,
+                behavior: 'smooth'
+            });
+        };
+
+        const syncFromScroll = () => {
+            clearTimeout(scrollTimer);
+
+            scrollTimer = setTimeout(() => {
+                const trackLeft = track.getBoundingClientRect().left;
+
+                const index = cards.reduce((closest, card, i) => {
+                    const current = Math.abs(
+                        card.getBoundingClientRect().left - trackLeft
+                    );
+
+                    const previous = Math.abs(
+                        cards[closest].getBoundingClientRect().left - trackLeft
+                    );
+
+                    return current < previous ? i : closest;
+                }, 0);
+
+                update(index);
+            }, 80);
+        };
+
+        prev?.addEventListener('click', () => goTo(active - 1));
+        next?.addEventListener('click', () => goTo(active + 1));
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => goTo(i));
+        });
+
+        track.addEventListener('scroll', syncFromScroll, {
+            passive: true
+        });
+
+        update(0);
+    })();
+</script>
+
+{% schema %}
+{
+  "name": "MM Fiber steps",
+  "tag": "div",
+  "class": "mm-fiber-steps-section",
+  "max_blocks": 8,
+  "disabled_on": { "groups": ["header", "footer", "aside"] },
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "One fiber that does the heavy lifting" },
+    { "type": "richtext", "id": "description", "label": "Description", "default": "<p>One plant-based ingredient. Four important steps inside your gut.</p>" },
+    { "type": "text", "id": "slider_label", "label": "Slider accessibility label", "default": "How Gut Flow fiber works" },
+    { "type": "text", "id": "button_label", "label": "Quiz button label", "default": "TAKE THE QUIZ" },
+    { "type": "url", "id": "button_link", "label": "Quiz button link" },
+    { "type": "text", "id": "link_label", "label": "Bottom link label", "default": "More about the Gut Flow ingredient list" },
+    { "type": "url", "id": "link_url", "label": "Bottom link URL" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "container_width", "label": "Container width", "min": 900, "max": 1600, "step": 20, "default": 1240, "unit": "px" },
+    { "type": "range", "id": "padding_top", "label": "Top spacing", "min": 40, "max": 180, "step": 4, "default": 100, "unit": "px" },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom spacing", "min": 40, "max": 180, "step": 4, "default": 100, "unit": "px" },
+    { "type": "range", "id": "heading_size", "label": "Desktop heading size", "min": 32, "max": 72, "step": 2, "default": 48, "unit": "px" },
+    { "type": "range", "id": "heading_mobile_size", "label": "Mobile heading size", "min": 28, "max": 54, "step": 2, "default": 40, "unit": "px" },
+    { "type": "range", "id": "body_size", "label": "Body text size", "min": 14, "max": 22, "step": 1, "default": 16, "unit": "px" },
+    { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 40, "step": 2, "default": 14, "unit": "px" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background", "label": "Section background", "default": "#FBF7F3" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#2E211E" },
+    { "type": "color", "id": "muted_color", "label": "Secondary text", "default": "#6F625D" },
+    { "type": "color", "id": "accent_color", "label": "Accent / button", "default": "#C63F4E" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "color", "id": "link_color", "label": "Bottom link", "default": "#2C6A4B" },
+    { "type": "color", "id": "border_color", "label": "Card border", "default": "#E4D9D2" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Icon" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Step title" },
+        { "type": "richtext", "id": "text", "label": "Description", "default": "<p>Add the step description here.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "MM Fiber steps",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Starts with chicory root", "text": "<p>Each serving provides a daily dose of inulin, a prebiotic fiber naturally found in chicory root.</p>" } },
+        { "type": "step", "settings": { "title": "Travels to the colon", "text": "<p>Inulin passes through the upper digestive tract largely undigested, allowing it to reach the colon.</p>" } },
+        { "type": "step", "settings": { "title": "Feeds beneficial bacteria", "text": "<p>Once there, gut microorganisms ferment inulin, helping nourish beneficial bacteria.</p>" } },
+        { "type": "step", "settings": { "title": "Supports a healthier gut rhythm", "text": "<p>Fermentation produces beneficial compounds, including short-chain fatty acids, while supporting healthy gut microbiota and regularity.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
