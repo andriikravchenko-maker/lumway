@@ -206,7 +206,7 @@
     .mm-fiber-steps__header { margin-inline: 28px; }
     .mm-fiber-steps__description { margin-inline: 0; }
     .mm-fiber-steps__card { flex-basis: calc(100vw - 64px); width: calc(100vw - 64px); }
-    .mm-fiber-steps__mobile-controls { margin-top: 52px; }
+    .mm-fiber-steps__mobile-controls { margin-top: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
