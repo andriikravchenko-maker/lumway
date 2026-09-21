@@ -1,0 +1,639 @@
+{% comment %} Quiz Reviews {% endcomment %}
+<section
+  id="QuizReviews-{{ section.id }}"
+  class="quiz-reviews"
+  style="
+    --qr-bg:{{ section.settings.background_color }};
+    --qr-card:{{ section.settings.card_background }};
+    --qr-text:{{ section.settings.text_color }};
+    --qr-body:{{ section.settings.body_color }};
+    --qr-star:{{ section.settings.star_color }};
+    --qr-border:{{ section.settings.border_color }};
+    --qr-container:{{ section.settings.container_width }}px;
+    --qr-radius:{{ section.settings.card_radius }}px;
+  "
+>
+  <div class="quiz-reviews__container">
+    {% if section.settings.heading != blank %}
+      <{{ section.settings.heading_tag }} class="quiz-reviews__heading">
+        {{- section.settings.heading | newline_to_br -}}
+      </{{ section.settings.heading_tag }}>
+    {% endif %}
+    <div class="quiz-reviews__grid">
+      {% for block in section.blocks %}
+        <article class="quiz-reviews__card" {{ block.shopify_attributes }}>
+          <div class="quiz-reviews__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+            {% for i in (1..5) %}
+              <span class="{% if i > block.settings.rating %}is-empty{% endif %}">
+                {% if section.settings.star_svg != blank %}
+                  <span class="quiz-reviews__star-svg">{{ section.settings.star_svg }}</span>
+                {% elsif section.settings.star_image != blank %}
+                  {{
+                    section.settings.star_image
+                    | image_url: width: 80
+                    | image_tag: loading: 'lazy', widths: '20,40,60,80', alt: ''
+                  }}
+                {% else -%}
+                  ★
+                {%- endif %}
+              </span>
+            {% endfor %}
+          </div>
+          {% if block.settings.title != blank %}
+            <h3 class="quiz-reviews__title">{{ block.settings.title }}</h3>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div class="quiz-reviews__text">{{ block.settings.text | newline_to_br }}</div>
+          {% endif %}
+          {% if block.settings.author != blank %}
+            <div class="quiz-reviews__author">{{ block.settings.author }}</div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #QuizReviews-{{ section.id }}{background:var(--qr-bg);color:var(--qr-text);padding:{{ section.settings.padding_top_desktop }}px {{ section.settings.padding_x_desktop }}px {{ section.settings.padding_bottom_desktop }}px}
+  #QuizReviews-{{ section.id }} *{box-sizing:border-box}
+  #QuizReviews-{{ section.id }} .quiz-reviews__container{width:min(100%,var(--qr-container));margin:auto}
+  #QuizReviews-{{ section.id }} .quiz-reviews__heading{width:min(100%,{{ section.settings.heading_max_width }}px);margin:0 auto {{ section.settings.heading_gap_desktop }}px;text-align:{{ section.settings.heading_alignment }};font-family:'Fraunces',Georgia,serif;font-size:{{ section.settings.heading_size_desktop }}px;font-weight:{{ section.settings.heading_weight }};line-height:{{ section.settings.heading_line_height | divided_by: 100.0 }};color:var(--qr-text)}
+  #QuizReviews-{{ section.id }} .quiz-reviews__grid{display:grid;grid-template-columns:repeat({{ section.settings.columns_desktop }},minmax(0,1fr));gap:{{ section.settings.card_gap_desktop }}px;align-items:start}
+  #QuizReviews-{{ section.id }} .quiz-reviews__card{display:flex;flex-direction:column;min-width:0;padding:{{ section.settings.card_padding_y_desktop }}px {{ section.settings.card_padding_x_desktop }}px;background:var(--qr-card);border:{{ section.settings.border_width }}px solid var(--qr-border);border-radius:var(--qr-radius)}
+  #QuizReviews-{{ section.id }} .quiz-reviews__stars{display:flex;gap:{{ section.settings.star_gap }}px;margin-bottom:{{ section.settings.stars_title_gap_desktop }}px;color:var(--qr-star);font-size:{{ section.settings.star_size_desktop }}px;line-height:1}
+  #QuizReviews-{{ section.id }} .quiz-reviews__stars>span{display:inline-flex;width:1em;height:1em;align-items:center;justify-content:center}
+  #QuizReviews-{{ section.id }} .quiz-reviews__stars .is-empty{opacity:{{ section.settings.empty_star_opacity | divided_by: 100.0 }}}
+  #QuizReviews-{{ section.id }} .quiz-reviews__stars img,#QuizReviews-{{ section.id }} .quiz-reviews__star-svg,#QuizReviews-{{ section.id }} .quiz-reviews__star-svg svg{display:block;width:1em;height:1em;object-fit:contain}
+  #QuizReviews-{{ section.id }} .quiz-reviews__title{margin:0 0 {{ section.settings.title_body_gap_desktop }}px;font-family:'Fraunces',Georgia,serif;font-size:{{ section.settings.review_title_size_desktop }}px;font-weight:{{ section.settings.review_title_weight }};line-height:{{ section.settings.review_title_line_height | divided_by: 100.0 }};color:var(--qr-text)}
+  #QuizReviews-{{ section.id }} .quiz-reviews__text{margin:0 0 {{ section.settings.body_author_gap_desktop }}px;font-family:Arial,Helvetica,sans-serif;font-size:{{ section.settings.body_size_desktop }}px;font-weight:{{ section.settings.body_weight }};line-height:{{ section.settings.body_line_height | divided_by: 100.0 }};color:var(--qr-body)}
+  #QuizReviews-{{ section.id }} .quiz-reviews__author{margin-top:auto;font-family:Arial,Helvetica,sans-serif;font-size:{{ section.settings.author_size_desktop }}px;font-weight:{{ section.settings.author_weight }};color:var(--qr-text)}
+  @media(max-width:749px){
+      #QuizReviews-{{ section.id }}{padding:{{ section.settings.padding_top_mobile }}px {{ section.settings.padding_x_mobile }}px {{ section.settings.padding_bottom_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__heading{width:min(100%,{{ section.settings.heading_max_width_mobile }}px);margin-bottom:{{ section.settings.heading_gap_mobile }}px;font-size:{{ section.settings.heading_size_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__grid{grid-template-columns:1fr;gap:{{ section.settings.card_gap_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__card{padding:{{ section.settings.card_padding_y_mobile }}px {{ section.settings.card_padding_x_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__stars{margin-bottom:{{ section.settings.stars_title_gap_mobile }}px;font-size:{{ section.settings.star_size_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__title{margin-bottom:{{ section.settings.title_body_gap_mobile }}px;font-size:{{ section.settings.review_title_size_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__text{margin-bottom:{{ section.settings.body_author_gap_mobile }}px;font-size:{{ section.settings.body_size_mobile }}px}
+      #QuizReviews-{{ section.id }} .quiz-reviews__author{font-size:{{ section.settings.author_size_mobile }}px}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Quiz reviews",
+  "tag": "section",
+  "class": "section-quiz-reviews",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Love notes from\nhappier guts" },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" }
+      ]
+    },
+    { "type": "header", "content": "Star icon" },
+    { "type": "html", "id": "star_svg", "label": "Custom star SVG" },
+    { "type": "image_picker", "id": "star_image", "label": "Star image" },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#F9ECE2" },
+    { "type": "color", "id": "card_background", "label": "Card background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Heading / title / author", "default": "#302522" },
+    { "type": "color", "id": "body_color", "label": "Review text", "default": "#554D49" },
+    { "type": "color", "id": "star_color", "label": "Stars", "default": "#E9AD37" },
+    { "type": "color", "id": "border_color", "label": "Card border", "default": "#DED8D4" },
+    { "type": "header", "content": "Heading typography" },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "label": "Size — desktop",
+      "min": 24,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Size — mobile",
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Weight",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "800", "label": "Extra bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_line_height",
+      "label": "Line height",
+      "min": 80,
+      "max": 150,
+      "step": 1,
+      "unit": "%",
+      "default": 105
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width",
+      "label": "Max width — desktop",
+      "min": 300,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "heading_max_width_mobile",
+      "label": "Max width — mobile",
+      "min": 220,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 420
+    },
+    { "type": "header", "content": "Review typography" },
+    {
+      "type": "range",
+      "id": "review_title_size_desktop",
+      "label": "Title size — desktop",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "review_title_size_mobile",
+      "label": "Title size — mobile",
+      "min": 18,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "review_title_weight",
+      "label": "Title weight",
+      "default": "600",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "review_title_line_height",
+      "label": "Title line height",
+      "min": 90,
+      "max": 160,
+      "step": 1,
+      "unit": "%",
+      "default": 125
+    },
+    {
+      "type": "range",
+      "id": "body_size_desktop",
+      "label": "Body size — desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_size_mobile",
+      "label": "Body size — mobile",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 21
+    },
+    {
+      "type": "select",
+      "id": "body_weight",
+      "label": "Body weight",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "body_line_height",
+      "label": "Body line height",
+      "min": 110,
+      "max": 190,
+      "step": 1,
+      "unit": "%",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "author_size_desktop",
+      "label": "Author size — desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "author_size_mobile",
+      "label": "Author size — mobile",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "author_weight",
+      "label": "Author weight",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    { "type": "header", "content": "Stars" },
+    {
+      "type": "range",
+      "id": "star_size_desktop",
+      "label": "Size — desktop",
+      "min": 12,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "range",
+      "id": "star_size_mobile",
+      "label": "Size — mobile",
+      "min": 16,
+      "max": 42,
+      "step": 1,
+      "unit": "px",
+      "default": 27
+    },
+    { "type": "range", "id": "star_gap", "label": "Gap", "min": 0, "max": 12, "step": 1, "unit": "px", "default": 3 },
+    {
+      "type": "range",
+      "id": "empty_star_opacity",
+      "label": "Empty star opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 25
+    },
+    { "type": "header", "content": "Desktop layout" },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container max width",
+      "min": 800,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "default": 1260
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns",
+      "default": "3",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_gap_desktop",
+      "label": "Heading / cards gap",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "card_gap_desktop",
+      "label": "Card gap",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_desktop",
+      "label": "Card horizontal padding",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_desktop",
+      "label": "Card vertical padding",
+      "min": 16,
+      "max": 56,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "stars_title_gap_desktop",
+      "label": "Stars / title gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "title_body_gap_desktop",
+      "label": "Title / body gap",
+      "min": 8,
+      "max": 36,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "body_author_gap_desktop",
+      "label": "Body / author gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    { "type": "header", "content": "Card" },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    { "type": "header", "content": "Mobile layout" },
+    {
+      "type": "range",
+      "id": "heading_gap_mobile",
+      "label": "Heading / cards gap",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "card_gap_mobile",
+      "label": "Card gap",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_padding_x_mobile",
+      "label": "Card horizontal padding",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "card_padding_y_mobile",
+      "label": "Card vertical padding",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "stars_title_gap_mobile",
+      "label": "Stars / title gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "title_body_gap_mobile",
+      "label": "Title / body gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "body_author_gap_mobile",
+      "label": "Body / author gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    { "type": "header", "content": "Section spacing" },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top — desktop",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom — desktop",
+      "min": 0,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_x_desktop",
+      "label": "Horizontal — desktop",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top — mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom — mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "label": "Horizontal — mobile",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "My stomach doesnt blow up after lunch anymore!!"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review",
+          "default": "My stomach feels sooo much lighter, especially later in the day. I haven't changed what I eat or started making tiny meals either. Even my jeans feel more comfortable now. LOVE these."
+        },
+        { "type": "text", "id": "author", "label": "Author", "default": "- Donna P." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "My stomach doesnt blow up after lunch anymore!!",
+            "text": "My stomach feels sooo much lighter, especially later in the day. I haven't changed what I eat or started making tiny meals either. Even my jeans feel more comfortable now. LOVE these.",
+            "author": "- Donna P."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "okay these actually work",
+            "text": "these taste really good and dont have that weird vitamin aftertaste. took a few days, but now I'm going pretty much every morning. nothing harsh, just normal lol. Already ordered more.",
+            "author": "- Michelle R."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "title": "Start slow if you're new to fiber",
+            "text": "I was a little gassy at first, so I worked up to the full serving. Now I'm much more regular and dont feel heavy all the time. They're soft, taste great and actually work.",
+            "author": "- Sandra K."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
