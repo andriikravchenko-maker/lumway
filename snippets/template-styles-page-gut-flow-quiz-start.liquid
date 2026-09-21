@@ -1,0 +1,46 @@
+{% render 'font-fraunces' %}
+{% style %}
+    /* =========================================
+    PAGES — gut-flow-quiz-start
+    ========================================= */
+    {% if template.name == 'page' and template.suffix == 'gut-flow-quiz-start' %}
+        html {
+        scroll-behavior: smooth;
+        }
+        #MainContent {
+        --template-heading-font: "Fraunces", sans-serif;
+        --template-btn-font: "League Spartan", Arial, sans-serif;
+        --template-bg: #fffdfa;
+        --template-accent: #fa6c56;
+        --template-border: #5b0d1e;
+        --template-soft-bg: #f5f3ef;
+        --template-accent-black: #111111;
+        --template-border-teal: #0a776133;
+        --template-shadow-color: #113b340d;
+        --template-btn-bg: #8d2b40;
+        }
+
+        #MainContent .quiz-before-after__container h2{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 400 !important;
+        }
+        .quiz-before-after__card h3{
+        font-family: var(--template-heading-font) !important;
+        font-weight: 400 !important;
+        }
+        .quiz-before-after__row span{
+        font-weight: 300 !important;
+        }
+
+        footer{
+        display: none;
+        }
+        @media screen and (max-width: 749px) {
+        #MainContent .mm-quiz-hero{
+                padding-bottom: 0;
+        }
+        }
+
+
+    {% endif %}
+{% endstyle %}
