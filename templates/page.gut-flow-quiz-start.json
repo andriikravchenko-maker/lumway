@@ -185,8 +185,8 @@
         "text_color": "#111111",
         "row_text_color": "#111111",
         "before_background": "#ffffff",
-        "after_background": "#F8ECE3",
-        "border_color": "#F8ECE3",
+        "after_background": "#f8ece3",
+        "border_color": "#f8ece3",
         "divider_color": "#e7d9d0",
         "heading_size_desktop": 48,
         "heading_size_mobile": 32,
@@ -199,7 +199,7 @@
         "card_title_weight": "600",
         "row_size_desktop": 16,
         "row_size_mobile": 16,
-        "container_width": 1140,
+        "container_width": 1270,
         "image_width_desktop": 330,
         "desktop_content_gap": 72,
         "heading_content_gap_desktop": 56,
@@ -226,6 +226,74 @@
         "padding_top_mobile": 40,
         "padding_bottom_mobile": 56
       }
+    },
+    "mm_fiber_steps_r6CiwV": {
+      "type": "mm-fiber-steps",
+      "blocks": {
+        "step_6DWFKF": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/11.png",
+            "title": "Starts with chicory root",
+            "text": "<p>Each serving provides a daily dose of inulin, a prebiotic fiber naturally found in chicory root.</p>"
+          }
+        },
+        "step_p9nQKB": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/2_a6ac9fd1-1971-446c-86d0-27749e139d3e.png",
+            "title": "Travels to the colon",
+            "text": "<p>Inulin passes through the upper digestive tract largely undigested, allowing it to reach the colon.</p>"
+          }
+        },
+        "step_cgMW3F": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/3_ea92543e-1bc3-4c8b-9663-eb70df7c6b13.png",
+            "title": "Feeds beneficial bacteria",
+            "text": "<p>Once there, gut microorganisms ferment inulin, helping nourish beneficial bacteria.</p>"
+          }
+        },
+        "step_Qe4VKi": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/4_c6005cb4-b5ab-4527-83f5-ab9ea271c2d9.jpg",
+            "title": "Supports a healthier gut rhythm",
+            "text": "<p>Fermentation produces beneficial compounds, including short-chain fatty acids, while supporting healthy gut microbiota and regularity.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_6DWFKF",
+        "step_p9nQKB",
+        "step_cgMW3F",
+        "step_Qe4VKi"
+      ],
+      "name": "MM Fiber steps",
+      "settings": {
+        "heading": "One fiber that does the heavy lifting",
+        "description": "<p>One plant-based ingredient. Four important steps inside your gut.</p>",
+        "slider_label": "How Gut Flow fiber works",
+        "button_label": "TAKE THE QUIZ",
+        "button_link": "#quiz-gender",
+        "link_label": "More about the Gut Flow ingredient list",
+        "link_url": "#quiz-gender",
+        "container_width": 1280,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "heading_size": 48,
+        "heading_mobile_size": 40,
+        "body_size": 16,
+        "card_radius": 14,
+        "background": "#FDFAF6",
+        "card_background": "#ffffff",
+        "text_color": "#111111",
+        "muted_color": "#6F5F5A",
+        "accent_color": "#BD404D",
+        "button_text_color": "#ffffff",
+        "link_color": "#4A795C",
+        "border_color": "#e4d9d2"
+      }
     }
   },
   "order": [
@@ -233,6 +301,7 @@
     "main",
     "custom_liquid_HUzjGz",
     "mm_quiz_hero_9kFNGq",
-    "quiz_before_after_9EFLTj"
+    "quiz_before_after_9EFLTj",
+    "mm_fiber_steps_r6CiwV"
   ]
 }
