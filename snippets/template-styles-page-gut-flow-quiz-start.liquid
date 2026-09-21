@@ -5,11 +5,15 @@
     ========================================= */
     {% if template.name == 'page' and template.suffix == 'gut-flow-quiz-start' %}
         html {
+
         scroll-behavior: smooth;
+
         }
 
         #quiz-gender {
+
         scroll-margin-top: 40px;
+
         }
         #MainContent {
         --template-heading-font: "Fraunces", sans-serif;
@@ -37,13 +41,13 @@
         font-family: var(--template-heading-font) !important;
         font-weight: 400 !important;
         }
-        .mm-fiber-steps__description p{
+        #MainContent .mm-fiber-steps__description p{
         font-weight: 300 !important;
         }
         .mm-fiber-steps__card-text p{
         font-weight: 300 !important;
         }
-        .quiz-before-after__card h3{
+        #MainContent .quiz-before-after__card h3{
         font-family: var(--template-heading-font) !important;
         font-weight: 400 !important;
         }
@@ -57,6 +61,33 @@
         @media screen and (max-width: 749px) {
         #MainContent .mm-quiz-hero{
                 padding-bottom: 0;
+        }
+        .mm-quiz-hero__description p {
+        font-size: 16px !important;
+        font-weight: 300 !important;
+        }
+        .mm-quiz-hero__note--mob{
+        font-size: 16px !important;
+        font-weight: 300 !important;
+        }
+        #MainContent .mm-fiber-steps__description p{
+        font-size: 18px !important;
+        }
+        #MainContent .mm-quiz-hero__content h1{
+            font-size: 30px !important;
+        }
+        .quiz-before-after__title{
+        font-size: 30px !important;
+        }
+        #MainContent .mm-fiber-steps{
+        padding-top: 20px;
+        }
+        #MainContent .quiz-before-after__card h3{
+        font-size: 20px !important;
+        }
+        .mm-fiber-steps__header h2{
+        width: 100%;
+        font-size: 30px !important;
         }
         }
 
