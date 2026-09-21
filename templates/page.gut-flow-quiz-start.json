@@ -87,6 +87,7 @@
         "button_2_link": "/pages/gut-flow-quiz?gender=Male",
         "note": "Takes about a minute. No account needed.",
         "image_desktop": "shopify://shop_images/hero-gutflow-berries.webp",
+        "image_mobile": "shopify://shop_images/hero-gutflow-berries.webp",
         "image_alt": "Gut Flow gummies with fresh berries",
         "image_position": "center center",
         "mobile_image_position": "right center",
@@ -119,12 +120,119 @@
         "hide_header": true,
         "hide_footer": true
       }
+    },
+    "quiz_before_after_9EFLTj": {
+      "type": "quiz-before-after",
+      "blocks": {
+        "comparison_row_P9gn3j": {
+          "type": "comparison_row",
+          "settings": {
+            "before_text": "A stomach that feels puffy after meals",
+            "after_text": "A flatter-looking stomach"
+          }
+        },
+        "comparison_row_ELJnkP": {
+          "type": "comparison_row",
+          "settings": {
+            "before_text": "Feeling heavy and backed up",
+            "after_text": "Lighter, more comfortable days"
+          }
+        },
+        "comparison_row_iYNmKX": {
+          "type": "comparison_row",
+          "settings": {
+            "before_text": "Cravings that take over your day",
+            "after_text": "Fewer urges to snack"
+          }
+        },
+        "comparison_row_zbkfqd": {
+          "type": "comparison_row",
+          "settings": {
+            "before_text": "Eating less but still not feeling lighter",
+            "after_text": "Progress without shrinking your plate"
+          }
+        },
+        "comparison_row_L6jdeF": {
+          "type": "comparison_row",
+          "settings": {
+            "before_text": "Clothes that feel tighter by evening",
+            "after_text": "Feeling better in your clothes"
+          }
+        }
+      },
+      "block_order": [
+        "comparison_row_P9gn3j",
+        "comparison_row_ELJnkP",
+        "comparison_row_iYNmKX",
+        "comparison_row_zbkfqd",
+        "comparison_row_L6jdeF"
+      ],
+      "name": "Quiz before / after",
+      "settings": {
+        "heading": "<strong>Gut problems are a drag,</strong> your days don't have to be.",
+        "heading_tag": "h2",
+        "before_title": "Life <strong>before</strong> \nGut Flow",
+        "after_title": "Life <strong>after</strong> \nGut Flow",
+        "illustration": "shopify://shop_images/photo_2026-09-21_09.32.36.jpg",
+        "illustration_alt": "Gut Flow lifestyle illustration",
+        "before_icon_svg": "",
+        "after_icon_svg": "",
+        "before_icon_color": "#e34e55",
+        "after_icon_color": "#28795b",
+        "icon_size": 19,
+        "icon_text_gap": 14,
+        "background_color": "#fffefc",
+        "text_color": "#111111",
+        "row_text_color": "#111111",
+        "before_background": "#ffffff",
+        "after_background": "#F8ECE3",
+        "border_color": "#F8ECE3",
+        "divider_color": "#e7d9d0",
+        "heading_size_desktop": 48,
+        "heading_size_mobile": 32,
+        "heading_weight": "700",
+        "heading_line_height": 105,
+        "heading_max_width": 620,
+        "heading_max_width_mobile": 330,
+        "card_title_size_desktop": 24,
+        "card_title_size_mobile": 24,
+        "card_title_weight": "600",
+        "row_size_desktop": 16,
+        "row_size_mobile": 16,
+        "container_width": 1140,
+        "image_width_desktop": 330,
+        "desktop_content_gap": 72,
+        "heading_content_gap_desktop": 56,
+        "cards_gap": 16,
+        "card_radius": 14,
+        "before_border_width": 1,
+        "after_border_width": 0,
+        "card_padding_x": 24,
+        "card_padding_y": 26,
+        "card_title_gap": 22,
+        "row_min_height": 54,
+        "row_padding_y": 10,
+        "image_width_mobile": 250,
+        "heading_content_gap_mobile": 72,
+        "image_cards_gap_mobile": 56,
+        "cards_gap_mobile": 16,
+        "card_padding_x_mobile": 24,
+        "card_padding_y_mobile": 26,
+        "card_title_gap_mobile": 22,
+        "row_min_height_mobile": 54,
+        "row_padding_y_mobile": 10,
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 56
+      }
     }
   },
   "order": [
     "mm_promo_bar_jzrCGd",
     "main",
     "custom_liquid_HUzjGz",
-    "mm_quiz_hero_9kFNGq"
+    "mm_quiz_hero_9kFNGq",
+    "quiz_before_after_9EFLTj"
   ]
 }
