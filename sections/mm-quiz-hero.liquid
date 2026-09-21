@@ -7,33 +7,33 @@
 
 {%- style -%}
   #shopify-section-{{ section.id }} {
-    --quiz-background: {{ section.settings.background }};
-    --quiz-text: {{ section.settings.text_color }};
-    --quiz-primary: {{ section.settings.primary_background }};
-    --quiz-primary-text: {{ section.settings.primary_text }};
-    --quiz-secondary: {{ section.settings.secondary_background }};
-    --quiz-secondary-text: {{ section.settings.secondary_text }};
-    --quiz-check: {{ section.settings.check_color }};
-    --quiz-check-background: {{ section.settings.check_background }};
-    --quiz-container: {{ section.settings.container_width }}px;
-    --quiz-content: {{ section.settings.content_width }}px;
-    --quiz-height: {{ section.settings.desktop_height }}px;
-    --quiz-heading-size: {{ section.settings.heading_size }}px;
-    --quiz-mobile-heading-size: {{ section.settings.mobile_heading_size }}px;
-    --quiz-body-size: {{ section.settings.body_size }}px;
-    --quiz-mobile-body-size: {{ section.settings.mobile_body_size }}px;
-    --quiz-heading-line-height: {{ section.settings.heading_line_height | divided_by: 100.0 }};
-    --quiz-top: {{ section.settings.padding_top }}px;
-    --quiz-bottom: {{ section.settings.padding_bottom }}px;
-    --quiz-logo-width: {{ section.settings.logo_width }}px;
-    --quiz-logo-gap: {{ section.settings.logo_gap }}px;
-    --quiz-content-gap: {{ section.settings.content_gap }}px;
-    --quiz-button-radius: {{ section.settings.button_radius }}px;
-    --quiz-button-height: {{ section.settings.button_height }}px;
-    --quiz-mobile-image-height: {{ section.settings.mobile_image_height }}px;
-    --quiz-image-position: {{ section.settings.image_position }};
-    --quiz-mobile-image-position: {{ section.settings.mobile_image_position }};
-    --quiz-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  --quiz-background: {{ section.settings.background }};
+  --quiz-text: {{ section.settings.text_color }};
+  --quiz-primary: {{ section.settings.primary_background }};
+  --quiz-primary-text: {{ section.settings.primary_text }};
+  --quiz-secondary: {{ section.settings.secondary_background }};
+  --quiz-secondary-text: {{ section.settings.secondary_text }};
+  --quiz-check: {{ section.settings.check_color }};
+  --quiz-check-background: {{ section.settings.check_background }};
+  --quiz-container: {{ section.settings.container_width }}px;
+  --quiz-content: {{ section.settings.content_width }}px;
+  --quiz-height: {{ section.settings.desktop_height }}px;
+  --quiz-heading-size: {{ section.settings.heading_size }}px;
+  --quiz-mobile-heading-size: {{ section.settings.mobile_heading_size }}px;
+  --quiz-body-size: {{ section.settings.body_size }}px;
+  --quiz-mobile-body-size: {{ section.settings.mobile_body_size }}px;
+  --quiz-heading-line-height: {{ section.settings.heading_line_height | divided_by: 100.0 }};
+  --quiz-top: {{ section.settings.padding_top }}px;
+  --quiz-bottom: {{ section.settings.padding_bottom }}px;
+  --quiz-logo-width: {{ section.settings.logo_width }}px;
+  --quiz-logo-gap: {{ section.settings.logo_gap }}px;
+  --quiz-content-gap: {{ section.settings.content_gap }}px;
+  --quiz-button-radius: {{ section.settings.button_radius }}px;
+  --quiz-button-height: {{ section.settings.button_height }}px;
+  --quiz-mobile-image-height: {{ section.settings.mobile_image_height }}px;
+  --quiz-image-position: {{ section.settings.image_position }};
+  --quiz-mobile-image-position: {{ section.settings.mobile_image_position }};
+  --quiz-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
   }
   {% if section.settings.hide_header %}
     body:has(#shopify-section-{{ section.id }}) .shopify-section-group-header-group { display: none; }
@@ -44,6 +44,20 @@
 {%- endstyle -%}
 
 <section class="mm-quiz-hero{% if hero_image != blank %} mm-quiz-hero--has-image{% endif %} mm-quiz-hero--{{ section.settings.heading_font }}" {% if section.settings.heading != blank %}aria-labelledby="QuizHeading-{{ section.id }}"{% endif %}>
+
+  {% if section.settings.logo != blank or section.settings.brand_name != blank %}
+    <div class="mm-quiz-hero__mobile-brand">
+    {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
+        {% if section.settings.logo != blank %}
+          {{ section.settings.logo | image_url: width: 300 | image_tag: class: 'mm-quiz-hero__mobile-logo', widths: '120, 180, 240, 300', sizes: '110px', alt: section.settings.brand_name }}
+        {% else %}
+          <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
+        {% endif %}
+        {% if section.settings.logo_link != blank %}</a>{% endif %}
+      {% if section.settings.brand_caption != blank %}<span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>{% endif %}
+    </div>
+  {% endif %}
+
   {% if hero_image != blank %}
     <picture class="mm-quiz-hero__media">
       <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 480 }} 480w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
@@ -57,13 +71,13 @@
     <div class="mm-quiz-hero__content">
       {% if section.settings.logo != blank or section.settings.brand_name != blank %}
         <div class="mm-quiz-hero__brand">
-          {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
-          {% if section.settings.logo != blank %}
-            {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'mm-quiz-hero__logo', widths: '120, 240, 360, 600', sizes: '240px', alt: section.settings.brand_name }}
-          {% else %}
-            <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
-          {% endif %}
-          {% if section.settings.logo_link != blank %}</a>{% endif %}
+        {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
+            {% if section.settings.logo != blank %}
+              {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'mm-quiz-hero__logo', widths: '120, 240, 360, 600', sizes: '240px', alt: section.settings.brand_name }}
+            {% else %}
+              <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
+            {% endif %}
+            {% if section.settings.logo_link != blank %}</a>{% endif %}
           {% if section.settings.brand_caption != blank %}<span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>{% endif %}
         </div>
       {% endif %}
@@ -86,6 +100,7 @@
 
       <div class="mm-quiz-hero__actions">
         {% if section.settings.question != blank %}<h2 class="mm-quiz-hero__question">{{ section.settings.question | escape }}</h2>{% endif %}
+        {% if section.settings.note != blank %}<p class="mm-quiz-hero__note mm-quiz-hero__note--mob">{{ section.settings.note | escape }}</p>{% endif %}
         <div class="mm-quiz-hero__buttons">
           {% for index in (1..2) %}
             {% liquid
@@ -103,7 +118,7 @@
             {% endif %}
           {% endfor %}
         </div>
-        {% if section.settings.note != blank %}<p class="mm-quiz-hero__note">{{ section.settings.note | escape }}</p>{% endif %}
+        {% if section.settings.note != blank %}<p class="mm-quiz-hero__note mm-quiz-hero__note--desc">{{ section.settings.note | escape }}</p>{% endif %}
       </div>
     </div>
   </div>
