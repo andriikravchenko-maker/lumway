@@ -271,6 +271,7 @@
         "step_cgMW3F",
         "step_Qe4VKi"
       ],
+      "disabled": true,
       "name": "MM Fiber steps",
       "settings": {
         "heading": "One fiber that does the heavy lifting",
@@ -333,6 +334,7 @@
         "review_ntnnMz",
         "review_zpfCWB"
       ],
+      "disabled": true,
       "name": "Quiz reviews",
       "settings": {
         "heading": "Love notes from\nhappier guts",
@@ -422,6 +424,7 @@
         "menu_column_MPjUAY",
         "menu_column_LBgVkR"
       ],
+      "disabled": true,
       "name": "Quiz footer",
       "settings": {
         "logo": "shopify://shop_images/content.png",
@@ -436,10 +439,10 @@
         "copyright_text": "LUMWAY 2026 © All rights reserved",
         "background_color": "#ffffff",
         "heading_color": "#111111",
-        "text_color": "#6F5F5A",
+        "text_color": "#6f5f5a",
         "link_color": "#786a64",
         "link_hover_color": "#111111",
-        "divider_color": "#6F5F5A",
+        "divider_color": "#6f5f5a",
         "menu_title_size_desktop": 16,
         "menu_title_size_mobile": 16,
         "menu_title_weight": "700",
