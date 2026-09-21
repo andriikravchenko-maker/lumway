@@ -269,6 +269,7 @@
         "step_cgMW3F",
         "step_Qe4VKi"
       ],
+      "disabled": true,
       "name": "MM Fiber steps",
       "settings": {
         "heading": "One fiber that does the heavy lifting",
@@ -285,13 +286,13 @@
         "heading_mobile_size": 40,
         "body_size": 16,
         "card_radius": 14,
-        "background": "#FDFAF6",
+        "background": "#fdfaf6",
         "card_background": "#ffffff",
         "text_color": "#111111",
-        "muted_color": "#6F5F5A",
-        "accent_color": "#BD404D",
+        "muted_color": "#6f5f5a",
+        "accent_color": "#bd404d",
         "button_text_color": "#ffffff",
-        "link_color": "#4A795C",
+        "link_color": "#4a795c",
         "border_color": "#e4d9d2"
       }
     }
