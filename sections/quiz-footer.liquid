@@ -1,0 +1,871 @@
+<div
+        id="QuizFooter-{{ section.id }}"
+        class="quiz-footer"
+        style="
+                --qf-bg: {{ section.settings.background_color }};
+                --qf-heading: {{ section.settings.heading_color }};
+                --qf-text: {{ section.settings.text_color }};
+                --qf-link: {{ section.settings.link_color }};
+                --qf-link-hover: {{ section.settings.link_hover_color }};
+                --qf-divider: {{ section.settings.divider_color }};
+                --qf-container: {{ section.settings.container_width }}px;
+                --qf-logo-d: {{ section.settings.logo_width_desktop }}px;
+                --qf-logo-m: {{ section.settings.logo_width_mobile }}px;
+                --qf-menu-title-d: {{ section.settings.menu_title_size_desktop }}px;
+                --qf-menu-title-m: {{ section.settings.menu_title_size_mobile }}px;
+                --qf-link-d: {{ section.settings.link_size_desktop }}px;
+                --qf-link-m: {{ section.settings.link_size_mobile }}px;
+                --qf-legal-d: {{ section.settings.legal_size_desktop }}px;
+                --qf-legal-m: {{ section.settings.legal_size_mobile }}px;
+                "
+>
+    <div class="quiz-footer__container">
+        <div class="quiz-footer__top">
+            <div class="quiz-footer__brand">
+                {% if section.settings.logo != blank %}
+                    {% if section.settings.logo_link != blank %}
+                        <a href="{{ section.settings.logo_link }}" class="quiz-footer__logo-link" aria-label="{{ shop.name }}">
+                    {% endif %}
+
+                    {{
+                    section.settings.logo
+                    | image_url: width: 600
+                    | image_tag:
+                    class: 'quiz-footer__logo',
+                    loading: 'lazy',
+                    widths: '120, 180, 240, 360, 480, 600',
+                    alt: shop.name
+                    }}
+
+                    {% if section.settings.logo_link != blank %}
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="quiz-footer__menus">
+                {% for block in section.blocks %}
+                    {% if block.type == 'menu_column' %}
+                        <div class="quiz-footer__menu-column" {{ block.shopify_attributes }}>
+                            {% if block.settings.title != blank %}
+                                <h3 class="quiz-footer__menu-title">{{ block.settings.title }}</h3>
+                            {% endif %}
+
+                            {% if block.settings.menu != blank %}
+                                <ul class="quiz-footer__menu" role="list">
+                                    {% for link in block.settings.menu.links %}
+                                        <li>
+                                            <a href="{{ link.url }}">{{ link.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="quiz-footer__divider"></div>
+
+        <div class="quiz-footer__legal">
+            {% if section.settings.research_text != blank %}
+                <div class="quiz-footer__research">
+                    {{ section.settings.research_text }}
+                </div>
+            {% endif %}
+
+            {% if section.settings.disclaimer_text != blank %}
+                <div class="quiz-footer__disclaimer">
+                    {% if section.settings.disclaimer_title != blank %}
+                        <strong>{{ section.settings.disclaimer_title }}</strong>
+                    {% endif %}
+                    {{ section.settings.disclaimer_text }}
+                </div>
+            {% endif %}
+
+            {% if section.settings.auto_copyright %}
+                <div class="quiz-footer__copyright">
+                    {{ shop.name | upcase }} {{ 'now' | date: '%Y' }} © {{ section.settings.copyright_suffix }}
+                </div>
+            {% elsif section.settings.copyright_text != blank %}
+                <div class="quiz-footer__copyright">
+                    {{ section.settings.copyright_text }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #QuizFooter-{{ section.id }},
+    #shopify-section-{{ section.id }} {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    #QuizFooter-{{ section.id }} {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+    }
+</style>
+
+<style>
+    #QuizFooter-{{ section.id }} {
+        background: var(--qf-bg);
+        color: var(--qf-text);
+        padding:
+                {{ section.settings.padding_top_desktop }}px
+{{ section.settings.padding_x_desktop }}px
+{{ section.settings.padding_bottom_desktop }}px;
+    }
+
+    #QuizFooter-{{ section.id }} * {
+        box-sizing: border-box;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__container {
+        width: min(100%, var(--qf-container));
+        margin-inline: auto;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__top {
+        display: grid;
+        grid-template-columns: minmax(220px, {{ section.settings.logo_column_width }}px) 1fr;
+        gap: {{ section.settings.logo_menus_gap }}px;
+        align-items: start;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__brand {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__logo-link {
+        display: inline-flex;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__logo {
+        display: block;
+        width: {{ section.settings.logo_width_desktop }}px;
+        max-width: 100%;
+        height: auto;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__menus {
+        display: grid;
+        grid-template-columns: repeat({{ section.settings.columns_desktop }}, minmax(0, 1fr));
+        gap: {{ section.settings.menu_columns_gap }}px;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__menu-title {
+        margin: 0 0 {{ section.settings.menu_title_gap_desktop }}px;
+        color: var(--qf-heading);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: var(--qf-menu-title-d);
+        font-weight: {{ section.settings.menu_title_weight }};
+        line-height: 1.25;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__menu {
+        display: flex;
+        flex-direction: column;
+        gap: {{ section.settings.link_gap_desktop }}px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__menu a {
+        color: var(--qf-link);
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: var(--qf-link-d);
+        font-weight: {{ section.settings.link_weight }};
+        line-height: 1.4;
+        transition: color .2s ease;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__menu a:hover {
+        color: var(--qf-link-hover);
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__divider {
+        display: block;
+        width: 100%;
+        height: 0;
+        margin: {{ section.settings.divider_top_desktop }}px 0 {{ section.settings.divider_bottom_desktop }}px;
+        border: 0;
+        border-top: {{ section.settings.divider_width }}px solid {{ section.settings.divider_color }};
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__legal {
+        width: min(100%, {{ section.settings.legal_max_width }}px);
+        color: var(--qf-text);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: var(--qf-legal-d);
+        font-weight: {{ section.settings.legal_weight }};
+        line-height: {{ section.settings.legal_line_height | divided_by: 100.0 }};
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__research {
+        margin-bottom: {{ section.settings.research_gap }}px;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__disclaimer {
+        margin-bottom: {{ section.settings.disclaimer_gap }}px;
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__disclaimer strong {
+        color: var(--qf-heading);
+        font-weight: {{ section.settings.disclaimer_title_weight }};
+    }
+
+    #QuizFooter-{{ section.id }} .quiz-footer__copyright {
+        color: var(--qf-text);
+    }
+
+    @media screen and (max-width: 749px) {
+        #QuizFooter-{{ section.id }} {
+            padding:
+                    {{ section.settings.padding_top_mobile }}px
+{{ section.settings.padding_x_mobile }}px
+{{ section.settings.padding_bottom_mobile }}px;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__top {
+            display: block;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__logo {
+            width: {{ section.settings.logo_width_mobile }}px !important;
+            max-width: 100%;
+            height: auto;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__menus {
+            grid-template-columns: 1fr;
+            gap: {{ section.settings.menu_columns_gap_mobile }}px;
+            margin-top: {{ section.settings.logo_menus_gap_mobile }}px;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__menu-title {
+            margin-bottom: {{ section.settings.menu_title_gap_mobile }}px;
+            font-size: var(--qf-menu-title-m);
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__menu {
+            gap: {{ section.settings.link_gap_mobile }}px;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__menu a {
+            font-size: var(--qf-link-m);
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__divider {
+            margin:
+                    {{ section.settings.divider_top_mobile }}px
+                    0
+{{ section.settings.divider_bottom_mobile }}px;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__legal {
+            width: 100%;
+            font-size: var(--qf-legal-m);
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__research {
+            margin-bottom: {{ section.settings.research_gap_mobile }}px;
+        }
+
+        #QuizFooter-{{ section.id }} .quiz-footer__disclaimer {
+            margin-bottom: {{ section.settings.disclaimer_gap_mobile }}px;
+        }
+    }
+</style>
+
+{% schema %}
+{
+  "name": "Quiz footer",
+  "tag": "section",
+  "class": "section-quiz-footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "range",
+      "id": "logo_width_desktop",
+      "label": "Logo width — desktop",
+      "min": 60,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "default": 125
+    },
+    {
+      "type": "range",
+      "id": "logo_width_mobile",
+      "label": "Logo width — mobile",
+      "min": 60,
+      "max": 280,
+      "step": 5,
+      "unit": "px",
+      "default": 165
+    },
+
+    {
+      "type": "header",
+      "content": "Legal content"
+    },
+    {
+      "type": "textarea",
+      "id": "research_text",
+      "label": "Research text",
+      "default": "*Research and references behind every claim are listed on the product page."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer_title",
+      "label": "Disclaimer title",
+      "default": "Disclaimer."
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer_text",
+      "label": "Disclaimer text",
+      "default": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary."
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_copyright",
+      "label": "Automatic copyright",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_suffix",
+      "label": "Automatic copyright suffix",
+      "default": "All rights reserved"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Manual copyright text",
+      "default": "LUMWAY 2026 © All rights reserved",
+      "info": "Used when Automatic copyright is disabled."
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Menu headings / disclaimer title",
+      "default": "#302522"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Legal text",
+      "default": "#786A64"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Menu links",
+      "default": "#786A64"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Menu links hover",
+      "default": "#302522"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider",
+      "default": "#E6D8D0"
+    },
+
+    {
+      "type": "header",
+      "content": "Menu typography"
+    },
+    {
+      "type": "range",
+      "id": "menu_title_size_desktop",
+      "label": "Title size — desktop",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "menu_title_size_mobile",
+      "label": "Title size — mobile",
+      "min": 16,
+      "max": 34,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "menu_title_weight",
+      "label": "Title weight",
+      "default": "700",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "link_size_desktop",
+      "label": "Link size — desktop",
+      "min": 12,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "link_size_mobile",
+      "label": "Link size — mobile",
+      "min": 16,
+      "max": 34,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "link_weight",
+      "label": "Link weight",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" }
+      ]
+    },
+
+    {
+      "type": "header",
+      "content": "Legal typography"
+    },
+    {
+      "type": "range",
+      "id": "legal_size_desktop",
+      "label": "Text size — desktop",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "legal_size_mobile",
+      "label": "Text size — mobile",
+      "min": 14,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "select",
+      "id": "legal_weight",
+      "label": "Text weight",
+      "default": "400",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "disclaimer_title_weight",
+      "label": "Disclaimer title weight",
+      "default": "700",
+      "options": [
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi bold" },
+        { "value": "700", "label": "Bold" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "legal_line_height",
+      "label": "Legal line height",
+      "min": 120,
+      "max": 190,
+      "step": 1,
+      "unit": "%",
+      "default": 155
+    },
+
+    {
+      "type": "header",
+      "content": "Desktop layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container max width",
+      "min": 800,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "default": 1320
+    },
+    {
+      "type": "range",
+      "id": "logo_column_width",
+      "label": "Logo column width",
+      "min": 200,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "logo_menus_gap",
+      "label": "Logo / menus gap",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Menu columns",
+      "default": "3",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "menu_columns_gap",
+      "label": "Menu columns gap",
+      "min": 10,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "menu_title_gap_desktop",
+      "label": "Menu title / links gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "link_gap_desktop",
+      "label": "Links gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "divider_top_desktop",
+      "label": "Space before divider",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "divider_bottom_desktop",
+      "label": "Space after divider",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Divider thickness",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "legal_max_width",
+      "label": "Legal content max width",
+      "min": 400,
+      "max": 1100,
+      "step": 10,
+      "unit": "px",
+      "default": 760
+    },
+    {
+      "type": "range",
+      "id": "research_gap",
+      "label": "Research / disclaimer gap",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "disclaimer_gap",
+      "label": "Disclaimer / copyright gap",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "range",
+      "id": "logo_menus_gap_mobile",
+      "label": "Logo / menus gap",
+      "min": 30,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "menu_columns_gap_mobile",
+      "label": "Menu columns gap",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "menu_title_gap_mobile",
+      "label": "Menu title / links gap",
+      "min": 12,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "link_gap_mobile",
+      "label": "Links gap",
+      "min": 12,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "divider_top_mobile",
+      "label": "Space before divider",
+      "min": 30,
+      "max": 140,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "divider_bottom_mobile",
+      "label": "Space after divider",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "research_gap_mobile",
+      "label": "Research / disclaimer gap",
+      "min": 12,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "disclaimer_gap_mobile",
+      "label": "Disclaimer / copyright gap",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 38
+    },
+
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Top — desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Bottom — desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_x_desktop",
+      "label": "Horizontal — desktop",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top — mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom — mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_x_mobile",
+      "label": "Horizontal — mobile",
+      "min": 12,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Column title",
+          "default": "Customer success"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Quiz footer",
+      "blocks": [
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Customer success"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Learn"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Legal"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
