@@ -165,6 +165,7 @@
 .mm-quiz-hero__buttons {
   display: flex;
   gap: 14px;
+
 }
 
 .mm-quiz-hero__button {
@@ -412,7 +413,7 @@
     padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
     background: #fff;
     border-top: 1px solid rgba(46, 33, 30, 0.12);
-     border-radius: 0;
+    border-radius: 0;
   }
 
   .mm-quiz-hero__button {
