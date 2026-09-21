@@ -77,7 +77,7 @@
         "brand_name": "lumway",
         "brand_caption": "",
         "logo": "shopify://shop_images/6c6768e9cf1fbd83dbd2b89ce33fee088c1ca6c0.png",
-        "logo_link": "",
+        "logo_link": "shopify://pages/gut-flow-quiz-start",
         "heading": "A flatter-looking stomach, without eating less. Save up to 30% OFF",
         "description": "<p>Start your gut reset and save up to 30% on daily fiber support for:</p>",
         "question": "Select your gender:",
@@ -90,7 +90,7 @@
         "image_mobile": "shopify://shop_images/hero-gutflow-berries-mobile.jpg",
         "image_alt": "Gut Flow gummies with fresh berries",
         "image_position": "center center",
-        "mobile_image_position": "right center",
+        "mobile_image_position": "center center",
         "overlay_opacity": 0,
         "mobile_image_height": 320,
         "container_width": 1300,
@@ -271,7 +271,6 @@
         "step_cgMW3F",
         "step_Qe4VKi"
       ],
-      "disabled": true,
       "name": "MM Fiber steps",
       "settings": {
         "heading": "One fiber that does the heavy lifting",
@@ -334,7 +333,6 @@
         "review_ntnnMz",
         "review_zpfCWB"
       ],
-      "disabled": true,
       "name": "Quiz reviews",
       "settings": {
         "heading": "Love notes from\nhappier guts",
@@ -401,21 +399,21 @@
           "type": "menu_column",
           "settings": {
             "title": "Customer success",
-            "menu": "footer"
+            "menu": "customer-success"
           }
         },
         "menu_column_MPjUAY": {
           "type": "menu_column",
           "settings": {
             "title": "Learn",
-            "menu": "footer"
+            "menu": "learn"
           }
         },
         "menu_column_LBgVkR": {
           "type": "menu_column",
           "settings": {
             "title": "Legal",
-            "menu": "footer"
+            "menu": "legal"
           }
         }
       },
@@ -424,13 +422,12 @@
         "menu_column_MPjUAY",
         "menu_column_LBgVkR"
       ],
-      "disabled": true,
       "name": "Quiz footer",
       "settings": {
         "logo": "shopify://shop_images/content.png",
         "logo_link": "/pages/gut-flow-quiz-start",
         "logo_width_desktop": 100,
-        "logo_width_mobile": 125,
+        "logo_width_mobile": 100,
         "research_text": "*Research and references behind every claim are listed on the product page.",
         "disclaimer_title": "Disclaimer.",
         "disclaimer_text": "These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease. Individual results may vary.",
@@ -442,7 +439,7 @@
         "text_color": "#6f5f5a",
         "link_color": "#786a64",
         "link_hover_color": "#111111",
-        "divider_color": "#6f5f5a",
+        "divider_color": "#f8ece3",
         "menu_title_size_desktop": 16,
         "menu_title_size_mobile": 16,
         "menu_title_weight": "700",
@@ -467,14 +464,14 @@
         "legal_max_width": 760,
         "research_gap": 20,
         "disclaimer_gap": 28,
-        "logo_menus_gap_mobile": 80,
+        "logo_menus_gap_mobile": 50,
         "menu_columns_gap_mobile": 56,
         "menu_title_gap_mobile": 28,
         "link_gap_mobile": 28,
         "divider_top_mobile": 80,
         "divider_bottom_mobile": 50,
-        "research_gap_mobile": 28,
-        "disclaimer_gap_mobile": 38,
+        "research_gap_mobile": 24,
+        "disclaimer_gap_mobile": 24,
         "padding_top_desktop": 72,
         "padding_bottom_desktop": 40,
         "padding_x_desktop": 32,
