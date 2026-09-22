@@ -3,13 +3,15 @@ Quiz Result Slider
 
 Expected URL params:
 ?age=42
-&height=165
+&heightFt=5
+&heightIn=5
 &currentWeight=180
 &targetWeight=160
 &gender=Female
 
 Example:
-/pages/gut-flow-quiz-result?age=42&height=165&currentWeight=180&targetWeight=160&gender=Female
+/pages/gut-flow-quiz-result?age=42&heightFt=5
+&heightIn=5&currentWeight=180&targetWeight=160&gender=Female
 {% endcomment %}
 
 {%- liquid
@@ -40,7 +42,7 @@ Example:
 
 <section
         id="QuizResultSlider-{{ section.id }}"
-        class="quiz-result-slider"
+        class="quiz-result-slider{% if section.settings.show_loader %} is-loading{% endif %}"
         data-quiz-result-slider
         style="
                 --qrs-bg: {{ section.settings.background_color }};
@@ -63,443 +65,464 @@ Example:
                 --qrs-small-size-mobile: {{ section.settings.small_size_mobile }}px;
                 "
 >
-    <div class="quiz-result-slider__viewport">
-
-        <div
-                class="quiz-result-slider__slide is-active"
-                data-quiz-slide="0"
-        >
-            <div class="quiz-result-slider__container quiz-result-slider__container--timeline">
-
-                <div class="quiz-result-slider__intro">
-                    <h2 class="quiz-result-slider__title">
-                        {{ section.settings.timeline_heading }}
-                    </h2>
-
-                    <div class="quiz-result-slider__description">
-                        {{ section.settings.timeline_text }}
-                    </div>
-
-                    <p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--desktop">
-                        {{ section.settings.timeline_disclaimer }}
-                    </p>
+    {% if section.settings.show_loader %}
+        <div class="quiz-result-loader" data-result-loader>
+            <div class="quiz-result-loader__inner">
+                <div class="quiz-result-loader__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <h2 class="quiz-result-loader__review-title">{{ section.settings.loader_review_title }}</h2>
+                <div class="quiz-result-loader__review-text">{{ section.settings.loader_review_text }}</div>
+                <div class="quiz-result-loader__customer">
+                    <strong>{{ section.settings.loader_customer_name }}</strong>
+                    {% if section.settings.loader_verified_text != blank %}
+                        <span class="quiz-result-loader__verified">✓ {{ section.settings.loader_verified_text }}</span>
+                    {% endif %}
                 </div>
-
-                <div class="quiz-timeline-card">
-
-                    <h3 class="quiz-timeline-card__title">
-                        Your estimated timeline*
-                    </h3>
-
-                    <div class="quiz-timeline-card__divider"></div>
-
-                    <div class="quiz-timeline-card__dates">
-                        <span data-current-month>—</span>
-                        <span data-target-month>—</span>
-                    </div>
-
-                    <div class="quiz-timeline-card__weights">
-                        <strong>
-                            <span data-current-weight>{{ section.settings.placeholder_current_weight }}</span> lb
-                        </strong>
-
-                        <span class="quiz-timeline-card__arrow">→</span>
-
-                        <strong>
-                            <span data-target-weight>{{ section.settings.placeholder_target_weight }}</span> lb
-                        </strong>
-                    </div>
-
-                    <div class="quiz-timeline-chart">
-                        <svg
-                                class="quiz-timeline-chart__svg"
-                                viewBox="0 0 500 150"
-                                preserveAspectRatio="none"
-                                aria-hidden="true"
-                        >
-                            <line
-                                    class="quiz-chart-grid"
-                                    x1="0"
-                                    y1="0"
-                                    x2="0"
-                                    y2="150"
-                            />
-
-                            <line
-                                    class="quiz-chart-grid"
-                                    x1="125"
-                                    y1="0"
-                                    x2="125"
-                                    y2="150"
-                            />
-
-                            <line
-                                    class="quiz-chart-grid"
-                                    x1="250"
-                                    y1="0"
-                                    x2="250"
-                                    y2="150"
-                            />
-
-                            <line
-                                    class="quiz-chart-grid"
-                                    x1="375"
-                                    y1="0"
-                                    x2="375"
-                                    y2="150"
-                            />
-
-                            <line
-                                    class="quiz-chart-grid"
-                                    x1="499"
-                                    y1="0"
-                                    x2="499"
-                                    y2="150"
-                            />
-
-                            <path
-                                    class="quiz-timeline-chart__area"
-                                    data-timeline-area
-                                    d=""
-                            />
-
-                            <path
-                                    class="quiz-timeline-chart__line"
-                                    data-timeline-line
-                                    d=""
-                            />
-
-                            <circle
-                                    class="quiz-timeline-chart__point"
-                                    data-timeline-point-one
-                                    r="6"
-                            />
-
-                            <circle
-                                    class="quiz-timeline-chart__point"
-                                    data-timeline-point-two
-                                    r="6"
-                            />
-                        </svg>
-
-                        <span
-                                class="quiz-timeline-chart__label quiz-timeline-chart__label--first"
-                                data-timeline-label-one
-                        >
-—
-</span>
-
-                        <span
-                                class="quiz-timeline-chart__label quiz-timeline-chart__label--last"
-                                data-timeline-label-two
-                        >
-—
-</span>
-                    </div>
-
+                <div class="quiz-result-loader__progress-wrap">
+                    <h3>{{ section.settings.loader_heading }}</h3>
+                    <div class="quiz-result-loader__track"><span data-loader-progress></span></div>
                 </div>
-
-                <p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--mobile">
-                    {{ section.settings.timeline_disclaimer }}
-                </p>
-
             </div>
         </div>
+    {% endif %}
 
+    <div class="quiz-result-slider__content" data-result-content{% if section.settings.show_loader %} hidden{% endif %}>
+        <div class="quiz-result-slider__viewport">
 
-        <div
-                class="quiz-result-slider__slide"
-                data-quiz-slide="1"
-                hidden
-        >
-            <div class="quiz-result-slider__container">
+            <div
+                    class="quiz-result-slider__slide is-active"
+                    data-quiz-slide="0"
+            >
+                <div class="quiz-result-slider__container quiz-result-slider__container--timeline">
 
-                <div class="quiz-month-card">
-
-                    <div class="quiz-month-card__content">
-                        <h2 class="quiz-month-card__title">
-                            {{ section.settings.month_heading }}
+                    <div class="quiz-result-slider__intro">
+                        <h2 class="quiz-result-slider__title">
+                            {{ section.settings.timeline_heading }}
                         </h2>
 
-                        <div class="quiz-month-card__description">
-                            {{ section.settings.month_text }}
+                        <div class="quiz-result-slider__description">
+                            {{ section.settings.timeline_text }}
                         </div>
+
+                        <p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--desktop">
+                            {{ section.settings.timeline_disclaimer }}
+                        </p>
                     </div>
 
-                    <div class="quiz-month-card__chart-wrapper">
+                    <div class="quiz-timeline-card">
 
-                        <div class="quiz-month-card__summary">
-                            <strong data-first-month-loss>{{ section.settings.placeholder_first_month_loss }}</strong>
-                            <span>in your first month</span>
+                        <h3 class="quiz-timeline-card__title">
+                            Your estimated timeline*
+                        </h3>
+
+                        <div class="quiz-timeline-card__divider"></div>
+
+                        <div class="quiz-timeline-card__dates">
+                            <span data-current-month>—</span>
+                            <span data-target-month>—</span>
                         </div>
 
-                        <div class="quiz-month-chart">
+                        <div class="quiz-timeline-card__weights">
+                            <strong>
+                                <span data-current-weight>{{ section.settings.placeholder_current_weight }}</span> lb
+                            </strong>
+
+                            <span class="quiz-timeline-card__arrow">→</span>
+
+                            <strong>
+                                <span data-target-weight>{{ section.settings.placeholder_target_weight }}</span> lb
+                            </strong>
+                        </div>
+
+                        <div class="quiz-timeline-chart">
                             <svg
-                                    class="quiz-month-chart__svg"
-                                    viewBox="0 0 640 170"
+                                    class="quiz-timeline-chart__svg"
+                                    viewBox="0 0 500 150"
+                                    preserveAspectRatio="none"
                                     aria-hidden="true"
                             >
-                                <line class="quiz-month-chart__cap" x1="30" x2="70" y1="30" y2="30"></line>
-                                <line class="quiz-month-chart__cap" x1="570" x2="610" y1="140" y2="140"></line>
+                                <line
+                                        class="quiz-chart-grid"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="150"
+                                />
+
+                                <line
+                                        class="quiz-chart-grid"
+                                        x1="125"
+                                        y1="0"
+                                        x2="125"
+                                        y2="150"
+                                />
+
+                                <line
+                                        class="quiz-chart-grid"
+                                        x1="250"
+                                        y1="0"
+                                        x2="250"
+                                        y2="150"
+                                />
+
+                                <line
+                                        class="quiz-chart-grid"
+                                        x1="375"
+                                        y1="0"
+                                        x2="375"
+                                        y2="150"
+                                />
+
+                                <line
+                                        class="quiz-chart-grid"
+                                        x1="499"
+                                        y1="0"
+                                        x2="499"
+                                        y2="150"
+                                />
 
                                 <path
-                                        class="quiz-month-chart__line"
-                                        data-month-line
+                                        class="quiz-timeline-chart__area"
+                                        data-timeline-area
                                         d=""
-                                ></path>
+                                />
 
-                                <g data-week-guides></g>
-                                <g data-week-points></g>
+                                <path
+                                        class="quiz-timeline-chart__line"
+                                        data-timeline-line
+                                        d=""
+                                />
+
+                                <circle
+                                        class="quiz-timeline-chart__point"
+                                        data-timeline-point-one
+                                        r="6"
+                                />
+
+                                <circle
+                                        class="quiz-timeline-chart__point"
+                                        data-timeline-point-two
+                                        r="6"
+                                />
                             </svg>
 
-                            <div class="quiz-month-chart__weight-labels">
-                                <strong data-week-weight="0">{{ section.settings.placeholder_week_1 }}</strong>
-                                <strong data-week-weight="1">{{ section.settings.placeholder_week_2 }}</strong>
-                                <strong data-week-weight="2">{{ section.settings.placeholder_week_3 }}</strong>
-                                <strong data-week-weight="3">{{ section.settings.placeholder_week_4 }}</strong>
-                            </div>
+                            <span
+                                    class="quiz-timeline-chart__label quiz-timeline-chart__label--first"
+                                    data-timeline-label-one
+                            >
+—
+</span>
 
-                            <div class="quiz-month-chart__week-labels">
-                                <span>WEEK 1</span>
-                                <span>WEEK 2</span>
-                                <span>WEEK 3</span>
-                                <span>WEEK 4</span>
-                            </div>
+                            <span
+                                    class="quiz-timeline-chart__label quiz-timeline-chart__label--last"
+                                    data-timeline-label-two
+                            >
+—
+</span>
                         </div>
+
                     </div>
+
+                    <p class="quiz-result-slider__disclaimer quiz-result-slider__disclaimer--mobile">
+                        {{ section.settings.timeline_disclaimer }}
+                    </p>
+
                 </div>
-
-                <p class="quiz-result-slider__disclaimer">
-                    {{ section.settings.month_disclaimer }}
-                </p>
-
             </div>
-        </div>
 
 
-        <div
-                class="quiz-result-slider__slide"
-                data-quiz-slide="2"
-                hidden
-        >
-            <div class="quiz-result-slider__container">
+            <div
+                    class="quiz-result-slider__slide"
+                    data-quiz-slide="1"
+                    hidden
+            >
+                <div class="quiz-result-slider__container">
 
-                <div class="quiz-summary">
+                    <div class="quiz-month-card">
 
-                    <div class="quiz-summary__header">
-                        <h2 class="quiz-summary__title">
-                            {{ section.settings.summary_heading }}
-                        </h2>
+                        <div class="quiz-month-card__content">
+                            <h2 class="quiz-month-card__title">
+                                {{ section.settings.month_heading }}
+                            </h2>
 
-                        <div class="quiz-summary__subtitle">
-                            {{ section.settings.summary_text }}
-                        </div>
-                    </div>
-
-                    <div class="quiz-summary__stats">
-
-                        <div class="quiz-summary-stat">
-                            <div class="quiz-summary-stat__icon">
-                                {% if section.settings.summary_gender_svg != blank %}
-                                    <div class="quiz-summary__custom-svg">
-                                        {{ section.settings.summary_gender_svg }}
-                                    </div>
-                                {% elsif section.settings.summary_gender_icon != blank %}
-                                    {{ section.settings.summary_gender_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
-                                {% else %}
-                                    <span>♀</span>
-                                {% endif %}
-                            </div>
-
-                            <div>
-                                <span>Gender</span>
-                                <strong data-summary-gender>
-                                    {{ section.settings.default_gender }}
-                                </strong>
+                            <div class="quiz-month-card__description">
+                                {{ section.settings.month_text }}
                             </div>
                         </div>
 
-                        <div class="quiz-summary-stat">
-                            <div class="quiz-summary-stat__icon">
-                                {% if section.settings.summary_age_svg != blank %}
-                                    <div class="quiz-summary__custom-svg">
-                                        {{ section.settings.summary_age_svg }}
-                                    </div>
-                                {% elsif section.settings.summary_age_icon != blank %}
-                                    {{ section.settings.summary_age_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
-                                {% else %}
-                                    <span>♙</span>
-                                {% endif %}
+                        <div class="quiz-month-card__chart-wrapper">
+
+                            <div class="quiz-month-card__summary">
+                                <strong data-first-month-loss>{{ section.settings.placeholder_first_month_loss }}</strong>
+                                <span>in your first month</span>
                             </div>
 
-                            <div>
-                                <span>Age</span>
-                                <strong data-summary-age>{{ section.settings.placeholder_age }}</strong>
-                            </div>
-                        </div>
+                            <div class="quiz-month-chart">
+                                <svg
+                                        class="quiz-month-chart__svg"
+                                        viewBox="0 0 640 170"
+                                        aria-hidden="true"
+                                >
+                                    <line class="quiz-month-chart__cap" x1="30" x2="70" y1="30" y2="30"></line>
+                                    <line class="quiz-month-chart__cap" x1="570" x2="610" y1="140" y2="140"></line>
 
-                        <div class="quiz-summary-stat">
-                            <div class="quiz-summary-stat__icon">
-                                {% if section.settings.summary_height_svg != blank %}
-                                    <div class="quiz-summary__custom-svg">
-                                        {{ section.settings.summary_height_svg }}
-                                    </div>
-                                {% elsif section.settings.summary_height_icon != blank %}
-                                    {{ section.settings.summary_height_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
-                                {% else %}
-                                    <span>↕</span>
-                                {% endif %}
-                            </div>
+                                    <path
+                                            class="quiz-month-chart__line"
+                                            data-month-line
+                                            d=""
+                                    ></path>
 
-                            <div>
-                                <span>Height, cm</span>
-                                <strong data-summary-height>
-                                    {{ section.settings.placeholder_height }}
-                                </strong>
-                            </div>
-                        </div>
+                                    <g data-week-guides></g>
+                                    <g data-week-points></g>
+                                </svg>
 
-                        <div class="quiz-summary-stat">
-                            <div class="quiz-summary-stat__icon">
-                                {% if section.settings.summary_weight_svg != blank %}
-                                    <div class="quiz-summary__custom-svg">
-                                        {{ section.settings.summary_weight_svg }}
-                                    </div>
-                                {% elsif section.settings.summary_weight_icon != blank %}
-                                    {{ section.settings.summary_weight_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
-                                {% else %}
-                                    <span>▣</span>
-                                {% endif %}
-                            </div>
-
-                            <div>
-                                <span>Weight, lb</span>
-                                <strong data-summary-weight>{{ section.settings.placeholder_current_weight }}</strong>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="quiz-summary__bmi">
-
-                        <div class="quiz-summary__bmi-icon">
-                            {% if section.settings.summary_bmi_svg != blank %}
-                                <div class="quiz-summary__custom-svg">
-                                    {{ section.settings.summary_bmi_svg }}
+                                <div class="quiz-month-chart__weight-labels">
+                                    <strong data-week-weight="0">{{ section.settings.placeholder_week_1 }}</strong>
+                                    <strong data-week-weight="1">{{ section.settings.placeholder_week_2 }}</strong>
+                                    <strong data-week-weight="2">{{ section.settings.placeholder_week_3 }}</strong>
+                                    <strong data-week-weight="3">{{ section.settings.placeholder_week_4 }}</strong>
                                 </div>
-                            {% elsif section.settings.summary_bmi_icon != blank %}
-                                {{ section.settings.summary_bmi_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
-                            {% else %}
-                                <span>◴</span>
-                            {% endif %}
+
+                                <div class="quiz-month-chart__week-labels">
+                                    <span>WEEK 1</span>
+                                    <span>WEEK 2</span>
+                                    <span>WEEK 3</span>
+                                    <span>WEEK 4</span>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="quiz-summary__bmi-value">
-                            <span>Your BMI</span>
-                            <strong data-bmi>{{ section.settings.placeholder_bmi }}</strong>
-                        </div>
-
-                        <p data-bmi-description>
-                            —
-                        </p>
-
                     </div>
 
-                    <div class="quiz-summary__cards">
+                    <p class="quiz-result-slider__disclaimer">
+                        {{ section.settings.month_disclaimer }}
+                    </p>
 
-                        <div class="quiz-summary-info-card">
-                            <div class="quiz-summary-info-card__icon">
-                                {% if section.settings.summary_metabolic_age_svg != blank %}
-                                    <div class="quiz-summary__custom-svg">
-                                        {{ section.settings.summary_metabolic_age_svg }}
-                                    </div>
-                                {% elsif section.settings.summary_metabolic_age_icon != blank %}
-                                    {{ section.settings.summary_metabolic_age_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
-                                {% else %}
-                                    <span>♨</span>
-                                {% endif %}
-                            </div>
+                </div>
+            </div>
 
-                            <div>
-                                <span>Metabolic age</span>
 
-                                <strong data-metabolic-age>
-                                    {{ section.settings.placeholder_metabolic_age }} years
-                                </strong>
+            <div
+                    class="quiz-result-slider__slide"
+                    data-quiz-slide="2"
+                    hidden
+            >
+                <div class="quiz-result-slider__container">
 
-                                <p>
-                                    {{ section.settings.metabolic_text }}
-                                </p>
+                    <div class="quiz-summary">
+
+                        <div class="quiz-summary__header">
+                            <h2 class="quiz-summary__title">
+                                {{ section.settings.summary_heading }}
+                            </h2>
+
+                            <div class="quiz-summary__subtitle">
+                                {{ section.settings.summary_text }}
                             </div>
                         </div>
 
-                        <div class="quiz-summary-info-card">
-                            <div class="quiz-summary-info-card__icon">
-                                {% if section.settings.summary_bowel_svg != blank %}
+                        <div class="quiz-summary__stats">
+
+                            <div class="quiz-summary-stat">
+                                <div class="quiz-summary-stat__icon">
+                                    {% if section.settings.summary_gender_svg != blank %}
+                                        <div class="quiz-summary__custom-svg">
+                                            {{ section.settings.summary_gender_svg }}
+                                        </div>
+                                    {% elsif section.settings.summary_gender_icon != blank %}
+                                        {{ section.settings.summary_gender_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                    {% else %}
+                                        <span>♀</span>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <span>Gender</span>
+                                    <strong data-summary-gender>
+                                        {{ section.settings.default_gender }}
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="quiz-summary-stat">
+                                <div class="quiz-summary-stat__icon">
+                                    {% if section.settings.summary_age_svg != blank %}
+                                        <div class="quiz-summary__custom-svg">
+                                            {{ section.settings.summary_age_svg }}
+                                        </div>
+                                    {% elsif section.settings.summary_age_icon != blank %}
+                                        {{ section.settings.summary_age_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                    {% else %}
+                                        <span>♙</span>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <span>Age</span>
+                                    <strong data-summary-age>{{ section.settings.placeholder_age }}</strong>
+                                </div>
+                            </div>
+
+                            <div class="quiz-summary-stat">
+                                <div class="quiz-summary-stat__icon">
+                                    {% if section.settings.summary_height_svg != blank %}
+                                        <div class="quiz-summary__custom-svg">
+                                            {{ section.settings.summary_height_svg }}
+                                        </div>
+                                    {% elsif section.settings.summary_height_icon != blank %}
+                                        {{ section.settings.summary_height_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                    {% else %}
+                                        <span>↕</span>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <span>Height</span>
+                                    <strong data-summary-height>
+                                        {{ section.settings.placeholder_height }}
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="quiz-summary-stat">
+                                <div class="quiz-summary-stat__icon">
+                                    {% if section.settings.summary_weight_svg != blank %}
+                                        <div class="quiz-summary__custom-svg">
+                                            {{ section.settings.summary_weight_svg }}
+                                        </div>
+                                    {% elsif section.settings.summary_weight_icon != blank %}
+                                        {{ section.settings.summary_weight_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                    {% else %}
+                                        <span>▣</span>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <span>Weight, lb</span>
+                                    <strong data-summary-weight>{{ section.settings.placeholder_current_weight }}</strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="quiz-summary__bmi">
+
+                            <div class="quiz-summary__bmi-icon">
+                                {% if section.settings.summary_bmi_svg != blank %}
                                     <div class="quiz-summary__custom-svg">
-                                        {{ section.settings.summary_bowel_svg }}
+                                        {{ section.settings.summary_bmi_svg }}
                                     </div>
-                                {% elsif section.settings.summary_bowel_icon != blank %}
-                                    {{ section.settings.summary_bowel_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                {% elsif section.settings.summary_bmi_icon != blank %}
+                                    {{ section.settings.summary_bmi_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
                                 {% else %}
-                                    <span>◉</span>
+                                    <span>◴</span>
                                 {% endif %}
                             </div>
 
-                            <div>
-                                <span>Bowel movement</span>
-
-                                <strong>
-                                    {{ section.settings.bowel_value }}
-                                </strong>
-
-                                <p>
-                                    {{ section.settings.bowel_text }}
-                                </p>
+                            <div class="quiz-summary__bmi-value">
+                                <span>Your BMI</span>
+                                <strong data-bmi>{{ section.settings.placeholder_bmi }}</strong>
                             </div>
+
+                            <p data-bmi-description>
+                                —
+                            </p>
+
+                        </div>
+
+                        <div class="quiz-summary__cards">
+
+                            <div class="quiz-summary-info-card">
+                                <div class="quiz-summary-info-card__icon">
+                                    {% if section.settings.summary_metabolic_age_svg != blank %}
+                                        <div class="quiz-summary__custom-svg">
+                                            {{ section.settings.summary_metabolic_age_svg }}
+                                        </div>
+                                    {% elsif section.settings.summary_metabolic_age_icon != blank %}
+                                        {{ section.settings.summary_metabolic_age_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                    {% else %}
+                                        <span>♨</span>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <span>Metabolic age</span>
+
+                                    <strong data-metabolic-age>
+                                        {{ section.settings.placeholder_metabolic_age }} years
+                                    </strong>
+
+                                    <p>
+                                        {{ section.settings.metabolic_text }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="quiz-summary-info-card">
+                                <div class="quiz-summary-info-card__icon">
+                                    {% if section.settings.summary_bowel_svg != blank %}
+                                        <div class="quiz-summary__custom-svg">
+                                            {{ section.settings.summary_bowel_svg }}
+                                        </div>
+                                    {% elsif section.settings.summary_bowel_icon != blank %}
+                                        {{ section.settings.summary_bowel_icon | image_url: width: 100 | image_tag: loading: 'lazy', widths: '40, 60, 80, 100', alt: '' }}
+                                    {% else %}
+                                        <span>◉</span>
+                                    {% endif %}
+                                </div>
+
+                                <div>
+                                    <span>Bowel movement</span>
+
+                                    <strong>
+                                        {{ section.settings.bowel_value }}
+                                    </strong>
+
+                                    <p>
+                                        {{ section.settings.bowel_text }}
+                                    </p>
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
-        </div>
 
 
-        <div
-                class="quiz-result-slider__slide"
-                data-quiz-slide="3"
-                hidden
-        >
-            <div class="quiz-result-slider__container">
+            <div
+                    class="quiz-result-slider__slide"
+                    data-quiz-slide="3"
+                    hidden
+            >
+                <div class="quiz-result-slider__container">
 
-                <div class="quiz-comparison">
+                    <div class="quiz-comparison">
 
-                    <div class="quiz-comparison__header">
-                        <h2 class="quiz-comparison__title">
-                            {{ section.settings.comparison_heading }}
-                        </h2>
+                        <div class="quiz-comparison__header">
+                            <h2 class="quiz-comparison__title">
+                                {{ section.settings.comparison_heading }}
+                            </h2>
 
-                        <div class="quiz-comparison__subtitle">
-                            {{ section.settings.comparison_text }}
+                            <div class="quiz-comparison__subtitle">
+                                {{ section.settings.comparison_text }}
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="quiz-comparison__table">
+                        <div class="quiz-comparison__table">
 
-                        <div class="quiz-comparison__column quiz-comparison__column--product">
+                            <div class="quiz-comparison__column quiz-comparison__column--product">
 
-                            <h3>
-                                {{ section.settings.product_column_title }}
-                            </h3>
+                                <h3>
+                                    {{ section.settings.product_column_title }}
+                                </h3>
 
-                            {% for block in section.blocks %}
-                                {% if block.type == 'comparison' %}
-                                    <div
-                                            class="quiz-comparison__row"
-                                            {{ block.shopify_attributes }}
-                                    >
+                                {% for block in section.blocks %}
+                                    {% if block.type == 'comparison' %}
+                                        <div
+                                                class="quiz-comparison__row"
+                                                {{ block.shopify_attributes }}
+                                        >
 <span class="quiz-comparison__status quiz-comparison__status--yes">
 {% if section.settings.comparison_yes_icon != blank %}
     {{
@@ -512,24 +535,24 @@ Example:
 {% endif %}
 </span>
 
-                                        <span>
+                                            <span>
 {{ block.settings.product_text }}
 </span>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
 
-                        </div>
+                            </div>
 
-                        <div class="quiz-comparison__column quiz-comparison__column--other">
+                            <div class="quiz-comparison__column quiz-comparison__column--other">
 
-                            <h3>
-                                {{ section.settings.other_column_title }}
-                            </h3>
+                                <h3>
+                                    {{ section.settings.other_column_title }}
+                                </h3>
 
-                            {% for block in section.blocks %}
-                                {% if block.type == 'comparison' %}
-                                    <div class="quiz-comparison__row">
+                                {% for block in section.blocks %}
+                                    {% if block.type == 'comparison' %}
+                                        <div class="quiz-comparison__row">
 
 <span
         class="
@@ -568,25 +591,27 @@ quiz-comparison__status--no
 {% endif %}
 </span>
 
-                                        <span>
+                                            <span>
 {{ block.settings.other_text }}
 </span>
 
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                            </div>
 
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
+
         </div>
 
-    </div>
 
+    </div>
 
     <div class="quiz-result-slider__footer">
 
@@ -605,12 +630,6 @@ quiz-comparison__status--no
                 type="button"
                 class="quiz-result-slider__continue"
                 data-quiz-continue
-data-quiz-variant="{{ checkout_variant.id }}"
-data-quiz-plan="{{ checkout_selling_plan.id }}"
-data-quiz-qty="{{ section.settings.checkout_quantity | default: 1 }}"
-data-quiz-sku="{{ checkout_variant.sku }}"
-data-quiz-name="{{ checkout_product.title | escape }}"
-data-quiz-price="{{ checkout_variant.price }}"
                 {% if checkout_variant == blank %}
                     disabled
                 {% elsif section.settings.checkout_plan_index != 'one_time' and checkout_selling_plan == blank %}
@@ -635,6 +654,8 @@ data-quiz-price="{{ checkout_variant.price }}"
         </div>
     {% endif %}
 
+    </div>
+
 </section>
 
 
@@ -648,6 +669,48 @@ data-quiz-price="{{ checkout_variant.price }}"
 
     #QuizResultSlider-{{ section.id }} * {
         box-sizing: border-box;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-slider__content[hidden] {
+        display: none !important;
+    }
+
+    /* While the loader is active, never render the result viewport or sticky footer. */
+    #QuizResultSlider-{{ section.id }}.is-loading .quiz-result-slider__viewport,
+    #QuizResultSlider-{{ section.id }}.is-loading .quiz-result-slider__footer {
+        display: none !important;
+    }
+
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader {
+        display: grid;
+        width: 100%;
+        min-height: 100svh;
+        place-items: center;
+        padding: 60px 24px;
+        background: {{ section.settings.loader_background }};
+        color: {{ section.settings.loader_text_color }};
+        text-align: center;
+    }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__inner { width: min(100%, 650px); }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__stars { color: {{ section.settings.loader_star_color }}; font-family: Arial,sans-serif; font-size: {{ section.settings.loader_star_size_desktop }}px; letter-spacing: 3px; line-height: 1; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__review-title { margin: 22px auto 18px; max-width: 620px; color: inherit; font-family: 'Fraunces',Georgia,serif; font-size: {{ section.settings.loader_title_size_desktop }}px; line-height: 1.12; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__review-text { margin-inline:auto; max-width:620px; font-family:Arial,Helvetica,sans-serif; font-size: {{ section.settings.loader_body_size_desktop }}px; line-height:1.55; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__review-text p { margin:0; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__customer { display:flex; justify-content:center; flex-wrap:wrap; gap:7px; margin-top:20px; font-family:Arial,Helvetica,sans-serif; font-size: {{ section.settings.loader_customer_size_desktop }}px; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__progress-wrap { width:min(100%,460px); margin:76px auto 0; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__progress-wrap h3 { margin:0 0 20px; color:inherit; font-family:'Fraunces',Georgia,serif; font-size: {{ section.settings.loader_heading_size_desktop }}px; line-height:1.2; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__track { height:8px; overflow:hidden; border-radius:999px; background: {{ section.settings.loader_track_color }}; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader__track span { display:block; width:0; height:100%; border-radius:inherit; background: {{ section.settings.loader_progress_color }}; }
+    #QuizResultSlider-{{ section.id }} .quiz-result-loader.is-complete { animation:qrsLoaderOut-{{ section.id }} .35s ease forwards; }
+    @keyframes qrsLoaderOut-{{ section.id }} { to { opacity:0; visibility:hidden; } }
+    @media(max-width:749px){
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader { min-height:100svh; padding:48px 24px; }
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader__stars { font-size:{{ section.settings.loader_star_size_mobile }}px; }
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader__review-title { font-size:{{ section.settings.loader_title_size_mobile }}px; }
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader__review-text { font-size:{{ section.settings.loader_body_size_mobile }}px; }
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader__customer { font-size:{{ section.settings.loader_customer_size_mobile }}px; }
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader__progress-wrap { margin-top:60px; }
+        #QuizResultSlider-{{ section.id }} .quiz-result-loader__progress-wrap h3 { font-size:{{ section.settings.loader_heading_size_mobile }}px; }
     }
 
     #QuizResultSlider-{{ section.id }} .quiz-result-slider__viewport {
@@ -1508,17 +1571,25 @@ data-quiz-price="{{ checkout_variant.price }}"
             '[data-quiz-back]'
         );
 
+        const resultLoader = section.querySelector('[data-result-loader]');
+        const resultContent = section.querySelector('[data-result-content]');
+        const loaderProgress = section.querySelector('[data-loader-progress]');
+
         const params = new URLSearchParams(window.location.search);
 
         const checkoutConfig = {
             variantId: {{ checkout_variant.id | default: 0 | json }},
             quantity: {{ section.settings.checkout_quantity | default: 1 | json }},
-            sellingPlanId: {{ checkout_selling_plan.id | default: 0 | json }}
+            sellingPlanId: {{ checkout_selling_plan.id | default: 0 | json }},
+            action: {{ section.settings.checkout_action | default: 'checkout' | json }},
+            pdpUrl: {{ section.settings.checkout_pdp_url | json }},
+            openCartDrawer: {{ section.settings.checkout_open_cart_drawer | default: true | json }}
         };
 
         const fallbackData = {
             age: {{ section.settings.placeholder_age | json }},
-            height: {{ section.settings.placeholder_height | json }},
+            heightFt: {{ section.settings.placeholder_height_ft | json }},
+            heightIn: {{ section.settings.placeholder_height_in | json }},
             currentWeight: {{ section.settings.placeholder_current_weight | json }},
             targetWeight: {{ section.settings.placeholder_target_weight | json }},
             gender: {{ section.settings.default_gender | json }}
@@ -1526,7 +1597,8 @@ data-quiz-price="{{ checkout_variant.price }}"
 
         const urlData = {
             age: parseNumber(params.get('age')),
-            height: parseNumber(params.get('height')),
+            heightFt: parseNumber(params.get('heightFt')),
+            heightIn: parseNumber(params.get('heightIn')),
             currentWeight: parseNumber(params.get('currentWeight')),
             targetWeight: parseNumber(params.get('targetWeight')),
             gender: params.get('gender')
@@ -1534,7 +1606,8 @@ data-quiz-price="{{ checkout_variant.price }}"
 
         const data = {
             age: urlData.age ?? fallbackData.age,
-            height: urlData.height ?? fallbackData.height,
+            heightFt: urlData.heightFt ?? fallbackData.heightFt,
+            heightIn: urlData.heightIn ?? fallbackData.heightIn,
             currentWeight: urlData.currentWeight ?? fallbackData.currentWeight,
             targetWeight: urlData.targetWeight ?? fallbackData.targetWeight,
             gender: urlData.gender || fallbackData.gender
@@ -1576,10 +1649,11 @@ data-quiz-price="{{ checkout_variant.price }}"
 
 
         function calculateBMI() {
-            if (!data.height || !data.currentWeight) return null;
+            if (data.heightFt === null || data.heightIn === null || !data.currentWeight) return null;
 
+            const totalInches = (data.heightFt * 12) + data.heightIn;
+            const heightM = totalInches * 0.0254;
             const weightKg = data.currentWeight * 0.45359237;
-            const heightM = data.height / 100;
 
             if (!heightM) return null;
 
@@ -1670,7 +1744,9 @@ data-quiz-price="{{ checkout_variant.price }}"
 
             setText(
                 '[data-summary-height]',
-                data.height ? Math.round(data.height) : null
+                (data.heightFt !== null && data.heightIn !== null)
+                    ? `${Math.round(data.heightFt)}' ${Math.round(data.heightIn)}"`
+                    : null
             );
 
             setText(
@@ -1972,6 +2048,17 @@ r="10"
                     );
                 }
 
+                if (checkoutConfig.action === 'pdp' && checkoutConfig.pdpUrl) {
+                    const pdpUrl = new URL(checkoutConfig.pdpUrl, window.location.origin);
+
+                    if (checkoutConfig.openCartDrawer) {
+                        pdpUrl.searchParams.set('openCartDrawer', '1');
+                    }
+
+                    window.location.assign(pdpUrl.toString());
+                    return;
+                }
+
                 window.location.assign(`${root}checkout`);
             } catch (error) {
                 console.error('[Quiz Result] Checkout error:', error);
@@ -2018,6 +2105,72 @@ r="10"
         renderBasicData();
         renderTimeline();
         renderMonthProgress();
+
+        function finishResultLoader() {
+            if (loaderProgress) {
+                loaderProgress.style.transition = 'none';
+                loaderProgress.style.width = '100%';
+            }
+
+            resultLoader?.remove();
+
+            if (resultContent) {
+                resultContent.hidden = false;
+            }
+
+            section.classList.remove('is-loading');
+
+            slides.forEach((slide, slideIndex) => {
+                const active = slideIndex === 0;
+                slide.hidden = !active;
+                slide.classList.toggle('is-active', active);
+            });
+
+            activeSlide = 0;
+            window.scrollTo(0, 0);
+        }
+
+        function startResultLoader() {
+            if (!resultLoader || !resultContent) {
+                if (resultContent) resultContent.hidden = false;
+                section.classList.remove('is-loading');
+                return;
+            }
+
+            const loaderDuration = {{ section.settings.loader_duration | times: 1000 | json }};
+
+            if (!loaderDuration || loaderDuration <= 0) {
+                finishResultLoader();
+                return;
+            }
+
+            if (loaderProgress) {
+                loaderProgress.style.transition = 'none';
+                loaderProgress.style.width = '0%';
+            }
+
+            const startedAt = performance.now();
+
+            function updateLoaderProgress(now) {
+                const elapsed = now - startedAt;
+                const progress = Math.min(elapsed / loaderDuration, 1);
+
+                if (loaderProgress) {
+                    loaderProgress.style.width = `${progress * 100}%`;
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateLoaderProgress);
+                    return;
+                }
+
+                finishResultLoader();
+            }
+
+            requestAnimationFrame(updateLoaderProgress);
+        }
+
+        startResultLoader();
     })();
 </script>
 
@@ -2028,6 +2181,30 @@ r="10"
   "tag": "section",
   "class": "section-quiz-result-slider",
   "settings": [
+    { "type": "header", "content": "Loading screen" },
+    { "type": "checkbox", "id": "show_loader", "label": "Show loading screen", "default": true },
+    { "type": "range", "id": "loader_duration", "label": "Loading duration", "min": 1, "max": 10, "step": 1, "unit": "s", "default": 3 },
+    { "type": "color", "id": "loader_background", "label": "Background", "default": "#C6404E" },
+    { "type": "color", "id": "loader_text_color", "label": "Text", "default": "#FFF8F0" },
+    { "type": "color", "id": "loader_star_color", "label": "Stars", "default": "#F5B84B" },
+    { "type": "color", "id": "loader_track_color", "label": "Progress track", "default": "#D96D77" },
+    { "type": "color", "id": "loader_progress_color", "label": "Progress", "default": "#FFF8F0" },
+    { "type": "text", "id": "loader_review_title", "label": "Review title", "default": "My stomach doesnt blow up after lunch anymore!!" },
+    { "type": "richtext", "id": "loader_review_text", "label": "Review text", "default": "<p>My stomach feels sooo much lighter, especially later in the day. I haven't changed what I eat or started making tiny meals either. Even my jeans feel more comfortable now. LOVE these.</p>" },
+    { "type": "text", "id": "loader_customer_name", "label": "Customer name", "default": "Donna P." },
+    { "type": "text", "id": "loader_verified_text", "label": "Verified text", "default": "Verified customer" },
+    { "type": "text", "id": "loader_heading", "label": "Loading heading", "default": "Creating your plan..." },
+    { "type": "range", "id": "loader_title_size_desktop", "label": "Review title — desktop", "min": 20, "max": 52, "step": 1, "unit": "px", "default": 32 },
+    { "type": "range", "id": "loader_title_size_mobile", "label": "Review title — mobile", "min": 20, "max": 40, "step": 1, "unit": "px", "default": 28 },
+    { "type": "range", "id": "loader_body_size_desktop", "label": "Review text — desktop", "min": 14, "max": 26, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "loader_body_size_mobile", "label": "Review text — mobile", "min": 13, "max": 22, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "loader_customer_size_desktop", "label": "Customer — desktop", "min": 12, "max": 22, "step": 1, "unit": "px", "default": 15 },
+    { "type": "range", "id": "loader_customer_size_mobile", "label": "Customer — mobile", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 14 },
+    { "type": "range", "id": "loader_heading_size_desktop", "label": "Loading heading — desktop", "min": 20, "max": 42, "step": 1, "unit": "px", "default": 30 },
+    { "type": "range", "id": "loader_heading_size_mobile", "label": "Loading heading — mobile", "min": 18, "max": 34, "step": 1, "unit": "px", "default": 26 },
+    { "type": "range", "id": "loader_star_size_desktop", "label": "Stars — desktop", "min": 14, "max": 32, "step": 1, "unit": "px", "default": 20 },
+    { "type": "range", "id": "loader_star_size_mobile", "label": "Stars — mobile", "min": 14, "max": 28, "step": 1, "unit": "px", "default": 18 },
+
     {
       "type": "header",
       "content": "Colors"
@@ -2101,7 +2278,8 @@ r="10"
       "content": "Preview / fallback data"
     },
     { "type": "range", "id": "placeholder_age", "label": "Age", "min": 18, "max": 118, "step": 1, "default": 42 },
-    { "type": "range", "id": "placeholder_height", "label": "Height (cm)", "min": 100, "max": 250, "step": 2, "default": 164 },
+    { "type": "range", "id": "placeholder_height_ft", "label": "Height — feet", "min": 3, "max": 8, "step": 1, "default": 5 },
+    { "type": "range", "id": "placeholder_height_in", "label": "Height — inches", "min": 0, "max": 11, "step": 1, "default": 5 },
     { "type": "range", "id": "placeholder_current_weight", "label": "Current weight (lb)", "min": 50, "max": 700, "step": 10, "default": 180 },
     { "type": "range", "id": "placeholder_target_weight", "label": "Target weight (lb)", "min": 50, "max": 700, "step": 10, "default": 160 },
     { "type": "text", "id": "placeholder_bmi", "label": "BMI placeholder", "default": "83.3" },
@@ -2367,6 +2545,35 @@ r="10"
     {
       "type": "header",
       "content": "Checkout"
+    },
+    {
+      "type": "select",
+      "id": "checkout_action",
+      "label": "Action after Get Gut Flow",
+      "default": "checkout",
+      "options": [
+        {
+          "value": "checkout",
+          "label": "Direct checkout"
+        },
+        {
+          "value": "pdp",
+          "label": "Add to cart + redirect to PDP"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "checkout_pdp_url",
+      "label": "PDP redirect URL",
+      "info": "Used when Add to cart + redirect to PDP is selected. The product is added to cart before the redirect."
+    },
+    {
+      "type": "checkbox",
+      "id": "checkout_open_cart_drawer",
+      "label": "Open cart drawer on PDP",
+      "default": true,
+      "info": "Used with Add to cart + redirect to PDP. Adds ?openCartDrawer=1 to the PDP URL."
     },
     {
       "type": "product",
