@@ -141,8 +141,7 @@
     .mm-fiber-steps__track::after { content: ""; flex: 0 0 8px; }
 
     .mm-fiber-steps__card {
-         position: relative;
-        z-index: 1;
+         
         flex: 0 0 calc(100vw - 76px);
         width: calc(100vw - 76px);
         padding: 32px 24px 34px;
