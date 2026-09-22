@@ -38,7 +38,7 @@
         "subtitle_yJn7CD": {
           "type": "subtitle",
           "settings": {
-            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.</p>"
+            "text": "<p>Science-backed prebiotic formula designed to support a healthier gut microbiome, digestive balance, and everyday regularity.*</p>"
           }
         },
         "labels_ziBqxf": {
@@ -170,7 +170,7 @@
             "opt1_benefit_1_show": true,
             "opt1_benefit_1_text": "Modify or cancel anytime",
             "opt1_benefit_1_icon": "shopify://shop_images/check.png",
-            "opt1_benefit_2_show": true,
+            "opt1_benefit_2_show": false,
             "opt1_benefit_2_text": "Gut Health Tracker",
             "opt1_benefit_2_icon": "shopify://shop_images/note.png",
             "opt1_benefit_3_show": false,
@@ -183,7 +183,7 @@
             "opt2_benefit_2_show": true,
             "opt2_benefit_2_text": "Modify or cancel anytime",
             "opt2_benefit_2_icon": "shopify://shop_images/check.png",
-            "opt2_benefit_3_show": true,
+            "opt2_benefit_3_show": false,
             "opt2_benefit_3_text": "Gut Health Tracker",
             "opt2_benefit_3_icon": "shopify://shop_images/note.png",
             "opt2_benefit_4_show": false,
@@ -194,7 +194,7 @@
             "opt3_benefit_2_show": true,
             "opt3_benefit_2_text": "Modify or cancel anytime",
             "opt3_benefit_2_icon": "shopify://shop_images/check.png",
-            "opt3_benefit_3_show": true,
+            "opt3_benefit_3_show": false,
             "opt3_benefit_3_text": "Gut Health Tracker",
             "opt3_benefit_3_icon": "shopify://shop_images/note.png",
             "opt3_benefit_4_show": false,
@@ -210,7 +210,7 @@
             "gc_border_width": 2.5,
             "gc_image": "shopify://shop_images/craving-control-guide-gut-health-traker-8065139.webp",
             "gc_title": "Craving Control Guide + Gut Health Traker",
-            "gc_text": "A 7-day plan to break the sugar loop",
+            "gc_text": "7-day plan to break the sugar loop and track your gut health progress",
             "gc_text_color": "#c2c2c2",
             "gc_badge": "Free",
             "gc_badge_bg": "#fa6c56",
