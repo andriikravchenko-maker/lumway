@@ -114,6 +114,13 @@
 }
 
 @media (max-width: 749px) {
+    .mm-fiber-steps {
+        position: relative;
+
+    z-index: 0;
+
+    isolation: isolate;
+    }
     .mm-fiber-steps { padding: clamp(72px, 18vw, 112px) 0 clamp(76px, 18vw, 112px); }
     .mm-fiber-steps__container { width: 100%; }
     .mm-fiber-steps__header { width: auto; margin-inline: 40px; }
