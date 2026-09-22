@@ -401,13 +401,21 @@
     line-height: 1.5;
   }
 
+  .shopify-section:has(.mm-quiz-hero) {
+
+    position: relative;
+
+    z-index: 100;
+
+  }
+
   /* Persistent mobile CTA */
   .mm-quiz-hero__buttons {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 100;
+    z-index: 101;
     display: flex;
     gap: 12px;
     width: 100%;
