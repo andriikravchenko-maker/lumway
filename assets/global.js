@@ -1053,3 +1053,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Make SmoothScroll available globally
 window.SmoothScroll = SmoothScroll;
+
+
+// Add once to global.js/theme.js so it runs on the destination PDP.
+document.addEventListener('DOMContentLoaded', () => {
+  const url = new URL(window.location.href);
+
+  if (url.searchParams.get('openCartDrawer') !== '1') return;
+
+  const tryOpenCartDrawer = () => {
+    const drawer = document.querySelector('cart-drawer');
+
+    if (!drawer) return false;
+
+    // Your custom element already exposes close() in the markup,
+    // so first use the corresponding open() method.
+    if (typeof drawer.open === 'function') {
+      drawer.open();
+    } else {
+      // Fallback if this theme does not expose open().
+      drawer.classList.add('animate', 'active');
+      drawer.setAttribute('open', '');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    // Remove only our flag so reload/back will not reopen the drawer.
+    url.searchParams.delete('openCartDrawer');
+    window.history.replaceState(
+      {},
+      '',
+      `${url.pathname}${url.search}${url.hash}`
+    );
+
+    return true;
+  };
+
+  if (tryOpenCartDrawer()) return;
+
+  let attempts = 0;
+
+  const timer = window.setInterval(() => {
+    attempts += 1;
+
+    if (tryOpenCartDrawer() || attempts >= 20) {
+      window.clearInterval(timer);
+    }
+  }, 100);
+});
