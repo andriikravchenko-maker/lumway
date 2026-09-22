@@ -1759,7 +1759,7 @@ track('upsell_product_added', props);
 // spinner + is disabled (no double-clicks), the product is added, both events
 // fire (awaited), then it redirects to /checkout.
 // ============================================================================
-(function () {
+{% comment %} (function () {
   if (!document.querySelector('[data-quiz-continue]')) return;
 
   function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
@@ -1911,7 +1911,7 @@ track('upsell_product_added', props);
 
     window.location.assign(root + 'checkout');
   }, true);
-})();
+})(); {% endcomment %}
 // =====================================================================
 // NEXT EVENTS GO HERE — port one at a time from the old snippets.
 // Keep each in its own (function(){ ... })() block for clarity.
