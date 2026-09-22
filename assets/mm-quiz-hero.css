@@ -263,6 +263,7 @@
   .mm-quiz-hero {
     isolation: auto;
     overflow: visible;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     min-height: 0;
