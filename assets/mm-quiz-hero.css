@@ -261,6 +261,8 @@
     display: none;
   }
   .mm-quiz-hero {
+    isolation: auto;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     min-height: 0;
