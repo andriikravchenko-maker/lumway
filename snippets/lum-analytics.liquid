@@ -251,7 +251,9 @@ var el = e.target.closest('a, button');
 if (!el) return;
 if (el.closest('header, .header, header-drawer, cart-drawer, .footer__content-bottom, .menu-drawer')) return;
 var cls = String(el.className || '');
-var isCta = /(button|btn|cta)/i.test(cls) || el.closest('.simple-sticky-btn-wrapper, [id^="simpleStickyBtn"]');
+var isCta = /(button|btn|cta)/i.test(cls)
+         || el.closest('.simple-sticky-btn-wrapper, [id^="simpleStickyBtn"]')
+         || el.closest('[data-quiz-back], [data-quiz-continue]');  // quiz result buttons
 if (!isCta) return;
 var text = clean(el.textContent).slice(0, 80);
 if (!text) return;
