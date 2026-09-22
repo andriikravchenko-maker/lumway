@@ -476,7 +476,7 @@
         "padding_bottom_desktop": 40,
         "padding_x_desktop": 32,
         "padding_top_mobile": 16,
-        "padding_bottom_mobile": 16,
+        "padding_bottom_mobile": 96,
         "padding_x_mobile": 32
       }
     }
