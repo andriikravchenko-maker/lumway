@@ -86,6 +86,7 @@
         "button_2_label": "MALE",
         "button_2_link": "/pages/gut-flow-quiz?gender=Male",
         "note": "Takes about a minute. No account needed.",
+        "mobile_layout": "content_first",
         "image_desktop": "shopify://shop_images/hero-gutflow-berries.webp",
         "image_mobile": "shopify://shop_images/hero-gutflow-berries-mobile.jpg",
         "image_alt": "Gut Flow gummies with fresh berries",
