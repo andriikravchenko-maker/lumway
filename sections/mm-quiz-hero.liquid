@@ -43,7 +43,7 @@
   {% endif %}
 {%- endstyle -%}
 
-<section class="mm-quiz-hero{% if hero_image != blank %} mm-quiz-hero--has-image{% endif %} mm-quiz-hero--{{ section.settings.heading_font }}" {% if section.settings.heading != blank %}aria-labelledby="QuizHeading-{{ section.id }}"{% endif %}>
+<section class="mm-quiz-hero{% if hero_image != blank %} mm-quiz-hero--has-image{% endif %} mm-quiz-hero--{{ section.settings.heading_font }} mm-quiz-hero--mobile-{{ section.settings.mobile_layout }}" {% if section.settings.heading != blank %}aria-labelledby="QuizHeading-{{ section.id }}"{% endif %}>
 
   {% if section.settings.logo != blank or section.settings.brand_name != blank %}
     <div class="mm-quiz-hero__mobile-brand">
@@ -91,14 +91,20 @@
         <ul class="mm-quiz-hero__benefits" role="list">
           {% for block in section.blocks %}
             <li class="mm-quiz-hero__benefit" {{ block.shopify_attributes }}>
-              <span class="mm-quiz-hero__check" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="m4 8 2.5 2.5L12 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<span class="mm-quiz-hero__check{% if block.settings.icon != blank %} mm-quiz-hero__check--custom{% endif %}" aria-hidden="true">
+{% if block.settings.icon != blank %}
+  {{ block.settings.icon | image_url: width: 64 | image_tag: class: 'mm-quiz-hero__benefit-icon', loading: 'lazy', widths: '18, 24, 32, 48, 64', sizes: '24px' }}
+{% else %}
+  <svg viewBox="0 0 16 16" fill="none"><path d="m4 8 2.5 2.5L12 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+{% endif %}
+</span>
               <span>{{ block.settings.text | escape }}</span>
             </li>
           {% endfor %}
         </ul>
       {% endif %}
 
-      <div  id="quiz-gender" class="mm-quiz-hero__actions">
+      <div id="quiz-gender" class="mm-quiz-hero__actions">
         {% if section.settings.question != blank %}<h2 class="mm-quiz-hero__question">{{ section.settings.question | escape }}</h2>{% endif %}
         {% if section.settings.note != blank %}<p class="mm-quiz-hero__note mm-quiz-hero__note--mob">{{ section.settings.note | escape }}</p>{% endif %}
         <div class="mm-quiz-hero__buttons">
@@ -211,6 +217,20 @@
       "id": "note",
       "label": "Text below buttons",
       "default": "Takes about a minute. No account needed."
+    },
+    {
+      "type": "header",
+      "content": "Mobile layout"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "default": "image_first",
+      "options": [
+        { "value": "image_first", "label": "Image first" },
+        { "value": "content_first", "label": "Content first" }
+      ]
     },
     {
       "type": "header",
@@ -538,6 +558,11 @@
       "type": "benefit",
       "name": "Benefit",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
         {
           "type": "text",
           "id": "text",
