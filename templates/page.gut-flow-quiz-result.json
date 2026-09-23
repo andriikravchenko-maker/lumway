@@ -18,6 +18,16 @@
         "padding_bottom": 28
       }
     },
+    "mm_promo_bar_b3ytzR": {
+      "type": "mm-promo-bar",
+      "name": "Promo bar",
+      "settings": {
+        "text": "🇺🇸 FREE U.S. SHIPPING ON ORDERS $40+",
+        "link": "",
+        "bg": "#111111",
+        "text_color": "#FFFFFF"
+      }
+    },
     "custom_liquid_HUzjGz": {
       "type": "custom-liquid",
       "disabled": true,
@@ -201,6 +211,7 @@
   },
   "order": [
     "main",
+    "mm_promo_bar_b3ytzR",
     "custom_liquid_HUzjGz",
     "quiz_result_slider_VbcqiN"
   ]
