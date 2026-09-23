@@ -116,8 +116,8 @@
         "primary_text": "#ffffff",
         "secondary_background": "#ffffff",
         "secondary_text": "#2e211e",
-        "check_color": "#bc4050",
-        "check_background": "#ffffff",
+        "check_color": "#F9F9F9",
+        "check_background": "#2E6544",
         "hide_header": true,
         "hide_footer": true
       }
