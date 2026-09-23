@@ -1311,7 +1311,7 @@ color: #a87400;
 /* Footer */
 
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__footer {
-position: sticky;
+position: fixed;
 z-index: 5;
 bottom: 0;
 display: flex;
@@ -1321,6 +1321,7 @@ gap: 12px;
 padding: 16px 24px;
 border-top: 1px solid var(--qrs-border);
 background: var(--qrs-card-bg);
+ width: 100%;
 }
 
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__back {
