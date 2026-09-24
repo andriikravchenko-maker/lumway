@@ -33,6 +33,18 @@
   --quiz-mobile-image-height: {{ section.settings.mobile_image_height }}px;
   --quiz-image-position: {{ section.settings.image_position }};
   --quiz-mobile-image-position: {{ section.settings.mobile_image_position }};
+  --quiz-mobile-background-x: {{ section.settings.mobile_background_x }}%;
+  --quiz-mobile-background-y: {{ section.settings.mobile_background_y }}%;
+  --quiz-mobile-heading-size: {{ section.settings.mobile_heading_size }}px;
+  --quiz-mobile-description-size: {{ section.settings.mobile_description_size }}px;
+  --quiz-mobile-benefit-size: {{ section.settings.mobile_benefit_size }}px;
+
+  --quiz-mobile-content-top: {{ section.settings.mobile_content_top }}px;
+  --quiz-mobile-content-x: {{ section.settings.mobile_content_x }}px;
+
+  --quiz-mobile-description-gap: {{ section.settings.mobile_description_gap }}px;
+  --quiz-mobile-benefits-gap: {{ section.settings.mobile_benefits_gap }}px;
+  --quiz-mobile-benefit-row-gap: {{ section.settings.mobile_benefit_row_gap }}px;
   --quiz-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
   }
   {% if section.settings.hide_header %}
@@ -43,61 +55,118 @@
   {% endif %}
 {%- endstyle -%}
 
-<section class="mm-quiz-hero{% if hero_image != blank %} mm-quiz-hero--has-image{% endif %} mm-quiz-hero--{{ section.settings.heading_font }} mm-quiz-hero--mobile-{{ section.settings.mobile_layout }}" {% if section.settings.heading != blank %}aria-labelledby="QuizHeading-{{ section.id }}"{% endif %}>
-
+<section
+  class="mm-quiz-hero{% if hero_image != blank %} mm-quiz-hero--has-image{% endif %} mm-quiz-hero--{{ section.settings.heading_font }} mm-quiz-hero--mobile-{{ section.settings.mobile_layout }}"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="QuizHeading-{{ section.id }}"
+  {% endif %}
+>
   {% if section.settings.logo != blank or section.settings.brand_name != blank %}
     <div class="mm-quiz-hero__mobile-brand">
-    {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
-        {% if section.settings.logo != blank %}
-          {{ section.settings.logo | image_url: width: 300 | image_tag: class: 'mm-quiz-hero__mobile-logo', widths: '120, 180, 240, 300', sizes: '110px', alt: section.settings.brand_name }}
-        {% else %}
-          <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
-        {% endif %}
-        {% if section.settings.logo_link != blank %}</a>{% endif %}
-      {% if section.settings.brand_caption != blank %}<span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>{% endif %}
+      {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
+      {% if section.settings.logo != blank %}
+        {{
+          section.settings.logo
+          | image_url: width: 300
+          | image_tag:
+            class: 'mm-quiz-hero__mobile-logo',
+            widths: '120, 180, 240, 300',
+            sizes: '110px',
+            alt: section.settings.brand_name
+        }}
+      {% else %}
+        <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
+      {% endif %}
+      {% if section.settings.logo_link != blank %}</a>{% endif %}
+      {% if section.settings.brand_caption != blank -%}
+        <span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>
+      {%- endif %}
     </div>
   {% endif %}
 
   {% if hero_image != blank %}
     <picture class="mm-quiz-hero__media">
-      <source media="(max-width: 749px)" srcset="{{ mobile_image | image_url: width: 480 }} 480w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w" sizes="100vw">
-      {{ hero_image | image_url: width: 3000 | image_tag: class: 'mm-quiz-hero__image', widths: '750, 1100, 1500, 2000, 2500, 3000', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: section.settings.image_alt }}
+      <source
+        media="(max-width: 749px)"
+        srcset="{{ mobile_image | image_url: width: 480 }} 480w, {{ mobile_image | image_url: width: 750 }} 750w, {{ mobile_image | image_url: width: 1100 }} 1100w"
+        sizes="100vw"
+      >
+      {{
+        hero_image
+        | image_url: width: 3000
+        | image_tag:
+          class: 'mm-quiz-hero__image',
+          widths: '750, 1100, 1500, 2000, 2500, 3000',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.image_alt
+      }}
     </picture>
   {% elsif request.design_mode %}
-    <div class="mm-quiz-hero__image-hint">Select a desktop background image in this section’s settings. Use a photo with space for text on the left.</div>
+    <div class="mm-quiz-hero__image-hint">
+      Select a desktop background image in this section’s settings. Use a photo with space for text on the left.
+    </div>
   {% endif %}
 
   <div class="mm-quiz-hero__container">
     <div class="mm-quiz-hero__content">
       {% if section.settings.logo != blank or section.settings.brand_name != blank %}
         <div class="mm-quiz-hero__brand">
-        {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
-            {% if section.settings.logo != blank %}
-              {{ section.settings.logo | image_url: width: 600 | image_tag: class: 'mm-quiz-hero__logo', widths: '120, 240, 360, 600', sizes: '240px', alt: section.settings.brand_name }}
-            {% else %}
-              <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
-            {% endif %}
-            {% if section.settings.logo_link != blank %}</a>{% endif %}
-          {% if section.settings.brand_caption != blank %}<span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>{% endif %}
+          {% if section.settings.logo_link != blank %}<a href="{{ section.settings.logo_link }}">{% endif %}
+          {% if section.settings.logo != blank %}
+            {{
+              section.settings.logo
+              | image_url: width: 600
+              | image_tag:
+                class: 'mm-quiz-hero__logo',
+                widths: '120, 240, 360, 600',
+                sizes: '240px',
+                alt: section.settings.brand_name
+            }}
+          {% else %}
+            <span class="mm-quiz-hero__brand-name">{{ section.settings.brand_name | escape }}</span>
+          {% endif %}
+          {% if section.settings.logo_link != blank %}</a>{% endif %}
+          {% if section.settings.brand_caption != blank -%}
+            <span class="mm-quiz-hero__brand-caption">{{ section.settings.brand_caption | escape }}</span>
+          {%- endif %}
         </div>
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <h1 id="QuizHeading-{{ section.id }}" class="mm-quiz-hero__heading">{{ section.settings.heading | escape | newline_to_br }}</h1>
+        <h1 id="QuizHeading-{{ section.id }}" class="mm-quiz-hero__heading">
+          {{ section.settings.heading | escape | newline_to_br }}
+        </h1>
       {% endif %}
-      {% if section.settings.description != blank %}<div class="mm-quiz-hero__description">{{ section.settings.description }}</div>{% endif %}
+      {% if section.settings.description != blank %}
+        <div class="mm-quiz-hero__description">{{ section.settings.description }}</div>
+      {% endif %}
 
       {% if section.blocks.size > 0 %}
         <ul class="mm-quiz-hero__benefits" role="list">
           {% for block in section.blocks %}
             <li class="mm-quiz-hero__benefit" {{ block.shopify_attributes }}>
-<span class="mm-quiz-hero__check{% if block.settings.icon != blank %} mm-quiz-hero__check--custom{% endif %}" aria-hidden="true">
-{% if block.settings.icon != blank %}
-  {{ block.settings.icon | image_url: width: 64 | image_tag: class: 'mm-quiz-hero__benefit-icon', loading: 'lazy', widths: '18, 24, 32, 48, 64', sizes: '24px' }}
-{% else %}
-  <svg viewBox="0 0 16 16" fill="none"><path d="m4 8 2.5 2.5L12 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-{% endif %}
-</span>
+              <span
+                class="mm-quiz-hero__check{% if block.settings.icon != blank %} mm-quiz-hero__check--custom{% endif %}"
+                aria-hidden="true"
+              >
+                {% if block.settings.icon != blank %}
+                  {{
+                    block.settings.icon
+                    | image_url: width: 64
+                    | image_tag:
+                      class: 'mm-quiz-hero__benefit-icon',
+                      loading: 'lazy',
+                      widths: '18, 24, 32, 48, 64',
+                      sizes: '24px'
+                  }}
+                {% else %}
+                  <svg viewBox="0 0 16 16" fill="none">
+                    <path d="m4 8 2.5 2.5L12 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {% endif %}
+              </span>
               <span>{{ block.settings.text | escape }}</span>
             </li>
           {% endfor %}
@@ -105,8 +174,12 @@
       {% endif %}
 
       <div id="quiz-gender" class="mm-quiz-hero__actions">
-        {% if section.settings.question != blank %}<h2 class="mm-quiz-hero__question">{{ section.settings.question | escape }}</h2>{% endif %}
-        {% if section.settings.note != blank %}<p class="mm-quiz-hero__note mm-quiz-hero__note--mob">{{ section.settings.note | escape }}</p>{% endif %}
+        {% if section.settings.question != blank %}
+          <h2 class="mm-quiz-hero__question">{{ section.settings.question | escape }}</h2>
+        {% endif %}
+        {% if section.settings.note != blank %}
+          <p class="mm-quiz-hero__note mm-quiz-hero__note--mob">{{ section.settings.note | escape }}</p>
+        {% endif %}
         <div class="mm-quiz-hero__buttons">
           {% for index in (1..2) %}
             {% liquid
@@ -117,19 +190,24 @@
             %}
             {% if label != blank %}
               {% if link != blank %}
-                <a class="mm-quiz-hero__button mm-quiz-hero__button--{{ index }}" href="{{ link }}">{{ label | escape }}</a>
+                <a class="mm-quiz-hero__button mm-quiz-hero__button--{{ index }}" href="{{ link }}">
+                  {{- label | escape -}}
+                </a>
               {% else %}
-                <button class="mm-quiz-hero__button mm-quiz-hero__button--{{ index }}" type="button" disabled>{{ label | escape }}</button>
+                <button class="mm-quiz-hero__button mm-quiz-hero__button--{{ index }}" type="button" disabled>
+                  {{ label | escape }}
+                </button>
               {% endif %}
             {% endif %}
           {% endfor %}
         </div>
-        {% if section.settings.note != blank %}<p class="mm-quiz-hero__note mm-quiz-hero__note--desc">{{ section.settings.note | escape }}</p>{% endif %}
+        {% if section.settings.note != blank %}
+          <p class="mm-quiz-hero__note mm-quiz-hero__note--desc">{{ section.settings.note | escape }}</p>
+        {% endif %}
       </div>
     </div>
   </div>
 </section>
-
 
 {% schema %}
 {
@@ -137,11 +215,7 @@
   "tag": "div",
   "max_blocks": 8,
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer",
-      "aside"
-    ]
+    "groups": ["header", "footer", "aside"]
   },
   "settings": [
     {
@@ -228,8 +302,18 @@
       "label": "Mobile layout",
       "default": "image_first",
       "options": [
-        { "value": "image_first", "label": "Image first" },
-        { "value": "content_first", "label": "Content first" }
+        {
+          "value": "image_first",
+          "label": "Image first"
+        },
+        {
+          "value": "content_first",
+          "label": "Content first"
+        },
+        {
+          "value": "full_background",
+          "label": "Full background"
+        }
       ]
     },
     {
@@ -312,6 +396,101 @@
       "max": 600,
       "step": 10,
       "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_background_x",
+      "label": "Full background X position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "mobile_background_y",
+      "label": "Full background Y position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Mobile content"
+    },
+
+    {
+      "type": "range",
+      "id": "mobile_description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_benefit_size",
+      "label": "Benefit text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_top",
+      "label": "Content top padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 10,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_x",
+      "label": "Content side padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_description_gap",
+      "label": "Heading to description",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_benefits_gap",
+      "label": "Description to benefits",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "default": 26,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_benefit_row_gap",
+      "label": "Benefits row gap",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "default": 14,
       "unit": "px"
     },
     {
