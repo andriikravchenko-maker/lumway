@@ -116,8 +116,8 @@
         "primary_text": "#ffffff",
         "secondary_background": "#ffffff",
         "secondary_text": "#2e211e",
-        "check_color": "#F9F9F9",
-        "check_background": "#2E6544",
+        "check_color": "#f9f9f9",
+        "check_background": "#2e6544",
         "hide_header": true,
         "hide_footer": true
       }
@@ -278,7 +278,8 @@
         "description": "<p>One plant-based ingredient. Four important steps inside your gut.</p>",
         "slider_label": "How Gut Flow fiber works",
         "button_label": "TAKE THE QUIZ",
-        "button_link": "#quiz-gender",
+        "button_action": "scroll_hero",
+        "button_link": "",
         "link_label": "",
         "link_url": "",
         "container_width": 1280,
