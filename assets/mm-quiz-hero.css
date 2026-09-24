@@ -485,6 +485,113 @@
   .mm-quiz-hero--mobile-content_first .mm-quiz-hero__actions { margin-top: 22px; }
 }
 
+/* Full background mobile layout */
+@media (max-width: 749px) {
+  .mm-quiz-hero--mobile-full_background {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 85svh;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+    background: var(--quiz-background);
+    overflow: hidden;
+  }
+
+  /* Full-screen background image */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    order: initial;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position:
+            var(--quiz-mobile-background-x)
+            var(--quiz-mobile-background-y);
+  }
+
+  /* Logo */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__mobile-brand {
+    position: relative;
+    z-index: 2;
+    order: 1;
+
+    min-height: auto;
+    padding: 20px 20px 10px;
+
+    background: transparent;
+  }
+
+  /* Content */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__container {
+    position: relative;
+    z-index: 2;
+    order: 2;
+
+    width: 100%;
+    margin: 0;
+    padding:
+            var(--quiz-mobile-content-top)
+            var(--quiz-mobile-content-x)
+            110px;
+
+    background: transparent;
+  }
+
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__content {
+    width: 100%;
+  }
+
+  /* Heading */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__heading {
+    margin: 0;
+    font-size: var(--quiz-mobile-heading-size);
+    text-align: center;
+  }
+
+  /* Description */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__description {
+    margin-top: var(--quiz-mobile-description-gap);
+    font-size: var(--quiz-mobile-description-size);
+    text-align: center;
+  }
+
+  /* Benefits */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__benefits {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    width: fit-content;
+    max-width: 100%;
+
+    margin: var(--quiz-mobile-benefits-gap) auto 0;
+    gap: var(--quiz-mobile-benefit-row-gap);
+  }
+
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__benefit {
+
+    font-size: var(--quiz-mobile-benefit-size);
+
+    line-height: 1.35;
+
+  }
+
+  /* Keep CTA above background */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__actions {
+    position: relative;
+    z-index: 3;
+  }
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .mm-quiz-hero__button {
