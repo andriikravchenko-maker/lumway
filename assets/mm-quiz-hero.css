@@ -266,6 +266,33 @@
 
 /* Mobile */
 @media (max-width: 749px) {
+   .mm-quiz-hero {
+
+    isolation: auto;
+
+  }
+
+  .shopify-section:has(.mm-quiz-hero) {
+
+    position: static;
+
+    z-index: auto;
+
+  }
+
+  .mm-quiz-hero__buttons {
+
+    position: fixed;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 0;
+
+    z-index: 99999;
+
+  }
 
   .mm-quiz-hero__note--desc{
     display: none;
