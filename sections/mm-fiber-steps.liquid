@@ -75,8 +75,24 @@
         {% endif %}
 
         <div class="mm-fiber-steps__actions">
-            {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-                <a class="mm-fiber-steps__button" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }}</a>
+            {% if section.settings.button_label != blank %}
+                {% if section.settings.button_action == 'link' %}
+                    <a
+                            class="mm-fiber-steps__button"
+                            href="{{ section.settings.button_link }}"
+                    >
+                        {{ section.settings.button_label | escape }}
+                    </a>
+                {% else %}
+                    <button
+                            type="button"
+                            class="mm-fiber-steps__button"
+                            data-fiber-quiz-button
+                            data-scroll-target="{{ section.settings.button_action }}"
+                    >
+                        {{ section.settings.button_label | escape }}
+                    </button>
+                {% endif %}
             {% endif %}
             {% if section.settings.link_label != blank and section.settings.link_url != blank %}
                 <a class="mm-fiber-steps__link" href="{{ section.settings.link_url }}">{{ section.settings.link_label | escape }}</a>
@@ -157,6 +173,25 @@
         dots.forEach((dot, i) => {
             dot.addEventListener('click', () => goTo(i));
         });
+        const quizButton = section.querySelector('[data-fiber-quiz-button]');
+
+        quizButton?.addEventListener('click', () => {
+            const action = quizButton.dataset.scrollTarget;
+
+            const selector =
+                action === 'scroll_actions'
+                    ? '.mm-quiz-hero .mm-quiz-hero__actions'
+                    : '.mm-quiz-hero';
+
+            const target = document.querySelector(selector);
+
+            if (!target) return;
+
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
 
         track.addEventListener('scroll', syncFromScroll, {
             passive: true
@@ -179,7 +214,32 @@
     { "type": "richtext", "id": "description", "label": "Description", "default": "<p>One plant-based ingredient. Four important steps inside your gut.</p>" },
     { "type": "text", "id": "slider_label", "label": "Slider accessibility label", "default": "How Gut Flow fiber works" },
     { "type": "text", "id": "button_label", "label": "Quiz button label", "default": "TAKE THE QUIZ" },
-    { "type": "url", "id": "button_link", "label": "Quiz button link" },
+    {
+      "type": "select",
+      "id": "button_action",
+      "label": "Quiz button action",
+      "default": "scroll_hero",
+      "options": [
+        {
+          "value": "scroll_hero",
+          "label": "Scroll to Quiz Hero"
+        },
+        {
+          "value": "scroll_actions",
+          "label": "Scroll to Quiz Hero buttons"
+        },
+        {
+          "value": "link",
+          "label": "Open link"
+        }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Quiz button link",
+      "info": "Used only when Quiz button action is Open link."
+    },
     { "type": "text", "id": "link_label", "label": "Bottom link label", "default": "More about the Gut Flow ingredient list" },
     { "type": "url", "id": "link_url", "label": "Bottom link URL" },
 
