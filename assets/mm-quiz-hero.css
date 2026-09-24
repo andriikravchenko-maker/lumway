@@ -512,7 +512,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 85svh;
+    min-height: 100svh;
     padding-bottom: calc(76px + env(safe-area-inset-bottom));
     background: var(--quiz-background);
     overflow: visible;
