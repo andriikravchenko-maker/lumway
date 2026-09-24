@@ -225,18 +225,18 @@
         "row_min_height": 54,
         "row_padding_y": 10,
         "image_width_mobile": 250,
-        "heading_content_gap_mobile": 72,
+        "heading_content_gap_mobile": 20,
         "image_cards_gap_mobile": 56,
         "cards_gap_mobile": 16,
-        "card_padding_x_mobile": 24,
+        "card_padding_x_mobile": 18,
         "card_padding_y_mobile": 26,
         "card_title_gap_mobile": 22,
         "row_min_height_mobile": 54,
         "row_padding_y_mobile": 10,
         "padding_top_desktop": 80,
         "padding_bottom_desktop": 80,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 56
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
       }
     },
     "mm_fiber_steps_r6CiwV": {
