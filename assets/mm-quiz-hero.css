@@ -438,13 +438,7 @@
     line-height: 1.5;
   }
 
-  .shopify-section:has(.mm-quiz-hero) {
 
-    position: relative;
-
-    z-index: 100;
-
-  }
 
   /* Persistent mobile CTA */
   .mm-quiz-hero__buttons {
@@ -521,7 +515,7 @@
     min-height: 85svh;
     padding-bottom: calc(76px + env(safe-area-inset-bottom));
     background: var(--quiz-background);
-    overflow: hidden;
+    overflow: visible;
   }
 
   /* Full-screen background image */
