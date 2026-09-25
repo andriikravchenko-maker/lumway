@@ -46,7 +46,7 @@ endunless
 
 <section
 id="QuizResultSlider-{{ section.id }}"
-class="quiz-result-slider{% if section.settings.show_loader %} is-loading{% endif %}"
+class="quiz-result-slider{% if section.settings.show_loader %} is-loading{% endif %}{% if section.settings.offer_hide_back %} quiz-result-slider--hide-back{% endif %}"
 data-quiz-result-slider
 style="
 --qrs-bg: {{ section.settings.background_color }};
@@ -1675,6 +1675,8 @@ width: 100%;
 #QuizResultSlider-{{ section.id }} .quiz-offer .pdl-subtitle p,
 #QuizResultSlider-{{ section.id }} .quiz-offer .pdl-chip__text { font-family: var(--pdl-font) !important; }
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__compare { margin-left: 6px; font-weight: 400; opacity: .7; }
+/* Offer slide: only Continue in the footer (setting "Hide the Back button on the offer slide") */
+#QuizResultSlider-{{ section.id }}.quiz-result-slider--hide-back.quiz-result-slider--offer-active .quiz-result-slider__back { display: none; }
 @media (min-width: 990px) {
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__slide--offer { padding-bottom: 130px; }
 #QuizResultSlider-{{ section.id }} .quiz-offer { flex-direction: row; align-items: flex-start; gap: 28px; }
@@ -2127,6 +2129,9 @@ active
 });
 
 activeSlide = index;
+
+// Offer slide state (CSS hides the Back button there when the setting says so)
+section.classList.toggle('quiz-result-slider--offer-active', !!offerSlide && slides[index] === offerSlide);
 
 if (continueLabel) {
 continueLabel.textContent =
@@ -2874,6 +2879,12 @@ startResultLoader();
 "type": "checkbox",
 "id": "offer_price_in_button",
 "label": "Show the pack price in the Continue button",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "offer_hide_back",
+"label": "Hide the Back button on the offer slide",
 "default": true
 }
 ],
