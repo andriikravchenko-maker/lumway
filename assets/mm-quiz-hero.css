@@ -521,12 +521,29 @@
   /* Full-screen background image */
   .mm-quiz-hero--mobile-full_background .mm-quiz-hero__media {
     position: absolute;
-    inset: 0;
+    inset: auto 0 0 0;
     z-index: 0;
     order: initial;
 
     width: 100%;
-    height: 100%;
+    /* One screen tall, pinned to the bottom: when the text is taller than usual (large text on the phone,
+       short screens) the block grows and the photo moves down instead of the text running over the jar. */
+    height: 100vh;
+    height: 100svh;
+  }
+
+  /* Blends the block background into the photo's top edge when the photo sits lower than the top of the block
+     (large text, short screens). At normal sizes this strip is hidden under the logo bar. */
+  .mm-quiz-hero--mobile-full_background .mm-quiz-hero__media::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: 56px;
+    background: linear-gradient(to bottom, var(--quiz-background), transparent);
+    pointer-events: none;
   }
 
   .mm-quiz-hero--mobile-full_background .mm-quiz-hero__image {
@@ -563,7 +580,7 @@
     padding:
             var(--quiz-mobile-content-top)
             var(--quiz-mobile-content-x)
-            110px;
+            max(110px, var(--quiz-mobile-image-reserve, 0px));
 
     background: transparent;
   }

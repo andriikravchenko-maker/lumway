@@ -35,6 +35,7 @@
   --quiz-mobile-image-position: {{ section.settings.mobile_image_position }};
   --quiz-mobile-background-x: {{ section.settings.mobile_background_x }}%;
   --quiz-mobile-background-y: {{ section.settings.mobile_background_y }}%;
+  --quiz-mobile-image-reserve: {{ section.settings.mobile_image_reserve | default: 50 }}svh;
   --quiz-mobile-heading-size: {{ section.settings.mobile_heading_size }}px;
   --quiz-mobile-description-size: {{ section.settings.mobile_description_size }}px;
   --quiz-mobile-benefit-size: {{ section.settings.mobile_benefit_size }}px;
@@ -215,7 +216,11 @@
   "tag": "div",
   "max_blocks": 8,
   "disabled_on": {
-    "groups": ["header", "footer", "aside"]
+    "groups": [
+      "header",
+      "footer",
+      "aside"
+    ]
   },
   "settings": [
     {
@@ -419,10 +424,20 @@
       "unit": "%"
     },
     {
+      "type": "range",
+      "id": "mobile_image_reserve",
+      "label": "Full background: screen height kept for the image under the text",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 50,
+      "info": "Keeps this much of the screen free of text for the photo. With larger text (phone text zoom) the block grows and the photo moves down instead of the text running over it."
+    },
+    {
       "type": "header",
       "content": "Mobile content"
     },
-
     {
       "type": "range",
       "id": "mobile_description_size",
