@@ -46,7 +46,7 @@ endunless
 
 <section
 id="QuizResultSlider-{{ section.id }}"
-class="quiz-result-slider{% if section.settings.show_loader %} is-loading{% endif %}{% if section.settings.offer_hide_back %} quiz-result-slider--hide-back{% endif %}"
+class="quiz-result-slider{% if section.settings.show_loader %} is-loading{% endif %}{% if section.settings.offer_hide_back %} quiz-result-slider--hide-back{% endif %}{% if section.settings.hide_back_first %} quiz-result-slider--hide-back-first{% endif %} quiz-result-slider--first-active"
 data-quiz-result-slider
 style="
 --qrs-bg: {{ section.settings.background_color }};
@@ -1680,6 +1680,8 @@ width: 100%;
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__compare { margin-left: 6px; font-weight: 400; opacity: .7; }
 /* Offer slide: only Continue in the footer (setting "Hide the Back button on the offer slide") */
 #QuizResultSlider-{{ section.id }}.quiz-result-slider--hide-back.quiz-result-slider--offer-active .quiz-result-slider__back { display: none; }
+/* First result slide: no Back button (setting "Hide the Back button on the first slide") */
+#QuizResultSlider-{{ section.id }}.quiz-result-slider--hide-back-first.quiz-result-slider--first-active .quiz-result-slider__back { display: none; }
 /* Offer slide: small note under the button (setting "Note under the button on the offer slide") */
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__footer-note { display: none; position: absolute; left: 0; right: 0; bottom: 9px; margin: 0; text-align: center; font-size: 12px; line-height: 1.2; letter-spacing: 0.02em; color: var(--qrs-muted); }
 #QuizResultSlider-{{ section.id }}.quiz-result-slider--offer-active .quiz-result-slider__footer:has(.quiz-result-slider__footer-note) { padding-bottom: 32px; }
@@ -2139,6 +2141,7 @@ activeSlide = index;
 
 // Offer slide state (CSS hides the Back button there when the setting says so)
 section.classList.toggle('quiz-result-slider--offer-active', !!offerSlide && slides[index] === offerSlide);
+section.classList.toggle('quiz-result-slider--first-active', index === 0);
 
 if (continueLabel) {
 continueLabel.textContent =
@@ -2379,6 +2382,7 @@ slide.classList.toggle('is-active', active);
 });
 
 activeSlide = 0;
+section.classList.add('quiz-result-slider--first-active');
 window.scrollTo(0, 0);
 }
 
@@ -2780,6 +2784,12 @@ startResultLoader();
 "type": "checkbox",
 "id": "show_back_button",
 "label": "Show back button",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "hide_back_first",
+"label": "Hide the Back button on the first slide",
 "default": true
 },
 {
