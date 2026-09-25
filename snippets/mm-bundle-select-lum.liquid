@@ -67,6 +67,8 @@ display:flex; flex-direction:column; gap:16px; width:100%;
 .mmbsl-{{ uid }} .mmbsl__bmsm{ display:inline-flex; align-items:center; padding:4px 8px; border-radius:{{ block.settings.bmsm_radius_mobile | default: 28 }}px; font-family:var(--mmbsl-font) !important; font-weight:600 !important; font-size:{{ block.settings.bmsm_font_size_mobile | default: 11 }}px; line-height:1.2; letter-spacing:0.2px; text-transform:uppercase; white-space:nowrap; }
 .mmbsl-{{ uid }} .mmbsl__grid{ display:flex; align-items:stretch; gap:4px; }
 .mmbsl-{{ uid }} .mmbsl__card{ position:relative; flex:1 1 0; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:8px; padding:12px; background:var(--mmbsl-card); border:1.5px solid rgba(17,59,52,.1); border-radius:12px; cursor:pointer; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+/* Bottom padding follows the text size (12px at the theme's 16px), so the hanging Save pill never covers the sub-label under enlarged text. */
+.mmbsl-{{ uid }} .mmbsl__card{ padding-bottom:max(12px, 0.75em); }
 .mmbsl-{{ uid }} .mmbsl__card.is-selected{ border-color:var(--mmbsl-ink); }
 .mmbsl-{{ uid }} .mmbsl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; padding:0; border:0; opacity:0; cursor:pointer; z-index:2; -webkit-tap-highlight-color:transparent; -webkit-appearance:none; appearance:none; }
 .mmbsl-{{ uid }} .mmbsl__card:has(.mmbsl__input:focus-visible){ outline:2px solid var(--mmbsl-ink); outline-offset:2px; }
