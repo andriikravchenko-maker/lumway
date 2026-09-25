@@ -324,6 +324,8 @@ var atcForm = root.querySelector('form[action*="/cart/add"]');
 // it was added for). That owner link lets us (a) remove it when the shopper switches to one-time and
 // (b) auto-remove it when its owner product is removed from the cart, even with several gifts at once.
 var LUM_SECTIONS = 'cart-drawer,cart-icon-bubble';
+// after_add: 'drawer' (PDP default) opens the cart drawer; 'checkout' (quiz offer slide) goes straight to the checkout.
+var AFTER_ADD = {{ block.settings.after_add | default: 'drawer' | json }};
 function lumGiftIds() {
 var el = root.querySelector('.patc-gift');
 if (!el) return [];
@@ -508,7 +510,7 @@ atcForm.classList.add('drawer-initialized');
 // looked dead). Now we always AJAX-add and re-materialise the drawer if it went missing.
 var pageHasDrawer = !!document.querySelector('cart-drawer');
 atcForm.addEventListener('submit', function (e) {
-if (!pageHasDrawer) return; // page genuinely has no drawer -> let the native POST to /cart happen
+if (!pageHasDrawer && AFTER_ADD !== 'checkout') return; // page genuinely has no drawer -> let the native POST to /cart happen
 e.preventDefault();
 if (mainBtn) { mainBtn.classList.add('loading'); mainBtn.setAttribute('aria-disabled', 'true'); }
 window.__lumGiftBusy = true; // guard the whole add sequence: watcher must not sweep mid-add
@@ -543,10 +545,27 @@ body: JSON.stringify({ items: items, sections: 'cart-drawer,cart-icon-bubble', s
 })
 .then(function (r) { return r.json(); })
 .then(function (data) {
-if (data && data.status) { window.alert(data.description || 'Could not add to cart'); return; }
+if (data && data.status) {
+window.alert(data.description || 'Could not add to cart');
+document.dispatchEvent(new CustomEvent('lum:atc-result', { detail: { ok: false, error: data.description || '' } }));
+return;
+}
 // Main + gifts are already in. Only the threshold-gated progress-bar guide may still need adding;
 // open the drawer with its payload if it fired, otherwise with our combined-add payload.
 return ensureFreeGift().then(function (freeData) {
+if (AFTER_ADD === 'checkout') {
+document.dispatchEvent(new CustomEvent('lum:atc-result', { detail: { ok: true, next: 'checkout' } }));
+// Listeners (analytics: checkout intent into the cart, events) hand back promises through
+// detail.wait(); leave for the checkout once they settle, 2.5 s at most.
+var waits = [];
+try {
+document.dispatchEvent(new CustomEvent('lum:before-checkout', { detail: { source: 'buy_box', variantId: mainItem.id, wait: function (p) { if (p && typeof p.then === 'function') waits.push(p.catch(function () {})); } } }));
+} catch (e0) {}
+return Promise.race([Promise.all(waits), new Promise(function (r) { setTimeout(r, 2500); })]).then(function () {
+window.location.assign(((window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/') + 'checkout');
+});
+}
+document.dispatchEvent(new CustomEvent('lum:atc-result', { detail: { ok: true, next: 'drawer' } }));
 openDrawerWith((freeData && freeData.sections) ? freeData : data);
 });
 })

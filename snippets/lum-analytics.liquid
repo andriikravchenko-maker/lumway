@@ -1213,6 +1213,65 @@ function () {
 // Keep __lum_intent for checkout correlation.
 }
 );
+
+// =====================================================================
+// QUIZ OFFER SLIDE -> CHECKOUT (no drawer)
+// =====================================================================
+//
+// The quiz result page can end on a buy-box slide: Continue there submits
+// the buy-box form, and the add-to-cart snippet (after_add = checkout)
+// fires 'lum:before-checkout' and waits for the promises handed back
+// through detail.wait() before it leaves for /checkout. Same job as the
+// checkout click above: intent (+ Amplitude identity when available) into
+// the cart, then secure_checkout_button_clicked from the cart contents.
+// =====================================================================
+
+document.addEventListener('lum:before-checkout', function (e) {
+var detail = e && e.detail;
+if (!detail || typeof detail.wait !== 'function') return;
+
+detail.wait((async function () {
+var intentId = getIntentId();
+var attributes = { lum_checkout_intent_id: intentId, lum_checkout_click_ts: String(Date.now()) };
+if (typeof ampIdentity === 'function') { try { Object.assign(attributes, ampIdentity()); } catch (e1) {} }
+
+try {
+await fetch('/cart/update.js', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+body: JSON.stringify({ attributes: attributes })
+});
+} catch (e2) {}
+
+var cart = null;
+try {
+cart = await (await fetch('/cart.js', { method: 'GET', headers: { Accept: 'application/json' }, cache: 'no-store' })).json();
+} catch (e3) {}
+
+var props = { checkout_intent_id: intentId, checkout_source: detail.source || 'buy_box' };
+var lines = cart && cart.items ? cart.items : [];
+if (lines.length) {
+var original = 0, discounted = 0;
+lines.forEach(function (line) {
+original += (line.original_line_price != null ? line.original_line_price : line.line_price) || 0;
+discounted += (line.final_line_price != null ? line.final_line_price : line.line_price) || 0;
+});
+var discountCents = Math.max(0, original - discounted);
+props.cart_value = (cart.total_price || 0) / 100;
+props.currency = cart.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD';
+props.items_number = cart.item_count;
+props.has_subscription = lines.some(function (line) { return !!line.selling_plan_allocation; });
+props.product_ids = uniqArr(lines.map(function (line) { return line.sku || String(line.product_id); }));
+props.product_names = uniqArr(lines.map(function (line) { return line.product_title || line.title; }));
+props.is_logged_in = !!userEmail();
+if (discountCents > 0) {
+props.discount_amount = Math.round(discountCents) / 100;
+if (original > 0) props.discount_percent = Math.round((discountCents / original) * 100);
+}
+}
+await trackAndFlush('secure_checkout_button_clicked', props);
+})());
+});
 })();
 
 
