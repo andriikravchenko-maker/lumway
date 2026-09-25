@@ -740,6 +740,9 @@ disabled
 {{ section.settings.continue_label }}
 </span>
 </button>
+{% if offer_enabled and section.settings.offer_note != blank %}
+<p class="quiz-result-slider__footer-note" data-quiz-offer-note>{{ section.settings.offer_note | escape }}</p>
+{% endif %}
 </div>
 
 {% if request.design_mode and checkout_product %}
@@ -1677,6 +1680,10 @@ width: 100%;
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__compare { margin-left: 6px; font-weight: 400; opacity: .7; }
 /* Offer slide: only Continue in the footer (setting "Hide the Back button on the offer slide") */
 #QuizResultSlider-{{ section.id }}.quiz-result-slider--hide-back.quiz-result-slider--offer-active .quiz-result-slider__back { display: none; }
+/* Offer slide: small note under the button (setting "Note under the button on the offer slide") */
+#QuizResultSlider-{{ section.id }} .quiz-result-slider__footer-note { display: none; position: absolute; left: 0; right: 0; bottom: 9px; margin: 0; text-align: center; font-size: 12px; line-height: 1.2; letter-spacing: 0.02em; color: var(--qrs-muted); }
+#QuizResultSlider-{{ section.id }}.quiz-result-slider--offer-active .quiz-result-slider__footer:has(.quiz-result-slider__footer-note) { padding-bottom: 32px; }
+#QuizResultSlider-{{ section.id }}.quiz-result-slider--offer-active .quiz-result-slider__footer-note { display: block; }
 @media (min-width: 990px) {
 #QuizResultSlider-{{ section.id }} .quiz-result-slider__slide--offer { padding-bottom: 130px; }
 #QuizResultSlider-{{ section.id }} .quiz-offer { flex-direction: row; align-items: flex-start; gap: 28px; }
@@ -2886,6 +2893,12 @@ startResultLoader();
 "id": "offer_hide_back",
 "label": "Hide the Back button on the offer slide",
 "default": true
+},
+{
+"type": "text",
+"id": "offer_note",
+"label": "Note under the button on the offer slide",
+"default": "Safe & Secure Checkout"
 }
 ],
 "blocks": [
