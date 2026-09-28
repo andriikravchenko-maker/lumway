@@ -11,6 +11,7 @@
   "sections": {
     "mm_promo_bar_jzrCGd": {
       "type": "mm-promo-bar",
+      "disabled": true,
       "name": "Promo bar",
       "settings": {
         "text": "🇺🇸 FREE U.S. SHIPPING ON ORDERS $40+",
