@@ -21,6 +21,11 @@ Ported so far:
 
   assign lum_page_type = ''
 
+assign lum_is_quiz = false
+if template.suffix contains 'quiz'
+  assign lum_is_quiz = true
+endif
+
   if request.page_type == 'product'
     assign lum_page_type = 'pdp'
   elsif request.page_type == 'index'
@@ -58,6 +63,7 @@ if (window.__lumAnalyticsBound) return;
 window.__lumAnalyticsBound = true;
 
 var PAGE_TYPE = {{ lum_page_type | json }};
+var IS_QUIZ = {{ lum_is_quiz | json }};
 
 // ---- Amplitude dispatch (same seam as old trackers) ------------------
 var queue = [];
@@ -286,6 +292,7 @@ destination: destination || undefined
 // Fires once per threshold (25/50/75/100) per page load.
 // =====================================================================
 (function () {
+  if (IS_QUIZ) return;
 var THRESHOLDS = [25, 50, 75, 100];
 var fired = {}; // remember which thresholds already sent
 var ticking = false;
