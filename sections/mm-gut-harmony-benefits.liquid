@@ -189,12 +189,14 @@
       padding-bottom: var(--ghb-padding-bottom);
     }
 
+    /* The container follows the configured image width. With a 602px image the fixed columns used to
+       overflow the 1197px container to the right, clipped between 1240px and 1430px viewports. */
     .section-{{ section.id }} .gut-harmony-benefits__inner {
       flex-direction: row;
       align-items: center;
       justify-content: center;
-      max-width: 1197px;
-      padding-inline: 0;
+      max-width: calc(var(--ghb-media-width) + var(--ghb-column-gap) + 687px + 40px);
+      padding-inline: 20px;
     }
 
 .section-{{ section.id }} .gut-harmony-benefits__media {
@@ -206,8 +208,9 @@
 }
 
     .section-{{ section.id }} .gut-harmony-benefits__content {
-      flex: 0 0 687px;
+      flex: 1 1 687px;
       max-width: 687px;
+      min-width: 0;
       align-items: flex-start;
       text-align: left;
     }

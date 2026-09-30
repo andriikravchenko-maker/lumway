@@ -1,0 +1,749 @@
+{% comment %} Section: offer-cards-lum — pack offers with the subscription price, Buy Now straight to the checkout, a one-time link, gift chip, trust row and a secure-checkout strip (Figma 41958:4466) {% endcomment %}
+
+{%- liquid
+  assign ocl_product = section.settings.product
+  assign ocl_base = ocl_product.variants.first
+  assign ocl_unit_compare = ocl_base.compare_at_price | default: ocl_base.price
+  assign ocl_sku = ocl_base.sku
+  assign ocl_pack_count = 0
+  for block in section.blocks
+    if block.type == 'pack'
+      assign ocl_pack_count = ocl_pack_count | plus: 1
+    endif
+  endfor
+  assign ocl_gift_id = section.settings.gift_variant_id | strip
+  assign ocl_pay = section.settings.payment_types | downcase | remove: ' ' | split: ','
+-%}
+{%- capture tk_total -%}{total}{%- endcapture -%}
+{%- capture tk_interval -%}{interval}{%- endcapture -%}
+
+{%- if section.settings.load_font -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap">
+{%- endif -%}
+
+<div class="ocl" data-ocl>
+  {%- if ocl_product == blank -%}
+    {%- if request.design_mode -%}<p class="ocl__hint">{{ section.settings.empty_text | escape }}</p>{%- endif -%}
+  {%- else -%}
+    <script type="application/json" data-ocl-config>
+      {
+        "cartMode": {{ section.settings.cart_mode | default: 'replace' | json }},
+        "source": {{ section.settings.checkout_source | default: 'offer_cards' | json }},
+        "placement": {{ section.settings.placement_label | json }},
+        "sticky": {{ section.settings.sticky_cta | json }},
+        "stickySelector": {{ section.settings.sticky_selector | json }},
+        "errorText": {{ section.settings.error_text | json }},
+        "productName": {{ ocl_product.title | json }},
+        "sku": {{ ocl_sku | json }},
+        "currency": {{ cart.currency.iso_code | json }},
+        "root": {{ routes.root_url | json }}
+      }
+    </script>
+
+    <div class="ocl__inner">
+      {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+        <div class="ocl__top">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="ocl__h">{{ section.settings.heading | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subheading != blank -%}
+            <p class="ocl__sub">{{ section.settings.subheading | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="ocl__body">
+        <div class="ocl__grid ocl__grid--{{ ocl_pack_count }}">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'pack' -%}
+                {%- liquid
+                  assign pack = block.settings.pack | plus: 0
+                  assign pack_str = pack | append: ''
+                  assign v = nil
+                  assign want_variant = block.settings.variant_id | strip
+                  for cand in ocl_product.variants
+                    assign cand_id = cand.id | append: ''
+                    if want_variant != blank
+                      if cand_id == want_variant
+                        assign v = cand
+                        break
+                      endif
+                    else
+                      assign first_word = cand.title | split: ' ' | first
+                      if first_word == pack_str
+                        assign v = cand
+                        break
+                      endif
+                    endif
+                  endfor
+                  if v == nil
+                    assign idx = pack | minus: 1
+                    assign v = ocl_product.variants[idx] | default: ocl_base
+                  endif
+
+                  assign months = block.settings.plan_months | plus: 0
+                  assign weeks = months | times: 4
+                  assign needle_m = months | append: ' month'
+                  assign needle_m2 = months | append: '-month'
+                  assign needle_w = weeks | append: ' week'
+                  assign needle_w2 = weeks | append: '-week'
+                  assign want_plan = block.settings.selling_plan_id | strip
+                  assign alloc = nil
+                  for a in v.selling_plan_allocations
+                    assign a_id = a.selling_plan.id | append: ''
+                    if want_plan != blank
+                      if a_id == want_plan
+                        assign alloc = a
+                        break
+                      endif
+                    else
+                      assign a_name = a.selling_plan.name | downcase | prepend: ' '
+                      assign hit_m = ' ' | append: needle_m
+                      assign hit_m2 = ' ' | append: needle_m2
+                      assign hit_w = ' ' | append: needle_w
+                      assign hit_w2 = ' ' | append: needle_w2
+                      if a_name contains hit_m or a_name contains hit_m2 or a_name contains hit_w or a_name contains hit_w2
+                        assign alloc = a
+                        break
+                      endif
+                    endif
+                  endfor
+
+                  assign one_time_total = v.price
+                  if alloc
+                    assign pay_total = alloc.price
+                  else
+                    assign pay_total = one_time_total
+                  endif
+                  assign per_pack = pay_total | times: 1.0 | divided_by: pack | round
+                  assign compare_total = ocl_unit_compare | times: pack
+                  assign save_total = compare_total | minus: pay_total
+
+                  if months == 1
+                    assign interval = section.settings.interval_one
+                  else
+                    assign interval = section.settings.interval_many | replace: '[n]', months
+                  endif
+                  assign delivery = block.settings.delivery_text
+                  if delivery == blank
+                    assign delivery = section.settings.delivery_format | replace: tk_interval, interval
+                  endif
+
+                  assign one_time_total_money = one_time_total | money
+                  assign one_time_text = section.settings.one_time_format | replace: tk_total, one_time_total_money
+                  assign note_mode = section.settings.one_time_shipping_note
+                  if section.settings.one_time_shipping_text != blank
+                    if note_mode == 'always' or note_mode == 'single' and pack == 1
+                      assign one_time_text = one_time_text | append: ' ' | append: section.settings.one_time_shipping_text
+                    endif
+                  endif
+
+                  assign gift_sub = ''
+                  assign gift_once = ''
+                  if block.settings.show_gift and ocl_gift_id != blank
+                    assign gift_sub = ocl_gift_id
+                    if section.settings.gift_with_one_time
+                      assign gift_once = ocl_gift_id
+                    endif
+                  endif
+
+                  assign trust_count = 0
+                  for i in (1..3)
+                    assign t_text = 'trust_' | append: i | append: '_text'
+                    if block.settings[t_text] != blank
+                      assign trust_count = trust_count | plus: 1
+                    endif
+                  endfor
+                -%}
+                <article id="ocl-{{ block.id }}" class="ocl__item{% if block.settings.featured %} ocl__item--featured{% endif %}{% if block.settings.badge_text != blank %} ocl__item--flagged{% endif %}" {{ block.shopify_attributes }}>
+                  {%- if block.settings.badge_text != blank -%}
+                    <span class="ocl__flag">{{ block.settings.badge_text | escape }}</span>
+                  {%- endif -%}
+
+                  <div class="ocl__pic">
+                    {%- if block.settings.image != blank -%}
+                      {{ block.settings.image | image_url: width: 1080 | image_tag: loading: 'lazy', widths: '360, 540, 720, 1080', sizes: '(min-width: 990px) 360px, 240px', alt: block.settings.image.alt | default: v.title, class: 'ocl__img' }}
+                    {%- elsif pack <= 3 -%}
+                      {%- assign pack_asset = 'offer-cards-pack-' | append: pack | append: '.webp' -%}
+                      <img class="ocl__img" src="{{ pack_asset | asset_url }}" width="720" height="720" loading="lazy" alt="{{ v.title | escape }}">
+                    {%- elsif ocl_product.featured_image -%}
+                      {{ ocl_product.featured_image | image_url: width: 1080 | image_tag: loading: 'lazy', widths: '360, 540, 720, 1080', sizes: '(min-width: 990px) 360px, 240px', alt: v.title, class: 'ocl__img' }}
+                    {%- endif -%}
+
+                    {%- if block.settings.show_gift -%}
+                      <div class="ocl__gift">
+                        <span class="ocl__gift-pic">
+                          {%- if section.settings.gift_image != blank -%}
+                            {{ section.settings.gift_image | image_url: width: 192 | image_tag: loading: 'lazy', widths: '64, 128, 192', sizes: '64px', alt: '' }}
+                          {%- else -%}
+                            <img src="{{ 'offer-cards-gift.webp' | asset_url }}" width="192" height="192" loading="lazy" alt="">
+                          {%- endif -%}
+                        </span>
+                        {%- if section.settings.gift_text != blank -%}
+                          <span class="ocl__gift-text">{{ section.settings.gift_text | escape | newline_to_br }}</span>
+                        {%- endif -%}
+                        {%- if section.settings.gift_label != blank -%}
+                          <span class="ocl__gift-free">{{ section.settings.gift_label | escape }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="ocl__prices">
+                    <span class="ocl__per">{{ per_pack | money }}{{ section.settings.per_pack_suffix | escape }}</span>
+                    <p class="ocl__total">
+                      <span class="ocl__was">{{ section.settings.total_label | escape }} {% if compare_total > pay_total %}<s>{{ compare_total | money }}</s>{% endif %}</span>
+                      <span class="ocl__now">{{ pay_total | money }}</span>
+                      {%- if save_total > 0 and section.settings.save_prefix != blank -%}
+                        <span class="ocl__save">{{ section.settings.save_prefix | escape }} {{ save_total | money }}</span>
+                      {%- endif -%}
+                    </p>
+                    {%- if alloc and delivery != blank -%}
+                      <p class="ocl__delivery">{{ delivery | escape }}</p>
+                    {%- endif -%}
+                  </div>
+
+                  {%- if v.available -%}
+                    <button
+                      type="button"
+                      class="ocl__buy"
+                      data-ocl-buy
+                      data-variant-id="{{ v.id }}"
+                      data-plan-id="{% if alloc %}{{ alloc.selling_plan.id }}{% endif %}"
+                      data-gift-id="{{ gift_sub }}"
+                      data-pack="{{ pack }}"
+                      data-months="{% if alloc %}{{ months }}{% endif %}"
+                      data-price="{{ pay_total }}"
+                    >
+                      {{- section.settings.button_label | escape -}}
+                    </button>
+                    {%- if alloc and section.settings.one_time_show -%}
+                      <button
+                        type="button"
+                        class="ocl__once"
+                        data-ocl-buy
+                        data-variant-id="{{ v.id }}"
+                        data-plan-id=""
+                        data-gift-id="{{ gift_once }}"
+                        data-pack="{{ pack }}"
+                        data-months=""
+                        data-price="{{ one_time_total }}"
+                      >
+                        {{- one_time_text | escape -}}
+                      </button>
+                    {%- endif -%}
+                  {%- else -%}
+                    <button type="button" class="ocl__buy" disabled>{{ section.settings.sold_out_text | escape }}</button>
+                  {%- endif -%}
+                  <p class="ocl__error" role="alert" hidden></p>
+
+                  {%- if trust_count > 0 -%}
+                    <ul class="ocl__trust ocl__trust--{{ trust_count }}">
+                      {%- for i in (1..3) -%}
+                        {%- assign t_icon = 'trust_' | append: i | append: '_icon' -%}
+                        {%- assign t_text = 'trust_' | append: i | append: '_text' -%}
+                        {%- if block.settings[t_text] != blank -%}
+                          <li>
+                            {%- if block.settings[t_icon] != 'none' -%}
+                              <span class="ocl__ico">{%- render 'offer-cards-lum-icon', icon: block.settings[t_icon] -%}</span>
+                            {%- endif -%}
+                            <span class="ocl__trust-text">{{ block.settings[t_text] | escape }}</span>
+                          </li>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </article>
+              {%- when '@app' -%}
+                <div class="ocl__extra">{% render block %}</div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.secure_show -%}
+          <div class="ocl__secure">
+            {%- if section.settings.secure_text != blank -%}
+              <span class="ocl__secure-text">{{ section.settings.secure_text | escape }}</span>
+            {%- endif -%}
+            <ul class="ocl__pay">
+              {%- for pay_type in ocl_pay -%}
+                {%- if pay_type != blank -%}
+                  <li>{{ pay_type | payment_type_svg_tag: class: 'ocl__pay-icon' }}</li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% style %}
+  /* The theme forces three things store-wide with !important: letter-spacing 0 on every element, #111 on every heading and the regular
+     weight on every p and div. Inside this section the Figma values win: spans carry the semibold texts, and the declarations
+     marked !important below are the only way past the theme rules. Mobile first (Figma 41997:73), desktop from 990px (41958:4466). */
+  #shopify-section-{{ section.id }} .ocl{
+    --ocl-bg: {{ section.settings.bg }};
+    --ocl-h: {{ section.settings.heading_color }};
+    --ocl-text: {{ section.settings.text_color }};
+    --ocl-muted: {{ section.settings.muted_color }};
+    --ocl-item-bg: {{ section.settings.item_bg }};
+    --ocl-btn-bg: {{ section.settings.button_bg }};
+    --ocl-btn-text: {{ section.settings.button_color }};
+    --ocl-save-bg: {{ section.settings.save_bg }};
+    --ocl-save-text: {{ section.settings.save_color }};
+    --ocl-gift-line: {{ section.settings.gift_border }};
+    --ocl-gift-free: {{ section.settings.gift_label_bg }};
+    --ocl-secure-line: {{ section.settings.secure_border }};
+    --ocl-font: 'Inter Tight', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    background: var(--ocl-bg);
+    color: var(--ocl-text);
+    font-family: var(--ocl-font);
+    padding: {{ section.settings.padding_top_mobile }}px 16px {{ section.settings.padding_bottom_mobile }}px;
+    box-sizing: border-box;
+  }
+  #shopify-section-{{ section.id }} .ocl *{ box-sizing: border-box; }
+  #shopify-section-{{ section.id }} .ocl__hint{ margin: 0; text-align: center; font-size: 14px; color: var(--ocl-muted); }
+  #shopify-section-{{ section.id }} .ocl__inner{ max-width: 1440px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+  #shopify-section-{{ section.id }} .ocl__top{ display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+  #shopify-section-{{ section.id }} .ocl__h{ margin: 0; font-family: var(--ocl-font); font-weight: 700; font-size: {{ section.settings.heading_size_mobile }}px; line-height: 1.2; letter-spacing: -0.02em !important; color: var(--ocl-h) !important; text-transform: none; text-wrap: balance; }
+  #shopify-section-{{ section.id }} .ocl__sub{ margin: 0; font-size: 16px; line-height: 24px; font-weight: 400; color: var(--ocl-muted); text-wrap: balance; }
+  #shopify-section-{{ section.id }} .ocl__body{ width: 100%; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+  #shopify-section-{{ section.id }} .ocl__grid{ width: 100%; max-width: 480px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: stretch; }
+
+  #shopify-section-{{ section.id }} .ocl__item{ --ocl-bw: 2px; position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; background: var(--ocl-item-bg); border: var(--ocl-bw) solid var(--ocl-line, #f8e3e8); border-radius: 40px; padding: calc(18px - var(--ocl-bw)) calc(17px - var(--ocl-bw)) calc(18px - var(--ocl-bw)); }
+  #shopify-section-{{ section.id }} .ocl__item--featured{ --ocl-bw: 3px; }
+  #shopify-section-{{ section.id }} .ocl__item--flagged{ padding-top: calc(24px - var(--ocl-bw)); }
+  #shopify-section-{{ section.id }} .ocl__flag{ position: absolute; top: calc(-1 * var(--ocl-bw)); left: 50%; transform: translate(-50%, -50%); border-radius: 28px; padding: 4px 16px; background: var(--ocl-flag-bg, #fad356); color: var(--ocl-flag-text, #111111); font-size: 20px; line-height: 28px; font-weight: 600; white-space: nowrap; }
+
+  #shopify-section-{{ section.id }} .ocl__pic{ position: relative; width: 100%; display: flex; justify-content: center; }
+  #shopify-section-{{ section.id }} .ocl__img{ display: block; width: 240px; max-width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0; }
+  #shopify-section-{{ section.id }} .ocl__gift{ position: absolute; left: -3px; bottom: -25px; display: flex; align-items: center; gap: 8px; min-height: 64px; }
+  #shopify-section-{{ section.id }} .ocl__item--flagged .ocl__gift{ bottom: -19px; }
+  #shopify-section-{{ section.id }} .ocl__gift-pic{ flex: none; width: 64px; height: 64px; overflow: hidden; }
+  #shopify-section-{{ section.id }} .ocl__gift-pic img{ display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+  #shopify-section-{{ section.id }} .ocl__gift-text{ background: #ffffff; border: 1px solid var(--ocl-gift-line); border-radius: 8px; padding: 4px 8px; font-size: 12px; line-height: 14px; font-weight: 400; text-align: center; color: var(--ocl-text); white-space: nowrap; }
+  #shopify-section-{{ section.id }} .ocl__gift-free{ position: absolute; left: -1px; top: 46px; background: var(--ocl-gift-free); color: #ffffff; border-radius: 8px; padding: 2px 6px; font-size: 12px; line-height: 14px; font-weight: 600; }
+
+  #shopify-section-{{ section.id }} .ocl__prices{ display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 4px; text-align: center; }
+  #shopify-section-{{ section.id }} .ocl__per{ display: block; margin: 0; font-size: 22px; line-height: 32px; font-weight: 600; letter-spacing: -0.005em !important; color: var(--ocl-text); }
+  #shopify-section-{{ section.id }} .ocl__total{ margin: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 8px; font-size: 16px; line-height: 24px; color: var(--ocl-text); }
+  #shopify-section-{{ section.id }} .ocl__was{ font-weight: 400; }
+  #shopify-section-{{ section.id }} .ocl__was s{ text-decoration: line-through; }
+  #shopify-section-{{ section.id }} .ocl__now{ font-weight: 600; }
+  #shopify-section-{{ section.id }} .ocl__save{ background: var(--ocl-save-bg); color: var(--ocl-save-text); border-radius: 28px; padding: 5px 10px; font-size: 12px; line-height: 14px; font-weight: 600; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .ocl__delivery{ margin: 0; font-size: 12px; line-height: 14px; font-weight: 400; color: var(--ocl-muted); }
+
+  #shopify-section-{{ section.id }} .ocl__buy{ appearance: none; width: 100%; min-height: 52px; border: 0; border-radius: 32px; background: var(--ocl-btn-bg); color: var(--ocl-btn-text); padding: 12px 16px; font-family: var(--ocl-font); font-size: 20px; line-height: 28px; font-weight: 600; text-align: center; text-transform: none; cursor: pointer; transition: filter .15s ease, opacity .15s ease; }
+  #shopify-section-{{ section.id }} .ocl__buy:hover{ filter: brightness(.93); }
+  #shopify-section-{{ section.id }} .ocl__buy:focus-visible,
+  #shopify-section-{{ section.id }} .ocl__once:focus-visible{ outline: 2px solid var(--ocl-h); outline-offset: 3px; }
+  #shopify-section-{{ section.id }} .ocl__buy[disabled]{ opacity: .45; cursor: not-allowed; filter: none; }
+  #shopify-section-{{ section.id }} .ocl__once{ appearance: none; background: none; border: 0; padding: 0; min-height: 24px; font-family: var(--ocl-font); font-size: 16px; line-height: 24px; font-weight: 600; color: #000000; text-align: center; text-decoration: underline; text-underline-position: from-font; text-transform: none; cursor: pointer; }
+  #shopify-section-{{ section.id }} .ocl.is-busy .ocl__buy,
+  #shopify-section-{{ section.id }} .ocl.is-busy .ocl__once{ cursor: progress; }
+  #shopify-section-{{ section.id }} .ocl__buy.is-loading,
+  #shopify-section-{{ section.id }} .ocl__once.is-loading{ opacity: .6; }
+  #shopify-section-{{ section.id }} .ocl__error{ margin: 0; font-size: 13px; line-height: 18px; text-align: center; color: #b3261e; }
+  #shopify-section-{{ section.id }} .ocl__error[hidden]{ display: none; }
+
+  #shopify-section-{{ section.id }} .ocl__trust{ list-style: none; margin: 0; padding: 4px 0; width: 100%; min-height: 36px; display: flex; flex-wrap: nowrap; justify-content: center; align-items: center; gap: 4px; }
+  #shopify-section-{{ section.id }} .ocl__trust li{ display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; font-size: 12px; line-height: 14px; font-weight: 400; color: var(--ocl-text); }
+  #shopify-section-{{ section.id }} .ocl__trust li::before{ content: none; }
+  #shopify-section-{{ section.id }} .ocl__ico{ flex: none; width: 16px; height: 16px; color: var(--ocl-text); }
+  #shopify-section-{{ section.id }} .ocl__ico svg{ display: block; width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .ocl__trust-text{ white-space: nowrap; }
+  #shopify-section-{{ section.id }} .ocl__trust--3 li:not(:first-child) .ocl__trust-text{ max-width: 84px; white-space: normal; }
+  #shopify-section-{{ section.id }} .ocl__trust--2 li:first-child .ocl__trust-text{ max-width: 106px; white-space: normal; }
+
+  #shopify-section-{{ section.id }} .ocl__secure{ position: relative; width: 100%; max-width: 548px; margin-top: 10px; border: 2px solid var(--ocl-secure-line); border-radius: 28px; padding: 20px 18px 10px; display: flex; flex-direction: column; align-items: center; }
+  #shopify-section-{{ section.id }} .ocl__secure-text{ position: absolute; top: -1px; left: 50%; transform: translate(-50%, -50%); margin: 0; padding: 0 12px; background: var(--ocl-bg); font-size: 16px; line-height: 24px; font-weight: 600; color: #000000; white-space: nowrap; }
+  #shopify-section-{{ section.id }} .ocl__pay{ list-style: none; margin: 0; padding: 0; width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px; }
+  #shopify-section-{{ section.id }} .ocl__pay li{ flex: 1 1 0; min-width: 0; max-width: 55.5px; margin: 0; padding: 0; }
+  #shopify-section-{{ section.id }} .ocl__pay li::before{ content: none; }
+  #shopify-section-{{ section.id }} .ocl__pay-icon{ display: block; width: 100%; height: auto; aspect-ratio: 38 / 24; }
+
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'pack' -%}
+      #shopify-section-{{ section.id }} #ocl-{{ block.id }}{ --ocl-line: {{ block.settings.border_color }}; --ocl-flag-bg: {{ block.settings.badge_bg }}; --ocl-flag-text: {{ block.settings.badge_color }}; }
+    {%- endif -%}
+  {%- endfor -%}
+
+  @media screen and (max-width: 359px){
+    #shopify-section-{{ section.id }} .ocl__trust{ flex-wrap: wrap; }
+    #shopify-section-{{ section.id }} .ocl__gift-text{ white-space: normal; }
+  }
+  @media screen and (min-width: 750px){
+    #shopify-section-{{ section.id }} .ocl{ padding-left: 24px; padding-right: 24px; }
+  }
+  @media screen and (min-width: 990px){
+    #shopify-section-{{ section.id }} .ocl{ padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; }
+    #shopify-section-{{ section.id }} .ocl__inner{ gap: 64px; }
+    #shopify-section-{{ section.id }} .ocl__top{ gap: 16px; }
+    #shopify-section-{{ section.id }} .ocl__h{ font-size: {{ section.settings.heading_size }}px; }
+    #shopify-section-{{ section.id }} .ocl__sub{ font-size: 18px; }
+    #shopify-section-{{ section.id }} .ocl__grid{ max-width: none; gap: 16px; }
+    #shopify-section-{{ section.id }} .ocl__grid--2{ grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 955px; }
+    #shopify-section-{{ section.id }} .ocl__grid--3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    #shopify-section-{{ section.id }} .ocl__item,
+    #shopify-section-{{ section.id }} .ocl__item--flagged{ gap: 16px; padding: calc(34px - var(--ocl-bw)) calc(26px - var(--ocl-bw)) calc(26px - var(--ocl-bw)); }
+    #shopify-section-{{ section.id }} .ocl__flag{ padding: 8px 32px; }
+    #shopify-section-{{ section.id }} .ocl__img{ width: 360px; aspect-ratio: 360 / 361; }
+    #shopify-section-{{ section.id }} .ocl__gift,
+    #shopify-section-{{ section.id }} .ocl__item--flagged .ocl__gift{ left: -2px; bottom: -12px; }
+    #shopify-section-{{ section.id }} .ocl__prices{ gap: 8px; padding-top: 8px; }
+    #shopify-section-{{ section.id }} .ocl__per{ font-size: 28px; line-height: 36px; }
+    #shopify-section-{{ section.id }} .ocl__total{ font-size: 18px; }
+    #shopify-section-{{ section.id }} .ocl__delivery{ font-size: 14px; line-height: 20px; }
+    #shopify-section-{{ section.id }} .ocl__once{ min-height: 24px; }
+    #shopify-section-{{ section.id }} .ocl__trust{ flex-wrap: wrap; padding: 8px 0; gap: 8px; min-height: 40px; }
+    #shopify-section-{{ section.id }} .ocl__trust li{ gap: 8px; }
+    #shopify-section-{{ section.id }} .ocl__ico{ width: 24px; height: 24px; }
+    #shopify-section-{{ section.id }} .ocl__trust--3 li:not(:first-child) .ocl__trust-text,
+    #shopify-section-{{ section.id }} .ocl__trust--3 .ocl__trust-text{ max-width: 106px; white-space: normal; }
+    #shopify-section-{{ section.id }} .ocl__trust--2 li:first-child .ocl__trust-text{ max-width: none; }
+    #shopify-section-{{ section.id }} .ocl__secure{ margin-top: 12px; padding: 26px 22px 22px; }
+    #shopify-section-{{ section.id }} .ocl__secure-text{ top: -2px; font-size: 18px; }
+  }
+  @media screen and (min-width: 1280px){
+    #shopify-section-{{ section.id }} .ocl__flag{ font-size: 24px; }
+    #shopify-section-{{ section.id }} .ocl__per{ font-size: 32px; }
+    #shopify-section-{{ section.id }} .ocl__buy{ font-size: 24px; }
+    #shopify-section-{{ section.id }} .ocl__once{ font-size: 18px; white-space: nowrap; }
+    #shopify-section-{{ section.id }} .ocl__total{ flex-wrap: nowrap; white-space: nowrap; }
+    #shopify-section-{{ section.id }} .ocl__trust{ flex-wrap: nowrap; }
+    #shopify-section-{{ section.id }} .ocl__trust--2 .ocl__trust-text{ white-space: nowrap; }
+  }
+{% endstyle %}
+
+<script>
+  (function () {
+    function init() {
+      var roots = document.querySelectorAll('[data-ocl]');
+      for (var i = 0; i < roots.length; i++) bind(roots[i]);
+      queueSticky();
+    }
+    if (window.__oclBound) { if (typeof window.__oclInit === 'function') window.__oclInit(); return; }
+    window.__oclBound = true;
+    window.__oclInit = init;
+
+    function post(url, body) {
+      return fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin',
+        body: JSON.stringify(body || {})
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok && !(d && d.status), data: d }; });
+      });
+    }
+
+    // Same seam as snippets/lum-analytics: a 'lum:analytics' DOM event + Amplitude. Resolves when the event is out (1.2 s at most).
+    function track(name, props) {
+      try { document.dispatchEvent(new CustomEvent('lum:analytics', { detail: { event: name, properties: props } })); } catch (e) {}
+      try {
+        var a = window.amplitude, fn = null, ctx = null;
+        if (a && typeof a.track === 'function') { fn = a.track; ctx = a; }
+        else if (a && a.default && typeof a.default.track === 'function') { fn = a.default.track; ctx = a.default; }
+        if (!fn) return Promise.resolve();
+        var res = fn.call(ctx, name, props);
+        var p = res && res.promise && typeof res.promise.then === 'function' ? res.promise : (res && typeof res.then === 'function' ? res : null);
+        if (!p) return Promise.resolve();
+        return Promise.race([p.catch(function () {}), new Promise(function (r) { setTimeout(r, 1200); })]);
+      } catch (e) { return Promise.resolve(); }
+    }
+
+    // One lock for the whole page: a page can carry two of these sections, and a click in the second one
+    // while the first is still adding would put two subscriptions into the cart.
+    function lock(on) {
+      window.__oclBusy = on;
+      var roots = document.querySelectorAll('[data-ocl]');
+      for (var r = 0; r < roots.length; r++) {
+        roots[r].classList.toggle('is-busy', on);
+        if (on) continue;
+        var all = roots[r].querySelectorAll('[data-ocl-buy]');
+        for (var i = 0; i < all.length; i++) { all[i].classList.remove('is-loading'); all[i].removeAttribute('aria-disabled'); }
+      }
+    }
+    function release() { lock(false); }
+
+    function fail(root, btn, cfg, message) {
+      var item = btn.closest('.ocl__item');
+      var box = item && item.querySelector('.ocl__error');
+      if (box) { box.textContent = message || cfg.errorText || ''; box.hidden = !box.textContent; }
+      release();
+    }
+
+    function buy(root, cfg, btn) {
+      if (window.__oclBusy || window.__oclLeaving) return;
+      lock(true);
+      btn.classList.add('is-loading');
+      btn.setAttribute('aria-disabled', 'true');
+      var errors = root.querySelectorAll('.ocl__error');
+      for (var e = 0; e < errors.length; e++) { errors[e].hidden = true; errors[e].textContent = ''; }
+
+      var base = cfg.root || '/';
+      var variantId = Number(btn.getAttribute('data-variant-id'));
+      var planId = btn.getAttribute('data-plan-id');
+      var giftId = btn.getAttribute('data-gift-id');
+      var pack = Number(btn.getAttribute('data-pack')) || 1;
+      var months = btn.getAttribute('data-months');
+      var main = { id: variantId, quantity: 1 };
+      if (planId) main.selling_plan = Number(planId);
+      var items = [main];
+      if (giftId) items.push({ id: Number(giftId), quantity: 1, properties: { _lum_gift: 'true', _lum_gift_owner: String(variantId) } });
+
+      var start = cfg.cartMode === 'replace' ? post(base + 'cart/clear.js').catch(function () { return null; }) : Promise.resolve(null);
+      start
+        .then(function () { return post(base + 'cart/add.js', { items: items }); })
+        .then(function (res) {
+          // Shopify rejects the whole request when one line cannot be added: never let a gift block the purchase.
+          if (!res.ok && items.length > 1) return post(base + 'cart/add.js', { items: [main] });
+          return res;
+        })
+        .then(function (res) {
+          if (!res.ok) { fail(root, btn, cfg, (res.data && (res.data.description || res.data.message)) || ''); return null; }
+          var waits = [];
+          var props = {
+            product_id: cfg.sku || undefined,
+            product_name: cfg.productName || undefined,
+            variant_id: pack + (pack === 1 ? '-jar' : '-jars'),
+            price: Math.round(Number(btn.getAttribute('data-price')) || 0) / 100,
+            quantity: 1,
+            currency: cfg.currency || (window.Shopify && Shopify.currency && Shopify.currency.active) || 'USD',
+            purchase_type: planId ? 'subscription' : 'one_time',
+            offer_source: cfg.source
+          };
+          if (planId && months) props.subscription_type = months + '-month';
+          if (cfg.placement) props.offer_placement = cfg.placement;
+          waits.push(track('product_added_to_cart', props));
+          try {
+            document.dispatchEvent(new CustomEvent('lum:before-checkout', {
+              detail: {
+                source: cfg.source,
+                variantId: variantId,
+                wait: function (p) { if (p && typeof p.then === 'function') waits.push(p.catch(function () {})); }
+              }
+            }));
+          } catch (e1) {}
+          window.__oclLeaving = true;
+          return Promise.race([Promise.all(waits), new Promise(function (r) { setTimeout(r, 2500); })]).then(function () {
+            window.location.assign(base + 'checkout');
+            return true;
+          });
+        })
+        .catch(function () { fail(root, btn, cfg, ''); });
+    }
+
+    // Sticky CTA of the page (the listicle "Sticky Add to Cart" block). Its own script only knows the older landing
+    // templates and the product buy box, so with the section setting on this section drives it: the button follows
+    // the shopper everywhere except while an offer block is on screen, and a tap scrolls to the nearest offer block.
+    var stickyBar = null, stickyTick = false;
+    var stickyIo = ('IntersectionObserver' in window) ? new IntersectionObserver(queueSticky, { threshold: 0 }) : null;
+    function offerOnScreen() {
+      var roots = document.querySelectorAll('[data-ocl]');
+      for (var i = 0; i < roots.length; i++) {
+        var r = roots[i].getBoundingClientRect();
+        if (r.height > 0 && r.bottom > 0 && r.top < window.innerHeight) return true;
+      }
+      return false;
+    }
+    function nearestOffer() {
+      var roots = document.querySelectorAll('[data-ocl]'), best = null, dist = Infinity;
+      for (var i = 0; i < roots.length; i++) {
+        var r = roots[i].getBoundingClientRect();
+        if (r.height > 0 && Math.abs(r.top) < dist) { dist = Math.abs(r.top); best = roots[i]; }
+      }
+      return best;
+    }
+    function drawerOpen() {
+      var d = document.querySelector('cart-drawer');
+      return !!(d && d.classList.contains('active'));
+    }
+    function onStickyClick(ev) {
+      var el = ev.target.closest('a, button');
+      if (!el || !stickyBar || !stickyBar.contains(el)) return;
+      var target = nearestOffer();
+      if (!target) return; // no offer block on the page: the link works as set in the block
+      ev.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function stickyEl() {
+      if (stickyBar && document.body.contains(stickyBar)) return stickyBar;
+      stickyBar = null;
+      var roots = document.querySelectorAll('[data-ocl]'), sel = '';
+      for (var i = 0; i < roots.length; i++) { var c = roots[i].__oclCfg; if (c && c.sticky && c.stickySelector) { sel = c.stickySelector; break; } }
+      if (!sel) return null;
+      var el = null;
+      try { el = document.querySelector(sel); } catch (e) {}
+      if (!el) return null;
+      if (el.parentNode !== document.body) document.body.appendChild(el); // position: fixed breaks inside animated ancestors
+      el.addEventListener('click', onStickyClick);
+      stickyBar = el;
+      return el;
+    }
+    function updateSticky() {
+      stickyTick = false;
+      var el = stickyEl();
+      if (el) el.classList.toggle('is-lto-hidden', offerOnScreen() || drawerOpen());
+    }
+    function queueSticky() {
+      if (stickyTick) return;
+      stickyTick = true;
+      window.requestAnimationFrame(updateSticky);
+    }
+    window.addEventListener('scroll', queueSticky, { passive: true });
+    window.addEventListener('resize', queueSticky);
+    window.addEventListener('load', queueSticky);
+    (function () {
+      var d = document.querySelector('cart-drawer');
+      if (d && 'MutationObserver' in window) new MutationObserver(queueSticky).observe(d, { attributes: true, attributeFilter: ['class'] });
+    })();
+
+    function bind(root) {
+      if (root.__oclReady) return;
+      var node = root.querySelector('[data-ocl-config]');
+      if (!node) return;
+      var cfg = {};
+      try { cfg = JSON.parse(node.textContent) || {}; } catch (e) {}
+      root.__oclReady = true;
+      root.__oclCfg = cfg;
+      if (stickyIo) stickyIo.observe(root);
+      root.addEventListener('click', function (ev) {
+        var btn = ev.target.closest('[data-ocl-buy]');
+        if (!btn || !root.contains(btn)) return;
+        ev.preventDefault();
+        buy(root, cfg, btn);
+      });
+    }
+
+    // Back from the checkout: the page may come from the back/forward cache with the buttons still locked.
+    window.addEventListener('pageshow', function (ev) {
+      if (!ev.persisted) return;
+      window.__oclLeaving = false;
+      release();
+    });
+    document.addEventListener('shopify:section:load', function () { setTimeout(init, 60); });
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Offer cards (Lum)",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Product" },
+    { "type": "product", "id": "product", "label": "Product", "info": "Prices and subscription plans come from this product." },
+    { "type": "text", "id": "empty_text", "label": "Editor hint when no product is set", "default": "Pick a product in the section settings." },
+
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "FREE Shipping For 2 & 3 Jars" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "*For best results take consistently for at least 6–8 weeks" },
+    { "type": "range", "id": "heading_size", "label": "Heading size, desktop", "min": 28, "max": 72, "step": 2, "unit": "px", "default": 56 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Heading size, mobile", "min": 20, "max": 48, "step": 2, "unit": "px", "default": 26 },
+
+    { "type": "header", "content": "Price texts" },
+    { "type": "text", "id": "per_pack_suffix", "label": "Per pack suffix", "default": "/pack" },
+    { "type": "text", "id": "total_label", "label": "Total label", "default": "Total" },
+    { "type": "text", "id": "save_prefix", "label": "Save prefix", "default": "Save", "info": "Empty hides the save pill." },
+    { "type": "text", "id": "delivery_format", "label": "Delivery line", "default": "Delivery every {interval}", "info": "{interval} = the plan of the card. A card can override the whole line." },
+    { "type": "text", "id": "interval_one", "label": "Interval, 1 month", "default": "month" },
+    { "type": "text", "id": "interval_many", "label": "Interval, 2+ months", "default": "[n] months", "info": "[n] = number of months" },
+
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "BUY NOW" },
+    { "type": "text", "id": "sold_out_text", "label": "Sold out label", "default": "Sold out" },
+    { "type": "checkbox", "id": "one_time_show", "label": "Show one-time purchase link", "default": true },
+    { "type": "text", "id": "one_time_format", "label": "One-time link text", "default": "One Time Purchase {total}", "info": "{total} = one-time price of the pack" },
+    { "type": "text", "id": "one_time_shipping_text", "label": "One-time shipping note", "default": "+ Shipping" },
+    { "type": "select", "id": "one_time_shipping_note", "label": "Shipping note shows", "default": "single", "options": [ { "value": "single", "label": "Single pack only" }, { "value": "always", "label": "Always" }, { "value": "never", "label": "Never" } ] },
+    { "type": "text", "id": "error_text", "label": "Error message", "default": "Could not add to cart. Please try again." },
+
+    { "type": "header", "content": "Checkout" },
+    { "type": "select", "id": "cart_mode", "label": "Cart before checkout", "default": "replace", "options": [ { "value": "replace", "label": "Empty the cart, then add the offer" }, { "value": "add", "label": "Keep what is in the cart" } ], "info": "Both buttons go straight to the checkout." },
+    { "type": "text", "id": "checkout_source", "label": "Analytics: checkout source", "default": "offer_cards" },
+    { "type": "text", "id": "placement_label", "label": "Analytics: placement", "info": "For pages with two blocks, e.g. middle and bottom." },
+
+    { "type": "header", "content": "Sticky button" },
+    { "type": "checkbox", "id": "sticky_cta", "label": "Drive the page's sticky button", "default": false, "info": "The page's Sticky Add to Cart block then shows whenever no offer block is on screen, and a tap scrolls to the nearest offer block. Leave off on pages where that block already hides and scrolls on its own." },
+    { "type": "text", "id": "sticky_selector", "label": "Sticky element selector", "default": ".listicle-sticky-atc.is-sticky" },
+
+    { "type": "header", "content": "Gift" },
+    { "type": "image_picker", "id": "gift_image", "label": "Gift image" },
+    { "type": "textarea", "id": "gift_text", "label": "Gift text", "default": "Craving Control Guide +\nGut Health Tracker" },
+    { "type": "text", "id": "gift_label", "label": "Gift label", "default": "Free" },
+    { "type": "text", "id": "gift_variant_id", "label": "Gift variant ID", "info": "$0 variant added with a subscription. Empty = shown only, not added to the cart." },
+    { "type": "checkbox", "id": "gift_with_one_time", "label": "Add the gift to one-time purchases too", "default": false },
+
+    { "type": "header", "content": "Secure checkout" },
+    { "type": "checkbox", "id": "secure_show", "label": "Show secure checkout strip", "default": true },
+    { "type": "text", "id": "secure_text", "label": "Strip text", "default": "🔒 Safe & Secure Checkout" },
+    { "type": "text", "id": "payment_types", "label": "Payment icons", "default": "visa,master,american_express,apple_pay,google_pay,shopify_pay,paypal,discover", "info": "Comma separated Shopify payment types." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg", "label": "Background", "default": "#fdf9fb" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#113b34" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#111111" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#858585" },
+    { "type": "color", "id": "item_bg", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "button_bg", "label": "Button", "default": "#00724d" },
+    { "type": "color", "id": "button_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "color", "id": "save_bg", "label": "Save pill", "default": "#fad356" },
+    { "type": "color", "id": "save_color", "label": "Save pill text", "default": "#5b0d1e" },
+    { "type": "color", "id": "gift_border", "label": "Gift text border", "default": "#5b0d1e" },
+    { "type": "color", "id": "gift_label_bg", "label": "Gift label", "default": "#fa6c56" },
+    { "type": "color", "id": "secure_border", "label": "Secure strip border", "default": "#fad356" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "padding_top", "label": "Padding top, desktop", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Padding bottom, desktop", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 100 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Padding top, mobile", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Padding bottom, mobile", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 40 },
+    { "type": "checkbox", "id": "load_font", "label": "Load Inter Tight here", "default": false, "info": "Turn on only when the page has no Template font section." }
+  ],
+  "blocks": [
+    {
+      "type": "pack",
+      "name": "Pack",
+      "limit": 3,
+      "settings": [
+        { "type": "range", "id": "pack", "label": "Jars in the pack", "min": 1, "max": 6, "step": 1, "default": 1 },
+        { "type": "text", "id": "variant_id", "label": "Variant ID", "info": "Empty = the variant whose name starts with the pack number." },
+        { "type": "select", "id": "plan_months", "label": "Subscription plan", "default": "1", "options": [ { "value": "1", "label": "Every month" }, { "value": "2", "label": "Every 2 months" }, { "value": "3", "label": "Every 3 months" } ] },
+        { "type": "text", "id": "selling_plan_id", "label": "Selling plan ID", "info": "Empty = the plan is found by its interval." },
+        { "type": "text", "id": "delivery_text", "label": "Delivery line", "info": "Empty = built from the plan." },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Empty = the pack image of the theme." },
+        { "type": "checkbox", "id": "featured", "label": "Thick border", "default": false },
+        { "type": "color", "id": "border_color", "label": "Border", "default": "#f8e3e8" },
+        { "type": "text", "id": "badge_text", "label": "Badge" },
+        { "type": "color", "id": "badge_bg", "label": "Badge background", "default": "#fad356" },
+        { "type": "color", "id": "badge_color", "label": "Badge text", "default": "#111111" },
+        { "type": "checkbox", "id": "show_gift", "label": "Show the gift", "default": true },
+        { "type": "header", "content": "Trust row" },
+        { "type": "select", "id": "trust_1_icon", "label": "Item 1 icon", "default": "shield", "options": [ { "value": "none", "label": "None" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "check", "label": "Check" } ] },
+        { "type": "text", "id": "trust_1_text", "label": "Item 1 text", "default": "30-day money-back guarantee" },
+        { "type": "select", "id": "trust_2_icon", "label": "Item 2 icon", "default": "check", "options": [ { "value": "none", "label": "None" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "check", "label": "Check" } ] },
+        { "type": "text", "id": "trust_2_text", "label": "Item 2 text", "default": "Modify or cancel anytime" },
+        { "type": "select", "id": "trust_3_icon", "label": "Item 3 icon", "default": "none", "options": [ { "value": "none", "label": "None" }, { "value": "truck", "label": "Truck" }, { "value": "shield", "label": "Shield" }, { "value": "check", "label": "Check" } ] },
+        { "type": "text", "id": "trust_3_text", "label": "Item 3 text" }
+      ]
+    },
+    { "type": "@app" }
+  ],
+  "presets": [
+    {
+      "name": "Offer cards (Lum)",
+      "blocks": [
+        { "type": "pack", "settings": { "pack": 1 } },
+        { "type": "pack", "settings": { "pack": 2, "featured": true, "border_color": "#8d2b40", "badge_text": "BEST SELLER", "trust_1_icon": "truck", "trust_1_text": "FREE shipping", "trust_2_icon": "shield", "trust_2_text": "30-day money-back guarantee", "trust_3_icon": "check", "trust_3_text": "Modify or cancel anytime" } },
+        { "type": "pack", "settings": { "pack": 3, "border_color": "#bb808c", "badge_text": "MOST SAVINGS", "badge_bg": "#00724d", "badge_color": "#ffffff", "trust_1_icon": "truck", "trust_1_text": "FREE shipping", "trust_2_icon": "shield", "trust_2_text": "30-day money-back guarantee", "trust_3_icon": "check", "trust_3_text": "Modify or cancel anytime" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

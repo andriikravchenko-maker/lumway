@@ -337,8 +337,12 @@
         padding-bottom: var(--ghf-pad-bottom);
       }
 
+      /* The container follows the configured image width. With a 600px image the fixed columns used to
+         overflow the 1204px container to the right, clipped between 1240px and 1430px viewports. */
       .section-{{ section.id }} .gut-harmony-feature__inner {
-        padding-inline: 0;
+        padding-inline: 20px;
+        /* the #mm-gut-harmony-feature rule below forces a 24px gap on the row, so the gap is at least 24px */
+        max-width: calc(var(--ghf-media-width) + max(24px, var(--ghf-column-gap)) + 694px + 40px);
       }
 
       .section-{{ section.id }} .gut-harmony-feature__row {
@@ -360,8 +364,9 @@
     }
 
       .section-{{ section.id }} .gut-harmony-feature__content {
-        flex: 0 0 694px;
+        flex: 1 1 694px;
         max-width: 694px;
+        min-width: 0;
       }
 
       /* Figma frame 133:7 is a fixed 560px-wide pill, not hug-content */
