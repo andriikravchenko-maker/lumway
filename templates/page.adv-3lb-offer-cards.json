@@ -1,0 +1,2549 @@
+{
+  "sections": {
+    "lum_template_font": {
+      "type": "lum-template-font",
+      "settings": {
+        "pdp_benefit_overrides": false,
+        "enable_rum": false,
+        "enable_events": true
+      }
+    },
+    "mm_gut_harmony_benefits_gKxehV": {
+      "type": "mm-gut-harmony-benefits",
+      "custom_css": [],
+      "name": "\"Finally My Jeans Fit Looser And I Feel More Confident Than Ever.\"",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "column_gap": 24,
+        "content_gap": 24,
+        "background_color": "#f9f9f9",
+        "image": "shopify://shop_images/Finally_My_Jeans_Fit_Looser_And_I_Feel_More_Confident_Than_Ever..webp",
+        "image_width": 602,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center center",
+        "image_border_radius": 0,
+        "heading_before": "",
+        "heading_accent": "\"How To Feel Three Pounds Lighter",
+        "heading_after": "Without Eating Less\"",
+        "heading_size": 50,
+        "heading_size_mobile": 26,
+        "heading_line_height": 1.1,
+        "heading_color": "#111111",
+        "heading_accent_color": "#5b0d1e",
+        "subheading": "<p>The first change wasn’t on the scale. It was feeling less heavy, more regular, and comfortable in my clothes from morning to night. </p>",
+        "subheading_size": 22,
+        "subheading_size_mobile": 16,
+        "subheading_color": "#6b6b6b",
+        "button_text": "LEARN MORE",
+        "button_link": "#advertorial-section",
+        "button_font_size": 24,
+        "button_font_size_mobile": 16,
+        "button_radius": 32,
+        "button_width": 384,
+        "button_bg_color": "#5b0d1e",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#5b0d1e"
+      }
+    },
+    "rich_text_BR7tJa": {
+      "type": "rich-text",
+      "blocks": {
+        "subtitle_PirNe8": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": "<p>I had almost stopped wearing jeans. Not because they didn’t fit.<br/>They did – in the morning. But by lunchtime, the waistband would start pressing into my stomach.<br/><br/>By dinner, I wanted to unbutton them.<br/><br/>And by the end of the evening<strong>, I felt like my body had somehow changed an entire size in just a few hours.</strong><br/><br/>So,<strong> I tried eating smaller portions.</strong> Avoiding bread. Skipping dessert. Starting another “clean eating” week.<br/><br/><strong>But the same thing kept happening.</strong><br/><br/>That was when <strong>I realized I needed to look deeper instead of just blaming my weight.</strong></p>"
+          }
+        },
+        "title_6k7zw7": {
+          "type": "title",
+          "settings": {
+            "title": "🤔 What if the real issue was something happening inside my body that I hadn’t been paying attention to?",
+            "accent_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "subtitle_PirNe8",
+        "title_6k7zw7"
+      ],
+      "custom_css": [
+        ".rich-text-title {color: #5b0d1e !important;}"
+      ],
+      "name": "Rich Text",
+      "settings": {
+        "anchor_id": "advertorial-section",
+        "use_theme_colors": true,
+        "text_alignment": "center",
+        "mobile_text_alignment": "center",
+        "padding_top": 0,
+        "padding_bottom": 20,
+        "padding_horizontal": 20,
+        "title_font_size": 20,
+        "title_font_size_mobile": 16,
+        "title_line_height": 1.3,
+        "title_margin_bottom": 24,
+        "title_color": "#5b0d1e",
+        "use_accent_gradient": true,
+        "accent_color": "#5e1424",
+        "accent_gradient_start": "#5b0d1e",
+        "accent_gradient_end": "#5e1424",
+        "accent_gradient_angle": 45,
+        "subtitle_font_size": 18,
+        "subtitle_font_size_mobile": 16,
+        "subtitle_line_height": 1.6,
+        "subtitle_margin_bottom": 16,
+        "subtitle_max_width": 1000,
+        "subtitle_color": "#111111",
+        "bold_font_weight": "700",
+        "use_global_button_styling": true,
+        "button_font_size": 16,
+        "button_font_size_mobile": 14,
+        "button_padding_vertical": 14,
+        "button_padding_horizontal": 28,
+        "button_border_radius": 4,
+        "button_border_width": 0,
+        "button_margin_top": 24,
+        "button_bg_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_color": "#000000",
+        "button_hover_bg_color": "#333333",
+        "button_hover_text_color": "#ffffff",
+        "section_bg_color": "#f9f9f9",
+        "section_border_radius": 0,
+        "enable_top_border": false,
+        "top_border_width": 1,
+        "top_border_style": "solid",
+        "top_border_color": "#e0e0e0",
+        "enable_bottom_border": true,
+        "bottom_border_width": 1,
+        "bottom_border_style": "solid",
+        "bottom_border_color": "#cecece"
+      }
+    },
+    "get_harmony_feature_v2_9AzqaE": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_DPnxJp": {
+          "type": "heading",
+          "settings": {
+            "text": "My Body Wasn’t Changing Overnight",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 10
+          }
+        },
+        "text_U6Ria4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body fat doesn’t suddenly appear between breakfast and dinner.<br/><br/>Looking back, the signs were obvious:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "list_kyXRfb": {
+          "type": "list",
+          "settings": {
+            "items": "I wasn’t having comfortable, regular bowel movements.\nMy stomach felt heavy after normal meals.\nMy waistband became uncomfortable as the day went on.\nI often felt “full” even when I wasn’t hungry.\nMy body rarely felt completely light or settled.",
+            "background_color": "#f9f9f9",
+            "border_color": "#c2c2c2",
+            "border_width": 1,
+            "border_radius": 16,
+            "text_color": "#111111",
+            "bullet_color": "#5b0d1e",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.4,
+            "bullet_size": 8,
+            "bullet_gap": 16,
+            "item_gap": 6,
+            "padding_vertical": 18,
+            "padding_horizontal": 14,
+            "padding_vertical_mobile": 14,
+            "padding_horizontal_mobile": 14,
+            "margin_bottom": 24
+          }
+        },
+        "text_6gDaij": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I had been measuring everything except the one routine that had quietly changed:</p><p><strong>My digestion.</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        }
+      },
+      "block_order": [
+        "heading_DPnxJp",
+        "text_U6Ria4",
+        "list_kyXRfb",
+        "text_6gDaij"
+      ],
+      "name": "My Body Wasn’t Changing Overnight",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 20,
+        "title_gap": 0,
+        "column_gap": 0,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "My Body Wasn’t Changing Overnight",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#0a430d",
+        "image": "shopify://shop_images/My_Body_Wasn_t_Changing_Overnight.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#333333",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_nQrn9R": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_P6pBLJ": {
+          "type": "heading",
+          "settings": {
+            "text": "The “Healthy” Diet Mistake",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 10
+          }
+        },
+        "text_xALnGM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I thought I was eating well.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.2,
+            "margin_bottom": 16
+          }
+        },
+        "icon_list_item_JxKtLz": {
+          "type": "icon_list_item",
+          "name": "Protein at every meal",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Protein at every meal",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
+        "icon_list_item_MVhwFN": {
+          "type": "icon_list_item",
+          "name": "Smaller portions",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Smaller portions",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
+        "icon_list_item_W8JGTf": {
+          "type": "icon_list_item",
+          "name": "Fewer snacks",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Fewer snacks",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 0
+          }
+        },
+        "icon_list_item_PLi4x3": {
+          "type": "icon_list_item",
+          "name": "Lower-calorie options",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "text": "Lower-calorie options",
+            "icon_size": 28,
+            "icon_size_mobile": 24,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "gap": 12,
+            "margin_bottom": 10
+          }
+        },
+        "text_HjYXyW": {
+          "type": "text",
+          "settings": {
+            "text": "<p>But in trying to eat less, I had also started eating less fiber. There were fewer whole grains. Smaller portions of fruit. More quick, protein-focused meals that looked healthy but didn’t always give my gut what it needed.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 24
+          }
+        },
+        "highlight_XL3RWU": {
+          "type": "highlight",
+          "settings": {
+            "text": "<p>💡 Enough fiber a day supports stool bulk, bowel regularity, digestive function, and the beneficial bacteria living in the gut. When daily fiber intake falls short you <strong>start to feel that your waist increases and you've gained weight almost through the day. </strong></p>",
+            "background_color": "#f8e3e8",
+            "text_color": "#111111",
+            "font_size": 16,
+            "font_size_mobile": 16,
+            "icon_size": 20,
+            "icon_gap": 10,
+            "border_radius": 16,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_P6pBLJ",
+        "text_xALnGM",
+        "icon_list_item_JxKtLz",
+        "icon_list_item_MVhwFN",
+        "icon_list_item_W8JGTf",
+        "icon_list_item_PLi4x3",
+        "text_HjYXyW",
+        "highlight_XL3RWU"
+      ],
+      "name": "The “Healthy” Diet Mistake",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20,
+        "title_gap": 0,
+        "column_gap": 0,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "The “Healthy” Diet Mistake",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/The_Healthy_Diet_Mistake.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_7yt7ni": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_4G9Ftc": {
+          "type": "heading",
+          "settings": {
+            "text": "Why Restricting More Doesn’t Work",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 10
+          }
+        },
+        "text_JpWUji": {
+          "type": "text",
+          "settings": {
+            "text": "<p>I had been searching for ways to lose weight and started to feel lighter inside:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.2,
+            "margin_bottom": 16
+          }
+        },
+        "text_jLWgiM": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Less food.<br/>Fewer carbs.<br/>No dessert.<br/>No restaurant meals</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_8cHJgj": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>But restriction wasn’t solving the reason I felt uncomfortable.<br/></strong>In fact, eating less sometimes made it harder to get enough fiber and maintain a consistent digestive routine.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_4xBrap": {
+          "type": "text",
+          "settings": {
+            "text": "<p>So instead of asking:<br/><strong>“What else should I stop eating?”</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 10
+          }
+        },
+        "text_f9qrcQ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>So instead of asking:<br/><strong>“What is my gut missing?”</strong></p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_KF3EqG": {
+          "type": "text",
+          "settings": {
+            "text": "<p>That shift changed everything.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_4G9Ftc",
+        "text_JpWUji",
+        "text_jLWgiM",
+        "text_8cHJgj",
+        "text_4xBrap",
+        "text_f9qrcQ",
+        "text_KF3EqG"
+      ],
+      "name": "Why Restricting More Doesn’t Work",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20,
+        "title_gap": 0,
+        "column_gap": 0,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "Why Restricting More Doesn’t Work",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/Why_Restricting_More_Doesn_t_Work.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_AkDTnE": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_m4jHLa": {
+          "type": "heading",
+          "settings": {
+            "text": "I Changed My Daily Routine Completely",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
+          }
+        },
+        "numbered_highlight_Ekwbt9": {
+          "type": "numbered_highlight",
+          "settings": {
+            "items": "1 | I stopped skipping meals | Regular, balanced meals helped me build a more predictable daily rhythm.\n2 | I added more fiber-rich foods | I included more vegetables, berries, oats, seeds, legumes, and whole-food carbohydrates.\n3 | I drank more water | Increasing fiber without enough fluids can make digestive discomfort worse, so hydration became part of the routine.\n4 | I walked after meals| Even a short walk helped me feel less sedentary and more comfortable after eating.\n5 | I added Gut Flow to my daily routine | Gut Flow contains prebiotic inulin fiber designed to help increase daily fiber intake while nourishing beneficial gut bacteria.",
+            "background_color": "#f8e3e8",
+            "border_radius": 20,
+            "number_background": "#5b0d1e",
+            "number_color": "#ffffff",
+            "number_size": 20,
+            "title_color": "#111111",
+            "title_font_size": 16,
+            "title_font_size_mobile": 14,
+            "text_color": "#111111",
+            "text_font_size": 14,
+            "text_font_size_mobile": 14,
+            "row_gap": 8,
+            "number_gap": 8,
+            "description_gap": 4,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "margin_bottom": 16
+          }
+        },
+        "icon_text_tNdtwe": {
+          "type": "icon_text",
+          "name": "It wasn’t a cleanse.",
+          "settings": {
+            "icon": "shopify://shop_images/icon-close.png",
+            "text": "<p>It wasn’t a cleanse.</p>",
+            "icon_size": 20,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 14,
+            "font_weight": "500",
+            "line_height": 1.1,
+            "margin_bottom": 8
+          }
+        },
+        "icon_text_ywLmMT": {
+          "type": "icon_text",
+          "name": "It wasn’t a laxative-style emergency fix.",
+          "settings": {
+            "icon": "shopify://shop_images/icon-close.png",
+            "text": "<p>It wasn’t a laxative-style emergency fix.</p>",
+            "icon_size": 20,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 14,
+            "font_weight": "500",
+            "line_height": 1.1,
+            "margin_bottom": 8
+          }
+        },
+        "icon_text_nmhGxW": {
+          "type": "icon_text",
+          "name": "It wasn’t something I used to “cancel out” food.",
+          "settings": {
+            "icon": "shopify://shop_images/icon-close.png",
+            "text": "<p>It wasn’t something I used to “cancel out” food.</p>",
+            "icon_size": 20,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 14,
+            "font_weight": "500",
+            "line_height": 1.1,
+            "margin_bottom": 24
+          }
+        },
+        "quote_callout_GX69Bn": {
+          "type": "quote_callout",
+          "settings": {
+            "text": "<p>Gut Flow simply closed my daily fiber gap – even on busy days when my meals weren’t perfect.</p>",
+            "background_color": "#f9f9f9",
+            "text_color": "#5b0d1e",
+            "border_color": "#5b0d1e",
+            "border_width": 2,
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.4,
+            "padding_vertical": 4,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 4,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_m4jHLa",
+        "numbered_highlight_Ekwbt9",
+        "icon_text_tNdtwe",
+        "icon_text_ywLmMT",
+        "icon_text_nmhGxW",
+        "quote_callout_GX69Bn"
+      ],
+      "name": "I Changed My Daily Routine Completely",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 20,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "I Changed My Daily Routine Completely",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/I_Changed_My_Daily_Routine_Completely.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_WwW9hw": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_kX6Ehy": {
+          "type": "heading",
+          "settings": {
+            "text": "The First Change Wasn’t Weight Loss",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
+          }
+        },
+        "text_Ed9nRk": {
+          "type": "text",
+          "settings": {
+            "text": "<p> I didn’t wake up with a completely different body and the scale didn’t suddenly drop.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_EbLQTy": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Instead, I noticed smaller, more believable changes first:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_ji6BJq": {
+          "type": "text",
+          "settings": {
+            "text": "<ul><li>My digestion felt more predictable.</li><li>I stopped carrying the same uncomfortable heaviness.</li><li>My stomach didn’t feel as dramatically different by evening.</li></ul>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 16
+          }
+        },
+        "text_h6jHbd": {
+          "type": "text",
+          "settings": {
+            "text": "<p>And one day, I put on my jeans without immediately wondering when I would need to unbutton them.<br/>That small moment gave me more confidence than another restrictive diet I ever had.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_kX6Ehy",
+        "text_Ed9nRk",
+        "text_EbLQTy",
+        "text_ji6BJq",
+        "text_h6jHbd"
+      ],
+      "name": "The First Change Wasn’t Weight Loss",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 20,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "The First Change Wasn’t Weight Loss",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/The_First_Change_Wasn_t_Weight_Loss.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_hVXahQ": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_yR93An": {
+          "type": "heading",
+          "name": "How Gut Flow Supports Healthy Weight Loss",
+          "settings": {
+            "text": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
+          }
+        },
+        "text_rDbwUJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Gut Flow isn’t designed to burn fat or replace a balanced diet. Its role is more foundational.<br/><br/>Its prebiotic inulin fiber helps support:</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1,
+            "margin_bottom": 24
+          }
+        },
+        "highlight_checklist_GLQmfP": {
+          "type": "highlight_checklist",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_check-fill.png",
+            "items": "Daily fiber intake.\nHealthy bowel regularity.*\nBeneficial gut bacteria.*\nDigestive comfort.*\nA feeling of fullness as part of a balanced diet.*\nA routine that may feel easier to maintain consistently.",
+            "background_color": "#f8e3e8",
+            "border_radius": 20,
+            "text_color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "500",
+            "line_height": 1.2,
+            "icon_size": 24,
+            "icon_size_mobile": 20,
+            "icon_gap": 8,
+            "row_gap": 4,
+            "padding_vertical": 16,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 16,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 24
+          }
+        },
+        "text_yVTyiA": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Inulin fiber can also contribute to satiety, which may support more intentional eating habits when combined with balanced meals, movement, hydration, sleep, and an appropriate calorie intake.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 24
+          }
+        }
+      },
+      "block_order": [
+        "heading_yR93An",
+        "text_rDbwUJ",
+        "highlight_checklist_GLQmfP",
+        "text_yVTyiA"
+      ],
+      "name": "Why Gut Flow Fits Perfect Into a Healthy Weight-Loss Journey",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 20,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "How Gut Flow Supports Healthy Weight Loss",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/Why_Gut_Flow_Fits_Perfect_Into_a_Healthy_Weight-Loss_Journey.webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "get_harmony_feature_v2_QcAKNJ": {
+      "type": "get-harmony-feature-v2",
+      "blocks": {
+        "heading_yFMGAf": {
+          "type": "heading",
+          "name": "My Jeans Didn’t Need a Smaller Body – I Needed to Feel Comfortable in Mine",
+          "settings": {
+            "text": "My Jeans Didn’t Need a Smaller Body.I Needed to Feel Comfortable in Mine.",
+            "tag": "h2",
+            "color": "#111111",
+            "font_size": 40,
+            "font_size_mobile": 26,
+            "font_weight": "700",
+            "line_height": 1.2,
+            "margin_bottom": 24
+          }
+        },
+        "text_KYVE8X": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>I still enjoy dinner out. I still eat dessert. My meals aren’t perfect every day.</strong><br/>But I no longer respond to every bloated evening by punishing myself with another restrictive diet.<br/><br/>I understand the difference between gaining body fat and temporarily feeling heavy because my digestion is off. And I know that <strong>feeling better</strong> in my clothes <strong>isn’t always about becoming smaller. </strong><br/><br/>Sometimes it begins with supporting the body you already have.</p>",
+            "color": "#111111",
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "400",
+            "line_height": 1.4,
+            "margin_bottom": 24
+          }
+        },
+        "quote_callout_789Kmg": {
+          "type": "quote_callout",
+          "settings": {
+            "text": "<p>That's why Gut Flow earned a permanent place in my daily routine. It made supporting my gut feel simple enough to stay consistent with and that changed far more than another restrictive diet ever did.</p>",
+            "background_color": "#f9f9f9",
+            "text_color": "#5b0d1e",
+            "border_color": "#5b0d1e",
+            "border_width": 2,
+            "font_size": 18,
+            "font_size_mobile": 16,
+            "font_weight": "700",
+            "line_height": 1.5,
+            "padding_vertical": 4,
+            "padding_horizontal": 16,
+            "padding_vertical_mobile": 4,
+            "padding_horizontal_mobile": 16,
+            "margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "heading_yFMGAf",
+        "text_KYVE8X",
+        "quote_callout_789Kmg"
+      ],
+      "name": "My Jeans Didn’t Need a Smaller Body. I Needed to Feel Comfortable in Mine.",
+      "settings": {
+        "use_theme_colors": false,
+        "padding_top": 0,
+        "padding_bottom": 72,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 40,
+        "title_gap": 0,
+        "column_gap": 20,
+        "content_gap": 0,
+        "background_color": "#ffffff",
+        "title": "My Jeans Didn’t Need a Smaller Body – I Needed to Feel Comfortable in Mine",
+        "title_size": 40,
+        "title_size_mobile": 26,
+        "title_color": "#111111",
+        "image": "shopify://shop_images/My_Jeans_Didn_t_Need_a_Smaller_Body._I_Needed_to_Feel_Comfortable_in_Mine..webp",
+        "image_width": 600,
+        "image_height": 450,
+        "image_width_mobile": 450,
+        "image_height_mobile": 262,
+        "image_fit": "contain",
+        "image_position": "center top",
+        "image_border_radius": 0,
+        "body_text": "",
+        "text_size": 18,
+        "text_color": "#111111",
+        "testimonial_text": "",
+        "testimonial_size": 16,
+        "testimonial_paragraph_spacing": 12,
+        "testimonial_color": "#333333",
+        "button_text": "",
+        "button_link": "",
+        "button_show_arrow": false,
+        "button_font_size": 24,
+        "button_radius": 32,
+        "button_bg_color": "#23a02a",
+        "button_text_color": "#ffffff",
+        "button_hover_bg_color": "#1d8a23"
+      }
+    },
+    "mm_heading_banner_lum_H3xaWF": {
+      "type": "mm-heading-banner-lum",
+      "name": "Heading banner Lum",
+      "settings": {
+        "accent_text": "Feel Better in Your Jeans",
+        "heading": "– Without Starting Another Punishing Diet",
+        "background_color": "#f8e3e8",
+        "accent_color": "#5b0d1e",
+        "text_color": "#111111",
+        "max_width": 1440,
+        "font_size": 44,
+        "font_size_mobile": 26,
+        "padding_top": 44,
+        "padding_bottom": 0
+      }
+    },
+    "gut_flow_survey_stats_KBgexA": {
+      "type": "gut-flow-survey-stats",
+      "blocks": {
+        "stat_YVAbnh": {
+          "type": "stat",
+          "settings": {
+            "statistic_number": 92,
+            "statistic_suffix": "%",
+            "circle_percentage": 89,
+            "description": "<p>of users reported feeling more regular.*</p>"
+          }
+        },
+        "stat_84LCax": {
+          "type": "stat",
+          "settings": {
+            "statistic_number": 86,
+            "statistic_suffix": "%",
+            "circle_percentage": 85,
+            "description": "<p>said they experienced less digestive heaviness.*</p>"
+          }
+        },
+        "stat_6dtGqr": {
+          "type": "stat",
+          "settings": {
+            "statistic_number": 79,
+            "statistic_suffix": "%",
+            "circle_percentage": 77,
+            "description": "<p>would recommend Gut Flow to a friend.*</p>"
+          }
+        }
+      },
+      "block_order": [
+        "stat_YVAbnh",
+        "stat_84LCax",
+        "stat_6dtGqr"
+      ],
+      "name": "Gut Flow Survey Stats",
+      "settings": {
+        "heading_accent": "",
+        "heading": "The Debloating, Regularity-Supporting Daily Gummy Your Gut Has Been Waiting For",
+        "footnote": "<p>*Based on an internal quantitative survey of Gut Flow users.</p>",
+        "background_color": "#f8e6eb",
+        "heading_color": "#111111",
+        "heading_accent_color": "#6f1020",
+        "card_background": "#5b0d1e",
+        "card_text_color": "#ffffff",
+        "progress_track_color": "#8d2b40",
+        "progress_color": "#fce5eb",
+        "footnote_color": "#858585",
+        "heading_alignment": "center",
+        "heading_max_width": 900,
+        "heading_max_width_mobile": 390,
+        "heading_accent_size": 38,
+        "heading_accent_size_mobile": 30,
+        "heading_accent_weight": "700",
+        "heading_accent_line_height": 11,
+        "heading_accent_letter_spacing": -4,
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "heading_weight": "700",
+        "heading_line_height": 11,
+        "heading_letter_spacing": -4,
+        "heading_lines_gap": 0,
+        "heading_lines_gap_mobile": 0,
+        "heading_margin_top": 0,
+        "heading_margin_bottom": 34,
+        "heading_margin_top_mobile": 0,
+        "heading_margin_bottom_mobile": 38,
+        "percentage_size": 58,
+        "percentage_size_mobile": 64,
+        "description_size": 16,
+        "description_size_mobile": 16,
+        "footnote_size": 16,
+        "footnote_size_mobile": 16,
+        "circle_size": 120,
+        "circle_size_mobile": 100,
+        "circle_thickness": 15,
+        "card_height": 180,
+        "card_padding_vertical": 20,
+        "card_padding_horizontal": 24,
+        "card_radius": 16,
+        "card_gap": 16,
+        "animation_duration": 1200,
+        "content_width": 1440,
+        "padding_top": 72,
+        "padding_bottom": 72,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "mm_research_mentions_GeBLp4": {
+      "type": "mm-research-mentions",
+      "blocks": {
+        "mention_F8AiyT": {
+          "type": "mention",
+          "name": "Cosmopolitan",
+          "settings": {
+            "logo": "shopify://shop_images/Cosmopolitan-1.webp",
+            "logo_text": "Cosmopolitan",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“My jeans stopped feeling like they belonged to a different body after dinner.”</p>"
+          }
+        },
+        "mention_ghGcUh": {
+          "type": "mention",
+          "name": "Womens Health",
+          "settings": {
+            "logo": "shopify://shop_images/Womens_Health-1.webp",
+            "logo_text": "Womens Health",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“I finally stopped responding to every bloated day by starting another diet.”</p>"
+          }
+        },
+        "mention_rBP6Vi": {
+          "type": "mention",
+          "name": "Usa Today",
+          "settings": {
+            "logo": "shopify://shop_images/Usa_Today.webp",
+            "logo_text": "Usa Today",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“It tastes like a treat, but it has become one of the most consistent parts of my wellness routine.”</p>"
+          }
+        },
+        "mention_iGyMBa": {
+          "type": "mention",
+          "name": "Who What Wear",
+          "settings": {
+            "logo": "shopify://shop_images/Who_What_Wear.webp",
+            "logo_text": "Who What Wear",
+            "logo_width": 280,
+            "logo_height": 70,
+            "logo_text_size": 26,
+            "quote": "<p>“The real win was not having to think about my bathroom routine all day.”<br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "mention_F8AiyT",
+        "mention_ghGcUh",
+        "mention_rBP6Vi",
+        "mention_iGyMBa"
+      ],
+      "name": "Research mentions",
+      "settings": {
+        "show_bottom_text": true,
+        "bottom_text": "<p>*Research refers to the ingredient, not the finished product.</p>",
+        "bottom_text_color": "#858585",
+        "bottom_text_alignment": "center",
+        "bottom_text_alignment_mobile": "center",
+        "bottom_text_size": 16,
+        "bottom_text_size_mobile": 16,
+        "bottom_text_weight": "400",
+        "bottom_text_weight_mobile": "400",
+        "bottom_text_margin_top": 24,
+        "bottom_text_margin_top_mobile": 24,
+        "bottom_text_max_width": 900,
+        "heading": "Prebiotic Fiber Ingredient Backed by Nutritional Research",
+        "subheading": "<p>As discussed in research and educational resources from:</p>",
+        "desktop_columns": "4",
+        "content_width": 1440,
+        "card_gap": 16,
+        "card_height": 200,
+        "card_padding_vertical": 16,
+        "card_padding_horizontal": 16,
+        "card_radius": 12,
+        "heading_size": 40,
+        "heading_size_mobile": 26,
+        "subheading_size": 24,
+        "subheading_size_mobile": 16,
+        "card_text_size": 16,
+        "card_text_size_mobile": 16,
+        "background_color": "#ffffff",
+        "heading_color": "#111111",
+        "subheading_color": "#111111",
+        "card_background": "#f9f9f9",
+        "card_text_color": "#111111",
+        "card_border_color": "#c2c2c2",
+        "dot_color": "#f8e3e8",
+        "dot_active_color": "#5b0d1e",
+        "padding_top": 72,
+        "padding_bottom": 44,
+        "padding_top_mobile": 20,
+        "padding_bottom_mobile": 20
+      }
+    },
+    "listicle_sticky_only": {
+      "type": "listicle",
+      "blocks": {
+        "listicle_sticky_atc_8EwYPV": {
+          "type": "listicle-sticky-atc",
+          "name": "Sticky Add to Cart",
+          "settings": {
+            "button_text": "🔥 Try Gut Flow Now",
+            "show_arrow": false,
+            "button_link": "/products/gut-flow-gummies",
+            "button_bg": "#5e1424",
+            "button_text_color": "#ffffff",
+            "enable_heartbeat": true,
+            "button_font_size": 18,
+            "button_font_size_mobile": 14,
+            "button_padding_y": 20,
+            "button_padding_x": 40,
+            "button_border_radius": 8,
+            "show_guarantee": true,
+            "guarantee_icon": "shopify://shop_images/guarante.png",
+            "guarantee_text": "30-day money-back guarantee",
+            "guarantee_text_color": "#111111",
+            "guarantee_font_size": 14,
+            "guarantee_font_size_mobile": 12,
+            "guarantee_font_weight": "400",
+            "guarantee_icon_size": 16,
+            "guarantee_icon_size_mobile": 12,
+            "guarantee_gap": 5,
+            "guarantee_gap_mobile": 4,
+            "guarantee_margin_top": 0,
+            "guarantee_margin_top_mobile": 0,
+            "show_subtext": false,
+            "subtext": "",
+            "subtext_color": "#25282a",
+            "subtext_font_size": 12,
+            "sticky": true,
+            "mobile_only": false,
+            "container_bg": "#f1eeef",
+            "max_width": 500,
+            "border_radius": 12,
+            "margin_top": 20,
+            "margin_bottom": 20
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "listicle_sticky_atc_8EwYPV"
+      ],
+      "settings": {
+        "section_max_width": 900,
+        "padding_top": 30,
+        "padding_bottom": 0,
+        "gap": 30,
+        "use_custom_font": false,
+        "section_font_family": "assistant_n4",
+        "heading_letter_spacing": 0,
+        "body_letter_spacing": 0,
+        "font_size_preset": "medium",
+        "use_theme_colors": false,
+        "disable_scroll_animation": true,
+        "section_background_color": "#ffffff",
+        "section_text_color": "#3b3b3b",
+        "container_padding_horizontal": 20,
+        "mobile_container_padding": 20
+      }
+    },
+    "social_proof_pop": {
+      "type": "social-proof-pop",
+      "blocks": {
+        "spp_purchase": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002672_1_1.png",
+            "name": "Jennifer",
+            "location": "California",
+            "product": "2 Jars of Gut Flow",
+            "stock_text": "Popular bundle today"
+          }
+        },
+        "spp_viewed": {
+          "type": "stat",
+          "disabled": true,
+          "settings": {
+            "icon": "eye",
+            "text": "150 people viewed this today",
+            "subtext": "",
+            "show_verified": false
+          }
+        },
+        "spp_orders": {
+          "type": "stat",
+          "disabled": true,
+          "settings": {
+            "icon": "cart",
+            "text": "32 orders today",
+            "subtext": "",
+            "show_verified": true
+          }
+        },
+        "spp_jessica": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002672-1_47db7f69-3399-4094-b191-52f1bf3d0510.png",
+            "name": "Jessica",
+            "location": "Texas",
+            "product": "3 Jars of Gut Flow",
+            "stock_text": ""
+          }
+        },
+        "spp_emily": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002672_1_1.png",
+            "name": "Emily",
+            "location": "New York",
+            "product": "2 Jars of Gut Flow",
+            "stock_text": "Popular bundle today"
+          }
+        },
+        "spp_sarah": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002672-1_47db7f69-3399-4094-b191-52f1bf3d0510.png",
+            "name": "Sarah",
+            "location": "Florida",
+            "product": "3 Jars of Gut Flow",
+            "stock_text": "Popular bundle today"
+          }
+        },
+        "spp_amanda": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002672_1_1.png",
+            "name": "Amanda",
+            "location": "Ohio",
+            "product": "2 Jars of Gut Flow",
+            "stock_text": "Popular bundle today"
+          }
+        },
+        "spp_megan": {
+          "type": "purchase",
+          "settings": {
+            "image": "shopify://shop_images/Group_1000002672-1_47db7f69-3399-4094-b191-52f1bf3d0510.png",
+            "name": "Megan",
+            "location": "Arizona",
+            "product": "3 Jars of Gut Flow",
+            "stock_text": "Popular bundle today"
+          }
+        }
+      },
+      "block_order": [
+        "spp_purchase",
+        "spp_viewed",
+        "spp_orders",
+        "spp_jessica",
+        "spp_emily",
+        "spp_sarah",
+        "spp_amanda",
+        "spp_megan"
+      ],
+      "settings": {
+        "position": "left",
+        "bg_color": "#ffffff",
+        "text_color": "#794054",
+        "vertical": "top",
+        "bottom_offset": 44,
+        "verified_text": "Verified by Lumway",
+        "trigger_mode": "viewport",
+        "trigger_selector": ".ocl",
+        "limit_to_sections": true,
+        "allowed_sections": ".ocl\n.gut-harmony-feature__highlight-checklist\n.gut-harmony-feature__quote-callout",
+        "show_times": "3,8.5,15,30,60,80,105,160",
+        "start_delay": 2,
+        "show_secs": 5,
+        "gap_secs": 8,
+        "loop": true,
+        "remember_close": true
+      }
+    },
+    "sticky_countdown": {
+      "type": "sticky-countdown-banner",
+      "settings": {
+        "text": "🔥 LIMITED TIME OFFER ENDS IN",
+        "hours": 2,
+        "sync_lts": true,
+        "position": "top",
+        "hide_on_first": true,
+        "after_end": "hide",
+        "bg_color": "#5e1424",
+        "text_color": "#ffffff"
+      }
+    },
+    "customer_reviews_carousel_6W7Cht": {
+      "type": "customer-reviews-carousel",
+      "blocks": {
+        "review_qaF9CY": {
+          "type": "review",
+          "name": "Megan L.,",
+          "settings": {
+            "review_image": "shopify://shop_images/Megan_L.-1.webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 4,
+            "review_text": "“I have a sensitive stomach, so I was hesitant — but this felt really gentle. No weird side effects, just gradual improvement.”",
+            "reviewer_name": "Megan L.",
+            "reviewer_age": "37",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": false,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_7yT4ch": {
+          "type": "review",
+          "name": "Rachel S.",
+          "settings": {
+            "review_image": "shopify://shop_images/Rachel_S..webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“After about a week, I realized I wasn’t thinking about my stomach as much. That alone made it worth it.”",
+            "reviewer_name": "Rachel S.",
+            "reviewer_age": "35",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": false,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_Cz3cP8": {
+          "type": "review",
+          "name": "Olivia P.",
+          "settings": {
+            "review_image": "shopify://shop_images/Olivia_P..webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“I take it every morning and it just became part of my routine. I feel less bloated after meals and more comfortable overall.”",
+            "reviewer_name": "Olivia P.",
+            "reviewer_age": "63",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": false,
+            "purchase_date": "March 14th, 2025"
+          }
+        },
+        "review_LmYwag": {
+          "type": "review",
+          "name": "Lauren K.",
+          "settings": {
+            "review_image": "shopify://shop_images/Lauren_K..webp",
+            "image_position": "center center",
+            "wrap_image": true,
+            "rating": 5,
+            "review_text": "“It didn’t work overnight for me, but after about 10–12 days I started noticing less bloating. It feels more like a gradual improvement than a quick fix.”",
+            "reviewer_name": "Lauren K.",
+            "reviewer_age": "42",
+            "show_verified_badge": true,
+            "show_purchased_product": false,
+            "product_reference": "",
+            "product_title": "Product Name",
+            "product_price": "$29.99",
+            "product_compare_price": "$39.99",
+            "show_purchase_date": false,
+            "purchase_date": "March 14th, 2025"
+          }
+        }
+      },
+      "block_order": [
+        "review_qaF9CY",
+        "review_7yT4ch",
+        "review_Cz3cP8",
+        "review_LmYwag"
+      ],
+      "name": "Customer Reviews",
+      "settings": {
+        "show_bottom_text": true,
+        "bottom_text": "<p>*Individual experiences may vary.</p>",
+        "bottom_text_color": "#858585",
+        "bottom_text_alignment": "center",
+        "bottom_text_alignment_mobile": "center",
+        "bottom_text_size": 16,
+        "bottom_text_size_mobile": 16,
+        "bottom_text_weight": "400",
+        "bottom_text_weight_mobile": "400",
+        "bottom_text_margin_top": 24,
+        "bottom_text_margin_top_mobile": 24,
+        "bottom_text_max_width": 900,
+        "use_theme_colors": false,
+        "anchor_id": "reviews",
+        "section_width": 1200,
+        "center_cards_desktop": true,
+        "center_cards_mobile": false,
+        "section_background": "#f9f9f9",
+        "title_text": "Transformations That",
+        "accent_text": "Speak For Themselves ",
+        "title_color": "#111111",
+        "accent_color": "#5b0d1e",
+        "override_global_accent": false,
+        "accent_text_margin_left": 0,
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(239, 74, 101, 1), rgba(255, 107, 157, 1) 100%)",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "custom_heading_styling": false,
+        "heading_font_size": 56,
+        "heading_font_size_mobile": 48,
+        "heading_line_height": 1.2,
+        "header_margin_bottom": 10,
+        "show_description": true,
+        "description_text": "",
+        "description_color": "#111111",
+        "description_font_size": 16,
+        "description_bottom_margin": 24,
+        "use_global_nav_buttons": true,
+        "prev_button_bg": "#ffffff",
+        "prev_button_color": "#000000",
+        "prev_button_border": "#e0e0e0",
+        "next_button_bg": "#ef4a65",
+        "next_button_color": "#ffffff",
+        "next_button_border": "#ef4a65",
+        "button_horizontal_padding": 12,
+        "scroll_amount": 360,
+        "navigation_margin_top": 5,
+        "card_width": 390,
+        "card_width_tablet": 300,
+        "card_width_mobile": 280,
+        "card_border_radius": 10,
+        "card_border_color": "#c2c2c2",
+        "card_background": "#ffffff",
+        "card_margin_top": 0,
+        "card_margin_right": 0,
+        "card_margin_bottom": 0,
+        "card_margin_left": 0,
+        "star_filled_color": "#fad356",
+        "star_empty_color": "#ffffff",
+        "carousel_review_star_size": 16,
+        "review_text_color": "#000000",
+        "review_text_size": 14,
+        "review_text_size_mobile": 12,
+        "reviewer_info_color": "#000000",
+        "reviewer_info_bg_color": "#ffffff",
+        "reviewer_info_font_size": 12,
+        "enable_verified_badges": true,
+        "verified_badge_text": "Verified Buyer",
+        "show_default_verified_icon": true,
+        "verified_badge_icon": "shopify://shop_images/8e25b3ee802c33bf05636c85d95f374c.png",
+        "verified_badge_background": "#ecfff5",
+        "verified_badge_text_color": "#38b573",
+        "verified_icon_color": "#38b573",
+        "verified_badge_font_size": 12,
+        "verified_badge_font_size_mobile": 11,
+        "verified_badge_font_weight": "500",
+        "verified_badge_line_height": 1.2,
+        "verified_badge_letter_spacing": 0,
+        "verified_badge_text_transform": "none",
+        "verified_icon_size": 14,
+        "verified_icon_size_mobile": 13,
+        "verified_badge_gap": 5,
+        "verified_badge_gap_mobile": 4,
+        "verified_badge_padding_y": 5,
+        "verified_badge_padding_x": 10,
+        "verified_badge_padding_y_mobile": 4,
+        "verified_badge_padding_x_mobile": 9,
+        "verified_badge_border_width": 1,
+        "verified_badge_border_style": "solid",
+        "verified_badge_border_color": "#38b573",
+        "verified_badge_border_radius": 50,
+        "verified_badge_margin_top": 0,
+        "verified_badge_margin_right": 0,
+        "verified_badge_margin_bottom": 0,
+        "verified_badge_margin_left": 8,
+        "enable_reviewer_info_border": false,
+        "reviewer_info_border_width": 1,
+        "reviewer_info_border_style": "solid",
+        "reviewer_info_border_color": "#e0e0e0",
+        "reviewer_info_border_radius": 8,
+        "product_title_color": "#000000",
+        "product_price_color": "#ef4a65",
+        "product_bg_color": "#f9f9f9",
+        "product_title_font_size": 12,
+        "product_price_font_size": 12,
+        "product_compare_price_font_size": 10,
+        "product_compare_price_color": "#9b9b9b",
+        "purchase_date_font_size": 10,
+        "product_border_color": "#eeeeee",
+        "product_border_width": 1,
+        "product_border_style": "solid",
+        "summary_star_color": "#ffffff",
+        "summary_text_color": "#ffffff",
+        "rating_summary_text": "<p>Real Results, Real Stories</p>",
+        "rating_summary_font_size": 13,
+        "rating_summary_bg_color": "#5b0d1e",
+        "rating_summary_margin_bottom": 15,
+        "purchase_date_prefix": "Purchased on",
+        "purchase_date_color": "#000000",
+        "purchase_date_icon_color": "#000000",
+        "rating_summary_gradient": "",
+        "enable_rating_summary_border": false,
+        "rating_summary_border_width": 1,
+        "rating_summary_border_style": "solid",
+        "rating_summary_border_color": "#ffbf00",
+        "rating_summary_border_radius": 50
+      }
+    },
+    "roadmap_MGJAcC": {
+      "type": "roadmap",
+      "blocks": {
+        "roadmap_step_3dwmAQ": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "",
+            "title": "Weeks 1–2 | Feel the Shift*",
+            "description": "<ul><li>Your beneficial gut bacteria begin receiving the prebiotic fiber they need to thrive.*</li><li>Your digestive system starts adapting to a higher daily fiber intake.*</li><li>You may begin noticing improved digestive comfort and a more balanced feeling after meals.*</li></ul>",
+            "custom_icon": "<svg width=\"48\" height=\"52\" viewbox=\"0 0 48 52\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M23.0401 41.9187C23.7103 41.2 23.9546 40.3606 23.5021 39.6168C22.2493 37.5655 19.1865 39.9332 16.9692 39.7515C14.7722 39.5714 12.8164 38.552 10.6681 37.8552C10.5443 36.3191 10.7651 35.0178 10.4629 33.4097L8.34428 37.7863L8.68407 38.3767C11.4181 39.4884 14.0551 40.4515 16.9629 41.1138L21.6825 39.9191C21.955 39.8502 22.4811 39.9817 22.5938 40.1915C22.7066 40.4014 22.5688 40.9854 22.3605 41.1044L21.2394 41.7465C21.1078 41.8216 20.8917 42.08 20.8808 42.224C20.8667 42.3979 21.1798 42.6829 21.3505 42.7283L23.715 43.3593C24.7109 43.6255 25.284 44.5791 25.1478 45.5985C24.7798 48.3796 21.4601 49.0466 18.6588 48.7366C13.6511 48.1838 8.8203 46.8998 4.24009 44.861C0.979909 43.4094 -0.554661 40.8273 0.181306 37.2602C1.08795 32.8663 2.71178 28.7308 5.03869 24.9116C7.30922 21.1848 11.1269 18.8892 15.5301 18.9049L27.7675 18.9471C32.4167 18.9628 36.1732 22.187 37.6514 26.454C38.4469 28.7512 38.7929 30.9387 39.0451 33.3909C39.6417 39.1909 39.7387 44.9158 39.7168 50.7409C39.7137 51.5583 39.1688 52.0046 38.425 51.9999L33.8714 51.9686C33.4627 51.9654 33.1448 51.2843 33.1401 50.921L33.0759 45.5766L32.9412 33.369C32.9381 33.0949 32.5858 32.7395 32.3712 32.7144C32.0941 32.6815 31.6462 33.0104 31.6462 33.3799L31.6431 51.1856C31.6431 51.6382 31.1483 51.9842 30.7271 51.9842L11.3523 51.9811C11.0705 51.9811 10.5835 51.4456 10.5866 51.1841L10.6117 48.4688C14.6266 49.4271 19.6265 50.7957 23.1951 49.4945C24.7689 48.9213 25.9026 47.6874 26.2377 46.0887C26.5931 44.3975 25.7444 42.8786 24.1425 42.3086L23.0433 41.9171L23.0401 41.9187ZM27.3902 38.0917C27.3354 37.7331 26.6824 37.1271 26.2846 37.0566C25.7475 36.9611 25.2057 37.7331 25.1917 38.1762C25.1729 38.7634 25.6207 39.2661 26.2439 39.5104C26.5289 39.6215 27.0143 39.4493 27.185 39.2489C27.387 39.0108 27.4685 38.5975 27.3902 38.0917Z\" fill=\"white\"></path>\n<path d=\"M21.9221 16.7675C26.5523 16.7675 30.3058 13.014 30.3058 8.38376C30.3058 3.75354 26.5523 0 21.9221 0C17.2919 0 13.5383 3.75354 13.5383 8.38376C13.5383 13.014 17.2919 16.7675 21.9221 16.7675Z\" fill=\"white\"></path>\n<path d=\"M43.8664 18.6106C41.7556 19.4061 41.5411 19.5392 40.816 21.6938C40.7362 21.9318 40.4214 22.2575 40.2163 22.2575C39.3112 22.2575 39.9548 19.3309 36.8121 18.692C36.6148 18.6513 36.2953 18.3914 36.2296 18.2301C36.1528 18.0422 36.502 17.6241 36.7213 17.5912C39.6996 17.1465 39.3739 14.3404 40.1036 13.9443C40.8333 13.5481 40.802 15.6182 41.8276 16.6501C42.7249 17.5521 44.153 17.444 44.2547 18.1079C44.2782 18.263 44.0167 18.5558 43.868 18.6122L43.8664 18.6106Z\" fill=\"white\"></path>\n<path d=\"M47.089 27.3168C45.0658 27.8836 45.6139 29.6468 44.9014 29.7376C44.7354 29.7596 44.4348 29.3947 44.416 29.2162C44.2062 27.3168 42.2535 27.4593 42.1877 26.8721C42.1721 26.7343 42.468 26.454 42.6152 26.4273C44.6524 26.0421 44.2578 23.8765 44.8998 24.0362C45.5419 24.196 45.2318 26.1283 47.0905 26.3945C47.2518 26.4179 47.601 26.7155 47.5697 26.8721C47.5384 27.0286 47.2565 27.2682 47.0874 27.3152L47.089 27.3168Z\" fill=\"white\"></path>\n</svg>",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_VDMJAT": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "",
+            "title": "Weeks 3–5 | Healthier Gut Rhythm*",
+            "description": "<ul><li>More consistent bowel regularity.*</li><li>A healthier, more balanced gut microbiome.*</li><li>Less bloating and digestive sluggishness.*</li><li>Greater digestive comfort throughout the day.*</li></ul>",
+            "custom_icon": "<svg width=\"55\" height=\"52\" viewbox=\"0 0 55 52\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M14.6294 37.0788C8.24127 29.4473 5.74268 19.453 10.2338 10.4909C13.6038 3.9637 20.1041 0.0507465 27.4441 0.000473028C33.8204 -0.0430973 39.7711 2.92471 43.3841 8.3023L14.631 37.0788H14.6294ZM15.6164 17.7219C16.3403 13.7235 19.035 10.3468 22.7468 8.93407C23.5965 8.61064 24.0959 7.91855 23.8177 7.05552C23.5747 6.30477 22.7385 5.90928 21.909 6.19752C17.0928 7.87162 13.6038 12.4465 12.7106 17.447C12.5397 18.4056 13.0793 19.158 13.9456 19.2686C14.9176 19.3943 15.4237 18.7776 15.6147 17.7219H15.6164Z\" fill=\"white\"></path>\n<path d=\"M27.5111 52.0002C26.7051 51.9734 26.2007 51.5293 26.2292 50.7987C26.2325 50.7032 26.1672 50.3864 26.075 50.3613C25.5237 50.2021 23.4809 51.5813 22.7352 50.3563C22.5559 50.0613 22.586 49.4933 22.7704 49.1715L25.2137 45.7177C21.6912 43.8844 18.7166 41.5467 16.0103 38.7364L31.7911 22.979L44.5069 10.2515C48.3277 17.4473 47.4312 25.4424 43.6339 32.2964C40.6174 37.7427 35.3857 42.7449 29.7869 45.7177L32.2302 49.1615C32.6458 49.7463 32.4212 50.487 31.766 50.802C30.3868 51.1003 29.6964 50.2976 29.0931 50.3412C28.6624 50.373 29.0227 52.0472 27.5078 51.9986L27.5111 52.0002Z\" fill=\"white\"></path>\n<path d=\"M3.63289 26.8431L0.361763 25.2009C0.0232547 25.0316 0.0115267 24.2138 0.259542 23.9072C0.551129 23.5452 1.0857 23.448 1.56162 23.6792L4.76069 25.231C5.22488 25.4556 5.28186 26.1896 4.9953 26.5817C4.69198 26.9956 4.12724 27.0928 3.63289 26.8448V26.8431Z\" fill=\"white\"></path>\n<path d=\"M53.9969 33.5246C54.5918 33.7944 54.9052 34.1564 54.7845 34.7798C54.7125 35.1502 54.1243 35.6998 53.6584 35.492L50.3806 34.0274C49.8007 33.7676 49.5712 33.1845 49.8041 32.6784C50.1007 32.0365 50.7057 32.0298 51.2872 32.2929L53.9986 33.523L53.9969 33.5246Z\" fill=\"white\"></path>\n<path d=\"M1.63036 35.2957C0.98686 35.589 0.402013 35.5772 0.107075 34.9539C-0.187863 34.3305 0.153995 33.811 0.795819 33.5294L3.98819 32.1285C4.48087 31.9123 5.06571 32.4955 5.10761 32.953C5.15453 33.4557 4.84283 33.8311 4.3401 34.0607L1.62868 35.2974L1.63036 35.2957Z\" fill=\"white\"></path>\n<path d=\"M51.0425 26.9121C50.4962 27.1819 49.8845 26.7998 49.7572 26.3742C49.5628 25.7223 49.8896 25.3235 50.4526 25.0554L53.5461 23.584C53.8981 23.4164 54.4913 23.7348 54.632 24.0248C54.813 24.3984 54.7594 25.0805 54.3974 25.2581L51.0442 26.9121H51.0425Z\" fill=\"white\"></path>\n</svg>",
+            "bullet_icon_size": 16
+          }
+        },
+        "roadmap_step_qfhAE6": {
+          "type": "roadmap_step",
+          "settings": {
+            "badge_text": "",
+            "title": "Week 6–8 | Feel The Difference*",
+            "description": "<ul><li>Consistent digestive regularity becomes part of your routine.*</li><li>A healthier gut environment supported by daily prebiotic nourishment.*</li><li> Feel lighter, more comfortable, and more balanced after meals.*</li><li>A stronger foundation for whole-body wellness through better gut health.*</li></ul><p><em>*Results may vary. Consistent daily use alongside a balanced diet and healthy lifestyle is recommended.</em></p>",
+            "custom_icon": "<svg width=\"55\" height=\"52\" viewbox=\"0 0 55 52\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M36.4885 4.72219H40.2669C42.0549 4.72219 43.9915 6.32977 43.9963 8.28702L44.0453 25.6412C37.3761 24.9324 31.3762 28.7013 29.0598 34.8974C27.6357 38.7075 27.8652 42.6948 29.8193 46.4827L3.60122 46.4653C1.77213 46.4653 0.00949162 44.7122 0.00790936 42.8736L0 8.62879C0 6.49432 1.81169 4.70953 3.87338 4.70637L7.52364 4.70162L7.56953 8.09557C7.59485 10.0006 9.34482 11.3598 11.0901 11.3993C12.9508 11.442 14.7625 10.0971 14.8115 8.10981L14.8954 4.69529L29.1183 4.68896L29.1848 8.11614C29.2212 10.0259 30.9838 11.3566 32.7622 11.3914C34.5407 11.4262 36.4299 10.0512 36.4521 8.11614L36.4916 4.71745L36.4885 4.72219ZM9.59482 23.5163C10.1803 23.5163 10.7641 23.0827 10.7625 22.4514V18.7632C10.7625 18.135 10.1787 17.7094 9.59165 17.7078L6.24201 17.703C5.55215 17.703 5.04424 18.1761 5.04583 18.8771L5.05215 22.3153C5.05215 23.0194 5.53317 23.5194 6.24676 23.5194L9.59482 23.5163ZM19.1801 23.5099C19.7292 23.5099 20.2418 23.0226 20.2434 22.5226L20.264 18.8961C20.2672 18.2173 19.7687 17.7078 19.0757 17.7078L15.7276 17.7046C15.1311 17.7046 14.5568 18.135 14.5584 18.7632L14.5647 22.3565C14.5647 23.0305 15.0679 23.5147 15.734 23.5131L19.1786 23.5099H19.1801ZM28.6563 23.5052C29.3288 23.5036 29.7401 22.915 29.7386 22.366L29.7275 18.8613C29.7259 18.1872 29.2275 17.7062 28.5724 17.7062H25.2323C24.5203 17.7062 24.0456 18.2109 24.0488 18.904L24.0662 22.3565C24.0693 23.0242 24.5424 23.5163 25.2355 23.5147L28.6563 23.5052ZM38.1562 23.5131C38.8049 23.453 39.221 22.9419 39.2195 22.3612L39.2084 18.8581C39.2068 18.2157 38.7068 17.711 38.066 17.7094L34.7195 17.703C34.0597 17.703 33.5075 18.1872 33.5107 18.8739L33.5281 22.4672C33.5312 23.1428 34.1151 23.5163 34.7195 23.5147L38.1577 23.5099L38.1562 23.5131ZM18.552 35.2281C18.8352 35.5129 19.6184 35.5446 19.9127 35.2218L25.3494 29.2694C25.8351 28.7361 25.9981 28.1396 25.5456 27.6206C25.093 27.1017 24.3177 27.0558 23.8257 27.5874L19.1627 32.6253L16.7846 30.3231C16.3606 29.9133 15.7118 30.0367 15.3194 30.3896C15.0141 30.6633 14.7609 31.4228 15.1375 31.801L18.5536 35.2297L18.552 35.2281ZM9.67393 33.8089C10.3654 33.8073 10.7768 33.1712 10.7736 32.6142L10.7578 29.0573C10.7578 28.7219 10.2388 28.0732 9.90336 28.0732H5.92398C5.50943 28.0732 5.04583 28.7662 5.04583 29.1507L5.05215 32.619C5.05215 33.187 5.48569 33.8215 6.11385 33.8199L9.67235 33.8089H9.67393Z\" fill=\"white\"></path>\n<path d=\"M54.6338 39.744C54.6338 46.5129 49.1465 52.0001 42.3776 52.0001C35.6087 52.0001 30.1215 46.5129 30.1215 39.744C30.1215 32.9751 35.6087 27.4878 42.3776 27.4878C49.1465 27.4878 54.6338 32.9751 54.6338 39.744ZM47.6481 43.0461L44.1245 40.0747C44.2131 39.3389 43.9124 38.687 43.2447 38.2804L43.2289 31.7108C43.2289 31.2551 42.7463 30.8628 42.4045 30.8596C42.009 30.8564 41.5011 31.2203 41.5011 31.6729L41.4947 38.2962C40.6546 38.7582 40.3967 39.6902 40.7637 40.4544C41.1514 41.2629 42.0279 41.6585 42.9678 41.4212L46.7241 44.5572C47.069 44.8452 47.7177 44.6395 47.9092 44.3135C48.1655 43.8816 48.0896 43.4164 47.6466 43.043L47.6481 43.0461Z\" fill=\"white\"></path>\n<path d=\"M34.6894 7.85474C34.6926 8.92435 33.7258 9.5256 32.903 9.57149C32.0043 9.62054 30.9189 9.00662 30.9157 7.95442L30.8951 1.76937C30.892 0.725081 31.8318 0.0573678 32.7606 0.00990001C33.6087 -0.0344032 34.6688 0.630146 34.672 1.65387L34.6894 7.85632V7.85474Z\" fill=\"white\"></path>\n<path d=\"M13.1201 7.56544C13.1232 8.70625 12.3479 9.42617 11.3733 9.56541C10.5679 9.67934 9.35589 9.07491 9.35114 8.04012L9.32265 1.81076C9.3179 0.769636 10.204 0.044962 11.0916 0.00224105C12.0853 -0.0452267 13.1058 0.665207 13.1074 1.76804L13.1201 7.56386V7.56544Z\" fill=\"white\"></path>\n</svg>",
+            "bullet_icon_size": 16
+          }
+        }
+      },
+      "block_order": [
+        "roadmap_step_3dwmAQ",
+        "roadmap_step_VDMJAT",
+        "roadmap_step_qfhAE6"
+      ],
+      "custom_css": [
+        ".roadmap-circle {width: 40px; height: 40px;}",
+        ".roadmap-circle svg {width: 24px; height: 24px;}"
+      ],
+      "name": "Roadmap",
+      "settings": {
+        "use_theme_colors": false,
+        "contained_section": true,
+        "max_container_width": 600,
+        "max_section_width": 1200,
+        "enable_background_image": false,
+        "background_size_desktop": "cover",
+        "background_position_desktop": "center center",
+        "background_size_mobile": "cover",
+        "background_position_mobile": "center center",
+        "enable_background_overlay": false,
+        "background_overlay_color": "#000000",
+        "background_overlay_opacity": 50,
+        "heading": "Your Gut Health",
+        "subheading": "<p>Week by Week</p>",
+        "heading_size": 40,
+        "heading_line_height": 1.3,
+        "heading_size_mobile": 24,
+        "heading_line_height_mobile": 1.3,
+        "subheading_size": 18,
+        "subheading_size_mobile": 14,
+        "step_title_size": 24,
+        "step_title_letter_spacing": "heading",
+        "step_title_size_mobile": 18,
+        "step_description_size": 18,
+        "step_description_size_mobile": 12,
+        "accent_text": "Journey",
+        "override_global_accent": true,
+        "use_accent_gradient": false,
+        "accent_text_gradient": "linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "accent_color": "#5b0d1e",
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": 700,
+        "image_position": "right",
+        "image_column_width": 40,
+        "image_column_full_height": false,
+        "full_height_min_height": 600,
+        "mobile_image_above_timeline": false,
+        "text_column_width": 50,
+        "image_border_radius": 8,
+        "timeline_width": 2,
+        "timeline_border_radius": 2,
+        "timeline_max_width": 100,
+        "show_badges": true,
+        "desktop_badge_font_size": 12,
+        "badge_font_size_mobile": 11,
+        "badge_font_weight": "600",
+        "badge_border_radius": 50,
+        "badge_border_width": 1,
+        "badge_border_style": "solid",
+        "badge_border_color": "#5b0d1e",
+        "desktop_content_alignment": "center",
+        "mobile_content_alignment": "center",
+        "roadmap_item_spacing_desktop": 40,
+        "roadmap_item_spacing_mobile": 30,
+        "enable_spacing": true,
+        "section_spacing_top_desktop": 72,
+        "section_spacing_bottom_desktop": 72,
+        "section_spacing_left_desktop": 80,
+        "section_spacing_right_desktop": 80,
+        "section_spacing_top_mobile": 36,
+        "section_spacing_bottom_mobile": 36,
+        "section_spacing_left_mobile": 24,
+        "section_spacing_right_mobile": 24,
+        "enable_placeholder_space_desktop": false,
+        "placeholder_min_height_desktop": 600,
+        "enable_placeholder_space_mobile": false,
+        "placeholder_height_mobile": 300,
+        "section_background": "linear-gradient(135deg, rgba(249, 249, 249, 1), rgba(248, 248, 248, 1) 100%)",
+        "heading_color": "#121212",
+        "subheading_color": "#121212",
+        "step_title_color": "#121212",
+        "step_description_color": "#666666",
+        "timeline_color": "#e0e0e0",
+        "active_timeline_color": "#5b0d1e",
+        "circle_color": "#5b0d1e",
+        "circle_icon_color": "#ffffff",
+        "badge_background": "#5b0d1e",
+        "badge_text_color": "#ffffff",
+        "show_button": false,
+        "button_text": "GET STARTED",
+        "button_action_type": "scroll_top",
+        "redirect_product": "",
+        "custom_url": "",
+        "use_global_button_style": true,
+        "button_border_radius": 8,
+        "button_background_color": "#000000",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#ffffff",
+        "button_hover_text_color": "#000000"
+      }
+    },
+    "product_benefits_4DmPcz": {
+      "type": "product-benefits",
+      "blocks": {
+        "benefit_cgRtRf": {
+          "type": "benefit",
+          "settings": {
+            "title": "4g of Prebiotic Fiber",
+            "description": "Close the daily fiber gap to help nourish beneficial gut bacteria.*",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "check",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_j3eYym": {
+          "type": "benefit",
+          "settings": {
+            "title": "Supports Digestive Regularity*",
+            "description": "Helps maintain a healthy digestive rhythm and everyday gut comfort.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "check",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_pPE6LW": {
+          "type": "benefit",
+          "settings": {
+            "title": "Feeds Beneficial Gut Bacteria*",
+            "description": "Inulin and FOS work together to support a balanced, thriving gut environment.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "check",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_3CWx69": {
+          "type": "benefit",
+          "settings": {
+            "title": "Feel Lighter Every Day",
+            "description": "Supports digestive comfort and helps you feel less weighed down after meals.*",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "check",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        },
+        "benefit_Gc6cM6": {
+          "type": "benefit",
+          "settings": {
+            "title": "Delicious & No Mess",
+            "description": "No powders, no mixing – just two tasty gummies each day.",
+            "benefit_color": "",
+            "benefit_description_color": "",
+            "icon_size": 24,
+            "use_image": false,
+            "preset_icon": "check",
+            "use_custom_icon": false,
+            "custom_icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewbox=\"0 0 256 256\"><rect width=\"256\" height=\"256\" fill=\"none\"></rect><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" opacity=\"0.2\"></path><path d=\"M54.46,201.54c-9.2-9.2-3.1-28.53-7.78-39.85C41.82,150,24,140.5,24,128s17.82-22,22.68-33.69C51.36,83,45.26,63.66,54.46,54.46S83,51.36,94.31,46.68C106.05,41.82,115.5,24,128,24S150,41.82,161.69,46.68c11.32,4.68,30.65-1.42,39.85,7.78s3.1,28.53,7.78,39.85C214.18,106.05,232,115.5,232,128S214.18,150,209.32,161.69c-4.68,11.32,1.42,30.65-7.78,39.85s-28.53,3.1-39.85,7.78C150,214.18,140.5,232,128,232s-22-17.82-33.69-22.68C83,204.64,63.66,210.74,54.46,201.54Z\" fill=\"white\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></path><polyline points=\"88 136 112 160 168 104\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"16\"></polyline></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_cgRtRf",
+        "benefit_j3eYym",
+        "benefit_pPE6LW",
+        "benefit_3CWx69",
+        "benefit_Gc6cM6"
+      ],
+      "custom_css": [
+        "#mm-ustom-benefits-section-wrapper {background: white !important;}",
+        ".product-benefits-heading {text-align: left;}",
+        ".custom-subtitle {text-align: left;}",
+        ".custom-benefits-list {padding-left: 0 !important;}",
+        "@media screen and (max-width: 600px) {.product-benefits-heading {text-align: center; } .custom-subtitle {text-align: center; } .custom-benefits-list {padding: 0 !important; } .custom-section-image-container {margin: 0 !important; } .custom-benefits-section-wrapper {padding-top: 20px; }}"
+      ],
+      "name": "Product Benefits",
+      "settings": {
+        "padding_top": 50,
+        "padding_bottom": 50,
+        "padding_left": 25,
+        "padding_right": 25,
+        "image_position_desktop": "right",
+        "show_top_title": true,
+        "top_title_regular": "",
+        "top_title_accent": "",
+        "top_title_regular_color": "#111111",
+        "top_title_accent_color": "#6f1020",
+        "top_title_alignment": "center",
+        "top_title_regular_size_desktop": 36,
+        "top_title_regular_size_mobile": 28,
+        "top_title_regular_weight": "700",
+        "top_title_regular_line_height": 11,
+        "top_title_regular_letter_spacing": -3,
+        "top_title_accent_size_desktop": 36,
+        "top_title_accent_size_mobile": 28,
+        "top_title_accent_weight": "700",
+        "top_title_accent_line_height": 11,
+        "top_title_accent_letter_spacing": -3,
+        "top_title_gap_desktop": 4,
+        "top_title_gap_mobile": 4,
+        "top_title_max_width_desktop": 1100,
+        "top_title_max_width_mobile": 390,
+        "top_title_padding_horizontal_desktop": 20,
+        "top_title_padding_horizontal_mobile": 16,
+        "top_title_margin_top_desktop": 0,
+        "top_title_margin_bottom_desktop": 40,
+        "top_title_margin_top_mobile": 0,
+        "top_title_margin_bottom_mobile": 28,
+        "heading_size_mobile": 34,
+        "heading_size_desktop": 40,
+        "heading_line_height_mobile": 1.1,
+        "heading_line_height_desktop": 1.1,
+        "subtitle_size_mobile": 13,
+        "subtitle_size_desktop": 18,
+        "benefit_title_size_mobile": 14,
+        "benefit_title_size_desktop": 16,
+        "benefit_description_size_mobile": 13,
+        "benefit_description_size_desktop": 14,
+        "accent_color": "#111111",
+        "use_theme_colors": false,
+        "title_below_icon": false,
+        "override_global_accent": false,
+        "accent_font_family": "inherit",
+        "accent_font_style": "normal",
+        "accent_font_weight": "inherit",
+        "use_accent_gradient": true,
+        "accent_text_gradient": "linear-gradient(45deg, rgba(68, 15, 26, 1), rgba(68, 18, 20, 1) 100%, rgba(255, 107, 157, 1) 100%)",
+        "accent_text_margin_left": 0,
+        "list_background": "linear-gradient(180deg, rgba(255, 255, 255, 1) 100%, rgba(240, 240, 240, 1) 100%)",
+        "list_border_radius": 8,
+        "benefits_list_max_width": 800,
+        "border_color": "#ffffff",
+        "heading_accent": "Gut Flow*",
+        "heading_regular": "Why People Love",
+        "subtitle": "Supporting your gut doesn't have to be complicated. Gut Flow makes it easy to nourish your microbiome every day with a delicious gummy that fits effortlessly into your daily routine.*",
+        "show_image": true,
+        "media_type": "image",
+        "feature_image": "shopify://shop_images/ChatGPT_Image_Jun_25_2026_at_03_26_47_PM_1.webp",
+        "image_alt": "Feature product image",
+        "video_autoplay": true,
+        "video_muted": true,
+        "video_loop": true,
+        "video_controls": false,
+        "mobile_image_full_width": false,
+        "hide_media_on_desktop": false,
+        "image_column_full_height": false,
+        "image_margin_top": 0,
+        "image_margin_bottom": 20,
+        "enable_image_border": false,
+        "image_border_width": 1,
+        "image_border_style": "solid",
+        "image_border_color": "#000000",
+        "image_border_radius": 8,
+        "heading_color": "#111111",
+        "subtitle_color": "#111111",
+        "description_color": "#111111",
+        "section_background": "linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(248, 248, 248, 1) 100%)",
+        "use_background_image": false,
+        "background_image_size": "cover",
+        "background_image_position_mode": "preset",
+        "background_image_position": "center center",
+        "background_focal_point_x": 50,
+        "background_focal_point_y": 50,
+        "background_image_attachment": "scroll",
+        "background_overlay_enable": false,
+        "background_overlay_color": "#0000004d",
+        "background_overlay_opacity": 30,
+        "enable_top_border": false,
+        "top_border_width": 1,
+        "top_border_style": "solid",
+        "top_border_color": "#e5e5e5",
+        "enable_bottom_border": false,
+        "bottom_border_width": 1,
+        "bottom_border_style": "solid",
+        "bottom_border_color": "#e5e5e5"
+      }
+    },
+    "store_faq_73Kxey": {
+      "type": "store-faq",
+      "blocks": {
+        "faq_item_9tx39V": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I place an order?",
+            "answer": "<p>To place an order, simply browse our products, add items to your cart, and proceed to checkout. You can review your order before finalizing your purchase.</p>"
+          }
+        },
+        "faq_item_xbJe4L": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How many gummies should I take per day?",
+            "answer": "<p>Take 2 gummies daily, preferably in the morning with or without your meal. Each jar contains 60 gummies for 1 month supply.</p>"
+          }
+        },
+        "faq_item_VLKFKE": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is it gentle on sensitive stomachs?",
+            "answer": "<p>Yes — Gut Flow is designed to be gentle and easy to tolerate. It’s free from major allergens, gluten, and artificial fillers, and uses a balanced blend of digestive-support ingredients.* If you have a medical condition or a highly sensitive gut, it’s always best to check with your doctor first.</p>"
+          }
+        },
+        "faq_item_b6kmPh": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What does the 30-day guarantee include?",
+            "answer": "<p>If you don’t feel a difference, you’re covered. We offer a 30-day money-back guarantee. Just reach out to our support team, and we’ll take care of the rest. No hassle. </p>"
+          }
+        },
+        "faq_item_EAbEA3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I take this if I’m pregnant or nursing?",
+            "answer": "<p>We recommend speaking with your healthcare provider before using any supplement during pregnancy or while nursing. </p>"
+          }
+        },
+        "faq_item_ymA8aC": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Where are these made?",
+            "answer": "<p>Gut Harmony Gummies are made in the USA in a cGMP- and NSF-certified facility. Every batch is tested for:Microbiological safetyHeavy metals So you can feel confident about what you’re taking daily.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_9tx39V",
+        "faq_item_xbJe4L",
+        "faq_item_VLKFKE",
+        "faq_item_b6kmPh",
+        "faq_item_EAbEA3",
+        "faq_item_ymA8aC"
+      ],
+      "custom_css": [
+        ".store-faq-section {background-color: #f9f9f9 !important;}"
+      ],
+      "name": "Store FAQ",
+      "settings": {
+        "use_theme_colors": false,
+        "heading": "Frequently Asked Questions",
+        "heading_secondary": "",
+        "subtitle": "<p>Find answers to common questions about our products, shipping, returns, and more.</p>",
+        "heading_color": "#000000",
+        "heading_secondary_color": "#6f1020",
+        "subtitle_color": "#111111",
+        "section_padding": 30,
+        "container_padding_mobile": 15,
+        "container_padding_desktop": 15,
+        "section_bg_color": "#f9f9f9",
+        "border_radius": 8,
+        "border_color": "#e5e5e5",
+        "divider_color": "#e5e5e5",
+        "border_style": "full",
+        "border_width": 1,
+        "question_color": "#000000",
+        "question_bg_color": "#ffffff",
+        "answer_color": "#000000",
+        "answer_bg_color": "#ffffff",
+        "accordion_mode": true,
+        "image_border_radius": 8,
+        "image_full_height": false,
+        "full_height_min_height": 600,
+        "use_background_image": false,
+        "background_image_size": "cover",
+        "background_image_position": "center center",
+        "background_image_attachment": "scroll",
+        "background_overlay_enable": false,
+        "background_overlay_color": "#0000004d",
+        "background_overlay_opacity": 30,
+        "center_when_no_image": true,
+        "center_max_width": 1000,
+        "two_column_desktop": true,
+        "column_gap": 15,
+        "faq_item_spacing": 0,
+        "individual_item_borders": true,
+        "question_padding_top": 15,
+        "question_padding_bottom": 15,
+        "question_padding_left": 20,
+        "question_padding_right": 20,
+        "answer_padding_top": 15,
+        "answer_padding_bottom": 15,
+        "answer_padding_left": 20,
+        "answer_padding_right": 20,
+        "heading_font_size": 36,
+        "heading_font_size_mobile": 30,
+        "heading_line_height": 1.2,
+        "heading_secondary_font_size": 36,
+        "heading_secondary_font_size_mobile": 28,
+        "heading_secondary_line_height": 1.2,
+        "heading_secondary_weight": "700",
+        "heading_secondary_margin_top": 2,
+        "heading_secondary_margin_bottom": 16,
+        "subtitle_font_size": 16,
+        "subtitle_font_size_mobile": 14,
+        "subtitle_line_height": 1.5,
+        "question_font_size": 16,
+        "question_font_size_mobile": 14,
+        "answer_font_size": 14,
+        "answer_font_size_mobile": 13,
+        "enable_section_top_border": false,
+        "section_top_border_width": 1,
+        "section_top_border_style": "solid",
+        "section_top_border_color": "#e5e5e5",
+        "enable_section_bottom_border": false,
+        "section_bottom_border_width": 1,
+        "section_bottom_border_style": "solid",
+        "section_bottom_border_color": "#e5e5e5"
+      }
+    },
+    "offer_cards_middle": {
+      "type": "offer-cards-lum",
+      "blocks": {
+        "pack_1": {
+          "type": "pack",
+          "settings": {
+            "pack": 1,
+            "variant_id": "",
+            "plan_months": "1",
+            "selling_plan_id": "",
+            "delivery_text": "",
+            "featured": false,
+            "border_color": "#f8e3e8",
+            "badge_text": "",
+            "badge_bg": "#fad356",
+            "badge_color": "#111111",
+            "show_gift": true,
+            "trust_1_icon": "shield",
+            "trust_1_text": "30-day money-back guarantee",
+            "trust_2_icon": "check",
+            "trust_2_text": "Modify or cancel anytime",
+            "trust_3_icon": "none",
+            "trust_3_text": ""
+          }
+        },
+        "pack_2": {
+          "type": "pack",
+          "settings": {
+            "pack": 2,
+            "variant_id": "",
+            "plan_months": "1",
+            "selling_plan_id": "",
+            "delivery_text": "",
+            "featured": true,
+            "border_color": "#8d2b40",
+            "badge_text": "BEST SELLER",
+            "badge_bg": "#fad356",
+            "badge_color": "#111111",
+            "show_gift": true,
+            "trust_1_icon": "truck",
+            "trust_1_text": "FREE shipping",
+            "trust_2_icon": "shield",
+            "trust_2_text": "30-day money-back guarantee",
+            "trust_3_icon": "check",
+            "trust_3_text": "Modify or cancel anytime"
+          }
+        },
+        "pack_3": {
+          "type": "pack",
+          "settings": {
+            "pack": 3,
+            "variant_id": "",
+            "plan_months": "1",
+            "selling_plan_id": "",
+            "delivery_text": "",
+            "featured": false,
+            "border_color": "#bb808c",
+            "badge_text": "MOST SAVINGS",
+            "badge_bg": "#00724d",
+            "badge_color": "#ffffff",
+            "show_gift": true,
+            "trust_1_icon": "truck",
+            "trust_1_text": "FREE shipping",
+            "trust_2_icon": "shield",
+            "trust_2_text": "30-day money-back guarantee",
+            "trust_3_icon": "check",
+            "trust_3_text": "Modify or cancel anytime"
+          }
+        }
+      },
+      "block_order": [
+        "pack_1",
+        "pack_2",
+        "pack_3"
+      ],
+      "settings": {
+        "product": "gut-flow-gummies",
+        "heading": "FREE Shipping For 2 & 3 Jars",
+        "subheading": "*For best results take consistently for at least 6–8 weeks",
+        "heading_size": 56,
+        "heading_size_mobile": 26,
+        "per_pack_suffix": "/pack",
+        "total_label": "Total",
+        "save_prefix": "Save",
+        "delivery_format": "Delivery every {interval}",
+        "interval_one": "month",
+        "interval_many": "[n] months",
+        "button_label": "BUY NOW",
+        "sold_out_text": "Sold out",
+        "one_time_show": true,
+        "one_time_format": "One Time Purchase {total}",
+        "one_time_shipping_text": "+ Shipping",
+        "one_time_shipping_note": "single",
+        "error_text": "Could not add to cart. Please try again.",
+        "cart_mode": "replace",
+        "checkout_source": "offer_cards",
+        "placement_label": "middle",
+        "sticky_cta": true,
+        "sticky_selector": ".listicle-sticky-atc.is-sticky",
+        "gift_image": "shopify://shop_images/craving-control-guide-gut-health-traker-8065139.webp",
+        "gift_text": "Craving Control Guide +\nGut Health Tracker",
+        "gift_label": "Free",
+        "gift_variant_id": "",
+        "gift_with_one_time": false,
+        "secure_show": true,
+        "secure_text": "🔒 Safe & Secure Checkout",
+        "payment_types": "visa,master,american_express,apple_pay,google_pay,shopify_pay,paypal,discover",
+        "bg": "#fdf9fb",
+        "heading_color": "#113b34",
+        "text_color": "#111111",
+        "muted_color": "#858585",
+        "item_bg": "#ffffff",
+        "button_bg": "#00724d",
+        "button_color": "#ffffff",
+        "save_bg": "#fad356",
+        "save_color": "#5b0d1e",
+        "gift_border": "#5b0d1e",
+        "gift_label_bg": "#fa6c56",
+        "secure_border": "#fad356",
+        "padding_top": 40,
+        "padding_bottom": 100,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "load_font": false
+      }
+    },
+    "offer_cards_bottom": {
+      "type": "offer-cards-lum",
+      "blocks": {
+        "pack_1": {
+          "type": "pack",
+          "settings": {
+            "pack": 1,
+            "variant_id": "",
+            "plan_months": "1",
+            "selling_plan_id": "",
+            "delivery_text": "",
+            "featured": false,
+            "border_color": "#f8e3e8",
+            "badge_text": "",
+            "badge_bg": "#fad356",
+            "badge_color": "#111111",
+            "show_gift": true,
+            "trust_1_icon": "shield",
+            "trust_1_text": "30-day money-back guarantee",
+            "trust_2_icon": "check",
+            "trust_2_text": "Modify or cancel anytime",
+            "trust_3_icon": "none",
+            "trust_3_text": ""
+          }
+        },
+        "pack_2": {
+          "type": "pack",
+          "settings": {
+            "pack": 2,
+            "variant_id": "",
+            "plan_months": "1",
+            "selling_plan_id": "",
+            "delivery_text": "",
+            "featured": true,
+            "border_color": "#8d2b40",
+            "badge_text": "BEST SELLER",
+            "badge_bg": "#fad356",
+            "badge_color": "#111111",
+            "show_gift": true,
+            "trust_1_icon": "truck",
+            "trust_1_text": "FREE shipping",
+            "trust_2_icon": "shield",
+            "trust_2_text": "30-day money-back guarantee",
+            "trust_3_icon": "check",
+            "trust_3_text": "Modify or cancel anytime"
+          }
+        },
+        "pack_3": {
+          "type": "pack",
+          "settings": {
+            "pack": 3,
+            "variant_id": "",
+            "plan_months": "1",
+            "selling_plan_id": "",
+            "delivery_text": "",
+            "featured": false,
+            "border_color": "#bb808c",
+            "badge_text": "MOST SAVINGS",
+            "badge_bg": "#00724d",
+            "badge_color": "#ffffff",
+            "show_gift": true,
+            "trust_1_icon": "truck",
+            "trust_1_text": "FREE shipping",
+            "trust_2_icon": "shield",
+            "trust_2_text": "30-day money-back guarantee",
+            "trust_3_icon": "check",
+            "trust_3_text": "Modify or cancel anytime"
+          }
+        }
+      },
+      "block_order": [
+        "pack_1",
+        "pack_2",
+        "pack_3"
+      ],
+      "settings": {
+        "product": "gut-flow-gummies",
+        "heading": "FREE Shipping For 2 & 3 Jars",
+        "subheading": "*For best results take consistently for at least 6–8 weeks",
+        "heading_size": 56,
+        "heading_size_mobile": 26,
+        "per_pack_suffix": "/pack",
+        "total_label": "Total",
+        "save_prefix": "Save",
+        "delivery_format": "Delivery every {interval}",
+        "interval_one": "month",
+        "interval_many": "[n] months",
+        "button_label": "BUY NOW",
+        "sold_out_text": "Sold out",
+        "one_time_show": true,
+        "one_time_format": "One Time Purchase {total}",
+        "one_time_shipping_text": "+ Shipping",
+        "one_time_shipping_note": "single",
+        "error_text": "Could not add to cart. Please try again.",
+        "cart_mode": "replace",
+        "checkout_source": "offer_cards",
+        "placement_label": "bottom",
+        "sticky_cta": true,
+        "sticky_selector": ".listicle-sticky-atc.is-sticky",
+        "gift_image": "shopify://shop_images/craving-control-guide-gut-health-traker-8065139.webp",
+        "gift_text": "Craving Control Guide +\nGut Health Tracker",
+        "gift_label": "Free",
+        "gift_variant_id": "",
+        "gift_with_one_time": false,
+        "secure_show": true,
+        "secure_text": "🔒 Safe & Secure Checkout",
+        "payment_types": "visa,master,american_express,apple_pay,google_pay,shopify_pay,paypal,discover",
+        "bg": "#fdf9fb",
+        "heading_color": "#113b34",
+        "text_color": "#111111",
+        "muted_color": "#858585",
+        "item_bg": "#ffffff",
+        "button_bg": "#00724d",
+        "button_color": "#ffffff",
+        "save_bg": "#fad356",
+        "save_color": "#5b0d1e",
+        "gift_border": "#5b0d1e",
+        "gift_label_bg": "#fa6c56",
+        "secure_border": "#fad356",
+        "padding_top": 40,
+        "padding_bottom": 100,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40,
+        "load_font": false
+      }
+    },
+    "offer_icons": {
+      "type": "mm-certifications-icons",
+      "blocks": {
+        "non_gmo": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "circle_icon",
+            "custom_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 79.9292 78.9982\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M29.5002 13.2028C29.5979 13.3574 29.6597 13.532 29.6811 13.7137L29.7483 14.2837C29.8053 14.7674 30.2127 15.1335 30.6997 15.1387L38.5971 15.2236L47.2186 15.3162C47.3002 15.3171 47.3779 15.3516 47.4333 15.4116C47.4905 15.4734 47.5332 15.5474 47.5581 15.6279L47.6482 15.9189C47.7268 16.173 47.6577 16.4497 47.4689 16.637L47.3874 16.7178C47.1384 16.9648 46.802 17.1034 46.4513 17.1034H38.755H30.7199C30.6047 17.1034 30.5113 17.1968 30.5113 17.3121C30.5113 17.449 30.5452 17.5839 30.61 17.7045L31.0953 18.6076C31.4833 19.3298 31.9563 20.0029 32.5042 20.6127L32.6222 20.7441C33.2493 21.4418 33.9455 22.0742 34.7001 22.6315L35.1154 22.9382C36.147 23.7 37.2424 24.3713 38.3894 24.9447L40.0793 25.7895L43.4928 27.496L44.5127 28.1408L44.6758 28.2439C45.1164 28.5223 45.1872 29.1366 44.8214 29.508C44.4037 29.9323 43.7449 30.0137 43.233 29.7097L42.3557 29.1888L39.1395 27.5456L35.9235 25.9025L34.2723 24.7806L34.1682 24.7099C33.1397 24.0112 32.1876 23.2061 31.3277 22.3079L31.2239 22.1994C30.4346 21.3753 29.7651 20.4442 29.2351 19.4336L28.9649 18.9182C28.6136 18.2484 28.3393 17.5409 28.1471 16.8094C27.9553 16.0785 27.8581 15.3194 27.8581 14.5638V13.7393C27.8581 13.5342 27.94 13.3377 28.0855 13.1934C28.2312 13.0489 28.4281 12.9678 28.6333 12.9678H28.8324H29.0739C29.2469 12.9678 29.4079 13.0565 29.5002 13.2028Z M52.1193 13.2543C52.273 13.4379 52.3484 13.6745 52.3294 13.9131L52.2508 14.8991L52.2444 14.9797C52.1768 15.8288 52.0126 16.6674 51.7551 17.4794C51.4976 18.2912 51.1469 19.0705 50.71 19.8016L50.6518 19.8991C50.176 20.6956 49.619 21.4407 48.9897 22.1225L48.845 22.2793C48.1199 23.0649 47.306 23.7634 46.4194 24.3608L46.1323 24.5543L45.1669 25.2046C44.7631 25.4767 44.2422 25.5039 43.8123 25.2754L43.4432 25.0791C43.2405 24.9713 43.1138 24.7604 43.1138 24.5308C43.1138 24.2974 43.2291 24.0792 43.422 23.9478L44.4286 23.2619L45.7434 22.3661L46.6411 21.6152C47.2368 21.1171 47.7593 20.5377 48.1933 19.8939L48.4957 19.4455L48.7652 19.0457C49.2209 18.37 49.5754 17.6315 49.8177 16.8534L49.8472 16.7587C50.0707 16.0412 50.2289 15.3049 50.3199 14.5589L50.4202 13.7373C50.4441 13.5415 50.5223 13.3563 50.6461 13.2028C50.7658 13.0542 50.9463 12.9678 51.1371 12.9678H51.3575H51.506C51.7428 12.9678 51.9674 13.0727 52.1193 13.2543Z M65.5687 14.0562C65.8336 14.2689 65.9877 14.5903 65.9877 14.9301V15.0732V15.4262C65.9877 15.6409 65.9323 15.8519 65.8267 16.0388C65.7198 16.2281 65.5874 16.4017 65.4332 16.5549L41.0606 40.7755L16.9209 64.7646C16.6229 65.0607 16.2198 65.2269 15.7997 65.2269C15.38 65.2269 14.9765 65.061 14.6786 64.7654L14.6497 64.7368C14.3704 64.4599 14.2133 64.0829 14.2133 63.6896C14.2133 63.2963 14.3699 62.9192 14.6485 62.6416L22.3297 54.9869L30.4461 46.8986L47.1083 30.3056L63.2818 14.1994C63.5946 13.8879 64.0187 13.714 64.4601 13.7161L64.6123 13.7169C64.9603 13.7187 65.2974 13.8383 65.5687 14.0562Z M43.5339 20.4171L43.5816 20.4818C43.7086 20.654 43.777 20.8623 43.777 21.0762C43.777 21.2826 43.6759 21.476 43.5064 21.5937L43.3558 21.6982C43.0816 21.8888 42.7557 21.9909 42.4218 21.9909H39.8498H37.299C36.957 21.9909 36.6289 21.8558 36.3861 21.615L36.1818 21.4123C36.07 21.3014 36.0071 21.1504 36.0071 20.9929C36.0071 20.8334 36.0599 20.6783 36.1573 20.552L36.244 20.4395C36.3957 20.2427 36.6192 20.114 36.8656 20.0816L37.1442 20.0449C37.5857 19.9869 38.0311 19.963 38.4763 19.9735L40.5491 20.0226L42.881 20.0776C43.1395 20.0837 43.3805 20.2091 43.5339 20.4171Z M36.5608 28.6487L36.7653 28.8647C36.8995 29.0064 36.9256 29.219 36.8298 29.389C36.7236 29.5772 36.5762 29.7388 36.3987 29.8619L35.2481 30.659L35.1533 30.7247C34.2714 31.3357 33.4471 32.0258 32.6907 32.7866L32.601 32.8767C31.9066 33.5749 31.3207 34.3731 30.8628 35.2448L30.6899 35.5738C30.3461 36.2281 30.0909 36.9252 29.931 37.6469C29.772 38.3643 29.7586 39.1064 29.8916 39.8291L29.9225 39.9967L29.9549 40.1728C30.0874 40.892 30.3389 41.584 30.6991 42.2205L30.7557 42.3205C31.0429 42.8277 30.951 43.4649 30.5323 43.8704L30.1423 44.2483C29.9674 44.4177 29.6866 44.4071 29.5251 44.2249C29.3284 44.0032 29.161 43.7571 29.027 43.4927L28.8269 43.0978C28.5599 42.571 28.356 42.0146 28.2195 41.44L28.1445 41.124L28.1264 41.0479C27.9519 40.3139 27.8629 39.5623 27.861 38.8079C27.8591 38.0541 27.9563 37.2984 28.1477 36.5694C28.3402 35.8364 28.6166 35.1281 28.9714 34.4585L29.1167 34.1842C29.5674 33.3331 30.1266 32.544 30.7802 31.8366L30.8914 31.7162C31.6198 30.9278 32.4292 30.2182 33.3062 29.5994L33.6422 29.3623L34.9572 28.4345C35.1787 28.2782 35.4431 28.1944 35.7141 28.1944C35.9799 28.1944 36.234 28.3037 36.4168 28.4966L36.5608 28.6487Z M40.4606 33.8338C39.8632 34.4354 39.0505 34.7737 38.2027 34.7737H37.0714H35.0811C34.7813 34.7737 34.4921 34.6629 34.2691 34.4626L34.2226 34.4209C34.0316 34.2494 33.9225 34.0049 33.9225 33.7483V33.6654C33.9225 33.4604 34.0043 33.2639 34.1499 33.1195C34.2956 32.975 34.4924 32.8939 34.6976 32.8939H37.8855H40.0693C40.5597 32.8939 40.8061 33.4859 40.4606 33.8338Z M51.7725 35.6809C52.0612 36.5113 52.2064 37.3847 52.2018 38.2638L52.198 39.0034L52.1938 39.8201C52.1895 40.6459 52.0218 41.4628 51.7001 42.2235C51.3763 42.9897 50.9747 43.7206 50.5016 44.4048L50.4501 44.4793L50.4086 44.5393C49.9289 45.2331 49.3796 45.8762 48.7693 46.4585C48.1583 47.0415 47.5052 47.5787 46.8153 48.0659L46.3629 48.3854L45.1051 49.2734C44.9549 49.3794 44.7756 49.4364 44.5918 49.4364C44.4069 49.4364 44.2253 49.3871 44.0657 49.2937L43.7517 49.1097L43.5237 48.9761C43.3243 48.8593 43.2156 48.6334 43.2487 48.4047C43.2834 48.1641 43.419 47.9496 43.6215 47.8149L44.9141 46.9554L45.1563 46.7944C46.066 46.1896 46.9063 45.4865 47.662 44.6977L47.8996 44.4498C48.4964 43.8269 49.0053 43.1252 49.412 42.3643L49.4531 42.2874C49.8314 41.5797 50.0823 40.811 50.1943 40.0164L50.2179 39.8492C50.3146 39.1634 50.3148 38.4674 50.2185 37.7815L50.1838 37.5335C50.1107 37.0127 49.9571 36.5065 49.7283 36.033C49.5235 35.6094 49.6219 35.1015 49.9701 34.7851L50.1048 34.6626L50.5824 34.2287C50.7227 34.1013 50.9351 34.0961 51.0814 34.2166C51.248 34.3536 51.3736 34.534 51.4444 34.7377L51.7725 35.6809Z M35.5333 38.7214L35.2622 38.9944C34.8383 39.4213 34.2617 39.6613 33.6602 39.6613H33.186C32.8862 39.6613 32.597 39.5505 32.374 39.3502L32.2394 39.2294C32.1045 39.1083 32.0274 38.9355 32.0274 38.7541C32.0274 38.5706 32.0959 38.3938 32.2196 38.2583L32.341 38.1253C32.5408 37.9063 32.8236 37.7815 33.12 37.7815H34.5606H35.1421C35.6324 37.7815 35.8788 38.3735 35.5333 38.7214Z M47.9084 38.007C48.0539 38.1514 48.1358 38.3479 48.1358 38.5529V38.6031C48.1358 38.8416 48.0467 39.0715 47.8859 39.2477L47.8222 39.3175C47.6224 39.5365 47.3396 39.6613 47.0431 39.6613H46.3606C45.9357 39.6613 45.7221 39.1482 46.0215 38.8467L46.1459 38.7214L46.8674 37.9949C47.003 37.8583 47.1875 37.7815 47.38 37.7815C47.5728 37.7815 47.7578 37.8576 47.8946 37.9934L47.9084 38.007Z M45.4826 43.045L45.6615 43.2224C45.7896 43.3495 45.8617 43.5224 45.8617 43.7029C45.8617 43.8834 45.7896 44.0564 45.6615 44.1835L45.4826 44.3609C45.2399 44.6016 44.9117 44.7365 44.5698 44.736L42.5926 44.7331L41.569 44.7315C41.0293 44.7307 40.7652 44.073 41.1546 43.6992L41.1903 43.6649C41.8559 43.0259 42.7429 42.669 43.6656 42.669H44.5698C44.9117 42.669 45.2399 42.8041 45.4826 43.045Z M40.5391 49.8184L44.218 51.7042L45.5611 52.5781C46.4539 53.1593 47.2828 53.8329 48.0342 54.588L48.4201 54.9757L49.0676 55.6263C49.6444 56.2059 50.1475 56.8545 50.5655 57.5574C50.9841 58.2612 51.3314 59.005 51.6022 59.7777L51.6721 59.9769L51.6928 60.036C51.9958 60.9004 52.1845 61.8006 52.2541 62.714L52.3306 63.7175C52.3489 63.9563 52.273 64.1928 52.1193 64.3765C51.9674 64.558 51.7428 64.663 51.506 64.663H51.3575H51.1368C50.9462 64.663 50.766 64.5765 50.6466 64.428C50.5229 64.2741 50.4427 64.09 50.4142 63.8946L50.3275 63.3001C50.2526 62.7873 49.8129 62.4072 49.2947 62.4072H41.7102H33.7397C33.4107 62.4072 33.0968 62.2687 32.875 62.0256C32.6606 61.7906 32.5932 61.4565 32.6995 61.1567L32.7081 61.1326C32.8168 60.8258 33.1062 60.6201 33.4317 60.6182L41.2827 60.5725L49.2361 60.526C49.4556 60.5247 49.6118 60.3124 49.5478 60.1025C49.4625 59.8225 49.3494 59.5517 49.2103 59.2942L48.9357 58.7861C48.6144 58.1914 48.2216 57.6382 47.766 57.1388L47.4625 56.806C46.8048 56.0852 46.0708 55.4378 45.2735 54.8753L44.8137 54.5508C43.709 53.7714 42.5472 53.0764 41.338 52.4717L40.1019 51.8535L37.0494 50.3269L36.2307 49.856C35.8166 49.6179 35.7394 49.0526 36.0745 48.7123L36.1271 48.6589L36.8358 47.9389C36.8398 47.9348 36.8453 47.9325 36.851 47.9325C36.8568 47.9325 36.8626 47.9339 36.8678 47.9366L40.5391 49.8184Z M36.7543 52.567L36.8404 52.6755C37.019 52.9009 37.0084 53.2224 36.8154 53.4355C36.5934 53.6808 36.3392 53.8948 36.0598 54.0719L35.4386 54.4655C34.7459 54.9042 34.1044 55.4191 33.5261 56.0004L33.0447 56.4844L32.9395 56.59C32.1138 57.4201 31.4262 58.377 30.903 59.4244L30.7059 59.819C30.3131 60.6053 30.0458 61.4483 29.9137 62.3173L29.7144 63.6291L29.6369 64.0466L29.6346 64.0586C29.587 64.3148 29.4251 64.5353 29.1949 64.6575C28.9632 64.7805 28.6899 64.7979 28.4445 64.7054L28.3165 64.6571C28.0115 64.5421 27.8179 64.2407 27.84 63.9155L27.9142 62.8243L27.9476 62.3333C27.9994 61.5715 28.154 60.8201 28.4071 60.0997C28.6611 59.3769 28.9699 58.6745 29.3309 57.9988L29.4131 57.845C29.8274 57.0694 30.3452 56.3536 30.9522 55.7172L31.3641 55.2855L31.5889 55.0498C32.3216 54.2818 33.1291 53.589 33.9996 52.9815L34.8781 52.3685C35.1583 52.173 35.4918 52.0681 35.8335 52.0681C36.1652 52.0681 36.4788 52.2197 36.685 52.4796L36.7543 52.567Z M43.7391 55.8654C43.8847 56.0098 43.9666 56.2063 43.9666 56.4113V56.5797V56.7481C43.9666 56.9531 43.8847 57.1497 43.7391 57.294C43.5935 57.4385 43.3966 57.5196 43.1914 57.5196H40.3154H37.5345C37.2619 57.5196 36.9934 57.4528 36.7526 57.3251C36.5271 57.2053 36.3861 56.9709 36.3861 56.7155V56.6107V56.4113C36.3861 56.2063 36.468 56.0098 36.6135 55.8654C36.7592 55.7209 36.9561 55.6398 37.1613 55.6398H40.1763H43.1914C43.3966 55.6398 43.5935 55.7209 43.7391 55.8654Z\"/></svg>",
+            "circle_background": "#5b0d1e",
+            "circle_border_color": "#5b0d1e",
+            "icon_size_desktop": 100,
+            "icon_size_mobile": 100,
+            "full_image_width_desktop": 80,
+            "full_image_width_mobile": 80,
+            "full_image_radius": 0,
+            "title": "<span style=\"font-weight:600\">Non GMO</span>",
+            "text_color": "#111111"
+          }
+        },
+        "no_sugar": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "circle_icon",
+            "custom_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 80 80\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.9244 42.45C20.3296 42.7488 19.9049 43.1951 19.9049 43.8732L19.9067 54.6265C19.9067 55.3861 20.3395 55.9819 20.9516 56.3133L22.3748 57.0856L15.2386 64.335C14.67 64.9126 14.6854 65.8008 15.1924 66.3911C15.5944 66.8592 16.6292 67.1227 17.1924 66.546L27.6116 55.8914L46.1847 36.9905L65.9339 16.8474C66.4952 16.2752 66.2273 15.2748 65.8117 14.8465C65.3264 14.3468 64.3875 14.2001 63.8551 14.7424L53.2015 25.6107L50.172 28.699C50.1974 27.9348 50.1421 27.0856 49.4504 26.7243L41.2069 22.412C40.3658 21.9719 39.6007 22.0109 38.7723 22.4346L30.5188 26.6555C29.9737 26.9344 29.5763 27.4124 29.5754 28.0688L29.5609 38.1086L20.9244 42.4482V42.45Z M25.0865 24.3585L26.1449 23.2902C26.4952 22.9362 26.5695 22.4563 26.211 22.086L25.0991 20.9398C24.9199 20.7551 24.7189 20.6356 24.4925 20.6329C24.2544 20.6302 24.0643 20.7515 23.8859 20.9398L22.6528 22.239C22.4934 22.5315 22.5043 22.8818 22.7017 23.1517L23.9701 24.4201C24.2879 24.7379 24.7587 24.6908 25.0865 24.3594V24.3585Z M20.201 30.0616L21.3861 28.8474C21.6125 28.6157 21.6025 28.1566 21.3753 27.9276L20.1575 26.6953C19.9737 26.5097 19.7583 26.402 19.522 26.411C19.2857 26.4201 19.101 26.5595 18.9181 26.7469L17.7981 27.8904C17.5238 28.1702 17.4912 28.622 17.77 28.8991L18.9063 30.0281C19.1 30.22 19.2793 30.3712 19.5174 30.3794C19.7727 30.3875 19.9855 30.2834 20.201 30.0625V30.0616Z M24.9516 35.2177L26.2608 33.9058C26.4925 33.6741 26.4771 33.2875 26.3359 33.0149L24.986 31.6378C24.7406 31.388 24.2426 31.388 23.9964 31.6351L22.727 32.9117C22.4799 33.1598 22.488 33.5844 22.6673 33.866L23.9339 35.1444C24.2082 35.4215 24.6528 35.5174 24.9507 35.2187L24.9516 35.2177Z M27.4595 58.0082L26.6899 58.7904C26.5568 58.9253 26.5731 59.2893 26.7542 59.3843L29.2413 60.6972C29.9647 61.0792 30.6618 61.0321 31.3753 60.6546L39.4215 56.3966C39.7257 56.2354 39.9203 56.2725 40.2209 56.431L48.2725 60.6772C49.0086 61.0656 49.6786 61.0548 50.4092 60.6673L58.4455 56.411C59.1779 56.0235 59.6994 55.474 59.6985 54.584L59.6949 43.8153C59.6949 43.2802 59.3662 42.7026 58.8864 42.4617L50.2354 38.1159L50.1983 35.7501C50.1956 35.6016 50.0797 35.4595 49.9719 35.4133C49.675 35.2866 48.9479 36.1358 48.5206 36.6772L48.4373 38.5134L44.9552 40.3033C44.3658 40.6066 43.6197 41.7854 43.5808 41.8072C43.1254 42.0634 42.7777 42.3757 42.4853 42.7995L41.4151 43.8144L38.9434 46.3332L38.9289 54.6311L31.1788 58.7017L31.1372 55.0149C31.0865 54.8502 30.9552 54.7723 30.8149 54.7705C30.6464 54.7678 29.7809 55.5636 29.474 56.0453L29.378 58.6926L27.914 57.9611C27.7727 57.8905 27.5672 57.8986 27.4577 58.01L27.4595 58.0082Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M39.1281 39.9556L37.3952 41.7383L31.3001 38.5876L31.3019 29.2549L39.1227 33.3264L39.1281 39.9556Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M47.4269 27.6985L39.9647 31.7275L32.3676 27.7311L39.8379 23.923C40.0797 23.8714 40.2517 23.9529 40.4545 24.0643L47.426 27.6985H47.4269Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M31.0684 48.2626C30.8239 47.9031 30.5152 47.8289 30.1684 47.6406L22.689 43.569L29.9774 39.9058L36.0824 43.1055L31.0675 48.2626H31.0684Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M29.1897 50.1204L23.7157 55.6858L21.6315 54.6075L21.6261 45.0711L29.3979 49.3029C29.4984 49.6152 29.4812 49.9077 29.1897 50.1204Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M48.4699 30.4663L40.8918 38.21L40.8674 33.2811L48.4301 29.2476L48.4699 30.4663Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.9244 42.45L29.5609 38.1105L29.5754 28.0706C29.5763 27.4142 29.9737 26.9362 30.5188 26.6573L38.7723 22.4364C39.6007 22.0127 40.3649 21.9737 41.2069 22.4138L49.4504 26.7261C50.1412 27.0874 50.1974 27.9366 50.172 28.7008L53.2014 25.6125L63.8551 14.7442C64.3875 14.201 65.3273 14.3486 65.8117 14.8483C66.2273 15.2766 66.4952 16.277 65.9339 16.8493L46.1847 36.9923L27.6116 55.8932L17.1924 66.5478C16.6292 67.1236 15.5944 66.8601 15.1924 66.3929C14.6854 65.8026 14.67 64.9144 15.2386 64.3368L22.3748 57.0874L20.9516 56.3151C20.3404 55.9828 19.9077 55.3871 19.9067 54.6283L19.9049 43.8751C19.9049 43.196 20.3296 42.7497 20.9244 42.4518V42.45Z M47.4269 27.6985L40.4554 24.0643C40.2517 23.9529 40.0806 23.8714 39.8388 23.923L32.3685 27.7311L39.9656 31.7275L47.4278 27.6985H47.4269Z M39.1281 39.9556L39.1227 33.3255L31.3019 29.254L31.3001 38.5867L37.3952 41.7374L39.1281 39.9547V39.9556Z M48.4699 30.4663L48.4301 29.2476L40.8665 33.2811L40.8909 38.2101L48.469 30.4663H48.4699Z M31.0684 48.2626L36.0833 43.1055L29.9783 39.9058L22.6899 43.569L30.1693 47.6406C30.5161 47.8289 30.8248 47.9031 31.0693 48.2626H31.0684Z M29.1897 50.1204C29.4812 49.9077 29.4984 49.6152 29.3979 49.3029L21.6261 45.0711L21.6315 54.6075L23.7157 55.6858L29.1897 50.1204Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M57.4857 54.8809L50.2218 58.6908V49.2929L57.9575 45.0204L57.9692 54.2644C57.9792 54.6202 57.7918 54.7198 57.4857 54.88V54.8809Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M48.4645 58.6872L40.6818 54.6347L40.6781 46.1331C40.6781 45.8488 40.6709 45.5989 40.8402 45.3445L48.4889 49.3418L48.4645 58.6881V58.6872Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27.4595 58.0082C27.569 57.8968 27.7755 57.8886 27.9158 57.9593L29.3798 58.6908L29.4758 56.0435C29.7818 55.5618 30.6483 54.766 30.8167 54.7687C30.957 54.7714 31.0892 54.8493 31.139 55.0131L31.1806 58.6999L38.9307 54.6292L38.9452 46.3314L41.4169 43.8126L42.4871 42.7976C42.7795 42.3739 43.1272 42.0616 43.5826 41.8053C43.6215 41.7836 44.3676 40.6039 44.957 40.3015L48.4391 38.5115L48.5224 36.6754C48.9488 36.134 49.6759 35.2847 49.9737 35.4115C50.0815 35.4577 50.1974 35.6007 50.2001 35.7483L50.2372 38.1141L58.8882 42.4599C59.368 42.7008 59.6967 43.2784 59.6967 43.8135L59.7003 54.5822C59.7003 55.4722 59.1788 56.0217 58.4473 56.4092L50.411 60.6655C49.6795 61.053 49.0104 61.0629 48.2743 60.6754L40.2227 56.4292C39.9221 56.2707 39.7275 56.2336 39.4233 56.3948L31.3771 60.6528C30.6627 61.0303 29.9665 61.0774 29.2431 60.6953L26.756 59.3825C26.5749 59.2875 26.5586 58.9235 26.6917 58.7886L27.4613 58.0063L27.4595 58.0082Z M49.3508 47.7447L56.9253 43.4984L49.7537 39.8841L44.7786 42.3603L41.8624 43.8479L49.3508 47.7447Z M57.4857 54.8809C57.7918 54.7207 57.9792 54.6202 57.9692 54.2653L57.9574 45.0213L50.2218 49.2938V58.6917L57.4857 54.8818V54.8809Z M48.4645 58.6872L48.4889 49.3409L40.8402 45.3436C40.6709 45.598 40.6772 45.8488 40.6781 46.1322L40.6818 54.6338L48.4645 58.6863V58.6872Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M49.3508 47.7447L41.8624 43.8488L44.7777 42.3613L49.7537 39.8841L56.9253 43.4984L49.3508 47.7447Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M25.0865 24.3585C24.7587 24.6899 24.2879 24.7379 23.9701 24.4192L22.7017 23.1507C22.5043 22.8818 22.4934 22.5306 22.6528 22.2381L23.8859 20.9389C24.0652 20.7506 24.2544 20.6292 24.4925 20.632C24.7306 20.6347 24.9199 20.7542 25.0991 20.9389L26.211 22.0851C26.5695 22.4545 26.4952 22.9344 26.1449 23.2893L25.0865 24.3576V24.3585Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.201 30.0616C19.9855 30.2825 19.7727 30.3866 19.5174 30.3785C19.2784 30.3712 19.0991 30.22 18.9063 30.0272L17.77 28.8981C17.4912 28.6211 17.5238 28.1693 17.7981 27.8895L18.9181 26.746C19.101 26.5595 19.2911 26.4192 19.522 26.4101C19.7528 26.4011 19.9746 26.5088 20.1575 26.6944L21.3753 27.9267C21.6025 28.1566 21.6125 28.6148 21.3861 28.8465L20.201 30.0607V30.0616Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M24.9516 35.2177C24.6537 35.5165 24.2091 35.4206 23.9348 35.1435L22.6682 33.8651C22.488 33.5835 22.4808 33.1598 22.7279 32.9108L23.9973 31.6342C24.2426 31.3871 24.7415 31.3871 24.9869 31.6369L26.3368 33.014C26.478 33.2866 26.4934 33.6732 26.2617 33.9049L24.9525 35.2168L24.9516 35.2177Z\"/></svg>",
+            "circle_background": "#5b0d1e",
+            "circle_border_color": "#5b0d1e",
+            "icon_size_desktop": 100,
+            "icon_size_mobile": 100,
+            "full_image_width_desktop": 80,
+            "full_image_width_mobile": 80,
+            "full_image_radius": 0,
+            "title": "<span style=\"font-weight:600\">No sugar</span>",
+            "text_color": "#111111"
+          }
+        },
+        "vegetarian": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "circle_icon",
+            "custom_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 79.948 80\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M64.4193 20.9993C64.6842 21.1845 64.842 21.4874 64.8419 21.8107L64.8415 23.8959L64.8409 26.4968L64.6327 28.2063L64.4243 29.9157L63.897 32.0072L63.3699 34.0988L62.7658 35.6056C62.3637 36.6088 61.8881 37.5809 61.3427 38.5139L61.2676 38.6424C60.674 39.6583 59.9521 40.5935 59.1197 41.425L58.4721 42.072L57.7263 42.8169C56.9595 43.5829 56.0907 44.2394 55.1445 44.768L55.0793 44.8044C54.174 45.3102 53.223 45.7295 52.239 46.0567C51.2547 46.3841 50.2424 46.6204 49.2149 46.7624L48.9114 46.8044L47.5164 46.9972C47.219 47.0383 46.916 47.004 46.6353 46.8974L46.5234 46.8549C46.3309 46.7819 46.1987 46.6033 46.185 46.3979L46.1816 46.3476C46.1688 46.1568 46.1753 45.9653 46.2008 45.7758L46.2136 45.6811C46.2302 45.5575 46.2856 45.4423 46.3717 45.3521C46.4579 45.2619 46.5708 45.2018 46.6938 45.1806L48.5902 44.8542L49.0144 44.7813C50.1193 44.5912 51.2026 44.2912 52.2479 43.8859L52.6547 43.7282C53.4291 43.4281 54.1677 43.0427 54.8569 42.5793C55.547 42.1154 56.1944 41.5911 56.7916 41.0126L56.9725 40.8374L57.1968 40.6201C57.7655 40.0693 58.2904 39.4752 58.767 38.843C59.2432 38.2111 59.6624 37.5382 60.0197 36.8322L60.2517 36.3737L60.3052 36.2679C60.7813 35.3269 61.1837 34.3503 61.5087 33.347L61.997 31.8397L62.3903 29.9281C62.6521 28.6557 62.8103 27.3641 62.8633 26.0661L62.8909 25.3906L62.9674 23.5175C62.9832 23.1306 62.6377 22.8279 62.2562 22.8944L61.5144 23.0237L59.2327 23.4908L56.9509 23.958L54.9802 24.612L54.653 24.7206C53.5589 25.0838 52.4925 25.5259 51.4624 26.0434L51.1693 26.1907C50.3346 26.6102 49.5339 27.094 48.7745 27.638C48.015 28.182 47.2991 28.7844 46.6332 29.4396L46.602 29.4703C45.9165 30.1451 45.3066 30.8927 44.7833 31.6999L44.7701 31.7202L44.6456 31.9123C44.1959 32.6059 43.8084 33.3379 43.4876 34.0998C43.1671 34.8611 42.9279 35.6541 42.7738 36.4656L42.7051 36.8275L42.6753 36.9846C42.4952 37.9326 42.4092 38.8961 42.4186 39.8611L42.4244 40.4631C42.4299 41.0285 42.4756 41.5927 42.5612 42.1516L42.6597 42.7948C42.678 42.9144 42.7638 43.0125 42.8799 43.0466C42.9931 43.0798 43.1148 43.0359 43.1807 42.9381L44.2491 41.3527L45.4284 39.6027L47.4138 37.3071L49.3993 35.0117L51.3225 33.2663L52.8604 31.8704C53.1155 31.6388 53.4051 31.4483 53.7187 31.3055L53.7247 31.3028C54.0085 31.1737 54.3419 31.2254 54.5732 31.4345L54.6787 31.5299C54.8542 31.6885 54.9543 31.914 54.9543 32.1506C54.9543 32.3875 54.8558 32.6138 54.6823 32.7752L53.3945 33.9731L51.8347 35.424L50.4223 36.8925L49.0101 38.3609L47.6826 40.0265L46.3554 41.6921L45.1284 43.5328L43.9013 45.3737L42.8702 47.4008L42.801 47.5367C42.1608 48.7954 41.6224 50.1034 41.1909 51.448L41.1299 51.6381C40.7389 52.8565 40.4437 54.1035 40.2469 55.3679L39.951 57.2673L39.831 58.5553L39.7618 59.2966C39.7296 59.6421 39.5416 59.9541 39.2512 60.1441C38.9721 60.3269 38.6112 60.3269 38.332 60.1442L38.3163 60.1339C38.0197 59.9397 37.8409 59.6091 37.8409 59.2546V59.2324C37.8409 58.8396 37.81 58.4474 37.7486 58.0594L37.5365 56.72C37.334 55.4408 37.0294 54.1797 36.6257 52.949L36.4857 52.5222L36.4589 52.4405C35.9804 50.9817 35.351 49.5767 34.581 48.2485L33.4228 46.2507L32.145 44.5412L30.8672 42.8317L29.8381 41.6976L28.8088 40.5636L27.1926 39.0153L25.5763 37.4668L24.9583 36.951L24.7678 36.7919C24.4969 36.5656 24.3403 36.2309 24.3403 35.878V35.8142C24.3403 35.5137 24.5158 35.241 24.7893 35.1165C25.0729 34.9875 25.4 34.9956 25.6768 35.1386L25.8501 35.2282C26.2555 35.4377 26.6261 35.7084 26.9488 36.031L29.5373 38.6181L31.4346 40.5145C32.2185 41.298 32.9308 42.15 33.5629 43.0602L34.4001 44.2654C34.4677 44.3627 34.59 44.4056 34.7034 44.3718C34.8161 44.3381 34.8928 44.2341 34.8917 44.1165L34.874 42.2439L34.8664 41.4464C34.8583 40.6002 34.7489 39.7581 34.5405 38.9379C34.3318 38.1173 34.0351 37.3215 33.6554 36.5646L33.5597 36.3737C33.1171 35.4912 32.56 34.6709 31.9028 33.9341L31.8383 33.8618C31.138 33.0769 30.3401 32.3848 29.4641 31.8025L29.2099 31.6336L28.5732 31.2104C27.9497 30.7959 27.2916 30.4359 26.6063 30.1344L25.5763 29.6812L24.0998 29.1875L22.6233 28.6937L20.1529 28.2125L18.0823 27.8092C17.8165 27.7575 17.5463 27.7314 17.2755 27.7314C17.0558 27.7314 16.8825 27.9183 16.899 28.1374L16.9936 29.3934L17.1189 31.0554L17.4187 32.8598L17.4726 33.1839C17.6363 34.1693 17.8764 35.1406 18.1905 36.0888L18.2609 36.3011C18.5284 37.1082 18.8558 37.8941 19.2405 38.6523L19.8184 39.7912L20.4881 40.7988C20.9334 41.469 21.4456 42.0922 22.0167 42.659L22.2483 42.8889L22.455 43.094C23.0422 43.6768 23.698 44.186 24.408 44.6105C25.1187 45.0356 25.8722 45.3846 26.656 45.6519L27.0479 45.7855L27.1664 45.826C28.1323 46.1554 29.1279 46.3905 30.1391 46.528L31.1648 46.6674C31.4859 46.711 31.7838 46.8587 32.013 47.0878L32.0592 47.1339C32.2479 47.3223 32.3156 47.6002 32.2349 47.8544C32.1513 48.1179 31.9599 48.3336 31.7083 48.4481L31.6883 48.4572C31.4172 48.5806 31.1162 48.6228 30.8217 48.5788L29.339 48.3573L29.0785 48.3184C27.9662 48.1522 26.8754 47.8655 25.8252 47.4633L25.3286 47.2731C24.6082 46.9971 23.9171 46.6498 23.2658 46.2364C22.6143 45.8229 22.0037 45.3483 21.4421 44.8191L20.9346 44.3408L20.6967 44.1166C19.9565 43.4192 19.2983 42.6396 18.7349 41.7929L18.6807 41.7114C18.1525 40.9178 17.6908 40.082 17.3003 39.2124L16.7135 37.906L16.2529 36.4752L15.7924 35.0441L15.4857 33.6196C15.2816 32.6717 15.1619 31.7077 15.1279 30.7387L15.0742 29.2078L14.9837 26.6269C14.9745 26.3651 15.0619 26.1091 15.2294 25.9076C15.3923 25.7114 15.6406 25.607 15.8948 25.6279L17.015 25.7199L18.5408 25.8453L20.9156 26.3238L23.2903 26.8022L24.7144 27.2932L26.1384 27.7842L27.5687 28.442L27.6084 28.4602C28.5341 28.8861 29.4257 29.3825 30.2753 29.945C31.1238 30.5068 31.9119 31.1551 32.6269 31.8794L32.8423 32.0976L33.2689 32.5297C33.843 33.1112 34.3471 33.7579 34.771 34.4565L34.7953 34.4966C35.2036 35.1697 35.5561 35.8751 35.8495 36.6057C36.1427 37.336 36.3697 38.0912 36.5276 38.8621L36.5901 39.1674C36.7896 40.1409 36.8902 41.1322 36.8902 42.1259V42.4384V42.7892C36.8902 43.7572 36.7853 44.7223 36.5774 45.6677C36.3752 46.5861 36.5045 47.5463 36.9422 48.3786L36.962 48.4162L37.6597 49.7424L38.1079 50.9331L38.4947 51.9608C38.5335 52.0638 38.6168 52.1438 38.7213 52.1784C38.8123 52.2084 38.9103 52.1582 38.9393 52.0668L39.4267 50.5259L39.4573 50.4292C39.7966 49.357 40.2129 48.3108 40.7028 47.2986L40.7732 47.1532C41.2024 46.2668 41.2954 45.2549 41.035 44.3051C40.7669 43.3271 40.6288 42.3181 40.6241 41.304L40.6171 39.7927L40.609 38.0315C40.6052 37.1833 40.7141 36.3384 40.9329 35.519C41.1523 34.6979 41.4519 33.9004 41.8273 33.1379L42.198 32.385L42.2941 32.1898C42.8513 31.0581 43.5476 30.0004 44.367 29.0412C45.187 28.0814 46.1095 27.2141 47.1182 26.4549L47.1652 26.4195C48.2057 25.6364 49.3193 24.9555 50.4906 24.3863L51.0338 24.1223L51.9045 23.6991C52.859 23.2353 53.8454 22.8403 54.8562 22.5171L56.3743 22.0317L58.234 21.6339L60.0936 21.2362L61.6597 20.9917L63.2258 20.7471L63.6112 20.7254C63.861 20.7113 64.1083 20.7816 64.3133 20.9251L64.4193 20.9993Z\"/></svg>",
+            "circle_background": "#5b0d1e",
+            "circle_border_color": "#5b0d1e",
+            "icon_size_desktop": 100,
+            "icon_size_mobile": 100,
+            "full_image_width_desktop": 80,
+            "full_image_width_mobile": 80,
+            "full_image_radius": 0,
+            "title": "<span style=\"font-weight:600\">Vegetarian friendly</span>",
+            "text_color": "#111111"
+          }
+        },
+        "gluten_free": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "circle_icon",
+            "custom_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 79.9984 79.9966\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M41.5185 11.4368C41.8851 11.8293 42.2193 12.2509 42.5177 12.6974L43.0037 13.4246L43.2972 13.8636C43.7231 14.5009 44.0739 15.1853 44.3424 15.9032C44.611 16.6218 44.8057 17.3659 44.9236 18.1239L44.9575 18.342C45.0971 19.2404 45.0753 20.1564 44.8932 21.0472L44.8772 21.1253L44.8327 21.3432C44.6688 22.1448 44.4088 22.9238 44.0583 23.6631C43.7085 24.4009 43.2508 25.0825 42.7004 25.6855L42.6357 25.7564L42.6086 25.786C42.047 26.4012 41.7121 27.1897 41.6595 28.0211L41.5854 29.1864C41.5813 29.2509 41.6326 29.3056 41.6973 29.3056C41.7723 29.3056 41.8427 29.2694 41.8864 29.2085L42.4088 28.4806C42.8014 27.9336 43.2716 27.4467 43.8046 27.0353L44.0191 26.8698L44.1398 26.7766C44.7361 26.3163 45.3857 25.9296 46.0746 25.6247C46.7639 25.3196 47.4854 25.0933 48.2254 24.9499L48.2528 24.9446L49.3935 24.7234L49.869 24.6235C50.0114 24.5936 50.1062 24.7666 50.0043 24.8705L49.2033 25.6871L48.9958 25.8987C48.3778 26.5288 47.6582 27.0503 46.8671 27.4414L46.6756 27.5361C46.0093 27.8653 45.3893 28.2809 44.8316 28.7722C44.2767 29.2609 43.8219 29.8526 43.4924 30.5146L43.3087 30.8837C42.8565 31.7921 42.2613 32.622 41.546 33.3417L40.5927 34.3008L39.031 35.8721C38.7293 36.1756 38.3185 36.3455 37.8906 36.3437C37.4461 36.3418 37.0033 36.2893 36.5706 36.1873L35.9956 36.0517C35.1808 35.8595 34.3903 35.5757 33.6393 35.2058L33.5842 35.1787C32.7996 34.7922 32.0852 34.277 31.4707 33.6546L31.3311 33.5132L30.9173 33.0941C30.4828 32.654 30.1032 32.163 29.7866 31.6317C29.4697 31.1 29.2077 30.5374 29.0048 29.9527L28.9296 29.7358C28.6766 29.007 28.5011 28.2535 28.4061 27.4879L28.353 27.0601L28.2295 26.0661C28.1825 25.6881 28.2712 25.3057 28.4798 24.987C28.6797 24.6818 29.028 24.5072 29.3921 24.5296L30.635 24.6062L31.0771 24.6334C32.0005 24.6903 32.9139 24.8562 33.7984 25.1276L34.0838 25.2152C34.7789 25.4286 35.4485 25.7175 36.0806 26.077L36.2327 26.1635C36.7633 26.4654 37.256 26.8296 37.7004 27.2483L38.3693 27.8783L38.9777 28.6395C39.1805 28.8932 39.5895 28.7509 39.5912 28.4262L39.5925 28.1535L39.5941 27.8523C39.5972 27.2482 39.3526 26.6693 38.9172 26.2506C38.4649 25.8154 38.0738 25.3208 37.7549 24.7802L37.5056 24.3579L37.3228 24.048C36.9596 23.4324 36.6751 22.7737 36.4758 22.0873C36.2767 21.4017 36.1757 20.6914 36.1757 19.9776V19.4806C36.1757 18.438 36.3383 17.3922 36.6523 16.398C36.9685 15.3964 37.4207 14.443 37.9963 13.5645L38.0477 13.4861L38.5009 12.7945C38.8108 12.3216 39.1616 11.8768 39.5494 11.4653L39.8453 11.1512C40.0282 10.957 40.2831 10.8469 40.5499 10.8469C40.8166 10.8469 41.0712 10.9575 41.2532 11.1525L41.5185 11.4368Z M40.1072 13.9607C39.775 14.3964 39.4789 14.8584 39.2219 15.3422L39.1216 15.5308C38.7982 16.1395 38.5382 16.7799 38.3459 17.4419L38.3337 17.484C38.1342 18.1706 38.0534 18.8863 38.0947 19.6001L38.1167 19.9795L38.1228 20.0854C38.1744 20.9782 38.3988 21.8526 38.7837 22.6599L38.9828 23.0777C39.2371 23.6113 39.5655 24.1064 39.9583 24.5482C40.2738 24.9032 40.8281 24.9047 41.1454 24.5513L41.2336 24.453C41.6875 23.9474 42.078 23.3884 42.3966 22.7884L42.4221 22.7404C42.7538 22.1156 42.9272 21.419 42.9272 20.7116V19.6005V18.7312C42.9272 17.8621 42.7387 17.0034 42.3746 16.2143L42.2616 15.9696C41.9691 15.3358 41.6184 14.7305 41.214 14.1614L41.083 13.977C40.8464 13.6441 40.3548 13.6358 40.1072 13.9607Z M65.797 14.3272C66.0696 14.577 66.2249 14.9298 66.2249 15.2995V15.3795C66.2249 15.8028 66.0586 16.2092 65.7618 16.511L64.2938 18.0037L62.5195 19.8076C62.4277 19.901 62.2836 19.9184 62.1722 19.8496C62.1248 19.8203 62.0702 19.8748 62.0995 19.9223L62.111 19.9409C62.1867 20.0633 62.1684 20.2216 62.0669 20.3235L39.3658 43.0982L16.9615 65.5752C16.6613 65.8764 16.2511 66.042 15.8259 66.0336L15.5688 66.0285C15.3033 66.0233 15.0463 65.9339 14.8348 65.7733C14.6223 65.6116 14.4593 65.3936 14.3645 65.1439L14.3141 65.0113C14.1886 64.6812 14.1953 64.3154 14.3326 63.99L14.354 63.9394C14.5097 63.5713 14.7348 63.2366 15.0171 62.9537L39.2142 38.7098L63.5463 14.3308C63.7394 14.1373 63.9699 13.9851 64.2236 13.8832L64.2425 13.8756C64.4799 13.7804 64.7419 13.7652 64.9887 13.8322C65.2386 13.9 65.4687 14.0266 65.6597 14.2015L65.797 14.3272Z M30.282 26.9744C30.2834 27.3215 30.3353 27.6665 30.4359 27.9986L30.5506 28.3767C30.728 28.9614 30.9568 29.5293 31.2344 30.0736L31.2404 30.0854C31.5217 30.6373 31.8613 31.1617 32.2493 31.6447C32.6375 32.1281 33.0974 32.5493 33.6129 32.8938L33.933 33.1077C34.659 33.5926 35.4675 33.9406 36.3188 34.1345L36.3541 34.1425L37.0231 34.2947C37.4578 34.3936 37.9022 34.4436 38.348 34.4436H38.3895C38.7163 34.4436 38.9626 34.1463 38.9018 33.8251L38.7846 33.2066L38.4643 32.1554C38.2518 31.4578 37.9449 30.7925 37.5521 30.178L37.451 30.0199L37.2956 29.7769C36.9403 29.2211 36.4836 28.7371 35.9495 28.3499L35.9057 28.3181C35.3974 27.9497 34.8525 27.6345 34.2797 27.3777C33.7068 27.1207 33.1086 26.9244 32.4948 26.7919L32.1818 26.7244L31.2709 26.528C31.0546 26.4813 30.8341 26.4566 30.6128 26.4544C30.4297 26.4526 30.2805 26.6009 30.2813 26.784L30.282 26.9744Z M33.0376 36.2841L33.2686 36.3362C34.0004 36.5013 34.7144 36.7371 35.4005 37.0405L36.1218 37.3595C36.3276 37.4505 36.5198 37.5696 36.693 37.7134C36.8336 37.8301 36.8447 38.0419 36.7171 38.1726L36.259 38.642L36.0478 38.8585C35.7636 39.1497 35.3175 39.2097 34.9665 39.004C34.5698 38.7714 34.1444 38.5917 33.7012 38.4695L32.9463 38.2613L32.1436 38.0399C31.7322 37.9264 31.3075 37.8689 30.8807 37.8689C30.5463 37.8689 30.294 38.1725 30.3552 38.5012L30.3703 38.5825C30.4585 39.0575 30.583 39.5251 30.7426 39.9812L30.8647 40.3302L30.9328 40.5247C31.128 41.0824 31.3916 41.6136 31.7175 42.1064C31.9983 42.531 31.9207 43.098 31.5362 43.4316L31.4819 43.4788L30.8711 44.0087C30.8021 44.0685 30.7025 44.077 30.6244 44.0297C30.5385 43.9777 30.4674 43.9046 30.4175 43.8175L29.9066 42.9239C29.5185 42.2453 29.1909 41.5259 28.9351 40.7873C28.6796 40.0489 28.501 39.286 28.4022 38.5109L28.3838 38.3663L28.2784 37.5388C28.2381 37.2218 28.2764 36.8997 28.3899 36.6009L28.3994 36.5757C28.5033 36.3025 28.7196 36.0872 28.9933 35.9848C29.2772 35.8785 29.5806 35.8345 29.8829 35.8557L30.5652 35.9035C31.3248 35.9568 32.0793 36.0678 32.8222 36.2355L33.0376 36.2841Z M52.5519 36.1766C52.806 36.4308 52.9342 36.7846 52.9019 37.1426L52.8216 38.032L52.814 38.1168C52.732 39.0265 52.5407 39.9231 52.2442 40.7871L52.1964 40.9262C51.9314 41.6983 51.5862 42.4404 51.1662 43.1405C50.7475 43.8383 50.2266 44.4695 49.6207 45.0129L49.5432 45.0824C48.8852 45.6724 48.1483 46.1709 47.3561 46.5625L47.1158 46.6814C46.4817 46.9949 45.8086 47.2225 45.1144 47.3582L44.0683 47.5625L42.8797 47.688C42.2039 47.7592 41.691 48.3291 41.691 49.0086V49.7869V51.6174C41.691 51.6946 41.7567 51.7555 41.8337 51.7496C41.9244 51.7427 42.0079 51.6974 42.063 51.625L42.7021 50.786C43.1821 50.1554 43.7679 49.6129 44.4335 49.1827L44.5761 49.0904L44.8105 48.9388C45.418 48.5459 46.0663 48.2198 46.7439 47.9662C47.4217 47.7123 48.1229 47.526 48.8373 47.41L48.9586 47.3903L49.0792 47.3708C49.7948 47.2546 50.5185 47.1958 51.2435 47.1949L51.7633 47.1942C52.1185 47.1937 52.45 47.3725 52.6445 47.6697C52.8465 47.9782 52.9377 48.3461 52.9034 48.7132L52.8262 49.5378L52.8213 49.5898C52.738 50.4797 52.5469 51.3562 52.2522 52.2001L52.1541 52.481C51.9242 53.1392 51.6314 53.7738 51.2796 54.3757C50.9288 54.9763 50.4968 55.5257 49.9959 56.0083L49.748 56.2471L49.7115 56.2823C49.0709 56.8996 48.3416 57.4176 47.5478 57.8191C46.753 58.2212 45.9092 58.5177 45.0376 58.7011L45.0193 58.7049L44.6651 58.7795C44.0154 58.9162 43.3534 58.9862 42.6895 58.9885C42.1375 58.9903 41.691 59.4382 41.691 59.9902V63.4962V67.5318C41.691 67.8337 41.5789 68.1249 41.3763 68.3488L41.3187 68.4124C41.1549 68.5935 40.9222 68.6968 40.6781 68.6968C40.4312 68.6968 40.1932 68.605 40.0102 68.4393L39.9468 68.3819C39.7254 68.1813 39.599 67.8965 39.599 67.5977V63.5293V59.9902C39.599 59.4382 39.1525 58.9903 38.6005 58.9885C37.9366 58.9862 37.2747 58.9157 36.6253 58.778L36.2875 58.7065L36.232 58.6947C35.3953 58.5173 34.5816 58.2446 33.8069 57.8819C33.0345 57.5202 32.3242 57.0387 31.7023 56.4551L31.508 56.2728L31.1135 55.9025C30.7087 55.5226 30.6966 54.8838 31.0867 54.4887C31.4776 54.0928 32.1173 54.0945 32.5061 54.4926L32.7033 54.6945L32.7264 54.7181C33.3096 55.3153 33.9946 55.8036 34.7493 56.1601C35.5056 56.5173 36.3118 56.7576 37.1403 56.8729L37.3833 56.9066L38.769 57.0994C38.8364 57.1087 38.9044 57.0859 38.9526 57.0378C38.9999 56.9905 39.0188 56.9217 39.0023 56.8568L38.6524 55.4886L38.5466 55.0745C38.367 54.3714 38.1006 53.6932 37.7538 53.0556C37.4082 52.4202 36.9556 51.8493 36.4157 51.3679L36.2306 51.2029L35.9775 50.9771C35.5731 50.6166 35.5588 49.989 35.9463 49.6103C36.3507 49.2152 36.991 49.1977 37.4164 49.5701L37.6138 49.743L37.977 50.0609C38.3657 50.4011 38.6902 50.8082 38.9351 51.263L39.2356 51.8215C39.2784 51.9011 39.3616 51.9508 39.452 51.9508C39.5332 51.9508 39.599 51.8849 39.599 51.8038V49.8575V48.525C39.599 48.1049 39.2584 47.7643 38.8383 47.7643H38.2231C38.1427 47.7643 38.0775 47.6991 38.0775 47.6187C38.0775 47.5255 38.1146 47.4361 38.1805 47.3703L40.4447 45.1102L41.7778 43.7795C42.065 43.4928 42.5469 43.7688 42.4449 44.1616L42.0898 45.5297C42.0819 45.5604 42.0768 45.5918 42.0746 45.6234C42.0729 45.6491 42.0933 45.671 42.1191 45.6709L42.9748 45.6687C43.5745 45.6672 44.1715 45.5881 44.7509 45.4333L44.8291 45.4124L44.8936 45.3951C45.4829 45.2376 46.0538 45.0181 46.5969 44.7403C47.1391 44.4629 47.6426 44.1155 48.0944 43.7072L48.1526 43.6546C48.6428 43.2113 49.0721 42.7048 49.4289 42.1484L49.4905 42.0523C49.8881 41.4324 50.1984 40.7606 50.4126 40.0559L50.4534 39.9216L50.6732 39.1984C50.7686 38.8846 50.8175 38.5586 50.8184 38.2306C50.8192 37.9708 50.588 37.7714 50.3311 37.8104L49.7263 37.9022L49.5246 37.9328C48.9312 38.0228 48.3465 38.1637 47.7771 38.3538C47.5628 38.4253 47.3978 38.1595 47.557 37.9991L48.3429 37.2074L48.9236 36.6225C49.4617 36.0805 50.194 35.7756 50.9578 35.7756H51.5843C51.9473 35.7756 52.2954 35.9199 52.5519 36.1766Z M49.5837 49.2293C49.2041 49.2797 48.8296 49.3635 48.4647 49.4796L48.0622 49.6077L48.0303 49.6178C47.4186 49.8125 46.823 50.0546 46.249 50.342C45.6775 50.6282 45.1534 51.0004 44.6948 51.4456L44.6031 51.5346C44.0849 52.0378 43.6604 52.6292 43.3494 53.2812L43.2205 53.5515L43.0785 53.8493C42.7749 54.4859 42.5482 55.1565 42.4035 55.8469L42.2234 56.7062C42.1999 56.8183 42.2345 56.9348 42.3154 57.0159C42.3968 57.0974 42.5125 57.1346 42.6262 57.116L43.8274 56.9196L43.9574 56.8983C44.7882 56.7626 45.5964 56.5135 46.3595 56.158L46.6798 56.0089C47.2303 55.7526 47.7413 55.4191 48.1974 55.0183C48.6536 54.6176 49.0507 54.1542 49.3768 53.642L49.4574 53.5154C49.8374 52.9186 50.1428 52.2775 50.367 51.6064L50.4247 51.4335L50.6372 50.7972C50.7582 50.4348 50.8199 50.0553 50.8199 49.6733V49.4304C50.8199 49.2507 50.6661 49.1095 50.4871 49.1249L50.1543 49.1534L49.5837 49.2293Z\"/></svg>",
+            "circle_background": "#5b0d1e",
+            "circle_border_color": "#5b0d1e",
+            "icon_size_desktop": 100,
+            "icon_size_mobile": 100,
+            "full_image_width_desktop": 80,
+            "full_image_width_mobile": 80,
+            "full_image_radius": 0,
+            "title": "<span style=\"font-weight:600\">Gluten free</span>",
+            "text_color": "#111111"
+          }
+        },
+        "made_in_usa": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "circle_icon",
+            "custom_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 80 80\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M59.2427 47.5612L62.2263 42.8502C62.7477 42.0254 62.33 41.0009 61.8345 40.0999C63.4109 39.333 63.0389 37.6056 63.5923 36.7427C63.9338 36.2091 64.6824 35.9392 65.1657 35.5977C66.8946 34.3704 65.2816 32.7681 65.6703 32.1217L67.8475 28.5099C68.2865 27.7811 68.4009 27.0356 68.0624 26.252C67.4816 24.8997 66.7132 23.3751 65.5636 23.4437C64.3333 23.5169 63.2097 25.569 62.458 27.0509C62.0357 27.8833 61.4396 28.3574 60.5401 28.673C57.7303 29.661 58.9789 31.8854 57.3293 32.1506C56.2743 32.3199 55.8733 32.9785 55.4571 33.8292C55.0409 34.6799 53.8486 35.1175 53.0086 35.2456C52.6031 35.3081 52.4415 34.7958 52.4765 34.5229C52.5848 33.5395 52.4399 32.7285 51.7996 31.9692C51.6548 30.1915 50.2201 28.5861 48.3815 28.705L45.4512 29.2737C45.654 28.885 45.8811 28.5175 45.7348 28.1074C45.3872 27.1378 44.0287 27.2491 43.4845 26.7871C42.7801 26.1895 42.1276 26.1132 41.222 26.1529C36.171 26.3678 31.2511 26.0736 26.3053 25.0552L17.5938 22.9299C17.1044 22.811 16.647 22.9085 16.3132 23.2104C15.7079 23.7577 16.0677 25.4744 15.5127 26.6087L12.5139 32.7422C11.9513 33.8932 11.7775 35.0535 12.0031 36.325C12.5291 39.272 13.3478 42.0971 14.6315 44.7834C15.3161 46.215 16.333 47.2624 17.76 47.9165L24.3234 50.9245C25.0902 51.2767 25.7641 50.9656 26.499 50.7065C27.4473 50.3726 28.5343 51.0114 28.9185 51.8316L29.8454 53.8105C30.094 54.3426 30.5056 54.8061 30.9325 54.954C32.2695 55.4159 33.0761 53.9874 33.4725 54.9265L34.8232 58.1267C35.4834 59.6909 36.9379 60.4974 38.6271 60.3876C39.8102 60.3114 40.5832 59.4927 40.5633 58.273C40.545 57.0777 40.8713 55.9267 41.5833 54.9875C42.6353 53.6001 44.3413 53.219 45.9558 53.8563C46.7273 54.1612 47.5414 54.4204 48.3784 54.3152C49.1011 54.2252 49.5523 53.7069 49.5127 52.9354C50.0966 52.8104 50.9321 52.7357 51.4108 53.1001C52.2341 53.7252 52.9278 53.6901 53.9173 53.5285C54.3426 53.4584 54.6796 54.3807 54.6887 54.7878C54.7085 55.698 55.0775 56.5655 55.64 57.2958C56.7286 58.706 57.7912 60.1239 59.4454 59.5278C61.188 58.8996 61.3908 56.0974 60.3861 53.9157L58.5978 50.0341C58.2547 49.2901 58.8005 48.2595 59.2427 47.5612Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M59.2427 47.5612C58.8005 48.2595 58.2563 49.2901 58.5978 50.0341L60.3861 53.9157C61.3908 56.0974 61.188 58.8996 59.4454 59.5278C57.7913 60.1239 56.7286 58.7075 55.6401 57.2958C55.0775 56.567 54.707 55.698 54.6887 54.7878C54.6796 54.3807 54.3441 53.4584 53.9173 53.5285C52.9263 53.6901 52.2326 53.7252 51.4108 53.1001C50.9321 52.7357 50.0966 52.8104 49.5127 52.9354C49.5508 53.7069 49.0995 54.2252 48.3784 54.3152C47.5429 54.4188 46.7288 54.1612 45.9558 53.8563C44.3413 53.219 42.6337 53.6001 41.5833 54.9875C40.8713 55.9267 40.5435 57.0777 40.5633 58.273C40.5832 59.4912 39.8087 60.3099 38.6271 60.3876C36.9379 60.4974 35.4849 59.6909 34.8232 58.1267L33.4725 54.9265C33.0761 53.9874 32.2695 55.4159 30.9325 54.954C30.5056 54.8061 30.094 54.3426 29.8454 53.8105L28.9185 51.8316C28.5343 51.0114 27.4473 50.3726 26.499 50.7065C25.7641 50.9656 25.0902 51.2751 24.3234 50.9245L17.76 47.9165C16.333 47.2624 15.3161 46.215 14.6315 44.7834C13.3478 42.0971 12.5291 39.272 12.0031 36.325C11.776 35.0535 11.9513 33.8932 12.5139 32.7422L15.5127 26.6087C16.0677 25.4744 15.7079 23.7577 16.3132 23.2104C16.647 22.9085 17.1059 22.811 17.5938 22.9299L26.3053 25.0552C31.2496 26.0736 36.1695 26.3678 41.222 26.1529C42.1276 26.1148 42.7786 26.1895 43.4845 26.7871C44.0287 27.2475 45.3872 27.1378 45.7348 28.1074C45.8811 28.5175 45.654 28.8834 45.4512 29.2737L48.3815 28.705C50.2201 28.5861 51.6563 30.19 51.7996 31.9692C52.4399 32.7285 52.5848 33.5395 52.4765 34.5229C52.4415 34.7958 52.6031 35.3065 53.0086 35.2456C53.8502 35.1175 55.0531 34.6555 55.4571 33.8292C55.8611 33.0029 56.2758 32.3214 57.3293 32.1506C58.9789 31.8854 57.7303 29.661 60.5401 28.673C61.4396 28.3559 62.0357 27.8833 62.458 27.0509C63.2097 25.569 64.3333 23.5184 65.5636 23.4437C66.7132 23.3751 67.4816 24.8997 68.0624 26.252C68.3994 27.0356 68.2866 27.7811 67.8475 28.5099L65.6703 32.1217C65.2816 32.7681 66.8931 34.3704 65.1657 35.5977C64.6824 35.9408 63.9354 36.2106 63.5923 36.7427C63.0389 37.6056 63.4109 39.333 61.8345 40.0999C62.33 41.0009 62.7477 42.0269 62.2263 42.8502L59.2427 47.5612Z M57.0366 47.6039C57.9483 45.593 59.1863 43.8748 60.4608 42.0635L59.8586 40.1044C59.6177 39.3193 59.761 38.3771 60.5218 37.938L61.185 37.7611C61.4518 37.6895 61.4289 35.7761 62.3162 35.1617L63.9735 34.0167C63.5222 32.8763 63.5176 31.7512 64.1442 30.7358L66.3153 27.214L65.6048 25.6955L63.9598 28.4245C62.6013 30.6779 60.5401 30.1336 60.3312 31.5179C60.1178 32.9327 59.1298 33.9085 57.6571 34.1524C56.724 35.9027 54.9525 37.0568 52.9766 37.1955C52.0847 37.258 51.3087 36.8525 50.8955 36.139C50.4823 35.4255 50.7461 34.6601 50.5921 33.9603C50.4458 33.2971 49.9792 32.7711 49.9289 32.0561C49.8893 31.4981 49.3984 31.0499 49.0477 30.8593C48.4943 30.5574 48.0171 30.7465 47.4469 30.9477C46.1449 31.4082 44.6355 31.5484 43.4479 30.7434C42.8624 30.3455 43.1033 29.4216 43.4433 28.9185L41.812 28.1318C36.7168 28.3422 31.7542 28.1501 26.7398 27.1911C23.7105 26.6118 20.8854 25.8663 17.8743 25.0475C17.76 25.8022 17.7447 26.5142 17.42 27.1835L14.5309 33.1264C14.2321 33.7423 13.7778 34.5305 13.8723 35.276C14.2519 38.2856 15.807 44.8261 18.2082 45.9391L25.0857 49.127C26.7734 48.2625 28.609 48.6162 29.9064 49.9609C30.7236 50.8086 31.1368 51.8682 31.6185 53.0391C32.2711 52.6671 32.8672 52.3835 33.5837 52.5909C34.0167 52.7159 34.6525 53.0894 34.9056 53.6474L36.5155 57.1921C36.915 58.0702 37.6239 58.6222 38.6119 58.4377C38.6271 57.2698 38.7536 56.2346 39.1988 55.1933C40.2889 52.6442 42.9661 51.0815 45.6921 51.7096L47.6222 52.2997C47.6329 51.6624 47.8951 51.1364 48.4745 51.0556C49.5478 50.9031 50.9534 50.7385 51.9414 51.2294C52.6747 51.5938 52.9995 51.6639 53.7953 51.5404C55.0744 51.3422 56.2224 52.5466 56.442 53.7282L56.7317 55.2985C57.1784 56.2575 57.8751 57.1326 58.735 57.7943C59.2915 56.8506 59.1207 55.8459 58.7014 54.986L57.1067 51.7142C56.4557 50.3802 56.3734 49.0614 57.032 47.6085L57.0366 47.6039Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M57.0366 47.6039C56.3779 49.0584 56.4603 50.3756 57.1113 51.7096L58.706 54.9814C59.1253 55.8413 59.296 56.846 58.7395 57.7897C57.8782 57.128 57.1829 56.2529 56.7362 55.294L56.4466 53.7236C56.2285 52.5405 55.079 51.3361 53.7999 51.5358C53.004 51.6593 52.6793 51.5892 51.946 51.2248C50.958 50.7339 49.5523 50.8986 48.479 51.051C47.8997 51.1333 47.6375 51.6578 47.6268 52.2951L45.6966 51.7051C42.9707 51.0754 40.2935 52.6396 39.2034 55.1888C38.7582 56.2301 38.6317 57.2653 38.6164 58.4331C37.6285 58.6176 36.9196 58.0657 36.5201 57.1875L34.9101 53.6428C34.6571 53.0848 34.0213 52.7113 33.5883 52.5863C32.8718 52.3805 32.2756 52.6625 31.6231 53.0345C31.1413 51.8651 30.7297 50.804 29.911 49.9564C28.6136 48.6117 26.778 48.258 25.0902 49.1224L18.2128 45.9345C15.8116 44.8215 14.2565 38.281 13.8769 35.2715C13.7823 34.5259 14.2367 33.7377 14.5355 33.1218L17.4246 27.1789C17.7493 26.5096 17.7646 25.7976 17.8789 25.043C20.8885 25.8602 23.7135 26.6072 26.7444 27.1866C31.7573 28.1455 36.7198 28.3376 41.8166 28.1272L43.4479 28.9139C43.1064 29.417 42.8655 30.3425 43.4524 30.7389C44.6401 31.5438 46.1494 31.4036 47.4515 30.9432C48.0216 30.7419 48.5004 30.5544 49.0523 30.8547C49.4014 31.0453 49.8923 31.4951 49.9335 32.0515C49.9853 32.7666 50.4519 33.2926 50.5967 33.9558C50.7507 34.6571 50.493 35.4331 50.9001 36.1344C51.3071 36.8357 52.0908 37.2534 52.9812 37.1909C54.9555 37.0522 56.7286 35.8966 57.6617 34.1478C59.1344 33.9039 60.1224 32.9282 60.3358 31.5134C60.5447 30.129 62.6059 30.6733 63.9643 28.42L65.6094 25.6909L66.3198 27.2094L64.1488 30.7312C63.5222 31.7466 63.5268 32.8718 63.9781 34.0122L62.3208 35.1571C61.4335 35.7715 61.4564 37.6849 61.1896 37.7566L60.5264 37.9334C59.7656 38.374 59.6223 39.3162 59.8632 40.0999L60.4654 42.059C59.1908 43.8717 57.9529 45.5884 57.0412 47.5993L57.0366 47.6039Z M36.3433 43.454L39.1287 44.9679C39.455 45.1447 39.9245 45.0228 40.1532 44.8002C40.3255 44.6325 40.4856 44.3077 40.4292 43.9754L39.8757 40.7646L41.9019 38.836C42.2312 38.5219 42.4737 38.2566 42.4081 37.7932C42.3639 37.476 42.0864 37.0522 41.6534 36.9851L38.4807 36.4912L37.0964 33.4481C36.9043 33.0273 36.4103 32.919 36.0033 32.9998C35.6724 33.0654 35.4514 33.3505 35.276 33.7377L34.0289 36.479L30.777 37.0202C30.3318 37.0949 30.1504 37.595 30.1427 37.9212C30.1321 38.3329 30.3409 38.5463 30.6474 38.836L32.6736 40.7615L32.1018 43.9601C32.0302 44.3626 32.2238 44.724 32.4647 44.8795C32.7224 45.0472 33.1248 45.1371 33.4313 44.977L36.3448 43.4509L36.3433 43.454Z\"/><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M36.3433 43.454L33.4298 44.9801C33.1248 45.1402 32.7224 45.0487 32.4632 44.8825C32.2223 44.727 32.0287 44.3657 32.1003 43.9632L32.672 40.7646L30.6459 38.839C30.3394 38.5494 30.1321 38.3344 30.1412 37.9243C30.1488 37.598 30.3303 37.0979 30.7754 37.0232L34.0274 36.482L35.2745 33.7408C35.4499 33.3551 35.6709 33.0684 36.0018 33.0029C36.4088 32.9221 36.9028 33.0303 37.0949 33.4511L38.4792 36.4942L41.6519 36.9882C42.0864 37.0553 42.3624 37.4791 42.4066 37.7962C42.4706 38.2582 42.2297 38.525 41.9004 38.839L39.8742 40.7676L40.4277 43.9784C40.4856 44.3123 40.3255 44.6371 40.1517 44.8032C39.9215 45.0258 39.4519 45.1478 39.1272 44.9709L36.3417 43.457L36.3433 43.454Z M36.3631 41.4278L38.2002 42.2861C38.1804 41.6168 37.781 40.8469 37.9715 40.1944C38.1621 39.5419 38.9823 39.1638 39.458 38.5753C38.7613 38.3435 37.8084 38.5341 37.2351 38.0508L36.2487 36.2792C35.8752 36.886 35.7685 37.7337 35.2318 38.0904C34.6266 38.4929 33.7728 38.3527 33.0867 38.5753C33.5944 39.1638 34.3857 39.4992 34.5885 40.2051L34.3628 42.3166C35.0169 42.0864 35.642 41.3378 36.3646 41.4263L36.3631 41.4278Z\"/><path style=\"fill:var(--item-circle-bg, #5B0D1E)\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M36.3631 41.4278C35.6404 41.3394 35.0153 42.0879 34.3613 42.3181L34.5869 40.2066C34.3857 39.5007 33.5944 39.1653 33.0852 38.5768C33.7713 38.3527 34.625 38.4929 35.2303 38.092C35.767 37.7352 35.8737 36.8875 36.2472 36.2808L37.2336 38.0523C37.8069 38.5372 38.7597 38.3451 39.4565 38.5768C38.9808 39.1653 38.1652 39.5266 37.97 40.1959C37.7749 40.8652 38.1789 41.6184 38.1987 42.2877L36.3616 41.4293L36.3631 41.4278Z\"/></svg>",
+            "circle_background": "#5b0d1e",
+            "circle_border_color": "#5b0d1e",
+            "icon_size_desktop": 100,
+            "icon_size_mobile": 100,
+            "full_image_width_desktop": 80,
+            "full_image_width_mobile": 80,
+            "full_image_radius": 0,
+            "title": "<span style=\"font-weight:600\">Made in USA</span>",
+            "text_color": "#111111"
+          }
+        },
+        "cgmp": {
+          "type": "item",
+          "settings": {
+            "visual_mode": "circle_icon",
+            "custom_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 80 80\" fill=\"none\" aria-hidden=\"true\" focusable=\"false\"><path fill=\"#F8E3E8\" fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M38.407 12.113L40.0807 12.6655L41.8026 12.113L43.5245 11.5606H44.2124H44.9005L45.5382 11.8638L46.176 12.1668L47.1106 13.2303L48.0453 14.2939L48.6129 14.5796L49.1807 14.8652L50.783 15.0455L52.3853 15.2256L52.9194 15.5023L53.4536 15.7788L53.9179 16.3316L54.3825 16.8845L54.6869 17.8561L54.991 18.8277L55.2914 19.5378L55.5919 20.2478L57.2175 21.3426L58.8431 22.4375L59.2143 23.0242L59.5856 23.6111L59.4706 26.0443L59.3556 28.4776L60.0736 29.5399L60.7916 30.6022L61.0936 31.1909L61.3958 31.7798V32.7735V33.767L60.3728 35.3486L59.3501 36.9301L59.4735 39.2855L59.597 41.6408L59.1598 42.2847L58.7226 42.9286L57.2067 43.9405L55.6909 44.9524L55.3448 45.6883L54.9989 46.4242L54.8803 47.0039L54.7618 47.5838L57.9594 54.639L61.157 61.6943L61.2808 62.0429L61.4046 62.3914L61.0962 62.7328L60.7878 63.0741H60.5666H60.3455L56.2702 61.7042L52.1948 60.3345L52.0403 60.7383L51.8858 61.1424L50.5615 64.4539L49.2371 67.7655L48.975 68.1795L48.713 68.5934H48.2865H47.86L47.5764 68.2715L47.293 67.9495L44.717 62.3382L42.1411 56.7269L41.2133 54.7032L40.2857 52.6794H40.0879H39.8903L39.0503 54.5192L38.2101 56.359L36.1921 60.7744L34.174 65.1899L33.3771 66.8916L32.5805 68.5934H32.0403H31.5L31.318 68.3635L31.136 68.1335L29.7457 64.7299L28.3555 61.3263L28.1785 60.8561L28.0012 60.3858L23.9274 61.7464L19.8537 63.1067L19.4213 62.9979L18.9889 62.8892L18.8781 62.5395L18.7673 62.1897L22.0935 54.859L25.4199 47.5281L25.3161 47.0056L25.2123 46.4831L24.855 45.6743L24.498 44.8655L23.3383 44.1462L22.1789 43.4268L21.6694 43.0221L21.1598 42.6174L20.8636 42.0435L20.5675 41.4699L20.7069 39.7155L20.8463 37.9613L20.8296 37.4355L20.813 36.9096L20.302 36.088L19.791 35.2662L19.2901 34.4061L18.7894 33.5458L18.785 32.6151L18.7807 31.6843L19.4556 30.5913L20.1305 29.4983L20.5281 28.7435L20.926 27.9888L20.7853 26.9957L20.6444 26.0028L20.6317 24.8989L20.6189 23.795L21.0088 23.1544L21.3988 22.5136L21.6971 22.2752L21.9952 22.0366L23.0055 21.3778L24.0158 20.7188L24.4225 20.3453L24.8293 19.9716L25.3993 18.2579L25.9695 16.5441L26.5947 15.9942L27.2202 15.4441L27.9141 15.2511L28.6079 15.0581L29.3072 15.0572L30.0065 15.0561L30.8685 14.8411L31.7306 14.6258L32.744 13.5768L33.7574 12.5275L34.4686 12.0441L35.18 11.5606H35.9566H36.7332L38.407 12.113Z M35.4004 13.5098L34.8597 13.7909L33.9631 14.7984L33.0665 15.8058L32.358 16.1679L31.6498 16.5298L29.9661 16.7042L28.2824 16.8788L27.8447 17.2907L27.407 17.7026L27.0363 18.9046L26.6656 20.1065L26.218 20.8715L25.7705 21.6362L24.3077 22.5664L22.845 23.4966L22.5322 23.9748L22.2193 24.4531L22.4287 25.7233L22.6381 26.9935V27.8008V28.6081L22.2109 29.4212L21.7836 30.2342L21.1088 31.3272L20.4339 32.4202V32.7295V33.0386L21.3095 34.3962L22.1854 35.7535L22.4117 36.2681L22.6381 36.7827V37.5205V38.2584L22.4269 39.5398L22.2155 40.8212L22.4164 41.2627L22.6174 41.7045L23.8729 42.4387L25.1282 43.1731L25.6453 43.691L26.1623 44.2088L26.403 44.6749L26.6436 45.1411L26.9632 46.2426L27.2826 47.3441L27.5429 47.7426L27.8034 48.1411L28.1138 48.264L28.4242 48.3869L30.0379 48.5418L31.6516 48.6965L32.4565 49.169L33.2616 49.6414L34.1084 50.6343L34.9552 51.6271L35.5057 51.8554L36.056 52.0837L37.7507 51.5075L39.4454 50.9311L40.1871 50.9315L40.9288 50.9316L42.523 51.4885L44.1174 52.0454L44.7372 51.786L45.3569 51.5266L46.1648 50.5672L46.9724 49.6077L47.732 49.162L48.4915 48.7162L50.1607 48.5618L51.83 48.4077L52.2681 48.1201L52.7062 47.8325L52.9034 47.3123L53.1005 46.7922L53.4284 45.6945L53.7561 44.5971L54.5934 43.7628L55.4304 42.9286L56.5755 42.2277L57.7206 41.5269L57.8306 41.0876L57.9407 40.6484L57.7199 39.0289L57.4991 37.4093L57.705 36.6444L57.9107 35.8796L58.5229 34.9882L59.1352 34.0968L59.4388 33.5085L59.7426 32.9201V32.5685V32.2169L58.8363 30.878L57.93 29.5388L57.7245 28.6804L57.5189 27.8221L57.7109 26.6364L57.903 25.4508L57.9043 24.7859L57.9058 24.1212L57.4021 23.6166L56.8982 23.1121L56.0358 22.6744L55.1734 22.2367L54.5278 21.5709L53.8821 20.9049L53.3048 19.1691L52.7275 17.4333L52.2988 17.152L51.87 16.8705L50.0925 16.7022L48.315 16.5336L47.7375 16.1738L47.1602 15.8141L45.9873 14.6072L44.8147 13.4003H44.2006H43.5867L42.3667 13.8603L41.1467 14.3202H40.1625H39.1783L38.026 13.889L36.8738 13.4575L36.4074 13.3433L35.9412 13.2289L35.4004 13.5098Z M40.4222 16.436L40.6314 16.8959H41.2209H41.8101L41.341 17.4018L40.8719 17.9078L41.0153 18.4137L41.1586 18.9196H41.0761H40.9938L40.541 18.6225L40.0883 18.3254L39.6048 18.6426L39.1213 18.9599L39.2439 18.3057L39.3664 17.6517L38.9926 17.4513L38.6188 17.251V17.0734V16.8959H39.1663H39.7139L39.8291 16.436L39.9444 15.976H40.0787H40.213L40.4222 16.436Z M34.9469 17.8108L35.2206 17.6375L35.455 17.6346L35.6892 17.6318L35.4263 18.1411L35.1633 18.6505L35.4215 19.0043L35.6798 19.3579V19.4811V19.6046L35.1885 19.5104L34.6973 19.4164L34.2709 19.9499L33.8448 20.4834L33.8439 19.8861L33.843 19.2887L33.246 19.037L32.649 18.7855L33.1541 18.5471L33.6593 18.3087V17.6598V17.0111L34.1662 17.4975L34.6732 17.9841L34.9469 17.8108Z M47.126 18.4908L47.7112 18.7949L47.1602 18.9769L46.6091 19.1588L46.4741 19.3612L46.3393 19.5636L46.3363 20.0023L46.3336 20.4411L45.9396 19.9394L45.5456 19.4377L45.0211 19.5148L44.4967 19.5919V19.5253V19.4587L44.7853 19.0175L45.0739 18.5763L44.8771 18.2082L44.6804 17.8399V17.7405V17.641L45.1898 17.7431L45.6991 17.845L46.0623 17.4406L46.4254 17.0363L46.4831 17.6114L46.5408 18.1865L47.126 18.4908Z M43.3028 20.7013L44.4049 20.9752L45.8744 21.735L47.3438 22.495L48.8368 23.9832L50.3296 25.4714L51.0793 27.0249L51.8289 28.5784L52.1094 29.7743L52.3897 30.9701L52.3893 32.5339L52.3888 34.0977L52.1198 35.3856L51.8508 36.6734L51.0947 38.2096L50.3386 39.746L49.0516 41.103L47.7645 42.46L46.6357 43.1665L45.507 43.873L44.4967 44.27L43.4864 44.6672L42.6599 44.8512L41.8333 45.0354L40.0846 45.04L38.3359 45.0444L36.9649 44.6639L35.594 44.2833L34.3051 43.6169L33.0164 42.9505L31.4367 41.3674L29.8568 39.7843L29.0912 38.2288L28.3254 36.6734L28.0363 35.2936L27.747 33.9138L27.8296 32.074L27.9123 30.2342L28.3871 28.8367L28.862 27.4391L29.5488 26.2653L30.2356 25.0915L31.4598 23.8914L32.6839 22.6912L33.7243 22.0699L34.7645 21.4486L35.9722 21.0094L37.1798 20.5705L38.4044 20.4089L39.6291 20.2476L40.9148 20.3374L42.2006 20.4271L43.3028 20.7013Z M30.2776 21.0116L30.1615 21.6318L30.6705 21.9716L31.1795 22.3114L30.6285 22.411L30.0774 22.5103L29.8722 23.1449L29.6669 23.7792L29.3649 23.1942L29.0629 22.6093L28.4803 22.7259L27.8978 22.8426L28.2857 22.2967L28.6739 21.751L28.506 21.4852L28.3381 21.2194L28.3351 20.9989L28.3324 20.7785L28.9003 20.9769L29.4683 21.1752L29.8596 20.7833L30.2508 20.3915H30.3224H30.3939L30.2776 21.0116Z M51.4011 20.9695L51.8614 20.7594H51.9494H52.0372L51.7639 21.2891L51.4904 21.8186L51.8509 22.1455L52.2115 22.4722V22.6422V22.8124L51.6628 22.6917L51.1144 22.571L50.8987 23.045L50.6831 23.5191H50.5288H50.3747V23.1879V22.8567L50.1542 22.636L49.9338 22.4152L49.4654 22.4093L48.997 22.4036L49.5021 22.0261L50.0073 21.6486V21.1079V20.567L50.474 20.8733L50.9408 21.1796L51.4011 20.9695Z M38.2975 22.2399L37.3332 22.4121L36.2428 22.8558L35.1525 23.2996L34.1326 23.9775L33.113 24.6555L32.2631 25.6022L31.4132 26.5492L30.8812 27.4718L30.3491 28.3945L29.9639 29.5903L29.5787 30.7862L29.5728 32.6259L29.5668 34.4657L30.0473 35.9375L30.5278 37.4093L31.2091 38.4212L31.8904 39.4331L32.8689 40.3772L33.8474 41.3216L35.085 41.9694L36.3227 42.6172L37.3205 42.911L38.3181 43.2046H40.0883H41.8584L42.856 42.911L43.8538 42.6172L45.1089 41.9602L46.3639 41.3032L47.416 40.2658L48.468 39.2283L49.1272 38.1349L49.7867 37.0414L50.1884 35.7535L50.5901 34.4657V32.6259V30.7862L50.2117 29.5903L49.8333 28.3945L49.1607 27.2597L48.4882 26.1251L47.5486 25.2008L46.6091 24.2765L45.507 23.6151L44.4049 22.9537L43.2493 22.5962L42.0939 22.2386L40.6777 22.153L39.2617 22.0677L38.2975 22.2399Z M27.2755 26.3545L27.8732 26.4767L27.4147 26.8264L26.9564 27.1763L27.0201 27.7848L27.0837 28.3932L26.6959 28.0416L26.308 27.69L25.6844 27.8817L25.061 28.0734L25.2557 27.5136L25.4505 26.9539L25.0545 26.6329L24.6587 26.3117V26.2079V26.1039L25.1947 26.2114L25.7307 26.3186L26.0529 25.7008L26.375 25.0829L26.5264 25.6576L26.6778 26.2324L27.2755 26.3545Z M55.0072 26.2335L55.5178 26.1584V26.282V26.4057L55.1619 26.7284L54.8061 27.0509L54.9782 27.5047L55.1505 27.9584V28.0432V28.1279L54.618 27.8521L54.0855 27.5763L53.5809 27.9739L53.0761 28.3716L53.1972 27.7253L53.3182 27.0792L52.8629 26.8352L52.4077 26.5913L52.5041 26.4349L52.6006 26.2787H53.0309H53.4613L53.679 25.6808L53.8965 25.0829L54.1964 25.6957L54.4966 26.3085L55.0072 26.2335Z M24.9474 31.4448L25.2931 31.8273L25.8025 31.7254L26.3119 31.6233V31.7675V31.9117L26.0538 32.2651L25.7959 32.6184L26.1669 33.1405L26.5381 33.6625L25.8739 33.5377L25.2099 33.413L24.8653 33.8391L24.5207 34.2653L24.3888 33.6637L24.257 33.0623L23.8034 32.8553L23.3497 32.6484L23.8205 32.4013L24.2913 32.1542L24.313 31.7461L24.3348 31.3381L24.313 31.2001L24.2913 31.0621H24.4465H24.6017L24.9474 31.4448Z M55.8635 31.2001L55.8417 31.3381L55.8635 31.7461L55.8852 32.1542L56.356 32.4013L56.8268 32.6484L56.3821 32.8513L55.9376 33.054L55.8125 33.668L55.6876 34.2817L55.3533 33.8424L55.0188 33.403L54.3266 33.5331L53.6343 33.6632L54.0223 33.1692L54.4104 32.6752L54.0245 32.1323L53.6384 31.5894L54.2625 31.7066L54.8865 31.824L55.2306 31.443L55.5748 31.0621H55.73H55.8852L55.8635 31.2001Z M27.0161 37.5054L26.9579 38.0612L27.4764 38.4019L27.995 38.7426L27.3627 38.8615L26.7303 38.9801L26.5552 39.5746L26.3802 40.169L26.0562 39.5523L25.732 38.9356L25.1954 39.0145L24.6587 39.0935V38.9991V38.9049L25.0321 38.5067L25.4054 38.1088L25.2123 37.6001L25.0193 37.0914L25.344 37.2252L25.669 37.3591L25.9445 37.4389L26.22 37.519L26.5874 37.2401L26.9547 36.9612L27.0144 36.9553L27.0743 36.9494L27.0161 37.5054Z M54.6764 37.252L55.1505 36.9409V37.1413V37.3414L54.951 37.7147L54.7517 38.088L55.1668 38.5305L55.582 38.9731H55.0322H54.4824L54.1973 39.5711L53.9124 40.169L53.6224 39.4791L53.3324 38.7892L52.8179 38.7833L52.3033 38.7776L52.8019 38.4048L53.3002 38.0323L53.1867 37.4636L53.0732 36.8949L53.6378 37.229L54.2025 37.5631L54.6764 37.252Z M29.8937 42.2847L30.0148 42.8366L30.597 42.8433L31.1795 42.8499L30.6716 43.2664L30.1637 43.6828L30.2848 44.3177L30.4058 44.9524L29.922 44.5081L29.4382 44.0638L28.9685 44.2781L28.4988 44.4924H28.319H28.1393L28.4127 43.9628L28.6862 43.4333L28.3256 43.1064L27.965 42.7796V42.656V42.5324L28.5109 42.6127L29.0567 42.693L29.2751 42.2128L29.4935 41.7328H29.6331H29.7727L29.8937 42.2847Z M50.9022 42.2144L51.1213 42.6963L51.6665 42.587L52.2115 42.4779V42.5967V42.7158L51.915 43.0438L51.6188 43.3718L51.8173 43.9427L52.0161 44.5134L51.6086 44.3857L51.2012 44.2581L51.006 44.1848L50.8107 44.1114L50.4724 44.486L50.134 44.8604H50.0157H49.8974L49.9718 44.2214L50.0464 43.5825L49.5734 43.3667L49.1004 43.1509L49.1972 42.9938L49.2942 42.8366H49.7472H50.2001L50.3104 42.2847L50.4206 41.7328H50.5517H50.6831L50.9022 42.2144Z M35.2149 45.8287L35.7603 45.722L35.4318 46.224L35.1034 46.7259L35.3916 47.1665L35.6798 47.6072V47.696V47.7849L35.1179 47.5886L34.5558 47.3925L34.1076 47.8143L33.6593 48.2362V47.6482V47.0602L33.2001 46.8507L32.7408 46.6411V46.5013V46.3615L33.2919 46.2402L33.843 46.119L33.8496 45.5358L33.8562 44.9524L34.2629 45.444L34.6695 45.9354L35.2149 45.8287Z M47.1185 46.2963L47.7112 46.4529L47.1142 46.7653L46.5173 47.0775V47.6568V48.2362L46.0858 47.8302L45.6543 47.4241L45.1554 47.614L44.6565 47.804H44.5555H44.4545L44.7739 47.3156L45.0935 46.8273L44.7678 46.2754L44.4423 45.7234L45.0195 45.839L45.5966 45.9547L45.9124 45.4721L46.228 44.9895L46.3767 45.5647L46.5255 46.14L47.1185 46.2963Z M41.0177 47.0293L40.8515 47.6101L41.3425 47.9772L41.8333 48.3444L41.3741 48.353L40.9148 48.3617L40.7128 48.4967L40.5107 48.6319L40.3214 49.1839L40.132 49.7358L39.9151 49.1875L39.6979 48.6395L39.4797 48.5006L39.2617 48.3617L38.8381 48.3587L38.4145 48.356L38.8965 47.9407L39.3785 47.5257L39.1869 47.0208L38.9953 46.5162H39.1335H39.2718L39.6834 46.805L40.0951 47.0939L40.5965 46.7279L41.0978 46.3622L41.141 46.4054L41.1841 46.4485L41.0177 47.0293Z M26.2487 49.871L25.9944 50.4717L24.4245 53.9673L22.8543 57.4628L22.1117 59.0726L21.3692 60.6824L21.4986 60.6817L21.6279 60.6809L24.9234 59.5778L28.2189 58.4747H28.5469H28.875L29.1329 58.8886L29.3908 59.3026L30.645 62.3842L31.8992 65.4658H32.0057H32.1125L34.7438 59.7165L37.375 53.9673L37.4652 53.7382L37.5552 53.509L36.7233 53.6232L35.8914 53.7375L35.2212 53.6116L34.5511 53.4856L33.1407 52.1431L31.7306 50.8005L31.2903 50.5692L30.8502 50.3379L29.2141 50.2022L27.578 50.0664L27.0403 49.6683L26.5029 49.2701L26.2487 49.871Z M52.9799 49.6955L52.3706 50.06L50.8127 50.2182L49.2547 50.3764L48.8504 50.5858L48.446 50.7953L47.0591 52.1361L45.6723 53.4768L44.9787 53.6072L44.2851 53.7375L43.4725 53.626L42.6599 53.5143L42.6639 53.6488L42.6679 53.7833L44.507 57.7388L46.3462 61.6943L47.2123 63.5782L48.0786 65.4623L48.1734 65.464L48.2681 65.4658L49.5347 62.2922L50.8012 59.1186L51.0756 58.7967L51.35 58.4747H51.6487H51.9474L55.2453 59.5795L58.543 60.6843L58.6616 60.6373L58.7805 60.5904L56.239 55.0027L53.6973 49.4149L53.6433 49.373L53.5891 49.3309L52.9799 49.6955Z\"/></svg>",
+            "circle_background": "#5b0d1e",
+            "circle_border_color": "#5b0d1e",
+            "icon_size_desktop": 100,
+            "icon_size_mobile": 100,
+            "full_image_width_desktop": 80,
+            "full_image_width_mobile": 80,
+            "full_image_radius": 0,
+            "title": "<span style=\"font-weight:600\">cGMP Certified</span>",
+            "text_color": "#111111"
+          }
+        }
+      },
+      "block_order": [
+        "non_gmo",
+        "no_sugar",
+        "vegetarian",
+        "gluten_free",
+        "made_in_usa",
+        "cgmp"
+      ],
+      "settings": {
+        "show_heading": false,
+        "heading": "",
+        "heading_color": "#111111",
+        "heading_alignment": "center",
+        "heading_size_desktop": 44,
+        "heading_size_mobile": 26,
+        "heading_weight": "700",
+        "heading_line_height": 1.2,
+        "heading_line_height_mobile": 1.2,
+        "heading_letter_spacing": -0.9,
+        "heading_letter_spacing_mobile": -0.5,
+        "heading_max_width": 1400,
+        "heading_max_width_mobile": 350,
+        "heading_margin_top_desktop": 0,
+        "heading_margin_bottom_desktop": 40,
+        "heading_margin_top_mobile": 0,
+        "heading_margin_bottom_mobile": 24,
+        "max_width": 1200,
+        "columns_desktop": 6,
+        "columns_mobile": 3,
+        "column_gap_desktop": 0,
+        "row_gap_desktop": 0,
+        "column_gap_mobile": 8,
+        "row_gap_mobile": 8,
+        "circle_size_desktop": 80,
+        "circle_size_mobile": 80,
+        "circle_radius": 50,
+        "circle_border_width": 0,
+        "item_inner_gap_desktop": 8,
+        "item_inner_gap_mobile": 8,
+        "label_size_desktop": 18,
+        "label_size_mobile": 18,
+        "label_weight": "600",
+        "label_line_height": 1.3,
+        "label_line_height_mobile": 1.3,
+        "label_letter_spacing": 0,
+        "label_letter_spacing_mobile": 0,
+        "label_max_width_desktop": 200,
+        "label_max_width_mobile": 110,
+        "background_color": "#f8e3e8",
+        "padding_top_desktop": 44,
+        "padding_bottom_desktop": 44,
+        "padding_left_desktop": 40,
+        "padding_right_desktop": 40,
+        "padding_top_mobile": 32,
+        "padding_bottom_mobile": 44,
+        "padding_left_mobile": 16,
+        "padding_right_mobile": 16
+      }
+    }
+  },
+  "order": [
+    "lum_template_font",
+    "mm_gut_harmony_benefits_gKxehV",
+    "rich_text_BR7tJa",
+    "get_harmony_feature_v2_9AzqaE",
+    "get_harmony_feature_v2_nQrn9R",
+    "get_harmony_feature_v2_7yt7ni",
+    "get_harmony_feature_v2_AkDTnE",
+    "get_harmony_feature_v2_WwW9hw",
+    "get_harmony_feature_v2_hVXahQ",
+    "get_harmony_feature_v2_QcAKNJ",
+    "mm_heading_banner_lum_H3xaWF",
+    "offer_icons",
+    "offer_cards_middle",
+    "gut_flow_survey_stats_KBgexA",
+    "mm_research_mentions_GeBLp4",
+    "listicle_sticky_only",
+    "social_proof_pop",
+    "sticky_countdown",
+    "customer_reviews_carousel_6W7Cht",
+    "roadmap_MGJAcC",
+    "product_benefits_4DmPcz",
+    "store_faq_73Kxey",
+    "offer_cards_bottom"
+  ]
+}
