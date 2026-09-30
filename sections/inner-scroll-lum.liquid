@@ -1,0 +1,121 @@
+{% comment %}
+  Section: inner-scroll-lum — the page scrolls inside <body> instead of the document.
+
+  Why: on iOS a tap made while the document still has scroll momentum only stops the scroll, the page gets no
+  touch and no click for it, so a fixed bar looks dead until the second tap. When the content scrolls in an
+  inner container and the bar sits outside of it, a tap on the bar is not a tap on the scrolling content.
+
+  Cost: window scroll APIs stop working (mapped to <body> below for the theme and the analytics) and the
+  browser does not collapse its toolbars on scroll. Switches, any of them turns it off completely (no CSS,
+  no script): Theme settings > Advertorial and Listicle Setting > Inner scroll on landing pages (every page
+  at once), this section's Mode = Off (one page), or delete the section. ?shell=0 in the URL turns it off
+  for one page view, ?shell=1 turns it on for one page view when Mode = URL.
+{% endcomment %}
+
+{%- liquid
+  assign isl_global = settings.lum_inner_scroll
+  if isl_global == nil
+    assign isl_global = true
+  endif
+  assign isl_active = false
+  if isl_global and section.settings.mode != 'off'
+    assign isl_active = true
+  endif
+-%}
+
+{%- if request.design_mode -%}
+  <p class="isl-hint section-{{ section.id }}">{{ section.settings.editor_hint | escape }}: {% if isl_global %}{{ section.settings.mode }}{% else %}off in Theme settings{% endif %}</p>
+  {% style %}
+    .isl-hint { margin: 0; padding: 8px 16px; font-size: 12px; text-align: center; color: #666; border: 1px dashed #ccc; }
+  {% endstyle %}
+{%- endif -%}
+
+{%- if isl_active -%}
+
+{% style %}
+  html.isl-on { height: 100%; overflow: hidden; }
+  html.isl-on body { height: 100%; overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain; }
+  html.isl-on body > * { flex-shrink: 0; }
+  html.isl-on body.overflow-hidden,
+  html.isl-on body.lhead-drawer-open { overflow: hidden; }
+  @media screen and (max-width: 749px) { html.isl-on body.overflow-hidden-mobile { overflow: hidden; } }
+  @media screen and (max-width: 989px) { html.isl-on body.overflow-hidden-tablet { overflow: hidden; } }
+{% endstyle %}
+
+<script>
+  (function () {
+    if (window.__islOn !== undefined) return;
+    var cfg = { mode: {{ section.settings.mode | json }}, touchOnly: {{ section.settings.touch_only | json }} };
+    var q = window.location.search;
+    var flagOn = /[?&]shell=1(&|#|$)/.test(q), flagOff = /[?&]shell=0(&|#|$)/.test(q);
+    var want = !flagOff && cfg.mode !== 'off' && (cfg.mode === 'on' || flagOn);
+    if (want && cfg.touchOnly) want = !!(window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches);
+    if (want && window.Shopify && window.Shopify.designMode) want = false;
+    window.__islOn = want;
+    if (!want) return;
+
+    var de = document.documentElement, sc = document.body;
+    de.classList.add('isl-on');
+
+    // The theme and the analytics read and drive the window scroll: point those reads and calls at <body>.
+    function def(obj, name, get, set) {
+      try { Object.defineProperty(obj, name, { configurable: true, get: get, set: set || function () {} }); } catch (e) {}
+    }
+    def(window, 'scrollY', function () { return sc.scrollTop; });
+    def(window, 'pageYOffset', function () { return sc.scrollTop; });
+    def(de, 'scrollTop', function () { return sc.scrollTop; }, function (v) { sc.scrollTop = v; });
+    def(de, 'scrollHeight', function () { return sc.scrollHeight; });
+    def(document, 'scrollingElement', function () { return sc; });
+    function to(fn) {
+      return function (x, y) {
+        if (x && typeof x === 'object') fn.call(sc, x); else fn.call(sc, Number(x) || 0, Number(y) || 0);
+      };
+    }
+    window.scrollTo = window.scroll = to(sc.scrollTo);
+    window.scrollBy = to(sc.scrollBy);
+    // Element scroll events do not reach window listeners: repeat each one on the document.
+    sc.addEventListener('scroll', function () {
+      document.dispatchEvent(new Event('scroll', { bubbles: true }));
+    }, { passive: true });
+  })();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Inner scroll (Lum)",
+  "tag": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Makes the page scroll inside the body, so sticky bars stay tappable while the scroll still has momentum on iPhone. Side effect: the browser toolbars do not collapse on scroll. Off for every page at once: Theme settings > Advertorial and Listicle Setting."
+    },
+    {
+      "type": "select",
+      "id": "mode",
+      "label": "Mode",
+      "default": "on",
+      "options": [
+        { "value": "off", "label": "Off" },
+        { "value": "url", "label": "Only with ?shell=1 in the URL" },
+        { "value": "on", "label": "On" }
+      ],
+      "info": "?shell=0 in the URL turns it off for one page view."
+    },
+    {
+      "type": "checkbox",
+      "id": "touch_only",
+      "label": "Touch devices only",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "editor_hint",
+      "label": "Editor hint",
+      "default": "Inner scroll"
+    }
+  ],
+  "presets": [{ "name": "Inner scroll (Lum)" }]
+}
+{% endschema %}
