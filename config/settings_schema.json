@@ -2462,6 +2462,20 @@
         "label": "Pages without header & footer",
         "info": "Enter page handles (one per line) where you want to hide the header and footer. Example: advertorial-page",
         "placeholder": "advertorial-page\nlanding-page\nspecial-offer"
+      },
+      {
+        "type": "header",
+        "content": "Inner scroll (sticky buttons on iPhone)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Pages with the Inner scroll (Lum) section scroll inside the page, so sticky buttons react to a tap while the scroll still has momentum on iPhone. Side effect: Safari's toolbars stay expanded on those pages. Turn off to switch it off on every page at once."
+      },
+      {
+        "type": "checkbox",
+        "id": "lum_inner_scroll",
+        "label": "Inner scroll on landing pages",
+        "default": true
       }
     ]
   }
