@@ -2519,10 +2519,19 @@
         "padding_left_mobile": 16,
         "padding_right_mobile": 16
       }
+    },
+    "inner_scroll": {
+      "type": "inner-scroll-lum",
+      "settings": {
+        "mode": "on",
+        "touch_only": true,
+        "editor_hint": "Inner scroll"
+      }
     }
   },
   "order": [
     "lum_template_font",
+    "inner_scroll",
     "mm_gut_harmony_benefits_gKxehV",
     "rich_text_BR7tJa",
     "get_harmony_feature_v2_9AzqaE",
@@ -2547,4 +2556,3 @@
     "offer_cards_bottom"
   ]
 }
-
