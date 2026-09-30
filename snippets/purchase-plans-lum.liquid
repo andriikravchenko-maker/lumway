@@ -1,0 +1,823 @@
+{%- comment -%}
+  Purchase Plans v2 (subscription plan cards) — Lumway PDP. Figma: Lumway-Designs 5128:965.
+  Each card = ONE selling plan + ONE variant (pack): e.g. 90-Day = 3-pack on the 3-month plan,
+  30-Day = 1-pack on the monthly plan. Plans are looked up by ID from the block settings
+  (p90_plan_id / p30_plan_id); other plans on the product are ignored. If an ID is empty or not on the
+  product, the card falls back to the plan whose interval matches p{slot}_months (dev convenience).
+  One-Time is an instant action: it adds the selected pack to the cart without a selling plan (no gifts);
+  its price comes from the variant. The plan selection on the page does not change.
+  Contract with the buy box (same as purchase-type-lum): window.__lumResolvedSub, window.__lumSubByVariant,
+  window.__lumBundlePack, CustomEvent 'lum:atc-price' {price, compare, type}, Elixir_SetProductFormSellingPlan /
+  Elixir_SetSubscriptionContext. Radios keep class .ptl__input + values subscribe / one_time for lum-amplitude-events.
+  Usage: {% render 'purchase-plans-lum', block: block, product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign uid = block.id
+  assign slots = '90,30' | split: ','
+  assign preselect = block.settings.preselect | default: '90'
+  assign details_mode = block.settings.details_mode | default: 'selected'
+-%}
+{%- capture ph_per_day -%}{price} / DAY{%- endcapture -%}
+{%- capture ph_billing -%}every {weeks} weeks{%- endcapture -%}
+{%- capture ph_one_time -%}One Time Purchase {total}{%- endcapture -%}
+{%- capture ph_one_time_shipping -%}+ Shipping{%- endcapture -%}
+{%- capture ph_pack -%}{pack}{%- endcapture -%}
+{%- capture ph_sticky_option -%}{title} ({save}){%- endcapture -%}
+{%- capture ph_sticky_option_mobile -%}{title}{%- endcapture -%}
+{%- capture ph_sticky_sub -%}{perday} / serving{%- endcapture -%}
+{%- capture ph_sticky_button -%}ADD TO CART - {permonth}/MO{%- endcapture -%}
+{%- capture ph_pack_html -%}<span data-role="pack"></span>{%- endcapture -%}
+
+{%- if product != null and product.variants.size > 0 -%}
+  {% style %}
+    .ppl-{{ uid }}{
+      --ppl-font:'Inter Tight', system-ui, -apple-system, sans-serif;
+      --ppl-ink:{{ block.settings.color_text | default: '#111111' }};
+      --ppl-muted:{{ block.settings.color_muted | default: '#858585' }};
+      --ppl-brand:{{ block.settings.color_brand | default: '#5b0d1e' }};
+      --ppl-primary:{{ block.settings.color_primary | default: '#8d2b40' }};
+      --ppl-yellow:{{ block.settings.color_save_bg | default: '#fad356' }};
+      --ppl-coral:{{ block.settings.color_gift_badge | default: '#fa6c56' }};
+      --ppl-border:{{ block.settings.color_border | default: '#c2c2c2' }};
+      --ppl-surface:{{ block.settings.color_card_selected | default: '#f9f9f9' }};
+      --ppl-card:{{ block.settings.color_card | default: '#ffffff' }};
+      --ppl-radius:{{ block.settings.card_radius | default: 12 }}px;
+      display:flex; flex-direction:column; gap:16px; font-family:var(--ppl-font); color:var(--ppl-ink);
+    }
+    .ppl-{{ uid }} *{ box-sizing:border-box; }
+    .ppl-{{ uid }} .ppl__label{ margin:0; font-family:var(--ppl-font) !important; font-weight:600 !important; font-size:16px; line-height:19.2px; color:var(--ppl-ink); }
+    .ppl-{{ uid }} .ppl__list{ display:flex; flex-direction:column; gap:8px; }
+    .ppl-{{ uid }} .ppl__card{ position:relative; display:block; margin:0; padding:12px; background:var(--ppl-card); border:1px solid var(--ppl-border); border-radius:var(--ppl-radius); cursor:pointer; overflow:hidden; }
+    .ppl-{{ uid }} .ppl__card.is-selected{ background:var(--ppl-surface); border:1.5px solid var(--ppl-ink); padding:12px; }
+    .ppl-{{ uid }} .ptl__input{ position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer; z-index:2; }
+    .ppl-{{ uid }} .ppl__card.is-selected .ptl__input{ z-index:0; }
+    .ppl-{{ uid }} .ppl__details, .ppl-{{ uid }} .ppl__gifts{ position:relative; z-index:3; }
+    .ppl-{{ uid }} .ppl__head{ display:flex; align-items:center; gap:12px; min-height:27px; padding-right:110px; }
+    .ppl-{{ uid }} .ppl__radio{ flex:0 0 18px; width:18px; height:18px; border-radius:50%; border:1.5px solid var(--ppl-ink); background:#fff; position:relative; }
+    .ppl-{{ uid }} .ppl__card.is-selected .ppl__radio::after{ content:""; position:absolute; inset:3px; border-radius:50%; background:var(--ppl-ink); }
+    .ppl-{{ uid }} .ppl__title{ font-family:var(--ppl-font) !important; font-weight:600; font-size:18px; line-height:1.2; letter-spacing:-0.36px; color:var(--ppl-ink); white-space:nowrap; }
+    .ppl-{{ uid }} .ppl__save{ display:inline-flex; align-items:center; padding:5px 12px; border-radius:28px; font-family:var(--ppl-font) !important; font-weight:700; font-size:14px; line-height:1.2; white-space:nowrap; background:var(--ppl-yellow); color:var(--ppl-brand); }
+    .ppl-{{ uid }} .ppl__card:not([data-best]) .ppl__save{ background:transparent; color:var(--ppl-brand); border:1px solid var(--ppl-brand); padding:5px 12px; }
+    .ppl-{{ uid }} .ppl__best{ position:absolute; top:0; right:0; z-index:3; padding:6px 16px 6px 20px; border-radius:0 0 0 20px; background:var(--ppl-brand); color:#fff; font-family:var(--ppl-font) !important; font-weight:600; font-size:14px; line-height:1.2; text-transform:uppercase; }
+    .ppl-{{ uid }} .ppl__price{ display:flex; align-items:baseline; gap:0; margin-top:12px; }
+    .ppl-{{ uid }} .ppl__price-main{ font-family:var(--ppl-font) !important; font-weight:700; font-size:24px; line-height:1.2; color:var(--ppl-brand); }
+    .ppl-{{ uid }} .ppl__price-suffix{ font-family:var(--ppl-font) !important; font-weight:500; font-size:14px; line-height:1.2; color:var(--ppl-brand); }
+    .ppl-{{ uid }} .ppl__price-compare{ margin:0 0 0 4px; font-family:var(--ppl-font) !important; font-weight:400; font-size:16px; line-height:1.2; color:var(--ppl-muted); text-decoration:line-through; }
+    .ppl-{{ uid }} .ppl__pay{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:8px; font-size:14px; line-height:1.2; }
+    .ppl-{{ uid }} .ppl__pay-left{ display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+    .ppl-{{ uid }} .ppl__total{ font-weight:600; color:var(--ppl-ink); }
+    .ppl-{{ uid }} .ppl__total-compare{ color:var(--ppl-muted); text-decoration:line-through; }
+    .ppl-{{ uid }} .ppl__billing{ color:var(--ppl-muted); }
+    .ppl-{{ uid }} .ppl__perday{ font-weight:600; font-size:16px; line-height:14.4px; color:var(--ppl-brand); white-space:nowrap; }
+    .ppl-{{ uid }} .ppl__pay span{ font-family:var(--ppl-font) !important; }
+    .ppl-{{ uid }} .ppl__details{ display:block; margin-top:12px; padding:4px 0; }
+    .ppl-{{ uid }} .ppl__features{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; grid-auto-flow:column; column-gap:8px; row-gap:8px; }
+    /* Figma fills the list column by column (left column first); the row count comes from Liquid per card. */
+    .ppl-{{ uid }} .ppl__features--rows-1{ grid-template-rows:repeat(1, auto); }
+    .ppl-{{ uid }} .ppl__features--rows-2{ grid-template-rows:repeat(2, auto); }
+    .ppl-{{ uid }} .ppl__features--rows-3{ grid-template-rows:repeat(3, auto); }
+    .ppl-{{ uid }} .ppl__features li{ display:flex; align-items:center; gap:4px; font-family:var(--ppl-font) !important; font-size:14px; line-height:1.2; color:var(--ppl-ink); }
+    .ppl-{{ uid }} .ppl__features li[hidden]{ display:none; }
+    .ppl-{{ uid }} .ppl__check{ display:inline-flex; width:16px; height:16px; flex:0 0 16px; border-radius:50%; background:var(--ppl-ink); color:#fff; align-items:center; justify-content:center; }
+    .ppl-{{ uid }} .ppl__check svg{ width:9px; height:9px; display:block; }
+    .ppl-{{ uid }} .ppl__gifts{ display:block; margin-top:24px; }
+    .ppl-{{ uid }} .ppl__gifts-title{ display:block; margin:0 0 16px; font-family:var(--ppl-font) !important; font-weight:700; font-size:18px; line-height:1.2; color:var(--ppl-brand) !important; } /* !important: the theme colours every [class*="title"] #111 !important */
+    .ppl-{{ uid }} .ppl__gift-list{ display:flex; gap:8px; }
+    .ppl-{{ uid }} .ppl__gift{ flex:0 1 152px; width:auto; min-width:0; display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .ppl-{{ uid }} .ppl__gift[hidden]{ display:none; }
+    .ppl-{{ uid }} .ppl__gift-media{ position:relative; display:block; flex:0 0 auto; width:100px; max-width:100%; height:100px; border-radius:8px !important; overflow:hidden; background:#eee; } /* !important: the theme forces [class*="media"] to its --media-radius */
+    .ppl-{{ uid }} .ppl__gift-media img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:8px !important; }
+    .ppl-{{ uid }} .ppl__gift-badge{ position:absolute; right:0; bottom:0; display:inline-flex; align-items:center; gap:4px; padding:2px 6px; border-radius:8px 0 0 0; background:var(--ppl-coral); color:#fff; font-family:var(--ppl-font) !important; font-weight:400; font-size:12px; line-height:1.2; white-space:nowrap; }
+    .ppl-{{ uid }} .ppl__gift-badge s{ text-decoration:line-through; }
+    .ppl-{{ uid }} .ppl__gift-free{ display:none; }
+    .ppl-{{ uid }} .ppl__gift-name{ display:block; margin:8px 0 0; font-family:var(--ppl-font) !important; font-weight:600; font-size:14px; line-height:16.8px; color:var(--ppl-ink); }
+    .ppl-{{ uid }} .ppl__gift-text{ display:block; margin:2px 0 0; font-family:var(--ppl-font) !important; font-weight:400; font-size:12px; line-height:12px; color:var(--ppl-muted); }
+    .ppl-{{ uid }} .ppl__onetime{ display:block; margin:0 auto; padding:8px 0; background:none; border:0; cursor:pointer; font-family:var(--ppl-font) !important; font-weight:600; font-size:16px; line-height:1.2; color:var(--ppl-brand); text-decoration:underline; text-underline-position:from-font; }
+    .ppl-{{ uid }} .ppl__onetime-input{ position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+    {%- if details_mode == 'selected' %}
+    .ppl-{{ uid }} .ppl__card:not(.is-selected) .ppl__details,
+    .ppl-{{ uid }} .ppl__card:not(.is-selected) .ppl__gifts{ display:none; }
+    .ppl-{{ uid }} .ppl__card.has-features.is-selected .ppl__pay{ padding-bottom:8px; border-bottom:1px solid var(--ppl-border); }
+    {%- elsif details_mode == 'best' %}
+    .ppl-{{ uid }} .ppl__card:not([data-best]) .ppl__details,
+    .ppl-{{ uid }} .ppl__card:not([data-best]) .ppl__gifts{ display:none; }
+    .ppl-{{ uid }} .ppl__card.has-features[data-best] .ppl__pay{ padding-bottom:8px; border-bottom:1px solid var(--ppl-border); }
+    {%- else %}
+    .ppl-{{ uid }} .ppl__card.has-features .ppl__pay{ padding-bottom:8px; border-bottom:1px solid var(--ppl-border); }
+    {%- endif %}
+    @media (max-width:767px){
+      /* Figma mobile frame 5128:4336 (343px container) */
+      .ppl-{{ uid }} .ppl__head{ gap:4px; min-height:19px; }
+      .ppl-{{ uid }} .ppl__title{ font-size:16px; letter-spacing:0; margin-left:8px; }
+      .ppl-{{ uid }} .ppl__save{ padding:2px 4px; font-size:12px; }
+      .ppl-{{ uid }} .ppl__card:not([data-best]) .ppl__save{ padding:2px 5px; }
+      .ppl-{{ uid }} .ppl__best{ padding:4px 8px 4px 12px; font-size:12px; }
+      /* Room for the BEST VALUE corner badge: title + Save fit before it at normal text sizes; with enlarged text
+         (phone text zoom) the Save pill drops to a second line instead of running under the badge. */
+      .ppl-{{ uid }} .ppl__card[data-best] .ppl__head{ padding-right:76px; flex-wrap:wrap; row-gap:4px; }
+      .ppl-{{ uid }} .ppl__price{ margin-top:16px; }
+      .ppl-{{ uid }} .ppl__price-main{ font-size:20px; line-height:1; }
+      .ppl-{{ uid }} .ppl__price-suffix{ font-size:12px; font-weight:400; line-height:1; }
+      .ppl-{{ uid }} .ppl__price-compare{ font-size:14px; }
+      .ppl-{{ uid }} .ppl__pay{ font-size:12px; padding-bottom:8px; }
+      .ppl-{{ uid }} .ppl__perday{ font-size:14px; line-height:14.4px; }
+      .ppl-{{ uid }} .ppl__details{ margin-top:8px; padding:0; }
+      .ppl-{{ uid }} .ppl__features{ grid-template-columns:1fr; grid-auto-flow:row; grid-template-rows:none; row-gap:4px; }
+      .ppl-{{ uid }} .ppl__features li{ font-size:13px; }
+      .ppl-{{ uid }} .ppl__check{ width:12px; height:12px; flex-basis:12px; }
+      .ppl-{{ uid }} .ppl__check svg{ width:7px; height:7px; }
+      .ppl-{{ uid }} .ppl__gifts{ margin-top:16px; }
+      .ppl-{{ uid }} .ppl__gifts-title{ font-size:13px; margin-bottom:16px; }
+      .ppl-{{ uid }} .ppl__gift{ flex:1 1 0; width:auto; min-width:0; }
+      .ppl-{{ uid }} .ppl__gift-media{ width:80px; height:80px; }
+      .ppl-{{ uid }} .ppl__gift-badge{ gap:2px; }
+      .ppl-{{ uid }} .ppl__gift-badge s{ font-size:10px; }
+      .ppl-{{ uid }} .ppl__gift-free{ display:inline; font-weight:500; font-size:12px; }
+      .ppl-{{ uid }} .ppl__gift-name{ font-size:12px; line-height:1; }
+      .ppl-{{ uid }} .ppl__gift-text{ display:block; font-size:10px; line-height:1; }
+      .ppl-{{ uid }} .ppl__onetime{ font-size:14px; }
+    }
+    @media (max-width:374px){
+      .ppl-{{ uid }} .ppl__card[data-best] .ppl__head{ flex-wrap:wrap; row-gap:6px; padding-right:88px; }
+      .ppl-{{ uid }} .ppl__card[data-best] .ppl__title{ flex:1 1 calc(100% - 30px); }
+      .ppl-{{ uid }} .ppl__card[data-best] .ppl__save{ margin-left:30px; }
+    }
+    {%- if block.settings.sticky_show -%}
+    /* Sticky purchase bar. Figma 5128:3116 (desktop 1728x130). Lives in <body>, so it has its own scope. */
+    .ppls-{{ uid }}{
+      --ppl-font:'Inter Tight', system-ui, -apple-system, sans-serif;
+      --ppl-ink:{{ block.settings.color_text | default: '#111111' }};
+      --ppl-brand:{{ block.settings.color_brand | default: '#5b0d1e' }};
+      --ppl-primary:{{ block.settings.color_primary | default: '#8d2b40' }};
+      --ppl-border:{{ block.settings.color_border | default: '#c2c2c2' }};
+      position:fixed; left:0; right:0; bottom:0; z-index:50; box-sizing:border-box;
+      padding:15px 48px; padding-bottom:calc(15px + env(safe-area-inset-bottom));
+      background:{{ block.settings.sticky_bg | default: '#f1eeef' }};
+      box-shadow:0 -4px 7.5px rgba(0,0,0,.1);
+      font-family:var(--ppl-font); color:var(--ppl-ink);
+      transform:translateY(110%); visibility:hidden; transition:transform .3s ease, visibility 0s .3s;
+    }
+    body .ppls.ppls-{{ uid }}, body .ppls.ppls-{{ uid }} *{ box-sizing:border-box; font-family:var(--ppl-font) !important; letter-spacing:0; }
+    .ppls-{{ uid }}.is-visible{ transform:translateY(0); visibility:visible; transition:transform .3s ease, visibility 0s 0s; }
+    body.lhead-drawer-open .ppls-{{ uid }}{ transform:translateY(110%) !important; }
+    .ppls-{{ uid }} .ppls__inner{ display:flex; align-items:center; justify-content:space-between; gap:24px; max-width:1632px; margin:0 auto; }
+    .ppls-{{ uid }} .ppls__product{ display:flex; align-items:center; gap:16px; min-width:0; }
+    .ppls-{{ uid }} .ppls__media{ flex:0 0 100px; width:100px; height:100px; border-radius:10px !important; overflow:hidden; background:#fff; }
+    .ppls-{{ uid }} .ppls__media img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:10px !important; }
+    body .ppls.ppls-{{ uid }} .ppls__title{ margin:0; font-weight:700 !important; font-size:18px; line-height:22px; text-transform:capitalize; color:var(--ppl-ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ppls-{{ uid }} .ppls__actions{ display:flex; align-items:stretch; gap:8px; flex:0 1 848px; min-width:0; }
+    .ppls-{{ uid }} .ppls__selectwrap{ position:relative; flex:0 1 340px; min-width:220px; }
+    .ppls-{{ uid }} .ppls__select{ display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; height:63px; padding:0 16px; margin:0; background:#fff; border:1px solid var(--ppl-border); border-radius:12px; cursor:pointer; text-align:left; color:var(--ppl-ink); }
+    .ppls-{{ uid }} .ppls__select:focus-visible, .ppls-{{ uid }} .ppls__btn:focus-visible{ outline:2px solid var(--ppl-ink); outline-offset:2px; }
+    .ppls-{{ uid }} .ppls__label{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+    .ppls-{{ uid }} .ppls__line1{ font-weight:600; font-size:14px; line-height:17px; color:var(--ppl-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ppls-{{ uid }} .ppls__line1--mob{ display:none; }
+    .ppls-{{ uid }} .ppls__select .ppls__line1{ font-size:18px; line-height:18px; }
+    @media (min-width:768px) and (max-width:1279px){ .ppls-{{ uid }} .ppls__select .ppls__line1{ font-size:14px; line-height:17px; } } /* the select shrinks below 1280, 18px would clip at 1024 */
+    .ppls-{{ uid }} .ppls__line2row{ display:flex; align-items:center; gap:2px; min-width:0; }
+    .ppls-{{ uid }} .ppls__pill{ display:none; }
+    .ppls-{{ uid }} .ppls__btn-mob{ display:none; }
+    .ppls-{{ uid }} .ppls__line2{ font-weight:400; font-size:14px; line-height:17px; color:var(--ppl-brand); white-space:nowrap; }
+    .ppls-{{ uid }} .ppls__chev{ flex:0 0 20px; width:20px; height:20px; transition:transform .2s ease; }
+    .ppls-{{ uid }} .ppls__select[aria-expanded="true"] .ppls__chev{ transform:rotate(180deg); }
+    .ppls-{{ uid }} .ppls__list{ position:absolute; left:0; right:0; bottom:calc(100% + 8px); margin:0; padding:6px; list-style:none; background:#fff; border:1px solid var(--ppl-border); border-radius:12px; box-shadow:0 8px 24px rgba(17,17,17,.12); }
+    .ppls-{{ uid }} .ppls__list[hidden]{ display:none; }
+    .ppls-{{ uid }} .ppls__opt{ display:flex; flex-direction:column; gap:4px; padding:10px; border-radius:8px; cursor:pointer; }
+    .ppls-{{ uid }} .ppls__opt:hover, .ppls-{{ uid }} .ppls__opt.is-active{ background:#f6f3f4; }
+    .ppls-{{ uid }} .ppls__opt[aria-selected="true"] .ppls__line1::after{ content:" \2713"; color:var(--ppl-brand); }
+    .ppls-{{ uid }} .ppls__btn{ flex:1 1 500px; min-width:0; height:63px; padding:0 24px; margin:0; border:0; border-radius:12px; cursor:pointer; background:var(--ppl-primary); color:#fff; font-weight:700; font-size:18px; line-height:22.8px; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; transition:background-color .2s ease; }
+    .ppls-{{ uid }} .ppls__btn:hover{ background:var(--ppl-brand); }
+    .ppls-{{ uid }} .ppls__btn[disabled]{ opacity:.6; cursor:default; }
+    @media (max-width:989px){
+      /* Figma mobile 41934:376 (375x78) + list 41934:391 */
+      .ppls-{{ uid }}{ padding:15px 16px; padding-bottom:calc(15px + env(safe-area-inset-bottom)); }
+      .ppls-{{ uid }} .ppls__product{ display:none; }
+      .ppls-{{ uid }} .ppls__actions{ flex:1 1 auto; gap:8px; }
+      .ppls-{{ uid }} .ppls__selectwrap{ flex:1 1 0; min-width:0; }
+      .ppls-{{ uid }} .ppls__select{ height:48px; padding:0 16px; border-radius:12px; }
+      .ppls-{{ uid }} .ppls__label{ gap:2px; }
+      .ppls-{{ uid }} .ppls__line1, .ppls-{{ uid }} .ppls__select .ppls__line1{ font-size:14px; line-height:14px; }
+      .ppls-{{ uid }} .ppls__line1--desk{ display:none; }
+      .ppls-{{ uid }} .ppls__line1--mob{ display:block; }
+      .ppls-{{ uid }} .ppls__line2{ font-size:12px; line-height:12px; }
+      .ppls-{{ uid }} .ppls__pill{ display:inline-flex; align-items:center; padding:1.5px 4px; border-radius:28px; background:{{ block.settings.color_save_bg | default: '#fad356' }}; color:var(--ppl-brand); font-weight:700; font-size:11px; line-height:13px; white-space:nowrap; }
+      .ppls-{{ uid }} .ppls__pill[hidden]{ display:none; }
+      .ppls-{{ uid }} .ppls__btn{ flex:0 0 131px; height:48px; padding:0 12px; border-radius:24px; font-size:14px; line-height:22.8px; }
+      .ppls-{{ uid }} .ppls__btn-desk{ display:none; }
+      .ppls-{{ uid }} .ppls__btn-mob{ display:inline; }
+      .ppls-{{ uid }} .ppls__list{ bottom:calc(100% + 4px); padding:8px 16px; box-shadow:0 4px 16px rgba(17,17,17,.10); display:flex; flex-direction:column; gap:4px; }
+      .ppls-{{ uid }} .ppls__opt{ padding:8px 0; border-radius:0; }
+      .ppls-{{ uid }} .ppls__opt + .ppls__opt{ border-top:1px solid var(--ppl-border); }
+      .ppls-{{ uid }} .ppls__opt:hover, .ppls-{{ uid }} .ppls__opt.is-active{ background:transparent; }
+      .ppls-{{ uid }} .ppls__opt .ppls__line1{ font-weight:600; font-size:14px; line-height:14px; }
+      .ppls-{{ uid }} .ppls__opt .ppls__line2{ display:none; }
+      .ppls-{{ uid }} .ppls__opt[aria-selected="true"] .ppls__line1::after{ content:none; }
+    }
+    @media (max-width:374px){
+      .ppls-{{ uid }} .ppls__select{ padding:0 10px; }
+      .ppls-{{ uid }} .ppls__select .ppls__line1{ font-size:12px; line-height:14px; }
+      .ppls-{{ uid }} .ppls__chev{ flex-basis:16px; width:16px; height:16px; }
+      .ppls-{{ uid }} .ppls__btn{ flex-basis:100px; }
+      .ppls-{{ uid }} .ppls__list{ padding:8px 10px; }
+    }
+    {%- endif -%}
+  {% endstyle %}
+
+  <div class="ppl ppl-{{ uid }}" {{ block.shopify_attributes }} data-preselect="{{ preselect }}">
+    <script type="application/json" class="ppl-variants">{{ product.variants | json }}</script>
+    <script type="application/json" class="ppl-plans">{{ product.selling_plan_groups | json }}</script>
+    <script type="application/json" class="ppl-config">
+      {
+        "slots": {
+          {%- for slot in slots -%}
+            {%- assign k_title_cfg = 'p' | append: slot | append: '_title' -%}
+            {%- assign k_plan = 'p' | append: slot | append: '_plan_id' -%}
+            {%- assign k_pack = 'p' | append: slot | append: '_pack' -%}
+            {%- assign k_vid = 'p' | append: slot | append: '_variant_id' -%}
+            {%- assign k_months = 'p' | append: slot | append: '_months' -%}
+            {%- assign k_days = 'p' | append: slot | append: '_days' -%}
+            {%- assign k_billing = 'p' | append: slot | append: '_billing' -%}
+            {%- assign k_save = 'p' | append: slot | append: '_save_text' -%}
+            "{{ slot }}": {
+              "title": {{ block.settings[k_title_cfg] | default: 'Plan' | json }},
+              "planId": {{ block.settings[k_plan] | default: '' | strip | json }},
+              "pack": {{ block.settings[k_pack] | default: 1 | json }},
+              "variantId": {{ block.settings[k_vid] | default: '' | strip | json }},
+              "months": {{ block.settings[k_months] | default: 1 | json }},
+              "days": {{ block.settings[k_days] | default: 0 | json }},
+              "billing": {{ block.settings[k_billing] | default: '' | json }},
+              "saveText": {{ block.settings[k_save] | default: '' | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        },
+        "gifts": [
+          {%- for i in (1..3) -%}
+            {%- assign gv = 'gift_' | append: i | append: '_variant_id' -%}
+            {%- assign gp = 'gift_' | append: i | append: '_plans' -%}
+            { "variantId": {{ block.settings[gv] | default: '' | strip | json }}, "plans": {{ block.settings[gp] | default: 'all' | json }} }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ],
+        "sticky": {
+          "mode": {{ block.settings.sticky_mode | default: 'after' | json }},
+          "option": {{ block.settings.sticky_option_format | default: ph_sticky_option | json }},
+          "optionMobile": {{ block.settings.sticky_option_format_mobile | default: ph_sticky_option_mobile | json }},
+          "sub": {{ block.settings.sticky_sub_format | default: ph_sticky_sub | json }},
+          "button": {{ block.settings.sticky_button_format | default: ph_sticky_button | json }},
+          "buttonMobile": {{ block.settings.sticky_button_format_mobile | default: 'ADD' | json }}
+        },
+        "oneTimePack": {{ block.settings.one_time_pack | default: 'selected' | json }},
+        "saveAuto": {{ block.settings.save_auto | default: true | json }},
+        "saveBasis": {{ block.settings.save_basis | default: 'one_time' | json }},
+        "savePrefix": {{ block.settings.save_prefix | default: 'Save' | json }},
+        "perMonthSuffix": {{ block.settings.per_month_suffix | default: '/mo' | json }},
+        "perDayFormat": {{ block.settings.per_day_format | default: ph_per_day | json }},
+        "billingFormat": {{ block.settings.billing_format | default: ph_billing | json }},
+        "oneTimeText": {{ block.settings.one_time_text | default: ph_one_time | json }},
+        "oneTimeShippingText": {{ block.settings.one_time_shipping_text | default: ph_one_time_shipping | json }},
+        "oneTimeShippingNote": {{ block.settings.one_time_shipping_note | default: 'single' | json }},
+        "moneyFormat": {{ shop.money_format | json }}
+      }
+    </script>
+
+    {%- if block.settings.heading != blank -%}
+      <p class="ppl__label">{{ block.settings.heading | escape }}</p>
+    {%- endif -%}
+
+    <div class="ppl__list" role="radiogroup" aria-label="{{ block.settings.heading | default: 'Subscribe & save' | escape }}">
+      {%- for slot in slots -%}
+        {%- assign k_title = 'p' | append: slot | append: '_title' -%}
+        {%- assign is_best = false -%}
+        {%- if block.settings.best_value_plan == slot -%}{%- assign is_best = true -%}{%- endif -%}
+        {%- assign is_sel = false -%}
+        {%- if preselect == slot -%}{%- assign is_sel = true -%}{%- endif -%}
+        <label class="ppl__card{% if is_sel %} is-selected{% endif %}{% if block.settings.benefits_show %} has-features{% endif %}" data-slot="{{ slot }}"{% if is_best %} data-best{% endif %}>
+          <input type="radio" class="ptl__input" name="ptl-{{ uid }}" value="subscribe" data-ptl-type="subscribe" data-slot="{{ slot }}"{% if is_sel %} checked{% endif %}>
+          {%- if is_best and block.settings.best_value_text != blank -%}
+            <span class="ppl__best">{{ block.settings.best_value_text | escape }}</span>
+          {%- endif -%}
+          <span class="ppl__head">
+            <span class="ppl__radio" aria-hidden="true"></span>
+            <span class="ppl__title">{{ block.settings[k_title] | default: 'Plan' | escape }}</span>
+            <span class="ppl__save" data-role="save" hidden></span>
+          </span>
+          <span class="ppl__price">
+            <span class="ppl__price-main" data-role="per-month"></span><span class="ppl__price-suffix" data-role="per-month-suffix">{{ block.settings.per_month_suffix | default: '/mo' | escape }}</span>
+            <span class="ppl__price-compare" data-role="per-month-compare"></span>
+          </span>
+          <span class="ppl__pay">
+            <span class="ppl__pay-left">
+              <span class="ppl__total" data-role="total"></span>
+              <span class="ppl__total-compare" data-role="total-compare"></span>
+              <span class="ppl__billing" data-role="billing"></span>
+            </span>
+            <span class="ppl__perday" data-role="per-day"></span>
+          </span>
+
+          {%- if block.settings.benefits_show -%}
+            <span class="ppl__details">
+              {%- assign bcount = 0 -%}
+              {%- for i in (1..6) -%}
+                {%- assign bshow = 'benefit_' | append: i | append: '_show' -%}
+                {%- assign btext = 'benefit_' | append: i | append: '_text' -%}
+                {%- assign bplans = 'benefit_' | append: i | append: '_plans' -%}
+                {%- assign scope = block.settings[bplans] | default: 'all' -%}
+                {%- if block.settings[bshow] and block.settings[btext] != blank -%}
+                  {%- if scope == 'all' or scope == slot -%}{%- assign bcount = bcount | plus: 1 -%}{%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+              {%- assign brows = bcount | plus: 1 | divided_by: 2 -%}
+              <ul class="ppl__features ppl__features--rows-{{ brows }}">
+                {%- for i in (1..6) -%}
+                  {%- assign bshow = 'benefit_' | append: i | append: '_show' -%}
+                  {%- assign btext = 'benefit_' | append: i | append: '_text' -%}
+                  {%- assign bplans = 'benefit_' | append: i | append: '_plans' -%}
+                  {%- assign scope = block.settings[bplans] | default: 'all' -%}
+                  {%- if block.settings[bshow] and block.settings[btext] != blank -%}
+                    {%- if scope == 'all' or scope == slot -%}
+                      <li>
+                        <span class="ppl__check" aria-hidden="true"><svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 4.2 3.6 6.8 9 1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                        <span>{{ block.settings[btext] | escape | replace: ph_pack, ph_pack_html }}</span>
+                      </li>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            </span>
+          {%- endif -%}
+
+          {%- assign gifts_scope = block.settings.gifts_plans | default: 'all' -%}
+          {%- if block.settings.gifts_show and gifts_scope == 'all' or block.settings.gifts_show and gifts_scope == slot -%}
+            <span class="ppl__gifts">
+              {%- if block.settings.gifts_heading != blank -%}
+                <span class="ppl__gifts-title" role="heading" aria-level="3">{{ block.settings.gifts_heading | escape }}</span>
+              {%- endif -%}
+              <span class="ppl__gift-list">
+                {%- for i in (1..3) -%}
+                  {%- assign gimg = 'gift_' | append: i | append: '_image' -%}
+                  {%- assign gtitle = 'gift_' | append: i | append: '_title' -%}
+                  {%- assign gtext = 'gift_' | append: i | append: '_text' -%}
+                  {%- assign gprice = 'gift_' | append: i | append: '_price' -%}
+                  {%- assign gplans = 'gift_' | append: i | append: '_plans' -%}
+                  {%- assign gscope = block.settings[gplans] | default: 'all' -%}
+                  {%- if gscope != 'all' and gscope != slot -%}{%- continue -%}{%- endif -%}
+                  {%- if block.settings[gtitle] != blank or block.settings[gimg] != blank -%}
+                    {%- assign gvid = 'gift_' | append: i | append: '_variant_id' -%}
+                    <span class="ppl__gift"{% if block.settings[gvid] != blank %} data-gift-variant="{{ block.settings[gvid] | strip | escape }}"{% endif %}>
+                      <span class="ppl__gift-media">
+                        {%- if block.settings[gimg] != blank -%}
+                          {{ block.settings[gimg] | image_url: width: 600 | image_tag: loading: 'lazy', widths: '150,200,300,400,600', sizes: '150px', alt: block.settings[gtitle] | default: '' }}
+                        {%- endif -%}
+                        {%- if block.settings[gprice] != blank -%}
+                          <span class="ppl__gift-badge"><s>{{ block.settings[gprice] | escape }}</s><span class="ppl__gift-free">{{ block.settings.gift_free_text | default: 'Free' | escape }}</span></span>
+                        {%- endif -%}
+                      </span>
+                      {%- if block.settings[gtitle] != blank -%}
+                        <span class="ppl__gift-name">{{ block.settings[gtitle] | escape }}</span>
+                      {%- endif -%}
+                      {%- if block.settings[gtext] != blank -%}
+                        <span class="ppl__gift-text">{{ block.settings[gtext] | escape }}</span>
+                      {%- endif -%}
+                    </span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </span>
+            </span>
+          {%- endif -%}
+        </label>
+      {%- endfor -%}
+    </div>
+
+    {%- if block.settings.sticky_show -%}
+      {%- assign sticky_img = block.settings.sticky_image | default: product.featured_image -%}
+      <div class="ppls ppls-{{ uid }}" id="ppls-{{ uid }}" data-ppls aria-hidden="true">
+        <div class="ppls__inner">
+          <div class="ppls__product">
+            {%- if sticky_img != blank -%}
+              <span class="ppls__media">
+                {{ sticky_img | image_url: width: 600 | image_tag: loading: 'lazy', widths: '150,200,300,400,600', sizes: '150px', alt: product.title }}
+              </span>
+            {%- endif -%}
+            <p class="ppls__title">{{ block.settings.sticky_title | default: product.title | escape }}</p>
+          </div>
+          <div class="ppls__actions">
+            <div class="ppls__selectwrap">
+              <button type="button" class="ppls__select" data-role="sticky-select" aria-haspopup="listbox" aria-expanded="false" aria-controls="ppls-list-{{ uid }}">
+                <span class="ppls__label"><span class="ppls__line1 ppls__line1--desk" data-role="sticky-line1"></span><span class="ppls__line1 ppls__line1--mob" data-role="sticky-line1m"></span><span class="ppls__line2row"><span class="ppls__line2" data-role="sticky-line2"></span><span class="ppls__pill" data-role="sticky-pill" hidden></span></span></span>
+                <svg class="ppls__chev" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <ul class="ppls__list" id="ppls-list-{{ uid }}" role="listbox" data-role="sticky-list" hidden></ul>
+            </div>
+            <button type="button" class="ppls__btn" data-role="sticky-btn"><span class="ppls__btn-desk" data-role="sticky-btn-desk"></span><span class="ppls__btn-mob" data-role="sticky-btn-mob"></span></button>
+          </div>
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.one_time_show -%}
+      <input type="radio" class="ptl__input ppl__onetime-input" name="ptl-onetime-{{ uid }}" value="one_time" data-ptl-type="one_time" tabindex="-1" aria-hidden="true">
+      <button type="button" class="ppl__onetime" data-role="onetime"></button>
+    {%- endif -%}
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('.ppl-{{ uid }}');
+      // Two of these blocks can sit on one page (advertorial: middle + bottom). Everything the block
+      // touches outside itself (variant input, Add to Cart button, price event) stays inside its own
+      // product section; the page-wide globals the buy box reads are re-published on this section's click.
+      var scope = (root && (root.closest('.pdl') || root.closest('.shopify-section'))) || document;
+      function q(sel) { return scope.querySelector(sel) || document.querySelector(sel); }
+      function atcButton() { return q('.product-buy-form-pdp button[type="submit"]') || q('.product-buy-form-pdp [name="add"]'); }
+      var published = {};
+      if (scope !== document) scope.__lumPlans = published; // read by lum-analytics for the clicked section
+      function publishGlobals() {
+        if ('pack' in published) window.__lumBundlePack = published.pack;
+        if ('sub' in published) window.__lumResolvedSub = published.sub;
+        if ('gifts' in published) window.__lumPlanGifts = published.gifts;
+        if ('subBy' in published) window.__lumSubByVariant = published.subBy;
+        if ('ctx' in published) setContext();
+      }
+      // On the document, capture phase: this script registers before the theme's analytics and buy box
+      // listeners, so the globals are this section's by the time they read them.
+      document.addEventListener('click', function (e) {
+        var b = e.target && e.target.closest ? e.target.closest('.product-buy-form-pdp button[type="submit"], .product-buy-form-pdp [name="add"]') : null;
+        if (b && scope.contains(b)) publishGlobals();
+      }, true);
+      if (!root || root.__pplBound) return;
+      root.__pplBound = true;
+      var CFG = {}, variants = [], groups = [];
+      try { CFG = JSON.parse(root.querySelector('.ppl-config').textContent) || {}; } catch (e) {}
+      try { variants = JSON.parse(root.querySelector('.ppl-variants').textContent) || []; } catch (e) {}
+      try { groups = JSON.parse(root.querySelector('.ppl-plans').textContent) || []; } catch (e) {}
+      var plansById = {};
+      groups.forEach(function (g) { (g.selling_plans || []).forEach(function (p) { plansById[String(p.id)] = p; }); });
+      var hasPlans = Object.keys(plansById).length > 0;
+
+      function fmt(c) {
+        if (typeof window.Elixir_FormatMoney === 'function') return window.Elixir_FormatMoney(c, CFG.moneyFormat);
+        return String(CFG.moneyFormat || '${{amount}}').replace(/\{\{\s*amount\s*\}\}/, (Math.round(c) / 100).toFixed(2));
+      }
+      function variantById(id) { for (var i = 0; i < variants.length; i++) { if (String(variants[i].id) === String(id)) return variants[i]; } return null; }
+      // Interval in months from the plan's option values / name: "12-week", "4 week", "3 month", "90-Day".
+      // Recharge option values also carry ids ("23338811"), so bare numbers are never used.
+      function intervalMonths(plan) {
+        if (!plan) return null;
+        var hay = '';
+        (plan.options || []).forEach(function (o) { hay += ' ' + (o.value || '') + ' ' + (o.name || ''); });
+        hay += ' ' + (plan.name || '');
+        var m = hay.match(/(\d+)[\s-]*month/i); if (m) return parseInt(m[1], 10);
+        var w = hay.match(/(\d+)[\s-]*week/i); if (w) return Math.max(1, Math.round(parseInt(w[1], 10) / 4));
+        var d = hay.match(/(\d+)[\s-]*day/i); if (d) return Math.max(1, Math.round(parseInt(d[1], 10) / 30));
+        return null;
+      }
+      function planByMonths(months) {
+        var ids = Object.keys(plansById);
+        for (var i = 0; i < ids.length; i++) { if (intervalMonths(plansById[ids[i]]) === months) return plansById[ids[i]]; }
+        return null;
+      }
+      function applyAdjustment(price, plan) {
+        if (!plan || !plan.price_adjustments || !plan.price_adjustments.length) return price;
+        var a = plan.price_adjustments[0];
+        if (a.value_type === 'percentage') return Math.round(price * (1 - (a.value / 100)));
+        if (a.value_type === 'fixed_amount') return Math.max(0, price - a.value);
+        if (a.value_type === 'price') return a.value;
+        return price;
+      }
+      function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
+
+      // Resolve everything a card needs: variant, plan, prices.
+      function resolve(slot) {
+        var s = (CFG.slots || {})[slot]; if (!s) return null;
+        var pack = Math.max(1, parseInt(s.pack, 10) || 1);
+        var v = s.variantId ? variantById(s.variantId) : (variants[pack - 1] || variants[variants.length - 1]);
+        if (!v) return null;
+        var plan = s.planId ? plansById[String(s.planId)] : null;
+        if (!plan) plan = planByMonths(parseInt(s.months, 10) || pack);
+        var months = plan ? (intervalMonths(plan) || parseInt(s.months, 10) || pack) : (parseInt(s.months, 10) || pack);
+        var subTotal = v.price, planId = plan ? plan.id : null;
+        if (plan) {
+          var alloc = (v.selling_plan_allocations || []).filter(function (a) { return String(a.selling_plan_id) === String(plan.id); })[0];
+          subTotal = alloc && typeof alloc.price !== 'undefined' ? alloc.price : applyAdjustment(v.price, plan);
+        }
+        var compareTotal = baseCompare() * pack;
+        var days = parseInt(s.days, 10) || (months * 30);
+        return { slot: slot, variant: v, pack: pack, plan: plan, planId: planId, months: months, subTotal: subTotal,
+                 compareTotal: compareTotal, perMonth: Math.round(subTotal / months), perMonthCompare: Math.round(compareTotal / months),
+                 perDay: Math.round(subTotal / days), savePct: (function () { var base = (CFG.saveBasis === 'compare') ? compareTotal : v.price; return base > subTotal ? Math.round((1 - subTotal / base) * 100) : 0; })(),
+                 billing: s.billing || String(CFG.billingFormat || 'every {weeks} weeks').replace('{weeks}', months * 4).replace('{months}', months),
+                 saveText: s.saveText };
+      }
+      var resolved = {};
+      Object.keys(CFG.slots || {}).forEach(function (slot) { resolved[slot] = resolve(slot); });
+
+      function setText(card, role, text, hide) {
+        var el = card.querySelector('[data-role="' + role + '"]'); if (!el) return;
+        el.textContent = text || ''; if (hide !== undefined) el.hidden = !!hide;
+      }
+      function paintCard(card) {
+        var r = resolved[card.getAttribute('data-slot')]; if (!r) { card.hidden = true; return; }
+        setText(card, 'per-month', fmt(r.perMonth));
+        setText(card, 'per-month-compare', r.perMonthCompare > r.perMonth ? fmt(r.perMonthCompare) : '', r.perMonthCompare <= r.perMonth);
+        setText(card, 'total', fmt(r.subTotal));
+        setText(card, 'total-compare', r.compareTotal > r.subTotal ? fmt(r.compareTotal) : '', r.compareTotal <= r.subTotal);
+        setText(card, 'billing', r.billing);
+        setText(card, 'per-day', String(CFG.perDayFormat || '{price} / DAY').replace('{price}', fmt(r.perDay)));
+        var save = r.saveText || (CFG.saveAuto && r.savePct > 0 ? (CFG.savePrefix || 'Save') + ' ' + r.savePct + '%' : '');
+        r.saveLabel = save;
+        setText(card, 'save', save, !save);
+        card.querySelectorAll('[data-role="pack"]').forEach(function (b) { b.textContent = String(r.pack); });
+      }
+      var cards = Array.prototype.slice.call(root.querySelectorAll('.ppl__card'));
+      cards.forEach(paintCard);
+      // Plan order = order of the cards. (Object keys '90','30' would iterate as 30, 90.)
+      var slotOrder = cards.map(function (c) { return c.getAttribute('data-slot'); }).filter(function (k) { return !!resolved[k]; });
+
+      // Contract with the buy box.
+      function variantInput() {
+        return q('.product-buy-form-pdp input[name="id"]') || q('product-form input[name="id"]')
+            || q('form[action*="/cart/add"] input[name="id"]') || q('input[name="id"]');
+      }
+      // Variant events are dispatched ONLY when the variant really changes and always carry our source tag:
+      // an untagged echo used to re-enter apply() through the listener below and loop forever.
+      var lastVariantId = null;
+      function setVariant(r) {
+        published.pack = window.__lumBundlePack = { variantId: r.variant.id, total: r.pack, paid: r.pack, free: 0 };
+        var input = variantInput();
+        var moved = String(lastVariantId) !== String(r.variant.id);
+        if (input && String(input.value) !== String(r.variant.id)) {
+          moved = true;
+          input.value = r.variant.id; input.setAttribute('value', r.variant.id);
+          if (r.variant.available !== false) input.removeAttribute('disabled');
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        if (!moved) return;
+        lastVariantId = r.variant.id;
+        var detail = { variant: r.variant, source: 'purchase-plans-lum', pack: window.__lumBundlePack };
+        document.dispatchEvent(new CustomEvent('simple-variant-picker:variantChange', { detail: detail }));
+        document.dispatchEvent(new CustomEvent('variant:change', { detail: detail }));
+      }
+      // The theme helper Elixir_SetProductFormSellingPlan always writes into the FIRST product form on the page;
+      // with two blocks on one page each block has to write the plan into its own form.
+      function planInput(create) {
+        var form = q('.product-buy-form-pdp form[action*="/cart/add"]') || q('form[action*="/cart/add"]') || q('.product-buy-form-pdp');
+        if (!form) return null;
+        var inp = form.querySelector('input[name="selling_plan"]');
+        if (!inp && create) { inp = document.createElement('input'); inp.type = 'hidden'; inp.name = 'selling_plan'; form.appendChild(inp); }
+        return inp;
+      }
+      function setPlanInput(value) {
+        var inp = planInput(true); if (!inp) return;
+        var v = value ? String(value) : '';
+        if (inp.value === v && inp.getAttribute('value') === v) return;
+        inp.value = v; inp.setAttribute('value', v);
+        inp.dispatchEvent(new Event('input', { bubbles: true })); inp.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      function setContext() {
+        if (typeof window.Elixir_SetSubscriptionContext !== 'function') return;
+        if (published.ctx) window.Elixir_SetSubscriptionContext.apply(window, published.ctx); else window.Elixir_SetSubscriptionContext();
+      }
+      function applySubscribe(r) {
+        if (!r.planId) return false;
+        setPlanInput(r.planId);
+        published.ctx = [r.planId, r.variant, { id: r.planId, priceAdjustments: [{ value_type: 'price', value: r.subTotal }] }];
+        setContext();
+        return true;
+      }
+      function clearSubscribe() {
+        setPlanInput('');
+        published.ctx = null;
+        setContext();
+      }
+      function emitPrice(price, compare, type) {
+        document.dispatchEvent(new CustomEvent('lum:atc-price', { detail: { price: price, compare: compare, type: type, scope: scope } }));
+      }
+      var subByVariant = {};
+      Object.keys(resolved).forEach(function (k) { var r = resolved[k]; if (r && r.planId) subByVariant[String(r.variant.id)] = r.subTotal; });
+      published.subBy = window.__lumSubByVariant = subByVariant;
+
+      var current = null; // slot currently driving the variant
+      var oneTimeBtn = root.querySelector('[data-role="onetime"]');
+      var oneTimeInput = root.querySelector('.ppl__onetime-input');
+      // What One-Time buys: the pack of the selected plan (default, spec point 4) or always a single pack.
+      function oneTimeTarget(r) {
+        if (CFG.oneTimePack === 'single' && variants[0]) return { variant: variants[0], pack: 1 };
+        return { variant: r.variant, pack: r.pack };
+      }
+      function paintOneTime(r) {
+        if (!oneTimeBtn || !r) return;
+        var t = oneTimeTarget(r);
+        var text = String(CFG.oneTimeText || '{total}').replace('{price}', fmt(Math.round(t.variant.price / t.pack))).replace('{total}', fmt(t.variant.price)).replace('{packs}', String(t.pack));
+        // Shipping note (QA 2026-09-28): a single pack ships paid, 2+ packs ship free, so the note follows the pack.
+        var note = String(CFG.oneTimeShippingText || '').trim(), mode = CFG.oneTimeShippingNote || 'single';
+        if (note && (mode === 'always' || (mode === 'single' && Number(t.pack) === 1))) text += ' ' + note;
+        oneTimeBtn.textContent = text;
+      }
+      function syncSelected() {
+        cards.forEach(function (c) { var i = c.querySelector('.ptl__input'); c.classList.toggle('is-selected', !!(i && i.checked)); });
+
+      }
+      // Gifts for the selected plan: published for the ATC snippet (lumGiftIds), which adds them to the
+      // cart together with the product when a subscription is chosen. $0 variants, qty 1, one-time lines.
+      // Shopify rejects the WHOLE /cart/add when any line is unavailable, so a sold-out gift would block the
+      // purchase itself. Availability of every configured gift is checked up front; unavailable gifts are
+      // neither sent to the cart nor shown in the card.
+      var giftOk = {};
+      function publishGifts(slot) {
+        var ids = [];
+        (CFG.gifts || []).forEach(function (g) {
+          if (!g.variantId || giftOk[String(g.variantId)] === false) return;
+          if (g.plans === 'all' || g.plans === slot) ids.push(Number(g.variantId));
+        });
+        published.gifts = window.__lumPlanGifts = ids;
+      }
+      function checkGifts() {
+        var seen = {};
+        (CFG.gifts || []).forEach(function (g) {
+          var id = String(g.variantId || ''); if (!id || seen[id]) return; seen[id] = true;
+          fetch('/variants/' + id + '.js', { headers: { 'Accept': 'application/json' } })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (v) { giftOk[id] = !!(v && v.available !== false); })
+            .catch(function () { giftOk[id] = false; })
+            .then(function () {
+              root.querySelectorAll('.ppl__gift[data-gift-variant="' + id + '"]').forEach(function (el) { el.hidden = giftOk[id] === false; });
+              if (current) publishGifts(current);
+            });
+        });
+      }
+      function apply() {
+        var r = current ? resolved[current] : null; if (!r) return;
+        publishGifts(current);
+        setVariant(r);
+        paintOneTime(r);
+        var subscribing = hasPlans && !!r.planId;
+        published.sub = window.__lumResolvedSub = r.planId ? { variantId: r.variant.id, planId: r.planId, subPrice: r.subTotal, months: r.months } : null;
+        if (subscribing) applySubscribe(r); else clearSubscribe();
+        emitPrice(subscribing ? r.subTotal : r.variant.price, r.compareTotal, subscribing ? 'subscribe' : 'one_time');
+        paintSticky();
+      }
+      function selectSlot(slot) {
+        current = slot;
+        var input = root.querySelector('.ppl__card[data-slot="' + slot + '"] .ptl__input');
+        if (input && !input.checked) { input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); return; }
+        syncSelected(); apply();
+      }
+      root.addEventListener('change', function (e) {
+        var t = e.target; if (!t.classList || !t.classList.contains('ptl__input')) return;
+        if (instant) return;
+        if (t.value === 'subscribe') current = t.getAttribute('data-slot');
+        syncSelected(); apply();
+      });
+      // One-Time is an ACTION (client decision 2026-09-18): one click adds the currently selected pack to the
+      // cart without a selling plan (so no gifts) and opens the drawer; the plan selection stays as it was.
+      // The ATC snippet reads the form synchronously inside its submit handler, so we drop the plan, click
+      // the real button (keeps its loading state, drawer and analytics), then restore the plan.
+      var instant = false;
+      if (oneTimeBtn) {
+        oneTimeBtn.addEventListener('click', function () {
+          var r = current ? resolved[current] : null; if (!r || instant) return;
+          var btn = atcButton();
+          if (!btn || btn.disabled || btn.getAttribute('aria-disabled') === 'true') return;
+          instant = true;
+          setVariant(oneTimeTarget(r));
+          if (oneTimeInput) { oneTimeInput.checked = true; oneTimeInput.dispatchEvent(new Event('change', { bubbles: true })); } // purchase_type_selected: one_time
+          clearSubscribe();
+          btn.click();
+          var back = root.querySelector('.ppl__card[data-slot="' + current + '"] .ptl__input');
+          if (oneTimeInput) oneTimeInput.checked = false; // separate radio group: reset by hand
+          if (back) back.checked = true; // no change event here: analytics would log it as a plan the shopper picked
+          instant = false;
+          syncSelected(); apply();
+        });
+      }
+      ['variant:change', 'simple-variant-picker:variantChange'].forEach(function (ev) {
+        document.addEventListener(ev, function (e) {
+          if (e && e.detail && e.detail.source === 'purchase-plans-lum') return;
+          var r = current ? resolved[current] : null, input = variantInput();
+          if (!r || !input || String(input.value) === String(r.variant.id)) return; // nothing moved
+          setTimeout(apply, 0); // some other picker moved the variant: re-assert ours
+        });
+      });
+      // ---- Sticky purchase bar: a remote control for the cards above (plan select + the real ATC button) ----
+      var bar = root.querySelector('[data-ppls]');
+      var sticky = null;
+      function stickyFmt(tpl, r) {
+        var s = (CFG.slots || {})[r.slot] || {};
+        return String(tpl || '').replace('{title}', s.title || '').replace('{save}', r.saveLabel || '')
+          .replace('{perday}', fmt(r.perDay)).replace('{permonth}', fmt(r.perMonth)).replace('{total}', fmt(r.subTotal))
+          .replace(/\s*\(\s*\)/, ''); // no empty "()" when there is no save label
+      }
+      function paintSticky() {
+        if (!sticky) return;
+        var r = current ? resolved[current] : null; if (!r) return;
+        var f = CFG.sticky || {};
+        sticky.line1.textContent = stickyFmt(f.option, r);
+        if (sticky.line1m) sticky.line1m.textContent = stickyFmt(f.optionMobile || f.option, r);
+        sticky.line2.textContent = stickyFmt(f.sub, r);
+        sticky.btnDesk.textContent = stickyFmt(f.button, r);
+        sticky.btnMob.textContent = stickyFmt(f.buttonMobile || f.button, r);
+        sticky.pill.textContent = r.saveLabel || ''; sticky.pill.hidden = !r.saveLabel;
+        Array.prototype.forEach.call(sticky.list.children, function (li) {
+          li.setAttribute('aria-selected', li.getAttribute('data-slot') === current ? 'true' : 'false');
+        });
+      }
+      function initSticky() {
+        if (!bar) return;
+        if (window.__pplStickyOwner && window.__pplStickyOwner !== root && document.body.contains(window.__pplStickyOwner)) {
+          if (bar.parentNode) bar.parentNode.removeChild(bar); // one sticky bar per page: the first block owns it
+          bar = null; return;
+        }
+        window.__pplStickyOwner = root;
+        var old = document.getElementById(bar.id);
+        if (old && old !== bar && old.parentNode === document.body) old.parentNode.removeChild(old); // theme editor re-render
+        document.body.appendChild(bar); // fixed positioning must not sit inside transformed/animated ancestors
+        sticky = { line1: bar.querySelector('[data-role="sticky-line1"]'), line1m: bar.querySelector('[data-role="sticky-line1m"]'), line2: bar.querySelector('[data-role="sticky-line2"]'),
+                   btn: bar.querySelector('[data-role="sticky-btn"]'), btnDesk: bar.querySelector('[data-role="sticky-btn-desk"]'), btnMob: bar.querySelector('[data-role="sticky-btn-mob"]'), pill: bar.querySelector('[data-role="sticky-pill"]'), select: bar.querySelector('[data-role="sticky-select"]'),
+                   list: bar.querySelector('[data-role="sticky-list"]') };
+        var f = CFG.sticky || {};
+        slotOrder.forEach(function (slot) {
+          var r = resolved[slot]; if (!r) return;
+          var li = document.createElement('li');
+          li.className = 'ppls__opt'; li.setAttribute('role', 'option'); li.setAttribute('data-slot', slot); li.tabIndex = -1;
+          var l1 = document.createElement('span'); l1.className = 'ppls__line1 ppls__line1--desk'; l1.textContent = stickyFmt(f.option, r);
+          var l1m = document.createElement('span'); l1m.className = 'ppls__line1 ppls__line1--mob'; l1m.textContent = stickyFmt(f.optionMobile || f.option, r);
+          var l2 = document.createElement('span'); l2.className = 'ppls__line2'; l2.textContent = stickyFmt(f.sub, r);
+          li.appendChild(l1); li.appendChild(l1m); li.appendChild(l2); sticky.list.appendChild(li);
+        });
+        function open(v) {
+          sticky.list.hidden = !v; sticky.select.setAttribute('aria-expanded', v ? 'true' : 'false');
+          if (v) { var sel = sticky.list.querySelector('[aria-selected="true"]') || sticky.list.firstElementChild; if (sel) sel.focus(); }
+        }
+        function choose(li) { if (!li) return; open(false); sticky.select.focus(); selectSlot(li.getAttribute('data-slot')); }
+        sticky.select.addEventListener('click', function () { open(sticky.list.hidden); });
+        sticky.list.addEventListener('click', function (e) { choose(e.target.closest('.ppls__opt')); });
+        sticky.list.addEventListener('keydown', function (e) {
+          var li = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.ppls__opt') : null;
+          if (e.key === 'Escape') { open(false); sticky.select.focus(); }
+          else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(li); }
+          else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            var next = li ? (e.key === 'ArrowDown' ? li.nextElementSibling : li.previousElementSibling) : sticky.list.firstElementChild;
+            if (next) next.focus();
+          }
+        });
+        document.addEventListener('click', function (e) { if (!sticky.list.hidden && !bar.contains(e.target)) open(false); });
+        sticky.btn.addEventListener('click', function () {
+          var btn = atcButton();
+          if (btn && !btn.disabled) btn.click();
+        });
+        // Show once the real Add to Cart has scrolled out above the viewport.
+        var target = atcButton() || root;
+        function setVisible(v) { bar.classList.toggle('is-visible', v); bar.setAttribute('aria-hidden', v ? 'false' : 'true'); if (!v) open(false); }
+        // Plain scroll check on purpose: an IntersectionObserver stays silent when the page JUMPS past the button
+        // (anchor links, restored scroll position), because the target never intersects on the way.
+        var ticking = false;
+        function anyAtcOnScreen() {
+          var all = document.querySelectorAll('.product-buy-form-pdp button[type="submit"], .product-buy-form-pdp [name="add"]');
+          for (var i = 0; i < all.length; i++) { var rc = all[i].getBoundingClientRect(); if (rc.bottom > 0 && rc.top < window.innerHeight) return true; }
+          return false;
+        }
+        // 'away' (landing pages): the bar follows the shopper from the top of the page and hides only while a buy box
+        // is on screen. Buy box = its product section from the top down to the Add to Cart button, the tail does not count.
+        function buyBoxOnScreen() {
+          var all = document.querySelectorAll('.product-buy-form-pdp button[type="submit"], .product-buy-form-pdp [name="add"]');
+          for (var i = 0; i < all.length; i++) {
+            var rc = all[i].getBoundingClientRect(); if (!rc.height) continue;
+            var sec = all[i].closest('.pdl') || all[i].closest('.shopify-section') || all[i];
+            if (sec.getBoundingClientRect().top < window.innerHeight && rc.bottom > 0) return true;
+          }
+          return false;
+        }
+        function check() { ticking = false; setVisible(f.mode === 'away' ? !buyBoxOnScreen() : (target.getBoundingClientRect().bottom < 0 && !anyAtcOnScreen())); }
+        function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        check();
+        paintSticky();
+      }
+
+      // The ATC snippet marks its button as loading but keeps accepting clicks, so a double click sends two
+      // /cart/add requests (two subscriptions and two sets of gifts). Swallow clicks while an add is running.
+      function guardAtc() {
+        var btn = atcButton();
+        if (!btn || btn.__pplGuard) return;
+        btn.__pplGuard = true;
+        btn.addEventListener('click', function (e) {
+          if (btn.classList.contains('loading') || btn.getAttribute('aria-disabled') === 'true') { e.preventDefault(); e.stopImmediatePropagation(); }
+        }, true);
+      }
+
+      function init() {
+        guardAtc();
+        var pre = root.getAttribute('data-preselect') || '90';
+        if (resolved[pre]) selectSlot(pre);
+        else { var first = slotOrder[0]; if (first) selectSlot(first); }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(); initSticky(); checkGifts(); }); else { init(); initSticky(); checkGifts(); }
+      [200, 700, 1500].forEach(function (d) { setTimeout(apply, d); });
+      document.addEventListener('shopify:section:load', function () { setTimeout(init, 60); });
+    })();
+  </script>
+{%- elsif request.design_mode -%}
+  <div style="padding:16px;border:1px dashed #ccc;border-radius:8px;color:#666;font:14px sans-serif;text-align:center">Purchase plans: add this on a product page.</div>
+{%- endif -%}

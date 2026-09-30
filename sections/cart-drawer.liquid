@@ -958,6 +958,65 @@
   gift_icon_pixel: gift_icon_pixel
 %}
 
+{%- comment -%}
+LUM GIFT GUARD (this section is on every page): the free welcome gifts (cart lines with the _lum_gift property)
+stay only next to a subscription line of their owner variant, and only one each. The buy box snippet runs a fuller
+watcher on product pages (window.__lumGiftWatch), so this one steps back there; it covers the cart page and the
+drawer on any other page. UI-level backstop; the Shopify Flow rule on orders stays the server-side guard.
+{%- endcomment -%}
+<script>
+(function () {
+  if (window.__lumGiftGuard) return;
+  window.__lumGiftGuard = true;
+  var busy = false;
+  function isGift(i) { return !!(i && i.properties && i.properties._lum_gift); }
+  function fixesFor(cart) {
+    var subs = {};
+    (cart.items || []).forEach(function (i) { if (!isGift(i) && i.selling_plan_allocation) subs[String(i.variant_id)] = true; });
+    var updates = {}, n = 0;
+    (cart.items || []).forEach(function (i) {
+      if (!isGift(i)) return;
+      if (!subs[String(i.properties._lum_gift_owner || '')]) { updates[i.key] = 0; n++; }
+      else if (i.quantity > 1) { updates[i.key] = 1; n++; }
+    });
+    return n ? updates : null;
+  }
+  function refresh(data) {
+    var drawer = document.querySelector('cart-drawer');
+    if (drawer && typeof drawer.renderContents === 'function') { try { drawer.renderContents(data); } catch (e) {} }
+    if (/^\/cart\/?$/.test(location.pathname)) {
+      var last = 0; try { last = Number(sessionStorage.getItem('__lum_gift_reload') || 0); } catch (e) {}
+      if (Date.now() - last > 10000) { try { sessionStorage.setItem('__lum_gift_reload', String(Date.now())); } catch (e) {} location.reload(); }
+    }
+  }
+  function run(cart) {
+    if (busy || window.__lumGiftWatch) return;
+    var read = cart ? Promise.resolve(cart) : fetch('/cart.js', { headers: { Accept: 'application/json' } }).then(function (r) { return r.json(); });
+    read.then(function (c) {
+      var updates = fixesFor(c);
+      if (!updates) return;
+      busy = true;
+      return fetch('/cart/update.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ updates: updates, sections: 'cart-drawer,cart-icon-bubble', sections_url: window.location.pathname }) })
+        .then(function (r) { return r.json(); })
+        .then(function (data) { busy = false; refresh(data); })
+        .catch(function () { busy = false; });
+    }).catch(function () {});
+  }
+  var nativeFetch = window.fetch;
+  window.fetch = function (input) {
+    var url = typeof input === 'string' ? input : (input && input.url) || '';
+    var p = nativeFetch.apply(this, arguments);
+    if (!busy && /\/cart\/(add|change|update)(\.js)?(\?|$)/.test(url)) {
+      p.then(function (res) { var c; try { c = res.clone(); } catch (e) { return; } c.json().then(function (b) { run(b && b.items ? b : null); }).catch(function () { run(null); }); }).catch(function () {});
+    }
+    return p;
+  };
+  {% if cart.item_count > 0 %}
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { run(null); }); else run(null);
+  {% endif %}
+})();
+</script>
+
 {% schema %}
 {
   "name": "Cart Drawer",

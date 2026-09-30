@@ -180,6 +180,8 @@ return variants[0] || null;
 function baseCompare() { var f = variants[0]; return (f && f.compare_at_price) || (f && f.price) || 0; }
 function packTotal(v) { if (window.__lumBundlePack && String(window.__lumBundlePack.variantId) === String(v.id)) return window.__lumBundlePack.total; return 1; }
 var override = null; // {price, compare} pushed by purchase-type-lum via 'lum:atc-price'
+// Price events from a plans block in ANOTHER product section on the same page are not ours.
+function mine(e) { var sc = e && e.detail && e.detail.scope; return !(sc && sc.contains && !sc.contains(root)); }
 function render() {
 renderSticky();
 var v = currentVariant();
@@ -209,7 +211,7 @@ if (perReg && perReg > perSub) { stickyCompareEl.textContent = fmt(perReg); stic
 else { stickyCompareEl.textContent = ''; stickyCompareEl.style.display = 'none'; }
 }
 }
-document.addEventListener('lum:atc-price', function (e) { override = (e && e.detail) || null; render(); });
+document.addEventListener('lum:atc-price', function (e) { if (!mine(e)) return; override = (e && e.detail) || null; render(); });
 ['variant:change', 'simple-variant-picker:variantChange'].forEach(function (ev) {
 document.addEventListener(ev, function () { setTimeout(render, 0); });
 });
@@ -327,6 +329,8 @@ var LUM_SECTIONS = 'cart-drawer,cart-icon-bubble';
 // after_add: 'drawer' (PDP default) opens the cart drawer; 'checkout' (quiz offer slide) goes straight to the checkout.
 var AFTER_ADD = {{ block.settings.after_add | default: 'drawer' | json }};
 function lumGiftIds() {
+// purchase-plans-lum publishes the gift list of the SELECTED plan; when present it replaces the metafield list
+if (Array.isArray(window.__lumPlanGifts)) return window.__lumPlanGifts.map(Number).filter(Boolean);
 var el = root.querySelector('.patc-gift');
 if (!el) return [];
 try {
@@ -365,6 +369,19 @@ body: JSON.stringify({ updates: updates, sections: LUM_SECTIONS, sections_url: w
 }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
 }
 function lumIsGiftLine(i) { return !!(i && i.properties && (i.properties._lum_gift || i.properties['_lum_gift'])); }
+// Gifts stay one each. A repeat add of the same subscription comes back from /cart/add with its gift
+// lines at 2+ (Shopify merges identical lines): put them back to 1 before the drawer opens. Takes the
+// add payload, returns it untouched when nothing is over, otherwise the /cart/update payload.
+function lumCapGifts(data) {
+var updates = {}, n = 0;
+((data && data.items) || []).forEach(function (i) { if (lumIsGiftLine(i) && i.quantity > 1) { updates[i.key] = 1; n++; } });
+if (!n) return Promise.resolve(data);
+return fetch(((window.routes && window.routes.cart_update_url) || '/cart/update') + '.js', {
+method: 'POST',
+headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json' },
+body: JSON.stringify({ updates: updates, sections: LUM_SECTIONS, sections_url: window.location.pathname })
+}).then(function (r) { return r.ok ? r.json() : data; }).catch(function () { return data; });
+}
 // Add gifts if: gifts configured, subscription chosen. Adds every gift in the list that this owner
 // doesn't already have, in ONE /cart/add (Shopify accepts an items array). Each line carries its own
 // _lum_gift_owner. Always qty 1 per gift, always one-time (no selling_plan).
@@ -416,6 +433,7 @@ return o && !ownerPresent[String(o)];
 // Live sync: purchase-type-lum emits 'lum:atc-price' with detail.type on every toggle. Switch to
 // one-time -> pull this product's gift out. Only touches the cart when there is something to remove.
 document.addEventListener('lum:atc-price', function (e) {
+if (!mine(e)) return;
 var type = e && e.detail && e.detail.type;
 if (type === 'one_time') { window.__lumGiftBusy = true; removeSubGift().then(function (data) { if (data) openDrawerWith(data); }).finally(function () { window.__lumGiftBusy = false; }); }
 });
@@ -552,7 +570,7 @@ return;
 }
 // Main + gifts are already in. Only the threshold-gated progress-bar guide may still need adding;
 // open the drawer with its payload if it fired, otherwise with our combined-add payload.
-return ensureFreeGift().then(function (freeData) {
+return lumCapGifts(data).then(function (capped) { data = capped; return ensureFreeGift(); }).then(function (freeData) {
 if (AFTER_ADD === 'checkout') {
 document.dispatchEvent(new CustomEvent('lum:atc-result', { detail: { ok: true, next: 'checkout' } }));
 // Listeners (analytics: checkout intent into the cart, events) hand back promises through
