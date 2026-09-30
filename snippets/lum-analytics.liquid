@@ -444,13 +444,18 @@ roots.forEach(function (r) { io.observe(r); });
   // product_added_to_cart  (PDP + advertorials — mmbsl/mmptl new + bsl/ptl old)
   // =====================================================================
   (function () {
+    // Two buy boxes can sit on one page (advertorial: middle + bottom). Every lookup below starts in the product
+    // section of the clicked button and falls back to the page; the purchase-plans block keeps its state on that section.
+    var ctx = document;
+    function $(sel) { return (ctx !== document && ctx.querySelector(sel)) || document.querySelector(sel); }
+    function plans() { return (ctx !== document && ctx.__lumPlans) || null; }
     function variants() {
-      var node = document.querySelector('.mmbsl-variants') || document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
+      var node = $('.mmbsl-variants') || $('.patc-variants') || $('.bsl-variants');
       try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
     }
 
     function selectedVariant() {
-      var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
+      var input = $('.product-buy-form-pdp input[name="id"]') || $('input[name="id"]');
       var id = input && input.value;
       var vs = variants();
       for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
@@ -458,21 +463,27 @@ roots.forEach(function (r) { io.observe(r); });
     }
 
     function packLabel() {
-      var card = document.querySelector('.mmbsl__card.is-selected') || document.querySelector('.bsl__card.is-selected');
+      var card = $('.mmbsl__card.is-selected') || $('.bsl__card.is-selected');
       if (!card) {
-        var checked = document.querySelector('.mmbsl__input:checked, .bsl__input:checked');
+        var checked = $('.mmbsl__input:checked, .bsl__input:checked');
         card = checked ? checked.closest('.mmbsl__card, .bsl__card') : null;
       }
       var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+      // buy boxes without pack cards (purchase plans) publish the selected pack here
+      if (!n) { var st = plans(); var bp = (st && st.pack) || window.__lumBundlePack; if (bp && bp.total) n = parseInt(bp.total, 10) || 0; }
       if (!n) n = 1;
       return n + (n === 1 ? '-jar' : '-jars');
     }
 
     function purchaseType() {
-      // active subscribe radio (new mmptl / old ptl) or a non-empty selling_plan
-      var checked = document.querySelector('.mmptl__input:checked, .ptl__input:checked');
+      // The buy box form is the truth at click time: every buy box writes its selling_plan there, and the
+      // purchase-plans block keeps its plan radio checked while it adds a one-time line.
+      var form = $('.product-buy-form-pdp input[name="selling_plan"]');
+      if (form) return form.value ? 'subscription' : 'one_time';
+      // pages without the buy box form: active subscribe radio (new mmptl / old ptl) or a non-empty selling_plan
+      var checked = $('.mmptl__input:checked, .ptl__input:checked');
       if (checked && checked.value === 'subscribe') return 'subscription';
-      var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]') || document.querySelector('input[name="selling_plan"]');
+      var sp = $('.product-buy-form-pdp input[name="selling_plan"]') || $('input[name="selling_plan"]');
       if (sp && sp.value) return 'subscription';
       return 'one_time';
     }
@@ -480,7 +491,7 @@ roots.forEach(function (r) { io.observe(r); });
     // subscription_type: new buy-box → interval <select>; old → selling_plan options
     function subscriptionType() {
       // NEW: independent interval select ("Delivery every N month")
-      var sel = document.querySelector('.mmptl__select[data-role="interval-select"], .mmptl__select');
+      var sel = $('.mmptl__select[data-role="interval-select"], .mmptl__select');
       if (sel && sel.value) {
         var chosen = sel.options && sel.selectedIndex > -1 ? sel.options[sel.selectedIndex] : null;
         var hay = (chosen ? chosen.textContent : '') + ' ' + sel.value;
@@ -488,10 +499,10 @@ roots.forEach(function (r) { io.observe(r); });
         if (m) return m[1] + '-month';
       }
       // OLD fallback: selling_plan input + .ptl-plans
-      var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]') || document.querySelector('input[name="selling_plan"]');
+      var sp = $('.product-buy-form-pdp input[name="selling_plan"]') || $('input[name="selling_plan"]');
       var planId = sp && sp.value;
       if (planId) {
-        var node = document.querySelector('.ptl-plans');
+        var node = $('.ptl-plans');
         var groups = [];
         try { groups = node ? JSON.parse(node.textContent) : []; } catch (e) {}
         for (var g = 0; g < groups.length; g++) {
@@ -506,12 +517,15 @@ roots.forEach(function (r) { io.observe(r); });
           }
         }
       }
+      // purchase-plans block: it publishes the resolved plan with its months
+      var pst = plans(); var rs = (pst && ('sub' in pst)) ? pst.sub : window.__lumResolvedSub;
+      if (rs && rs.months) return String(rs.months) + '-month';
       return undefined;
     }
 
     function priceOf(v, isSub) {
       if (isSub && v.selling_plan_allocations && v.selling_plan_allocations.length) {
-        var sp = document.querySelector('input[name="selling_plan"]');
+        var sp = $('input[name="selling_plan"]');
         var pid = sp && sp.value;
         var allocs = v.selling_plan_allocations;
         for (var i = 0; i < allocs.length; i++) {
@@ -546,7 +560,10 @@ roots.forEach(function (r) { io.observe(r); });
     }
 
     document.addEventListener('click', function (e) {
-      if (e.target.closest('[data-atc-button]')) fire();
+      var b = e.target.closest('[data-atc-button]');
+      if (!b) return;
+      ctx = b.closest('.pdl') || b.closest('.shopify-section') || document;
+      try { fire(); } finally { ctx = document; }
     }, true);
   })();
 
@@ -691,30 +708,38 @@ if (PAGE_TYPE === 'cart') fire();
   (function () {
     if (!document.querySelector('.mmptl__input, .ptl__input')) return;
 
+    // Two buy boxes can sit on one page: every lookup starts in the product section of the changed radio and
+    // falls back to the page; the purchase-plans block keeps its state on that section.
+    var ctx = document;
+    function $(sel) { return (ctx !== document && ctx.querySelector(sel)) || document.querySelector(sel); }
+    function plans() { return (ctx !== document && ctx.__lumPlans) || null; }
+
     function variantsOf() {
-      var node = document.querySelector('.mmbsl-variants') || document.querySelector('.patc-variants') || document.querySelector('.bsl-variants');
+      var node = $('.mmbsl-variants') || $('.patc-variants') || $('.bsl-variants');
       try { return JSON.parse(node.textContent) || []; } catch (e) { return []; }
     }
     function selectedVariant(vs) {
-      var input = document.querySelector('.product-buy-form-pdp input[name="id"]') || document.querySelector('input[name="id"]');
+      var input = $('.product-buy-form-pdp input[name="id"]') || $('input[name="id"]');
       var id = input && input.value;
       for (var i = 0; i < vs.length; i++) { if (String(vs[i].id) === String(id)) return vs[i]; }
       return vs[0] || null;
     }
     function packLabel() {
-      var card = document.querySelector('.mmbsl__card.is-selected') || document.querySelector('.bsl__card.is-selected');
+      var card = $('.mmbsl__card.is-selected') || $('.bsl__card.is-selected');
       if (!card) {
-        var checked = document.querySelector('.mmbsl__input:checked, .bsl__input:checked');
+        var checked = $('.mmbsl__input:checked, .bsl__input:checked');
         card = checked ? checked.closest('.mmbsl__card, .bsl__card') : null;
       }
       var n = card ? parseInt(card.getAttribute('data-pack-total'), 10) : 0;
+      // buy boxes without pack cards (purchase plans) publish the selected pack
+      if (!n) { var ps = plans(); var bp = (ps && ps.pack) || window.__lumBundlePack; if (bp && bp.total) n = parseInt(bp.total, 10) || 0; }
       if (!n) n = 1;
       return n + (n === 1 ? '-jar' : '-jars');
     }
     // subscription_type: new buy-box → interval <select>; old → selling_plan options
     function subscriptionType() {
       // NEW: independent interval select ("Delivery every N month")
-      var sel = document.querySelector('.mmptl__select[data-role="interval-select"], .mmptl__select');
+      var sel = $('.mmptl__select[data-role="interval-select"], .mmptl__select');
       if (sel && sel.value) {
         // option text/value usually holds "1 month" / "2 month" / "3 month"
         var chosen = sel.options && sel.selectedIndex > -1 ? sel.options[sel.selectedIndex] : null;
@@ -723,10 +748,10 @@ if (PAGE_TYPE === 'cart') fire();
         if (m) return m[1] + '-month';
       }
       // OLD fallback: read from selling_plan input + .ptl-plans
-      var sp = document.querySelector('.product-buy-form-pdp input[name="selling_plan"]') || document.querySelector('input[name="selling_plan"]');
+      var sp = $('.product-buy-form-pdp input[name="selling_plan"]') || $('input[name="selling_plan"]');
       var planId = sp && sp.value;
       if (planId) {
-        var node = document.querySelector('.ptl-plans');
+        var node = $('.ptl-plans');
         var groups = [];
         try { groups = node ? JSON.parse(node.textContent) : []; } catch (e) {}
         for (var g = 0; g < groups.length; g++) {
@@ -741,6 +766,9 @@ if (PAGE_TYPE === 'cart') fire();
           }
         }
       }
+      // purchase-plans block: the resolved plan carries its months
+      var pst = plans(); var rs = (pst && ('sub' in pst)) ? pst.sub : window.__lumResolvedSub;
+      if (rs && rs.months) return String(rs.months) + '-month';
       return undefined;
     }
 
@@ -748,8 +776,10 @@ if (PAGE_TYPE === 'cart') fire();
       var t = e.target;
       var isPurchaseRadio = t.classList && (t.classList.contains('mmptl__input') || t.classList.contains('ptl__input'));
       if (!isPurchaseRadio) return;
+      var sc = (t.closest && (t.closest('.pdl') || t.closest('.shopify-section'))) || document;
 
       setTimeout(function () {
+        ctx = sc;
         var vs = variantsOf();
         var v = selectedVariant(vs);
         var sku = v ? (v.sku || (vs[0] && vs[0].sku)) : null;
@@ -766,6 +796,7 @@ if (PAGE_TYPE === 'cart') fire();
           if (st) props.subscription_type = st;
         }
         track('purchase_type_selected', props);
+        ctx = document;
       }, 0);
     }, true);
   })();
