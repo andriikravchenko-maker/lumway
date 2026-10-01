@@ -34,6 +34,7 @@
         "placement": {{ section.settings.placement_label | json }},
         "sticky": {{ section.settings.sticky_cta | json }},
         "stickySelector": {{ section.settings.sticky_selector | json }},
+        "stickyAfterFirst": {{ section.settings.sticky_after_first | json }},
         "errorText": {{ section.settings.error_text | json }},
         "productName": {{ ocl_product.title | json }},
         "sku": {{ ocl_sku | json }},
@@ -542,8 +543,13 @@
     // Sticky CTA of the page (the listicle "Sticky Add to Cart" block). Its own script only knows the older landing
     // templates and the product buy box, so with the section setting on this section drives it: the button follows
     // the shopper everywhere except while an offer block is on screen, and a tap scrolls to the nearest offer block.
-    var stickyBar = null, stickyTick = false;
+    var stickyBar = null, stickyTick = false, stickyAfterFirst = true;
     var stickyIo = ('IntersectionObserver' in window) ? new IntersectionObserver(queueSticky, { threshold: 0 }) : null;
+    function firstOnScreen() { // the page's first content section (the hero): its own button must not sit under a sticky bar
+      var hero = document.querySelector('.gut-harmony-benefits'), sec = hero ? (hero.closest('.shopify-section') || hero) : null;
+      if (!sec) { var all = document.querySelectorAll('#MainContent .shopify-section'); for (var i = 0; i < all.length; i++) { if (all[i].offsetHeight > 50) { sec = all[i]; break; } } }
+      return !!sec && sec.getBoundingClientRect().bottom > 0;
+    }
     function offerOnScreen() {
       var roots = document.querySelectorAll('[data-ocl]');
       for (var i = 0; i < roots.length; i++) {
@@ -576,7 +582,7 @@
       if (stickyBar && document.body.contains(stickyBar)) return stickyBar;
       stickyBar = null;
       var roots = document.querySelectorAll('[data-ocl]'), sel = '';
-      for (var i = 0; i < roots.length; i++) { var c = roots[i].__oclCfg; if (c && c.sticky && c.stickySelector) { sel = c.stickySelector; break; } }
+      for (var i = 0; i < roots.length; i++) { var c = roots[i].__oclCfg; if (c && c.sticky && c.stickySelector) { sel = c.stickySelector; stickyAfterFirst = c.stickyAfterFirst !== false; break; } }
       if (!sel) return null;
       var el = null;
       try { el = document.querySelector(sel); } catch (e) {}
@@ -589,7 +595,7 @@
     function updateSticky() {
       stickyTick = false;
       var el = stickyEl();
-      if (el) el.classList.toggle('is-lto-hidden', offerOnScreen() || drawerOpen());
+      if (el) el.classList.toggle('is-lto-hidden', offerOnScreen() || drawerOpen() || (stickyAfterFirst && firstOnScreen()));
     }
     function queueSticky() {
       if (stickyTick) return;
@@ -672,6 +678,7 @@
     { "type": "header", "content": "Sticky button" },
     { "type": "checkbox", "id": "sticky_cta", "label": "Drive the page's sticky button", "default": false, "info": "The page's Sticky Add to Cart block then shows whenever no offer block is on screen, and a tap scrolls to the nearest offer block. Leave off on pages where that block already hides and scrolls on its own." },
     { "type": "text", "id": "sticky_selector", "label": "Sticky element selector", "default": ".listicle-sticky-atc.is-sticky" },
+    { "type": "checkbox", "id": "sticky_after_first", "label": "Wait until the first section is scrolled past", "default": true, "info": "Keeps the button off the first screen, where it would cover the first section's own button." },
 
     { "type": "header", "content": "Gift" },
     { "type": "image_picker", "id": "gift_image", "label": "Gift image" },
