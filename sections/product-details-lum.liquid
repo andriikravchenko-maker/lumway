@@ -1700,6 +1700,7 @@
         { "type": "header", "content": "Sticky purchase bar" },
         { "type": "checkbox", "id": "sticky_show", "label": "Show sticky bar", "default": true, "info": "Appears after the Add to Cart button scrolls out of view. Turn off the old mobile sticky in the Add to cart block." },
         { "type": "select", "id": "sticky_mode", "label": "Sticky bar shows", "default": "after", "options": [ { "value": "after", "label": "After the button is scrolled past" }, { "value": "away", "label": "Whenever no buy box is on screen" } ], "info": "Second option is for landing pages: the bar follows the shopper from the top of the page and hides only while a buy box (from its top down to the Add to Cart button) is on screen." },
+        { "type": "checkbox", "id": "sticky_after_first", "label": "Wait until the first section is scrolled past", "default": true, "info": "Only with \"Whenever no buy box is on screen\". Keeps the bar off the first screen, where it would cover the first section's own button." },
         { "type": "text", "id": "sticky_title", "label": "Bar title", "info": "Empty = product title" },
         { "type": "image_picker", "id": "sticky_image", "label": "Bar image", "info": "Empty = product image" },
         { "type": "text", "id": "sticky_option_format", "label": "Plan line", "default": "{title} ({save})", "info": "{title}, {save}" },
