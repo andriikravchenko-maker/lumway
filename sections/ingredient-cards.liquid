@@ -43,11 +43,8 @@
                   {{
                     block.settings.image
                     | image_url: width: 200
-                    | image_tag:
-                      loading: 'lazy',
-                      class: 'ingredient-card__image',
-                      alt: block.settings.image.alt | default: block.settings.title,
-                      widths: '100, 200, 300'
+                    | image_tag: loading: 'lazy', class: 'ingredient-card__image', alt: block.settings.image.alt
+                    | default: block.settings.title, widths: '100, 200, 300'
                   }}
                 {% else %}
                   <div class="ingredient-card__image ingredient-card__image--placeholder">
@@ -97,230 +94,231 @@
 </section>
 
 {% style %}
-  .ingredient-cards--{{ section.id }} {
-    background: {{ section.settings.section_background | default: '#f9f9f9' }};
-    padding-top: {{ section.settings.padding_top | default: 80 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
-    padding-left: 20px;
-    padding-right: 20px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-cards__container {
-    max-width: {{ section.settings.container_width | default: 1200 }}px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-cards__header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin: 0;
-    gap: 8px;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-cards__heading {
-    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 700;
-    font-size: {{ section.settings.heading_size | default: 40 }}px;
-    line-height: 1.2;
-    letter-spacing: -2px;
-    color: {{ section.settings.heading_color | default: '#000000' }};
-    margin: 0;
-    text-align: center;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-cards__heading-accent {
-    color: {{ section.settings.accent_color | default: '#23a02a' }};
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-cards__subtitle {
-    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 18px;
-    color: #555;
-    margin: 0;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
-    display: grid;
-    grid-template-columns: repeat({{ section.blocks.size | at_most: 4 | at_least: 1 }}, minmax(0, 1fr));
-    gap: 24px;
-    width: 100%;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card {
-    background: {{ section.settings.card_background | default: '#ffffff' }};
-    border: 1px solid {{ section.settings.card_border_color | default: '#c2c2c2' }};
-    border-radius: {{ section.settings.card_border_radius | default: 8 }}px;
-    padding: {{ section.settings.card_padding }}px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    align-items: flex-start;
-    justify-content: flex-start;
-    box-sizing: border-box;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__image-wrap {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    overflow: hidden;
-    flex-shrink: 0;
-    background: #f3f3f3;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 100px;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__image--placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #c2c2c2;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__body {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__title {
-    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 1.2;
-    color: {{ section.settings.title_color | default: '#000000' }};
-    margin: 0;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__badge {
-    background: {{ section.settings.badge_background | default: 'rgba(253, 218, 54, 0.1)' }};
-    padding: 4px 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__badge-text {
-    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.4;
-    letter-spacing: 1px;
-    color: {{ section.settings.badge_text_color | default: '#995e05' }};
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__description {
-    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.4;
-    letter-spacing: -0.2px;
-    color: {{ section.settings.description_color | default: '#000000' }};
-    width: 100%;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__description p {
-    margin: 0 0 8px 0;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__description p:last-child {
-    margin-bottom: 0;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__benefit {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: {{ section.settings.benefit_color | default: '#23a02a' }};
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__benefit-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    transform: rotate(180deg);
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__benefit-icon svg {
-    width: 16px;
-    height: 16px;
-    display: block;
-  }
-
-  .ingredient-cards--{{ section.id }} .ingredient-card__benefit-text {
-    font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 1.4;
-    letter-spacing: -0.2px;
-  }
-
-  @media (max-width: 990px) {
     .ingredient-cards--{{ section.id }} {
-      padding-top: {{ section.settings.padding_top_mobile | default: 56 }}px;
-      padding-bottom: {{ section.settings.padding_bottom_mobile | default: 56 }}px;
-    }
-
-    .ingredient-cards--{{ section.id }} .ingredient-cards__heading {
-      font-size: {{ section.settings.heading_size_mobile | default: 28 }}px;
-      letter-spacing: -1px;
+      background: {{ section.settings.section_background | default: '#f9f9f9' }};
+      padding-top: {{ section.settings.padding_top | default: 80 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+      padding-left: 20px;
+      padding-right: 20px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     .ingredient-cards--{{ section.id }} .ingredient-cards__container {
-      gap: 28px;
+      max-width: {{ section.settings.container_width | default: 1200 }}px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: 0;
+      gap: 8px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__heading {
+      font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 700;
+      font-size: {{ section.settings.heading_size | default: 40 }}px;
+      line-height: 1.2;
+      letter-spacing: -2px;
+      color: {{ section.settings.heading_color | default: '#000000' }};
+      margin: 0;
+      text-align: center;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__heading-accent {
+      color: {{ section.settings.accent_color | default: '#23a02a' }};
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-cards__subtitle {
+      font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 18px;
+      color: #555;
+      margin: 0;
     }
 
     .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: repeat({{ section.blocks.size | at_most: 4 | at_least: 1 }}, minmax(0, 1fr));
+      gap: 24px;
+      width: 100%;
     }
 
     .ingredient-cards--{{ section.id }} .ingredient-card {
-      padding: {{ section.settings.card_padding_mobile }}px;
-      gap: 16px;
+      background: {{ section.settings.card_background | default: '#ffffff' }};
+      border: 1px solid {{ section.settings.card_border_color | default: '#c2c2c2' }};
+      border-radius: {{ section.settings.card_border_radius | default: 8 }}px;
+      padding: {{ section.settings.card_padding }}px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: flex-start;
+      box-sizing: border-box;
     }
 
-    .ingredient-cards--{{ section.id }} .ingredient-card__image-wrap,
+    .ingredient-cards--{{ section.id }} .ingredient-card__image-wrap {
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #f3f3f3;
+    }
+
     .ingredient-cards--{{ section.id }} .ingredient-card__image {
-      width: 80px;
-      height: 80px;
-      border-radius: 80px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 100px;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__image--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c2c2c2;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
     }
 
     .ingredient-cards--{{ section.id }} .ingredient-card__title {
-      font-size: 20px;
+      font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 1.2;
+      color: {{ section.settings.title_color | default: '#000000' }};
+      margin: 0;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__badge {
+    background: {{ section.settings.badge_background | default: 'rgba(253, 218, 54, 0.1)' }};
+    padding: 4px 8px;
+    border-radius: {{ section.settings.badge_border_radius }}px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__badge-text {
+      font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.4;
+      letter-spacing: 1px;
+      color: {{ section.settings.badge_text_color | default: '#995e05' }};
     }
 
     .ingredient-cards--{{ section.id }} .ingredient-card__description {
-      font-size: 16px;
+      font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.4;
+      letter-spacing: -0.2px;
+      color: {{ section.settings.description_color | default: '#000000' }};
+      width: 100%;
     }
-  }
 
-  @media (min-width: 991px) and (max-width: 1199px) {
-    .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
-      grid-template-columns: repeat({{ section.blocks.size | at_most: 3 | at_least: 1 }}, minmax(0, 1fr));
+    .ingredient-cards--{{ section.id }} .ingredient-card__description p {
+      margin: 0 0 8px 0;
     }
 
-    
-  }
+    .ingredient-cards--{{ section.id }} .ingredient-card__description p:last-child {
+      margin-bottom: 0;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__benefit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: {{ section.settings.benefit_color | default: '#23a02a' }};
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__benefit-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      transform: rotate(180deg);
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__benefit-icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .ingredient-cards--{{ section.id }} .ingredient-card__benefit-text {
+      font-family: 'Bricolage Grotesque', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.4;
+      letter-spacing: -0.2px;
+    }
+
+    @media (max-width: 990px) {
+      .ingredient-cards--{{ section.id }} {
+        padding-top: {{ section.settings.padding_top_mobile | default: 56 }}px;
+        padding-bottom: {{ section.settings.padding_bottom_mobile | default: 56 }}px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-cards__heading {
+        font-size: {{ section.settings.heading_size_mobile | default: 28 }}px;
+        letter-spacing: -1px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-cards__container {
+        gap: 28px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-card {
+        padding: {{ section.settings.card_padding_mobile }}px;
+        gap: 16px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-card__image-wrap,
+      .ingredient-cards--{{ section.id }} .ingredient-card__image {
+        width: 80px;
+        height: 80px;
+        border-radius: 80px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-card__title {
+        font-size: 20px;
+      }
+
+      .ingredient-cards--{{ section.id }} .ingredient-card__description {
+        font-size: 16px;
+      }
+    }
+
+    @media (min-width: 991px) and (max-width: 1199px) {
+      .ingredient-cards--{{ section.id }} .ingredient-cards__grid {
+        grid-template-columns: repeat({{ section.blocks.size | at_most: 3 | at_least: 1 }}, minmax(0, 1fr));
+      }
+
+
+    }
 {% endstyle %}
 
 {% schema %}
@@ -387,25 +385,25 @@
       "content": "Card styling"
     },
     {
-  "type": "range",
-  "id": "card_padding",
-  "min": 0,
-  "max": 60,
-  "step": 1,
-  "unit": "px",
-  "label": "Card padding — desktop",
-  "default": 33
-},
-{
-  "type": "range",
-  "id": "card_padding_mobile",
-  "min": 0,
-  "max": 60,
-  "step": 1,
-  "unit": "px",
-  "label": "Card padding — mobile",
-  "default": 24
-},
+      "type": "range",
+      "id": "card_padding",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Card padding — desktop",
+      "default": 33
+    },
+    {
+      "type": "range",
+      "id": "card_padding_mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Card padding — mobile",
+      "default": 24
+    },
     {
       "type": "color",
       "id": "card_background",
@@ -443,6 +441,16 @@
     {
       "type": "header",
       "content": "Badge"
+    },
+    {
+      "type": "range",
+      "id": "badge_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Badge corner radius",
+      "default": 4
     },
     {
       "type": "color",
