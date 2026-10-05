@@ -145,7 +145,21 @@
         {%- endif -%}
         {%- case block.type -%}
           {%- when 'rating' -%}
-            <div class="pdl-rating" {{ block.shopify_attributes }}>
+           <div
+
+  class="pdl-rating"
+
+  style="
+
+    --pdl-rating-star-color: {{ block.settings.star_color }};
+
+    --pdl-rating-text-color: {{ block.settings.text_color }};
+
+  "
+
+  {{ block.shopify_attributes }}
+
+>
               {%- if block.settings.stars > 0 -%}
                 <span class="pdl-rating__stars" aria-hidden="true">
                   {%- for i in (1..block.settings.stars) -%}
