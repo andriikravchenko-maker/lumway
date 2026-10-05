@@ -389,7 +389,7 @@
             "image_bg": "#ffffff",
             "heading": "Thousands of customers also buy",
             "heading_color": "#111111",
-            "card_bg": "#f4f4f2",
+            "card_bg": "#F9F9F9",
             "show_compare": true,
             "save_auto": true,
             "save_prefix": "Save",
