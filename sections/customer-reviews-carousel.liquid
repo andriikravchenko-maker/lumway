@@ -529,11 +529,11 @@
         {{- section.settings.accent_text -}}
       </span>
     </h2>
-    {% if section.settings.show_description %}
-      <p class="reviews-description">
-        {{ section.settings.description_text }}
-      </p>
-    {% endif %}
+    {% if section.settings.show_description and section.settings.description_text != blank %}
+  <p class="reviews-description">
+    {{ section.settings.description_text }}
+  </p>
+{% endif %}
   </div>
 
   <div
