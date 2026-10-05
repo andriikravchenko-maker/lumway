@@ -121,7 +121,7 @@
                         .section-{{ section.id }} .pdl-subtitle p,
                         .section-{{ section.id }} .pdl-chip__text{ font-family:var(--pdl-font) !important; }
 
-                       
+
 
 
                         @media (min-width:990px){
@@ -145,21 +145,17 @@
         {%- endif -%}
         {%- case block.type -%}
           {%- when 'rating' -%}
-           <div
+            <div
+              class="pdl-rating"
 
-  class="pdl-rating"
+              style="
+                --pdl-rating-star-color: {{ block.settings.star_color }};
 
-  style="
+                --pdl-rating-text-color: {{ block.settings.text_color }};
+              "
 
-    --pdl-rating-star-color: {{ block.settings.star_color }};
-
-    --pdl-rating-text-color: {{ block.settings.text_color }};
-
-  "
-
-  {{ block.shopify_attributes }}
-
->
+              {{ block.shopify_attributes }}
+            >
               {%- if block.settings.stars > 0 -%}
                 <span class="pdl-rating__stars" aria-hidden="true">
                   {%- for i in (1..block.settings.stars) -%}
@@ -215,22 +211,18 @@
 
           {%- when 'labels' -%}
             <ul
+              class="pdl-labels"
 
-  class="pdl-labels"
+              style="
+                --pdl-chip-bg: {{ block.settings.background_color }};
 
-  style="
+                --pdl-chip-text: {{ block.settings.text_color }};
 
-    --pdl-chip-bg: {{ block.settings.background_color }};
+                --pdl-chip-icon: {{ block.settings.icon_color }};
+              "
 
-    --pdl-chip-text: {{ block.settings.text_color }};
-
-    --pdl-chip-icon: {{ block.settings.icon_color }};
-
-  "
-
-  {{ block.shopify_attributes }}
-
->
+              {{ block.shopify_attributes }}
+            >
               {%- for i in (1..6) -%}
                 {%- assign sk = 'chip_' | append: i | append: '_show' -%}
                 {%- assign tk = 'chip_' | append: i | append: '_text' -%}
@@ -272,12 +264,12 @@
           {%- when 'info_cards' -%}
             {%- render 'info-cards-lum', block: block -%}
 
-          {% comment %}
-          {% render 'subscription-welcome-gifts',
-                  product: product,
-                  block: block
-          %}
-        {% endcomment %}
+            {% comment %}
+              {% render 'subscription-welcome-gifts',
+                      product: product,
+                      block: block
+              %}
+            {% endcomment %}
 
           {%- when 'cross_sell' -%}
             {%- render 'pdl-cross-sell', block: block -%}
@@ -464,24 +456,23 @@
           "default": 5
         },
         {
-  "type": "text",
-  "id": "text",
-  "label": "Text",
-  "default": "2k+ happy verified customers"
-},
-{
-  "type": "color",
-  "id": "star_color",
-  "label": "Star color",
-  "default": "#FAD356"
-},
-{
-  "type": "color",
-  "id": "text_color",
-  "label": "Text color",
-  "default": "#111111"
-},
-        
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "2k+ happy verified customers"
+        },
+        {
+          "type": "color",
+          "id": "star_color",
+          "label": "Star color",
+          "default": "#FAD356"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#111111"
+        }
       ]
     },
     {
@@ -669,31 +660,31 @@
       "limit": 1,
       "settings": [
         {
-  "type": "header",
-  "content": "Colors"
-},
-{
-  "type": "color",
-  "id": "background_color",
-  "label": "Background color",
-  "default": "#F9F9F9"
-},
-{
-  "type": "color",
-  "id": "text_color",
-  "label": "Text color",
-  "default": "#111111"
-},
-{
-  "type": "color",
-  "id": "icon_color",
-  "label": "Icon color",
-  "default": "#111111"
-},
-{
-  "type": "header",
-  "content": "Chips"
-},
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#F9F9F9"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#111111"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#111111"
+        },
+        {
+          "type": "header",
+          "content": "Chips"
+        },
         {
           "type": "checkbox",
           "id": "chip_1_show",
@@ -1686,97 +1677,416 @@
       "name": "Purchase plans (v2)",
       "limit": 1,
       "settings": [
-        { "type": "paragraph", "content": "Plan cards: each card is one selling plan on one pack (variant). Plans are matched by ID; leave the ID empty to fall back to the plan whose interval equals the card's months." },
+        {
+          "type": "paragraph",
+          "content": "Plan cards: each card is one selling plan on one pack (variant). Plans are matched by ID; leave the ID empty to fall back to the plan whose interval equals the card's months."
+        },
         { "type": "text", "id": "heading", "label": "Heading", "default": "Subscribe & save" },
-        { "type": "select", "id": "preselect", "label": "Preselected option", "default": "90", "options": [ { "value": "90", "label": "First plan (90-Day)" }, { "value": "30", "label": "Second plan (30-Day)" } ] },
-        { "type": "select", "id": "details_mode", "label": "Show features and gifts in", "default": "selected", "options": [ { "value": "selected", "label": "Selected card only" }, { "value": "best", "label": "Best value card only" }, { "value": "all", "label": "All cards" } ] },
+        {
+          "type": "select",
+          "id": "preselect",
+          "label": "Preselected option",
+          "default": "90",
+          "options": [
+            { "value": "90", "label": "First plan (90-Day)" },
+            { "value": "30", "label": "Second plan (30-Day)" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "details_mode",
+          "label": "Show features and gifts in",
+          "default": "selected",
+          "options": [
+            { "value": "selected", "label": "Selected card only" },
+            { "value": "best", "label": "Best value card only" },
+            { "value": "all", "label": "All cards" }
+          ]
+        },
         { "type": "header", "content": "Plan 1 (90-Day)" },
         { "type": "text", "id": "p90_title", "label": "Title", "default": "90-Day Gut Reset" },
-        { "type": "text", "id": "p90_plan_id", "label": "Selling plan ID", "info": "Recharge / Shopify selling plan ID. Empty = plan whose interval equals Months." },
-        { "type": "range", "id": "p90_pack", "label": "Pack (jars = variant position)", "min": 1, "max": 6, "step": 1, "default": 3 },
-        { "type": "text", "id": "p90_variant_id", "label": "Variant ID override", "info": "Optional. Overrides the pack position." },
-        { "type": "range", "id": "p90_months", "label": "Months per delivery", "min": 1, "max": 12, "step": 1, "default": 3 },
+        {
+          "type": "text",
+          "id": "p90_plan_id",
+          "label": "Selling plan ID",
+          "info": "Recharge / Shopify selling plan ID. Empty = plan whose interval equals Months."
+        },
+        {
+          "type": "range",
+          "id": "p90_pack",
+          "label": "Pack (jars = variant position)",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "p90_variant_id",
+          "label": "Variant ID override",
+          "info": "Optional. Overrides the pack position."
+        },
+        {
+          "type": "range",
+          "id": "p90_months",
+          "label": "Months per delivery",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 3
+        },
         { "type": "number", "id": "p90_days", "label": "Days in the plan (for the per-day price)", "default": 90 },
-        { "type": "text", "id": "p90_billing", "label": "Billing cycle text", "info": "Empty = auto from Billing format below." },
+        {
+          "type": "text",
+          "id": "p90_billing",
+          "label": "Billing cycle text",
+          "info": "Empty = auto from Billing format below."
+        },
         { "type": "text", "id": "p90_save_text", "label": "Save badge override", "info": "Empty = auto Save NN%" },
         { "type": "header", "content": "Plan 2 (30-Day)" },
         { "type": "text", "id": "p30_title", "label": "Title", "default": "30-Day Gut Reset" },
         { "type": "text", "id": "p30_plan_id", "label": "Selling plan ID" },
-        { "type": "range", "id": "p30_pack", "label": "Pack (jars = variant position)", "min": 1, "max": 6, "step": 1, "default": 1 },
+        {
+          "type": "range",
+          "id": "p30_pack",
+          "label": "Pack (jars = variant position)",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 1
+        },
         { "type": "text", "id": "p30_variant_id", "label": "Variant ID override" },
-        { "type": "range", "id": "p30_months", "label": "Months per delivery", "min": 1, "max": 12, "step": 1, "default": 1 },
+        {
+          "type": "range",
+          "id": "p30_months",
+          "label": "Months per delivery",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 1
+        },
         { "type": "number", "id": "p30_days", "label": "Days in the plan (for the per-day price)", "default": 30 },
         { "type": "text", "id": "p30_billing", "label": "Billing cycle text" },
         { "type": "text", "id": "p30_save_text", "label": "Save badge override" },
         { "type": "header", "content": "Price texts" },
         { "type": "text", "id": "per_month_suffix", "label": "Per-month suffix", "default": "/mo" },
         { "type": "text", "id": "per_day_format", "label": "Per-day format", "default": "{price} / DAY" },
-        { "type": "text", "id": "billing_format", "label": "Billing format", "default": "every {weeks} weeks", "info": "Placeholders: {weeks}, {months}" },
+        {
+          "type": "text",
+          "id": "billing_format",
+          "label": "Billing format",
+          "default": "every {weeks} weeks",
+          "info": "Placeholders: {weeks}, {months}"
+        },
         { "type": "checkbox", "id": "save_auto", "label": "Auto Save % badge", "default": true },
-        { "type": "select", "id": "save_basis", "label": "Auto Save % is measured against", "default": "one_time", "options": [ { "value": "one_time", "label": "One-time price of the same pack" }, { "value": "compare", "label": "Compare-at price x jars" } ] },
+        {
+          "type": "select",
+          "id": "save_basis",
+          "label": "Auto Save % is measured against",
+          "default": "one_time",
+          "options": [
+            { "value": "one_time", "label": "One-time price of the same pack" },
+            { "value": "compare", "label": "Compare-at price x jars" }
+          ]
+        },
         { "type": "text", "id": "save_prefix", "label": "Save badge prefix", "default": "Save" },
-        { "type": "select", "id": "best_value_plan", "label": "Best value badge on", "default": "90", "options": [ { "value": "90", "label": "Plan 1" }, { "value": "30", "label": "Plan 2" }, { "value": "none", "label": "None" } ] },
+        {
+          "type": "select",
+          "id": "best_value_plan",
+          "label": "Best value badge on",
+          "default": "90",
+          "options": [
+            { "value": "90", "label": "Plan 1" },
+            { "value": "30", "label": "Plan 2" },
+            { "value": "none", "label": "None" }
+          ]
+        },
         { "type": "text", "id": "best_value_text", "label": "Best value badge text", "default": "BEST VALUE" },
         { "type": "header", "content": "Features" },
-        { "type": "checkbox", "id": "benefits_show", "label": "Show features", "default": true, "info": "Order as in the design: the list fills the left column top to bottom, then the right column." },
+        {
+          "type": "checkbox",
+          "id": "benefits_show",
+          "label": "Show features",
+          "default": true,
+          "info": "Order as in the design: the list fills the left column top to bottom, then the right column."
+        },
         { "type": "checkbox", "id": "benefit_1_show", "label": "Feature 1", "default": true },
         { "type": "text", "id": "benefit_1_text", "label": "Feature 1 text", "default": "Craving Control Guide" },
-        { "type": "select", "id": "benefit_1_plans", "label": "Feature 1 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "select",
+          "id": "benefit_1_plans",
+          "label": "Feature 1 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "checkbox", "id": "benefit_2_show", "label": "Feature 2", "default": true },
         { "type": "text", "id": "benefit_2_text", "label": "Feature 2 text", "default": "Gut Health Tracker" },
-        { "type": "select", "id": "benefit_2_plans", "label": "Feature 2 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "select",
+          "id": "benefit_2_plans",
+          "label": "Feature 2 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "checkbox", "id": "benefit_3_show", "label": "Feature 3", "default": true },
-        { "type": "text", "id": "benefit_3_text", "label": "Feature 3 text", "default": "Gut Harmony Gummies x1 pack", "info": "The gift jar of the 90-day plan. {pack} = jars in the pack, if needed." },
-        { "type": "select", "id": "benefit_3_plans", "label": "Feature 3 shows in", "default": "90", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "text",
+          "id": "benefit_3_text",
+          "label": "Feature 3 text",
+          "default": "Gut Harmony Gummies x1 pack",
+          "info": "The gift jar of the 90-day plan. {pack} = jars in the pack, if needed."
+        },
+        {
+          "type": "select",
+          "id": "benefit_3_plans",
+          "label": "Feature 3 shows in",
+          "default": "90",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "checkbox", "id": "benefit_4_show", "label": "Feature 4", "default": true },
         { "type": "text", "id": "benefit_4_text", "label": "Feature 4 text", "default": "Cancel or pause anytime" },
-        { "type": "select", "id": "benefit_4_plans", "label": "Feature 4 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "select",
+          "id": "benefit_4_plans",
+          "label": "Feature 4 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "checkbox", "id": "benefit_5_show", "label": "Feature 5", "default": true },
-        { "type": "text", "id": "benefit_5_text", "label": "Feature 5 text", "default": "Maximum savings + Free Shipping" },
-        { "type": "select", "id": "benefit_5_plans", "label": "Feature 5 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "text",
+          "id": "benefit_5_text",
+          "label": "Feature 5 text",
+          "default": "Maximum savings + Free Shipping"
+        },
+        {
+          "type": "select",
+          "id": "benefit_5_plans",
+          "label": "Feature 5 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "checkbox", "id": "benefit_6_show", "label": "Feature 6", "default": true },
         { "type": "text", "id": "benefit_6_text", "label": "Feature 6 text", "default": "30-Day Money-Back Guarantee" },
-        { "type": "select", "id": "benefit_6_plans", "label": "Feature 6 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "select",
+          "id": "benefit_6_plans",
+          "label": "Feature 6 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "header", "content": "Welcome gifts" },
         { "type": "checkbox", "id": "gifts_show", "label": "Show welcome gifts", "default": true },
-        { "type": "select", "id": "gifts_plans", "label": "Gifts show in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
-        { "type": "text", "id": "gifts_heading", "label": "Gifts heading", "default": "Free Welcome Gifts – Start To Feel The Difference" },
+        {
+          "type": "select",
+          "id": "gifts_plans",
+          "label": "Gifts show in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "gifts_heading",
+          "label": "Gifts heading",
+          "default": "Free Welcome Gifts – Start To Feel The Difference"
+        },
         { "type": "text", "id": "gift_free_text", "label": "Free label (mobile badge)", "default": "Free" },
         { "type": "image_picker", "id": "gift_1_image", "label": "Gift 1 image" },
         { "type": "text", "id": "gift_1_title", "label": "Gift 1 title", "default": "Craving Control Guide" },
-        { "type": "text", "id": "gift_1_text", "label": "Gift 1 text", "default": "7-day plan to break the sugar loop" },
+        {
+          "type": "text",
+          "id": "gift_1_text",
+          "label": "Gift 1 text",
+          "default": "7-day plan to break the sugar loop"
+        },
         { "type": "text", "id": "gift_1_price", "label": "Gift 1 value", "default": "$25.00" },
-        { "type": "text", "id": "gift_1_variant_id", "label": "Gift 1 variant ID", "info": "$0 variant added to the cart with the subscription. Empty = shown only, not added." },
-        { "type": "select", "id": "gift_1_plans", "label": "Gift 1 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "text",
+          "id": "gift_1_variant_id",
+          "label": "Gift 1 variant ID",
+          "info": "$0 variant added to the cart with the subscription. Empty = shown only, not added."
+        },
+        {
+          "type": "select",
+          "id": "gift_1_plans",
+          "label": "Gift 1 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "image_picker", "id": "gift_2_image", "label": "Gift 2 image" },
         { "type": "text", "id": "gift_2_title", "label": "Gift 2 title", "default": "Gut Health Tracker" },
         { "type": "text", "id": "gift_2_text", "label": "Gift 2 text", "default": "Track your gut progress" },
         { "type": "text", "id": "gift_2_price", "label": "Gift 2 value", "default": "$25.00" },
-        { "type": "text", "id": "gift_2_variant_id", "label": "Gift 2 variant ID", "info": "$0 variant added to the cart with the subscription. Empty = shown only, not added." },
-        { "type": "select", "id": "gift_2_plans", "label": "Gift 2 shows in", "default": "all", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "text",
+          "id": "gift_2_variant_id",
+          "label": "Gift 2 variant ID",
+          "info": "$0 variant added to the cart with the subscription. Empty = shown only, not added."
+        },
+        {
+          "type": "select",
+          "id": "gift_2_plans",
+          "label": "Gift 2 shows in",
+          "default": "all",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "image_picker", "id": "gift_3_image", "label": "Gift 3 image" },
         { "type": "text", "id": "gift_3_title", "label": "Gift 3 title" },
         { "type": "text", "id": "gift_3_text", "label": "Gift 3 text" },
         { "type": "text", "id": "gift_3_price", "label": "Gift 3 value" },
-        { "type": "text", "id": "gift_3_variant_id", "label": "Gift 3 variant ID", "info": "$0 variant added to the cart with the subscription. Empty = shown only, not added." },
-        { "type": "select", "id": "gift_3_plans", "label": "Gift 3 shows in", "default": "90", "options": [ { "value": "all", "label": "Both plans" }, { "value": "90", "label": "Plan 1 only" }, { "value": "30", "label": "Plan 2 only" } ] },
+        {
+          "type": "text",
+          "id": "gift_3_variant_id",
+          "label": "Gift 3 variant ID",
+          "info": "$0 variant added to the cart with the subscription. Empty = shown only, not added."
+        },
+        {
+          "type": "select",
+          "id": "gift_3_plans",
+          "label": "Gift 3 shows in",
+          "default": "90",
+          "options": [
+            { "value": "all", "label": "Both plans" },
+            { "value": "90", "label": "Plan 1 only" },
+            { "value": "30", "label": "Plan 2 only" }
+          ]
+        },
         { "type": "header", "content": "One-time purchase" },
-        { "type": "checkbox", "id": "one_time_show", "label": "Show one-time purchase link", "default": true, "info": "One click adds the selected pack to the cart without a subscription." },
-        { "type": "select", "id": "one_time_pack", "label": "One-time purchase adds", "default": "selected", "options": [ { "value": "selected", "label": "Pack of the selected plan" }, { "value": "single", "label": "Always a single pack" } ] },
-        { "type": "text", "id": "one_time_text", "label": "One-time link text", "default": "One Time Purchase {total}", "info": "{total} = price of the pack, {price} = price per pack, {packs} = number of packs. The shipping note comes from the two settings below." },
+        {
+          "type": "checkbox",
+          "id": "one_time_show",
+          "label": "Show one-time purchase link",
+          "default": true,
+          "info": "One click adds the selected pack to the cart without a subscription."
+        },
+        {
+          "type": "select",
+          "id": "one_time_pack",
+          "label": "One-time purchase adds",
+          "default": "selected",
+          "options": [
+            { "value": "selected", "label": "Pack of the selected plan" },
+            { "value": "single", "label": "Always a single pack" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "one_time_text",
+          "label": "One-time link text",
+          "default": "One Time Purchase {total}",
+          "info": "{total} = price of the pack, {price} = price per pack, {packs} = number of packs. The shipping note comes from the two settings below."
+        },
         { "type": "text", "id": "one_time_shipping_text", "label": "One-time shipping note", "default": "+ Shipping" },
-        { "type": "select", "id": "one_time_shipping_note", "label": "Shipping note shows", "default": "single", "options": [ { "value": "single", "label": "Single pack only (2+ packs ship free)" }, { "value": "always", "label": "Always" }, { "value": "never", "label": "Never" } ] },
+        {
+          "type": "select",
+          "id": "one_time_shipping_note",
+          "label": "Shipping note shows",
+          "default": "single",
+          "options": [
+            { "value": "single", "label": "Single pack only (2+ packs ship free)" },
+            { "value": "always", "label": "Always" },
+            { "value": "never", "label": "Never" }
+          ]
+        },
         { "type": "header", "content": "Sticky purchase bar" },
-        { "type": "checkbox", "id": "sticky_show", "label": "Show sticky bar", "default": true, "info": "Appears after the Add to Cart button scrolls out of view. Turn off the old mobile sticky in the Add to cart block." },
-        { "type": "select", "id": "sticky_mode", "label": "Sticky bar shows", "default": "after", "options": [ { "value": "after", "label": "After the button is scrolled past" }, { "value": "away", "label": "Whenever no buy box is on screen" } ], "info": "Second option is for landing pages: the bar follows the shopper from the top of the page and hides only while a buy box (from its top down to the Add to Cart button) is on screen." },
-        { "type": "checkbox", "id": "sticky_after_first", "label": "Wait until the first section is scrolled past", "default": true, "info": "Only with \"Whenever no buy box is on screen\". Keeps the bar off the first screen, where it would cover the first section's own button." },
+        {
+          "type": "checkbox",
+          "id": "sticky_show",
+          "label": "Show sticky bar",
+          "default": true,
+          "info": "Appears after the Add to Cart button scrolls out of view. Turn off the old mobile sticky in the Add to cart block."
+        },
+        {
+          "type": "select",
+          "id": "sticky_mode",
+          "label": "Sticky bar shows",
+          "default": "after",
+          "options": [
+            { "value": "after", "label": "After the button is scrolled past" },
+            { "value": "away", "label": "Whenever no buy box is on screen" }
+          ],
+          "info": "Second option is for landing pages: the bar follows the shopper from the top of the page and hides only while a buy box (from its top down to the Add to Cart button) is on screen."
+        },
+        {
+          "type": "checkbox",
+          "id": "sticky_after_first",
+          "label": "Wait until the first section is scrolled past",
+          "default": true,
+          "info": "Only with \"Whenever no buy box is on screen\". Keeps the bar off the first screen, where it would cover the first section's own button."
+        },
         { "type": "text", "id": "sticky_title", "label": "Bar title", "info": "Empty = product title" },
         { "type": "image_picker", "id": "sticky_image", "label": "Bar image", "info": "Empty = product image" },
-        { "type": "text", "id": "sticky_option_format", "label": "Plan line", "default": "{title} ({save})", "info": "{title}, {save}" },
-        { "type": "text", "id": "sticky_option_format_mobile", "label": "Plan line (mobile)", "default": "{title}", "info": "{title}, {save}" },
-        { "type": "text", "id": "sticky_sub_format", "label": "Price line", "default": "{perday} / serving", "info": "{perday}, {permonth}, {total}" },
-        { "type": "text", "id": "sticky_button_format", "label": "Button text", "default": "ADD TO CART - {permonth}/MO", "info": "{permonth}, {perday}, {total}" },
-        { "type": "text", "id": "sticky_button_format_mobile", "label": "Button text (mobile)", "default": "ADD", "info": "{permonth}, {perday}, {total}" },
+        {
+          "type": "text",
+          "id": "sticky_option_format",
+          "label": "Plan line",
+          "default": "{title} ({save})",
+          "info": "{title}, {save}"
+        },
+        {
+          "type": "text",
+          "id": "sticky_option_format_mobile",
+          "label": "Plan line (mobile)",
+          "default": "{title}",
+          "info": "{title}, {save}"
+        },
+        {
+          "type": "text",
+          "id": "sticky_sub_format",
+          "label": "Price line",
+          "default": "{perday} / serving",
+          "info": "{perday}, {permonth}, {total}"
+        },
+        {
+          "type": "text",
+          "id": "sticky_button_format",
+          "label": "Button text",
+          "default": "ADD TO CART - {permonth}/MO",
+          "info": "{permonth}, {perday}, {total}"
+        },
+        {
+          "type": "text",
+          "id": "sticky_button_format_mobile",
+          "label": "Button text (mobile)",
+          "default": "ADD",
+          "info": "{permonth}, {perday}, {total}"
+        },
         { "type": "color", "id": "sticky_bg", "label": "Bar background", "default": "#f1eeef" },
         { "type": "header", "content": "Colors" },
         { "type": "color", "id": "color_text", "label": "Text", "default": "#111111" },
@@ -1788,7 +2098,15 @@
         { "type": "color", "id": "color_border", "label": "Card border", "default": "#c2c2c2" },
         { "type": "color", "id": "color_card", "label": "Card background", "default": "#ffffff" },
         { "type": "color", "id": "color_card_selected", "label": "Selected card background", "default": "#f9f9f9" },
-        { "type": "range", "id": "card_radius", "label": "Card corner radius", "min": 0, "max": 24, "step": 2, "default": 12 }
+        {
+          "type": "range",
+          "id": "card_radius",
+          "label": "Card corner radius",
+          "min": 0,
+          "max": 24,
+          "step": 2,
+          "default": 12
+        }
       ]
     },
     {
@@ -3099,6 +3417,34 @@
       "limit": 1,
       "settings": [
         {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Product title / price",
+          "default": "#113B34"
+        },
+        {
+          "type": "color",
+          "id": "compare_color",
+          "label": "Compare-at price",
+          "default": "#858585"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description",
+          "default": "#858585"
+        },
+        {
+          "type": "color",
+          "id": "image_bg",
+          "label": "Image background",
+          "default": "#FFFFFF"
+        },
+        {
           "type": "text",
           "id": "heading",
           "label": "Heading",
@@ -3147,6 +3493,18 @@
           "default": "#ffffff"
         },
         {
+          "type": "color",
+          "id": "save_bg_desktop",
+          "label": "Save background — desktop",
+          "default": "#FAD356"
+        },
+        {
+          "type": "color",
+          "id": "save_text_desktop",
+          "label": "Save text — desktop",
+          "default": "#113B34"
+        },
+        {
           "type": "text",
           "id": "add_label",
           "label": "Add button label",
@@ -3163,6 +3521,12 @@
           "id": "button_text",
           "label": "Add button text / icon",
           "default": "#113b34"
+        },
+        {
+          "type": "color",
+          "id": "shadow_color",
+          "label": "Add button shadow",
+          "default": "#E7EBEA"
         },
         {
           "type": "header",
