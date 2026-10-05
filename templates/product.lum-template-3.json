@@ -24,7 +24,9 @@
           "type": "rating",
           "settings": {
             "stars": 5,
-            "text": "2k+ happy verified customers"
+            "text": "2k+ happy verified customers",
+            "star_color": "#fad356",
+            "text_color": "#113B34"
           }
         },
         "title_EEBYtC": {
