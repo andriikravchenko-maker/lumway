@@ -26,7 +26,7 @@
             "stars": 5,
             "text": "2k+ happy verified customers",
             "star_color": "#fad356",
-            "text_color": "#113B34"
+            "text_color": "#113b34"
           }
         },
         "title_EEBYtC": {
@@ -46,6 +46,9 @@
         "labels_ziBqxf": {
           "type": "labels",
           "settings": {
+            "background_color": "#f9f9f9",
+            "text_color": "#113B34",
+            "icon_color": "#113B34",
             "chip_1_show": true,
             "chip_1_text": "Reduce Cravings",
             "chip_2_show": true,
