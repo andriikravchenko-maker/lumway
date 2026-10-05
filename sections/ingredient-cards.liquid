@@ -158,7 +158,7 @@
     background: {{ section.settings.card_background | default: '#ffffff' }};
     border: 1px solid {{ section.settings.card_border_color | default: '#c2c2c2' }};
     border-radius: {{ section.settings.card_border_radius | default: 8 }}px;
-    padding: 33px;
+    padding: {{ section.settings.card_padding }}px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -294,7 +294,7 @@
     }
 
     .ingredient-cards--{{ section.id }} .ingredient-card {
-      padding: 24px;
+      padding: {{ section.settings.card_padding_mobile }}px;
       gap: 16px;
     }
 
@@ -319,9 +319,7 @@
       grid-template-columns: repeat({{ section.blocks.size | at_most: 3 | at_least: 1 }}, minmax(0, 1fr));
     }
 
-    .ingredient-cards--{{ section.id }} .ingredient-card {
-      padding: 24px;
-    }
+    
   }
 {% endstyle %}
 
@@ -388,6 +386,26 @@
       "type": "header",
       "content": "Card styling"
     },
+    {
+  "type": "range",
+  "id": "card_padding",
+  "min": 0,
+  "max": 60,
+  "step": 1,
+  "unit": "px",
+  "label": "Card padding — desktop",
+  "default": 33
+},
+{
+  "type": "range",
+  "id": "card_padding_mobile",
+  "min": 0,
+  "max": 60,
+  "step": 1,
+  "unit": "px",
+  "label": "Card padding — mobile",
+  "default": 24
+},
     {
       "type": "color",
       "id": "card_background",
