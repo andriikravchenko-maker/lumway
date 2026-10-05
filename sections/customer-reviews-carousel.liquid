@@ -272,6 +272,9 @@
   }
 
   @media (max-width: 768px) {
+    .section-{{ section.id }}.reviews-transformation-section .reviews-rating-summary {
+  margin-bottom: {{ section.settings.rating_summary_margin_bottom_mobile | default: 0 }}px;
+}
   .section-{{ section.id }}.reviews-transformation-section .verified-badge {
   gap: {{ section.settings.verified_badge_gap_mobile }}px !important;
   padding: {{ section.settings.verified_badge_padding_y_mobile }}px {{ section.settings.verified_badge_padding_x_mobile }}px !important;
@@ -2020,15 +2023,25 @@
       "default": "#FEF6E6"
     },
     {
-      "type": "range",
-      "id": "rating_summary_margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Rating Summary Bottom Margin",
-      "default": 0
-    },
+  "type": "range",
+  "id": "rating_summary_margin_bottom",
+  "min": 0,
+  "max": 80,
+  "step": 1,
+  "unit": "px",
+  "label": "Rating Summary Bottom Margin",
+  "default": 0
+},
+{
+  "type": "range",
+  "id": "rating_summary_margin_bottom_mobile",
+  "min": 0,
+  "max": 80,
+  "step": 1,
+  "unit": "px",
+  "label": "Rating Summary Bottom Margin - Mobile",
+  "default": 0
+},
     {
       "type": "header",
       "content": "Purchase Date Settings"
