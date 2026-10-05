@@ -65,6 +65,7 @@
     "button_gradient_hover_end": "#5f6264",
     "enable_gradient_shine": false,
     "enable_global_button_styling": true,
+    "nav_button_background": "#FFFFFF",
     "page_width": 1200,
     "spacing_sections": 0,
     "animations_reveal_on_scroll": false,
