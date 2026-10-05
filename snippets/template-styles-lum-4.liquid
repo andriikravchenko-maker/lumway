@@ -1,0 +1,96 @@
+{% style %}
+  /* =========================================
+     PRODUCT — lum-template-4
+  ========================================= */
+  {% if template.name == 'product' and template.suffix == 'lum-template-4' %}
+
+    #MainContent {
+      /* =========================================
+         GLOBAL COLORS
+      ========================================= */
+
+      /* Constant */
+      --template-white: #FFFFFF;
+      --template-black: #111111;
+
+      /* Grey */
+      --template-surface: #F9F9F9;
+      --template-border: #C2C2C2;
+      --template-text-muted: #858585;
+
+      /* Shared accents */
+      --template-yellow-accent: #FAD356;
+      --template-coral-accent: #FA6C56;
+
+
+      /* =========================================
+         GUT HARMONY
+      ========================================= */
+
+      --template-gut-harmony-tint: #EBF7E0;
+      --template-gut-harmony-primary: #00724D;
+      --template-gut-harmony-dark: #113B34;
+
+
+      /* =========================================
+         METABOLIC FLOW
+      ========================================= */
+
+      --template-metabolic-flow-tint: #F3E9EC;
+      --template-metabolic-flow-primary: #A9617A;
+      --template-metabolic-flow-dark: #7B3B50;
+
+
+      /* =========================================
+         GUT FLOW
+      ========================================= */
+
+      --template-gut-flow-tint: #F8E3E8;
+      --template-gut-flow-primary: #8D2B40;
+      --template-gut-flow-dark: #5B0D1E;
+
+
+      /* =========================================
+         TEMPLATE SEMANTIC TOKENS
+         lum-template-4 / Gut Flow
+      ========================================= */
+
+      --template-bg: var(--template-white);
+      --template-surface-bg: var(--template-surface);
+
+      --template-text: var(--template-black);
+      --template-text-secondary: var(--template-text-muted);
+
+      --template-accent: var(--template-gut-flow-primary);
+      --template-accent-dark: var(--template-gut-flow-dark);
+      --template-accent-tint: var(--template-gut-flow-tint);
+
+      --template-border-color: var(--template-border);
+
+      --template-yellow: var(--template-yellow-accent);
+      --template-coral: var(--template-coral-accent);
+
+      /* Legacy aliases  */
+      --template-soft-bg: var(--template-surface);
+      --template-accent-black: var(--template-black);
+    }
+
+    #MainContent {
+      background: var(--template-bg);
+    }
+     #MainContent .section-product-details-lum{
+      background: var(--template-bg);
+    }
+    #product-details-lum{
+       background: var(--template-bg);
+    }
+     #MainContent #tick-circle path {
+    fill: var(--template-accent-black) !important;
+  }
+
+    @media screen and (max-width: 749px) {
+
+    }
+
+  {% endif %}
+{% endstyle %}
