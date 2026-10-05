@@ -214,7 +214,23 @@
             {%- endif -%}
 
           {%- when 'labels' -%}
-            <ul class="pdl-labels" {{ block.shopify_attributes }}>
+            <ul
+
+  class="pdl-labels"
+
+  style="
+
+    --pdl-chip-bg: {{ block.settings.background_color }};
+
+    --pdl-chip-text: {{ block.settings.text_color }};
+
+    --pdl-chip-icon: {{ block.settings.icon_color }};
+
+  "
+
+  {{ block.shopify_attributes }}
+
+>
               {%- for i in (1..6) -%}
                 {%- assign sk = 'chip_' | append: i | append: '_show' -%}
                 {%- assign tk = 'chip_' | append: i | append: '_text' -%}
