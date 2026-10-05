@@ -38,7 +38,7 @@
   .roadmap-section {
     position: relative;
     color: {% if section.settings.use_theme_colors %}{{ settings.global_section_text_color }}{% else %}{{ section.settings.text_color }}{% endif %};
-    
+
     {% if section.settings.enable_background_image and section.settings.background_image_desktop != blank %}
       /* Multiple backgrounds: PNG image on top, gradient underneath */
       {% if section.settings.use_theme_colors %}
@@ -104,7 +104,7 @@
       max-width: var(--page-width);
       margin: 0 auto;
     }
-    
+
     .roadmap-section .section-{{ section.id }}-padding {
       display: flex !important;
       /* Respect Layout position setting: reverse for left position */
@@ -114,7 +114,7 @@
       max-width: 100%;
       overflow: visible;
     }
-    
+
     /* Apply text column width when placeholder is enabled */
     .roadmap-section .roadmap-container {
       flex: 0 0 {{ section.settings.text_column_width }}%;
@@ -122,7 +122,7 @@
       min-width: 0;
       overflow: visible;
     }
-    
+
     /* Placeholder element to maintain layout spacing - uses image column width setting */
     .roadmap-section .section-{{ section.id }}-padding::after {
       content: '';
@@ -218,7 +218,7 @@
     .roadmap-image-mobile-above {
       display: block !important;
     }
-    
+
     /* Hide the regular image column on mobile */
     .roadmap-image-column {
       display: none !important;
@@ -356,7 +356,7 @@
       transform: none;
       transition: none;
     }
-    
+
     .roadmap-item.animate-in {
       opacity: 1;
       transform: none;
@@ -473,9 +473,9 @@
     font-size: {{ section.settings.heading_size }}px !important;
     font-weight: var(--font-weight-bold);
     color: {% if section.settings.use_theme_colors %}{{ settings.global_section_text_color }}{% else %}{{ section.settings.heading_color }}{% endif %} !important;
-    margin-bottom: 15px;
+    margin-bottom: {{ section.settings.heading_margin_bottom }}px;
     letter-spacing: var(--letter-spacing-heading) !important;
-    line-height: {{ section.settings.heading_line_height | default: 1.3 }};
+    line-height: {{ section.settings.heading_line_height | default: 1 }};
   }
 
   .roadmap-header .subheading {
@@ -541,8 +541,9 @@
     .roadmap-header .heading {
       font-size: {{ section.settings.heading_size_mobile }}px !important;
       color: {% if section.settings.use_theme_colors %}{{ settings.global_section_text_color }}{% else %}{{ section.settings.heading_color }}{% endif %} !important;
+      margin-bottom: {{ section.settings.heading_margin_bottom_mobile }}px;
       letter-spacing: var(--letter-spacing-heading) !important;
-      line-height: {{ section.settings.heading_line_height_mobile | default: 1.3 }};
+      line-height: {{ section.settings.heading_line_height_mobile | default: 1 }};
     }
 
     .roadmap-header .subheading {
@@ -631,7 +632,7 @@
     transition: all 0.3s ease;
     cursor: pointer;
     text-align: center;
-    
+
     {% if section.settings.use_global_button_style %}
       /* Use Global Button Styling */
       padding: var(--global-button-padding-y, 12px) 24px;
@@ -693,7 +694,7 @@
     .roadmap-button-desktop {
       display: block;
     }
-    
+
     .roadmap-button-mobile {
       display: none;
     }
@@ -704,7 +705,7 @@
     .roadmap-button-desktop {
       display: none;
     }
-    
+
     .roadmap-button-mobile {
       display: block;
       margin-top: 0px;
@@ -720,7 +721,10 @@
   }
 {%- endstyle -%}
 
-<div class="roadmap-section roadmap-section-{{ section.id }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-up{% endif %}" data-section-id="{{ section.id }}">
+<div
+  class="roadmap-section roadmap-section-{{ section.id }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-up{% endif %}"
+  data-section-id="{{ section.id }}"
+>
   <div class="{% unless contained == false %}page-width{% endunless %}">
     <div class="section-{{ section.id }}-padding">
       <div class="roadmap-container">
@@ -729,7 +733,12 @@
             <div class="roadmap-header">
               {% if section.settings.heading != blank or section.settings.accent_text != blank %}
                 <h2 class="heading">
-                  {% if section.settings.heading != blank %}{{ section.settings.heading }}{% endif %}{% if section.settings.accent_text != blank %} <span class="accent{% unless section.settings.override_global_accent %} global-accent-text{% endunless %}">{{ section.settings.accent_text }}</span>{% endif %}
+                  {% if section.settings.heading != blank %}{{ section.settings.heading }}{% endif -%}
+                  {%- if section.settings.accent_text != blank %}
+                    <span class="accent{% unless section.settings.override_global_accent %} global-accent-text{% endunless %}">
+                      {{- section.settings.accent_text -}}
+                    </span>
+                  {%- endif %}
                 </h2>
               {% endif %}
               {% if section.settings.subheading != blank %}
@@ -737,12 +746,12 @@
               {% endif %}
             </div>
           {% endif %}
-          
+
           {% comment %} Mobile image above timeline {% endcomment %}
           {% if section.settings.mobile_image_above_timeline and section.settings.desktop_image != blank %}
             <div class="roadmap-image-mobile-above">
-              <img 
-                src="{{ section.settings.desktop_image | image_url: width: 600 }}" 
+              <img
+                src="{{ section.settings.desktop_image | image_url: width: 600 }}"
                 alt="{{ section.settings.desktop_image.alt | escape }}"
                 class="roadmap-image"
                 loading="lazy"
@@ -801,13 +810,13 @@
                 {% endif %}
               </div>
             {% endfor %}
-            
+
             {% comment %} Button inside timeline on desktop {% endcomment %}
             {% if section.settings.show_button %}
               <div class="roadmap-button-container roadmap-button-desktop">
                 {% assign button_href = '#' %}
                 {% assign button_data_attrs = '' %}
-                
+
                 {% case section.settings.button_action_type %}
                   {% when 'product' %}
                     {% if section.settings.redirect_product != blank %}
@@ -825,7 +834,7 @@
                       {% assign button_href = '#' %}
                     {% endif %}
                 {% endcase %}
-                
+
                 <a href="{{ button_href }}" class="roadmap-cta-button" {{ button_data_attrs }}>
                   {{ section.settings.button_text }}
                 </a>
@@ -853,7 +862,7 @@
         <div class="roadmap-button-container roadmap-button-mobile">
           {% assign button_href = '#' %}
           {% assign button_data_attrs = '' %}
-          
+
           {% case section.settings.button_action_type %}
             {% when 'product' %}
               {% if section.settings.redirect_product != blank %}
@@ -871,7 +880,7 @@
                 {% assign button_href = '#' %}
               {% endif %}
           {% endcase %}
-          
+
           <a href="{{ button_href }}" class="roadmap-cta-button" {{ button_data_attrs }}>
             {{ section.settings.button_text }}
           </a>
@@ -882,187 +891,189 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const roadmapSection = document.querySelector('.roadmap-section-{{ section.id }}');
-  if (!roadmapSection) return;
+  document.addEventListener('DOMContentLoaded', function () {
+    const roadmapSection = document.querySelector('.roadmap-section-{{ section.id }}');
+    if (!roadmapSection) return;
 
-  // Handle roadmap button functionality
-  const roadmapButtons = roadmapSection.querySelectorAll('.roadmap-cta-button');
-  roadmapButtons.forEach(button => {
-    // Prevent default behavior for buttons with href="#" that are not scroll buttons
-    if (button.getAttribute('href') === '#' && !button.hasAttribute('data-scroll-to-top')) {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.warn('⚠️ Roadmap button clicked but no valid redirect URL is set. Please configure the product or URL in the section settings.');
-      });
-    }
-
-    // Handle scroll-to-top functionality
-    if (button.hasAttribute('data-scroll-to-top')) {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
+    // Handle roadmap button functionality
+    const roadmapButtons = roadmapSection.querySelectorAll('.roadmap-cta-button');
+    roadmapButtons.forEach((button) => {
+      // Prevent default behavior for buttons with href="#" that are not scroll buttons
+      if (button.getAttribute('href') === '#' && !button.hasAttribute('data-scroll-to-top')) {
+        button.addEventListener('click', function (e) {
+          e.preventDefault();
+          console.warn(
+            '⚠️ Roadmap button clicked but no valid redirect URL is set. Please configure the product or URL in the section settings.'
+          );
         });
-      });
-    }
-  });
-  
-  const timeline = roadmapSection.querySelector('.roadmap-timeline');
-  const timelineFill = roadmapSection.querySelector('.timeline-fill');
-  const roadmapItems = roadmapSection.querySelectorAll('.roadmap-item');
-  
-  if (!timeline || !timelineFill || roadmapItems.length === 0) return;
-  
-  function updateTimelineFill() {
-    const sectionRect = roadmapSection.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    
-    // Calculate how much of the section is visible
-    const sectionTop = sectionRect.top;
-    const sectionBottom = sectionRect.bottom;
-    
-    // Start filling when section enters viewport
-    if (sectionBottom < 0 || sectionTop > viewportHeight) {
-      timelineFill.style.height = '0%';
-      return;
-    }
-    
-    // Calculate progress based on roadmap items, not the entire timeline container
-    let progress = 0;
-    
-    if (roadmapItems.length > 0) {
-      // Get the position of the last roadmap item
-      const lastItem = roadmapItems[roadmapItems.length - 1];
-      const lastItemRect = lastItem.getBoundingClientRect();
-      const lastItemBottom = lastItemRect.bottom;
-      
-      // Calculate progress based on scroll position relative to roadmap items
-      if (sectionTop <= viewportHeight && sectionBottom >= 0) {
-        // Calculate how much we've scrolled through the roadmap items area
-        const visibleTop = Math.max(0, -sectionTop);
-        
-        // Use the distance from section top to last item bottom as the reference height
-        const itemsHeight = lastItemBottom - sectionRect.top;
-        
-        // Calculate progress, but cap it so it doesn't go beyond the last item
-        progress = Math.min(1, visibleTop / (itemsHeight * 0.8));
       }
-    }
-    
-    // Ensure progress is between 0 and 1
-    progress = Math.max(0, Math.min(1, progress));
-    
-    // Apply the fill height directly to the element
-    const fillHeight = progress * 100;
-    timelineFill.style.height = fillHeight + '%';
-    
-    // Debug logging (remove in production)
-    console.log('Roadmap fill progress:', progress, 'height:', fillHeight + '%', 'items:', roadmapItems.length);
-  }
-  
-  // Throttle scroll events for better performance
-  let ticking = false;
-  function handleScroll() {
-    if (!ticking) {
-      requestAnimationFrame(function() {
-        updateTimelineFill();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }
-  
-  // Initial calculation
-  updateTimelineFill();
-  
-  // Listen for scroll events
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('resize', updateTimelineFill);
-  
-  // Debug logging
-  console.log('Roadmap script initialized');
-  console.log('Timeline fill element:', timelineFill);
-  console.log('Timeline element:', timeline);
-  console.log('Roadmap section:', roadmapSection);
 
-  // Animate roadmap items on scroll
-  const roadmapItemsToAnimate = roadmapSection.querySelectorAll('.roadmap-item');
-  
-  if (roadmapItemsToAnimate.length > 0) {
-    // Check if Intersection Observer is supported
-    if ('IntersectionObserver' in window) {
-      const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
-      };
+      // Handle scroll-to-top functionality
+      if (button.hasAttribute('data-scroll-to-top')) {
+        button.addEventListener('click', function (e) {
+          e.preventDefault();
 
-      const itemObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Item is coming into view - animate in
-            entry.target.classList.remove('fade-out');
-            entry.target.classList.add('animate-in');
-          } else {
-            // Item is going out of view - animate out
-            entry.target.classList.remove('animate-in');
-            entry.target.classList.add('fade-out');
-          }
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
         });
-      }, observerOptions);
-
-      // Start observing each roadmap item with staggered delays
-      roadmapItemsToAnimate.forEach((item, index) => {
-        // Initially set items to fade-out state
-        item.classList.add('fade-out');
-        // Add a small delay for staggered animation effect
-        item.style.transitionDelay = `${index * 0.1}s`;
-        itemObserver.observe(item);
-      });
-    } else {
-      // Fallback for browsers without Intersection Observer support
-      // Use scroll event listener
-      let ticking = false;
-      
-      function checkItemsVisibility() {
-        const viewportHeight = window.innerHeight;
-        
-        roadmapItemsToAnimate.forEach((item) => {
-          const rect = item.getBoundingClientRect();
-          const isVisible = rect.top < viewportHeight * 0.8 && rect.bottom > viewportHeight * 0.2;
-          
-          if (isVisible) {
-            item.classList.remove('fade-out');
-            item.classList.add('animate-in');
-          } else {
-            item.classList.remove('animate-in');
-            item.classList.add('fade-out');
-          }
-        });
-        
-        ticking = false;
       }
-      
-      function onScroll() {
-        if (!ticking) {
-          requestAnimationFrame(checkItemsVisibility);
-          ticking = true;
+    });
+
+    const timeline = roadmapSection.querySelector('.roadmap-timeline');
+    const timelineFill = roadmapSection.querySelector('.timeline-fill');
+    const roadmapItems = roadmapSection.querySelectorAll('.roadmap-item');
+
+    if (!timeline || !timelineFill || roadmapItems.length === 0) return;
+
+    function updateTimelineFill() {
+      const sectionRect = roadmapSection.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Calculate how much of the section is visible
+      const sectionTop = sectionRect.top;
+      const sectionBottom = sectionRect.bottom;
+
+      // Start filling when section enters viewport
+      if (sectionBottom < 0 || sectionTop > viewportHeight) {
+        timelineFill.style.height = '0%';
+        return;
+      }
+
+      // Calculate progress based on roadmap items, not the entire timeline container
+      let progress = 0;
+
+      if (roadmapItems.length > 0) {
+        // Get the position of the last roadmap item
+        const lastItem = roadmapItems[roadmapItems.length - 1];
+        const lastItemRect = lastItem.getBoundingClientRect();
+        const lastItemBottom = lastItemRect.bottom;
+
+        // Calculate progress based on scroll position relative to roadmap items
+        if (sectionTop <= viewportHeight && sectionBottom >= 0) {
+          // Calculate how much we've scrolled through the roadmap items area
+          const visibleTop = Math.max(0, -sectionTop);
+
+          // Use the distance from section top to last item bottom as the reference height
+          const itemsHeight = lastItemBottom - sectionRect.top;
+
+          // Calculate progress, but cap it so it doesn't go beyond the last item
+          progress = Math.min(1, visibleTop / (itemsHeight * 0.8));
         }
       }
-      
-      // Initial check
-      roadmapItemsToAnimate.forEach((item, index) => {
-        item.classList.add('fade-out');
-        item.style.transitionDelay = `${index * 0.1}s`;
-      });
-      
-      checkItemsVisibility();
-      window.addEventListener('scroll', onScroll);
+
+      // Ensure progress is between 0 and 1
+      progress = Math.max(0, Math.min(1, progress));
+
+      // Apply the fill height directly to the element
+      const fillHeight = progress * 100;
+      timelineFill.style.height = fillHeight + '%';
+
+      // Debug logging (remove in production)
+      console.log('Roadmap fill progress:', progress, 'height:', fillHeight + '%', 'items:', roadmapItems.length);
     }
-  }
-});
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    function handleScroll() {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          updateTimelineFill();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Initial calculation
+    updateTimelineFill();
+
+    // Listen for scroll events
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', updateTimelineFill);
+
+    // Debug logging
+    console.log('Roadmap script initialized');
+    console.log('Timeline fill element:', timelineFill);
+    console.log('Timeline element:', timeline);
+    console.log('Roadmap section:', roadmapSection);
+
+    // Animate roadmap items on scroll
+    const roadmapItemsToAnimate = roadmapSection.querySelectorAll('.roadmap-item');
+
+    if (roadmapItemsToAnimate.length > 0) {
+      // Check if Intersection Observer is supported
+      if ('IntersectionObserver' in window) {
+        const observerOptions = {
+          threshold: 0.2,
+          rootMargin: '0px 0px -100px 0px',
+        };
+
+        const itemObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Item is coming into view - animate in
+              entry.target.classList.remove('fade-out');
+              entry.target.classList.add('animate-in');
+            } else {
+              // Item is going out of view - animate out
+              entry.target.classList.remove('animate-in');
+              entry.target.classList.add('fade-out');
+            }
+          });
+        }, observerOptions);
+
+        // Start observing each roadmap item with staggered delays
+        roadmapItemsToAnimate.forEach((item, index) => {
+          // Initially set items to fade-out state
+          item.classList.add('fade-out');
+          // Add a small delay for staggered animation effect
+          item.style.transitionDelay = `${index * 0.1}s`;
+          itemObserver.observe(item);
+        });
+      } else {
+        // Fallback for browsers without Intersection Observer support
+        // Use scroll event listener
+        let ticking = false;
+
+        function checkItemsVisibility() {
+          const viewportHeight = window.innerHeight;
+
+          roadmapItemsToAnimate.forEach((item) => {
+            const rect = item.getBoundingClientRect();
+            const isVisible = rect.top < viewportHeight * 0.8 && rect.bottom > viewportHeight * 0.2;
+
+            if (isVisible) {
+              item.classList.remove('fade-out');
+              item.classList.add('animate-in');
+            } else {
+              item.classList.remove('animate-in');
+              item.classList.add('fade-out');
+            }
+          });
+
+          ticking = false;
+        }
+
+        function onScroll() {
+          if (!ticking) {
+            requestAnimationFrame(checkItemsVisibility);
+            ticking = true;
+          }
+        }
+
+        // Initial check
+        roadmapItemsToAnimate.forEach((item, index) => {
+          item.classList.add('fade-out');
+          item.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        checkItemsVisibility();
+        window.addEventListener('scroll', onScroll);
+      }
+    }
+  });
 </script>
 
 {% schema %}
@@ -1266,6 +1277,26 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 0.1,
       "default": 1.3,
       "label": "Mobile heading line height"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "label": "Heading bottom margin"
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "min": 0,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "label": "Mobile heading bottom margin"
     },
     {
       "type": "range",
