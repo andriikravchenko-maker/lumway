@@ -1,0 +1,209 @@
+{% style %}
+    /* =========================================
+       PRODUCT — lum-template-3
+    ========================================= */
+    {% if template.name == 'product' and template.suffix == 'lum-template-3' %}
+
+      #MainContent {
+        /* =========================================
+           GLOBAL COLORS
+        ========================================= */
+
+        /* Constant */
+        --template-white: #FFFFFF;
+        --template-black: #111111;
+
+        /* Grey */
+        --template-surface: #F9F9F9;
+        --template-border: #C2C2C2;
+        --template-text-muted: #858585;
+
+        /* Shared accents */
+        --template-yellow-accent: #FAD356;
+        --template-coral-accent: #FA6C56;
+
+
+        /* =========================================
+           GUT HARMONY
+        ========================================= */
+
+        --template-gut-harmony-tint: #EBF7E0;
+        --template-gut-harmony-primary: #00724D;
+        --template-gut-harmony-dark: #113B34;
+
+
+        /* =========================================
+           METABOLIC FLOW
+        ========================================= */
+
+        --template-metabolic-flow-tint: #F3E9EC;
+        --template-metabolic-flow-primary: #A9617A;
+        --template-metabolic-flow-dark: #7B3B50;
+
+
+        /* =========================================
+           GUT FLOW
+        ========================================= */
+
+        --template-gut-flow-tint: #F8E3E8;
+        --template-gut-flow-primary: #8D2B40;
+        --template-gut-flow-dark: #5B0D1E;
+
+
+        /* =========================================
+           TEMPLATE SEMANTIC TOKENS
+           lum-template-4 / Gut Flow
+        ========================================= */
+
+        --template-bg: var(--template-white);
+        --template-surface-bg: var(--template-surface);
+
+        --template-text: var(--template-black);
+        --template-text-secondary: var(--template-text-muted);
+
+        --template-accent: var(--template-gut-flow-primary);
+        --template-accent-dark: var(--template-gut-flow-dark);
+        --template-accent-tint: var(--template-gut-flow-tint);
+
+        --template-border-color: var(--template-border);
+
+        --template-yellow: var(--template-yellow-accent);
+        --template-coral: var(--template-coral-accent);
+
+
+        /* =========================================
+           TYPOGRAPHY — DESKTOP
+        ========================================= */
+
+        /* Heading */
+        --template-heading-48: 48px;
+        --template-heading-40: 40px;
+        --template-heading-32: 32px;
+
+        /* Subheading */
+        --template-subheading-24: 24px;
+        --template-subheading-20: 20px;
+
+        /* Body */
+        --template-body-18: 18px;
+        --template-body-16: 16px;
+
+        /* Caption */
+        --template-caption-14: 14px;
+        --template-caption-12: 12px;
+
+
+        /* =========================================
+           Legacy aliases
+        ========================================= */
+
+        --template-soft-bg: var(--template-surface);
+        --template-accent-black: var(--template-black);
+      }
+
+
+      /* =========================================
+         TYPOGRAPHY — MOBILE
+      ========================================= */
+
+      @media screen and (max-width: 749px) {
+        #MainContent {
+          /* Heading */
+          --template-heading-48: 40px;
+          --template-heading-40: 32px;
+          --template-heading-32: 22px;
+
+          /* Subheading */
+          --template-subheading-24: 20px;
+          --template-subheading-20: 18px;
+
+          /* Body */
+          --template-body-18: 16px;
+          --template-body-16: 14px;
+
+          /* Caption */
+          --template-caption-14: 12px;
+          --template-caption-12: 12px;
+        }
+         #MainContent  .pdl-labels{
+           display: grid;
+           grid-template-columns: repeat(2,1fr);
+        }
+        #MainContent .pdl-chip__text{
+           font-size: 12px;
+        }
+        #MainContent .icl__title{
+         font-size: var(--template-caption-12);
+        }
+        #MainContent .pdl-chip{
+           width: max-content;
+        }
+        #MainContent .icl {
+           display: grid;
+           grid-template-columns: repeat(2, minmax(0, 1fr));
+           gap: 4px;
+  }
+
+  #MainContent .icl__row {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  /* Third card takes the full second row */
+  #MainContent .icl__row:nth-child(3) {
+    grid-column: 1 / -1;
+
+  }
+      }
+
+
+      /* =========================================
+         TEMPLATE STYLES
+      ========================================= */
+
+      #MainContent {
+        background: var(--template-bg);
+      }
+
+      #MainContent .section-product-details-lum {
+        background: var(--template-bg);
+      }
+
+      #product-details-lum {
+        background: var(--template-bg);
+      }
+
+      #MainContent #tick-circle path {
+        fill: var(--template-accent-black) !important;
+      }
+
+      #MainContent .icl__row {
+        align-items: center;
+      }
+
+      .mmbsl__card.is-selected {
+        border-color: var(--template-gut-harmony-dark) !important;
+      }
+
+      /* Select Qty  */
+      #MainContent .mmbsl__bmsm{
+        text-transform: capitalize;
+      }
+
+      /* Purchase Type */
+      #MainContent .mmptl__card--ot{
+            border-color: var(--template-border);
+      }
+
+      #MainContent .pdl-chip__text{
+           font-size: var(--template-caption-12);
+        }
+
+      /* Info card */
+      #MainContent .icl__title{
+         font-size: var(--template-caption-12);
+        }
+
+    {% endif %}
+{% endstyle %}
